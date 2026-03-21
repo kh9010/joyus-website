@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TomboyX Case Study - Joyus Studio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Case-specific styles */
+    .case-hero {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, #f8f6f4 0%, #faf8f6 100%);
+      border-bottom: 1px solid #e8e6e4;
+    }
+
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+      color: #1a1a1a;
+    }
+
+    .case-hero .subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.25rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-weight: 400;
+    }
+
+    .case-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #888;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .case-meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .case-meta-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #999;
+      margin-bottom: 0.3rem;
+    }
+
+    .case-meta-value {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .case-highlight {
+      background-color: #2a2a2a;
+      color: #fff;
+      padding: 4rem 2rem;
+      margin: 0;
+    }
+
+    .case-highlight-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      text-align: center;
+    }
+
+    .case-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    .case-stat-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #bbb;
+      line-height: 1.4;
+    }
+
+    .case-section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .case-section.alt-bg {
+      background-color: #f8f6f4;
+    }
+
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 1.5rem;
+      color: #1a1a1a;
+    }
+
+    .case-section p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #444;
+      margin-bottom: 1.2rem;
+    }
+
+    .case-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .case-navigation {
+      max-width: 900px;
+      margin: 3rem auto 0;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e8e6e4;
+      gap: 2rem;
+    }
+
+    .case-nav-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .case-nav-link:hover {
+      color: #1a1a1a;
+    }
+
+    .case-nav-spacer {
+      flex: 1;
+    }
+
+    /* Navigation bar */
+    nav {
+      font-family: 'DM Sans', sans-serif;
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid #e8e6e4;
+    }
+
+    nav a {
+      display: inline-block;
+      margin-right: 2rem;
+      text-decoration: none;
+      color: #666;
+      font-size: 0.95rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #1a1a1a;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #f8f6f4;
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid #e8e6e4;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    footer img {
+      height: 40px;
+      margin-bottom: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .case-hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .case-hero .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .case-meta {
+        gap: 1.5rem;
+      }
+
+      .case-highlight-content {
+        gap: 2rem;
+      }
+
+      .case-stat-number {
+        font-size: 2rem;
+      }
+
+      .case-section {
+        padding: 3rem 1.5rem;
+      }
+
+      .case-section h2 {
+        font-size: 1.8rem;
+      }
+
+      .case-navigation {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav a {
+        display: block;
+        margin-bottom: 0.8rem;
+        margin-right: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Navigation -->
+  <header>
+    <nav>
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Work</a>
+      <a href="../workshops.html">Workshops</a>
+      <a href="../about.html">About</a>
+    </nav>
+  </header>
+
+  <!-- Case Hero -->
+  <section class="case-hero">
+    <h1>TomboyX</h1>
+    <p class="subtitle">Investor storytelling that raised $5M in a challenging market</p>
+    <div class="case-meta">
+      <div class="case-meta-item">
+        <span class="case-meta-label">Client</span>
+        <span class="case-meta-value">TomboyX</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Location</span>
+        <span class="case-meta-value">USA</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Size</span>
+        <span class="case-meta-value">20–50 Employees, DTC</span>
+      </div>
+      <div class="case-meta-item">
+        <span class="case-meta-label">Services</span>
+        <span class="case-meta-value">Brand Story, Investor Pitch</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Highlight Section -->
+  <section class="case-highlight">
+    <div class="case-highlight-content">
+      <div class="case-stat">
+        <div class="case-stat-number">$5M</div>
+        <div class="case-stat-label">Raised</div>
+      </div>
+      <div class="case-stat">
+        <div class="case-stat-number">72%</div>
+        <div class="case-stat-label">Margins (vs 53% market avg)</div>
+      </div>
+      <div class="case-stat">
+        <div class="case-stat-number">76</div>
+        <div class="case-stat-label">NPS</div>
+      </div>
+      <div class="case-stat">
+        <div class="case-stat-number">2.5%</div>
+        <div class="case-stat-label">Return rate (vs 30% industry)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Challenge -->
+  <section class="case-section">
+    <h2>The Challenge</h2>
+    <p>TomboyX, a gender-neutral underwear brand, needed to raise $5M in a down market. They had incredible product metrics but needed a story that would move investors — one that demonstrated not just traction but a fundamentally better business model.</p>
+  </section>
+
+  <!-- Our Approach -->
+  <section class="case-section alt-bg">
+    <h2>Our Approach</h2>
+    <p>Joyus worked with TomboyX to distill their operational advantages into a narrative that spoke investors' language. Rather than leading with identity politics, we led with unit economics: 72% product margins against a 53% market average, a 2.5% return rate versus 30% industry standard, and 50% repeat customer rates. We positioned these as evidence of product-market love, not just fit.</p>
+  </section>
+
+  <!-- The Outcome -->
+  <section class="case-section">
+    <h2>The Outcome</h2>
+    <p>The investor deck told a story of operational excellence wrapped in cultural relevance. TomboyX raised the full $5M, with investors citing the clarity of the business case. The brand went on to achieve $25M in revenue with 55,000+ five-star reviews, proving that the story we told was grounded in reality.</p>
+  </section>
+
+  <!-- Case Navigation -->
+  <div class="case-navigation">
+    <a href="tatsam.html" class="case-nav-link">← Tatsam</a>
+    <div class="case-nav-spacer"></div>
+    <a href="klydo.html" class="case-nav-link">Klydo →</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio Logo">
+    <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Smooth scroll and animation
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add subtle fade-in animations to sections
+      const sections = document.querySelectorAll('.case-section');
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+</html>

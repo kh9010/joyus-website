@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agemo / CodeWords — Joyus Studio</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="logo">
+        <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html" class="active">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="case-hero fade-in">
+    <div class="hero-content">
+      <h1>Agemo / CodeWords</h1>
+      <p class="hero-subtitle">Research, Product Strategy, Interface Design</p>
+    </div>
+    <div class="case-meta">
+      <div class="meta-item">
+        <span class="meta-label">Client</span>
+        <span class="meta-value">Agemo</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Type</span>
+        <span class="meta-value">AI-powered SaaS Product</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Stage</span>
+        <span class="meta-value">Early-stage Startup</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Services</span>
+        <span class="meta-value">Research, Product Strategy, Interface Design</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-highlight fade-in">
+    <div class="highlight-stats">
+      <div class="highlight-stat">
+        <div class="number">Research → Ship</div>
+        <div class="desc">End-to-end Design Process</div>
+      </div>
+      <div class="highlight-stat">
+        <div class="number">AI-first</div>
+        <div class="desc">Interface Paradigm</div>
+      </div>
+      <div class="highlight-stat">
+        <div class="number">Community</div>
+        <div class="desc">Browsable Function Library</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section fade-in">
+    <div class="section-content">
+      <h2>Challenge</h2>
+      <p>Agemo needed to create an AI-powered app that would let users build backend workflows and draft productivity tools in minutes without requiring engineers. The fundamental challenge was making an inherently complex AI tool feel approachable while giving users confidence in the output. How do you make the impossible feel possible?</p>
+    </div>
+  </section>
+
+  <section class="case-section alt-bg fade-in">
+    <div class="section-content">
+      <h2>Approach</h2>
+      <p>Our research phase began with extensive user interviews, uncovering a critical insight: users didn't want just generation — they wanted the ability to iterate and refine. The initial AI output was a starting point, not an endpoint. This discovery shaped everything.</p>
+      <p>We designed a visual grammar that reinforced space, flexibility, and play rather than technical complexity. The chat interface coaches users through initial creation, with a UX that supports refinement at every step. We added a browsable library of community-built functions to show the product's tangible value and give users more starting points for adapting use cases to their needs. The interface celebrates iteration as a feature, not a limitation.</p>
+    </div>
+  </section>
+
+  <section class="case-section fade-in">
+    <div class="section-content">
+      <h2>Outcome</h2>
+      <p>An interface that makes AI development approachable through a refinement-first paradigm, community examples, and a visual language that communicates play and possibility rather than technical complexity. Users can see themselves in the product — not as engineers, but as builders. The community library became a powerful growth lever, with successful user-created functions inspiring others to try. The thoughtful interface design removed friction from the AI workflow, making the tool feel less like complex technology and more like a creative partner.</p>
+    </div>
+  </section>
+
+  <nav class="case-nav fade-in">
+    <a href="xtdb.html" class="nav-link prev">
+      <span>←</span> Previous
+    </a>
+    <a href="gliitch.html" class="nav-link next">
+      Next <span>→</span>
+    </a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio">
+        <p>Joyus Studio creates thoughtful design for brands, products, and experiences.</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-column">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Work</a></li>
+            <li><a href="../workshops.html">Workshops</a></li>
+            <li><a href="../about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="link-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:hello@joyus.studio">Email</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in effect
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transition = 'opacity 0.6s ease-in';
+      observer.observe(el);
+    });
+
+    // Navigation scroll shadow
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) {
+        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+      } else {
+        header.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tatsam — Case Study | Joyus Studio</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio">
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="index.html" class="active">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Case Hero -->
+  <section class="case-hero">
+    <div class="case-hero-content">
+      <h1>Tatsam</h1>
+      <p class="case-subtitle">Visual Language, Brand Building, Product Strategy, Bespoke Solutioning</p>
+    </div>
+    <div class="case-meta">
+      <div class="meta-item">
+        <span class="meta-label">Client</span>
+        <span class="meta-value">Tatsam</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">India</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Category</span>
+        <span class="meta-value">Mental Health App</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Services</span>
+        <span class="meta-value">Visual Language, Brand Building, Product Strategy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Highlight -->
+  <section class="case-highlight">
+    <div class="case-highlight-content">
+      <div class="highlight-stat">
+        <span class="stat-number">4</span>
+        <span class="stat-label">design disciplines</span>
+      </div>
+      <div class="highlight-stat">
+        <span class="stat-number">Mental health</span>
+        <span class="stat-label">designing for India's most sensitive space</span>
+      </div>
+      <div class="highlight-stat">
+        <span class="stat-number">End-to-end</span>
+        <span class="stat-label">from visual language to product strategy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Content -->
+  <main class="case-main">
+    <!-- Challenge -->
+    <section class="case-section">
+      <h2>Challenge</h2>
+      <p>Tatsam set out to create a mental health app for India — a market where mental wellness carries deep cultural stigma. The challenge wasn't just designing an app; it was creating an entire visual and emotional language that could make mental health feel approachable, warm, and culturally resonant. The product needed to balance clinical trustworthiness with emotional accessibility.</p>
+    </section>
+
+    <!-- Approach -->
+    <section class="case-section">
+      <h2>Approach</h2>
+      <p>Joyus brought a holistic approach spanning visual language, brand identity, product strategy, and bespoke solutioning. We developed a visual system that communicated care without clinical coldness, using colors and forms that felt grounded in Indian aesthetic sensibilities. The brand building went beyond logos — we created a complete emotional framework that guided every touchpoint, from onboarding to daily check-ins. Our product strategy work ensured the features served real user needs rather than just ticking feature-list boxes.</p>
+    </section>
+
+    <!-- Outcome -->
+    <section class="case-section">
+      <h2>Outcome</h2>
+      <p>Tatsam launched with a visual identity that felt genuinely different from Western mental health apps. The brand language became a key differentiator, enabling users to engage with mental wellness content without the stigma barrier that had limited adoption of earlier products in the Indian market.</p>
+    </section>
+  </main>
+
+  <!-- Case Navigation -->
+  <nav class="case-nav">
+    <a href="klydo.html" class="case-nav-link prev">
+      <span class="nav-arrow">←</span>
+      <span class="nav-text">Klydo</span>
+    </a>
+    <a href="pratham.html" class="case-nav-link next">
+      <span class="nav-text">PrathamUSA</span>
+      <span class="nav-arrow">→</span>
+    </a>
+  </nav>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+      <ul class="footer-links">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (navToggle) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+      });
+    }
+
+    // Intersection Observer for scroll effects
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.case-section, .case-highlight, .case-hero').forEach(el => {
+      observer.observe(el);
+    });
+
+    // Update active nav on scroll
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>

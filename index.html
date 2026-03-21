@@ -1,13 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joyus Studio - Design & Strategy Collective</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joyus Studio - Design, Storytelling, Imagination</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero fade-in">
+    <div class="hero-content">
+      <h1 class="hero-title">Hello! We are Joyus, a studio of makers.</h1>
+      <p class="hero-subtitle">We bring a holistic, playful approach to design. Whether it's product design or system design, game development or brand building, we're experts in storytelling, building and imagination.</p>
+      <a href="work/index.html" class="cta-button">See our work</a>
+    </div>
+    <div class="hero-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/230ea032-3ebb-42d7-9edf-93c59f6710d8/IMG_5885.png" alt="Divya's illustration">
+    </div>
+    <div class="hero-decoration">
+      <div class="dot-grid"></div>
+      <svg class="cyan-arc" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M 0 50 Q 50 0 100 50" stroke="var(--cyan)" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Featured Work -->
+  <section class="featured-work fade-in">
+    <h2>Featured Work</h2>
+    <div class="work-grid">
+      <a href="work/tomboyx.html" class="work-card" style="--card-color: #E85D75;">
+        <div class="card-header">
+          <h3>TomboyX</h3>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag">Brand Story</span>
+            <span class="tag">Investor Pitch</span>
+          </div>
+          <h4>Investor storytelling that raised $5M</h4>
+          <div class="card-stat">5M</div>
+        </div>
+      </a>
+
+      <a href="work/klydo.html" class="work-card" style="--card-color: #FF69B4;">
+        <div class="card-header">
+          <h3>Klydo</h3>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag">Product Strategy</span>
+            <span class="tag">Brand Story</span>
+            <span class="tag">GTM</span>
+          </div>
+          <h4>From dream to 150 daily sales in 10 weeks</h4>
+          <div class="card-stat">150</div>
+        </div>
+      </a>
+
+      <a href="work/pratham.html" class="work-card" style="--card-color: #F5C518;">
+        <div class="card-header">
+          <h3>PrathamUSA</h3>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag">Donor Research</span>
+            <span class="tag">Process Creation</span>
+          </div>
+          <h4>Rebuilding the donor journey for a $50M nonprofit</h4>
+          <div class="card-stat">$50M</div>
+        </div>
+      </a>
+
+      <a href="work/tatsam.html" class="work-card" style="--card-color: #7BC8A4;">
+        <div class="card-header">
+          <h3>Tatsam</h3>
+        </div>
+        <div class="card-body">
+          <div class="card-tags">
+            <span class="tag">Visual Language</span>
+            <span class="tag">Brand Building</span>
+            <span class="tag">Product Strategy</span>
+          </div>
+          <h4>Designing the language for mental wellness in India</h4>
+          <div class="card-stat">India</div>
+        </div>
+      </a>
+    </div>
+    <div class="see-all-work">
+      <a href="work/index.html">See all work →</a>
+    </div>
+  </section>
+
+  <!-- Podcast Section -->
+  <section class="podcast fade-in">
+    <div class="podcast-content">
+      <h2 class="podcast-title">Thinking on Thinking</h2>
+      <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh, it's a podcast for creatives who want to make a living.</p>
+      <a href="#" class="cta-button">Listen now</a>
+    </div>
+    <div class="podcast-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/2365b284-06c0-4705-b3c5-4adb8c5427e5/IMG_5882.jpg" alt="Thinking on Thinking Podcast">
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services fade-in">
+    <h2>Services</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <h3>Paid Expertise</h3>
+        <p class="service-price">60 min sessions from $200</p>
+        <p class="service-description">Get direct access to our creative minds for strategic thinking, design feedback, or problem-solving sessions.</p>
+      </div>
+      <div class="service-card">
+        <h3>Workshops</h3>
+        <p class="service-price">Starting at $2,000</p>
+        <p class="service-description">Interactive sessions to build skills, inspire teams, and catalyze creative thinking within your organization.</p>
+      </div>
+      <div class="service-card">
+        <h3>Coaching & Prep</h3>
+        <p class="service-price">Weekly meetings from $5,000</p>
+        <p class="service-description">Ongoing support and coaching to elevate your vision, refine your narrative, and prepare for big moments.</p>
+      </div>
+      <div class="service-card">
+        <h3>Project-Based</h3>
+        <p class="service-price">Custom pricing</p>
+        <p class="service-description">End-to-end design, strategy, and storytelling for transformative projects at any scale.</p>
+      </div>
+    </div>
+    <div class="services-cta">
+      <a href="mailto:hello@joyus.studio" class="cta-button">Let's talk</a>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="final-cta fade-in">
+    <h2>Let's make something together</h2>
+    <p><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="workshops.html">Workshops</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    });
+
+    // Close menu on link click
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+      });
+    });
+
+    // Nav shadow on scroll
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Intersection Observer for fade-in animation
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in').forEach(element => {
+      observer.observe(element);
+    });
+  </script>
+</body>
+</html>
         * {
             margin: 0;
             padding: 0;

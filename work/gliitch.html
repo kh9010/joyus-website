@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gliitch — Joyus Studio</title>
+  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="logo">
+        <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio">
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html" class="active">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+        </ul>
+      </nav>
+      <button class="menu-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="case-hero fade-in">
+    <div class="hero-content">
+      <h1>Gliitch</h1>
+      <p class="hero-subtitle">Moodboarding, Branding, Media Guides</p>
+    </div>
+    <div class="case-meta">
+      <div class="meta-item">
+        <span class="meta-label">Client</span>
+        <span class="meta-value">Gliitch</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">Hong Kong</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Type</span>
+        <span class="meta-value">Digital Services Provider</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Services</span>
+        <span class="meta-value">Moodboarding, Branding, Media Guides</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-highlight fade-in">
+    <div class="highlight-stats">
+      <div class="highlight-stat">
+        <div class="number">Full Brand</div>
+        <div class="desc">Visual System</div>
+      </div>
+      <div class="highlight-stat">
+        <div class="number">Moodboard → Guidelines</div>
+        <div class="desc">Complete Process</div>
+      </div>
+      <div class="highlight-stat">
+        <div class="number">Asia-Pacific</div>
+        <div class="desc">Market Positioning</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section fade-in">
+    <div class="section-content">
+      <h2>Challenge</h2>
+      <p>Gliitch, a Hong Kong-based digital services provider, needed a visual identity that would differentiate them in a competitive market while communicating their creative, forward-thinking approach. They required a brand system that felt contemporary and digital-native, yet maintained the sophistication necessary to appeal to enterprise clients across Asia-Pacific markets.</p>
+    </div>
+  </section>
+
+  <section class="case-section alt-bg fade-in">
+    <div class="section-content">
+      <h2>Approach</h2>
+      <p>We began with extensive moodboarding sessions to explore visual territories that would capture Gliitch's energy and positioning. This exploratory phase was critical — moving beyond assumptions to discover authentic visual directions that resonated with the team's vision and culture.</p>
+      <p>From these insights, we developed a distinctive brand identity with a strong typographic foundation, carefully curated color palette, and a system of visual elements that could extend across diverse applications. The branding work extended into comprehensive media guides ensuring consistency across all touchpoints, from website and applications to presentation templates, business collateral, and social media.</p>
+    </div>
+  </section>
+
+  <section class="case-section fade-in">
+    <div class="section-content">
+      <h2>Outcome</h2>
+      <p>A cohesive brand system that positioned Gliitch as a creative force in the Asia-Pacific digital services space. The brand guidelines provided clear direction for internal teams and external partners, making the identity easy to maintain and extend. The visual system proved flexible enough to work across multiple contexts — from technical documentation to marketing collateral — while maintaining consistent brand voice. Gliitch gained a distinctive presence that reflected their innovative approach to digital problem-solving.</p>
+    </div>
+  </section>
+
+  <nav class="case-nav fade-in">
+    <a href="agemo.html" class="nav-link prev">
+      <span>←</span> Previous
+    </a>
+    <a href="rachna-nivas.html" class="nav-link next">
+      Next <span>→</span>
+    </a>
+  </nav>
+
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="https://images.squarespace-cdn.com/content/v1/605a1a2c8237705dbe16af5a/5ea99acd-7626-4e5c-8a96-72e648aee17c/Logo+Small.png?format=500w" alt="Joyus Studio">
+        <p>Joyus Studio creates thoughtful design for brands, products, and experiences.</p>
+      </div>
+      <div class="footer-links">
+        <div class="link-column">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="index.html">Work</a></li>
+            <li><a href="../workshops.html">Workshops</a></li>
+            <li><a href="../about.html">About</a></li>
+          </ul>
+        </div>
+        <div class="link-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="mailto:hello@joyus.studio">Email</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in effect
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transition = 'opacity 0.6s ease-in';
+      observer.observe(el);
+    });
+
+    // Navigation scroll shadow
+    const header = document.querySelector('.site-header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) {
+        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+      } else {
+        header.style.boxShadow = 'none';
+      }
+    });
+
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>
