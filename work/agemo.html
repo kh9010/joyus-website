@@ -4,47 +4,187 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Agemo / CodeWords — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .case-hero {
+      padding: 7rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+      text-align: center;
+    }
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+    .case-subtitle {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .case-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .case-highlight {
+      background: #1a1a1a;
+      color: white;
+      padding: 4rem 2rem;
+    }
+    .case-highlight-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .highlight-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      max-width: 140px;
+      line-height: 1.4;
+    }
+    .case-image-full {
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+    .case-image-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .case-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .case-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .case-section.alt {
+      background: var(--warm-gray, #F5F3F0);
+      max-width: 100%;
+      padding: 4rem 2rem;
+    }
+    .case-section.alt .section-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      color: #111;
+    }
+    .case-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.1rem;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-nav-bar {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e8e6e4;
+    }
+    .case-nav-prev, .case-nav-next {
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
+    @media (max-width: 640px) {
+      .case-highlight-content { gap: 2rem; }
+      .stat-number { font-size: 2rem; }
+      .case-meta { gap: 1.5rem; }
+      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-container">
+  <nav class="nav-bar">
+    <div class="nav-container">
       <a href="../index.html" class="logo">
         <img src="../images/logo.webp" alt="Joyus Studio">
       </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html" class="active">Work</a></li>
-          <li><a href="../workshops.html">Workshops</a></li>
-          <li><a href="../about.html">About</a></li>
-        </ul>
-      </nav>
-      <button class="menu-toggle" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
     </div>
-  </header>
+  </nav>
 
-  <section class="case-hero fade-in">
-    <div class="hero-content">
-      <h1>Agemo / CodeWords</h1>
-      <p class="hero-subtitle">Research, Product Strategy, Interface Design</p>
-    </div>
+  <section class="case-hero">
+    <h1>Agemo / CodeWords</h1>
+    <p class="case-subtitle">Making AI-powered development approachable</p>
     <div class="case-meta">
       <div class="meta-item">
         <span class="meta-label">Client</span>
-        <span class="meta-value">Agemo</span>
+        <span class="meta-value">Agemo / CodeWords</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Type</span>
-        <span class="meta-value">AI-powered SaaS Product</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Stage</span>
-        <span class="meta-value">Early-stage Startup</span>
+        <span class="meta-label">Category</span>
+        <span class="meta-value">Developer Tools</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Services</span>
@@ -53,77 +193,66 @@
     </div>
   </section>
 
-  <section class="case-highlight fade-in">
-    <div class="highlight-stats">
+  <section class="case-highlight">
+    <div class="case-highlight-content">
       <div class="highlight-stat">
-        <div class="number">Research → Ship</div>
-        <div class="desc">End-to-end Design Process</div>
+        <span class="stat-number">Research</span>
+        <span class="stat-label">Deep user discovery</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">AI-first</div>
-        <div class="desc">Interface Paradigm</div>
+        <span class="stat-number">Strategy</span>
+        <span class="stat-label">Product direction from insights</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">Community</div>
-        <div class="desc">Browsable Function Library</div>
+        <span class="stat-number">Design</span>
+        <span class="stat-label">Interface that meets users where they are</span>
       </div>
+    </div>
+  </section>
+
+  <div class="case-image-full">
+    <img src="../images/work/agemo.jpg" alt="Agemo CodeWords interface design and product strategy" loading="lazy">
+  </div>
+
+  <section class="case-section fade-in">
+    <h2>The Challenge</h2>
+    <p>Agemo was building CodeWords, a tool to bring AI-powered development capabilities to engineers who didn't live at the bleeding edge of AI tooling. The challenge was both product and communication: how do you make a genuinely complex technology feel approachable without dumbing it down? How do you serve developers who are sophisticated but not necessarily AI-native?</p>
+  </section>
+
+  <section class="case-section alt">
+    <div class="section-inner">
+      <h2>Our Approach</h2>
+      <p>We started with research — talking to developers across a range of AI fluency levels to understand where the real friction lived. What we found: the problem wasn't technical capability, it was mental model. Developers didn't struggle with what the tool could do; they struggled with knowing when and why to reach for it. The product needed to be opinionated about its own use cases.</p><p>The product strategy work identified the specific workflows where CodeWords added most value and the moments in developer workflow where those benefits would be most legible. Interface design built on that strategy — creating an experience that surfaced the right capabilities at the right moments, rather than requiring developers to learn a new paradigm before they could get value.</p>
     </div>
   </section>
 
   <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Challenge</h2>
-      <p>Agemo needed to create an AI-powered app that would let users build backend workflows and draft productivity tools in minutes without requiring engineers. The fundamental challenge was making an inherently complex AI tool feel approachable while giving users confidence in the output. How do you make the impossible feel possible?</p>
-    </div>
+    <h2>The Outcome</h2>
+    <p>The research and strategy gave the Agemo team a clear view of where their product fit in the developer workflow and how to communicate that clearly. The interface design gave them a foundation to build on — one that prioritized legibility and appropriate timing over feature comprehensiveness. Sometimes the best product is the one that knows when to get out of the way.</p>
   </section>
 
-  <section class="case-section alt-bg fade-in">
-    <div class="section-content">
-      <h2>Approach</h2>
-      <p>Our research phase began with extensive user interviews, uncovering a critical insight: users didn't want just generation — they wanted the ability to iterate and refine. The initial AI output was a starting point, not an endpoint. This discovery shaped everything.</p>
-      <p>We designed a visual grammar that reinforced space, flexibility, and play rather than technical complexity. The chat interface coaches users through initial creation, with a UX that supports refinement at every step. We added a browsable library of community-built functions to show the product's tangible value and give users more starting points for adapting use cases to their needs. The interface celebrates iteration as a feature, not a limitation.</p>
-    </div>
-  </section>
+  <div class="case-nav-bar">
+    <a href="xtdb.html" class="case-nav-prev">← XTDB</a>
+    <a href="gliitch.html" class="case-nav-next">Gliitch →</a>
+  </div>
 
-  <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Outcome</h2>
-      <p>An interface that makes AI development approachable through a refinement-first paradigm, community examples, and a visual language that communicates play and possibility rather than technical complexity. Users can see themselves in the product — not as engineers, but as builders. The community library became a powerful growth lever, with successful user-created functions inspiring others to try. The thoughtful interface design removed friction from the AI workflow, making the tool feel less like complex technology and more like a creative partner.</p>
-    </div>
-  </section>
-
-  <nav class="case-nav fade-in">
-    <a href="xtdb.html" class="nav-link prev">
-      <span>←</span> Previous
-    </a>
-    <a href="gliitch.html" class="nav-link next">
-      Next <span>→</span>
-    </a>
-  </nav>
-
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-        <p>Joyus Studio creates thoughtful design for brands, products, and experiences.</p>
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
       </div>
-      <div class="footer-links">
-        <div class="link-column">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="index.html">Work</a></li>
-            <li><a href="../workshops.html">Workshops</a></li>
-            <li><a href="../about.html">About</a></li>
-          </ul>
-        </div>
-        <div class="link-column">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="mailto:hello@joyus.studio">Email</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-          </ul>
-        </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -132,38 +261,30 @@
   </footer>
 
   <script>
-    // Intersection Observer for fade-in effect
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          observer.unobserve(entry.target);
-        }
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transition = 'opacity 0.6s ease-in';
-      observer.observe(el);
-    });
-
-    // Navigation scroll shadow
-    const header = document.querySelector('.site-header');
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) {
-        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      } else {
-        header.style.boxShadow = 'none';
-      }
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    menuToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
-    });
+    const sections = document.querySelectorAll('.case-section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>

@@ -3,63 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Work - Joyus Studio</title>
+    <title>Our Work — Joyus Studio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../styles.css">
     <style>
-        /* Work page specific styles */
-        .work-page-header {
+        .work-page-hero {
             padding: 8rem 2rem 4rem;
-            background: var(--warm-gray);
-            position: relative;
-            overflow: hidden;
+            background: var(--warm-gray, #F5F3F0);
         }
-        .work-page-header .container {
+        .work-page-hero .container {
             max-width: 900px;
-            position: relative;
-            z-index: 1;
         }
-        .work-page-header h1 {
+        .work-page-hero h1 {
             margin-bottom: 1rem;
         }
-        .work-page-header p {
+        .work-page-hero p {
             color: #555;
             font-size: 1.15rem;
-            max-width: 700px;
+            max-width: 680px;
+            line-height: 1.7;
         }
-        .work-content {
-            padding: 4rem 2rem;
+        .work-section {
+            padding: 5rem 2rem;
         }
-        .work-content .container {
+        .work-section .container {
             max-width: 1200px;
+        }
+
+        /* Case card grid */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e8e6e4;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Image card (with real photo) */
+        .case-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            position: relative;
+        }
+        .case-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .case-card:hover .case-card-image img {
+            transform: scale(1.03);
+        }
+        /* Color fallback if no image */
+        .case-card-color {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .case-card-color span {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .case-card-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .case-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+        .case-card-tags span {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #888;
+            background: #f4f2f0;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+        }
+        .case-card-body h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #111;
+        }
+        .case-card-body p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.55;
+            flex: 1;
+            margin-bottom: 1rem;
+        }
+        .case-card-stat {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f0eeec;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: none;
+        }
+
+        @media (max-width: 600px) {
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <!-- NAVIGATION -->
-      <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../index.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html" class="active">Work</a></li>
-        <li><a href="../workshops.html">Workshops</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="../index.html" class="logo">
+                <img src="../images/logo.webp" alt="Joyus Studio">
+            </a>
+            <button class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Work</a></li>
+                <li><a href="../workshops.html">Workshops</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
 
     <!-- PAGE HEADER -->
-    <section class="work-page-header">
+    <section class="work-page-hero">
         <div class="container">
             <h1>Our Work</h1>
             <p>Businesses built on dreams. Sandcastles carved from the sky and made real on the earth.</p>
@@ -67,15 +179,14 @@
     </section>
 
     <!-- CASE STUDIES GRID -->
-    <section class="work-content">
+    <section class="work-section">
         <div class="container">
-            <div class="work-grid">
-                <!-- 1. TomboyX -->
+            <div class="cases-grid">
+
+                <!-- TomboyX -->
                 <a href="tomboyx.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #E85D75;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">TomboyX</span>
-                        </div>
+                        <img src="../images/work/tomboyx.jpg" alt="TomboyX investor storytelling" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -83,17 +194,15 @@
                             <span>Investor Pitch</span>
                         </div>
                         <h3>TomboyX</h3>
-                        <p>Investor storytelling that raised $5M in a challenging market</p>
+                        <p>Investor storytelling that raised $5M — by leading with unit economics, not identity politics.</p>
                         <div class="case-card-stat">$5M raised · 72% margins vs 53% market avg</div>
                     </div>
                 </a>
 
-                <!-- 2. Klydo -->
+                <!-- Klydo -->
                 <a href="klydo.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #FF69B4;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">Klydo</span>
-                        </div>
+                        <img src="../images/work/klydo.jpg" alt="Klydo fashion startup" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -102,17 +211,15 @@
                             <span>GTM</span>
                         </div>
                         <h3>Klydo</h3>
-                        <p>Building a high-growth fashion startup for the instant gratification era</p>
+                        <p>Building a high-growth fashion startup for the instant gratification era — from 4 people to 150 daily sales.</p>
                         <div class="case-card-stat">0 → 150 daily sales in 10 weeks</div>
                     </div>
                 </a>
 
-                <!-- 3. Tatsam -->
+                <!-- Tatsam -->
                 <a href="tatsam.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #7BC8A4;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">Tatsam</span>
-                        </div>
+                        <img src="../images/work/tatsam.jpg" alt="Tatsam mental wellness visual language" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -121,17 +228,15 @@
                             <span>Product Strategy</span>
                         </div>
                         <h3>Tatsam</h3>
-                        <p>Designing the language for mental wellness in India</p>
+                        <p>Designing the visual language for mental wellness in India — making a stigma-heavy space feel warm and safe.</p>
                         <div class="case-card-stat">Holistic design for a sensitive space</div>
                     </div>
                 </a>
 
-                <!-- 4. PrathamUSA -->
+                <!-- PrathamUSA -->
                 <a href="pratham.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #F5C518;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">Pratham</span>
-                        </div>
+                        <img src="../images/work/pratham.jpg" alt="PrathamUSA donor journey" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -140,17 +245,15 @@
                             <span>Information Flow</span>
                         </div>
                         <h3>PrathamUSA</h3>
-                        <p>Rebuilding the donor journey for a $50M nonprofit</p>
+                        <p>Rebuilding the donor journey for a $50M nonprofit — so the people who give feel as seen as the children they support.</p>
                         <div class="case-card-stat">$50M nonprofit · Donor journey redesign</div>
                     </div>
                 </a>
 
-                <!-- 5. ConveGenius -->
+                <!-- ConveGenius -->
                 <a href="convegenius.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #3BB4C1;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">ConveGenius</span>
-                        </div>
+                        <img src="../images/work/convegenius.jpg" alt="ConveGenius gamification strategy" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -159,17 +262,15 @@
                             <span>Behavioral Design</span>
                         </div>
                         <h3>ConveGenius</h3>
-                        <p>Gamification strategy for 100K monthly active students</p>
+                        <p>Gamification strategy for 100K monthly active students — designed around how real kids actually behave, not theory.</p>
                         <div class="case-card-stat">100K monthly students · Behavior change framework</div>
                     </div>
                 </a>
 
-                <!-- 6. Secret Senses -->
+                <!-- Secret Senses -->
                 <a href="secret-senses.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #55C2B4;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">Secret Senses</span>
-                        </div>
+                        <img src="../images/work/secret-senses.jpg" alt="Secret Senses product packaging" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -178,17 +279,15 @@
                             <span>Packaging</span>
                         </div>
                         <h3>Secret Senses</h3>
-                        <p>Hand-drawn watercolors brought to life as product packaging</p>
+                        <p>Hand-drawn watercolors brought from sketchbook to shelf — packaging that feels handcrafted because it genuinely is.</p>
                         <div class="case-card-stat">From sketchbook to shelf</div>
                     </div>
                 </a>
 
-                <!-- 7. XTDB -->
+                <!-- XTDB -->
                 <a href="xtdb.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #F5A623;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">XTDB</span>
-                        </div>
+                        <img src="../images/work/xtdb.jpg" alt="XTDB rebrand" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -196,17 +295,15 @@
                             <span>Brand Guidelines</span>
                         </div>
                         <h3>XTDB</h3>
-                        <p>Full rebrand for a $10M ARR database company</p>
+                        <p>Full rebrand for a $10M ARR database company — from CRUX to XTDB, built for enterprise conversations and developer love.</p>
                         <div class="case-card-stat">CRUX → XTDB · $10M ARR</div>
                     </div>
                 </a>
 
-                <!-- 8. Agemo / CodeWords -->
+                <!-- Agemo / CodeWords -->
                 <a href="agemo.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #6B7B8D;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">CodeWords</span>
-                        </div>
+                        <img src="../images/work/agemo.jpg" alt="Agemo CodeWords interface design" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -215,17 +312,15 @@
                             <span>Interface Design</span>
                         </div>
                         <h3>Agemo / CodeWords</h3>
-                        <p>Making AI-powered development approachable</p>
+                        <p>Making AI-powered development approachable — research to interface, built around real developer mental models.</p>
                         <div class="case-card-stat">Research to interface design</div>
                     </div>
                 </a>
 
-                <!-- 9. Gliitch -->
+                <!-- Gliitch -->
                 <a href="gliitch.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #2D2D2D;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">Gliitch</span>
-                        </div>
+                        <img src="../images/work/gliitch.jpg" alt="Gliitch brand identity" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -234,17 +329,15 @@
                             <span>Media Guides</span>
                         </div>
                         <h3>Gliitch</h3>
-                        <p>Creating the visual identity for a Hong Kong digital provider</p>
+                        <p>Creating the visual identity for a Hong Kong digital provider — from name and attitude to a complete brand system.</p>
                         <div class="case-card-stat">Moodboard to brand system</div>
                     </div>
                 </a>
 
-                <!-- 10. Rachna Nivas -->
+                <!-- Rachna Nivas -->
                 <a href="rachna-nivas.html" class="case-card fade-in">
                     <div class="case-card-image">
-                        <div class="card-color-block" style="background-color: #C0392B;">
-                            <span style="color: white; font-family: var(--font-serif); font-size: 1.8rem; font-weight: 600;">Rachna Nivas</span>
-                        </div>
+                        <img src="../images/work/rachna-nivas.jpg" alt="Rachna Nivas digital identity" loading="lazy">
                     </div>
                     <div class="case-card-body">
                         <div class="case-card-tags">
@@ -253,71 +346,69 @@
                             <span>Content Strategy</span>
                         </div>
                         <h3>Rachna Nivas</h3>
-                        <p>Helping a classical dancer find her voice in the digital age</p>
+                        <p>Helping a classical dancer find her digital voice without losing her artistic one — authenticity as strategy.</p>
                         <div class="case-card-stat">Many times more social engagement</div>
                     </div>
                 </a>
+
             </div>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer>
-        <p>&copy; 2026 Joyus Studio. All rights reserved. Made with care.</p>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Joyus Studio</h3>
+                <p>A studio of makers.</p>
+            </div>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="index.html">Work</a></li>
+                    <li><a href="../workshops.html">Workshops</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="footer-contact">
+                <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+        </div>
     </footer>
 
     <script>
-        // Mobile navigation toggle
-        const navToggle = document.getElementById('nav-toggle');
-        const navLinks = document.querySelector('nav ul');
-
-        if (navToggle) {
-            navToggle.addEventListener('click', () => {
-                navLinks.classList.toggle('open');
-                navToggle.classList.toggle('active');
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
             });
         }
-
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        const navItems = document.querySelectorAll('nav a');
-
+        const nav = document.querySelector('.nav-bar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            if (window.scrollY > 0) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         });
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
+        // Fade-in cards
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
             });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Set active nav link
-        const currentPage = 'work';
-        navItems.forEach(link => {
-            if (link.href.includes(currentPage) || link.textContent === 'Work') {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
+        }, {threshold: 0.08, rootMargin: '0px 0px -60px 0px'});
+        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>

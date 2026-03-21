@@ -3,348 +3,292 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klydo Case Study - Joyus Studio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <title>Klydo — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
-    /* Case-specific styles */
     .case-hero {
-      padding: 6rem 2rem;
+      padding: 7rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
       text-align: center;
-      background: linear-gradient(135deg, #f8f6f4 0%, #faf8f6 100%);
-      border-bottom: 1px solid #e8e6e4;
     }
-
     .case-hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: 3.5rem;
-      margin-bottom: 0.5rem;
-      color: #1a1a1a;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.75rem;
+      color: #111;
     }
-
-    .case-hero .subtitle {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.25rem;
-      color: #666;
-      max-width: 600px;
+    .case-subtitle {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
       margin: 0 auto 2rem;
-      font-weight: 400;
+      line-height: 1.6;
     }
-
     .case-meta {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      color: #888;
       display: flex;
       justify-content: center;
-      gap: 2rem;
+      gap: 2.5rem;
       flex-wrap: wrap;
       margin-top: 1.5rem;
     }
-
-    .case-meta-item {
+    .meta-item {
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 0.3rem;
     }
-
-    .case-meta-label {
-      font-size: 0.75rem;
+    .meta-label {
+      font-size: 0.72rem;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       color: #999;
-      margin-bottom: 0.3rem;
     }
-
-    .case-meta-value {
-      font-weight: 500;
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
       color: #333;
     }
-
     .case-highlight {
-      background-color: #2a2a2a;
-      color: #fff;
+      background: #1a1a1a;
+      color: white;
       padding: 4rem 2rem;
-      margin: 0;
     }
-
     .case-highlight-content {
-      max-width: 1000px;
+      max-width: 900px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
       text-align: center;
     }
-
-    .case-stat {
+    .highlight-stat {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
     }
-
-    .case-stat-number {
+    .stat-number {
       font-family: 'DM Serif Display', serif;
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
+      font-size: 2.8rem;
+      color: white;
+      line-height: 1;
     }
-
-    .case-stat-label {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.9rem;
-      color: #bbb;
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      max-width: 140px;
       line-height: 1.4;
     }
-
+    .case-image-full {
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+    .case-image-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
     .case-section {
+      max-width: 780px;
+      margin: 0 auto;
       padding: 4rem 2rem;
-      max-width: 900px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .case-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .case-section.alt {
+      background: var(--warm-gray, #F5F3F0);
+      max-width: 100%;
+      padding: 4rem 2rem;
+    }
+    .case-section.alt .section-inner {
+      max-width: 780px;
       margin: 0 auto;
     }
-
-    .case-section.alt-bg {
-      background-color: #f8f6f4;
-    }
-
     .case-section h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: 2.2rem;
-      margin-bottom: 1.5rem;
-      color: #1a1a1a;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      color: #111;
     }
-
     .case-section p {
-      font-family: 'DM Sans', sans-serif;
       font-size: 1.05rem;
-      line-height: 1.8;
+      line-height: 1.85;
       color: #444;
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
     }
-
-    .case-section p:last-child {
-      margin-bottom: 0;
-    }
-
-    .case-navigation {
-      max-width: 900px;
-      margin: 3rem auto 0;
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-nav-bar {
+      max-width: 780px;
+      margin: 0 auto;
       padding: 3rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-top: 1px solid #e8e6e4;
-      gap: 2rem;
     }
-
-    .case-nav-link {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      color: #666;
-      text-decoration: none;
-      transition: color 0.3s ease;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .case-nav-link:hover {
-      color: #1a1a1a;
-    }
-
-    .case-nav-spacer {
-      flex: 1;
-    }
-
-    /* Navigation bar */
-    nav {
-      font-family: 'DM Sans', sans-serif;
-      padding: 1.5rem 2rem;
-      border-bottom: 1px solid #e8e6e4;
-    }
-
-    nav a {
-      display: inline-block;
-      margin-right: 2rem;
-      text-decoration: none;
-      color: #666;
-      font-size: 0.95rem;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover,
-    nav a.active {
-      color: #1a1a1a;
-    }
-
-    /* Footer */
-    footer {
-      background-color: #f8f6f4;
-      padding: 3rem 2rem;
-      text-align: center;
-      border-top: 1px solid #e8e6e4;
-      font-family: 'DM Sans', sans-serif;
+    .case-nav-prev, .case-nav-next {
       font-size: 0.9rem;
-      color: #888;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
     }
-
-    footer img {
-      height: 40px;
-      margin-bottom: 1rem;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .case-hero h1 {
-        font-size: 2.5rem;
-      }
-
-      .case-hero .subtitle {
-        font-size: 1.1rem;
-      }
-
-      .case-meta {
-        gap: 1.5rem;
-      }
-
-      .case-highlight-content {
-        gap: 2rem;
-      }
-
-      .case-stat-number {
-        font-size: 2rem;
-      }
-
-      .case-section {
-        padding: 3rem 1.5rem;
-      }
-
-      .case-section h2 {
-        font-size: 1.8rem;
-      }
-
-      .case-navigation {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      nav a {
-        display: block;
-        margin-bottom: 0.8rem;
-        margin-right: 0;
-      }
+    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
+    @media (max-width: 640px) {
+      .case-highlight-content { gap: 2rem; }
+      .stat-number { font-size: 2rem; }
+      .case-meta { gap: 1.5rem; }
+      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-  <!-- Header with Navigation -->
-  <header>
-    <nav>
-      <a href="../index.html">Home</a>
-      <a href="index.html" class="active">Work</a>
-      <a href="../workshops.html">Workshops</a>
-      <a href="../about.html">About</a>
-    </nav>
-  </header>
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="../index.html" class="logo">
+        <img src="../images/logo.webp" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <!-- Case Hero -->
   <section class="case-hero">
     <h1>Klydo</h1>
-    <p class="subtitle">Building a high-growth fashion startup for the instant gratification era</p>
+    <p class="case-subtitle">Building a high-growth fashion startup for the instant gratification era</p>
     <div class="case-meta">
-      <div class="case-meta-item">
-        <span class="case-meta-label">Client</span>
-        <span class="case-meta-value">Klydo</span>
+      <div class="meta-item">
+        <span class="meta-label">Client</span>
+        <span class="meta-value">Klydo</span>
       </div>
-      <div class="case-meta-item">
-        <span class="case-meta-label">Location</span>
-        <span class="case-meta-value">India</span>
+      <div class="meta-item">
+        <span class="meta-label">Location</span>
+        <span class="meta-value">India</span>
       </div>
-      <div class="case-meta-item">
-        <span class="case-meta-label">Stage</span>
-        <span class="case-meta-value">Pre-Series A, High Growth</span>
+      <div class="meta-item">
+        <span class="meta-label">Stage</span>
+        <span class="meta-value">Pre-Series A, High Growth</span>
       </div>
-      <div class="case-meta-item">
-        <span class="case-meta-label">Services</span>
-        <span class="case-meta-value">Product Strategy, Brand Story, GTM</span>
+      <div class="meta-item">
+        <span class="meta-label">Services</span>
+        <span class="meta-value">Product Strategy, Brand Story, GTM</span>
       </div>
     </div>
   </section>
 
-  <!-- Highlight Section -->
   <section class="case-highlight">
     <div class="case-highlight-content">
-      <div class="case-stat">
-        <div class="case-stat-number">150</div>
-        <div class="case-stat-label">Daily sales in 10 weeks from launch</div>
+      <div class="highlight-stat">
+        <span class="stat-number">0→150</span>
+        <span class="stat-label">Daily sales in 10 weeks from launch</span>
       </div>
-      <div class="case-stat">
-        <div class="case-stat-number">30+</div>
-        <div class="case-stat-label">Minutes/week shopping time (top cohort)</div>
+      <div class="highlight-stat">
+        <span class="stat-number">30+</span>
+        <span class="stat-label">Minutes/week shopping (top cohort)</span>
       </div>
-      <div class="case-stat">
-        <div class="case-stat-number">4</div>
-        <div class="case-stat-label">Founding team at start</div>
+      <div class="highlight-stat">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Founding team members at start</span>
       </div>
     </div>
   </section>
 
-  <!-- The Challenge -->
-  <section class="case-section">
-    <h2>The Challenge</h2>
-    <p>Klydo came as 4 people with a dream of capturing the new 15-minute shopping channel for fashion. The market leader Slikk was a year older with massive name recognition and 1,000+ orders per day. Klydo needed product details from customer acquisition to fulfillment, while figuring out revenue models that would drive CAC:LTV ratios for a significant Series A.</p>
-  </section>
-
-  <!-- Our Approach -->
-  <section class="case-section alt-bg">
-    <h2>Our Approach</h2>
-    <p>Where most Indian consumer businesses differentiate on price, Klydo reached out to users engaged with fashion and looking for inspiration. We created an experience focused on desire, powered by gen-AI to show clothing in aspirational lifestyle settings. We drew from short-form videos and influencer reels to create something that felt native to the audience. When the branding person quit after 6 weeks, we jumped into logo and brand design. When narratives diverged, we brought in a best-selling writer to unify the team and market story.</p>
-  </section>
-
-  <!-- The Outcome -->
-  <section class="case-section">
-    <h2>The Outcome</h2>
-    <p>Launched before Diwali (Oct 20), pivoted the experience through holiday sales, and hit 150 daily sales before Jan 1. By working across disciplines — product strategy, brand design, content systems, and GTM — we helped the Klydo team see the forest while dealing with the many trees.</p>
-  </section>
-
-  <!-- Case Navigation -->
-  <div class="case-navigation">
-    <a href="tomboyx.html" class="case-nav-link">← TomboyX</a>
-    <div class="case-nav-spacer"></div>
-    <a href="tatsam.html" class="case-nav-link">Tatsam →</a>
+  <div class="case-image-full">
+    <img src="../images/work/klydo.jpg" alt="Klydo market insight and product strategy visualization" loading="lazy">
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <img src="../images/logo.webp" alt="Joyus Studio Logo">
-    <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+  <section class="case-section fade-in">
+    <h2>The Challenge</h2>
+    <p>Klydo arrived as 4 people with a dream: capture the new 15-minute shopping channel for fashion in India. The market leader Slikk was a year ahead with massive name recognition and 1,000+ orders per day. Klydo needed to figure out everything — customer acquisition, fulfillment logistics, the experience layer, and the revenue model that would drive CAC:LTV ratios strong enough for a meaningful Series A raise.</p>
+  </section>
+
+  <section class="case-section alt">
+    <div class="section-inner">
+      <h2>Our Approach</h2>
+      <p>Where most Indian consumer businesses differentiate on price, we helped Klydo go somewhere more interesting: desire. We created a product experience focused on aspiration rather than transaction, powered by gen-AI that shows clothing in lifestyle settings users actually want to inhabit. The inspiration was short-form video and influencer reels — native to the audience, built on the grammar they already understood.</p><p>When the branding person quit after 6 weeks, we jumped in: logo, visual identity, brand voice. When team narratives diverged, we brought in a best-selling writer to unify the story across market and product. We became the connective tissue the founding team needed — across disciplines, across functions, across the moments when startups most need someone who can see the whole picture.</p>
+    </div>
+  </section>
+
+  <section class="case-section fade-in">
+    <h2>The Outcome</h2>
+    <p>Launched before Diwali (October 20), pivoted the experience through holiday sales, and hit 150 daily sales before January 1. By working across product strategy, brand design, content systems, and GTM simultaneously, we helped the Klydo team see the forest while dealing with the many trees. That cross-functional view is what early-stage companies often need most.</p>
+  </section>
+
+  <div class="case-nav-bar">
+    <a href="tomboyx.html" class="case-nav-prev">← TomboyX</a>
+    <a href="tatsam.html" class="case-nav-next">Tatsam →</a>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
   </footer>
 
   <script>
-    // Smooth scroll and animation
-    document.addEventListener('DOMContentLoaded', function() {
-      // Add subtle fade-in animations to sections
-      const sections = document.querySelectorAll('.case-section');
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver(function(entries) {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, observerOptions);
-
-      sections.forEach(section => {
-        section.style.opacity = '0';
-        section.style.transform = 'translateY(20px)';
-        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(section);
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
       });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
+    const sections = document.querySelectorAll('.case-section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>

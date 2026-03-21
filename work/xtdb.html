@@ -4,47 +4,191 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>XTDB — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .case-hero {
+      padding: 7rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+      text-align: center;
+    }
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+    .case-subtitle {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .case-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .case-highlight {
+      background: #1a1a1a;
+      color: white;
+      padding: 4rem 2rem;
+    }
+    .case-highlight-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .highlight-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      max-width: 140px;
+      line-height: 1.4;
+    }
+    .case-image-full {
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+    .case-image-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .case-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .case-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .case-section.alt {
+      background: var(--warm-gray, #F5F3F0);
+      max-width: 100%;
+      padding: 4rem 2rem;
+    }
+    .case-section.alt .section-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      color: #111;
+    }
+    .case-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.1rem;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-nav-bar {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e8e6e4;
+    }
+    .case-nav-prev, .case-nav-next {
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
+    @media (max-width: 640px) {
+      .case-highlight-content { gap: 2rem; }
+      .stat-number { font-size: 2rem; }
+      .case-meta { gap: 1.5rem; }
+      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-container">
+  <nav class="nav-bar">
+    <div class="nav-container">
       <a href="../index.html" class="logo">
         <img src="../images/logo.webp" alt="Joyus Studio">
       </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html" class="active">Work</a></li>
-          <li><a href="../workshops.html">Workshops</a></li>
-          <li><a href="../about.html">About</a></li>
-        </ul>
-      </nav>
-      <button class="menu-toggle" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
     </div>
-  </header>
+  </nav>
 
-  <section class="case-hero fade-in">
-    <div class="hero-content">
-      <h1>XTDB</h1>
-      <p class="hero-subtitle">Rebranding, Brand Guidelines</p>
-    </div>
+  <section class="case-hero">
+    <h1>XTDB</h1>
+    <p class="case-subtitle">Full rebrand for a $10M ARR database company — from CRUX to XTDB</p>
     <div class="case-meta">
       <div class="meta-item">
         <span class="meta-label">Client</span>
-        <span class="meta-value">XTDB</span>
+        <span class="meta-value">XTDB (formerly CRUX)</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Location</span>
-        <span class="meta-value">Canada</span>
+        <span class="meta-value">UK</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Size</span>
-        <span class="meta-value">50-200 Employees, ~$10M USD ARR</span>
+        <span class="meta-label">Stage</span>
+        <span class="meta-value">$10M ARR</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Services</span>
@@ -53,77 +197,66 @@
     </div>
   </section>
 
-  <section class="case-highlight fade-in">
-    <div class="highlight-stats">
+  <section class="case-highlight">
+    <div class="case-highlight-content">
       <div class="highlight-stat">
-        <div class="number">$10M ARR</div>
-        <div class="desc">Revenue Scale</div>
+        <span class="stat-number">CRUX→XTDB</span>
+        <span class="stat-label">Full rebrand completed</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">9</div>
-        <div class="desc">Logo Variants</div>
+        <span class="stat-number">$10M</span>
+        <span class="stat-label">ARR at time of rebrand</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">CRUX → XTDB</div>
-        <div class="desc">Complete Rebrand</div>
+        <span class="stat-number">Complete</span>
+        <span class="stat-label">Brand guidelines system</span>
       </div>
+    </div>
+  </section>
+
+  <div class="case-image-full">
+    <img src="../images/work/xtdb.jpg" alt="XTDB brand stationery and identity system" loading="lazy">
+  </div>
+
+  <section class="case-section fade-in">
+    <h2>The Challenge</h2>
+    <p>CRUX was a technically exceptional database — bitemporality and immutable data done right, for developers building applications where auditability and time-travel queries matter. But the name CRUX, while evocative, wasn't scaling with the company's ambition. At $10M ARR with a growing enterprise sales motion, they needed a brand that could stand up in Fortune 500 conversations and signal technical credibility without alienating the developer community that loved them.</p>
+  </section>
+
+  <section class="case-section alt">
+    <div class="section-inner">
+      <h2>Our Approach</h2>
+      <p>The name XTDB preserved the technical DNA — XT for extended/cross-temporal, DB for database, with the double-letter pattern creating a distinctive visual mark that worked in code, in conversation, and in competitive decks. We built the brand system from the inside out: starting with what made the technology genuinely novel, and building a visual language that made that novelty tangible.</p><p>The brand guidelines we developed gave the XTDB team clear rules for how to use the identity across contexts — from developer documentation to sales collateral to conference booths. The mark was designed to work at every scale, from favicon to billboard.</p>
     </div>
   </section>
 
   <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Challenge</h2>
-      <p>XTDB, formally CRUX and a JUXT-owned company, is a general purpose bi-temporal SQL & Datalog database. After choosing the new name, they needed refreshed visual branding that would incorporate temporal ideas and database concepts while maintaining feelings of flexibility, creativity, and openness. The rebrand needed to work across diverse audiences — from engineers to investors — while honoring the parent company's identity.</p>
-    </div>
+    <h2>The Outcome</h2>
+    <p>XTDB launched its new identity at a key industry moment, with a brand system robust enough for enterprise sales and distinctive enough for developer love. The guidelines gave the team the clarity they needed to execute consistently without a full in-house design team. The rebrand coincided with a significant phase of enterprise customer growth.</p>
   </section>
 
-  <section class="case-section alt-bg fade-in">
-    <div class="section-content">
-      <h2>Approach</h2>
-      <p>Early generative concepts explored themes of remembering, permanence, and reliability — from elephants to tree rings, neural clusters to origami. Through exploration and iteration, the origami direction emerged as particularly strong for its mathematical, human-made, and inspiring qualities.</p>
-      <p>The final 3D origami mark uses subtle shading with colored X elements in an hourglass fashion, capturing the temporal essence of the database while maintaining recognizability with JUXT's parent branding. The mark works across contexts — from small favicon to large print applications. We created comprehensive brand guidelines with 9 logo variants for different contexts: full color, monochrome, small size applications, colored backgrounds, and inverted versions. The color palette incorporates JUXT's brand while establishing XTDB's distinct identity.</p>
-    </div>
-  </section>
+  <div class="case-nav-bar">
+    <a href="secret-senses.html" class="case-nav-prev">← Secret Senses</a>
+    <a href="agemo.html" class="case-nav-next">Agemo / CodeWords →</a>
+  </div>
 
-  <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Outcome</h2>
-      <p>A complete rebrand that captures the essence of a temporal database through an origami metaphor — folding time and data into something elegant and knowable. The brand guidelines ensured consistency across all existing and future artifacts, from website to documentation, from conference materials to product interfaces. The nine logo variants made adoption easy across the organization, reducing friction in implementation while maintaining visual coherence. The rebrand positioned XTDB as a mature, thoughtful tool in a technical landscape.</p>
-    </div>
-  </section>
-
-  <nav class="case-nav fade-in">
-    <a href="secret-senses.html" class="nav-link prev">
-      <span>←</span> Previous
-    </a>
-    <a href="agemo.html" class="nav-link next">
-      Next <span>→</span>
-    </a>
-  </nav>
-
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-        <p>Joyus Studio creates thoughtful design for brands, products, and experiences.</p>
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
       </div>
-      <div class="footer-links">
-        <div class="link-column">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="index.html">Work</a></li>
-            <li><a href="../workshops.html">Workshops</a></li>
-            <li><a href="../about.html">About</a></li>
-          </ul>
-        </div>
-        <div class="link-column">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="mailto:hello@joyus.studio">Email</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-          </ul>
-        </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -132,38 +265,30 @@
   </footer>
 
   <script>
-    // Intersection Observer for fade-in effect
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          observer.unobserve(entry.target);
-        }
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transition = 'opacity 0.6s ease-in';
-      observer.observe(el);
-    });
-
-    // Navigation scroll shadow
-    const header = document.querySelector('.site-header');
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) {
-        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      } else {
-        header.style.boxShadow = 'none';
-      }
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    menuToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
-    });
+    const sections = document.querySelectorAll('.case-section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>

@@ -3,13 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tatsam — Case Study | Joyus Studio</title>
+  <title>Tatsam — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .case-hero {
+      padding: 7rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+      text-align: center;
+    }
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+    .case-subtitle {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .case-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .case-highlight {
+      background: #1a1a1a;
+      color: white;
+      padding: 4rem 2rem;
+    }
+    .case-highlight-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .highlight-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      max-width: 140px;
+      line-height: 1.4;
+    }
+    .case-image-full {
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+    .case-image-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .case-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .case-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .case-section.alt {
+      background: var(--warm-gray, #F5F3F0);
+      max-width: 100%;
+      padding: 4rem 2rem;
+    }
+    .case-section.alt .section-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      color: #111;
+    }
+    .case-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.1rem;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-nav-bar {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e8e6e4;
+    }
+    .case-nav-prev, .case-nav-next {
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
+    @media (max-width: 640px) {
+      .case-highlight-content { gap: 2rem; }
+      .stat-number { font-size: 2rem; }
+      .case-meta { gap: 1.5rem; }
+      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
-    <nav class="nav-bar">
+  <nav class="nav-bar">
     <div class="nav-container">
       <a href="../index.html" class="logo">
         <img src="../images/logo.webp" alt="Joyus Studio">
@@ -20,7 +166,7 @@
         <span></span>
       </button>
       <ul class="nav-menu" id="navMenu">
-        <li><a href="../work/index.html">Work</a></li>
+        <li><a href="index.html">Work</a></li>
         <li><a href="../workshops.html">Workshops</a></li>
         <li><a href="../about.html">About</a></li>
         <li><a href="mailto:hello@joyus.studio">Contact</a></li>
@@ -28,12 +174,9 @@
     </div>
   </nav>
 
-  <!-- Case Hero -->
   <section class="case-hero">
-    <div class="case-hero-content">
-      <h1>Tatsam</h1>
-      <p class="case-subtitle">Visual Language, Brand Building, Product Strategy, Bespoke Solutioning</p>
-    </div>
+    <h1>Tatsam</h1>
+    <p class="case-subtitle">Designing the visual language for mental wellness in India</p>
     <div class="case-meta">
       <div class="meta-item">
         <span class="meta-label">Client</span>
@@ -54,108 +197,98 @@
     </div>
   </section>
 
-  <!-- Case Highlight -->
   <section class="case-highlight">
     <div class="case-highlight-content">
       <div class="highlight-stat">
         <span class="stat-number">4</span>
-        <span class="stat-label">design disciplines</span>
+        <span class="stat-label">Disciplines working in harmony</span>
       </div>
       <div class="highlight-stat">
-        <span class="stat-number">Mental health</span>
-        <span class="stat-label">designing for India's most sensitive space</span>
+        <span class="stat-number">India</span>
+        <span class="stat-label">Designing for a stigma-heavy space</span>
       </div>
       <div class="highlight-stat">
         <span class="stat-number">End-to-end</span>
-        <span class="stat-label">from visual language to product strategy</span>
+        <span class="stat-label">Visual language to product strategy</span>
       </div>
     </div>
   </section>
 
-  <!-- Case Content -->
-  <main class="case-main">
-    <!-- Challenge -->
-    <section class="case-section">
-      <h2>Challenge</h2>
-      <p>Tatsam set out to create a mental health app for India — a market where mental wellness carries deep cultural stigma. The challenge wasn't just designing an app; it was creating an entire visual and emotional language that could make mental health feel approachable, warm, and culturally resonant. The product needed to balance clinical trustworthiness with emotional accessibility.</p>
-    </section>
+  <div class="case-image-full">
+    <img src="../images/work/tatsam.jpg" alt="Tatsam visual language system with botanical illustrations by Divya Tak" loading="lazy">
+  </div>
 
-    <!-- Approach -->
-    <section class="case-section">
-      <h2>Approach</h2>
-      <p>Joyus brought a holistic approach spanning visual language, brand identity, product strategy, and bespoke solutioning. We developed a visual system that communicated care without clinical coldness, using colors and forms that felt grounded in Indian aesthetic sensibilities. The brand building went beyond logos — we created a complete emotional framework that guided every touchpoint, from onboarding to daily check-ins. Our product strategy work ensured the features served real user needs rather than just ticking feature-list boxes.</p>
-    </section>
+  <section class="case-section fade-in">
+    <h2>The Challenge</h2>
+    <p>Tatsam set out to build a mental health app for India — a market where mental wellness carries real cultural stigma. The challenge wasn't just app design. It was creating an entire visual and emotional language from scratch, one that could make mental health feel approachable, warm, and culturally resonant. Every color, every illustration, every word needed to say: you're safe here.</p><p>Western mental health apps were too clinical. Indian equivalents felt dated. There was a genuine white space, but filling it required getting the visual language exactly right — because in this category, design IS the product.</p>
+  </section>
 
-    <!-- Outcome -->
-    <section class="case-section">
-      <h2>Outcome</h2>
-      <p>Tatsam launched with a visual identity that felt genuinely different from Western mental health apps. The brand language became a key differentiator, enabling users to engage with mental wellness content without the stigma barrier that had limited adoption of earlier products in the Indian market.</p>
-    </section>
-  </main>
+  <section class="case-section alt">
+    <div class="section-inner">
+      <h2>Our Approach</h2>
+      <p>Joyus built the visual system from first principles. The botanical illustration language Divya developed became the emotional core — organic, alive, Indian without being kitsch. We chose colors from the warm end of the spectrum, forms that felt soft and unguarded. The brand identity work went well beyond logos into a complete emotional framework guiding every touchpoint, from onboarding screens to daily check-in flows.</p><p>Product strategy ran in parallel with visual language. Features were only added when they served real user needs — we pushed back hard on anything that felt feature-box-ticking. The bespoke solutioning work meant developing custom approaches to genuinely novel problems: how do you prompt someone to open up about anxiety? What does a safe space look like on a 6-inch screen?</p>
+    </div>
+  </section>
 
-  <!-- Case Navigation -->
-  <nav class="case-nav">
-    <a href="klydo.html" class="case-nav-link prev">
-      <span class="nav-arrow">←</span>
-      <span class="nav-text">Klydo</span>
-    </a>
-    <a href="pratham.html" class="case-nav-link next">
-      <span class="nav-text">PrathamUSA</span>
-      <span class="nav-arrow">→</span>
-    </a>
-  </nav>
+  <section class="case-section fade-in">
+    <h2>The Outcome</h2>
+    <p>Tatsam launched with a visual identity unlike anything in the Indian mental health space. The brand language became a key differentiator, helping users engage with mental wellness content without the stigma barrier that had blocked earlier products. The botanical illustration system became the brand's most recognizable asset — a visual shorthand for warmth, care, and quiet safety.</p>
+  </section>
 
-  <!-- Footer -->
+  <div class="case-nav-bar">
+    <a href="klydo.html" class="case-nav-prev">← Klydo</a>
+    <a href="pratham.html" class="case-nav-next">PrathamUSA →</a>
+  </div>
+
   <footer class="footer">
     <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
       <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-      <ul class="footer-links">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../workshops.html">Workshops</a></li>
-        <li><a href="../about.html">About</a></li>
-      </ul>
     </div>
   </footer>
 
   <script>
-    // Mobile Navigation Toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-
-    if (navToggle) {
-      navToggle.addEventListener('click', () => {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
       });
     }
-
-    // Intersection Observer for scroll effects
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.case-section, .case-highlight, .case-hero').forEach(el => {
-      observer.observe(el);
-    });
-
-    // Update active nav on scroll
+    const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      const navbar = document.querySelector('.navbar');
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
+    const sections = document.querySelectorAll('.case-section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>

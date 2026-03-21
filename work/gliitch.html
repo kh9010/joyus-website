@@ -4,35 +4,179 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gliitch — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .case-hero {
+      padding: 7rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+      text-align: center;
+    }
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+    .case-subtitle {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .case-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .case-highlight {
+      background: #1a1a1a;
+      color: white;
+      padding: 4rem 2rem;
+    }
+    .case-highlight-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .highlight-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      max-width: 140px;
+      line-height: 1.4;
+    }
+    .case-image-full {
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+    .case-image-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .case-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .case-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .case-section.alt {
+      background: var(--warm-gray, #F5F3F0);
+      max-width: 100%;
+      padding: 4rem 2rem;
+    }
+    .case-section.alt .section-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      color: #111;
+    }
+    .case-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.1rem;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-nav-bar {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e8e6e4;
+    }
+    .case-nav-prev, .case-nav-next {
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
+    @media (max-width: 640px) {
+      .case-highlight-content { gap: 2rem; }
+      .stat-number { font-size: 2rem; }
+      .case-meta { gap: 1.5rem; }
+      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-container">
+  <nav class="nav-bar">
+    <div class="nav-container">
       <a href="../index.html" class="logo">
         <img src="../images/logo.webp" alt="Joyus Studio">
       </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html" class="active">Work</a></li>
-          <li><a href="../workshops.html">Workshops</a></li>
-          <li><a href="../about.html">About</a></li>
-        </ul>
-      </nav>
-      <button class="menu-toggle" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
     </div>
-  </header>
+  </nav>
 
-  <section class="case-hero fade-in">
-    <div class="hero-content">
-      <h1>Gliitch</h1>
-      <p class="hero-subtitle">Moodboarding, Branding, Media Guides</p>
-    </div>
+  <section class="case-hero">
+    <h1>Gliitch</h1>
+    <p class="case-subtitle">Creating the visual identity for a Hong Kong digital provider</p>
     <div class="case-meta">
       <div class="meta-item">
         <span class="meta-label">Client</span>
@@ -43,87 +187,72 @@
         <span class="meta-value">Hong Kong</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Type</span>
-        <span class="meta-value">Digital Services Provider</span>
-      </div>
-      <div class="meta-item">
         <span class="meta-label">Services</span>
         <span class="meta-value">Moodboarding, Branding, Media Guides</span>
       </div>
     </div>
   </section>
 
-  <section class="case-highlight fade-in">
-    <div class="highlight-stats">
+  <section class="case-highlight">
+    <div class="case-highlight-content">
       <div class="highlight-stat">
-        <div class="number">Full Brand</div>
-        <div class="desc">Visual System</div>
+        <span class="stat-number">Moodboard</span>
+        <span class="stat-label">To complete brand system</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">Moodboard → Guidelines</div>
-        <div class="desc">Complete Process</div>
+        <span class="stat-number">Identity</span>
+        <span class="stat-label">Mark, color, typography, voice</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">Asia-Pacific</div>
-        <div class="desc">Market Positioning</div>
+        <span class="stat-number">Media-ready</span>
+        <span class="stat-label">Guidelines for every channel</span>
       </div>
+    </div>
+  </section>
+
+  <div class="case-image-full">
+    <img src="../images/work/gliitch.jpg" alt="Gliitch brand identity and visual system mockups" loading="lazy">
+  </div>
+
+  <section class="case-section fade-in">
+    <h2>The Challenge</h2>
+    <p>Gliitch, a digital service provider in Hong Kong, had a great name — the deliberate misspelling captured exactly the irreverent, technically-grounded personality they wanted to project. What they lacked was a visual identity system to match. They needed to go from name and attitude to a complete brand that could work across digital platforms, media appearances, and client-facing materials.</p>
+  </section>
+
+  <section class="case-section alt">
+    <div class="section-inner">
+      <h2>Our Approach</h2>
+      <p>Moodboarding was the essential first step: establishing the visual territory before committing to any specific mark or color. We explored the intersection of digital-native aesthetics and Hong Kong's distinctive visual culture — finding a tone that felt fresh and international without being generic. The final brand direction leaned into controlled imperfection: the glitch aesthetic made visual, but made elegant.</p><p>The identity system we built — mark, color palette, typography, tone of voice — gave Gliitch a complete toolkit. The media guides made sure anyone creating content for the brand could do it consistently, whether they were designing social posts or preparing pitch decks for enterprise clients.</p>
     </div>
   </section>
 
   <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Challenge</h2>
-      <p>Gliitch, a Hong Kong-based digital services provider, needed a visual identity that would differentiate them in a competitive market while communicating their creative, forward-thinking approach. They required a brand system that felt contemporary and digital-native, yet maintained the sophistication necessary to appeal to enterprise clients across Asia-Pacific markets.</p>
-    </div>
+    <h2>The Outcome</h2>
+    <p>Gliitch launched with a brand identity that lived up to its name — distinctive, technically-aware, and genuinely memorable in a market crowded with generic digital agency aesthetics. The brand system has proven flexible enough to work across the different contexts of their business: developer-facing, executive-facing, and media-facing, all from one coherent visual foundation.</p>
   </section>
 
-  <section class="case-section alt-bg fade-in">
-    <div class="section-content">
-      <h2>Approach</h2>
-      <p>We began with extensive moodboarding sessions to explore visual territories that would capture Gliitch's energy and positioning. This exploratory phase was critical — moving beyond assumptions to discover authentic visual directions that resonated with the team's vision and culture.</p>
-      <p>From these insights, we developed a distinctive brand identity with a strong typographic foundation, carefully curated color palette, and a system of visual elements that could extend across diverse applications. The branding work extended into comprehensive media guides ensuring consistency across all touchpoints, from website and applications to presentation templates, business collateral, and social media.</p>
-    </div>
-  </section>
+  <div class="case-nav-bar">
+    <a href="agemo.html" class="case-nav-prev">← Agemo / CodeWords</a>
+    <a href="rachna-nivas.html" class="case-nav-next">Rachna Nivas →</a>
+  </div>
 
-  <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Outcome</h2>
-      <p>A cohesive brand system that positioned Gliitch as a creative force in the Asia-Pacific digital services space. The brand guidelines provided clear direction for internal teams and external partners, making the identity easy to maintain and extend. The visual system proved flexible enough to work across multiple contexts — from technical documentation to marketing collateral — while maintaining consistent brand voice. Gliitch gained a distinctive presence that reflected their innovative approach to digital problem-solving.</p>
-    </div>
-  </section>
-
-  <nav class="case-nav fade-in">
-    <a href="agemo.html" class="nav-link prev">
-      <span>←</span> Previous
-    </a>
-    <a href="rachna-nivas.html" class="nav-link next">
-      Next <span>→</span>
-    </a>
-  </nav>
-
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-        <p>Joyus Studio creates thoughtful design for brands, products, and experiences.</p>
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
       </div>
-      <div class="footer-links">
-        <div class="link-column">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="index.html">Work</a></li>
-            <li><a href="../workshops.html">Workshops</a></li>
-            <li><a href="../about.html">About</a></li>
-          </ul>
-        </div>
-        <div class="link-column">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="mailto:hello@joyus.studio">Email</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-          </ul>
-        </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -132,38 +261,30 @@
   </footer>
 
   <script>
-    // Intersection Observer for fade-in effect
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          observer.unobserve(entry.target);
-        }
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transition = 'opacity 0.6s ease-in';
-      observer.observe(el);
-    });
-
-    // Navigation scroll shadow
-    const header = document.querySelector('.site-header');
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) {
-        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      } else {
-        header.style.boxShadow = 'none';
-      }
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    menuToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
-    });
+    const sections = document.querySelectorAll('.case-section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>

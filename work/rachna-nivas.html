@@ -4,126 +4,255 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rachna Nivas — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    .case-hero {
+      padding: 7rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+      text-align: center;
+    }
+    .case-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      margin-bottom: 0.75rem;
+      color: #111;
+    }
+    .case-subtitle {
+      font-size: 1.15rem;
+      color: #555;
+      max-width: 680px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+    .case-meta {
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .meta-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+    }
+    .meta-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #333;
+    }
+    .case-highlight {
+      background: #1a1a1a;
+      color: white;
+      padding: 4rem 2rem;
+    }
+    .case-highlight-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      gap: 4rem;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    .highlight-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: white;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: #aaa;
+      max-width: 140px;
+      line-height: 1.4;
+    }
+    .case-image-full {
+      width: 100%;
+      max-height: 520px;
+      overflow: hidden;
+      border-bottom: 1px solid #eee;
+    }
+    .case-image-full img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+    }
+    .case-section {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .case-section.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .case-section.alt {
+      background: var(--warm-gray, #F5F3F0);
+      max-width: 100%;
+      padding: 4rem 2rem;
+    }
+    .case-section.alt .section-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .case-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      margin-bottom: 1.25rem;
+      color: #111;
+    }
+    .case-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.1rem;
+    }
+    .case-section p:last-child { margin-bottom: 0; }
+    .case-nav-bar {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #e8e6e4;
+    }
+    .case-nav-prev, .case-nav-next {
+      font-size: 0.9rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
+    @media (max-width: 640px) {
+      .case-highlight-content { gap: 2rem; }
+      .stat-number { font-size: 2rem; }
+      .case-meta { gap: 1.5rem; }
+      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
+    }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-container">
+  <nav class="nav-bar">
+    <div class="nav-container">
       <a href="../index.html" class="logo">
         <img src="../images/logo.webp" alt="Joyus Studio">
       </a>
-      <nav class="main-nav">
-        <ul>
-          <li><a href="index.html" class="active">Work</a></li>
-          <li><a href="../workshops.html">Workshops</a></li>
-          <li><a href="../about.html">About</a></li>
-        </ul>
-      </nav>
-      <button class="menu-toggle" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger">
         <span></span>
         <span></span>
         <span></span>
       </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../workshops.html">Workshops</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
     </div>
-  </header>
+  </nav>
 
-  <section class="case-hero fade-in">
-    <div class="hero-content">
-      <h1>Rachna Nivas</h1>
-      <p class="hero-subtitle">Identity Finding, Leverage Building, Artifacts Creation</p>
-    </div>
+  <section class="case-hero">
+    <h1>Rachna Nivas</h1>
+    <p class="case-subtitle">Helping a classical dancer find her voice in the digital age</p>
     <div class="case-meta">
       <div class="meta-item">
         <span class="meta-label">Client</span>
         <span class="meta-value">Rachna Nivas</span>
       </div>
       <div class="meta-item">
-        <span class="meta-label">Location</span>
-        <span class="meta-value">USA (NYC-based)</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Role</span>
-        <span class="meta-value">Performing Artist, Choreographer, Educator</span>
+        <span class="meta-label">Category</span>
+        <span class="meta-value">Arts & Performance</span>
       </div>
       <div class="meta-item">
         <span class="meta-label">Services</span>
-        <span class="meta-value">Identity Finding, Brand Development, Content Strategy</span>
+        <span class="meta-value">Identity Finding, Leverage Building, Content Strategy</span>
       </div>
     </div>
   </section>
 
-  <section class="case-highlight fade-in">
-    <div class="highlight-stats">
+  <section class="case-highlight">
+    <div class="case-highlight-content">
       <div class="highlight-stat">
-        <div class="number">5000+</div>
-        <div class="desc">Years of Kathak Tradition</div>
+        <span class="stat-number">Authenticity</span>
+        <span class="stat-label">Digital voice that stays true</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">Many ×</div>
-        <div class="desc">Social Engagement Increase</div>
+        <span class="stat-number">Engagement</span>
+        <span class="stat-label">Many times more social interaction</span>
       </div>
       <div class="highlight-stat">
-        <div class="number">Brand Book</div>
-        <div class="desc">Created for Team Handoff</div>
+        <span class="stat-number">Strategy</span>
+        <span class="stat-label">Content system built to scale</span>
       </div>
+    </div>
+  </section>
+
+  <div class="case-image-full">
+    <img src="../images/work/rachna-nivas.jpg" alt="Rachna Nivas digital identity and content strategy" loading="lazy">
+  </div>
+
+  <section class="case-section fade-in">
+    <h2>The Challenge</h2>
+    <p>Rachna Nivas is a classical dancer whose art form carries centuries of tradition and technique. The digital world moves fast; Bharatanatyam does not. The challenge was helping Rachna find a way to participate in social media, content creation, and digital community-building without compromising the depth and integrity of her art — or worse, flattening it into something performatively 'traditional' for a Western gaze.</p>
+  </section>
+
+  <section class="case-section alt">
+    <div class="section-inner">
+      <h2>Our Approach</h2>
+      <p>We spent time understanding what Rachna genuinely wanted to communicate — not what social media algorithms reward, but what actually mattered to her about this art form and why she wanted to share it. The answer shaped everything: she wanted to show people the 8-10 years of dedicated study behind a single gesture. The depth, not just the surface.</p><p>The content strategy we built was designed around that insight: content that revealed process, that showed the gap between beginner and mastery, that made complexity legible without dumbing it down. The leverage strategy identified the specific platforms and formats where classical dance content had already found audiences and how Rachna could build on those communities authentically.</p>
     </div>
   </section>
 
   <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Challenge</h2>
-      <p>Rachna Nivas, a NYC-based performing artist, choreographer, and classical Kathak dancer, needed to create space for more dynamism in her professional profile. As an educator, activist, and preserver of the 5000+ year old dance form of Kathak, Rachna wanted to own her distinct identity while remaining true to the legacy of the art form. She was applying for new fellowships and residencies, but her powerful voice was getting obscured by the weight of tradition. How could she show why she belonged without making a defensive case?</p>
-    </div>
+    <h2>The Outcome</h2>
+    <p>Rachna's social engagement multiplied many times over — but more importantly, the new audience was the right one: people genuinely interested in the depth of classical Indian dance, not just pretty content to scroll past. The content system we built gave her a sustainable way to create without burning out or compromising her practice. She found her digital voice by staying true to her artistic one.</p>
   </section>
 
-  <section class="case-section alt-bg fade-in">
-    <div class="section-content">
-      <h2>Approach</h2>
-      <p>Working closely with Rachna to uncover her motivations, values, and unique perspective, we helped her communicate why she belonged in prestigious spaces rather than making a formal case for it. We translated her powerful in-person presence — her depth of knowledge, her passion, her clarity — into written form that could live on the page and screen.</p>
-      <p>Rather than encouraging frequent, short, digestible social media content following conventional wisdom, we encouraged Rachna to follow what felt authentic. This meant longer, deeper posts that leaned into her strong base of knowledge about Kathak history, technique, and cultural significance. We created a visual guide and brand book covering her voice, imagery, aesthetic preferences, and content approach — giving her team clear direction for supporting her evolving presence.</p>
-    </div>
-  </section>
+  <div class="case-nav-bar">
+    <a href="gliitch.html" class="case-nav-prev">← Gliitch</a>
+    <a href="tomboyx.html" class="case-nav-next">TomboyX →</a>
+  </div>
 
-  <section class="case-section fade-in">
-    <div class="section-content">
-      <h2>Outcome</h2>
-      <p>These authenticity-forward posts, despite breaking social media "rules" about optimal length and frequency, delivered many times more social engagement than shorter content would have. More importantly, Rachna gained a rising presence in the New York City arts scene. By refusing to dilute her voice for algorithmic preference, she attracted meaningful connections with curators, collaborators, and institutions who valued depth and substance. More authenticity led to more meaningful contacts and more meaningful collaborations — fellowships, residencies, and speaking opportunities. The brand identity became less about marketing and more about creating a coherent presence that honored both the tradition she preserves and the innovation she brings.</p>
-    </div>
-  </section>
-
-  <nav class="case-nav fade-in">
-    <a href="gliitch.html" class="nav-link prev">
-      <span>←</span> Previous
-    </a>
-    <a href="#" class="nav-link next" disabled>
-      Next <span>→</span>
-    </a>
-  </nav>
-
-  <footer class="site-footer">
+  <footer class="footer">
     <div class="footer-content">
       <div class="footer-brand">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-        <p>Joyus Studio creates thoughtful design for brands, products, and experiences.</p>
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
       </div>
-      <div class="footer-links">
-        <div class="link-column">
-          <h4>Explore</h4>
-          <ul>
-            <li><a href="index.html">Work</a></li>
-            <li><a href="../workshops.html">Workshops</a></li>
-            <li><a href="../about.html">About</a></li>
-          </ul>
-        </div>
-        <div class="link-column">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="mailto:hello@joyus.studio">Email</a></li>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">LinkedIn</a></li>
-          </ul>
-        </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="index.html">Work</a></li>
+          <li><a href="../workshops.html">Workshops</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -132,38 +261,30 @@
   </footer>
 
   <script>
-    // Intersection Observer for fade-in effect
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          observer.unobserve(entry.target);
-        }
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-      el.style.opacity = '0';
-      el.style.transition = 'opacity 0.6s ease-in';
-      observer.observe(el);
-    });
-
-    // Navigation scroll shadow
-    const header = document.querySelector('.site-header');
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) {
-        header.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
-      } else {
-        header.style.boxShadow = 'none';
-      }
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
-
-    // Mobile menu toggle
-    const menuToggle = document.querySelector('.menu-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    menuToggle.addEventListener('click', () => {
-      mainNav.classList.toggle('active');
-    });
+    const sections = document.querySelectorAll('.case-section');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
+    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
+    sections.forEach(s => obs.observe(s));
   </script>
 </body>
 </html>
