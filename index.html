@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joyus Studio - Design & Strategy Collective</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #E91E7B;
+            --cyan: #4FC4CF;
+            --black: #111214;
+            --white: #FFFFFF;
+            --light-gray: #F8F8F8;
+            --gray: #888888;
+            --font-sans: 'DM Sans', sans-serif;
+            --font-serif: 'DM Serif Display', serif;
+            --font-script: 'Caveat', cursive;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--black);
+            background-color: var(--white);
+            line-height: 1.6;
+        }
+
+        /* ===== UTILITIES ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section {
+            padding: 6rem 2rem;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            color: var(--black);
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== DECORATIVE ELEMENTS ===== */
+        .dot-grid {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            background-image: radial-gradient(circle, var(--pink) 2px, transparent 2px);
+            background-size: 15px 15px;
+            opacity: 0.6;
+        }
+
+        .dot-grid-small {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-image: radial-gradient(circle, var(--pink) 1.5px, transparent 1.5px);
+            background-size: 12px 12px;
+            opacity: 0.5;
+        }
+
+        .arc-group {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            pointer-events: none;
+        }
+
+        .arc {
+            position: absolute;
+            border: 2px solid var(--cyan);
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+
+        .arc-1 {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--cyan);
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .arc-2 {
+            width: 100px;
+            height: 100px;
+            border: 2px solid var(--cyan);
+            border-left: none;
+            border-bottom: none;
+            top: -20px;
+            left: -20px;
+        }
+
+        .arc-3 {
+            width: 140px;
+            height: 140px;
+            border: 2px solid var(--cyan);
+            border-left: none;
+            border-bottom: none;
+            top: -40px;
+            left: -40px;
+        }
+
+        /* ===== NAVIGATION ===== */
+        nav {
+            position: sticky;
+            top: 0;
+            background-color: var(--white);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--black);
+            position: relative;
+            letter-spacing: -1px;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: var(--pink);
+            border-radius: 50%;
+            top: 2px;
+            left: 50%;
+            transform: translateX(-2px);
+            box-shadow: -12px 0 0 0 var(--pink), 12px 0 0 0 var(--pink), -6px 6px 0 0 var(--pink), 6px 6px 0 0 var(--pink), -6px -6px 0 0 var(--pink), 6px -6px 0 0 var(--pink);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--black);
+            font-size: 0.95rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--pink);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--pink);
+        }
+
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background-color: var(--pink);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .cta-button:hover {
+            background-color: #d41865;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(233, 30, 123, 0.3);
+        }
+
+        /* ===== HERO SECTION ===== */
+        #hero {
+            position: relative;
+            padding: 8rem 2rem;
+            background-color: var(--white);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: var(--black);
+        }
+
+        .hero-services {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-style: italic;
+        }
+
+        .hero-decorative {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .hero-decorative-left {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            bottom: 4rem;
+            left: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .hero-decorative, .hero-decorative-left {
+                display: none;
+            }
+        }
+
+        /* ===== WORK SECTION ===== */
+        #work {
+            background-color: var(--light-gray);
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray);
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .case-study-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .case-study-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .case-study-card.expanded {
+            grid-column: 1 / -1;
+        }
+
+        .card-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .card-client {
+            font-size: 0.85rem;
+            color: var(--pink);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-headline {
+            font-size: 1.3rem;
+            font-family: var(--font-serif);
+            margin-bottom: 1rem;
+            color: var(--black);
+        }
+
+        .metric-highlight {
+            display: flex;
+            gap: 3rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--pink);
+            font-family: var(--font-sans);
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 0.3rem;
+            font-weight: 500;
+        }
+
+        .card-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--black);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background-color: rgba(233, 30, 123, 0.1);
+            color: var(--pink);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .card-details {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            padding-top: 1rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            margin-top: 1rem;
+        }
+
+        .card-detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 0.2rem;
+        }
+
+        .expanded-content {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .expanded-content.show {
+            display: block;
+        }
+
+        .insight {
+            background-color: rgba(79, 196, 207, 0.05);
+            padding: 1.5rem;
+            border-left: 3px solid var(--cyan);
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .insight-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+        }
+
+        .insight-text {
+            color: var(--black);
+            line-height: 1.7;
+        }
+
+        .annotation {
+            font-family: var(--font-script);
+            font-size: 1.1rem;
+            color: var(--pink);
+            font-style: italic;
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .annotation::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--pink);
+            opacity: 0.5;
+        }
+
+        /* ===== CREATIONS SECTION ===== */
+        #creations {
+            background-color: var(--white);
+            position: relative;
+        }
+
+        .creations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            align-items: center;
+            min-height: 300px;
+        }
+
+        .creations-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--gray);
+            text-align: center;
+        }
+
+        .creations-decorative {
+            position: absolute;
+            top: -40px;
+            left: 10%;
+            width: 250px;
+            height: 250px;
+        }
+
+        /* ===== PODCAST SECTION ===== */
+        #podcast {
+            background: linear-gradient(135deg, rgba(233, 30, 123, 0.08) 0%, rgba(79, 196, 207, 0.08) 100%);
+            text-align: center;
+        }
+
+        .podcast-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .podcast-description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--black);
+            margin-bottom: 3rem;
+        }
+
+        .spotify-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            border: 2px solid rgba(79, 196, 207, 0.3);
+        }
+
+        .spotify-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #1DB954;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .spotify-text {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        #services {
+            background-color: var(--light-gray);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        .service-card h3 {
+            color: var(--black);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .service-price {
+            font-weight: 700;
+            color: var(--pink);
+            font-size: 1.1rem;
+        }
+
+        /* ===== ABOUT SECTION ===== */
+        #about {
+            background-color: var(--white);
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .about-intro {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--black);
+            margin-bottom: 3rem;
+        }
+
+        .about-philosophy {
+            background-color: rgba(233, 30, 123, 0.05);
+            padding: 2.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+            border-left: 4px solid var(--pink);
+        }
+
+        .about-philosophy p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--black);
+            font-style: italic;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        #contact {
+            background-color: var(--light-gray);
+            position: relative;
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-email {
+            font-size: 2.5rem;
+            color: var(--pink);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin: 2rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .contact-email:hover {
+            text-decoration: underline;
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            color: var(--black);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--pink);
+        }
+
+        .contact-decorative-1 {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+
+        .contact-decorative-2 {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                font-size: 0.85rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .work-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-email {
+                font-size: 1.8rem;
+            }
+
+            .metric-highlight {
+                gap: 1.5rem;
+            }
+
+            .metric-value {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-subtitle {
+                font-size: 0.95rem;
+            }
+
+            .card-details {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .cta-button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .contact-email {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">joyus</div>
+            <ul>
+                <li><a href="#work">Work</a></li>
+                <li><a href="#creations">Creations</a></li>
+                <li><a href="#podcast">Podcast</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact" class="cta-button">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+        <div class="arc-group hero-decorative">
+            <div class="arc arc-1"></div>
+            <div class="arc arc-2"></div>
+            <div class="arc arc-3"></div>
+        </div>
+        <div class="dot-grid hero-decorative-left"></div>
+
+        <div class="hero-content fade-in">
+            <h1>We're theoretical experimentalists.</h1>
+            <p class="hero-subtitle">We build art, companies, brands and products.</p>
+            <p>We'll help you understand what you want, and break down what stands in your way.</p>
+            <p class="hero-services">We design, we build, we manage, we market, we advise, we grow.</p>
+            <button class="cta-button" onclick="document.getElementById('work').scrollIntoView({ behavior: 'smooth' });">See our work</button>
+        </div>
+    </section>
+
+    <!-- WORK SECTION -->
+    <section id="work">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Our Work</h2>
+                <p>Here's a few snapshots of how we work</p>
+            </div>
+
+            <div class="work-grid" id="work-grid">
+                <!-- Case Study 1: TATSAM -->
+                <div class="case-study-card fade-in" data-case="tatsam">
+                    <div class="card-header">
+                        <div class="card-client">TATSAM</div>
+                        <h3 class="card-headline">A holistic approach to mental wellness</h3>
+                    </div>
+
+                    <p class="card-description">Tatsam needed an inviting, calming and comforting visual language for their mental health app. The design uses colors and shapes to create a sense of camaraderie and intimacy that kickstarts the relationship even before a user speaks to a therapist.</p>
+
+                    <div class="metric-highlight">
+                        <div class="metric">
+                            <div class="metric-value">60%</div>
+                            <div class="metric-label">wellbeing below avg</div>
+                        </div>
+                    </div>
+
+                    <div class="card-tags">
+                        <span class="tag">Visual Language</span>
+                        <span class="tag">Brand Building</span>
+                        <span class="tag">Product Strategy</span>
+                        <span class="tag">Bespoke Solutions</span>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-detail-item">
+                            <span class="detail-label">Location</span>
+                            <span>India</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Size</span>
+                            <span>10-50 Employees</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Stage</span>
+                            <span>Seed Funded</span>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content">
+                        <div class="insight">
+                            <div class="insight-title">Key Insight:</div>
+                            <div class="insight-text">Research-backed onboarding designed with psychologists to build intimacy without overwhelming users. Every interaction designed to signal understanding and safety.</div>
+                        </div>
+                        <div class="annotation">Product details align what we "say" with what we "do"</div>
+                        <div class="annotation">Brand voice guidelines across mediums align the user's experience</div>
+                    </div>
+                </div>
+
+                <!-- Case Study 2: TOMBOYX -->
+                <div class="case-study-card fade-in" data-case="tomboyx">
+                    <div class="card-header">
+                        <div class="card-client">TOMBOYX</div>
+                        <h3 class="card-headline">Reviving a beloved brand through storytelling</h3>
+                    </div>
+
+                    <p class="card-description">TomboyX, a beloved inclusive underwear company with $25M annual revenue, needed a refreshed story to raise a re-capitalization in a down round. We crafted investor narratives for different audiences.</p>
+
+                    <div class="metric-highlight">
+                        <div class="metric">
+                            <div class="metric-value">2.5%</div>
+                            <div class="metric-label">return rate</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">72%</div>
+                            <div class="metric-label">product margins</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">76</div>
+                            <div class="metric-label">NPS</div>
+                        </div>
+                    </div>
+
+                    <div class="card-tags">
+                        <span class="tag">Story</span>
+                        <span class="tag">Investor Pitch</span>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-detail-item">
+                            <span class="detail-label">Location</span>
+                            <span>United States</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Size</span>
+                            <span>10-20 Employees</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Revenue</span>
+                            <span>$25M Annual</span>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content">
+                        <div class="insight">
+                            <div class="insight-title">Key Insight:</div>
+                            <div class="insight-text">Different versions of the pitch for different investor types — emotional narratives for early believers, data-heavy for operator-angels, exceptional elements for syndicate LPs. One company story, multiple resonant angles.</div>
+                        </div>
+                        <div class="metric-highlight" style="margin-top: 1rem;">
+                            <div class="metric">
+                                <div class="metric-value">50%</div>
+                                <div class="metric-label">repeat customer rate</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">4.3%</div>
+                                <div class="metric-label">conversion rate</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">$5M</div>
+                                <div class="metric-label">raised</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Study 3: KLYDO -->
+                <div class="case-study-card fade-in" data-case="klydo">
+                    <div class="card-header">
+                        <div class="card-client">KLYDO</div>
+                        <h3 class="card-headline">Building a high growth startup in fashion commerce</h3>
+                    </div>
+
+                    <p class="card-description">Klydo came as 4 people with a dream of capturing the new 15-min shopping channel for fashion. They needed to create their vision and differentiate in a market where the leader had a year+ head start.</p>
+
+                    <div class="metric-highlight">
+                        <div class="metric">
+                            <div class="metric-value">150</div>
+                            <div class="metric-label">daily sales</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">30+</div>
+                            <div class="metric-label">min/week shopping</div>
+                        </div>
+                    </div>
+
+                    <div class="card-tags">
+                        <span class="tag">Product Strategy</span>
+                        <span class="tag">Brand Story</span>
+                        <span class="tag">GTM</span>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-detail-item">
+                            <span class="detail-label">Location</span>
+                            <span>India</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Stage</span>
+                            <span>Pre-Series A</span>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content">
+                        <div class="insight">
+                            <div class="insight-title">Key Insight:</div>
+                            <div class="insight-text">Working across disciplines — brand design, product operations, content systems, narrative — to help the team see the forest while dealing with the trees. Strategy and execution become one.</div>
+                        </div>
+                        <div class="annotation">Building for desire is rare in India</div>
+                        <div class="annotation">Creating something new, even in retail, is always possible</div>
+                    </div>
+                </div>
+
+                <!-- Case Study 4: AGEMO / CODEWORDS -->
+                <div class="case-study-card fade-in" data-case="agemo">
+                    <div class="card-header">
+                        <div class="card-client">AGEMO / CODEWORDS</div>
+                        <h3 class="card-headline">Teaching people a new way of creating with AI</h3>
+                    </div>
+
+                    <p class="card-description">A GenAI startup with a new way of coding requiring an unexpected user paradigm. How do you teach people a new way of creating a tech-based process? The answer depends on who they are and what they are trying to do.</p>
+
+                    <div class="card-tags">
+                        <span class="tag">Research</span>
+                        <span class="tag">Product Strategy</span>
+                        <span class="tag">Interface Design</span>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-detail-item">
+                            <span class="detail-label">Location</span>
+                            <span>United Kingdom</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Size</span>
+                            <span>1-10 Employees</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Stage</span>
+                            <span>Pre-Series A</span>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content">
+                        <div class="insight">
+                            <div class="insight-title">Key Insight:</div>
+                            <div class="insight-text">Research revealed the missing step — space for refinement. Users won't create from a blank prompt at first; they need inspiration and examples to refine their thinking. The interface became a reflection of this understanding.</div>
+                        </div>
+                        <div class="annotation">Revised experience supports users with a more exploratory mindset</div>
+                    </div>
+                </div>
+
+                <!-- Case Study 5: RACHNA NIVAS -->
+                <div class="case-study-card fade-in" data-case="rachna">
+                    <div class="card-header">
+                        <div class="card-client">RACHNA NIVAS</div>
+                        <h3 class="card-headline">Standing out as a classical dancer</h3>
+                    </div>
+
+                    <p class="card-description">Rachna Nivas, a NYC-based Kathak artist and choreographer, needed a new way to talk about herself for fellowships and residencies. We helped her show why she belonged, instead of making a case for it.</p>
+
+                    <div class="metric-highlight">
+                        <div class="metric">
+                            <div class="metric-value">1,377</div>
+                            <div class="metric-label">likes on auth post</div>
+                        </div>
+                    </div>
+
+                    <div class="card-tags">
+                        <span class="tag">Identity Finding</span>
+                        <span class="tag">Leverage Building</span>
+                        <span class="tag">Artifacts Creation</span>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-detail-item">
+                            <span class="detail-label">Location</span>
+                            <span>United States</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Type</span>
+                            <span>Sole Practitioner</span>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content">
+                        <div class="insight">
+                            <div class="insight-title">Key Insight:</div>
+                            <div class="insight-text">Authenticity-forward posts, despite breaking rules around optimal length, delivered many times more social engagements and a rising presence in the NYC arts scene. Being real won out over algorithm optimization.</div>
+                        </div>
+                        <div class="annotation">A virtuous loop: more authenticity led to more meaningful contacts which led to more meaningful collaborations</div>
+                    </div>
+                </div>
+
+                <!-- Case Study 6: PRATHAM USA -->
+                <div class="case-study-card fade-in" data-case="pratham">
+                    <div class="card-header">
+                        <div class="card-client">PRATHAM USA</div>
+                        <h3 class="card-headline">Reimagining the donor journey for a $50M nonprofit</h3>
+                    </div>
+
+                    <p class="card-description">PrathamUSA saw a catastrophic drop in donations in 2020, with many $2,000-$10,000 donors lost. We mapped the donor journey, uncovered information flow breakdowns, and found that high-value experiences were key to forming the highest value relationships.</p>
+
+                    <div class="metric-highlight">
+                        <div class="metric">
+                            <div class="metric-value">$50M</div>
+                            <div class="metric-label">nonprofit scale</div>
+                        </div>
+                    </div>
+
+                    <div class="card-tags">
+                        <span class="tag">Donor Research</span>
+                        <span class="tag">Process Creation</span>
+                        <span class="tag">Information Flow</span>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="card-detail-item">
+                            <span class="detail-label">Location</span>
+                            <span>United States</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Size</span>
+                            <span>50-100 Employees</span>
+                        </div>
+                        <div class="card-detail-item">
+                            <span class="detail-label">Category</span>
+                            <span>Nonprofit</span>
+                        </div>
+                    </div>
+
+                    <div class="expanded-content">
+                        <div class="insight">
+                            <div class="insight-title">Key Insight:</div>
+                            <div class="insight-text">Long-form publications, though low in views, were consumed by the highest-value donors. The challenge was not to cut costs but to invest more in reaching key donor groups with the right messages and experiences.</div>
+                        </div>
+                        <div class="annotation">Higher value, poorly scalable experiences were key to forming the highest value relationships with donors</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CREATIONS SECTION -->
+    <section id="creations">
+        <div class="arc-group creations-decorative">
+            <div class="arc arc-1"></div>
+            <div class="arc arc-2"></div>
+            <div class="arc arc-3"></div>
+        </div>
+
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Creations</h2>
+                <p>Our stories are fierce. Businesses built on dreams. Sandcastles carved from the sky and made real on the earth.</p>
+            </div>
+
+            <div class="creations-grid fade-in">
+                <div class="creations-text">
+                    <p>Poem films, collaborative works, and more — coming soon.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PODCAST SECTION -->
+    <section id="podcast">
+        <div class="container">
+            <div class="podcast-content fade-in">
+                <h2>Thinking on Thinking</h2>
+                <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh, it's a podcast for creatives who want to make a living.</p>
+
+                <div class="spotify-card">
+                    <div class="spotify-icon">🎧</div>
+                    <p class="spotify-text">Listen on Spotify, Apple Podcasts, and more</p>
+                    <a href="#" class="cta-button" onclick="event.preventDefault(); alert('Podcast link coming soon');">Listen Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>We are flexible! We work in a lot of different ways.</h2>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <h3>Paid Expertise</h3>
+                    <p>Not sure about your problem statement? A one hour chat can help build clarity for your next step. Low commitment and pocket friendly.</p>
+                    <div class="service-price">Starting at $200</div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <h3>Workshops</h3>
+                    <p>Have an idea that needs to move forward? A 2-3 day mini-sprint with your team to get unstuck. Past workshops include GenAI, Founder Counseling, Creativity + more.</p>
+                    <div class="service-price">Starting at $2,000</div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <h3>Coaching & Prep</h3>
+                    <p>Need help getting buy-in? We supplement your ideas with our models and help transform an idea into a built deck for investors, product people, or your CEO.</p>
+                    <div class="service-price">Starting at $5,000</div>
+                </div>
+
+                <div class="service-card fade-in">
+                    <h3>Project-Based</h3>
+                    <p>We work on a milestone basis from genesis through prototyping to development and go-to-market.</p>
+                    <div class="service-price">Contact us</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>About Joyus</h2>
+            </div>
+
+            <div class="about-content fade-in">
+                <p class="about-intro">Headed by Divya Tak and Kahran Singh, we're a collective of experts brave enough to back the idea before the world knew it was smart.</p>
+
+                <div class="about-philosophy">
+                    <p>We work on projects with impact. The projects it feels impossible to hire consultants for. The projects that change the lives of the people who touch them. The projects that'll haunt you until the day they're made.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact">
+        <div class="dot-grid-small contact-decorative-1"></div>
+        <div class="dot-grid-small contact-decorative-2"></div>
+
+        <div class="container">
+            <div class="contact-content fade-in">
+                <h2>be our friends.</h2>
+                <a href="mailto:hello@joyus.studio" class="contact-email">hello@joyus.studio</a>
+
+                <div class="social-links">
+                    <a href="#" class="social-link">Twitter</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Joyus Studio. All rights reserved. Made with care.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Update active nav link
+            updateActiveNavLink();
+        });
+
+        function updateActiveNavLink() {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Case study card expansion
+        const cards = document.querySelectorAll('.case-study-card');
+
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Prevent expansion if clicking on a link
+                if (e.target.closest('a')) return;
+
+                const expandedContent = this.querySelector('.expanded-content');
+                const isExpanded = this.classList.contains('expanded');
+
+                // Close all other cards
+                cards.forEach(otherCard => {
+                    if (otherCard !== this) {
+                        otherCard.classList.remove('expanded');
+                        const otherContent = otherCard.querySelector('.expanded-content');
+                        if (otherContent) {
+                            otherContent.classList.remove('show');
+                        }
+                    }
+                });
+
+                // Toggle current card
+                if (isExpanded) {
+                    this.classList.remove('expanded');
+                    if (expandedContent) {
+                        expandedContent.classList.remove('show');
+                    }
+                } else {
+                    this.classList.add('expanded');
+                    if (expandedContent) {
+                        expandedContent.classList.add('show');
+                    }
+                    // Scroll to the expanded card
+                    setTimeout(() => {
+                        this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }, 100);
+                }
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#' && href !== '#contact') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Initialize
+        updateActiveNavLink();
+    </script>
+</body>
+</html>
