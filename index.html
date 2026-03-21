@@ -519,10 +519,51 @@
 
         .creations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            align-items: center;
-            min-height: 300px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        .creation-card {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .creation-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .creation-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .creation-card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+
+        .creation-card p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 0.8rem;
+        }
+
+        .creation-meta {
+            font-size: 0.85rem !important;
+            color: var(--gray) !important;
+            margin-top: 1rem !important;
+            padding-top: 1rem;
+            border-top: 1px solid #e0e0e0;
         }
 
         .creations-text {
@@ -766,6 +807,14 @@
                 grid-template-columns: 1fr;
             }
 
+            .creations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .founders-grid {
+                grid-template-columns: 1fr !important;
+            }
+
             .contact-email {
                 font-size: 1.8rem;
             }
@@ -853,7 +902,7 @@
         <div class="hero-content fade-in">
             <h1>We're theoretical experimentalists.</h1>
             <p class="hero-subtitle">We build art, companies, brands and products.</p>
-            <p>We'll help you understand what you want, and break down what stands in your way.</p>
+            <p>We'll help you understand what you want, and break down what stands in your way. We bring power, strategy, resonance, intuition and love to our work.</p>
             <p class="hero-services">We design, we build, we manage, we market, we advise, we grow.</p>
             <button class="cta-button" onclick="document.getElementById('work').scrollIntoView({ behavior: 'smooth' });">See our work</button>
         </div>
@@ -864,7 +913,7 @@
         <div class="container">
             <div class="section-header fade-in">
                 <h2>Our Work</h2>
-                <p>Here's a few snapshots of how we work</p>
+                <p>From seed-stage startups to $50M nonprofits, from fashion commerce to classical dance &mdash; we work across industries, stages, and geographies. Here's a few snapshots of how we work.</p>
             </div>
 
             <div class="work-grid" id="work-grid">
@@ -1174,25 +1223,50 @@
             </div>
 
             <div class="creations-grid fade-in">
-                <div class="creations-text">
-                    <p>Poem films, collaborative works, and more — coming soon.</p>
+
+                <div class="creation-card">
+                    <div class="creation-label">Interactive Installation</div>
+                    <h3>The Line Before</h3>
+                    <p>A visitor approaches a touchscreen. They press CREATE. A fragment of poetry appears &mdash; a few words that breathe poetic, in a way that AI still can't do. Below it, two words: <em>grip</em> and <em>release</em>. The visitor selects. A second line, chosen by their choice. A third. A fourth.</p>
+                    <p>Each time, a dichotomy &mdash; sublimate or crystallise, echo or ignite, smother or howl. When the fourth line lands, the poem takes form into a flower, its petals and colors shaped by the affinities of the fragments. The flower drifts into a garden made of every previous visitor's poem.</p>
+                    <p>A poet wrote the fragments. An artist created the petals. A large language model scored each one across four emotional axes. And now the visitor makes a choice by instinct. Three kinds of intelligence, together creating meaning.</p>
+                    <p class="creation-meta">230 poetry fragments &middot; 4 emotional axes &middot; Exhibited at Boulder Public Library, Jan 2025 &middot; <a href="https://divya.studiotypo.xyz" target="_blank" style="color: var(--cyan);">Live prototype</a></p>
                 </div>
+
+                <div class="creation-card">
+                    <div class="creation-label">Podcast</div>
+                    <h3>Thinking on Thinking</h3>
+                    <p>A podcast about success, mental models, and why we humans do the things that we do. Hosted by Divya & Kahran, it's for creatives who want to make a living &mdash; and anyone curious about the invisible forces that shape decisions, habits, and creative work.</p>
+                    <p class="creation-meta">Available on Spotify, Apple Podcasts, and more</p>
+                </div>
+
+                <div class="creation-card">
+                    <div class="creation-label">Workshop Series</div>
+                    <h3>Thinking with AI</h3>
+                    <p>A series of workshops that bring a sense of play to AI. From visual storytelling with Midjourney to advanced prompting techniques, we teach participants how to communicate what they're seeking, control style and context, and discover what's possible &mdash; from sentiment analysis on personal journals to building guided city tours.</p>
+                    <p class="creation-meta">4 workshops &middot; Delivered for HoiChoi, TomboyX, StartOut &middot; Available for teams</p>
+                </div>
+
+                <div class="creation-card">
+                    <div class="creation-label">Workshop Series</div>
+                    <h3>Fundraising Strategy for Founders</h3>
+                    <p>Not all investors are the same, and not all capital is created equal. This four-part series helps founders understand who they're really talking to, how to escape the "free money" allure, how to curate their story for different audiences, and how to keep their head in the game when the pressure mounts.</p>
+                    <p class="creation-meta">4 workshops &middot; Developed with StartOut &middot; For founders preparing to raise</p>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- PODCAST SECTION -->
-    <section id="podcast">
+    <section id="podcast" style="padding: 4rem 2rem; background-color: var(--light-gray);">
         <div class="container">
-            <div class="podcast-content fade-in">
-                <h2>Thinking on Thinking</h2>
-                <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh, it's a podcast for creatives who want to make a living.</p>
-
-                <div class="spotify-card">
-                    <div class="spotify-icon">🎧</div>
-                    <p class="spotify-text">Listen on Spotify, Apple Podcasts, and more</p>
-                    <a href="#" class="cta-button" onclick="event.preventDefault(); alert('Podcast link coming soon');">Listen Now</a>
+            <div class="podcast-content fade-in" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;">
+                <div>
+                    <h2 style="margin-bottom: 0.5rem;">Thinking on Thinking</h2>
+                    <p class="podcast-description" style="max-width: 600px;">A podcast about success, mental models, and the invisible forces that shape how we create, decide, and live. For creatives who want to make a living &mdash; and anyone curious about why we humans do the things that we do.</p>
                 </div>
+                <a href="#" class="cta-button" onclick="event.preventDefault(); alert('Podcast link coming soon');">Listen Now</a>
             </div>
         </div>
     </section>
@@ -1213,7 +1287,7 @@
 
                 <div class="service-card fade-in">
                     <h3>Workshops</h3>
-                    <p>Have an idea that needs to move forward? A 2-3 day mini-sprint with your team to get unstuck. Past workshops include GenAI, Founder Counseling, Creativity + more.</p>
+                    <p>Have an idea that needs to move forward? A 2-3 day mini-sprint with your team to get unstuck. Past workshops include Thinking with AI (visual storytelling, prompting, advanced techniques), Fundraising Strategy for founders, and team-specific sessions on product, marketing, and tech.</p>
                     <div class="service-price">Starting at $2,000</div>
                 </div>
 
@@ -1240,10 +1314,22 @@
             </div>
 
             <div class="about-content fade-in">
-                <p class="about-intro">Headed by Divya Tak and Kahran Singh, we're a collective of experts brave enough to back the idea before the world knew it was smart.</p>
+                <p class="about-intro">We are Joyus &mdash; a studio of makers. We believe in storytelling, design, and imagination. We work in product design, brand building, and system design with a playful, human-centered lens. We help people connect, create, and bring forth work that feels deep, deliberate, and joyful.</p>
 
                 <div class="about-philosophy">
                     <p>We work on projects with impact. The projects it feels impossible to hire consultants for. The projects that change the lives of the people who touch them. The projects that'll haunt you until the day they're made.</p>
+                    <p style="margin-top: 1rem; font-family: var(--font-script); font-size: 1.3rem; color: var(--pink);">Insights lie at the edge of reality and intent.</p>
+                </div>
+
+                <div class="founders-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;">
+                    <div class="founder-bio">
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Kahran Singh</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.7;">A poet and creative technologist whose work sits at the intersection of language, emotion, and systems. His poetry explores the textures of memory, desire, fear, and wonder. He is interested in what happens when we create new ways of engaging &mdash; what is poetry when it's written computationally? What are the limits of experience and environment? What happens when we blur those boundaries?</p>
+                    </div>
+                    <div class="founder-bio">
+                        <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Divya Tak</h3>
+                        <p style="font-size: 0.95rem; line-height: 1.7;">A multidisciplinary creative whose work spans film, games, comics, interactive systems, and generative media, contributing to award-winning projects while pursuing a sustained inquiry into wonder, curiosity, and belonging. Trained in physics and shaped by over a decade working across creative industries, she approaches storytelling as a study of perception itself &mdash; how we see, what we overlook, and how meaning forms between systems and humans.</p>
+                    </div>
                 </div>
             </div>
         </div>
