@@ -38,35 +38,41 @@
     .work-card h4 { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 400; color: #555; line-height: 1.5; margin-bottom: 0.6rem; }
     .work-card .card-body { padding: 1.25rem 1.5rem 1.5rem; }
 
-    /* Podcast section */
+    /* Podcast section — override global styles.css podcast rules */
     .podcast-section {
-      background: var(--warm-gray, #F5F3F0);
+      background: var(--warm-gray, #F5F3F0) !important;
+      color: #111 !important;
       padding: 5rem 2rem;
     }
-    .podcast {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
+    .podcast-section .podcast {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 3.5rem;
       align-items: center;
       max-width: 1100px;
       margin: 0 auto;
     }
-    .podcast-title {
+    .podcast-section .podcast-content {
+      display: block !important;
+      grid-template-columns: none !important;
+    }
+    .podcast-section .podcast-title {
       font-family: 'DM Serif Display', serif;
       font-size: clamp(1.8rem, 3.5vw, 2.2rem);
       margin-bottom: 0.75rem;
-      color: #111;
+      color: #111 !important;
     }
-    .podcast-description {
+    .podcast-section .podcast-description {
       font-size: 1rem;
-      color: #555;
+      color: #555 !important;
       line-height: 1.75;
       margin-bottom: 1.5rem;
     }
-    .podcast-image img {
+    .podcast-section .podcast-image img {
       width: 100%;
+      max-width: 100% !important;
       border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     }
 
     /* Services block on homepage */
@@ -160,11 +166,11 @@
     .see-all-work a:hover { color: #E91E7B; opacity: 1; }
 
     @media (max-width: 768px) {
-      .podcast {
-        grid-template-columns: 1fr;
+      .podcast-section .podcast {
+        grid-template-columns: 1fr !important;
         gap: 2rem;
       }
-      .podcast-image { order: -1; }
+      .podcast-section .podcast-image { order: -1; }
       .services-row { grid-template-columns: 1fr 1fr; }
       .podcast-section { padding: 3.5rem 2rem; }
     }
