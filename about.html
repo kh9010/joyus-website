@@ -3,6 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet the founders of Joyus Studio — Kahran Singh and Divya Tak. We help businesses create meaningful connections through behaviorally-sensitive design.">
+  <meta property="og:title" content="About — Joyus Studio">
+  <meta property="og:description" content="Meet the founders of Joyus Studio — Kahran Singh and Divya Tak. We help businesses create meaningful connections through behaviorally-sensitive design.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/about.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/about.html">
   <title>About — Joyus Studio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,6 +62,14 @@
       font-size: 2rem;
       color: #111;
       margin-bottom: 3rem;
+    }
+    .founder-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      margin-bottom: 1rem;
     }
     .founder {
       display: grid;
@@ -137,7 +153,7 @@
 
     .creations-section {
       padding: 5rem 2rem;
-      background: #1a1a1a;
+      background: var(--warm-gray, #F5F3F0);
     }
     .creations-section .inner {
       max-width: 960px;
@@ -146,11 +162,11 @@
     .creations-section h2 {
       font-family: 'DM Serif Display', serif;
       font-size: 2rem;
-      color: white;
+      color: #111;
       margin-bottom: 0.5rem;
     }
     .creations-section .section-intro {
-      color: #888;
+      color: #666;
       font-size: 1rem;
       margin-bottom: 3rem;
     }
@@ -160,13 +176,15 @@
       gap: 2.5rem;
     }
     .creation-card {
-      border-top: 1px solid #333;
-      padding-top: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
     }
     .creation-card h3 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.3rem;
-      color: white;
+      color: #111;
       margin-bottom: 0.3rem;
     }
     .creation-card .creation-type {
@@ -178,13 +196,13 @@
     }
     .creation-card p {
       font-size: 0.95rem;
-      color: #aaa;
+      color: #555;
       line-height: 1.7;
       margin-bottom: 0.75rem;
     }
     .creation-card a {
       font-size: 0.85rem;
-      color: #4FC4CF;
+      color: #E91E7B;
       font-weight: 600;
     }
 
@@ -230,13 +248,13 @@
   <section class="about-hero">
     <div class="inner">
       <h1>About Joyus</h1>
-      <p>Joyus is an Experience Design Studio. We look at life as being made up of experiences, and we believe that everything in this human experience can be designed to be more — more filled with delight, more filled with joy, more filled with a sense of connection and belonging.</p>
-      <p>We seek out people who share our belief in the power of problem solving by finding new models, new frames of reference, and new ways of thinking.</p>
+      <p>We solve the problems of businesses struggling to create meaningful connections with their customers in an increasingly competitive, chaotic market. By focusing on people and their behaviors, and using technology to drive efficiency in strategies, we're able to significantly impact customer acquisition, retention, lifetime value, and ultimately loyalty.</p>
+      <p>Our mission is to help businesses navigate complex problems and unlock their full potential through innovative, behaviorally-sensitive systemic design solutions that drive growth and foster lasting customer relationships.</p>
     </div>
   </section>
 
   <section class="philosophy-strip">
-    <p>Through our work, we deliver experiences that wow your customers today, help them remember you tomorrow and keep them connected to you forever. After all, joy and delight is a non-zero-sum game.</p>
+    <p>We'll help you understand what you want, and break down what stands in your way.</p>
   </section>
 
   <section class="founders-section">
@@ -244,6 +262,7 @@
 
     <div class="founder">
       <div>
+        <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo">
         <h3 class="founder-name">Kahran Singh</h3>
         <p class="founder-role">Co-founder, Strategy</p>
       </div>
@@ -255,6 +274,7 @@
 
     <div class="founder">
       <div>
+        <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo">
         <h3 class="founder-name">Divya Tak</h3>
         <p class="founder-role">Co-founder, Design</p>
       </div>
