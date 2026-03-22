@@ -1,15 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workshops & Services - Joyus Studio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .page-hero {
+      padding: 8rem 2rem 5rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .page-hero .container {
+      max-width: 780px;
+    }
+    .page-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    .page-hero p {
+      font-size: 1.15rem;
+      color: #555;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .services-section {
+      padding: 5rem 2rem;
+    }
+    .services-section .container {
+      max-width: 900px;
+    }
+
+    .service-tier {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2.5rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid #e8e6e4;
+      align-items: start;
+    }
+    .service-tier:first-child {
+      padding-top: 0;
+    }
+    .service-tier:last-child {
+      border-bottom: none;
+    }
+    .service-left {
+      padding-top: 0.25rem;
+    }
+    .service-price-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+      margin-bottom: 0.4rem;
+    }
+    .service-price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 0;
+    }
+    .service-right h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: #111;
+      margin-bottom: 0.75rem;
+    }
+    .service-right p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .service-right p:last-of-type {
+      margin-bottom: 0.75rem;
+    }
+    .service-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+    .service-tags span {
+      font-size: 0.78rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      background: #f0eeec;
+      color: #666;
+    }
+
+    .spotlight-section {
+      background: #1a1a1a;
+      color: white;
+      padding: 5rem 2rem;
+    }
+    .spotlight-section .container {
+      max-width: 780px;
+    }
+    .spotlight-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 1rem;
+    }
+    .spotlight-section p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: #bbb;
+      margin-bottom: 1.25rem;
+    }
+    .spotlight-section a {
+      color: #E91E7B;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .spotlight-section a:hover { opacity: 0.8; }
+
+    .creations-section {
+      padding: 5rem 2rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .creations-section .container {
+      max-width: 900px;
+    }
+    .creations-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .creations-section .section-intro {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+    }
+    .creation-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .creation-card {
+      background: white;
+      border-radius: 8px;
+      padding: 2rem;
+      border: 1px solid #e8e6e4;
+    }
+    .creation-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: #111;
+      margin-bottom: 0.6rem;
+    }
+    .creation-card p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.65;
+      margin-bottom: 0.75rem;
+    }
+    .creation-link {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #E91E7B;
+    }
+    .creation-link:hover { opacity: 0.8; }
+
+    .services-cta {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .services-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 0.75rem;
+    }
+    .services-cta p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 640px) {
+      .service-tier {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .creation-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-          <nav class="nav-bar">
+
+  <nav class="nav-bar">
     <div class="nav-container">
       <a href="index.html" class="logo">
         <img src="images/logo.webp" alt="Joyus Studio">
@@ -21,105 +213,174 @@
       </button>
       <ul class="nav-menu" id="navMenu">
         <li><a href="work/index.html">Work</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html" class="active">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="mailto:hello@joyus.studio">Contact</a></li>
       </ul>
     </div>
   </nav>
-    </header>
 
-    <main>
-        <section class="page-header">
-            <h1>Workshops & Services</h1>
-            <p class="subtitle">We are flexible! We work in lots of different ways.</p>
-        </section>
+  <section class="page-hero">
+    <div class="container">
+      <h1>Ways to work together</h1>
+      <p>We're flexible. Some clients need a single conversation to unlock a stuck problem. Others bring us in for months. Here's how we typically engage.</p>
+    </div>
+  </section>
 
-        <section class="services">
-            <div class="workshop-card">
-                <h3>Paid Expertise</h3>
-                <p>Not sure about your problem statement? A one hour chat with us can help you build the clarity you need to take that next step. Low commitment and pocket friendly.</p>
-                <p class="price">Starting at $200 / 60 min session</p>
-                <div class="topics">
-                    <span class="topic">Strategy</span>
-                    <span class="topic">Problem Framing</span>
-                    <span class="topic">Quick Consultation</span>
-                </div>
-            </div>
+  <section class="services-section">
+    <div class="container">
 
-            <div class="workshop-card">
-                <h3>Workshops & Mini-Sprints</h3>
-                <p>If you have an idea that you need to move forward, we can put together a workshop or a 2-3 day mini-sprint with your teammates to unstick the ship and get the ball rolling!</p>
-                <p class="price">Starting at $2,000</p>
-                <div class="topics">
-                    <span class="topic">GenAI</span>
-                    <span class="topic">Founder Counseling</span>
-                    <span class="topic">Creativity</span>
-                    <span class="topic">Design Thinking</span>
-                    <span class="topic">Storytelling</span>
-                    <span class="topic">Fundraising Strategy</span>
-                </div>
-            </div>
+      <div class="service-tier">
+        <div class="service-left">
+          <p class="service-price-label">Starting at</p>
+          <p class="service-price">$200<br><span style="font-size:1rem;font-family:'DM Sans',sans-serif;color:#888;">/ 60 min</span></p>
+        </div>
+        <div class="service-right">
+          <h3>Paid Expertise</h3>
+          <p>Not sure what your problem actually is? Ninety percent of the work is framing it correctly. A single focused session with us often gives founders and teams the clarity they need to take the next right step. Low commitment, high value.</p>
+          <div class="service-tags">
+            <span>Problem Framing</span>
+            <span>Strategy</span>
+            <span>Design Critique</span>
+            <span>Quick Consultation</span>
+          </div>
+        </div>
+      </div>
 
-            <div class="workshop-card">
-                <h3>Coaching & Prep</h3>
-                <p>Have a clear idea but need help getting buy-in from your larger team? We can bring our expertise and supplement your ideas with our models and information, and help you transform an idea into a built deck — whether your audience is your investors, product people, or your CEO.</p>
-                <p class="price">Starting at $5,000 / 6-8 weekly sessions</p>
-                <div class="topics">
-                    <span class="topic">Investor Pitch Prep</span>
-                    <span class="topic">Product Strategy</span>
-                    <span class="topic">Executive Communication</span>
-                </div>
-            </div>
+      <div class="service-tier">
+        <div class="service-left">
+          <p class="service-price-label">Starting at</p>
+          <p class="service-price">$2,000</p>
+        </div>
+        <div class="service-right">
+          <h3>Workshops & Mini-Sprints</h3>
+          <p>When a team is stuck, a well-designed workshop can unstick it fast. We run half-day to multi-day sessions that move your idea, product, or narrative meaningfully forward — not just whiteboards, but real decisions and real outputs.</p>
+          <div class="service-tags">
+            <span>GenAI & AI Strategy</span>
+            <span>Founder Counseling</span>
+            <span>Design Thinking</span>
+            <span>Storytelling</span>
+            <span>Fundraising Strategy</span>
+            <span>Creativity</span>
+          </div>
+        </div>
+      </div>
 
-            <div class="workshop-card">
-                <h3>Project-Based Engagement</h3>
-                <p>We work on a milestone basis with our clients on the journey from genesis through prototyping to development and go-to-market.</p>
-                <p class="price">Custom pricing</p>
-                <div class="topics">
-                    <span class="topic">Full Product Design</span>
-                    <span class="topic">Brand Building</span>
-                    <span class="topic">Go-to-Market</span>
-                </div>
-            </div>
-        </section>
+      <div class="service-tier">
+        <div class="service-left">
+          <p class="service-price-label">Starting at</p>
+          <p class="service-price">$5,000<br><span style="font-size:1rem;font-family:'DM Sans',sans-serif;color:#888;">/ 6–8 sessions</span></p>
+        </div>
+        <div class="service-right">
+          <h3>Coaching & Prep</h3>
+          <p>Have a clear idea but need to make it land? We work alongside you over weeks — helping you transform your thinking into something you can take to investors, your board, your product team, or the public. We help you find the spine of your argument and build everything around it.</p>
+          <div class="service-tags">
+            <span>Investor Pitch Prep</span>
+            <span>Product Strategy</span>
+            <span>Executive Communication</span>
+            <span>Narrative Development</span>
+          </div>
+        </div>
+      </div>
 
-        <section class="ai-workshops">
-            <div class="ai-content">
-                <h2>Thinking with AI</h2>
-                <p>Our Thinking with AI workshops help teams understand and integrate generative AI into their creative and business processes. From hands-on prompt engineering to strategic AI integration, we help teams move past the hype and into practical, powerful use.</p>
-                <a href="mailto:hello@joyus.studio" class="cta-link">Interested? Let's talk → hello@joyus.studio</a>
-            </div>
-        </section>
+      <div class="service-tier">
+        <div class="service-left">
+          <p class="service-price-label">Custom</p>
+          <p class="service-price">Project-<br>based</p>
+        </div>
+        <div class="service-right">
+          <h3>Project-Based Engagement</h3>
+          <p>From genesis to go-to-market. We work on a milestone basis alongside founding teams doing something genuinely new — bringing design, strategy, storytelling, and imagination to bear simultaneously. This is where we do our deepest work.</p>
+          <div class="service-tags">
+            <span>Brand Building</span>
+            <span>Visual Identity</span>
+            <span>Product Design</span>
+            <span>Go-to-Market</span>
+            <span>Content Systems</span>
+          </div>
+        </div>
+      </div>
 
-        <section class="creations">
-            <h2>Our Creations</h2>
-            <div class="creation-item">
-                <h3>The Line Before</h3>
-                <p>An interactive installation featuring 230 poetry fragments across 4 emotional axes. Exhibited at Boulder Public Library in January 2025.</p>
-                <a href="https://divya.studiotypo.xyz" target="_blank" class="creation-link">Explore →</a>
-            </div>
-            <div class="creation-item">
-                <h3>Thinking on Thinking</h3>
-                <p>A podcast about success and mental models, created for creatives who want to make a living doing what they love.</p>
-            </div>
-        </section>
+    </div>
+  </section>
 
-        <section class="cta-section">
-            <h2>Ready to work together?</h2>
-            <p><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></p>
-        </section>
-    </main>
+  <section class="spotlight-section">
+    <div class="container">
+      <h2>Thinking with AI</h2>
+      <p>We run workshops that help teams cut through the AI hype and get to something more useful: real understanding, practical skills, and a framework for what to actually do with these tools inside their specific context.</p>
+      <p>We've worked with design teams, product orgs, and leadership groups at companies across India, the UK, and the US. The session is hands-on, honest, and built around your team's actual situation — not a generic slide deck.</p>
+      <a href="mailto:hello@joyus.studio">Interested? Let's talk → hello@joyus.studio</a>
+    </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </footer>
+  <section class="creations-section">
+    <div class="container">
+      <h2>Our Creations</h2>
+      <p class="section-intro">Beyond client work, we make things. Here are two we're especially proud of.</p>
+      <div class="creation-grid">
+        <div class="creation-card">
+          <h3>The Line Before</h3>
+          <p>An interactive installation featuring 230 poetry fragments across 4 emotional axes. Exhibited at Boulder Public Library in January 2025. A meditation on what we carry into each moment.</p>
+          <a href="https://divya.studiotypo.xyz" target="_blank" class="creation-link">Explore →</a>
+        </div>
+        <div class="creation-card">
+          <h3>Thinking on Thinking</h3>
+          <p>A podcast about success, mental models, and why we humans do the things we do. Made for creatives who want to make a living doing what they love. Hosted by Divya Tak & Kahran Singh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Add any interactive functionality here
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navigation active state is already set in HTML
+  <section class="services-cta">
+    <h2>Let's make something together</h2>
+    <p>Whether you have a clear brief or just a nagging feeling something needs to change — we're good at both.</p>
+    <a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="workshops.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
         });
-    </script>
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
 </body>
 </html>

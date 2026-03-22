@@ -3,11 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Joyus Studio - Design, Storytelling, Imagination</title>
+  <title>Joyus Studio — Design, Storytelling, Imagination</title>
   <link rel="stylesheet" href="styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    /* Override global fade-in so sections are visible by default on homepage */
+    .hero, .featured-work, .podcast, .services-block, .final-cta {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Featured work card image style */
+    .featured-card-img {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      background: #f0eeec;
+    }
+    .featured-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .work-card:hover .featured-card-img img {
+      transform: scale(1.04);
+    }
+    .work-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 0.4rem; }
+    .work-card h4 { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 400; color: #555; line-height: 1.5; margin-bottom: 0.6rem; }
+    .work-card .card-body { padding: 1.25rem 1.5rem 1.5rem; }
+
+    /* Podcast section */
+    .podcast {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 5rem 2rem;
+    }
+    .podcast-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    .podcast-description {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .podcast-image img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Services block on homepage */
+    .services-block {
+      background: #1a1a1a;
+      padding: 5rem 2rem;
+    }
+    .services-block-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .services-block h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .services-block .intro {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+    .services-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    .service-item {
+      border-top: 1px solid #333;
+      padding-top: 1.25rem;
+    }
+    .service-item .price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: white;
+      margin-bottom: 0.25rem;
+    }
+    .service-item h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .service-item p {
+      font-size: 0.88rem;
+      color: #888;
+      line-height: 1.6;
+    }
+    .services-block-cta {
+      margin-top: 3rem;
+    }
+    .services-block-cta a {
+      color: #E91E7B;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .services-block-cta a:hover { opacity: 0.8; }
+
+    /* Final CTA */
+    .final-cta {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .final-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    .final-cta p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1.75rem;
+    }
+    .final-cta a.email-link {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #E91E7B;
+    }
+
+    .see-all-work {
+      text-align: center;
+      margin-top: 2.5rem;
+    }
+    .see-all-work a {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #111;
+    }
+    .see-all-work a:hover { color: #E91E7B; opacity: 1; }
+
+    @media (max-width: 768px) {
+      .podcast {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .podcast-image { order: -1; }
+      .services-row { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .services-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+
   <!-- Navigation -->
   <nav class="nav-bar">
     <div class="nav-container">
@@ -21,144 +184,159 @@
       </button>
       <ul class="nav-menu" id="navMenu">
         <li><a href="work/index.html">Work</a></li>
-        <li><a href="workshops.html">Workshops</a></li>
+        <li><a href="workshops.html">Services</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="mailto:hello@joyus.studio">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero fade-in">
+  <!-- Hero -->
+  <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-title">Hello! We are Joyus, a studio of makers.</h1>
-      <p class="hero-subtitle">We bring a holistic, playful approach to design. Whether it's product design or system design, game development or brand building, we're experts in storytelling, building and imagination.</p>
-      <a href="work/index.html" class="cta-button">See our work</a>
-    </div>
-    <div class="hero-image">
-      <img src="images/illustration-hero.png" alt="Divya's illustration">
+      <div>
+        <h1 class="hero-title">A studio of <span class="script">makers.</span></h1>
+        <p class="hero-subtitle">We design brands, products, and strategies for people building things that matter. Four disciplines — visual identity, product thinking, storytelling, and imagination — working as one.</p>
+        <a href="work/index.html" class="cta-button">See our work</a>
+      </div>
+      <div class="hero-image">
+        <img src="images/illustration-hero.png" alt="Joyus Studio illustration">
+      </div>
     </div>
     <div class="hero-decoration">
       <div class="dot-grid"></div>
-      <svg class="cyan-arc" viewBox="0 0 100 100" preserveAspectRatio="none">
+      <svg class="cyan-arc" viewBox="0 0 100 100" preserveAspectRatio="none" style="width:200px;height:120px;bottom:0;right:0;">
         <path d="M 0 50 Q 50 0 100 50" stroke="var(--cyan)" stroke-width="2" fill="none"/>
       </svg>
     </div>
   </section>
 
   <!-- Featured Work -->
-  <section class="featured-work fade-in">
-    <h2>Featured Work</h2>
-    <div class="work-grid">
-      <a href="work/tomboyx.html" class="work-card" style="--card-color: #E85D75;">
-        <div class="card-header">
-          <h3>TomboyX</h3>
-        </div>
-        <div class="card-body">
-          <div class="card-tags">
-            <span class="tag">Brand Story</span>
-            <span class="tag">Investor Pitch</span>
-          </div>
-          <h4>Investor storytelling that raised $5M</h4>
-          <div class="card-stat">5M</div>
-        </div>
-      </a>
+  <section style="padding: 5rem 2rem;">
+    <div class="featured-work">
+      <h2 style="margin-bottom:0.5rem;">Featured Work</h2>
+      <p style="color:#888;font-size:1rem;margin-bottom:0;">Some of what we've built.</p>
+      <div class="work-grid">
 
-      <a href="work/klydo.html" class="work-card" style="--card-color: #FF69B4;">
-        <div class="card-header">
-          <h3>Klydo</h3>
-        </div>
-        <div class="card-body">
-          <div class="card-tags">
-            <span class="tag">Product Strategy</span>
-            <span class="tag">Brand Story</span>
-            <span class="tag">GTM</span>
+        <a href="work/tomboyx.html" class="work-card case-card">
+          <div class="featured-card-img">
+            <img src="images/work/tomboyx.jpg" alt="TomboyX investor pitch" loading="lazy">
           </div>
-          <h4>From dream to 150 daily sales in 10 weeks</h4>
-          <div class="card-stat">150</div>
-        </div>
-      </a>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag">Brand Story</span>
+              <span class="tag">Investor Pitch</span>
+            </div>
+            <h3>TomboyX</h3>
+            <h4>$5M raised in a down market — by leading with unit economics, not identity politics.</h4>
+            <div class="card-stat">$5M raised</div>
+          </div>
+        </a>
 
-      <a href="work/pratham.html" class="work-card" style="--card-color: #F5C518;">
-        <div class="card-header">
-          <h3>PrathamUSA</h3>
-        </div>
-        <div class="card-body">
-          <div class="card-tags">
-            <span class="tag">Donor Research</span>
-            <span class="tag">Process Creation</span>
+        <a href="work/klydo.html" class="work-card case-card">
+          <div class="featured-card-img">
+            <img src="images/work/klydo.jpg" alt="Klydo fashion startup" loading="lazy">
           </div>
-          <h4>Rebuilding the donor journey for a $50M nonprofit</h4>
-          <div class="card-stat">$50M</div>
-        </div>
-      </a>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag">Product Strategy</span>
+              <span class="tag">Brand Story</span>
+              <span class="tag">GTM</span>
+            </div>
+            <h3>Klydo</h3>
+            <h4>From 4 people with a dream to 150 daily sales in 10 weeks.</h4>
+            <div class="card-stat">0 → 150 daily sales</div>
+          </div>
+        </a>
 
-      <a href="work/tatsam.html" class="work-card" style="--card-color: #7BC8A4;">
-        <div class="card-header">
-          <h3>Tatsam</h3>
-        </div>
-        <div class="card-body">
-          <div class="card-tags">
-            <span class="tag">Visual Language</span>
-            <span class="tag">Brand Building</span>
-            <span class="tag">Product Strategy</span>
+        <a href="work/tatsam.html" class="work-card case-card">
+          <div class="featured-card-img">
+            <img src="images/work/tatsam.jpg" alt="Tatsam mental wellness" loading="lazy">
           </div>
-          <h4>Designing the language for mental wellness in India</h4>
-          <div class="card-stat">India</div>
-        </div>
-      </a>
-    </div>
-    <div class="see-all-work">
-      <a href="work/index.html">See all work →</a>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag">Visual Language</span>
+              <span class="tag">Brand Building</span>
+              <span class="tag">Product Strategy</span>
+            </div>
+            <h3>Tatsam</h3>
+            <h4>Designing the visual language for mental wellness in India — making a stigma-heavy space feel warm and safe.</h4>
+            <div class="card-stat">Holistic design for a sensitive space</div>
+          </div>
+        </a>
+
+        <a href="work/pratham.html" class="work-card case-card">
+          <div class="featured-card-img">
+            <img src="images/work/pratham.jpg" alt="PrathamUSA donor journey" loading="lazy">
+          </div>
+          <div class="card-body">
+            <div class="card-tags">
+              <span class="tag">Donor Research</span>
+              <span class="tag">Process Design</span>
+            </div>
+            <h3>PrathamUSA</h3>
+            <h4>Rebuilding the donor journey for a $50M nonprofit — so the people who give feel as seen as the children they support.</h4>
+            <div class="card-stat">$50M nonprofit · donor journey redesign</div>
+          </div>
+        </a>
+
+      </div>
+      <div class="see-all-work">
+        <a href="work/index.html">See all work →</a>
+      </div>
     </div>
   </section>
 
-  <!-- Podcast Section -->
-  <section class="podcast fade-in">
+  <!-- Podcast -->
+  <section class="podcast">
     <div class="podcast-content">
       <h2 class="podcast-title">Thinking on Thinking</h2>
-      <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh, it's a podcast for creatives who want to make a living.</p>
-      <a href="#" class="cta-button">Listen now</a>
+      <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh — made for creatives who want to make a living.</p>
+      <a href="mailto:hello@joyus.studio" class="cta-button">Get in touch</a>
     </div>
     <div class="podcast-image">
       <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking Podcast">
     </div>
   </section>
 
-  <!-- Services Section -->
-  <section class="services fade-in">
-    <h2>Services</h2>
-    <div class="services-grid">
-      <div class="service-card">
-        <h3>Paid Expertise</h3>
-        <p class="service-price">60 min sessions from $200</p>
-        <p class="service-description">Get direct access to our creative minds for strategic thinking, design feedback, or problem-solving sessions.</p>
+  <!-- Services Block -->
+  <section class="services-block">
+    <div class="services-block-inner">
+      <h2>Ways to work together</h2>
+      <p class="intro">We're flexible. Some clients need one conversation. Others bring us in for the whole journey.</p>
+      <div class="services-row">
+        <div class="service-item">
+          <p class="price">$200</p>
+          <h3>Paid Expertise</h3>
+          <p>A focused 60-min session to frame your problem and find the path forward.</p>
+        </div>
+        <div class="service-item">
+          <p class="price">$2,000</p>
+          <h3>Workshops</h3>
+          <p>Half-day to multi-day sessions that move your team from stuck to moving.</p>
+        </div>
+        <div class="service-item">
+          <p class="price">$5,000</p>
+          <h3>Coaching & Prep</h3>
+          <p>Weeks of work to build your narrative and make it land with any audience.</p>
+        </div>
+        <div class="service-item">
+          <p class="price">Custom</p>
+          <h3>Project-Based</h3>
+          <p>End-to-end design, strategy and storytelling for something genuinely new.</p>
+        </div>
       </div>
-      <div class="service-card">
-        <h3>Workshops</h3>
-        <p class="service-price">Starting at $2,000</p>
-        <p class="service-description">Interactive sessions to build skills, inspire teams, and catalyze creative thinking within your organization.</p>
+      <div class="services-block-cta">
+        <a href="workshops.html">See all services →</a>
       </div>
-      <div class="service-card">
-        <h3>Coaching & Prep</h3>
-        <p class="service-price">Weekly meetings from $5,000</p>
-        <p class="service-description">Ongoing support and coaching to elevate your vision, refine your narrative, and prepare for big moments.</p>
-      </div>
-      <div class="service-card">
-        <h3>Project-Based</h3>
-        <p class="service-price">Custom pricing</p>
-        <p class="service-description">End-to-end design, strategy, and storytelling for transformative projects at any scale.</p>
-      </div>
-    </div>
-    <div class="services-cta">
-      <a href="mailto:hello@joyus.studio" class="cta-button">Let's talk</a>
     </div>
   </section>
 
-  <!-- CTA Section -->
-  <section class="final-cta fade-in">
+  <!-- Final CTA -->
+  <section class="final-cta">
     <h2>Let's make something together</h2>
-    <p><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></p>
+    <p>Whether you have a clear brief or just a nagging feeling something needs to change.</p>
+    <a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a>
   </section>
 
   <!-- Footer -->
@@ -172,7 +350,7 @@
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="work/index.html">Work</a></li>
-          <li><a href="workshops.html">Workshops</a></li>
+          <li><a href="workshops.html">Services</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="mailto:hello@joyus.studio">Contact</a></li>
         </ul>
@@ -187,50 +365,22 @@
   </footer>
 
   <script>
-    // Mobile nav toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
-
     hamburger.addEventListener('click', () => {
       navMenu.classList.toggle('active');
       hamburger.classList.toggle('active');
     });
-
-    // Close menu on link click
     document.querySelectorAll('.nav-menu a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('active');
         hamburger.classList.remove('active');
       });
     });
-
-    // Nav shadow on scroll
     const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Intersection Observer for fade-in animation
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-
-    document.querySelectorAll('.fade-in').forEach(element => {
-      observer.observe(element);
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
     });
   </script>
 </body>
