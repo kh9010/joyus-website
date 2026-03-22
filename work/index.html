@@ -133,11 +133,15 @@
         }
 
         .fade-in {
+            opacity: 1;
+            transform: none;
+        }
+        .fade-in.animate {
             opacity: 0;
             transform: translateY(16px);
             transition: opacity 0.55s ease, transform 0.55s ease;
         }
-        .fade-in.visible {
+        .fade-in.animate.visible {
             opacity: 1;
             transform: none;
         }
@@ -402,13 +406,18 @@
             else nav.classList.remove('scrolled');
         });
 
-        // Fade-in cards
+        // Animate cards below the fold on scroll (cards above fold are immediately visible)
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
                 if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
             });
         }, {threshold: 0.08, rootMargin: '0px 0px -60px 0px'});
-        document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+        document.querySelectorAll('.fade-in').forEach((el, i) => {
+            if (i >= 4) {  // first 4 cards visible immediately, rest animate on scroll
+                el.classList.add('animate');
+                obs.observe(el);
+            }
+        });
     </script>
 </body>
 </html>
