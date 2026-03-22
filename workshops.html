@@ -67,32 +67,121 @@
       margin: 0;
     }
 
-    .cta-strip {
-      background: #1a1a1a;
+    .who-section {
       padding: 4rem 2rem;
-      text-align: center;
+      background: var(--warm-gray, #F5F3F0);
     }
-    .cta-strip h2 {
+    .who-section .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .who-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+    .who-section p.intro {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 700px;
+    }
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .who-card {
+      padding: 0;
+    }
+    .who-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .who-card p {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.6;
+    }
+
+    .process-section {
+      padding: 5rem 2rem;
+      background: #1a1a1a;
+    }
+    .process-section .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .process-section h2 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.8rem;
       color: white;
       margin-bottom: 0.5rem;
     }
-    .cta-strip p {
+    .process-section .process-intro {
       color: #888;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+      max-width: 600px;
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+    .process-step {
+      border-top: 1px solid #333;
+      padding-top: 1.25rem;
+    }
+    .process-step .step-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: #E91E7B;
+      margin-bottom: 0.5rem;
+    }
+    .process-step h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1rem;
+      color: white;
+      margin-bottom: 0.4rem;
+    }
+    .process-step p {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.55;
+    }
+
+    .cta-strip {
+      background: var(--warm-gray, #F5F3F0);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .cta-strip p {
+      color: #666;
       font-size: 1rem;
       margin-bottom: 1.5rem;
     }
-    .cta-strip a.cta-button {
-      background: #E91E7B;
-      color: white;
-    }
 
+    @media (max-width: 768px) {
+      .who-grid { grid-template-columns: 1fr; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+    }
     @media (max-width: 640px) {
       .service-row {
         grid-template-columns: 1fr;
         gap: 0.5rem;
       }
+      .process-steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -158,6 +247,56 @@
       </div>
     </div>
 
+  </section>
+
+  <section class="who-section">
+    <div class="inner">
+      <h2>Who We Work With</h2>
+      <p class="intro">We work best with founders, CEOs, and product leaders who know something needs to change but need help figuring out what — and how to make it land.</p>
+      <div class="who-grid">
+        <div class="who-card">
+          <h3>Startups &amp; SMEs</h3>
+          <p>Early-stage businesses working on product development, marketing strategies, and user experience design. Decision-makers seeking external expertise to move faster.</p>
+        </div>
+        <div class="who-card">
+          <h3>Mission-Driven Companies</h3>
+          <p>Organizations where the story matters as much as the product. Nonprofits, social enterprises, and brands building around values — not just features.</p>
+        </div>
+        <div class="who-card">
+          <h3>Teams Going Through Change</h3>
+          <p>Companies navigating a rebrand, a funding round, a pivot, or a new market. When the stakes are high and the narrative needs to be sharp.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="inner">
+      <h2>How Every Engagement Works</h2>
+      <p class="process-intro">No matter the format, we follow the same core approach.</p>
+      <div class="process-steps">
+        <div class="process-step">
+          <p class="step-num">01</p>
+          <h3>Diagnose</h3>
+          <p>We identify your specific challenges and opportunities — focusing on customer lifecycle, engagement, and untapped potential.</p>
+        </div>
+        <div class="process-step">
+          <p class="step-num">02</p>
+          <h3>Research</h3>
+          <p>We synthesize your existing data with our expertise in behavioral economics and consumer behavior to build strategies grounded in reality.</p>
+        </div>
+        <div class="process-step">
+          <p class="step-num">03</p>
+          <h3>Build</h3>
+          <p>We work closely with you to design and execute strategies that put the user at the heart of your products and services.</p>
+        </div>
+        <div class="process-step">
+          <p class="step-num">04</p>
+          <h3>Evolve</h3>
+          <p>We review outcomes and seek opportunities for ongoing collaboration — ensuring sustained growth and innovation beyond the engagement.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="cta-strip">

@@ -39,26 +39,29 @@
     .work-card .card-body { padding: 1.25rem 1.5rem 1.5rem; }
 
     /* Podcast section */
+    .podcast-section {
+      background: var(--warm-gray, #F5F3F0);
+      padding: 5rem 2rem;
+    }
     .podcast {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 4rem;
       align-items: center;
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 5rem 2rem;
     }
     .podcast-title {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      margin-bottom: 1rem;
+      font-size: clamp(1.8rem, 3.5vw, 2.2rem);
+      margin-bottom: 0.75rem;
       color: #111;
     }
     .podcast-description {
-      font-size: 1.05rem;
+      font-size: 1rem;
       color: #555;
       line-height: 1.75;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
     }
     .podcast-image img {
       width: 100%;
@@ -163,6 +166,7 @@
       }
       .podcast-image { order: -1; }
       .services-row { grid-template-columns: 1fr 1fr; }
+      .podcast-section { padding: 3.5rem 2rem; }
     }
     @media (max-width: 480px) {
       .services-row { grid-template-columns: 1fr; }
@@ -288,14 +292,17 @@
   </section>
 
   <!-- Podcast -->
-  <section class="podcast">
-    <div class="podcast-content">
-      <h2 class="podcast-title">Thinking on Thinking</h2>
-      <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh — made for creatives who want to make a living.</p>
-      <a href="mailto:hello@joyus.studio" class="cta-button">Get in touch</a>
-    </div>
-    <div class="podcast-image">
-      <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking Podcast">
+  <section class="podcast-section">
+    <div class="podcast">
+      <div class="podcast-content">
+        <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1.5px;color:#999;margin-bottom:0.5rem;">Our Podcast</p>
+        <h2 class="podcast-title">Thinking on Thinking</h2>
+        <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh — made for creatives who want to make a living.</p>
+        <a href="mailto:hello@joyus.studio" class="cta-button">Listen &amp; subscribe</a>
+      </div>
+      <div class="podcast-image">
+        <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking Podcast">
+      </div>
     </div>
   </section>
 

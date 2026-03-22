@@ -101,7 +101,7 @@
     .values-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+      gap: 2.5rem;
     }
     .value h3 {
       font-family: 'DM Serif Display', serif;
@@ -113,6 +113,79 @@
       font-size: 0.95rem;
       color: #666;
       line-height: 1.65;
+    }
+
+    .approach-section {
+      padding: 5rem 2rem;
+    }
+    .approach-section .inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .approach-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 1.5rem;
+    }
+    .approach-section p {
+      font-size: 1.05rem;
+      color: #444;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .creations-section {
+      padding: 5rem 2rem;
+      background: #1a1a1a;
+    }
+    .creations-section .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .creations-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .creations-section .section-intro {
+      color: #888;
+      font-size: 1rem;
+      margin-bottom: 3rem;
+    }
+    .creations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
+    .creation-card {
+      border-top: 1px solid #333;
+      padding-top: 1.5rem;
+    }
+    .creation-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: white;
+      margin-bottom: 0.3rem;
+    }
+    .creation-card .creation-type {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #E91E7B;
+      margin-bottom: 0.75rem;
+    }
+    .creation-card p {
+      font-size: 0.95rem;
+      color: #aaa;
+      line-height: 1.7;
+      margin-bottom: 0.75rem;
+    }
+    .creation-card a {
+      font-size: 0.85rem;
+      color: #4FC4CF;
+      font-weight: 600;
     }
 
     .about-cta {
@@ -129,6 +202,7 @@
     @media (max-width: 640px) {
       .founder { grid-template-columns: 1fr; gap: 0.75rem; }
       .values-grid { grid-template-columns: 1fr; }
+      .creations-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -191,21 +265,61 @@
     </div>
   </section>
 
+  <section class="approach-section">
+    <div class="inner">
+      <h2>How We Work</h2>
+      <p>We grew up at the intersection of design, product, and marketing. That means we don't hand off problems — we work them from diagnosis to delivery. We synthesize research with existing data, and bring expertise-driven insights from behavioral economics and gamification to create strategies grounded in context and operating reality.</p>
+      <p>Every engagement starts with understanding your specific challenges and opportunities — customer lifecycle, engagement gaps, untapped potential. Then we build a consulting approach tailored to the scenario: on-site or remote, workshops or coaching, a single focused session or a months-long partnership.</p>
+    </div>
+  </section>
+
   <section class="values-section">
     <div class="inner">
-      <h2>How We Think</h2>
+      <h2>What Sets Us Apart</h2>
       <div class="values-grid">
         <div class="value">
           <h3>Interdisciplinary</h3>
-          <p>We don't separate strategy from craft, or research from design. The best work happens when disciplines collide.</p>
+          <p>We don't separate strategy from craft, or research from design. We bring learnings from systemic design techniques — design thinking, behavioral economics, gamification — across varied industries and regions.</p>
         </div>
         <div class="value">
           <h3>Culturally Sensitive</h3>
-          <p>We've worked across India, the US, the UK, and Hong Kong. Context shapes everything — we design for real people in real places.</p>
+          <p>We've worked across India, the US, the UK, and Hong Kong. We create strategies picked from best practices honed around the world — like leveraging distribution networks for brand growth, common in India but rare in the West.</p>
         </div>
         <div class="value">
           <h3>Play as Practice</h3>
-          <p>Joy and rigor aren't opposites. The projects that'll haunt you until the day they're made are the ones worth doing.</p>
+          <p>Joy and rigor aren't opposites. The projects that'll haunt you until the day they're made are the ones worth doing. We use the newest technology and insights into consumer behavior to craft culture-shaping experiences.</p>
+        </div>
+        <div class="value">
+          <h3>Long-Term Partnerships</h3>
+          <p>We don't do drive-by consulting. We review project outcomes and seek opportunities for future collaboration to ensure sustained growth and innovation. Our best client relationships span years.</p>
+        </div>
+        <div class="value">
+          <h3>Hands-On &amp; Fast</h3>
+          <p>We bring a much more hands-on approach than larger strategy firms can. We've built our practice around delivering with speed — one of the major challenges when working with a big consulting firm.</p>
+        </div>
+        <div class="value">
+          <h3>AI-Native</h3>
+          <p>In a GenAI world, we offer both strategy consulting and execution — including the prompt engineering required to create marketing and design collateral. We help teams get past the hype and into real workflows.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="creations-section">
+    <div class="inner">
+      <h2>Things We've Made</h2>
+      <p class="section-intro">Beyond client work, we make things that matter to us.</p>
+      <div class="creations-grid">
+        <div class="creation-card">
+          <h3>The Line Before</h3>
+          <p class="creation-type">Interactive Poetry Installation</p>
+          <p>An interactive installation exhibited at Boulder Public Library that invited visitors to engage with poetry through touch, movement, and play. Designed and built by Divya Tak — blending illustration, interaction design, and physical craft.</p>
+          <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener">See the project →</a>
+        </div>
+        <div class="creation-card">
+          <h3>Thinking on Thinking</h3>
+          <p class="creation-type">Podcast</p>
+          <p>A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh — made for creatives who want to make a living doing work that matters.</p>
         </div>
       </div>
     </div>
