@@ -1,15 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About - Joyus Studio</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display:wght@400&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Joyus Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .about-hero {
+      padding: 8rem 2rem 5rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .about-hero .inner {
+      max-width: 740px;
+    }
+    .about-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      margin-bottom: 1.25rem;
+      color: #111;
+    }
+    .about-hero p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .about-hero p:last-child { margin-bottom: 0; }
+
+    .philosophy-strip {
+      background: #1a1a1a;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .philosophy-strip p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.3rem, 3vw, 1.7rem);
+      color: white;
+      line-height: 1.6;
+    }
+
+    .founders-section {
+      padding: 5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .founders-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 3rem;
+    }
+    .founder {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2.5rem;
+      margin-bottom: 3.5rem;
+      align-items: start;
+    }
+    .founder:last-child { margin-bottom: 0; }
+    .founder-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.5rem;
+      color: #111;
+      margin-bottom: 0.3rem;
+    }
+    .founder-role {
+      font-size: 0.85rem;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0;
+    }
+    .founder-bio p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+    .founder-bio p:last-child { margin-bottom: 0; }
+
+    .values-section {
+      padding: 5rem 2rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .values-section .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .values-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 2.5rem;
+    }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .value h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .value p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.65;
+    }
+
+    .about-cta {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .about-cta h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 2.5rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .founder { grid-template-columns: 1fr; gap: 0.75rem; }
+      .values-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-          <nav class="nav-bar">
+
+  <nav class="nav-bar">
     <div class="nav-container">
       <a href="index.html" class="logo">
         <img src="images/logo.webp" alt="Joyus Studio">
@@ -22,82 +147,119 @@
       <ul class="nav-menu" id="navMenu">
         <li><a href="work/index.html">Work</a></li>
         <li><a href="workshops.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
+        <li><a href="about.html" class="active">About</a></li>
         <li><a href="mailto:hello@joyus.studio">Contact</a></li>
       </ul>
     </div>
   </nav>
-    </header>
 
-    <main>
-        <section class="page-header">
-            <h1>About Joyus</h1>
-            <p class="subtitle">We work on projects with impact. The projects it feels impossible to hire consultants for. The projects that change the lives of the people who touch them.</p>
-        </section>
+  <section class="about-hero">
+    <div class="inner">
+      <h1>About Joyus</h1>
+      <p>Joyus is an Experience Design Studio. We look at life as being made up of experiences, and we believe that everything in this human experience can be designed to be more — more filled with delight, more filled with joy, more filled with a sense of connection and belonging.</p>
+      <p>We seek out people who share our belief in the power of problem solving by finding new models, new frames of reference, and new ways of thinking.</p>
+    </div>
+  </section>
 
-        <section class="story">
-            <div class="story-intro">
-                <p class="story-quote">Our stories are fierce. Businesses built on dreams. Sandcastles carved from the sky and made real on the earth.</p>
-            </div>
-            <div class="story-content">
-                <p>Joyus is a design and strategy studio founded by Divya Tak and Kahran Singh. We bring a holistic, playful approach to projects that span product design, brand building, game development, system design, and storytelling. We believe the projects that'll haunt you until the day they're made are the ones worth doing.</p>
-            </div>
-        </section>
+  <section class="philosophy-strip">
+    <p>Through our work, we deliver experiences that wow your customers today, help them remember you tomorrow and keep them connected to you forever. After all, joy and delight is a non-zero-sum game.</p>
+  </section>
 
-        <section class="founders">
-            <h2>Our Founders</h2>
-            <div class="founders-grid">
-                <div class="founder-card">
-                    <h3>Divya Tak</h3>
-                    <p class="role">Co-founder, Design</p>
-                    <p>Divya is a designer and illustrator whose work spans visual identity, product design, and hand-drawn illustration. Her illustrations — playful characters, intricate watercolors, and expressive line work — have become a signature of Joyus's creative output. From the Tatsam mental health app to Secret Senses packaging, Divya brings warmth and craft to every project.</p>
-                </div>
-                <div class="founder-card">
-                    <h3>Kahran Singh</h3>
-                    <p class="role">Co-founder, Strategy</p>
-                    <p>Kahran brings a blend of strategic thinking, product design, and storytelling to Joyus. With experience spanning startups, nonprofits, and established companies, he specializes in helping teams find the narrative that moves people — whether that's investors, donors, or end users. His work with Klydo, TomboyX, and PrathamUSA demonstrates a commitment to understanding people before designing solutions.</p>
-                </div>
-            </div>
-        </section>
+  <section class="founders-section">
+    <h2>Our Founders</h2>
 
-        <section class="values">
-            <h2>Our Values</h2>
-            <div class="values-grid">
-                <div class="value-item">
-                    <h3>Storytelling First</h3>
-                    <p>We believe every great product starts with a great story.</p>
-                </div>
-                <div class="value-item">
-                    <h3>Holistic Design</h3>
-                    <p>We don't separate strategy from craft.</p>
-                </div>
-                <div class="value-item">
-                    <h3>Play as Practice</h3>
-                    <p>Joy and rigor aren't opposites; they're partners.</p>
-                </div>
-            </div>
-        </section>
+    <div class="founder">
+      <div>
+        <h3 class="founder-name">Kahran Singh</h3>
+        <p class="founder-role">Co-founder, Strategy</p>
+      </div>
+      <div class="founder-bio">
+        <p>Kahran brings product design, product marketing, and strategic storytelling to Joyus. With over a decade of experience across education, travel, technology and consumer goods — working across the US, UK, EU, and India — he's built a unique perspective on problem-solving and an ability to adapt to wildly different markets and client needs.</p>
+        <p>As an active angel investor with deep connections to both the Seattle and Indian startup ecosystems, Kahran works closely with CEOs and founders to find clarity in their messaging and build lasting relationships with the people who matter most to their business. He holds a B.Sc. in Computer Science from Tufts University.</p>
+      </div>
+    </div>
 
-        <section class="cta-section with-illustration">
-            <div class="cta-content">
-                <h2>be our friends.</h2>
-                <p><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></p>
-            </div>
-            <div class="illustration">
-                <img src="images/illustration-hero.png" alt="Divya's illustration">
-            </div>
-        </section>
-    </main>
+    <div class="founder">
+      <div>
+        <h3 class="founder-name">Divya Tak</h3>
+        <p class="founder-role">Co-founder, Design</p>
+      </div>
+      <div class="founder-bio">
+        <p>Divya is an artist at heart, storyteller in the head, with designer hands. Her background spans experience design, product design & development, and game design. She uses the newest technology and insights into consumer behavior to craft culture-shaping experiences across industries including technology, consumer goods, and education.</p>
+        <p>Divya has a Master's degree in Physics from IIT Kharagpur and taught herself design by making a lot of things. Her illustrations — playful characters, intricate watercolors, and expressive line work — have become a signature of Joyus's creative output, from the Tatsam mental health app to Secret Senses packaging to The Line Before, a poetry installation exhibited at Boulder Public Library.</p>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </footer>
+  <section class="values-section">
+    <div class="inner">
+      <h2>How We Think</h2>
+      <div class="values-grid">
+        <div class="value">
+          <h3>Interdisciplinary</h3>
+          <p>We don't separate strategy from craft, or research from design. The best work happens when disciplines collide.</p>
+        </div>
+        <div class="value">
+          <h3>Culturally Sensitive</h3>
+          <p>We've worked across India, the US, the UK, and Hong Kong. Context shapes everything — we design for real people in real places.</p>
+        </div>
+        <div class="value">
+          <h3>Play as Practice</h3>
+          <p>Joy and rigor aren't opposites. The projects that'll haunt you until the day they're made are the ones worth doing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Add any interactive functionality here
-        document.addEventListener('DOMContentLoaded', function() {
-            // Navigation active state is already set in HTML
+  <section class="about-cta">
+    <h2>be our friends.</h2>
+    <p><a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a></p>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="workshops.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
         });
-    </script>
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
 </body>
 </html>
