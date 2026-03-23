@@ -765,7 +765,15 @@
     function selectIntent(text, url) {
       intentInput.value = text;
       suggestionsEl.classList.remove('visible');
-      showOverlay(text, url);
+      // Save intent to Firestore
+      saveIntentToFirestore(text, null);
+      if (url) {
+        // Known destination — go straight there
+        window.location.href = url;
+      } else {
+        // Custom intent — show interstitial to capture and route
+        showOverlay(text, null);
+      }
     }
 
     function showOverlay(text, url) {
