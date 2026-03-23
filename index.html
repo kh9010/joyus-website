@@ -2,434 +2,660 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <meta name="description" content="Joyus Studio builds art, companies, brands and products. We help businesses create meaningful connections through design, strategy and storytelling.">
-  <meta property="og:title" content="Joyus Studio — Design, Storytelling, Imagination">
-  <meta property="og:description" content="Joyus Studio builds art, companies, brands and products. We help businesses create meaningful connections through design, strategy and storytelling.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/">
-  <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/">
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Joyus Studio",
-    "url": "https://kh9010.github.io/joyus-website/",
-    "logo": "https://kh9010.github.io/joyus-website/images/logo.png",
-    "description": "An experience design studio that builds art, companies, brands and products through behaviorally-sensitive systemic design.",
-    "founder": [
-      {"@type": "Person", "name": "Kahran Singh"},
-      {"@type": "Person", "name": "Divya Tak"}
-    ],
-    "sameAs": [
-      "https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "email": "hello@joyus.studio",
-      "contactType": "customer service"
-    }
-  }
-  </script>
   <title>Joyus Studio — Design, Storytelling, Imagination</title>
-  <link rel="stylesheet" href="styles.css">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    /* Override global fade-in so sections are visible by default on homepage */
-    .hero, .featured-work, .podcast, .services-block, .final-cta {
-      opacity: 1;
-      transform: none;
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Featured work card image style */
-    .featured-card-img {
-      width: 100%;
-      height: 200px;
-      overflow: hidden;
-      position: relative;
-      background: #f0eeec;
-    }
-    .featured-card-img img {
+    html, body {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-      transition: transform 0.4s ease;
+      overflow: hidden;
+      background: #FFFFFF;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
-    .work-card:hover .featured-card-img img {
-      transform: scale(1.04);
-    }
-    .work-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.25rem; margin-bottom: 0.4rem; }
-    .work-card h4 { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 400; color: #555; line-height: 1.5; margin-bottom: 0.6rem; }
-    .work-card .card-body { padding: 1.25rem 1.5rem 1.5rem; }
 
-    /* Podcast section — override global styles.css podcast rules */
-    .podcast-section {
-      background: var(--warm-gray, #F5F3F0) !important;
-      color: #111 !important;
-      padding: 5rem 2rem;
-    }
-    .podcast-section .podcast {
-      display: grid !important;
-      grid-template-columns: 1fr 1fr !important;
-      gap: 3.5rem;
-      align-items: center;
-      max-width: 1100px;
-      margin: 0 auto;
-      background: transparent !important;
-      color: #111 !important;
-      padding: 0 !important;
-    }
-    .podcast-section .podcast-content {
-      display: block !important;
-      grid-template-columns: none !important;
-    }
-    .podcast-section .podcast-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3.5vw, 2.2rem);
-      margin-bottom: 0.75rem;
-      color: #111 !important;
-    }
-    .podcast-section .podcast-description {
-      font-size: 1rem;
-      color: #555 !important;
-      line-height: 1.75;
-      margin-bottom: 1.5rem;
-    }
-    .podcast-section .podcast-image img {
+    /* Background illustration — hidden behind white canvas, revealed via cutout */
+    .bg-illustration {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 100% !important;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      height: 100%;
+      z-index: 2;
+      background: url('images/illustration-podcast.jpg') center center / cover no-repeat;
+      pointer-events: none;
     }
 
-    /* Services block on homepage */
-    .services-block {
-      background: #1a1a1a;
-      padding: 5rem 2rem;
+    .splash-logo {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 10;
+      opacity: 0.3;
+      transition: opacity 0.4s ease;
     }
-    .services-block-inner {
-      max-width: 1000px;
-      margin: 0 auto;
+
+    .splash-logo img {
+      height: 28px;
+      width: auto;
     }
-    .services-block h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    .services-block .intro {
-      color: #888;
-      font-size: 1rem;
-      margin-bottom: 3rem;
-    }
-    .services-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-    .service-item {
-      border-top: 1px solid #333;
-      padding-top: 1.25rem;
-    }
-    .service-item .price {
-      font-family: 'DM Serif Display', serif;
+
+    .splash-prompt {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      font-family: 'Caveat', cursive;
       font-size: 1.5rem;
-      color: white;
-      margin-bottom: 0.25rem;
-    }
-    .service-item h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    .service-item p {
-      font-size: 0.88rem;
-      color: #888;
-      line-height: 1.6;
-    }
-    .services-block-cta {
-      margin-top: 3rem;
-    }
-    .services-block-cta a {
-      color: #E91E7B;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .services-block-cta a:hover { opacity: 0.8; }
-
-    /* Final CTA */
-    .final-cta {
-      padding: 6rem 2rem;
+      color: #ccc;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
       text-align: center;
-      background: var(--warm-gray, #F5F3F0);
+      line-height: 1.4;
     }
-    .final-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin-bottom: 1rem;
-      color: #111;
+
+    .splash-prompt.hidden {
+      opacity: 0;
     }
-    .final-cta p {
-      font-size: 1.1rem;
-      color: #666;
-      margin-bottom: 1.75rem;
-    }
-    .final-cta a.email-link {
-      font-size: 1.1rem;
-      font-weight: 600;
+
+    .splash-prompt.enter-prompt {
+      opacity: 0;
+      animation: fadeInPrompt 0.8s ease 0.3s forwards;
       color: #E91E7B;
+      font-size: 1.6rem;
+      cursor: default;
     }
 
-    .see-all-work {
+    @keyframes fadeInPrompt {
+      from { opacity: 0; transform: translate(-50%, -50%) translateY(6px); }
+      to { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+    }
+
+    /* Shape hint label positioned near the shape */
+    .shape-hint {
+      position: fixed;
+      z-index: 10;
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #E91E7B;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeInHint 1s ease 0.5s forwards;
       text-align: center;
-      margin-top: 2.5rem;
+      white-space: nowrap;
     }
-    .see-all-work a {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #111;
-    }
-    .see-all-work a:hover { color: #E91E7B; opacity: 1; }
 
-    @media (max-width: 768px) {
-      .podcast-section .podcast {
-        grid-template-columns: 1fr !important;
-        gap: 2rem;
-      }
-      .podcast-section .podcast-image { order: -1; }
-      .services-row { grid-template-columns: 1fr 1fr; }
-      .podcast-section { padding: 3.5rem 2rem; }
+    @keyframes fadeInHint {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 0.9; transform: translateY(0); }
     }
-    @media (max-width: 480px) {
-      .services-row { grid-template-columns: 1fr; }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      cursor: crosshair;
+    }
+
+    /* Pulse glow overlay for closed shape */
+    .shape-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .shape-glow.active {
+      opacity: 1;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* Page fade out */
+    .splash-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: opacity 0.7s ease;
+    }
+
+    .splash-wrapper.fade-out {
+      opacity: 0;
     }
   </style>
 </head>
 <body>
+  <!-- Background illustration revealed through canvas cutout -->
+  <div class="bg-illustration" id="bgIllustration"></div>
 
-  <!-- Navigation -->
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="index.html" class="logo">
-        <img src="images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="work/index.html">Work</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="splash-wrapper" id="splashWrapper">
+    <a href="home.html" class="splash-logo">
+      <img src="images/logo.webp" alt="Joyus Studio">
+    </a>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <div>
-        <h1 class="hero-title">We're <span class="script">theoretical experimentalists.</span></h1>
-        <p class="hero-subtitle">We build art, companies, brands and products. We'll help you understand what you want, and break down what stands in your way.</p>
-        <a href="work/index.html" class="cta-button">See our work</a>
-      </div>
-      <div class="hero-image">
-        <img src="images/illustration-hero.png" alt="Joyus Studio illustration">
-      </div>
-    </div>
-    <div class="hero-decoration">
-      <div class="dot-grid"></div>
-      <svg class="cyan-arc" viewBox="0 0 100 100" preserveAspectRatio="none" style="width:200px;height:120px;bottom:0;right:0;">
-        <path d="M 0 50 Q 50 0 100 50" stroke="var(--cyan)" stroke-width="2" fill="none"/>
-      </svg>
-    </div>
-  </section>
+    <div class="splash-prompt" id="prompt">draw something</div>
 
-  <!-- Featured Work -->
-  <section style="padding: 5rem 2rem;">
-    <div class="featured-work">
-      <h2 style="margin-bottom:0.5rem;">Featured Work</h2>
-      <p style="color:#888;font-size:1rem;margin-bottom:0;">Here's a few snapshots of how we work.</p>
-      <div class="work-grid">
-
-        <a href="work/tomboyx.html" class="work-card case-card">
-          <div class="featured-card-img">
-            <img src="images/work/tomboyx.jpg" alt="TomboyX investor pitch" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-tags">
-              <span class="tag">Brand Story</span>
-              <span class="tag">Investor Pitch</span>
-            </div>
-            <h3>TomboyX</h3>
-            <h4>$5M raised in a down market — by leading with unit economics, not identity politics.</h4>
-            <div class="card-stat">$5M raised</div>
-          </div>
-        </a>
-
-        <a href="work/klydo.html" class="work-card case-card">
-          <div class="featured-card-img">
-            <img src="images/work/klydo.jpg" alt="Klydo fashion startup" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-tags">
-              <span class="tag">Product Strategy</span>
-              <span class="tag">Brand Story</span>
-              <span class="tag">GTM</span>
-            </div>
-            <h3>Klydo</h3>
-            <h4>From 4 people with a dream to 150 daily sales in 10 weeks.</h4>
-            <div class="card-stat">0 → 150 daily sales</div>
-          </div>
-        </a>
-
-        <a href="work/tatsam.html" class="work-card case-card">
-          <div class="featured-card-img">
-            <img src="images/work/tatsam.jpg" alt="Tatsam mental wellness" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-tags">
-              <span class="tag">Visual Language</span>
-              <span class="tag">Brand Building</span>
-              <span class="tag">Product Strategy</span>
-            </div>
-            <h3>Tatsam</h3>
-            <h4>Designing the visual language for mental wellness in India — making a stigma-heavy space feel warm and safe.</h4>
-            <div class="card-stat">Holistic design for a sensitive space</div>
-          </div>
-        </a>
-
-        <a href="work/pratham.html" class="work-card case-card">
-          <div class="featured-card-img">
-            <img src="images/work/pratham.jpg" alt="PrathamUSA donor journey" loading="lazy">
-          </div>
-          <div class="card-body">
-            <div class="card-tags">
-              <span class="tag">Donor Research</span>
-              <span class="tag">Process Design</span>
-            </div>
-            <h3>PrathamUSA</h3>
-            <h4>Rebuilding the donor journey for a $50M nonprofit — so the people who give feel as seen as the children they support.</h4>
-            <div class="card-stat">$50M nonprofit · donor journey redesign</div>
-          </div>
-        </a>
-
-      </div>
-      <div class="see-all-work">
-        <a href="work/index.html">See all work →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Podcast -->
-  <section class="podcast-section">
-    <div class="podcast">
-      <div class="podcast-content">
-        <p style="font-size:0.75rem;text-transform:uppercase;letter-spacing:1.5px;color:#999;margin-bottom:0.5rem;">Our Podcast</p>
-        <h2 class="podcast-title">Thinking on Thinking</h2>
-        <p class="podcast-description">A podcast about success, mental models and why we humans do the things that we do. Hosted by co-founders Divya Tak & Kahran Singh — made for creatives who want to make a living.</p>
-        <a href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener" class="cta-button">Listen &amp; subscribe</a>
-      </div>
-      <div class="podcast-image">
-        <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking Podcast">
-      </div>
-    </div>
-  </section>
-
-  <!-- Services Block -->
-  <section class="services-block">
-    <div class="services-block-inner">
-      <h2>We design, we build, we manage, we market, we advise, we grow.</h2>
-      <p class="intro">We work in lots of different ways.</p>
-      <div class="services-row">
-        <div class="service-item">
-          <p class="price">$200</p>
-          <h3>Paid Expertise</h3>
-          <p>One focused conversation to frame your problem — because naming it is half the battle.</p>
-        </div>
-        <div class="service-item">
-          <p class="price">$2,000</p>
-          <h3>Workshops</h3>
-          <p>Half-day to multi-day sessions that get your team unstuck and moving together.</p>
-        </div>
-        <div class="service-item">
-          <p class="price">$5,000</p>
-          <h3>Coaching & Prep</h3>
-          <p>Weeks of work to build your narrative and make it land with any audience.</p>
-        </div>
-        <div class="service-item">
-          <p class="price">Custom</p>
-          <h3>Project-Based</h3>
-          <p>The whole journey — design, strategy and storytelling for something that doesn't exist yet.</p>
-        </div>
-      </div>
-      <div class="services-block-cta">
-        <a href="services.html">See all services →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="final-cta">
-    <h2>Let's make something together.</h2>
-    <p>Whether you have a clear brief or just a hunch that something needs to change — we'd love to hear about it.</p>
-    <a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a>
-  </section>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio of makers.</p>
-      </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="work/index.html">Work</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
-  </footer>
+    <canvas id="canvas"></canvas>
+  </div>
 
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-      hamburger.classList.toggle('active');
+    if (sessionStorage.getItem('joyus_entered')) {
+      window.location.replace('home.html');
+    }
+
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const promptEl = document.getElementById('prompt');
+    if (isTouchDevice) promptEl.textContent = 'draw with your finger';
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('splashWrapper');
+
+    let drawing = false;
+    let points = [];
+    let allStrokes = [];
+    let shapeClosed = false;
+    let closedShape = null;
+    let hasStartedDrawing = false;
+    let targetPage = 'home.html';
+
+    const PINK = '#E91E7B';
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      redrawAll();
+    }
+
+    function redrawAll() {
+      // Fill with white so the canvas is opaque (hides illustration behind)
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Redraw all completed strokes
+      for (const stroke of allStrokes) {
+        drawStroke(stroke, false);
+      }
+      // Redraw current stroke
+      if (points.length > 1) {
+        drawStroke(points, false);
+      }
+      // If shape is closed, cut out the enclosed region
+      if (shapeClosed && enclosedData) {
+        cutOutEnclosedRegion(enclosedData);
+      }
+    }
+
+    function drawStroke(pts, incremental) {
+      if (pts.length < 2) return;
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(233, 30, 123, 0.6)';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (incremental) {
+        // Only draw the last segment
+        const i = pts.length - 1;
+        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
+        ctx.lineTo(pts[i].x, pts[i].y);
+      } else {
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length; i++) {
+          ctx.lineTo(pts[i].x, pts[i].y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    function drawFill() {
+      if (!closedShape || closedShape.length < 3) return;
+      const closedStroke = closedShape;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(closedStroke[0].x, closedStroke[0].y);
+      for (let i = 1; i < closedStroke.length; i++) {
+        ctx.lineTo(closedStroke[i].x, closedStroke[i].y);
+      }
+      ctx.closePath();
+
+      // Gradient fill
+      const bounds = getBounds(closedStroke);
+      const gradient = ctx.createLinearGradient(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY);
+      gradient.addColorStop(0, 'rgba(233, 30, 123, 0.15)');
+      gradient.addColorStop(0.5, 'rgba(233, 30, 123, 0.25)');
+      gradient.addColorStop(1, 'rgba(233, 30, 123, 0.12)');
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      // Redraw the stroke on top, slightly stronger
+      ctx.strokeStyle = 'rgba(233, 30, 123, 0.8)';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // Soft glow around shape
+      ctx.shadowColor = 'rgba(233, 30, 123, 0.3)';
+      ctx.shadowBlur = 20;
+      ctx.strokeStyle = 'rgba(233, 30, 123, 0.3)';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function getBounds(pts) {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const p of pts) {
+        if (p.x < minX) minX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+      }
+      return { minX, minY, maxX, maxY };
+    }
+
+    function getPos(e) {
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      return { x: e.clientX, y: e.clientY };
+    }
+
+    function dist(a, b) {
+      return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+    }
+
+    function isInsideShape(point, polygon) {
+      // Ray-casting algorithm
+      let inside = false;
+      for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const xi = polygon[i].x, yi = polygon[i].y;
+        const xj = polygon[j].x, yj = polygon[j].y;
+        const intersect = ((yi > point.y) !== (yj > point.y))
+          && (point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+
+    function startDraw(e) {
+      if (shapeClosed) return;
+      e.preventDefault();
+      drawing = true;
+      const pos = getPos(e);
+      points = [pos];
+
+      if (!hasStartedDrawing) {
+        hasStartedDrawing = true;
+        firstPoint = pos;
+        promptEl.classList.add('hidden');
+      }
+    }
+
+    function moveDraw(e) {
+      if (!drawing || shapeClosed) return;
+      e.preventDefault();
+      const pos = getPos(e);
+      points.push(pos);
+      drawStroke(points, true);
+    }
+
+    // Detect enclosed regions using a small offscreen canvas + flood fill
+    function findEnclosedRegion() {
+      var scale = 0.15; // work at 15% resolution for speed
+      var w = Math.ceil(window.innerWidth * scale);
+      var h = Math.ceil(window.innerHeight * scale);
+      var off = document.createElement('canvas');
+      off.width = w;
+      off.height = h;
+      var oc = off.getContext('2d');
+
+      // Draw all strokes onto the small canvas
+      oc.strokeStyle = '#000';
+      oc.lineWidth = Math.max(2, 3 * scale);
+      oc.lineCap = 'round';
+      oc.lineJoin = 'round';
+      for (var s = 0; s < allStrokes.length; s++) {
+        var stroke = allStrokes[s];
+        if (stroke.length < 2) continue;
+        oc.beginPath();
+        oc.moveTo(stroke[0].x * scale, stroke[0].y * scale);
+        for (var i = 1; i < stroke.length; i++) {
+          oc.lineTo(stroke[i].x * scale, stroke[i].y * scale);
+        }
+        oc.stroke();
+      }
+
+      // Get pixel data
+      var imgData = oc.getImageData(0, 0, w, h);
+      var data = imgData.data;
+      var visited = new Uint8Array(w * h);
+
+      // Mark stroke pixels as visited (they're walls)
+      for (var i = 0; i < w * h; i++) {
+        if (data[i * 4 + 3] > 30) visited[i] = 1; // has alpha = stroke pixel
+      }
+
+      // Flood fill from all edges to find "outside" pixels
+      var queue = [];
+      for (var x = 0; x < w; x++) {
+        if (!visited[x]) queue.push(x); // top edge
+        var bot = (h - 1) * w + x;
+        if (!visited[bot]) queue.push(bot);
+      }
+      for (var y = 0; y < h; y++) {
+        var left = y * w;
+        if (!visited[left]) queue.push(left);
+        var right = y * w + w - 1;
+        if (!visited[right]) queue.push(right);
+      }
+
+      // BFS flood fill
+      for (var qi = 0; qi < queue.length; qi++) {
+        var idx = queue[qi];
+        if (visited[idx]) continue;
+        visited[idx] = 2; // 2 = outside
+        var px = idx % w, py = Math.floor(idx / w);
+        if (px > 0 && !visited[idx - 1]) queue.push(idx - 1);
+        if (px < w - 1 && !visited[idx + 1]) queue.push(idx + 1);
+        if (py > 0 && !visited[idx - w]) queue.push(idx - w);
+        if (py < h - 1 && !visited[idx + w]) queue.push(idx + w);
+      }
+
+      // Any pixel that's not visited (not wall, not outside) is inside an enclosed region
+      var insidePixels = [];
+      for (var i = 0; i < w * h; i++) {
+        if (visited[i] === 0) {
+          insidePixels.push({
+            x: (i % w) / scale,
+            y: Math.floor(i / w) / scale
+          });
+        }
+      }
+
+      if (insidePixels.length < 20) return null; // too small, probably noise
+
+      // Build a convex-ish outline from the inside pixels for fill rendering
+      // Just return the bounding info and use the offscreen data for the fill
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (var i = 0; i < insidePixels.length; i++) {
+        var p = insidePixels[i];
+        if (p.x < minX) minX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+      }
+
+      return { pixels: insidePixels, bounds: { minX: minX, minY: minY, maxX: maxX, maxY: maxY }, visited: visited, scale: scale, w: w, h: h };
+    }
+
+    var enclosedData = null;
+
+    // Cut out the enclosed region from the white canvas to reveal the illustration behind
+    function cutOutEnclosedRegion(region) {
+      var step = 1 / region.scale;
+      ctx.save();
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      for (var y = 0; y < region.h; y++) {
+        for (var x = 0; x < region.w; x++) {
+          if (region.visited[y * region.w + x] === 0) {
+            ctx.fillRect(x / region.scale, y / region.scale, step, step);
+          }
+        }
+      }
+      ctx.restore();
+      ctx.globalCompositeOperation = 'source-over';
+    }
+
+    // Classify shape based on geometry
+    function classifyShape(region) {
+      var b = region.bounds;
+      var shapeWidth = b.maxX - b.minX;
+      var shapeHeight = b.maxY - b.minY;
+      var aspectRatio = shapeWidth / shapeHeight;
+      var area = region.pixels.length * (1 / region.scale) * (1 / region.scale);
+      var viewportArea = window.innerWidth * window.innerHeight;
+      var areaFraction = area / viewportArea;
+
+      // Circularity: compare area to area of a circle with radius = half max dimension
+      var r = Math.max(shapeWidth, shapeHeight) / 2;
+      var circleArea = Math.PI * r * r;
+      var circularity = (area / circleArea);
+
+      // Small shape check
+      if (areaFraction < 0.03) {
+        return { page: 'home.html', hint: 'a little peek \u2014 here\u2019s everything' };
+      }
+
+      // Circle-ish
+      if (circularity > 0.6 && aspectRatio >= 0.7 && aspectRatio <= 1.4) {
+        return { page: 'about.html', hint: 'oh, a circle \u2014 come meet us' };
+      }
+
+      // Tall / vertical
+      if (aspectRatio < 0.7) {
+        return { page: 'work/index.html', hint: 'something tall \u2014 see what we\u2019ve built' };
+      }
+
+      // Wide / horizontal
+      if (aspectRatio > 1.6) {
+        return { page: 'services.html', hint: 'reaching wide \u2014 let\u2019s talk about what we do' };
+      }
+
+      // Everything else
+      return { page: 'home.html', hint: 'step inside' };
+    }
+
+    // Show the shape hint near the shape
+    function showShapeHint(region, classification) {
+      var b = region.bounds;
+      var centerX = (b.minX + b.maxX) / 2;
+      var bottomY = b.maxY + 30;
+
+      // If too close to bottom of viewport, place above
+      if (bottomY > window.innerHeight - 50) {
+        bottomY = b.minY - 30;
+      }
+
+      var hint = document.createElement('div');
+      hint.className = 'shape-hint';
+      hint.textContent = classification.hint;
+      hint.style.left = centerX + 'px';
+      hint.style.top = bottomY + 'px';
+      hint.style.transform = 'translateX(-50%) translateY(8px)';
+      document.body.appendChild(hint);
+    }
+
+    function endDraw(e) {
+      if (!drawing || shapeClosed) return;
+      e.preventDefault();
+      drawing = false;
+
+      if (points.length < 5) {
+        points = [];
+        return;
+      }
+
+      allStrokes.push([...points]);
+      points = [];
+
+      // Check for any enclosed region
+      var region = findEnclosedRegion();
+      if (region) {
+        shapeClosed = true;
+        enclosedData = region;
+
+        // Classify the shape
+        var classification = classifyShape(region);
+        targetPage = classification.page;
+
+        // Redraw with white background then cut out the enclosed region
+        redrawAll();
+
+        // Show the hint prompt text
+        promptEl.textContent = classification.hint;
+        promptEl.classList.remove('hidden');
+        promptEl.classList.add('enter-prompt');
+
+        // Also show a hint near the shape
+        showShapeHint(region, classification);
+
+        canvas.style.cursor = 'pointer';
+        startPulse();
+      }
+    }
+
+    // Pulse animation — redraws white background, strokes, then cuts out with subtle glow variation
+    let pulseRAF = null;
+    let pulseStart = null;
+
+    function startPulse() {
+      pulseStart = performance.now();
+      pulseTick();
+    }
+
+    function pulseTick() {
+      if (!shapeClosed || !enclosedData) return;
+      var elapsed = performance.now() - pulseStart;
+      var cycle = (Math.sin(elapsed / 1000 * Math.PI) + 1) / 2;
+
+      // Redraw white background
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Redraw all strokes
+      for (var i = 0; i < allStrokes.length; i++) {
+        drawStroke(allStrokes[i], false);
+      }
+
+      // Cut out the enclosed region to reveal illustration
+      cutOutEnclosedRegion(enclosedData);
+
+      // Draw a subtle pulsing glow border around the cutout edge
+      // We draw a semi-transparent pink inside the cutout that pulses
+      var glowAlpha = 0.03 + cycle * 0.08;
+      ctx.save();
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = 'rgba(233, 30, 123, ' + glowAlpha + ')';
+      var step = 1 / enclosedData.scale;
+      for (var y = 0; y < enclosedData.h; y++) {
+        for (var x = 0; x < enclosedData.w; x++) {
+          if (enclosedData.visited[y * enclosedData.w + x] === 0) {
+            ctx.fillRect(x / enclosedData.scale, y / enclosedData.scale, step, step);
+          }
+        }
+      }
+      ctx.restore();
+
+      // Re-draw strokes on top of the glow for crispness
+      ctx.globalCompositeOperation = 'source-over';
+      for (var i = 0; i < allStrokes.length; i++) {
+        drawStroke(allStrokes[i], false);
+      }
+
+      pulseRAF = requestAnimationFrame(pulseTick);
+    }
+
+    function handleClick(e) {
+      if (!shapeClosed || !enclosedData) return;
+      var pos = getPos(e);
+      // Check if click is inside the enclosed region
+      var sx = Math.floor(pos.x * enclosedData.scale);
+      var sy = Math.floor(pos.y * enclosedData.scale);
+      if (sx >= 0 && sx < enclosedData.w && sy >= 0 && sy < enclosedData.h) {
+        if (enclosedData.visited[sy * enclosedData.w + sx] === 0) {
+          enterSite();
+        }
+      }
+    }
+
+    function enterSite() {
+      sessionStorage.setItem('joyus_entered', '1');
+      if (pulseRAF) cancelAnimationFrame(pulseRAF);
+      wrapper.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = targetPage;
+      }, 700);
+    }
+
+    // Event listeners
+    // Mouse
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', moveDraw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseleave', endDraw);
+
+    // Touch
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', moveDraw, { passive: false });
+    canvas.addEventListener('touchend', endDraw, { passive: false });
+    canvas.addEventListener('touchcancel', endDraw, { passive: false });
+
+    // Click to enter
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('touchend', function(e) {
+      if (!shapeClosed || !enclosedData) return;
+      setTimeout(function() {
+        if (!shapeClosed) return;
+        var touch = e.changedTouches && e.changedTouches[0];
+        if (!touch) return;
+        var pos = { x: touch.clientX, y: touch.clientY };
+        var sx = Math.floor(pos.x * enclosedData.scale);
+        var sy = Math.floor(pos.y * enclosedData.scale);
+        if (sx >= 0 && sx < enclosedData.w && sy >= 0 && sy < enclosedData.h) {
+          if (enclosedData.visited[sy * enclosedData.w + sx] === 0) {
+            enterSite();
+          }
+        }
+      }, 50);
     });
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
-        hamburger.classList.remove('active');
-      });
-    });
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
+
+    // Prevent scrolling on touch
+    document.body.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    // Resize
+    window.addEventListener('resize', resize);
+    resize();
   </script>
 </body>
 </html>
