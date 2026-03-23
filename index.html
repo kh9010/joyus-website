@@ -28,14 +28,7 @@
 
     /* Background illustration — hidden behind white canvas, revealed via cutout */
     .bg-illustration {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 2;
-      background: url('images/illustration-podcast.jpg') center center / cover no-repeat;
-      pointer-events: none;
+      display: none;
     }
 
     .splash-logo {
@@ -213,9 +206,9 @@
       if (points.length > 1) {
         drawStroke(points, false);
       }
-      // If shape is closed, cut out the enclosed region
+      // If shape is closed, paint the illustration into the enclosed region
       if (shapeClosed && enclosedData) {
-        cutOutEnclosedRegion(enclosedData);
+        paintIllustrationInRegion(enclosedData, 1);
       }
     }
 
@@ -323,7 +316,6 @@
 
       if (!hasStartedDrawing) {
         hasStartedDrawing = true;
-        firstPoint = pos;
         promptEl.classList.add('hidden');
       }
     }
@@ -427,21 +419,49 @@
 
     var enclosedData = null;
 
-    // Cut out the enclosed region from the white canvas to reveal the illustration behind
-    function cutOutEnclosedRegion(region) {
+    // Preload the illustration image
+    var illustrationImg = new Image();
+    illustrationImg.src = 'images/illustration-hero.png';
+
+    // Paint the illustration into the enclosed region on the canvas
+    function paintIllustrationInRegion(region, alpha) {
+      if (!illustrationImg.complete) return;
       var step = 1 / region.scale;
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+
+      // Draw the illustration to a temp canvas, scaled to cover viewport
+      var tmpCanvas = document.createElement('canvas');
+      tmpCanvas.width = vw;
+      tmpCanvas.height = vh;
+      var tmpCtx = tmpCanvas.getContext('2d');
+
+      // Contain logic: fit entire image centered in viewport
+      var imgW = illustrationImg.naturalWidth;
+      var imgH = illustrationImg.naturalHeight;
+      var imgScale = Math.min(vw * 0.7 / imgW, vh * 0.7 / imgH);
+      var drawW = imgW * imgScale;
+      var drawH = imgH * imgScale;
+      var offsetX = (vw - drawW) / 2;
+      var offsetY = (vh - drawH) / 2;
+      tmpCtx.fillStyle = '#FFFFFF';
+      tmpCtx.fillRect(0, 0, vw, vh);
+      tmpCtx.drawImage(illustrationImg, offsetX, offsetY, drawW, drawH);
+
+      // Now paint only the enclosed pixels from the temp canvas onto the main canvas
       ctx.save();
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.fillStyle = 'rgba(0, 0, 0, 1)';
+      ctx.globalAlpha = alpha || 1;
       for (var y = 0; y < region.h; y++) {
         for (var x = 0; x < region.w; x++) {
           if (region.visited[y * region.w + x] === 0) {
-            ctx.fillRect(x / region.scale, y / region.scale, step, step);
+            var sx = Math.floor(x / region.scale);
+            var sy = Math.floor(y / region.scale);
+            ctx.drawImage(tmpCanvas, sx, sy, step, step, sx, sy, step, step);
           }
         }
       }
+      ctx.globalAlpha = 1;
       ctx.restore();
-      ctx.globalCompositeOperation = 'source-over';
     }
 
     // Classify shape based on geometry
@@ -526,15 +546,10 @@
         var classification = classifyShape(region);
         targetPage = classification.page;
 
-        // Redraw with white background then cut out the enclosed region
+        // Redraw with illustration in the enclosed region
         redrawAll();
 
-        // Show the hint prompt text
-        promptEl.textContent = classification.hint;
-        promptEl.classList.remove('hidden');
-        promptEl.classList.add('enter-prompt');
-
-        // Also show a hint near the shape
+        // Show hint near the shape
         showShapeHint(region, classification);
 
         canvas.style.cursor = 'pointer';
@@ -566,14 +581,12 @@
         drawStroke(allStrokes[i], false);
       }
 
-      // Cut out the enclosed region to reveal illustration
-      cutOutEnclosedRegion(enclosedData);
+      // Paint the illustration into the enclosed region
+      paintIllustrationInRegion(enclosedData, 1);
 
-      // Draw a subtle pulsing glow border around the cutout edge
-      // We draw a semi-transparent pink inside the cutout that pulses
-      var glowAlpha = 0.03 + cycle * 0.08;
+      // Subtle pulsing pink overlay on top
+      var glowAlpha = 0.02 + cycle * 0.06;
       ctx.save();
-      ctx.globalCompositeOperation = 'source-over';
       ctx.fillStyle = 'rgba(233, 30, 123, ' + glowAlpha + ')';
       var step = 1 / enclosedData.scale;
       for (var y = 0; y < enclosedData.h; y++) {
@@ -584,12 +597,6 @@
         }
       }
       ctx.restore();
-
-      // Re-draw strokes on top of the glow for crispness
-      ctx.globalCompositeOperation = 'source-over';
-      for (var i = 0; i < allStrokes.length; i++) {
-        drawStroke(allStrokes[i], false);
-      }
 
       pulseRAF = requestAnimationFrame(pulseTick);
     }
