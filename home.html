@@ -42,12 +42,205 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
     /* Override global fade-in so sections are visible by default on homepage */
-    .hero, .featured-work, .podcast, .services-block, .final-cta {
+    .intent-hero, .featured-work, .podcast, .podcast-section {
       opacity: 1;
       transform: none;
     }
 
-    /* Featured work card image style */
+    /* ── Intent Hero ── */
+    .intent-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      padding: 2rem;
+    }
+    .intent-content {
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+    }
+    .intent-content h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.2rem);
+      color: #111;
+      margin-bottom: 0.25rem;
+      font-weight: 400;
+    }
+    .intent-input-wrap {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 520px;
+      margin-top: 0.5rem;
+    }
+    #intentInput {
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid #E91E7B;
+      outline: none;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 3vw, 1.8rem);
+      color: #111;
+      padding: 0.5rem 0;
+      background: transparent;
+      text-align: center;
+      caret-color: #E91E7B;
+    }
+    #intentInput::placeholder {
+      color: #ccc;
+      font-style: italic;
+    }
+
+    /* ── Suggestions dropdown ── */
+    .intent-suggestions {
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      margin-top: 0.5rem;
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+      z-index: 50;
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .intent-suggestions.visible {
+      display: block;
+    }
+    .intent-suggestion {
+      padding: 0.75rem 1.25rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: #444;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.15s;
+    }
+    .intent-suggestion:hover,
+    .intent-suggestion.active {
+      background: #fdf0f5;
+      color: #E91E7B;
+    }
+    .intent-suggestion .suggestion-dest {
+      display: block;
+      font-size: 0.75rem;
+      color: #bbb;
+      margin-top: 0.15rem;
+      font-weight: 400;
+    }
+    .intent-suggestion:hover .suggestion-dest,
+    .intent-suggestion.active .suggestion-dest {
+      color: #e89ab8;
+    }
+    .intent-suggestion.past-intent {
+      font-style: italic;
+      color: #999;
+      font-size: 0.92rem;
+    }
+    .intent-suggestion.past-intent:hover,
+    .intent-suggestion.past-intent.active {
+      color: #E91E7B;
+    }
+    .past-intent-prefix {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #ccc;
+      font-style: normal;
+    }
+
+    /* ── Interstitial overlay ── */
+    .intent-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.97);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .intent-overlay.visible {
+      display: flex;
+      opacity: 1;
+    }
+    .intent-overlay-inner {
+      text-align: center;
+      max-width: 480px;
+      padding: 2rem;
+    }
+    .intent-overlay-inner .user-intent {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      color: #111;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    .intent-overlay-inner .overlay-ack {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      color: #888;
+      margin-bottom: 2.5rem;
+    }
+    .intent-overlay-inner .follow-up-form {
+      margin-bottom: 2rem;
+    }
+    .intent-overlay-inner .follow-up-form label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #999;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .intent-overlay-inner .follow-up-form input[type="email"] {
+      border: none;
+      border-bottom: 1.5px solid #ddd;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      padding: 0.5rem 0;
+      width: 100%;
+      max-width: 300px;
+      text-align: center;
+      caret-color: #E91E7B;
+      background: transparent;
+      color: #111;
+    }
+    .intent-overlay-inner .follow-up-form input[type="email"]:focus {
+      border-bottom-color: #E91E7B;
+    }
+    .intent-overlay-inner .follow-up-form button {
+      margin-top: 0.75rem;
+      border: none;
+      background: none;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      color: #E91E7B;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .intent-overlay-inner .follow-up-form button:hover {
+      opacity: 0.7;
+    }
+    .intent-overlay-inner .continue-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #111;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .intent-overlay-inner .continue-link:hover {
+      color: #E91E7B;
+    }
+
+    /* ── Featured work card image style ── */
     .featured-card-img {
       width: 100%;
       height: 200px;
@@ -70,7 +263,7 @@
     .work-card h4 { font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 400; color: #555; line-height: 1.5; margin-bottom: 0.6rem; }
     .work-card .card-body { padding: 1.25rem 1.5rem 1.5rem; }
 
-    /* Podcast section — override global styles.css podcast rules */
+    /* ── Podcast section ── */
     .podcast-section {
       background: var(--warm-gray, #F5F3F0) !important;
       color: #111 !important;
@@ -110,85 +303,6 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     }
 
-    /* Services block on homepage */
-    .services-block {
-      background: #1a1a1a;
-      padding: 5rem 2rem;
-    }
-    .services-block-inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .services-block h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    .services-block .intro {
-      color: #888;
-      font-size: 1rem;
-      margin-bottom: 3rem;
-    }
-    .services-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2rem;
-    }
-    .service-item {
-      border-top: 1px solid #333;
-      padding-top: 1.25rem;
-    }
-    .service-item .price {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      color: white;
-      margin-bottom: 0.25rem;
-    }
-    .service-item h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    .service-item p {
-      font-size: 0.88rem;
-      color: #888;
-      line-height: 1.6;
-    }
-    .services-block-cta {
-      margin-top: 3rem;
-    }
-    .services-block-cta a {
-      color: #E91E7B;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-    .services-block-cta a:hover { opacity: 0.8; }
-
-    /* Final CTA */
-    .final-cta {
-      padding: 6rem 2rem;
-      text-align: center;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .final-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin-bottom: 1rem;
-      color: #111;
-    }
-    .final-cta p {
-      font-size: 1.1rem;
-      color: #666;
-      margin-bottom: 1.75rem;
-    }
-    .final-cta a.email-link {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #E91E7B;
-    }
-
     .see-all-work {
       text-align: center;
       margin-top: 2.5rem;
@@ -206,11 +320,7 @@
         gap: 2rem;
       }
       .podcast-section .podcast-image { order: -1; }
-      .services-row { grid-template-columns: 1fr 1fr; }
       .podcast-section { padding: 3.5rem 2rem; }
-    }
-    @media (max-width: 480px) {
-      .services-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -236,28 +346,34 @@
     </div>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div class="hero-content">
-      <div>
-        <h1 class="hero-title">We're <span class="script">theoretical experimentalists.</span></h1>
-        <p class="hero-subtitle">We build art, companies, brands and products. We'll help you understand what you want, and break down what stands in your way.</p>
-        <a href="work/index.html" class="cta-button">See our work</a>
+  <!-- Intent Hero -->
+  <section class="intent-hero">
+    <div class="intent-content">
+      <h1>I need...</h1>
+      <div class="intent-input-wrap">
+        <input type="text" id="intentInput" placeholder="to tell a better story" autocomplete="off">
+        <div class="intent-suggestions" id="intentSuggestions"></div>
       </div>
-      <div class="hero-image">
-        <img src="images/illustration-hero.png" alt="Joyus Studio illustration">
-      </div>
-    </div>
-    <div class="hero-decoration">
-      <div class="dot-grid"></div>
-      <svg class="cyan-arc" viewBox="0 0 100 100" preserveAspectRatio="none" style="width:200px;height:120px;bottom:0;right:0;">
-        <path d="M 0 50 Q 50 0 100 50" stroke="var(--cyan)" stroke-width="2" fill="none"/>
-      </svg>
     </div>
   </section>
 
-  <!-- Featured Work -->
-  <section style="padding: 5rem 2rem;">
+  <!-- Interstitial overlay -->
+  <div class="intent-overlay" id="intentOverlay">
+    <div class="intent-overlay-inner">
+      <p class="user-intent" id="overlayIntent"></p>
+      <p class="overlay-ack">got it — we'll remember this</p>
+      <div class="follow-up-form">
+        <label for="followUpEmail">want us to follow up?</label>
+        <input type="email" id="followUpEmail" placeholder="your@email.com">
+        <br>
+        <button type="button" id="followUpSubmit">send</button>
+      </div>
+      <a href="#" class="continue-link" id="continueLink">continue &rarr;</a>
+    </div>
+  </div>
+
+  <!-- Featured Work (secondary) -->
+  <section style="padding: 6rem 2rem 5rem;">
     <div class="featured-work">
       <h2 style="margin-bottom:0.5rem;">Featured Work</h2>
       <p style="color:#888;font-size:1rem;margin-bottom:0;">Here's a few snapshots of how we work.</p>
@@ -327,12 +443,12 @@
 
       </div>
       <div class="see-all-work">
-        <a href="work/index.html">See all work →</a>
+        <a href="work/index.html">See all work &rarr;</a>
       </div>
     </div>
   </section>
 
-  <!-- Podcast -->
+  <!-- Podcast (secondary) -->
   <section class="podcast-section">
     <div class="podcast">
       <div class="podcast-content">
@@ -345,46 +461,6 @@
         <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking Podcast">
       </div>
     </div>
-  </section>
-
-  <!-- Services Block -->
-  <section class="services-block">
-    <div class="services-block-inner">
-      <h2>We design, we build, we manage, we market, we advise, we grow.</h2>
-      <p class="intro">We work in lots of different ways.</p>
-      <div class="services-row">
-        <div class="service-item">
-          <p class="price">$200</p>
-          <h3>Paid Expertise</h3>
-          <p>One focused conversation to frame your problem — because naming it is half the battle.</p>
-        </div>
-        <div class="service-item">
-          <p class="price">$2,000</p>
-          <h3>Workshops</h3>
-          <p>Half-day to multi-day sessions that get your team unstuck and moving together.</p>
-        </div>
-        <div class="service-item">
-          <p class="price">$5,000</p>
-          <h3>Coaching & Prep</h3>
-          <p>Weeks of work to build your narrative and make it land with any audience.</p>
-        </div>
-        <div class="service-item">
-          <p class="price">Custom</p>
-          <h3>Project-Based</h3>
-          <p>The whole journey — design, strategy and storytelling for something that doesn't exist yet.</p>
-        </div>
-      </div>
-      <div class="services-block-cta">
-        <a href="services.html">See all services →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Final CTA -->
-  <section class="final-cta">
-    <h2>Let's make something together.</h2>
-    <p>Whether you have a clear brief or just a hunch that something needs to change — we'd love to hear about it.</p>
-    <a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a>
   </section>
 
   <!-- Footer -->
@@ -412,7 +488,12 @@
     </div>
   </footer>
 
+  <!-- Firebase SDK (compat for static site) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
   <script>
+    // ── Nav toggle ──
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     hamburger.addEventListener('click', () => {
@@ -429,6 +510,369 @@
     window.addEventListener('scroll', () => {
       if (window.scrollY > 0) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
+    });
+
+    // ── Firebase initialization ──
+    const firebaseConfig = {
+      apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+      authDomain: "joyus-studio.firebaseapp.com",
+      projectId: "joyus-studio",
+      storageBucket: "joyus-studio.firebasestorage.app",
+      messagingSenderId: "654710924238",
+      appId: "1:654710924238:web:c300c98f31d2f620b3c19f",
+      measurementId: "G-K7PDLTYWF6"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    // ── Semantic Content Map ──
+    // Each entry: { display, terms (for fuzzy matching), url, dest (label shown in UI) }
+    const CONTENT_MAP = [
+      // TomboyX — pitch deck, fundraising, investor storytelling
+      { display: "help with a pitch deck", terms: ["pitch", "deck", "investor", "presentation", "slides"], url: "work/tomboyx.html", dest: "TomboyX case study" },
+      { display: "help with fundraising", terms: ["fundrais", "raising", "raise", "capital", "series", "round", "money", "venture", "vc"], url: "work/tomboyx.html", dest: "TomboyX: $5M raised" },
+      { display: "an investor presentation that works", terms: ["investor", "pitch", "presentation", "convince", "fund"], url: "work/tomboyx.html", dest: "TomboyX case study" },
+
+      // Klydo — fashion, ecommerce, GTM, product launch, startup growth
+      { display: "to launch a product", terms: ["launch", "product launch", "go to market", "gtm", "market entry"], url: "work/klydo.html", dest: "Klydo: 0 to 150 daily sales" },
+      { display: "a fashion or ecommerce brand", terms: ["fashion", "ecommerce", "e-commerce", "clothing", "apparel", "retail", "shop", "store", "dtc", "d2c", "direct to consumer"], url: "work/klydo.html", dest: "Klydo case study" },
+      { display: "to grow fast from zero", terms: ["growth", "grow", "scale", "traction", "early stage", "zero to", "0 to", "startup growth"], url: "work/klydo.html", dest: "Klydo: 0 to 150 daily sales" },
+
+      // Tatsam — brand, visual identity, mental health, wellness
+      { display: "a brand that feels like me", terms: ["brand", "branding", "brand identity", "brand story", "brand build", "visual identity", "identity"], url: "work/tatsam.html", dest: "Tatsam case study" },
+      { display: "to build a visual language", terms: ["visual language", "visual system", "design system", "illustration", "look and feel"], url: "work/tatsam.html", dest: "Tatsam: visual language" },
+      { display: "help with a mental health product", terms: ["mental health", "mental wellness", "wellness", "therapy", "wellbeing", "well-being", "mindful", "stigma", "safe space"], url: "work/tatsam.html", dest: "Tatsam case study" },
+
+      // PrathamUSA — nonprofit, donor journey, NGO, education
+      { display: "to improve our donor experience", terms: ["donor", "donation", "nonprofit", "non-profit", "ngo", "charity", "giving", "fundrais", "philanthrop"], url: "work/pratham.html", dest: "PrathamUSA case study" },
+      { display: "help with a nonprofit", terms: ["nonprofit", "non-profit", "ngo", "social enterprise", "social impact", "mission-driven", "impact"], url: "work/pratham.html", dest: "PrathamUSA: $50M nonprofit" },
+      { display: "to fix our user journey", terms: ["journey", "user journey", "customer journey", "experience map", "touchpoint", "flow", "funnel"], url: "work/pratham.html", dest: "PrathamUSA case study" },
+
+      // ConveGenius — gamification, EdTech, behavioral design, engagement
+      { display: "gamification for my product", terms: ["game", "gamif", "gamification", "interactive", "engage", "retention", "habit", "reward", "badge", "streak", "points"], url: "work/convegenius.html", dest: "ConveGenius case study" },
+      { display: "to make learning more engaging", terms: ["edtech", "education", "learning", "student", "classroom", "school", "teach"], url: "work/convegenius.html", dest: "ConveGenius: 100K students" },
+      { display: "behavioral design for engagement", terms: ["behavior", "behavioural", "behavioral", "nudge", "habit", "retention", "engagement"], url: "work/convegenius.html", dest: "ConveGenius case study" },
+
+      // Secret Senses — packaging, illustration, consumer goods, CPG
+      { display: "packaging design", terms: ["packaging", "package", "label", "cpg", "consumer goods", "shelf", "unboxing"], url: "work/secret-senses.html", dest: "Secret Senses case study" },
+      { display: "hand-drawn illustration for my brand", terms: ["illustrat", "watercolor", "hand-drawn", "hand drawn", "artwork", "art direction"], url: "work/secret-senses.html", dest: "Secret Senses case study" },
+
+      // XTDB — rebrand, developer tools, B2B, SaaS, tech
+      { display: "to rebrand my company", terms: ["rebrand", "rename", "new name", "brand refresh", "brand overhaul", "repositioning"], url: "work/xtdb.html", dest: "XTDB: CRUX to XTDB rebrand" },
+      { display: "brand for a developer product", terms: ["developer", "dev tool", "saas", "b2b", "enterprise", "technical", "database", "api", "sdk", "open source"], url: "work/xtdb.html", dest: "XTDB case study" },
+      { display: "brand guidelines", terms: ["brand guideline", "style guide", "brand book", "brand system", "design guideline", "media guide"], url: "work/xtdb.html", dest: "XTDB case study" },
+
+      // Agemo — AI, developer tools, product strategy, interface design
+      { display: "help with an AI product", terms: ["ai", "artificial intelligence", "llm", "generative", "prompt", "machine learning", "ml", "gpt", "chatbot", "copilot"], url: "work/agemo.html", dest: "Agemo / CodeWords case study" },
+      { display: "product strategy and research", terms: ["product strategy", "user research", "discovery", "product direction", "product market fit", "pmf", "research"], url: "work/agemo.html", dest: "Agemo case study" },
+
+      // Gliitch — brand identity, Hong Kong, digital, moodboarding
+      { display: "a brand identity from scratch", terms: ["identity", "logo", "brand from scratch", "new brand", "brand creation", "moodboard", "mood board", "typography", "color palette"], url: "work/gliitch.html", dest: "Gliitch case study" },
+
+      // Rachna Nivas — content strategy, arts, performance, personal brand
+      { display: "a content strategy", terms: ["content strategy", "content", "social media", "instagram", "personal brand", "creator", "influencer", "audience building"], url: "work/rachna-nivas.html", dest: "Rachna Nivas case study" },
+      { display: "to find my creative voice", terms: ["creative voice", "voice", "authentic", "artistic", "artist", "performer", "dancer", "musician", "creative"], url: "work/rachna-nivas.html", dest: "Rachna Nivas case study" },
+
+      // Services page mappings
+      { display: "to redesign my website", terms: ["website", "web design", "redesign", "site", "landing page", "homepage", "web"], url: "services.html", dest: "our services" },
+      { display: "a workshop for my team", terms: ["workshop", "sprint", "offsite", "team session", "team building", "unstuck", "facilitat"], url: "services.html", dest: "workshops & sprints" },
+      { display: "to understand pricing", terms: ["pricing", "price", "cost", "how much", "rates", "budget", "afford", "fee", "investment", "quote"], url: "services.html", dest: "our services & pricing" },
+      { display: "coaching or prep sessions", terms: ["coaching", "coach", "prep", "prepare", "narrative", "sharpen", "refine"], url: "services.html", dest: "coaching & prep" },
+      { display: "product design and UX", terms: ["product design", "ux", "user experience", "ui", "interface", "usability", "prototype", "wireframe"], url: "services.html", dest: "our services" },
+
+      // About page mappings
+      { display: "to learn about your team", terms: ["who are you", "about", "team", "founders", "meet", "people behind", "kahran", "divya", "background"], url: "about.html", dest: "about Joyus" },
+      { display: "to tell a better story", terms: ["story", "storytelling", "narrative", "message", "messaging", "communicate", "communication", "copywriting", "copy"], url: "about.html", dest: "about our approach" },
+
+      // Podcast
+      { display: "to listen to your podcast", terms: ["podcast", "thinking on thinking", "listen", "episode", "mental model", "spotify", "apple podcast"], url: "https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz", dest: "Thinking on Thinking podcast" },
+
+      // Contact / talk to someone
+      { display: "to talk to someone", terms: ["talk", "chat", "call", "consultation", "consult", "advice", "discuss", "connect", "reach out", "contact", "email", "hello"], url: "mailto:hello@joyus.studio", dest: "get in touch" },
+
+      // Work portfolio
+      { display: "to see examples of your work", terms: ["work", "example", "portfolio", "case stud", "projects", "clients", "past work", "show me"], url: "work/index.html", dest: "all work" },
+      { display: "to build something new", terms: ["build", "create", "make", "new project", "start", "idea", "something new", "dream"], url: "services.html", dest: "our services" },
+      { display: "to understand my audience", terms: ["audience", "customer", "user", "persona", "segment", "target", "market research", "understand"], url: "services.html", dest: "our services" },
+    ];
+
+    // ── Past intents from Firestore ──
+    let pastIntents = [];
+
+    function loadPastIntents() {
+      db.collection('intents')
+        .orderBy('timestamp', 'desc')
+        .limit(50)
+        .get()
+        .then(function(snapshot) {
+          pastIntents = [];
+          var seen = {};
+          snapshot.forEach(function(doc) {
+            var text = doc.data().text;
+            if (text && !seen[text.toLowerCase()]) {
+              seen[text.toLowerCase()] = true;
+              pastIntents.push(text);
+            }
+          });
+        })
+        .catch(function(err) {
+          console.log('Firestore read skipped:', err.message);
+        });
+    }
+
+    function saveIntentToFirestore(text, email) {
+      var data = {
+        text: text,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        email: email || null,
+        page: window.location.pathname
+      };
+      db.collection('intents').add(data).catch(function(err) {
+        console.log('Firestore write skipped:', err.message);
+      });
+    }
+
+    // Load past intents on page load
+    loadPastIntents();
+
+    // ── Fuzzy matching engine ──
+    function fuzzyMatch(query) {
+      if (!query || query.length === 0) {
+        // No query: show a curated default set
+        var defaults = [
+          CONTENT_MAP.find(function(e) { return e.display === "help with a pitch deck"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "a brand that feels like me"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "to redesign my website"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "to talk to someone"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "to see examples of your work"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "to understand pricing"; }),
+        ].filter(Boolean);
+        return { contentMatches: defaults, intentMatches: [] };
+      }
+
+      var q = query.toLowerCase();
+      var words = q.split(/\s+/).filter(function(w) { return w.length > 1; });
+
+      // Score each content map entry
+      var scored = CONTENT_MAP.map(function(entry) {
+        var score = 0;
+        // Check if any search terms appear as substrings in the user input
+        entry.terms.forEach(function(term) {
+          if (q.indexOf(term) !== -1) {
+            score += 3; // exact substring match in query
+          } else {
+            // Check if any user word appears in the term
+            words.forEach(function(word) {
+              if (term.indexOf(word) !== -1) score += 1;
+            });
+          }
+        });
+        // Also check if user input appears in display text
+        if (entry.display.toLowerCase().indexOf(q) !== -1) {
+          score += 2;
+        } else {
+          words.forEach(function(word) {
+            if (entry.display.toLowerCase().indexOf(word) !== -1) score += 0.5;
+          });
+        }
+        return { entry: entry, score: score };
+      });
+
+      scored.sort(function(a, b) { return b.score - a.score; });
+      var contentMatches = scored
+        .filter(function(s) { return s.score > 0; })
+        .slice(0, 6)
+        .map(function(s) { return s.entry; });
+
+      // Find matching past intents
+      var intentMatches = pastIntents.filter(function(text) {
+        var t = text.toLowerCase();
+        return words.some(function(word) { return t.indexOf(word) !== -1; });
+      }).slice(0, 3);
+
+      return { contentMatches: contentMatches, intentMatches: intentMatches };
+    }
+
+    // ── DOM references ──
+    const intentInput = document.getElementById('intentInput');
+    const suggestionsEl = document.getElementById('intentSuggestions');
+    const overlay = document.getElementById('intentOverlay');
+    const overlayIntent = document.getElementById('overlayIntent');
+    const continueLink = document.getElementById('continueLink');
+    const followUpEmail = document.getElementById('followUpEmail');
+    const followUpSubmit = document.getElementById('followUpSubmit');
+
+    let activeSuggestionIndex = -1;
+    let currentSuggestionData = []; // track { text, url } for each rendered suggestion
+
+    function renderSuggestions(filter) {
+      var query = (filter || '').toLowerCase().trim();
+      var results = fuzzyMatch(query);
+      suggestionsEl.innerHTML = '';
+      currentSuggestionData = [];
+
+      // Render content matches
+      results.contentMatches.forEach(function(entry) {
+        var div = document.createElement('div');
+        div.className = 'intent-suggestion';
+        var textSpan = document.createTextNode(entry.display);
+        div.appendChild(textSpan);
+        var destSpan = document.createElement('span');
+        destSpan.className = 'suggestion-dest';
+        destSpan.textContent = '\u2192 ' + entry.dest;
+        div.appendChild(destSpan);
+        div.addEventListener('click', function() { selectIntent(entry.display, entry.url); });
+        suggestionsEl.appendChild(div);
+        currentSuggestionData.push({ text: entry.display, url: entry.url });
+      });
+
+      // Render past intent matches (up to 3, only if we have a query)
+      if (query.length > 0 && results.intentMatches.length > 0) {
+        results.intentMatches.forEach(function(text) {
+          // Don't duplicate if already shown as content match
+          var isDuplicate = results.contentMatches.some(function(e) {
+            return e.display.toLowerCase() === text.toLowerCase();
+          });
+          if (isDuplicate) return;
+
+          var div = document.createElement('div');
+          div.className = 'intent-suggestion past-intent';
+          var prefix = document.createElement('span');
+          prefix.className = 'past-intent-prefix';
+          prefix.textContent = 'others asked: ';
+          div.appendChild(prefix);
+          div.appendChild(document.createTextNode(text));
+          div.addEventListener('click', function() { selectIntent(text, null); });
+          suggestionsEl.appendChild(div);
+          currentSuggestionData.push({ text: text, url: null });
+        });
+      }
+
+      if (currentSuggestionData.length === 0 && query.length > 0) {
+        // Show fallback: "tell us what you need" with contact link
+        var div = document.createElement('div');
+        div.className = 'intent-suggestion';
+        div.textContent = 'tell us — we\'ll figure it out together';
+        var destSpan = document.createElement('span');
+        destSpan.className = 'suggestion-dest';
+        destSpan.textContent = '\u2192 get in touch';
+        div.appendChild(destSpan);
+        div.addEventListener('click', function() { selectIntent(query, 'mailto:hello@joyus.studio'); });
+        suggestionsEl.appendChild(div);
+        currentSuggestionData.push({ text: query, url: 'mailto:hello@joyus.studio' });
+      }
+
+      if (currentSuggestionData.length > 0) {
+        suggestionsEl.classList.add('visible');
+      } else {
+        suggestionsEl.classList.remove('visible');
+      }
+      activeSuggestionIndex = -1;
+    }
+
+    function routeForIntent(text) {
+      // Try to find a matching content map entry
+      var q = text.toLowerCase();
+      var words = q.split(/\s+/).filter(function(w) { return w.length > 1; });
+      var bestMatch = null;
+      var bestScore = 0;
+
+      CONTENT_MAP.forEach(function(entry) {
+        var score = 0;
+        entry.terms.forEach(function(term) {
+          if (q.indexOf(term) !== -1) score += 3;
+          else words.forEach(function(word) {
+            if (term.indexOf(word) !== -1) score += 1;
+          });
+        });
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = entry;
+        }
+      });
+
+      if (bestMatch && bestScore > 0) return bestMatch.url;
+      return 'services.html';
+    }
+
+    function selectIntent(text, url) {
+      intentInput.value = text;
+      suggestionsEl.classList.remove('visible');
+      showOverlay(text, url);
+    }
+
+    function showOverlay(text, url) {
+      var display = 'I need ' + text;
+      overlayIntent.textContent = display;
+      var targetUrl = url || routeForIntent(text);
+      continueLink.href = targetUrl;
+      overlay.style.display = 'flex';
+      requestAnimationFrame(function() {
+        overlay.classList.add('visible');
+      });
+
+      // Save intent to Firestore
+      saveIntentToFirestore(text, null);
+    }
+
+    intentInput.addEventListener('input', function() {
+      renderSuggestions(intentInput.value);
+    });
+
+    intentInput.addEventListener('focus', function() {
+      renderSuggestions(intentInput.value);
+    });
+
+    intentInput.addEventListener('keydown', function(e) {
+      var items = suggestionsEl.querySelectorAll('.intent-suggestion');
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        activeSuggestionIndex = Math.min(activeSuggestionIndex + 1, items.length - 1);
+        updateActiveSuggestion(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        activeSuggestionIndex = Math.max(activeSuggestionIndex - 1, 0);
+        updateActiveSuggestion(items);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        if (activeSuggestionIndex >= 0 && currentSuggestionData[activeSuggestionIndex]) {
+          var data = currentSuggestionData[activeSuggestionIndex];
+          selectIntent(data.text, data.url);
+        } else if (intentInput.value.trim().length > 0) {
+          selectIntent(intentInput.value.trim(), null);
+        }
+      }
+    });
+
+    function updateActiveSuggestion(items) {
+      items.forEach(function(el, i) {
+        el.classList.toggle('active', i === activeSuggestionIndex);
+      });
+    }
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.intent-input-wrap')) {
+        suggestionsEl.classList.remove('visible');
+      }
+    });
+
+    // Follow-up email submit
+    followUpSubmit.addEventListener('click', function() {
+      var email = followUpEmail.value.trim();
+      if (email) {
+        saveIntentToFirestore(intentInput.value.trim(), email);
+        followUpSubmit.textContent = 'sent!';
+        followUpSubmit.disabled = true;
+      }
+    });
+
+    // Close overlay on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+        overlay.classList.remove('visible');
+        setTimeout(function() { overlay.style.display = 'none'; }, 400);
+      }
     });
   </script>
 </body>
