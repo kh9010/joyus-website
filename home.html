@@ -512,6 +512,55 @@
       else nav.classList.remove('scrolled');
     });
 
+    // ── Rotating placeholder ──
+    var placeholders = [
+      'to tell a better story',
+      'help with my pitch deck',
+      'a brand that feels like me',
+      'to understand my audience',
+      'someone to think with',
+      'to redesign my website',
+      'help with fundraising',
+      'to build something new',
+      'a visual identity',
+      'to understand your pricing',
+      'to launch a product',
+      'help with our narrative',
+      'a workshop for my team',
+      'to see examples of your work',
+      'to make something beautiful',
+      'help explaining what we do',
+      'a better donor experience',
+      'to rethink our packaging',
+      'someone who gets storytelling',
+      'help with go-to-market',
+      'to design for a sensitive space',
+      'a rebrand that actually works',
+      'to feel less stuck',
+      'help making a game',
+      'to talk through an idea',
+      'a creative partner',
+      'help with content strategy',
+      'to understand behavioral design',
+      'AI strategy for my business',
+      'to reach the right people'
+    ];
+    var phIndex = 0;
+    var intentInput = document.getElementById('intentInput');
+
+    function rotatePlaceholder() {
+      if (intentInput === document.activeElement || intentInput.value) return;
+      // Fade out
+      intentInput.style.transition = 'opacity 0.4s ease';
+      intentInput.style.opacity = '0';
+      setTimeout(function() {
+        phIndex = (phIndex + 1) % placeholders.length;
+        intentInput.placeholder = placeholders[phIndex];
+        intentInput.style.opacity = '1';
+      }, 400);
+    }
+    setInterval(rotatePlaceholder, 3000);
+
     // ── Firebase initialization ──
     const firebaseConfig = {
       apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
