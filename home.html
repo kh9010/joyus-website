@@ -153,6 +153,18 @@
       color: #ccc;
       font-style: normal;
     }
+    .enter-hint {
+      color: #ccc;
+      font-size: 0.85rem;
+      font-style: italic;
+      border-top: 1px solid #f0eeec;
+      margin-top: 0.25rem;
+      padding-top: 0.75rem;
+    }
+    .enter-hint:hover {
+      color: #999;
+      background: transparent;
+    }
 
     /* ── Interstitial overlay ── */
     .intent-overlay {
@@ -729,8 +741,8 @@
 
       scored.sort(function(a, b) { return b.score - a.score; });
       var contentMatches = scored
-        .filter(function(s) { return s.score > 0; })
-        .slice(0, 6)
+        .filter(function(s) { return s.score >= 2; })
+        .slice(0, 5)
         .map(function(s) { return s.entry; });
 
       // Find matching past intents
@@ -797,21 +809,18 @@
         });
       }
 
-      if (currentSuggestionData.length === 0 && query.length > 0) {
-        // Show fallback: "tell us what you need" with contact link
-        var div = document.createElement('div');
-        div.className = 'intent-suggestion';
-        div.textContent = 'tell us — we\'ll figure it out together';
-        var destSpan = document.createElement('span');
-        destSpan.className = 'suggestion-dest';
-        destSpan.textContent = '\u2192 get in touch';
-        div.appendChild(destSpan);
-        div.addEventListener('click', function() { selectIntent(query, 'mailto:hello@joyus.studio'); });
-        suggestionsEl.appendChild(div);
-        currentSuggestionData.push({ text: query, url: 'mailto:hello@joyus.studio' });
-      }
-
-      if (currentSuggestionData.length > 0) {
+      // Add "press enter" hint when they're typing
+      if (query.length > 2) {
+        var hint = document.createElement('div');
+        hint.className = 'intent-suggestion enter-hint';
+        hint.textContent = 'press enter to tell us exactly what you need';
+        hint.addEventListener('click', function() {
+          selectIntent(query, null);
+        });
+        suggestionsEl.appendChild(hint);
+        currentSuggestionData.push({ text: query, url: null });
+        suggestionsEl.classList.add('visible');
+      } else if (currentSuggestionData.length > 0) {
         suggestionsEl.classList.add('visible');
       } else {
         suggestionsEl.classList.remove('visible');
