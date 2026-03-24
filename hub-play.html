@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Play as Practice — Joy and rigor aren't opposites. Comics, zines, installations, and creative work from Joyus Studio.">
+  <meta property="og:title" content="Play as Practice — Joyus Studio">
+  <meta property="og:description" content="Joy and rigor aren't opposites. The best work happens when you actually care — and when you play.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/hub-play.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/hub-play.html">
+  <title>Play as Practice — Joyus Studio</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body { --hub-accent: #5BBD72; }
+
+    /* ===== HERO ===== */
+    .hub-hero {
+      padding: 8rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .hub-hero .inner {
+      max-width: 700px;
+    }
+    .hub-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: var(--black, #111214);
+    }
+    .hub-hero .subtitle {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.7;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .hub-hero .pull-quote {
+      font-family: 'Caveat', cursive;
+      font-size: 1.6rem;
+      color: #333;
+      border-left: 4px solid var(--hub-accent);
+      padding-left: 1.25rem;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* ===== SHARED SECTION ===== */
+    .hub-section {
+      padding: 5rem 2rem;
+    }
+    .hub-section:nth-child(even) {
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .hub-section .inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hub-section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .hub-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 2rem;
+      color: var(--black, #111214);
+    }
+
+    /* ===== PODCAST CARDS ===== */
+    .podcast-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .podcast-card {
+      background: white;
+      border: 1px solid #e8e6e4;
+      border-radius: 8px;
+      padding: 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .podcast-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+    .podcast-card .ep-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--hub-accent);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .podcast-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #111;
+      margin-bottom: 0.75rem;
+      flex: 1;
+    }
+    .podcast-card .listen-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--hub-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* ===== COMIC CARDS ===== */
+    .comic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+    .comic-card {
+      background: white;
+      border: 1px solid #e8e6e4;
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .comic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+    .comic-card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+    }
+    .comic-card .comic-card-body {
+      padding: 1.25rem;
+    }
+    .comic-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #111;
+      margin-bottom: 0.4rem;
+    }
+    .comic-card .read-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--hub-accent);
+    }
+
+    /* ===== CASE STUDY CARDS ===== */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    .case-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e8e6e4;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+    .case-card-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+    .case-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .case-card:hover .case-card-image img {
+      transform: scale(1.03);
+    }
+    .case-card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .case-card-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .case-card-body p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    /* ===== EXPLORE MORE ===== */
+    .explore-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .explore-pill {
+      display: inline-block;
+      padding: 0.6rem 1.25rem;
+      border: 1.5px solid var(--hub-accent);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--hub-accent);
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+    .explore-pill:hover {
+      background: var(--hub-accent);
+      color: white;
+    }
+
+    /* ===== CTA ===== */
+    .hub-cta {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .hub-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      margin-bottom: 1.5rem;
+      color: var(--black, #111214);
+    }
+    .hub-cta .cta-btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      background: var(--hub-accent);
+      color: white;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .hub-cta .cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+      .podcast-grid,
+      .comic-grid,
+      .cases-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="home.html" class="logo">
+        <img src="images/logo.webp" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="comics/index.html">Comics</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hub-hero">
+    <div class="inner">
+      <h1>Play as Practice</h1>
+      <p class="subtitle">Joy and rigor aren't opposites. The best work happens when you actually care — and when you play. Comics, zines, installations, and the creative work we make because we can't not make it.</p>
+      <p class="pull-quote">"The projects that haunt you are the ones worth doing."</p>
+    </div>
+  </section>
+
+  <!-- LISTEN -->
+  <section class="hub-section">
+    <div class="inner">
+      <div class="hub-section-label">Listen</div>
+      <h2>Podcast Episodes</h2>
+      <div class="podcast-grid">
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/504---Creating-comics-together-with-Kahran-and-Divya-e2kq15a" target="_blank" rel="noopener" class="podcast-card">
+          <div class="ep-label">Season 5, Episode 4</div>
+          <h3>Creating comics together with Kahran and Divya</h3>
+          <span class="listen-link">Listen on Spotify &rarr;</span>
+        </a>
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/When-its-Conforming-to-be-Unique-e36d96l" target="_blank" rel="noopener" class="podcast-card">
+          <div class="ep-label">Season 7, Episode 11</div>
+          <h3>When its Conforming to be Unique</h3>
+          <span class="listen-link">Listen on Spotify &rarr;</span>
+        </a>
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating-a-Successful-Game-in-1000xResist-with-Remy-Siu-of-Sunset-Visitor---Success-Part-6-e2u0svf" target="_blank" rel="noopener" class="podcast-card">
+          <div class="ep-label">Season 6, Episode 6</div>
+          <h3>Creating a Successful Game in 1000xResist with Remy Siu</h3>
+          <span class="listen-link">Listen on Spotify &rarr;</span>
+        </a>
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating--Game-Design-with-Kahran--Divya-e2htpfh" target="_blank" rel="noopener" class="podcast-card">
+          <div class="ep-label">Season 4, Episode 12</div>
+          <h3>Creating &amp; Game Design with Kahran &amp; Divya</h3>
+          <span class="listen-link">Listen on Spotify &rarr;</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- READ -->
+  <section class="hub-section">
+    <div class="inner">
+      <div class="hub-section-label">Read</div>
+      <h2>Comics</h2>
+      <div class="comic-grid">
+
+        <a href="comics/the-friend-comic.html" class="comic-card">
+          <img src="images/comics/friend/page-1.png" alt="the Friend comic cover" loading="lazy">
+          <div class="comic-card-body">
+            <h3>the Friend comic</h3>
+            <span class="read-link">Read the comic &rarr;</span>
+          </div>
+        </a>
+
+        <a href="comics/gossip.html" class="comic-card">
+          <img src="images/comics/gossip/page-1.png" alt="Gossip comic cover" loading="lazy">
+          <div class="comic-card-body">
+            <h3>Gossip</h3>
+            <span class="read-link">Read the comic &rarr;</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SEE THE WORK -->
+  <section class="hub-section">
+    <div class="inner">
+      <div class="hub-section-label">See the work</div>
+      <h2>Case Studies</h2>
+      <div class="cases-grid">
+
+        <a href="work/secret-senses.html" class="case-card">
+          <div class="case-card-image">
+            <img src="images/work/secret-senses.jpg" alt="Secret Senses" loading="lazy">
+          </div>
+          <div class="case-card-body">
+            <h3>Secret Senses</h3>
+            <p>Hand-drawn watercolors from sketchbook to shelf</p>
+          </div>
+        </a>
+
+        <a href="work/gliitch.html" class="case-card">
+          <div class="case-card-image">
+            <img src="images/work/gliitch.jpg" alt="Gliitch" loading="lazy">
+          </div>
+          <div class="case-card-body">
+            <h3>Gliitch</h3>
+            <p>Brand identity for a Hong Kong digital provider</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE MORE THEMES -->
+  <section class="hub-section">
+    <div class="inner">
+      <div class="hub-section-label">Keep exploring</div>
+      <h2>More Themes</h2>
+      <div class="explore-grid">
+        <a href="hub-story.html" class="explore-pill">Stories &amp; Narrative</a>
+        <a href="hub-building.html" class="explore-pill">Building &amp; Business</a>
+        <a href="hub-behavior.html" class="explore-pill">How People Actually Behave</a>
+        <a href="hub-creative.html" class="explore-pill">Drawing Outside the Lines</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="hub-cta">
+    <h2>Want to make something joyful?</h2>
+    <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="comics/index.html">Comics</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
+  <script src="shape-echo.js"></script>
+</body>
+</html>

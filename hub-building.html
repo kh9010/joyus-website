@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Going from zero to something real. What it takes to build a company, a product, or a mission that actually means something. Podcast episodes and case studies from Joyus Studio.">
+  <meta property="og:title" content="Building Something That Matters — Joyus Studio">
+  <meta property="og:description" content="Going from zero to something real. What it takes to build a company, a product, or a mission that actually means something — and how to keep going when it gets hard.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/hub-building.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/hub-building.html">
+  <title>Building Something That Matters — Joyus Studio</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root { --hub-accent: var(--cyan, #4FC4CF); }
+
+    /* ===== HERO ===== */
+    .hub-hero {
+      padding: 8rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .hub-hero .inner {
+      max-width: 800px;
+      border-left: 5px solid var(--hub-accent);
+      padding-left: 2rem;
+    }
+    .hub-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+      margin-bottom: 1rem;
+      color: var(--black, #111214);
+    }
+    .hub-hero .description {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.7;
+      max-width: 640px;
+      margin-bottom: 1.5rem;
+    }
+    .hub-hero .pull-quote {
+      font-family: 'Caveat', cursive;
+      font-size: 2rem;
+      color: var(--hub-accent);
+      line-height: 1.3;
+    }
+
+    /* ===== SECTIONS ===== */
+    .hub-section {
+      padding: 4rem 2rem;
+    }
+    .hub-section .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hub-section.alt-bg {
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .hub-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--black, #111214);
+    }
+    .hub-section .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--hub-accent);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    .hub-section .section-intro {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    /* ===== EPISODE CARDS ===== */
+    .episode-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .episode-card {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      background: white;
+      border: 1px solid #e8e6e4;
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .episode-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+    .episode-card .ep-label {
+      font-family: 'DM Sans', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #999;
+      white-space: nowrap;
+      padding-top: 0.2rem;
+      min-width: 58px;
+    }
+    .episode-card .ep-body {
+      flex: 1;
+    }
+    .episode-card .ep-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #111;
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+    }
+    .episode-card .ep-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--hub-accent);
+    }
+
+    /* ===== COMING SOON NOTE ===== */
+    .coming-soon {
+      background: white;
+      border: 1px dashed #d5d3d0;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+      color: #999;
+      font-size: 0.95rem;
+    }
+
+    /* ===== WORK CARDS ===== */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 2rem;
+    }
+    .case-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #e8e6e4;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .case-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+    }
+    .case-card-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+    }
+    .case-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .case-card:hover .case-card-image img {
+      transform: scale(1.03);
+    }
+    .case-card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .case-card-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #111;
+    }
+    .case-card-body p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.55;
+      flex: 1;
+    }
+
+    /* ===== EXPLORE MORE ===== */
+    .explore-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .explore-card {
+      display: block;
+      padding: 1.25rem 1.5rem;
+      border-radius: 8px;
+      border: 2px solid #e8e6e4;
+      text-decoration: none;
+      color: #111;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      line-height: 1.4;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .explore-card:hover {
+      border-color: var(--hub-accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    .explore-card .arrow {
+      display: block;
+      margin-top: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--hub-accent);
+    }
+
+    /* ===== CTA ===== */
+    .hub-cta {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .hub-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 1.5rem;
+      color: var(--black, #111214);
+    }
+    .hub-cta .cta-btn {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: var(--hub-accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .hub-cta .cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    /* ===== MOBILE ===== */
+    @media (max-width: 600px) {
+      .hub-hero .inner { padding-left: 1.25rem; }
+      .hub-hero .pull-quote { font-size: 1.6rem; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .explore-grid { grid-template-columns: 1fr; }
+      .episode-card { flex-direction: column; gap: 0.5rem; }
+      .episode-card .ep-label { min-width: auto; }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="home.html" class="logo">
+        <img src="images/logo.webp" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="comics/index.html">Comics</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hub-hero">
+    <div class="inner">
+      <h1>Building Something That Matters</h1>
+      <p class="description">Going from zero to something real. What it takes to build a company, a product, or a mission that actually means something — and how to keep going when it gets hard.</p>
+      <span class="pull-quote">"The mission is the moat."</span>
+    </div>
+  </section>
+
+  <!-- LISTEN — Podcast Episodes -->
+  <section class="hub-section alt-bg">
+    <div class="container">
+      <p class="section-label">Listen</p>
+      <h2>Podcast Episodes</h2>
+      <p class="section-intro">Founders, operators, and the real conversations about what it takes to build.</p>
+      <div class="episode-list">
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Preeti-Suri-Tips-for-Women-Founders-and-Balancing-Health--Work-e35lhah" target="_blank" rel="noopener" class="episode-card">
+          <div class="ep-label">S7 E10</div>
+          <div class="ep-body">
+            <div class="ep-title">Preeti Suri: Tips for Women Founders</div>
+            <span class="ep-link">Listen on Spotify &rarr;</span>
+          </div>
+        </a>
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Balancing-energy--expectations-and-perfectionism-with-Ambika-Singh--Founder-and-CEO-Armoire-e36q2ht" target="_blank" rel="noopener" class="episode-card">
+          <div class="ep-label">S7 E12</div>
+          <div class="ep-body">
+            <div class="ep-title">Balancing energy, expectations and perfectionism with Ambika Singh</div>
+            <span class="ep-link">Listen on Spotify &rarr;</span>
+          </div>
+        </a>
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/MachPhy-Cool-Glide-to-Funding-e31rnqj" target="_blank" rel="noopener" class="episode-card">
+          <div class="ep-label">S7 E4</div>
+          <div class="ep-body">
+            <div class="ep-title">MachPhy: Cool Glide to Funding</div>
+            <span class="ep-link">Listen on Spotify &rarr;</span>
+          </div>
+        </a>
+
+        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/503---Building-and-selling-a-food-business-with-Smiqqls-Dina-Holzapfel-e2k8kd1" target="_blank" rel="noopener" class="episode-card">
+          <div class="ep-label">S5 E3</div>
+          <div class="ep-body">
+            <div class="ep-title">503 - Building and selling a food business with Smiqql's Dina Holzapfel</div>
+            <span class="ep-link">Listen on Spotify &rarr;</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- READ — Comics (Coming Soon) -->
+  <section class="hub-section">
+    <div class="container">
+      <p class="section-label">Read</p>
+      <h2>Comics</h2>
+      <div class="coming-soon">
+        Comics for this theme are in the works. Check back soon.
+      </div>
+    </div>
+  </section>
+
+  <!-- SEE THE WORK — Case Studies -->
+  <section class="hub-section alt-bg">
+    <div class="container">
+      <p class="section-label">See the work</p>
+      <h2>Case Studies</h2>
+      <p class="section-intro">From zero to real — companies we helped build, launch, and grow.</p>
+      <div class="cases-grid">
+
+        <a href="work/klydo.html" class="case-card">
+          <div class="case-card-image">
+            <img src="images/work/klydo.jpg" alt="Klydo fashion startup" loading="lazy">
+          </div>
+          <div class="case-card-body">
+            <h3>Klydo</h3>
+            <p>0 to 150 daily sales in 10 weeks</p>
+          </div>
+        </a>
+
+        <a href="work/tatsam.html" class="case-card">
+          <div class="case-card-image">
+            <img src="images/work/tatsam.jpg" alt="Tatsam mental wellness" loading="lazy">
+          </div>
+          <div class="case-card-body">
+            <h3>Tatsam</h3>
+            <p>Designing visual language for mental wellness</p>
+          </div>
+        </a>
+
+        <a href="work/pratham.html" class="case-card">
+          <div class="case-card-image">
+            <img src="images/work/pratham.jpg" alt="PrathamUSA donor journey" loading="lazy">
+          </div>
+          <div class="case-card-body">
+            <h3>PrathamUSA</h3>
+            <p>Rebuilding the donor journey for a $50M nonprofit</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE MORE THEMES -->
+  <section class="hub-section">
+    <div class="container">
+      <p class="section-label">Explore</p>
+      <h2>More Themes</h2>
+      <div class="explore-grid" style="margin-top: 1.5rem;">
+
+        <a href="hub-story.html" class="explore-card">
+          Finding Your Story
+          <span class="arrow">Explore &rarr;</span>
+        </a>
+
+        <a href="hub-behavior.html" class="explore-card">
+          How People Actually Behave
+          <span class="arrow">Explore &rarr;</span>
+        </a>
+
+        <a href="hub-play.html" class="explore-card">
+          Play as Practice
+          <span class="arrow">Explore &rarr;</span>
+        </a>
+
+        <a href="hub-creative.html" class="explore-card">
+          Drawing Outside the Lines
+          <span class="arrow">Explore &rarr;</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="hub-cta">
+    <h2>Building something that matters?</h2>
+    <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="comics/index.html">Comics</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
+  <script src="shape-echo.js"></script>
+</body>
+</html>
