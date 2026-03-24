@@ -700,7 +700,7 @@ ul { list-style: none; }
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
     gap: 3rem;
 }
 .footer-brand p { color: rgba(255,255,255,0.6); margin-top: 0.5rem; font-size: 0.95rem; }
@@ -722,7 +722,22 @@ ul { list-style: none; }
     font-size: 0.95rem;
     text-decoration: none;
 }
-.footer-links a:hover, .footer-nav a:hover, .footer-contact a:hover { color: var(--cyan); }
+.footer-links a:hover, .footer-nav a:hover, .footer-contact a:hover, .footer-themes a:hover { color: var(--cyan); }
+.footer-themes h4 {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+}
+.footer-themes a {
+    display: block;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
 
 .footer-bottom {
     max-width: 1200px;

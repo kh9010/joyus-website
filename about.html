@@ -208,6 +208,55 @@
       font-weight: 600;
     }
 
+    .themes-section {
+      padding: 5rem 2rem;
+    }
+    .themes-section .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .themes-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .themes-section .section-intro {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+    .themes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .theme-card {
+      background: var(--warm-gray, #F5F3F0);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .theme-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      opacity: 1;
+    }
+    .theme-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      margin-bottom: 0.3rem;
+    }
+    .theme-card p {
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: #999;
+      margin-bottom: 0;
+    }
+
     .about-cta {
       padding: 5rem 2rem;
       text-align: center;
@@ -223,6 +272,7 @@
       .founder { grid-template-columns: 1fr; gap: 0.75rem; }
       .values-grid { grid-template-columns: 1fr; }
       .creations-grid { grid-template-columns: 1fr !important; }
+      .themes-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -362,6 +412,35 @@
     </div>
   </section>
 
+  <section class="themes-section">
+    <div class="inner">
+      <h2>Explore by Theme</h2>
+      <p class="section-intro">Ideas we keep coming back to — across podcasts, comics, and client work.</p>
+      <div class="themes-grid">
+        <a href="hub-story.html" class="theme-card" style="border-left:3px solid #E91E7B;">
+          <h3>Finding Your Story</h3>
+          <p>Seven notes in a scale — find yours.</p>
+        </a>
+        <a href="hub-building.html" class="theme-card" style="border-left:3px solid #4FC4CF;">
+          <h3>Building Something That Matters</h3>
+          <p>Build right, not fast.</p>
+        </a>
+        <a href="hub-behavior.html" class="theme-card" style="border-left:3px solid #D4A843;">
+          <h3>How People Actually Behave</h3>
+          <p>Nine muses, nine impulses.</p>
+        </a>
+        <a href="hub-play.html" class="theme-card" style="border-left:3px solid #5BBD72;">
+          <h3>Play as Practice</h3>
+          <p>Ten sides is almost absurd — that's the point.</p>
+        </a>
+        <a href="hub-creative.html" class="theme-card" style="border-left:3px solid #E8734A;">
+          <h3>Drawing Outside the Lines</h3>
+          <p>The interesting stuff lives at the edges.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="about-cta">
     <h2>be our friends.</h2>
     <p><a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a></p>
@@ -384,8 +463,13 @@
           <li><a href="mailto:hello@joyus.studio">Contact</a></li>
         </ul>
       </nav>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      <div class="footer-themes">
+        <h4>Themes</h4>
+        <a href="hub-story.html">Finding Your Story</a>
+        <a href="hub-building.html">Building Something That Matters</a>
+        <a href="hub-behavior.html">How People Actually Behave</a>
+        <a href="hub-play.html">Play as Practice</a>
+        <a href="hub-creative.html">Drawing Outside the Lines</a>
       </div>
     </div>
     <div class="footer-bottom">
