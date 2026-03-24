@@ -179,6 +179,7 @@
     let closedShape = null;
     let hasStartedDrawing = false;
     let targetPage = 'home.html';
+    let lastClassification = null;
 
     const PINK = '#E91E7B';
 
@@ -497,41 +498,42 @@
 
       // Small shape check
       if (areaFraction < 0.03) {
-        return { page: 'home.html', hint: 'a little peek \u2014 here\u2019s everything' };
+        return { page: 'home.html', hint: 'a little peek \u2014 here\u2019s everything', shape: 'small', confidence: 1 };
       }
 
       // Very large shape → themed hub
       if (areaFraction > 0.40) {
-        return { page: 'hub-story.html', hint: 'you drew something big \u2014 let\u2019s explore' };
+        return { page: 'hub-story.html', hint: 'you drew something big \u2014 let\u2019s explore', shape: 'large', confidence: Math.min(areaFraction / 0.5, 1) };
       }
 
       // Circle-ish → about
       if (circularity > 0.6 && aspectRatio >= 0.7 && aspectRatio <= 1.4) {
-        return { page: 'about.html', hint: 'oh, a circle \u2014 come meet us' };
+        return { page: 'about.html', hint: 'oh, a circle \u2014 come meet us', shape: 'circle', confidence: circularity };
       }
 
       // Square-ish → comics (not circular, roughly equal sides, medium+)
       if (circularity < 0.5 && aspectRatio >= 0.8 && aspectRatio <= 1.2 && areaFraction > 0.08) {
-        return { page: 'comics/index.html', hint: 'a frame \u2014 read our comics' };
+        var squareConf = 1 - Math.abs(aspectRatio - 1);
+        return { page: 'comics/index.html', hint: 'a frame \u2014 read our comics', shape: 'square', confidence: squareConf };
       }
 
       // Triangle-ish → podcast (pointy, low compactness)
       if (circularity < 0.35 && compactness < 0.06 && areaFraction > 0.03) {
-        return { page: 'podcast.html', hint: 'three points \u2014 listen to us think' };
+        return { page: 'podcast.html', hint: 'three points \u2014 listen to us think', shape: 'triangle', confidence: 1 - circularity };
       }
 
       // Tall / vertical → work
       if (aspectRatio < 0.7) {
-        return { page: 'work/index.html', hint: 'something tall \u2014 see what we\u2019ve built' };
+        return { page: 'work/index.html', hint: 'something tall \u2014 see what we\u2019ve built', shape: 'tall', confidence: 1 - aspectRatio };
       }
 
       // Wide / horizontal → services
       if (aspectRatio > 1.6) {
-        return { page: 'services.html', hint: 'reaching wide \u2014 let\u2019s talk about what we do' };
+        return { page: 'services.html', hint: 'reaching wide \u2014 let\u2019s talk about what we do', shape: 'wide', confidence: Math.min(aspectRatio / 2, 1) };
       }
 
       // Everything else
-      return { page: 'home.html', hint: 'step inside' };
+      return { page: 'home.html', hint: 'step inside', shape: 'other', confidence: 0.5 };
     }
 
     // Show the shape hint near the shape
@@ -575,6 +577,7 @@
 
         // Classify the shape
         var classification = classifyShape(region);
+        lastClassification = classification;
         targetPage = classification.page;
 
         // Redraw with illustration in the enclosed region
@@ -648,15 +651,42 @@
     function enterSite() {
       sessionStorage.setItem('joyus_entered', '1');
       sessionStorage.removeItem('joyus_shape_replayed'); // ensure hero replay on first landing
+
+      var normalizedPath = allStrokes.map(function(s) {
+        return s.map(function(p) {
+          return { x: p.x / window.innerWidth, y: p.y / window.innerHeight };
+        });
+      });
+
       // Store the drawn shape so it can be echoed in the nav on the landing page
       sessionStorage.setItem('joyus_shape', JSON.stringify({
-        path: allStrokes.map(function(s) {
-          return s.map(function(p) {
-            return { x: p.x / window.innerWidth, y: p.y / window.innerHeight };
-          });
-        }),
-        hint: targetPage
+        path: normalizedPath,
+        hint: targetPage,
+        shapeType: lastClassification ? lastClassification.shape : 'other'
       }));
+
+      // Save shape to Firestore so other visitors can see it
+      if (typeof firebase !== 'undefined' && firebase.firestore) {
+        try {
+          var db = firebase.firestore();
+          // Only save first 3 strokes, simplified, to keep docs small
+          var simplifiedPath = normalizedPath.slice(0, 3).map(function(s) {
+            // Sample every Nth point to reduce size
+            var step = Math.max(1, Math.floor(s.length / 30));
+            var sampled = [];
+            for (var i = 0; i < s.length; i += step) sampled.push(s[i]);
+            return sampled;
+          });
+          db.collection('shapes').add({
+            path: JSON.stringify(simplifiedPath),
+            shapeType: lastClassification ? lastClassification.shape : 'other',
+            confidence: lastClassification ? lastClassification.confidence : 0,
+            page: targetPage,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        } catch (e) { /* silent */ }
+      }
+
       if (pulseRAF) cancelAnimationFrame(pulseRAF);
       wrapper.classList.add('fade-out');
       setTimeout(() => {
@@ -704,6 +734,18 @@
     // Resize
     window.addEventListener('resize', resize);
     resize();
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+      authDomain: "joyus-studio.firebaseapp.com",
+      projectId: "joyus-studio",
+      storageBucket: "joyus-studio.firebasestorage.app",
+      messagingSenderId: "654710924238",
+      appId: "1:654710924238:web:c300c98f31d2f620b3c19f"
+    });
   </script>
 </body>
 </html>

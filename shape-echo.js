@@ -206,6 +206,159 @@
     }
   }
 
+  // ── Page name helper ──
+  var PAGE_LABELS = {
+    'home.html': 'Home', 'about.html': 'About', 'services.html': 'Services',
+    'podcast.html': 'Podcast', 'work/index.html': 'Work', 'comics/index.html': 'Comics',
+    'comics/the-friend-comic.html': 'the Friend comic', 'comics/gossip.html': 'Gossip',
+    'hub-story.html': 'Finding Your Story', 'hub-building.html': 'Building Something That Matters',
+    'hub-behavior.html': 'How People Actually Behave', 'hub-play.html': 'Play as Practice',
+    'hub-creative.html': 'Drawing Outside the Lines'
+  };
+
+  function currentPageKey() {
+    var path = window.location.pathname;
+    // Strip leading path segments to get relative page
+    var match = path.match(/(?:^|\/)([^\/]+\/[^\/]+\.html|[^\/]+\.html)$/);
+    return match ? match[1] : 'home.html';
+  }
+
+  function labelForPage(page) {
+    return PAGE_LABELS[page] || page.replace('.html', '').replace(/.*\//, '');
+  }
+
+  // ── "Others are reading" ticker in the nav ──
+  function createOthersTicker(pages) {
+    if (!pages || !pages.length) return null;
+
+    var container = document.createElement('span');
+    container.className = 'nav-others-ticker';
+    container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.75rem;font-family:"Caveat",cursive;font-size:0.85rem;color:#ccc;overflow:hidden;max-width:220px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
+
+    var prefix = document.createElement('span');
+    prefix.textContent = 'others exploring → ';
+    prefix.style.cssText = 'color:#ddd;';
+    container.appendChild(prefix);
+
+    var pageSpan = document.createElement('a');
+    pageSpan.style.cssText = 'color:#E91E7B;opacity:0.6;text-decoration:none;transition:opacity 0.4s ease;';
+    container.appendChild(pageSpan);
+
+    // Rotate through pages
+    var idx = 0;
+    function showNext() {
+      pageSpan.style.opacity = '0';
+      setTimeout(function () {
+        var entry = pages[idx % pages.length];
+        pageSpan.textContent = labelForPage(entry.page);
+        pageSpan.href = entry.url;
+        pageSpan.style.opacity = '0.6';
+        idx++;
+      }, 400);
+    }
+    showNext();
+    setInterval(showNext, 4000);
+
+    return container;
+  }
+
+  // ── Firebase: log visit + query others ──
+  function initFirebaseTracking(shapeType) {
+    function whenReady(cb) {
+      if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
+        cb(firebase.firestore());
+      } else if (typeof firebase !== 'undefined' && firebase.initializeApp) {
+        // Firebase SDK loaded but not initialized
+        firebase.initializeApp({
+          apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+          authDomain: "joyus-studio.firebaseapp.com",
+          projectId: "joyus-studio",
+          storageBucket: "joyus-studio.firebasestorage.app",
+          messagingSenderId: "654710924238",
+          appId: "1:654710924238:web:c300c98f31d2f620b3c19f"
+        });
+        cb(firebase.firestore());
+      } else {
+        // Dynamically load Firebase SDK
+        var base = 'https://www.gstatic.com/firebasejs/10.12.0/';
+        var s1 = document.createElement('script');
+        s1.src = base + 'firebase-app-compat.js';
+        s1.onload = function () {
+          var s2 = document.createElement('script');
+          s2.src = base + 'firebase-firestore-compat.js';
+          s2.onload = function () {
+            firebase.initializeApp({
+              apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+              authDomain: "joyus-studio.firebaseapp.com",
+              projectId: "joyus-studio",
+              storageBucket: "joyus-studio.firebasestorage.app",
+              messagingSenderId: "654710924238",
+              appId: "1:654710924238:web:c300c98f31d2f620b3c19f"
+            });
+            cb(firebase.firestore());
+          };
+          document.head.appendChild(s2);
+        };
+        document.head.appendChild(s1);
+      }
+    }
+
+    whenReady(function (db) {
+      var page = currentPageKey();
+
+      // Log this visit
+      try {
+        db.collection('shape_visits').add({
+          shapeType: shapeType,
+          page: page,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp()
+        });
+      } catch (e) { /* silent */ }
+
+      // Query what others with same shape type are visiting
+      try {
+        db.collection('shape_visits')
+          .where('shapeType', '==', shapeType)
+          .orderBy('timestamp', 'desc')
+          .limit(50)
+          .get()
+          .then(function (snap) {
+            // Count pages, excluding current
+            var counts = {};
+            snap.forEach(function (doc) {
+              var d = doc.data();
+              if (d.page && d.page !== page) {
+                counts[d.page] = (counts[d.page] || 0) + 1;
+              }
+            });
+            // Sort by popularity
+            var sorted = Object.keys(counts).sort(function (a, b) { return counts[b] - counts[a]; }).slice(0, 5);
+            if (!sorted.length) return;
+
+            // Build URL for each page
+            var isSubdir = window.location.pathname.indexOf('/work/') !== -1 || window.location.pathname.indexOf('/comics/') !== -1;
+            var pages = sorted.map(function (p) {
+              var url = isSubdir ? '../' + p : p;
+              return { page: p, url: url };
+            });
+
+            // Insert ticker after the nav shape
+            var navShape = document.querySelector('.nav-shape, .nav-draw-prompt');
+            if (navShape) {
+              var ticker = createOthersTicker(pages);
+              if (ticker) {
+                navShape.parentNode.insertBefore(ticker, navShape.nextSibling);
+                requestAnimationFrame(function () {
+                  requestAnimationFrame(function () { ticker.style.opacity = '1'; });
+                });
+              }
+            }
+          })
+          .catch(function () { /* silent */ });
+      } catch (e) { /* silent */ }
+    });
+  }
+
   // ── Init ──
   var logo = document.querySelector('.logo, .nav-logo, .logo-link');
   if (!logo) return;
@@ -221,6 +374,7 @@
   }
 
   if (shape) {
+    var shapeType = shape.shapeType || 'other';
     var hasReplayed = sessionStorage.getItem('joyus_shape_replayed');
 
     if (!hasReplayed) {
@@ -228,10 +382,12 @@
       sessionStorage.setItem('joyus_shape_replayed', '1');
       replayInHero(shape.path, function () {
         placeNavIcon(shape.path);
+        initFirebaseTracking(shapeType);
       });
     } else {
       // Already replayed — just show in nav
       placeNavIcon(shape.path);
+      initFirebaseTracking(shapeType);
     }
   } else {
     // No shape — show subtle pencil link to splash page
