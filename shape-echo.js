@@ -258,8 +258,7 @@
       try {
         db.collection('shape_visits')
           .where('shapeType', '==', shapeType)
-          .orderBy('timestamp', 'desc')
-          .limit(50)
+          .limit(100)
           .get()
           .then(function (snap) {
             // Count pages, excluding current
