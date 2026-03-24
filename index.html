@@ -536,6 +536,110 @@
       return { page: 'home.html', hint: 'step inside', shape: 'other', confidence: 0.5 };
     }
 
+    // Flash a clean geometric shape over the user's drawing
+    function flashGeometricShape(region, classification) {
+      var b = region.bounds;
+      var cx = (b.minX + b.maxX) / 2;
+      var cy = (b.minY + b.maxY) / 2;
+      var w = b.maxX - b.minX;
+      var h = b.maxY - b.minY;
+      var r = Math.max(w, h) / 2;
+      var pad = 15; // breathing room
+
+      var svgNS = 'http://www.w3.org/2000/svg';
+      var svg = document.createElementNS(svgNS, 'svg');
+      svg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:8;pointer-events:none;';
+      svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+
+      var el;
+      var shapeType = classification.shape || 'other';
+
+      if (shapeType === 'circle') {
+        el = document.createElementNS(svgNS, 'circle');
+        el.setAttribute('cx', cx);
+        el.setAttribute('cy', cy);
+        el.setAttribute('r', r + pad);
+      } else if (shapeType === 'square') {
+        el = document.createElementNS(svgNS, 'rect');
+        var side = Math.max(w, h) + pad * 2;
+        el.setAttribute('x', cx - side / 2);
+        el.setAttribute('y', cy - side / 2);
+        el.setAttribute('width', side);
+        el.setAttribute('height', side);
+        el.setAttribute('rx', '4');
+      } else if (shapeType === 'triangle') {
+        el = document.createElementNS(svgNS, 'polygon');
+        var triR = r + pad;
+        var points = [
+          (cx) + ',' + (cy - triR),
+          (cx - triR * 0.87) + ',' + (cy + triR * 0.5),
+          (cx + triR * 0.87) + ',' + (cy + triR * 0.5)
+        ].join(' ');
+        el.setAttribute('points', points);
+      } else if (shapeType === 'tall') {
+        el = document.createElementNS(svgNS, 'rect');
+        el.setAttribute('x', b.minX - pad);
+        el.setAttribute('y', b.minY - pad);
+        el.setAttribute('width', w + pad * 2);
+        el.setAttribute('height', h + pad * 2);
+        el.setAttribute('rx', '4');
+      } else if (shapeType === 'wide') {
+        el = document.createElementNS(svgNS, 'rect');
+        el.setAttribute('x', b.minX - pad);
+        el.setAttribute('y', b.minY - pad);
+        el.setAttribute('width', w + pad * 2);
+        el.setAttribute('height', h + pad * 2);
+        el.setAttribute('rx', '4');
+      } else if (shapeType === 'large') {
+        el = document.createElementNS(svgNS, 'circle');
+        el.setAttribute('cx', cx);
+        el.setAttribute('cy', cy);
+        el.setAttribute('r', r + pad);
+      } else {
+        // small or other — no flash
+        return;
+      }
+
+      el.setAttribute('fill', 'none');
+      el.setAttribute('stroke', '#E91E7B');
+      el.setAttribute('stroke-width', '2');
+      el.setAttribute('opacity', '0');
+      svg.appendChild(el);
+
+      // Shape type label
+      var label = document.createElementNS(svgNS, 'text');
+      label.setAttribute('x', cx);
+      label.setAttribute('y', b.maxY + pad + 45);
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('fill', '#E91E7B');
+      label.setAttribute('font-family', 'Caveat, cursive');
+      label.setAttribute('font-size', '18');
+      label.setAttribute('opacity', '0');
+      label.textContent = 'you\u2019re a ' + shapeType;
+      svg.appendChild(label);
+
+      document.body.appendChild(svg);
+
+      // Animate: fade in the geometric shape
+      requestAnimationFrame(function () {
+        el.style.transition = 'opacity 0.6s ease';
+        el.style.opacity = '0.4';
+        label.style.transition = 'opacity 0.6s ease 0.3s';
+        label.style.opacity = '0.7';
+      });
+
+      // Fade out after a few seconds
+      setTimeout(function () {
+        el.style.transition = 'opacity 1s ease';
+        el.style.opacity = '0';
+        label.style.transition = 'opacity 1s ease';
+        label.style.opacity = '0';
+        setTimeout(function () {
+          if (svg.parentNode) svg.parentNode.removeChild(svg);
+        }, 1000);
+      }, 3000);
+    }
+
     // Show the shape hint near the shape
     function showShapeHint(region, classification) {
       var b = region.bounds;
@@ -585,6 +689,9 @@
 
         // Show hint near the shape
         showShapeHint(region, classification);
+
+        // Flash the idealized geometric shape over the drawing
+        flashGeometricShape(region, classification);
 
         canvas.style.cursor = 'pointer';
         startPulse();

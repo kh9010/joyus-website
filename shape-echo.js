@@ -228,7 +228,13 @@
   }
 
   // ── "Others are reading" ticker in the nav ──
-  function createOthersTicker(pages) {
+  var SHAPE_PLURALS = {
+    circle: 'circles', square: 'squares', triangle: 'triangles',
+    tall: 'tall shapes', wide: 'wide shapes', large: 'big shapes',
+    small: 'small shapes', other: 'shapes'
+  };
+
+  function createOthersTicker(pages, shapeLabel) {
     if (!pages || !pages.length) return null;
 
     var container = document.createElement('span');
@@ -236,7 +242,7 @@
     container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.75rem;font-family:"Caveat",cursive;font-size:0.85rem;color:#ccc;overflow:hidden;max-width:220px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
 
     var prefix = document.createElement('span');
-    prefix.textContent = 'others exploring → ';
+    prefix.textContent = 'other ' + (shapeLabel || 'shapes') + ' exploring → ';
     prefix.style.cssText = 'color:#ddd;';
     container.appendChild(prefix);
 
@@ -345,7 +351,7 @@
             // Insert ticker after the nav shape
             var navShape = document.querySelector('.nav-shape, .nav-draw-prompt');
             if (navShape) {
-              var ticker = createOthersTicker(pages);
+              var ticker = createOthersTicker(pages, SHAPE_PLURALS[shapeType] || 'shapes');
               if (ticker) {
                 navShape.parentNode.insertBefore(ticker, navShape.nextSibling);
                 requestAnimationFrame(function () {
