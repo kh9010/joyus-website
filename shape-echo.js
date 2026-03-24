@@ -172,7 +172,7 @@
 
     var container = document.createElement('span');
     container.className = 'nav-others-ticker';
-    container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.75rem;font-family:"Caveat",cursive;font-size:0.85rem;color:#ccc;overflow:hidden;max-width:220px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
+    container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.75rem;font-family:"Caveat",cursive;font-size:0.95rem;color:#999;overflow:hidden;max-width:260px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
 
     var prefix = document.createElement('span');
     prefix.textContent = 'other ' + (shapeLabel || 'shapes') + ' exploring → ';
@@ -180,7 +180,7 @@
     container.appendChild(prefix);
 
     var pageSpan = document.createElement('a');
-    pageSpan.style.cssText = 'color:#E91E7B;opacity:0.6;text-decoration:none;transition:opacity 0.4s ease;';
+    pageSpan.style.cssText = 'color:#E91E7B;opacity:0.85;text-decoration:none;transition:opacity 0.4s ease;';
     container.appendChild(pageSpan);
 
     // Rotate through pages
