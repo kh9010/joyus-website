@@ -312,7 +312,19 @@
   }
 
   if (shape) {
-    var shapeType = shape.shapeType || 'other';
+    // Determine shape type — newer sessions store it directly,
+    // older sessions can be inferred from the hint/page
+    var shapeType = shape.shapeType;
+    if (!shapeType) {
+      var dest = shape.hint || '';
+      if (dest.indexOf('about') !== -1) shapeType = 'circle';
+      else if (dest.indexOf('comics') !== -1) shapeType = 'square';
+      else if (dest.indexOf('podcast') !== -1) shapeType = 'triangle';
+      else if (dest.indexOf('work') !== -1) shapeType = 'tall';
+      else if (dest.indexOf('services') !== -1) shapeType = 'wide';
+      else if (dest.indexOf('hub') !== -1) shapeType = 'large';
+      else shapeType = 'other';
+    }
     placeNavIcon(shape.path);
     initFirebaseTracking(shapeType);
   } else {
