@@ -498,38 +498,38 @@
 
       // Small shape check
       if (areaFraction < 0.03) {
-        return { page: 'home.html', hint: 'a little peek \u2014 here\u2019s everything', shape: 'small', confidence: 1 };
+        return { page: 'home.html', hint: 'here\u2019s everything', shape: 'small', confidence: 1 };
       }
 
       // Very large shape → themed hub
       if (areaFraction > 0.40) {
-        return { page: 'hub-story.html', hint: 'you drew something big \u2014 let\u2019s explore', shape: 'large', confidence: Math.min(areaFraction / 0.5, 1) };
+        return { page: 'hub-story.html', hint: 'let\u2019s explore', shape: 'large', confidence: Math.min(areaFraction / 0.5, 1) };
       }
 
       // Circle-ish → about
       if (circularity > 0.6 && aspectRatio >= 0.7 && aspectRatio <= 1.4) {
-        return { page: 'about.html', hint: 'oh, a circle \u2014 come meet us', shape: 'circle', confidence: circularity };
+        return { page: 'about.html', hint: 'come meet us', shape: 'circle', confidence: circularity };
       }
 
       // Square-ish → comics (not circular, roughly equal sides, medium+)
       if (circularity < 0.5 && aspectRatio >= 0.8 && aspectRatio <= 1.2 && areaFraction > 0.08) {
         var squareConf = 1 - Math.abs(aspectRatio - 1);
-        return { page: 'comics/index.html', hint: 'a frame \u2014 read our comics', shape: 'square', confidence: squareConf };
+        return { page: 'comics/index.html', hint: 'read our comics', shape: 'square', confidence: squareConf };
       }
 
       // Triangle-ish → podcast (pointy, low compactness)
       if (circularity < 0.35 && compactness < 0.06 && areaFraction > 0.03) {
-        return { page: 'podcast.html', hint: 'three points \u2014 listen to us think', shape: 'triangle', confidence: 1 - circularity };
+        return { page: 'podcast.html', hint: 'listen to us think', shape: 'triangle', confidence: 1 - circularity };
       }
 
       // Tall / vertical → work
       if (aspectRatio < 0.7) {
-        return { page: 'work/index.html', hint: 'something tall \u2014 see what we\u2019ve built', shape: 'tall', confidence: 1 - aspectRatio };
+        return { page: 'work/index.html', hint: 'see what we\u2019ve built', shape: 'tall', confidence: 1 - aspectRatio };
       }
 
       // Wide / horizontal → services
       if (aspectRatio > 1.6) {
-        return { page: 'services.html', hint: 'reaching wide \u2014 let\u2019s talk about what we do', shape: 'wide', confidence: Math.min(aspectRatio / 2, 1) };
+        return { page: 'services.html', hint: 'let\u2019s talk about what we do', shape: 'wide', confidence: Math.min(aspectRatio / 2, 1) };
       }
 
       // Everything else
