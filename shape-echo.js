@@ -270,20 +270,28 @@
 
   // ── Firebase: log visit + query others ──
   function initFirebaseTracking(shapeType) {
+    var firebaseConfig = {
+      apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+      authDomain: "joyus-studio.firebaseapp.com",
+      projectId: "joyus-studio",
+      storageBucket: "joyus-studio.firebasestorage.app",
+      messagingSenderId: "654710924238",
+      appId: "1:654710924238:web:c300c98f31d2f620b3c19f"
+    };
+
+    function getDb() {
+      var db = firebase.firestore();
+      // Fix CORS errors on GitHub Pages by using long polling
+      db.settings({ experimentalAutoDetectLongPolling: true, merge: true });
+      return db;
+    }
+
     function whenReady(cb) {
       if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
-        cb(firebase.firestore());
+        cb(getDb());
       } else if (typeof firebase !== 'undefined' && firebase.initializeApp) {
-        // Firebase SDK loaded but not initialized
-        firebase.initializeApp({
-          apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
-          authDomain: "joyus-studio.firebaseapp.com",
-          projectId: "joyus-studio",
-          storageBucket: "joyus-studio.firebasestorage.app",
-          messagingSenderId: "654710924238",
-          appId: "1:654710924238:web:c300c98f31d2f620b3c19f"
-        });
-        cb(firebase.firestore());
+        firebase.initializeApp(firebaseConfig);
+        cb(getDb());
       } else {
         // Dynamically load Firebase SDK
         var base = 'https://www.gstatic.com/firebasejs/10.12.0/';
@@ -293,15 +301,8 @@
           var s2 = document.createElement('script');
           s2.src = base + 'firebase-firestore-compat.js';
           s2.onload = function () {
-            firebase.initializeApp({
-              apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
-              authDomain: "joyus-studio.firebaseapp.com",
-              projectId: "joyus-studio",
-              storageBucket: "joyus-studio.firebasestorage.app",
-              messagingSenderId: "654710924238",
-              appId: "1:654710924238:web:c300c98f31d2f620b3c19f"
-            });
-            cb(firebase.firestore());
+            firebase.initializeApp(firebaseConfig);
+            cb(getDb());
           };
           document.head.appendChild(s2);
         };

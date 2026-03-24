@@ -498,6 +498,7 @@
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    db.settings({ experimentalAutoDetectLongPolling: true, merge: true });
 
     // ── Semantic Content Map ──
     // Each entry: { display, terms (for fuzzy matching), url, dest (label shown in UI) }
