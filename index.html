@@ -602,42 +602,46 @@
 
       el.setAttribute('fill', 'none');
       el.setAttribute('stroke', '#E91E7B');
-      el.setAttribute('stroke-width', '2');
-      el.setAttribute('opacity', '0');
+      el.setAttribute('stroke-width', '2.5');
+      el.setAttribute('stroke-dasharray', '8 4');
       svg.appendChild(el);
+
+      // Transform origin for scale animation
+      el.style.cssText = 'transform-origin:' + cx + 'px ' + cy + 'px;transform:scale(0.7);opacity:0;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;';
 
       // Shape type label
       var label = document.createElementNS(svgNS, 'text');
       label.setAttribute('x', cx);
-      label.setAttribute('y', b.maxY + pad + 45);
+      label.setAttribute('y', b.maxY + pad + 40);
       label.setAttribute('text-anchor', 'middle');
       label.setAttribute('fill', '#E91E7B');
       label.setAttribute('font-family', 'Caveat, cursive');
-      label.setAttribute('font-size', '18');
-      label.setAttribute('opacity', '0');
+      label.setAttribute('font-size', '20');
+      label.style.cssText = 'opacity:0;transition:opacity 0.3s ease 0.2s;';
       label.textContent = 'you\u2019re a ' + shapeType;
       svg.appendChild(label);
 
       document.body.appendChild(svg);
 
-      // Animate: fade in the geometric shape
+      // Pop in — quick spring scale
       requestAnimationFrame(function () {
-        el.style.transition = 'opacity 0.6s ease';
-        el.style.opacity = '0.4';
-        label.style.transition = 'opacity 0.6s ease 0.3s';
-        label.style.opacity = '0.7';
+        requestAnimationFrame(function () {
+          el.style.transform = 'scale(1)';
+          el.style.opacity = '0.6';
+          label.style.opacity = '0.8';
+        });
       });
 
-      // Fade out after a few seconds
+      // Fade out after 2.5s
       setTimeout(function () {
-        el.style.transition = 'opacity 1s ease';
+        el.style.transition = 'opacity 0.8s ease';
         el.style.opacity = '0';
-        label.style.transition = 'opacity 1s ease';
+        label.style.transition = 'opacity 0.8s ease';
         label.style.opacity = '0';
         setTimeout(function () {
           if (svg.parentNode) svg.parentNode.removeChild(svg);
-        }, 1000);
-      }, 3000);
+        }, 800);
+      }, 2500);
     }
 
     // Show the shape hint near the shape

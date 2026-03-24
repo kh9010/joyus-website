@@ -118,74 +118,6 @@
     return btn;
   }
 
-  // ── Hero replay animation ──
-  function replayInHero(strokes, callback) {
-    var hero = document.querySelector('.intent-hero, .comic-hero, .podcast-page-hero, .comics-hero, .about-hero, .work-page-hero, .hub-hero, [class*="hero"]');
-    if (!hero) { callback(); return; }
-
-    var origPosition = hero.style.position;
-    var origOverflow = hero.style.overflow;
-    hero.style.position = hero.style.position || 'relative';
-    hero.style.overflow = 'hidden';
-
-    var heroRect = hero.getBoundingClientRect();
-    var replaySize = Math.min(heroRect.width * 0.45, heroRect.height * 0.6, 350);
-    var paths = buildPathData(strokes, replaySize, 8);
-    if (!paths || !paths.length) { callback(); return; }
-
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', replaySize);
-    svg.setAttribute('height', replaySize);
-    svg.setAttribute('viewBox', '0 0 ' + replaySize + ' ' + replaySize);
-    svg.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;pointer-events:none;';
-
-    var pathEls = [];
-    for (var i = 0; i < paths.length; i++) {
-      var p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      p.setAttribute('d', paths[i]);
-      p.setAttribute('fill', 'none');
-      p.setAttribute('stroke', PINK);
-      p.setAttribute('stroke-width', '2');
-      p.setAttribute('stroke-linecap', 'round');
-      p.setAttribute('stroke-linejoin', 'round');
-      p.setAttribute('opacity', '0.2');
-      svg.appendChild(p);
-      pathEls.push(p);
-    }
-
-    hero.appendChild(svg);
-
-    // Set up stroke-dasharray draw animation
-    requestAnimationFrame(function () {
-      for (var i = 0; i < pathEls.length; i++) {
-        var len = pathEls[i].getTotalLength();
-        pathEls[i].style.strokeDasharray = len;
-        pathEls[i].style.strokeDashoffset = len;
-        pathEls[i].style.transition = 'stroke-dashoffset 1.5s ease';
-      }
-      // Trigger draw
-      requestAnimationFrame(function () {
-        for (var i = 0; i < pathEls.length; i++) {
-          pathEls[i].style.strokeDashoffset = '0';
-        }
-      });
-
-      // After draw, fade out and shrink
-      setTimeout(function () {
-        svg.style.transition = 'all 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
-        svg.style.opacity = '0';
-        svg.style.transform = 'translate(-50%, -50%) scale(0.15)';
-
-        setTimeout(function () {
-          if (svg.parentNode) svg.parentNode.removeChild(svg);
-          hero.style.position = origPosition;
-          hero.style.overflow = origOverflow;
-          callback();
-        }, 700);
-      }, 2200);
-    });
-  }
-
   // ── Place icon in nav ──
   function placeNavIcon(strokes) {
     var existing = document.querySelector('.nav-shape, .nav-draw-prompt');
@@ -382,20 +314,8 @@
 
   if (shape) {
     var shapeType = shape.shapeType || 'other';
-    var hasReplayed = sessionStorage.getItem('joyus_shape_replayed');
-
-    if (!hasReplayed) {
-      // First landing — replay in hero, then dock in nav
-      sessionStorage.setItem('joyus_shape_replayed', '1');
-      replayInHero(shape.path, function () {
-        placeNavIcon(shape.path);
-        initFirebaseTracking(shapeType);
-      });
-    } else {
-      // Already replayed — just show in nav
-      placeNavIcon(shape.path);
-      initFirebaseTracking(shapeType);
-    }
+    placeNavIcon(shape.path);
+    initFirebaseTracking(shapeType);
   } else {
     // No shape — show subtle pencil link to splash page
     var btn = createDrawPrompt();
