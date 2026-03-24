@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gossip — two friends dissect someone else's relationship over dinner. A hand-drawn comic by Divya Tak at Joyus Studio.">
+  <meta property="og:title" content="Gossip — Joyus Studio">
+  <meta property="og:description" content="Two friends dissect someone else's relationship over dinner. It spirals. Why do we choose unhappiness?">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/comics/gossip/page-1.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/comics/gossip.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/comics/gossip.html">
+  <title>Gossip — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* Reading progress bar */
+    .reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: var(--pink, #E91E7B);
+      z-index: 200;
+      transition: width 0.1s linear;
+    }
+
+    .comic-hero {
+      padding: 8rem 2rem 3rem;
+      background: var(--warm-gray, #F5F3F0);
+      text-align: center;
+    }
+    .comic-hero .inner {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .comic-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .comic-hero .comic-tagline {
+      font-size: 1.05rem;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .comic-hero .comic-meta {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+    }
+
+    /* Comic reader */
+    .comic-reader {
+      padding: 3rem 2rem 5rem;
+      background: #fff;
+    }
+    .comic-reader .reader-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .comic-page {
+      margin-bottom: 5rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .comic-page.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .comic-page:last-child {
+      margin-bottom: 0;
+    }
+    .comic-page img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    .comic-page .page-number {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: #ccc;
+      margin-top: 1rem;
+      user-select: none;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: rgba(0,0,0,0.92);
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+      padding: 2rem;
+    }
+    .lightbox.active {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 95vw;
+      max-height: 95vh;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+
+    /* End navigation */
+    .comic-end-nav {
+      padding: 3rem 2rem 4rem;
+      border-top: 1px solid #eee;
+    }
+    .comic-end-nav .inner {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .comic-end-nav a {
+      color: #111;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    .comic-end-nav a:hover {
+      color: var(--pink, #E91E7B);
+    }
+    .comic-nav-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #999;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Keyboard hint */
+    .keyboard-hint {
+      text-align: center;
+      padding: 0.75rem;
+      font-size: 0.8rem;
+      color: #bbb;
+    }
+
+    @media (max-width: 640px) {
+      .comic-reader {
+        padding: 2rem 1rem 4rem;
+      }
+      .comic-page {
+        margin-bottom: 3rem;
+      }
+      .comic-page img {
+        border-radius: 2px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="reading-progress" id="readingProgress"></div>
+
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="../home.html" class="logo">
+        <img src="../images/logo.webp" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="../work/index.html">Work</a></li>
+        <li><a href="index.html" class="active">Comics</a></li>
+        <li><a href="../services.html">Services</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="comic-hero">
+    <div class="inner">
+      <h1>Gossip</h1>
+      <p class="comic-tagline">Two friends dissect someone else's relationship over dinner. It spirals. Why do we choose unhappiness?</p>
+      <div class="comic-meta">Hand-drawn by Divya Tak &middot; 4 pages</div>
+    </div>
+  </section>
+
+  <div class="keyboard-hint" id="keyboardHint">
+    <span>Use <strong>&darr;</strong> arrow keys to navigate between pages</span>
+  </div>
+
+  <section class="comic-reader">
+    <div class="reader-inner">
+
+      <div class="comic-page" data-page="1">
+        <img src="../images/comics/gossip/page-1.png" alt="Gossip — page 1">
+        <div class="page-number">1 / 4</div>
+      </div>
+
+      <div class="comic-page" data-page="2">
+        <img src="../images/comics/gossip/page-2.png" alt="Gossip — page 2" loading="lazy">
+        <div class="page-number">2 / 4</div>
+      </div>
+
+      <div class="comic-page" data-page="3">
+        <img src="../images/comics/gossip/page-3.png" alt="Gossip — page 3" loading="lazy">
+        <div class="page-number">3 / 4</div>
+      </div>
+
+      <div class="comic-page" data-page="4">
+        <img src="../images/comics/gossip/page-4.png" alt="Gossip — page 4" loading="lazy">
+        <div class="page-number">4 / 4</div>
+      </div>
+
+    </div>
+  </section>
+
+  <nav class="comic-end-nav">
+    <div class="inner">
+      <a href="index.html">
+        <span class="comic-nav-label">Back to</span>
+        All Comics
+      </a>
+      <a href="the-friend-comic.html">
+        <span class="comic-nav-label">Previous comic</span>
+        &larr; the Friend comic
+      </a>
+    </div>
+  </nav>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="../home.html">Home</a></li>
+          <li><a href="../work/index.html">Work</a></li>
+          <li><a href="index.html">Comics</a></li>
+          <li><a href="../services.html">Services</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Zoomed comic page" id="lightboxImg">
+  </div>
+
+  <script>
+    // Mobile nav
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    // Reading progress bar
+    const progressBar = document.getElementById('readingProgress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      progressBar.style.width = progress + '%';
+    });
+
+    // Fade-in comic pages on scroll
+    const pageObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          pageObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.comic-page').forEach(el => pageObs.observe(el));
+
+    // Lightbox on click
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    document.querySelectorAll('.comic-page img').forEach(img => {
+      img.style.cursor = 'zoom-in';
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Keyboard navigation between pages
+    const pages = document.querySelectorAll('.comic-page');
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) return;
+      if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+        e.preventDefault();
+        const currentScroll = window.scrollY;
+        for (const page of pages) {
+          const top = page.getBoundingClientRect().top + window.scrollY - 100;
+          if (top > currentScroll + 10) {
+            window.scrollTo({ top, behavior: 'smooth' });
+            break;
+          }
+        }
+      }
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const currentScroll = window.scrollY;
+        for (let i = pages.length - 1; i >= 0; i--) {
+          const top = pages[i].getBoundingClientRect().top + window.scrollY - 100;
+          if (top < currentScroll - 10) {
+            window.scrollTo({ top, behavior: 'smooth' });
+            break;
+          }
+        }
+      }
+    });
+
+    // Hide keyboard hint on mobile
+    if ('ontouchstart' in window) {
+      document.getElementById('keyboardHint').style.display = 'none';
+    }
+  </script>
+</body>
+</html>
