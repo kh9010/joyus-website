@@ -465,76 +465,185 @@
       ctx.restore();
     }
 
-    // Classify shape based on geometry
+    // ── Polygon detection ──
+    // Extract boundary points from the enclosed region, then count corners
+    function getBoundaryPoints(region) {
+      var pts = [];
+      var s = region.scale;
+      for (var i = 0; i < region.pixels.length; i++) {
+        var px = Math.floor(region.pixels[i].x * s);
+        var py = Math.floor(region.pixels[i].y * s);
+        var idx = py * region.w + px;
+        if (px <= 0 || px >= region.w - 1 || py <= 0 || py >= region.h - 1 ||
+            region.visited[idx - 1] !== 0 || region.visited[idx + 1] !== 0 ||
+            region.visited[idx - region.w] !== 0 || region.visited[idx + region.w] !== 0) {
+          pts.push({ x: region.pixels[i].x, y: region.pixels[i].y });
+        }
+      }
+      return pts;
+    }
+
+    // Simple convex hull (Graham scan)
+    function convexHull(points) {
+      if (points.length < 3) return points;
+      // Find lowest point
+      var start = 0;
+      for (var i = 1; i < points.length; i++) {
+        if (points[i].y > points[start].y || (points[i].y === points[start].y && points[i].x < points[start].x))
+          start = i;
+      }
+      var pivot = points[start];
+      var sorted = points.slice().sort(function (a, b) {
+        var aa = Math.atan2(a.y - pivot.y, a.x - pivot.x);
+        var ba = Math.atan2(b.y - pivot.y, b.x - pivot.x);
+        return aa - ba || dist(pivot, a) - dist(pivot, b);
+      });
+      var hull = [sorted[0], sorted[1]];
+      for (var i = 2; i < sorted.length; i++) {
+        while (hull.length > 1 && cross(hull[hull.length - 2], hull[hull.length - 1], sorted[i]) <= 0)
+          hull.pop();
+        hull.push(sorted[i]);
+      }
+      return hull;
+    }
+
+    function cross(o, a, b) {
+      return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    }
+
+    // Count significant corners on a polygon using angle-based detection
+    function countCorners(hull, tolerance) {
+      if (hull.length < 3) return hull.length;
+      tolerance = tolerance || 0.4; // radians — ~23 degrees
+      var corners = 0;
+      var n = hull.length;
+      for (var i = 0; i < n; i++) {
+        var prev = hull[(i - 1 + n) % n];
+        var curr = hull[i];
+        var next = hull[(i + 1) % n];
+        var a1 = Math.atan2(curr.y - prev.y, curr.x - prev.x);
+        var a2 = Math.atan2(next.y - curr.y, next.x - curr.x);
+        var diff = Math.abs(a2 - a1);
+        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+        if (diff > tolerance) corners++;
+      }
+      return corners;
+    }
+
+    // Simplify hull using Ramer-Douglas-Peucker
+    function simplifyHull(pts, epsilon) {
+      if (pts.length < 3) return pts;
+      var maxDist = 0, maxIdx = 0;
+      var start = pts[0], end = pts[pts.length - 1];
+      for (var i = 1; i < pts.length - 1; i++) {
+        var d = pointLineDistance(pts[i], start, end);
+        if (d > maxDist) { maxDist = d; maxIdx = i; }
+      }
+      if (maxDist > epsilon) {
+        var left = simplifyHull(pts.slice(0, maxIdx + 1), epsilon);
+        var right = simplifyHull(pts.slice(maxIdx), epsilon);
+        return left.slice(0, -1).concat(right);
+      }
+      return [start, end];
+    }
+
+    function pointLineDistance(p, a, b) {
+      var dx = b.x - a.x, dy = b.y - a.y;
+      var len = Math.sqrt(dx * dx + dy * dy);
+      if (len === 0) return dist(p, a);
+      return Math.abs(dx * (a.y - p.y) - dy * (a.x - p.x)) / len;
+    }
+
+    // The 9 polygon types and their destinations
+    var POLYGON_MAP = [
+      // sides, name, page, hint
+      { sides: 0,  name: 'circle',   page: 'about.html',        hint: 'no corners to hide behind' },
+      { sides: 3,  name: 'triangle', page: 'comics/gossip.html', hint: 'three people in every piece of gossip' },
+      { sides: 4,  name: 'square',   page: 'https://podcasters.spotify.com/pod/show/joyus-studio/episodes/504---Creating-comics-together-with-Kahran-and-Divya-e2kq15a', hint: 'four panels on a page' },
+      { sides: 5,  name: 'pentagon', page: 'work/secret-senses.html', hint: 'five senses \u2014 this brand lives in all of them' },
+      { sides: 6,  name: 'hexagon',  page: 'https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating-a-Successful-Game-in-1000xResist-with-Remy-Siu-of-Sunset-Visitor---Success-Part-6-e2u0svf', hint: 'hexagons \u2014 the shape of every great game' },
+      { sides: 7,  name: 'heptagon', page: 'hub-story.html',    hint: 'seven notes in a scale \u2014 find yours' },
+      { sides: 8,  name: 'octagon',  page: 'hub-building.html',  hint: 'build right, not fast' },
+      { sides: 9,  name: 'nonagon',  page: 'hub-behavior.html',  hint: 'nine muses, nine impulses' },
+      { sides: 10, name: 'decagon',  page: 'hub-play.html',      hint: 'ten sides is almost absurd \u2014 that\u2019s the point' },
+    ];
+
+    // Classify shape based on geometry — always a polygon
     function classifyShape(region) {
       var b = region.bounds;
       var shapeWidth = b.maxX - b.minX;
       var shapeHeight = b.maxY - b.minY;
-      var aspectRatio = shapeWidth / shapeHeight;
       var area = region.pixels.length * (1 / region.scale) * (1 / region.scale);
-      var viewportArea = window.innerWidth * window.innerHeight;
-      var areaFraction = area / viewportArea;
 
-      // Circularity: compare area to area of a circle with radius = half max dimension
+      // Circularity check
       var r = Math.max(shapeWidth, shapeHeight) / 2;
       var circleArea = Math.PI * r * r;
-      var circularity = (area / circleArea);
+      var circularity = area / circleArea;
+      var aspectRatio = shapeWidth / shapeHeight;
 
-      // Perimeter estimate (count boundary pixels)
-      var perimeter = 0;
-      for (var i = 0; i < region.pixels.length; i++) {
-        var px = Math.floor(region.pixels[i].x * region.scale);
-        var py = Math.floor(region.pixels[i].y * region.scale);
-        var idx = py * region.w + px;
-        // Check if any neighbor is outside or wall
-        if (px <= 0 || px >= region.w - 1 || py <= 0 || py >= region.h - 1 ||
-            region.visited[idx - 1] !== 0 || region.visited[idx + 1] !== 0 ||
-            region.visited[idx - region.w] !== 0 || region.visited[idx + region.w] !== 0) {
-          perimeter++;
-        }
-      }
-      var perimeterScaled = perimeter * (1 / region.scale);
-      var compactness = area / (perimeterScaled * perimeterScaled); // higher = more compact
-
-      // Small shape check
-      if (areaFraction < 0.03) {
-        return { page: 'home.html', hint: 'here\u2019s everything', shape: 'small', confidence: 1 };
+      // High circularity = circle
+      if (circularity > 0.6 && aspectRatio >= 0.65 && aspectRatio <= 1.5) {
+        var m = POLYGON_MAP[0]; // circle
+        return { page: m.page, hint: m.hint, shape: m.name, confidence: circularity };
       }
 
-      // Very large shape → themed hub
-      if (areaFraction > 0.40) {
-        return { page: 'hub-story.html', hint: 'let\u2019s explore', shape: 'large', confidence: Math.min(areaFraction / 0.5, 1) };
+      // Count corners via convex hull
+      var boundary = getBoundaryPoints(region);
+      if (boundary.length < 10) {
+        var m = POLYGON_MAP[0];
+        return { page: m.page, hint: m.hint, shape: m.name, confidence: 0.5 };
       }
 
-      // Circle-ish → about
-      if (circularity > 0.6 && aspectRatio >= 0.7 && aspectRatio <= 1.4) {
-        return { page: 'about.html', hint: 'come meet us', shape: 'circle', confidence: circularity };
+      // Subsample boundary for performance (max 500 points)
+      if (boundary.length > 500) {
+        var step = Math.ceil(boundary.length / 500);
+        var sampled = [];
+        for (var i = 0; i < boundary.length; i += step) sampled.push(boundary[i]);
+        boundary = sampled;
       }
 
-      // Square-ish → comics (not circular, roughly equal sides, medium+)
-      if (circularity < 0.5 && aspectRatio >= 0.8 && aspectRatio <= 1.2 && areaFraction > 0.08) {
-        var squareConf = 1 - Math.abs(aspectRatio - 1);
-        return { page: 'comics/index.html', hint: 'read our comics', shape: 'square', confidence: squareConf };
-      }
+      var hull = convexHull(boundary);
 
-      // Triangle-ish → podcast (pointy, low compactness)
-      if (circularity < 0.35 && compactness < 0.06 && areaFraction > 0.03) {
-        return { page: 'podcast.html', hint: 'listen to us think', shape: 'triangle', confidence: 1 - circularity };
+      // Simplify the hull to find dominant vertices
+      var perim = 0;
+      for (var i = 0; i < hull.length; i++) {
+        perim += dist(hull[i], hull[(i + 1) % hull.length]);
       }
+      var epsilon = perim * 0.03; // simplification tolerance
+      var simplified = simplifyHull(hull, epsilon);
+      var corners = simplified.length;
 
-      // Tall / vertical → work
-      if (aspectRatio < 0.7) {
-        return { page: 'work/index.html', hint: 'see what we\u2019ve built', shape: 'tall', confidence: 1 - aspectRatio };
-      }
+      // Also try angle-based corner count on the hull
+      var angleCorners = countCorners(hull, 0.35);
 
-      // Wide / horizontal → services
-      if (aspectRatio > 1.6) {
-        return { page: 'services.html', hint: 'let\u2019s talk about what we do', shape: 'wide', confidence: Math.min(aspectRatio / 2, 1) };
-      }
+      // Use the average of both methods, biased toward the simpler one
+      var estimatedSides = Math.round((corners * 0.6 + angleCorners * 0.4));
 
-      // Everything else
-      return { page: 'home.html', hint: 'step inside', shape: 'other', confidence: 0.5 };
+      // Clamp to 3-10 range
+      if (estimatedSides < 3) estimatedSides = 3;
+      if (estimatedSides > 10) estimatedSides = 10;
+
+      // Find the matching polygon
+      var idx = estimatedSides - 2; // index into POLYGON_MAP (3→1, 4→2, etc.)
+      if (idx < 1) idx = 1;
+      if (idx >= POLYGON_MAP.length) idx = POLYGON_MAP.length - 1;
+      var m = POLYGON_MAP[idx];
+
+      return { page: m.page, hint: m.hint, shape: m.name, confidence: 0.7 };
     }
+
+    // Generate points for a regular n-gon centered at (cx, cy) with radius r
+    function regularPolygonPoints(n, cx, cy, r) {
+      var pts = [];
+      for (var i = 0; i < n; i++) {
+        var angle = (2 * Math.PI * i / n) - Math.PI / 2; // start from top
+        pts.push(Math.round(cx + r * Math.cos(angle)) + ',' + Math.round(cy + r * Math.sin(angle)));
+      }
+      return pts.join(' ');
+    }
+
+    // Find the number of sides for a shape name
+    var SHAPE_SIDES = { circle: 0, triangle: 3, square: 4, pentagon: 5, hexagon: 6, heptagon: 7, octagon: 8, nonagon: 9, decagon: 10 };
 
     // Flash a clean geometric shape over the user's drawing
     function flashGeometricShape(region, classification) {
@@ -543,60 +652,28 @@
       var cy = (b.minY + b.maxY) / 2;
       var w = b.maxX - b.minX;
       var h = b.maxY - b.minY;
-      var r = Math.max(w, h) / 2;
-      var pad = 15; // breathing room
+      var r = Math.max(w, h) / 2 + 15;
 
       var svgNS = 'http://www.w3.org/2000/svg';
       var svg = document.createElementNS(svgNS, 'svg');
       svg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:8;pointer-events:none;';
       svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
 
+      var shapeType = classification.shape;
+      var sides = SHAPE_SIDES[shapeType];
       var el;
-      var shapeType = classification.shape || 'other';
 
-      if (shapeType === 'circle') {
+      if (sides === 0 || shapeType === 'circle') {
+        // Circle
         el = document.createElementNS(svgNS, 'circle');
         el.setAttribute('cx', cx);
         el.setAttribute('cy', cy);
-        el.setAttribute('r', r + pad);
-      } else if (shapeType === 'square') {
-        el = document.createElementNS(svgNS, 'rect');
-        var side = Math.max(w, h) + pad * 2;
-        el.setAttribute('x', cx - side / 2);
-        el.setAttribute('y', cy - side / 2);
-        el.setAttribute('width', side);
-        el.setAttribute('height', side);
-        el.setAttribute('rx', '4');
-      } else if (shapeType === 'triangle') {
+        el.setAttribute('r', r);
+      } else if (sides >= 3) {
+        // Any polygon 3-10
         el = document.createElementNS(svgNS, 'polygon');
-        var triR = r + pad;
-        var points = [
-          (cx) + ',' + (cy - triR),
-          (cx - triR * 0.87) + ',' + (cy + triR * 0.5),
-          (cx + triR * 0.87) + ',' + (cy + triR * 0.5)
-        ].join(' ');
-        el.setAttribute('points', points);
-      } else if (shapeType === 'tall') {
-        el = document.createElementNS(svgNS, 'rect');
-        el.setAttribute('x', b.minX - pad);
-        el.setAttribute('y', b.minY - pad);
-        el.setAttribute('width', w + pad * 2);
-        el.setAttribute('height', h + pad * 2);
-        el.setAttribute('rx', '4');
-      } else if (shapeType === 'wide') {
-        el = document.createElementNS(svgNS, 'rect');
-        el.setAttribute('x', b.minX - pad);
-        el.setAttribute('y', b.minY - pad);
-        el.setAttribute('width', w + pad * 2);
-        el.setAttribute('height', h + pad * 2);
-        el.setAttribute('rx', '4');
-      } else if (shapeType === 'large') {
-        el = document.createElementNS(svgNS, 'circle');
-        el.setAttribute('cx', cx);
-        el.setAttribute('cy', cy);
-        el.setAttribute('r', r + pad);
+        el.setAttribute('points', regularPolygonPoints(sides, cx, cy, r));
       } else {
-        // small or other — no flash
         return;
       }
 
@@ -607,21 +684,19 @@
       el.setAttribute('opacity', '0');
       svg.appendChild(el);
 
-      // "you're a circle" label — use HTML div instead of SVG text for reliability
+      // Label
       var labelDiv = document.createElement('div');
       labelDiv.textContent = 'you\u2019re a ' + shapeType;
-      labelDiv.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#E91E7B;text-align:center;opacity:0;transition:opacity 0.3s ease;left:' + cx + 'px;top:' + (b.maxY + pad + 30) + 'px;transform:translateX(-50%);';
+      labelDiv.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#E91E7B;text-align:center;opacity:0;transition:opacity 0.3s ease;left:' + cx + 'px;top:' + (cy + r + 25) + 'px;transform:translateX(-50%);';
 
       document.body.appendChild(svg);
       document.body.appendChild(labelDiv);
 
-      // Animate in after a tiny delay
       setTimeout(function () {
         el.setAttribute('opacity', '0.5');
         labelDiv.style.opacity = '0.85';
       }, 100);
 
-      // Fade out after 2.5s
       setTimeout(function () {
         el.setAttribute('opacity', '0');
         labelDiv.style.opacity = '0';

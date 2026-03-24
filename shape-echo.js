@@ -161,9 +161,10 @@
 
   // ── "Others are reading" ticker in the nav ──
   var SHAPE_PLURALS = {
-    circle: 'circles', square: 'squares', triangle: 'triangles',
-    tall: 'tall shapes', wide: 'wide shapes', large: 'big shapes',
-    small: 'small shapes', other: 'shapes'
+    circle: 'circles', triangle: 'triangles', square: 'squares',
+    pentagon: 'pentagons', hexagon: 'hexagons', heptagon: 'heptagons',
+    octagon: 'octagons', nonagon: 'nonagons', decagon: 'decagons',
+    other: 'shapes'
   };
 
   function createOthersTicker(pages, shapeLabel) {
@@ -313,17 +314,20 @@
 
   if (shape) {
     // Determine shape type — newer sessions store it directly,
-    // older sessions can be inferred from the hint/page
+    // older sessions can be inferred from the destination page
     var shapeType = shape.shapeType;
     if (!shapeType) {
       var dest = shape.hint || '';
       if (dest.indexOf('about') !== -1) shapeType = 'circle';
-      else if (dest.indexOf('comics') !== -1) shapeType = 'square';
-      else if (dest.indexOf('podcast') !== -1) shapeType = 'triangle';
-      else if (dest.indexOf('work') !== -1) shapeType = 'tall';
-      else if (dest.indexOf('services') !== -1) shapeType = 'wide';
-      else if (dest.indexOf('hub') !== -1) shapeType = 'large';
-      else shapeType = 'other';
+      else if (dest.indexOf('gossip') !== -1) shapeType = 'triangle';
+      else if (dest.indexOf('504') !== -1 || dest.indexOf('Creating-comics') !== -1) shapeType = 'square';
+      else if (dest.indexOf('secret-senses') !== -1) shapeType = 'pentagon';
+      else if (dest.indexOf('1000xResist') !== -1) shapeType = 'hexagon';
+      else if (dest.indexOf('hub-story') !== -1) shapeType = 'heptagon';
+      else if (dest.indexOf('hub-building') !== -1) shapeType = 'octagon';
+      else if (dest.indexOf('hub-behavior') !== -1) shapeType = 'nonagon';
+      else if (dest.indexOf('hub-play') !== -1) shapeType = 'decagon';
+      else shapeType = 'circle';
     }
     placeNavIcon(shape.path);
     initFirebaseTracking(shapeType);
