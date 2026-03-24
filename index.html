@@ -647,6 +647,7 @@
 
     function enterSite() {
       sessionStorage.setItem('joyus_entered', '1');
+      sessionStorage.removeItem('joyus_shape_replayed'); // ensure hero replay on first landing
       // Store the drawn shape so it can be echoed in the nav on the landing page
       sessionStorage.setItem('joyus_shape', JSON.stringify({
         path: allStrokes.map(function(s) {
