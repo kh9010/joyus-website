@@ -64,133 +64,133 @@
       border-left: none;
     }
 
-    /* ===== SHARED SECTION ===== */
-    .hub-section {
-      padding: 5rem 2rem;
-    }
-    .hub-section:nth-child(even) {
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-section .inner {
-      max-width: 1000px;
+    /* ===== ESSAY TEXT (narrow) ===== */
+    .hub-essay-narrow {
+      max-width: 640px;
       margin: 0 auto;
+      padding: 4rem 2rem 3rem;
     }
-    .hub-section-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--hub-accent);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+    .hub-essay-narrow p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: #444;
+      margin-bottom: 1.5rem;
+      text-align: left;
     }
-    .hub-section h2 {
+    .hub-essay-narrow p:first-child {
+      font-size: 1.15rem;
+      color: #333;
+    }
+    .hub-essay-narrow p:first-child::before {
+      content: '\201C';
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      margin-bottom: 2rem;
-      color: var(--black, #111214);
+      font-size: 3rem;
+      color: var(--hub-accent, #D4A843);
+      float: left;
+      margin-right: 0.15rem;
+      margin-top: -0.1rem;
+      line-height: 1;
+      opacity: 0.4;
+    }
+    .hub-essay-narrow em {
+      color: #333;
+      font-style: italic;
     }
 
-    /* ===== PODCAST CARDS ===== */
-    .podcast-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+    /* ===== FULL-WIDTH QUOTE BAND ===== */
+    .hub-quote-band {
+      padding: 4rem 2rem;
+      background: var(--warm-gray, #F5F3F0);
     }
-    .podcast-card {
+    .hub-quote-band-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hub-quote-band-inner p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #222;
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    /* ===== ACCENT TINTED BAND ===== */
+    .hub-accent-band {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(212, 168, 67, 0.04), rgba(212, 168, 67, 0.08));
+    }
+    .hub-accent-band-inner {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .hub-accent-band-inner p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
+      color: var(--hub-accent);
+      line-height: 1.4;
+      font-style: italic;
+    }
+
+    /* ===== PODCAST SHELF (3-column grid, wider) ===== */
+    .hub-podcast-shelf {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .podcast-shelf-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .shelf-card {
       background: white;
       border: 1px solid #e8e6e4;
+      border-top: 3px solid var(--hub-accent, #D4A843);
       border-radius: 8px;
       padding: 1.5rem;
       text-decoration: none;
       color: inherit;
-      display: grid;
-      grid-template-columns: 50px 1fr;
-      grid-template-rows: auto auto auto;
-      gap: 0 1rem;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+      display: flex;
+      flex-direction: column;
     }
-    .podcast-card .pc-thumb {
-      grid-row: 1 / -1;
-      align-self: start;
-      margin-top: 0.1rem;
-    }
-    .podcast-card .ep-label,
-    .podcast-card h3,
-    .podcast-card .listen-link {
-      grid-column: 2;
-    }
-    .podcast-card:hover {
+    .shelf-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
     }
-    .podcast-card .ep-label {
-      font-size: 0.72rem;
+    .shelf-card .card-type {
+      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--hub-accent);
+      letter-spacing: 1.5px;
+      color: var(--hub-accent, #D4A843);
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
-    .podcast-card h3 {
+    .shelf-card h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       color: #111;
       margin-bottom: 0.75rem;
       flex: 1;
+      line-height: 1.35;
     }
-    .podcast-card .listen-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    /* ===== COMIC CARDS ===== */
-    .comic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-    .comic-card {
-      background: white;
-      border: 1px solid #e8e6e4;
-      border-radius: 8px;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .comic-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-    }
-    .comic-card img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-    .comic-card .comic-card-body {
-      padding: 1.25rem;
-    }
-    .comic-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: #111;
-      margin-bottom: 0.4rem;
-    }
-    .comic-card .read-link {
+    .shelf-card .shelf-link {
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--hub-accent);
     }
 
-    /* ===== CASE STUDY CARDS ===== */
-    .cases-grid {
+    /* ===== CASE STUDY GRID (2-column, wider) ===== */
+    .hub-cases-section {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .cases-2col {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
     .case-card {
@@ -226,23 +226,84 @@
     .case-card-body {
       padding: 1.5rem;
       flex: 1;
-      display: flex;
-      flex-direction: column;
     }
     .case-card-body h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
-      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
       color: #111;
     }
     .case-card-body p {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       color: #666;
-      line-height: 1.55;
-      flex: 1;
+      line-height: 1.5;
+    }
+
+    /* ===== BLOG LINKS ===== */
+    .hub-reading-section {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      border-top: 1px solid #e8e6e4;
+    }
+    .hub-reading-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: #111;
+      margin-bottom: 1.5rem;
+    }
+    .hub-reading-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .hub-reading-grid a {
+      display: block;
+      padding: 1.25rem 1.5rem;
+      background: var(--warm-gray, #F5F3F0);
+      border-radius: 8px;
+      text-decoration: none;
+      border-left: 3px solid var(--hub-accent, #D4A843);
+      transition: transform 0.2s;
+    }
+    .hub-reading-grid a:hover {
+      transform: translateX(4px);
+    }
+    .hub-reading-grid h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      margin-bottom: 0.3rem;
+    }
+    .hub-reading-grid p {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
     }
 
     /* ===== EXPLORE MORE ===== */
+    .hub-explore {
+      padding: 5rem 2rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .hub-explore .inner {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .hub-explore .section-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .hub-explore h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--black, #111214);
+    }
     .explore-grid {
       display: flex;
       flex-wrap: wrap;
@@ -291,162 +352,13 @@
       transform: translateY(-2px);
     }
 
-    /* ===== ESSAY ===== */
-    .hub-essay {
-      padding: 4rem 2rem 3rem;
-      background: white;
-    }
-    .hub-essay-inner {
-      max-width: 640px;
-      margin: 0 auto;
-    }
-    .hub-essay-inner p {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: #444;
-      margin-bottom: 1.5rem;
-    }
-    .hub-essay-inner em {
-      color: #333;
-      font-style: italic;
-    }
-    .hub-essay-inner p:first-child {
-      font-size: 1.15rem;
-      color: #333;
-    }
-    .hub-essay-inner p:first-child::before {
-      content: '\201C';
-      font-family: 'DM Serif Display', serif;
-      font-size: 3rem;
-      color: var(--hub-accent, #D4A843);
-      float: left;
-      margin-right: 0.15rem;
-      margin-top: -0.1rem;
-      line-height: 1;
-      opacity: 0.4;
-    }
-    .hub-divider {
-      width: 40px;
-      height: 2px;
-      background: var(--hub-accent, #D4A843);
-      margin: 2.5rem auto;
-      opacity: 0.4;
-    }
-    .podcast-card .pc-thumb {
-      width: 50px;
-      height: 50px;
-      border-radius: 6px;
-      object-fit: cover;
-      flex-shrink: 0;
-    }
-
-    /* ===== INLINE BIG QUOTE ===== */
-    .hub-inline-big-quote {
-      text-align: center;
-      padding: 3rem 1rem;
-      max-width: 560px;
-      margin: 1rem auto 2rem;
-    }
-    .hub-inline-big-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-      color: var(--hub-accent);
-      line-height: 1.4;
-      font-style: italic;
-      margin-bottom: 0;
-    }
-
-    /* ===== BIG QUOTE BAND ===== */
-    .hub-big-quote {
-      text-align: center;
-      padding: 4rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .hub-big-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      color: #222;
-      line-height: 1.4;
-      font-style: italic;
-    }
-    .hub-big-quote .attribution {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--hub-accent, #D4A843);
-      margin-top: 0.75rem;
-      opacity: 0.8;
-    }
-    .hub-tinted-band {
-      padding: 4rem 2rem;
-      background: linear-gradient(135deg, rgba(212, 168, 67, 0.04), rgba(212, 168, 67, 0.08));
-    }
-
-    /* ===== QUOTES HORIZONTAL SCROLL ===== */
-    .hub-quotes-scroll {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .hub-quotes-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .hub-quotes-scroll::-webkit-scrollbar-track {
-      background: #f0eeeb;
-      border-radius: 2px;
-    }
-    .hub-quotes-scroll::-webkit-scrollbar-thumb {
-      background: rgba(212, 168, 67, 0.3);
-      border-radius: 2px;
-    }
-    .hub-quote-card {
-      min-width: 300px;
-      max-width: 360px;
-      flex-shrink: 0;
-      scroll-snap-align: start;
-      border-left: 3px solid var(--hub-accent, #D4A843);
-      padding: 1.25rem 1.5rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 0 8px 8px 0;
-    }
-    .hub-quote-card p {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      color: #333;
-      line-height: 1.5;
-      font-style: italic;
-      margin-bottom: 0;
-    }
-
-    /* ===== READING CARDS ===== */
-    .hub-reading-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    /* ===== AMBER TINTED QUOTES ===== */
-    .hub-quotes-amber {
-      padding: 5rem 2rem;
-      background: rgba(212, 168, 67, 0.05);
-    }
-
+    /* ===== MOBILE ===== */
     @media (max-width: 600px) {
-      .podcast-grid,
-      .comic-grid,
-      .cases-grid {
+      .podcast-shelf-grid {
         grid-template-columns: 1fr;
       }
-      .hub-quotes-scroll {
-        flex-direction: column;
-        overflow-x: visible;
-      }
-      .hub-quote-card {
-        min-width: 100%;
-        max-width: 100%;
+      .cases-2col {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -483,180 +395,118 @@
     </div>
   </section>
 
-  <!-- ESSAY -->
-  <section class="hub-essay">
-    <div class="hub-essay-inner">
-      <p style="color:#D4A843;font-size:1.18rem;">Early in the podcast, we did an episode on cognitive versus emotional experiences, and Kahran started pulling a thread that kept unraveling.</p>
+  <!-- ESSAY OPENING (narrow, 640px) -->
+  <div class="hub-essay-narrow">
+    <p>Early in the podcast, we did an episode on cognitive versus emotional experiences, and Kahran started pulling a thread that kept unraveling.</p>
 
-      <p>"I realized that I don't have a solid model of failure," he said. "Like, what does good failure look like? I don't know."</p>
+    <p>"I realized that I don't have a solid model of failure," he said. "Like, what does good failure look like? I don't know."</p>
+  </div>
 
-      <div style="text-align:center;padding:3rem 0;max-width:520px;margin:0 auto;">
-        <p style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#222;line-height:1.35;margin-bottom:0;">"We build models for success all the time. But we almost never build <mark style="background:rgba(212,168,67,0.1);padding:0.1em 0.3em;border-radius:3px;">models for what good failure looks like.</mark>"</p>
-      </div>
-
-      <p>Even though that is where most of the actual learning happens. The question he kept circling was: what separates making a foolish decision from being a fool? "Just making a creative thing does not make you a creative person. But there is something that makes you a creative person. So then what is the mindset that a fool has?"</p>
-
-      <div style="height:2.5rem"></div>
-
-      <p style="font-size:0.95rem;color:#777;">This led us into thinking about how pain and learning are actually wired together. In our episode on pain and emotional signaling, Divya brought up the concept of eustress and distress.</p>
-
-      <p>"The parts of our brain that are sensitive to pain are also the parts which are close to making new memories," she explained. "Quite literally, we learn through pain." She talked about watching a young child learn to walk -- if he falls down and nobody reacts with alarm, he does not know he was supposed to be upset. <em>We have formed these understandings of: I have this sensation, this sensation means this, I should then react in this way.</em> So much of what we call behavior is actually <mark style="background:rgba(212,168,67,0.1);padding:0.1em 0.3em;border-radius:3px;">learned interpretation layered on top of a physical signal.</mark></p>
-
-      <div style="height:2.5rem"></div>
-
-      <p>When we talked about designing expectations, we got into how this plays out in product design. Kahran referenced Seth Godin's definition of quality as "whatever meets the spec" and how useful that framing is as a guard against perfectionism. But the deeper insight was about the gap between what someone expected and what they experienced. "Sometimes we get stuck because we're not understanding what expectation we are trying to meet," Divya observed. "And whose, and is that even a relevant expectation?"</p>
-
-      <p style="font-family:'Caveat',cursive;font-size:0.95rem;color:#999;line-height:1.6;">The maker of Mario has said that nobody praises you for releasing a game on time -- people will happily wait for something great. But that is not true for products, because the expectations for products are different.</p>
-
-      <div style="text-align:center;padding:2.5rem 0;max-width:500px;margin:0 auto;">
-        <p style="font-family:'DM Serif Display',serif;font-size:1.5rem;color:#D4A843;line-height:1.4;margin-bottom:0;font-style:italic;">The same work can succeed or fail depending entirely on the expectations surrounding it.</p>
-      </div>
-
-      <p>In our conversation about decision-making under uncertainty, we wrestled with how people actually make choices when they lack complete information. Divya talked about how even deciding on a brand mascot -- a potato, in their case -- required thinking not about whether it was the right answer, but about what emotion drove the decision. "What does it represent? What made you choose a quirky decision right now?" The meta-analysis of the decision matters as much as the decision itself.</p>
-
-      <p>And in our loyalty episode, Kahran noticed that Nike had created multiple ways for him to "hang out with the brand" -- the shoes, the Run Club app, the shopping experience -- each touchpoint deepening the relationship without any single one feeling like a hard sell. That is how real loyalty works: <mark style="background:rgba(212,168,67,0.1);padding:0.1em 0.3em;border-radius:3px;">not through one grand gesture, but through many small, well-designed encounters.</mark></p>
-
-      <p>Here is where we have explored this further.</p>
-    </div>
-  </section>
-
-  <!-- BIG QUOTE BAND -->
-  <section class="hub-tinted-band">
-    <div class="hub-big-quote">
+  <!-- FULL-WIDTH QUOTE BAND -->
+  <section class="hub-quote-band">
+    <div class="hub-quote-band-inner">
       <p>"We build models for success all the time. But we almost never build models for what good failure looks like."</p>
     </div>
   </section>
 
-  <!-- READ — Essays -->
-  <section style="padding:5rem 2rem;background:white;">
-    <div style="max-width:700px;margin:0 auto;">
-      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
-      <div class="hub-reading-grid">
-        <a href="thinking/designing-for-the-decision-they-almost-made.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#D4A843);transition:transform 0.2s;">
-          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Designing for the Decision They Almost Made</h3>
-          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
-        </a>
-        <a href="thinking/pain-is-a-signal.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#D4A843);transition:transform 0.2s;">
-          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Pain is a Signal, Not a Problem</h3>
-          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
-        </a>
-        <a href="thinking/why-people-gossip.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#D4A843);transition:transform 0.2s;">
-          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Why People Gossip</h3>
-          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
-        </a>
-      </div>
+  <!-- ESSAY MIDDLE (narrow) -->
+  <div class="hub-essay-narrow" style="padding-top:3rem;">
+    <p>Even though that is where most of the actual learning happens. The question he kept circling was: what separates making a foolish decision from being a fool? "Just making a creative thing does not make you a creative person. But there is something that makes you a creative person. So then what is the mindset that a fool has?"</p>
+
+    <p>This led us into thinking about how pain and learning are actually wired together. In our episode on pain and emotional signaling, Divya brought up the concept of eustress and distress. "The parts of our brain that are sensitive to pain are also the parts which are close to making new memories," she explained. "Quite literally, we learn through pain." She talked about watching a young child learn to walk -- if he falls down and nobody reacts with alarm, he does not know he was supposed to be upset. <em>We have formed these understandings of: I have this sensation, this sensation means this, I should then react in this way.</em> So much of what we call behavior is actually learned interpretation layered on top of a physical signal.</p>
+  </div>
+
+  <!-- 3-COLUMN PODCAST SHELF -->
+  <div class="hub-podcast-shelf">
+    <div class="podcast-shelf-grid">
+
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Cognitive-vs-Emotional-Experiences--Models-for-Failure-e1mudd4" target="_blank" rel="noopener" class="shelf-card">
+        <span class="card-type">Podcast</span>
+        <h3>Thinking on Cognitive vs Emotional Experiences &amp; Models for Failure</h3>
+        <span class="shelf-link">Listen on Spotify &rarr;</span>
+      </a>
+
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Pain--Emotional-Signaling--Learning-and-Brain-Pathways-e1o4er9" target="_blank" rel="noopener" class="shelf-card">
+        <span class="card-type">Podcast</span>
+        <h3>Thinking on Pain &amp; Emotional Signaling</h3>
+        <span class="shelf-link">Listen on Spotify &rarr;</span>
+      </a>
+
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Expectations-e27v6ip" target="_blank" rel="noopener" class="shelf-card">
+        <span class="card-type">Podcast</span>
+        <h3>Thinking on Designing Expectations</h3>
+        <span class="shelf-link">Listen on Spotify &rarr;</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ESSAY CONTINUED (narrow) -->
+  <div class="hub-essay-narrow" style="padding-top:2rem;">
+    <p>When we talked about designing expectations, we got into how this plays out in product design. Kahran referenced Seth Godin's definition of quality as "whatever meets the spec" and how useful that framing is as a guard against perfectionism. But the deeper insight was about the gap between what someone expected and what they experienced. "Sometimes we get stuck because we're not understanding what expectation we are trying to meet," Divya observed. "And whose, and is that even a relevant expectation?"</p>
+
+    <p>In our conversation about decision-making under uncertainty, we wrestled with how people actually make choices when they lack complete information. Divya talked about how even deciding on a brand mascot -- a potato, in their case -- required thinking not about whether it was the right answer, but about what emotion drove the decision. "What does it represent? What made you choose a quirky decision right now?" The meta-analysis of the decision matters as much as the decision itself.</p>
+
+    <p>And in our loyalty episode, Kahran noticed that Nike had created multiple ways for him to "hang out with the brand" -- the shoes, the Run Club app, the shopping experience -- each touchpoint deepening the relationship without any single one feeling like a hard sell. That is how real loyalty works: not through one grand gesture, but through many small, well-designed encounters.</p>
+  </div>
+
+  <!-- FULL-WIDTH ACCENT BAND WITH CLOSING QUOTE -->
+  <section class="hub-accent-band">
+    <div class="hub-accent-band-inner">
+      <p>The same work can succeed or fail depending entirely on the expectations surrounding it.</p>
     </div>
   </section>
 
-  <!-- LISTEN -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">Listen</div>
-      <h2>Podcast Episodes</h2>
-      <div class="podcast-grid">
+  <!-- 2-COLUMN CASE STUDIES -->
+  <div class="hub-cases-section">
+    <div class="cases-2col">
 
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Cognitive-vs-Emotional-Experiences--Models-for-Failure-e1mudd4" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 1, Episode 3</div>
-          <h3>Thinking on Cognitive vs Emotional Experiences &amp; Models for Failure</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-decision-making-when-you-lack-certainty-e1tbpj5" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 2, Episode 2</div>
-          <h3>Thinking on decision making when you lack certainty</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Pain--Emotional-Signaling--Learning-and-Brain-Pathways-e1o4er9" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 1, Episode 5</div>
-          <h3>Thinking on Pain &amp; Emotional Signaling</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Expectations-e27v6ip" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 3, Episode 6</div>
-          <h3>Thinking on Designing Expectations</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FROM THE CONVERSATIONS — Amber tinted, Horizontal Scroll -->
-  <section class="hub-quotes-amber">
-    <div style="max-width:1000px;margin:0 auto;">
-      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">From the conversations</h2>
-      <div class="hub-quotes-scroll">
-        <div class="hub-quote-card">
-          <p>"The gap between what someone expected and what they experienced is where satisfaction or disappointment lives. Design that gap deliberately."</p>
+      <a href="work/convegenius.html" class="case-card">
+        <div class="case-card-image">
+          <img src="images/work/convegenius.jpg" alt="ConveGenius" loading="lazy">
         </div>
-        <div class="hub-quote-card">
-          <p>"The parts of our brain that are sensitive to pain are also the parts close to making new memories. Quite literally, we learn through pain."</p>
+        <div class="case-card-body">
+          <h3>ConveGenius</h3>
+          <p>Gamification for 100K monthly students</p>
         </div>
-      </div>
+      </a>
+
+      <a href="work/tatsam.html" class="case-card">
+        <div class="case-card-image">
+          <img src="images/work/tatsam.jpg" alt="Tatsam" loading="lazy">
+        </div>
+        <div class="case-card-body">
+          <h3>Tatsam</h3>
+          <p>Visual language for mental wellness</p>
+        </div>
+      </a>
+
     </div>
-  </section>
+  </div>
 
-  <!-- READ -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">Read</div>
-      <h2>Comics</h2>
-      <div class="comic-grid">
-
-        <a href="comics/gossip.html" class="comic-card">
-          <img src="images/comics/gossip/page-1.png" alt="Gossip comic cover" loading="lazy">
-          <div class="comic-card-body">
-            <h3>Gossip</h3>
-            <span class="read-link">Read the comic &rarr;</span>
-          </div>
-        </a>
-
-      </div>
+  <!-- BLOG POST LINKS -->
+  <div class="hub-reading-section">
+    <h2>Read more on this theme</h2>
+    <div class="hub-reading-grid">
+      <a href="thinking/designing-for-the-decision-they-almost-made.html">
+        <h3>Designing for the Decision They Almost Made</h3>
+        <p>Read the essay &rarr;</p>
+      </a>
+      <a href="thinking/pain-is-a-signal.html">
+        <h3>Pain is a Signal, Not a Problem</h3>
+        <p>Read the essay &rarr;</p>
+      </a>
+      <a href="thinking/why-people-gossip.html">
+        <h3>Why People Gossip</h3>
+        <p>Read the essay &rarr;</p>
+      </a>
     </div>
-  </section>
-
-  <!-- SEE THE WORK -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">See the work</div>
-      <h2>Case Studies</h2>
-      <div class="cases-grid">
-
-        <a href="work/convegenius.html" class="case-card">
-          <div class="case-card-image">
-            <img src="images/work/convegenius.jpg" alt="ConveGenius" loading="lazy">
-          </div>
-          <div class="case-card-body">
-            <h3>ConveGenius</h3>
-            <p>Gamification for 100K monthly students</p>
-          </div>
-        </a>
-
-        <a href="work/tatsam.html" class="case-card">
-          <div class="case-card-image">
-            <img src="images/work/tatsam.jpg" alt="Tatsam" loading="lazy">
-          </div>
-          <div class="case-card-body">
-            <h3>Tatsam</h3>
-            <p>Visual language for mental wellness</p>
-          </div>
-        </a>
-
-
-      </div>
-    </div>
-  </section>
+  </div>
 
   <!-- EXPLORE MORE THEMES -->
-  <section class="hub-section">
+  <section class="hub-explore">
     <div class="inner">
-      <div class="hub-section-label">Keep exploring</div>
+      <div class="section-label">Keep exploring</div>
       <h2>More Themes</h2>
       <div class="explore-grid">
         <a href="hub-story.html" class="explore-pill">Finding Your Story</a>
