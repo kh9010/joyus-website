@@ -447,36 +447,38 @@
 
     // ── Rotating placeholder ──
     var placeholders = [
-      'to tell a better story',
+      // Content discovery — curious, exploratory
+      'to understand why people gossip',
+      'to hear founders talk honestly',
+      'to read a comic about friendship',
+      'to think about what success means',
+      'why play matters at work',
+      'how expectations shape experience',
+      'what making comics taught us',
+      'to hear about building a game',
+      'how AI changed the way we think',
+      'the difference between story and telling',
+      'what good failure looks like',
+      'why the hard part is continuing',
+      'to understand how people actually decide',
+      'to find my creative voice',
+      'what loyalty really looks like',
+      // Service needs — practical, direct
       'help with my pitch deck',
       'a brand that feels like me',
-      'to understand my audience',
       'someone to think with',
-      'to redesign my website',
       'help with fundraising',
-      'to build something new',
-      'a visual identity',
-      'to understand your pricing',
-      'to launch a product',
-      'help with our narrative',
-      'a workshop for my team',
-      'to see examples of your work',
-      'to make something beautiful',
-      'help explaining what we do',
-      'a better donor experience',
-      'to rethink our packaging',
-      'someone who gets storytelling',
-      'help with go-to-market',
-      'to design for a sensitive space',
+      'to redesign my website',
       'a rebrand that actually works',
       'to feel less stuck',
-      'help making a game',
       'to talk through an idea',
       'a creative partner',
-      'help with content strategy',
-      'to understand behavioral design',
-      'AI strategy for my business',
-      'to reach the right people'
+      'packaging that feels handcrafted',
+      'gamification for my product',
+      'to understand your pricing',
+      'a workshop for my team',
+      'to build something new',
+      'to make something beautiful'
     ];
     var phIndex = 0;
     var intentInput = document.getElementById('intentInput');
@@ -567,23 +569,38 @@
       { display: "to learn about your team", terms: ["who are you", "about", "team", "founders", "meet", "people behind", "kahran", "divya", "background"], url: "about.html", dest: "about Joyus" },
       { display: "to tell a better story", terms: ["story", "storytelling", "narrative", "message", "messaging", "communicate", "communication", "copywriting", "copy"], url: "about.html", dest: "about our approach" },
 
-      // Podcast
-      { display: "to listen to your podcast", terms: ["podcast", "thinking on thinking", "listen", "episode", "mental model", "spotify", "apple podcast"], url: "podcast.html", dest: "Thinking on Thinking podcast" },
+      // ── Podcast (index + specific episodes) ──
+      { display: "to listen to your podcast", terms: ["podcast", "thinking on thinking", "listen", "episode", "spotify", "apple podcast"], url: "podcast.html", dest: "Thinking on Thinking podcast" },
+      { display: "the difference between story and telling", terms: ["story", "telling", "narrative", "difference", "find my story"], url: "podcast/story-vs-telling-part-1.html", dest: "Story vs Telling — Part 1" },
+      { display: "what success actually feels like", terms: ["success", "achieve", "feeling", "successful", "goal", "moving goalpost"], url: "podcast/the-confoundedness-of-success-part-1.html", dest: "The Confoundedness of Success" },
+      { display: "how AI changed the way we think", terms: ["ai", "llm", "chatgpt", "genai", "generative", "artificial intelligence", "changed thinking"], url: "podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html", dest: "How LLMs Changed Our Thinking" },
+      { display: "what good failure looks like", terms: ["failure", "fail", "mistake", "wrong", "model for failure", "learning from"], url: "podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html", dest: "Cognitive vs Emotional Experiences" },
+      { display: "how to make decisions with uncertainty", terms: ["decision", "uncertain", "certainty", "decide", "choice", "stuck", "ambiguity"], url: "podcast/thinking-on-decision-making-when-you-lack-certainty.html", dest: "Decision Making Under Uncertainty" },
+      { display: "how expectations shape everything", terms: ["expectation", "expect", "disappoint", "experience", "satisfaction", "gap"], url: "podcast/thinking-on-designing-expectations.html", dest: "Designing Expectations" },
+      { display: "to hear about building a game", terms: ["game", "1000xresist", "game design", "game dev", "indie game", "remy siu"], url: "podcast/creating-a-successful-game-in-1000xresist-with-remy-siu-of-sunset-visitor-succes.html", dest: "1000xResist with Remy Siu" },
+      { display: "what making comics taught us", terms: ["comic", "making comics", "creative process", "together", "collaboration"], url: "podcast/504-creating-comics-together-with-kahran-and-divya.html", dest: "Creating Comics Together" },
+      { display: "to hear founders talk honestly", terms: ["founder", "honest", "real", "burnout", "health", "women founder", "balance"], url: "podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html", dest: "Preeti Suri: Women Founders" },
+      { display: "why the hard part is continuing", terms: ["continue", "continuing", "persist", "give up", "motivation", "keep going", "sustain"], url: "podcast/kahran-divya-on-continuing-projects.html", dest: "Continuing Projects" },
+      { display: "what loyalty really looks like", terms: ["loyalty", "loyal", "customer loyalty", "brand loyalty", "retention", "repeat"], url: "podcast/thinking-on-loyalty-customer-experiences.html", dest: "Loyalty & Customer Experiences" },
+      { display: "the courage to be different", terms: ["courage", "daring", "brave", "risk", "bold", "conform", "unique"], url: "podcast/thinking-on-courage-vs-daring.html", dest: "Courage vs Daring" },
+      { display: "kindness versus niceness", terms: ["kind", "nice", "kindness", "niceness", "polite", "compassion"], url: "podcast/thinking-on-kindness-vs-niceness.html", dest: "Kindness vs Niceness" },
 
-      // Comics
-      { display: "to read your comics", terms: ["comic", "comics", "mr curl", "hand drawn", "divya", "zine", "illustration"], url: "comics/index.html", dest: "our comics" },
+      // ── Comics ──
+      { display: "to read a comic about friendship", terms: ["friend", "friendship", "comic", "connection", "close", "mr curl"], url: "comics/the-friend-comic.html", dest: "The Friend comic" },
+      { display: "to understand why people gossip", terms: ["gossip", "gossipping", "talk about people", "why we gossip", "unhappiness"], url: "comics/gossip.html", dest: "Gossip comic" },
+      { display: "to read your comics", terms: ["comics", "all comics", "hand drawn", "zine", "illustration"], url: "comics/index.html", dest: "our comics" },
 
-      // Themed hubs
-      { display: "help finding my story", terms: ["story", "narrative", "finding", "voice", "message", "pitch", "tell"], url: "hub-story.html", dest: "Finding Your Story" },
-      { display: "to build something that matters", terms: ["build", "matter", "mission", "startup", "founder", "purpose", "zero to"], url: "hub-building.html", dest: "Building Something That Matters" },
-      { display: "to understand how people behave", terms: ["behavior", "behavioural", "psychology", "nudge", "people", "human", "decision"], url: "hub-behavior.html", dest: "How People Actually Behave" },
-      { display: "to bring more play into my work", terms: ["play", "fun", "joy", "whimsy", "playful", "game", "delight"], url: "hub-play.html", dest: "Play as Practice" },
-      { display: "to think more creatively", terms: ["creative", "creativity", "unconventional", "different", "outside", "art", "experiment"], url: "hub-creative.html", dest: "Drawing Outside the Lines" },
+      // ── Themed hubs ──
+      { display: "help finding my story", terms: ["story", "narrative", "finding", "voice", "message", "pitch", "tell", "storytelling"], url: "hub-story.html", dest: "Finding Your Story" },
+      { display: "what it takes to build something real", terms: ["build", "matter", "mission", "startup", "founder", "purpose", "zero to", "continuing"], url: "hub-building.html", dest: "Building Something That Matters" },
+      { display: "how people actually decide and behave", terms: ["behavior", "behavioural", "psychology", "nudge", "people", "human", "decision", "bias", "friction"], url: "hub-behavior.html", dest: "How People Actually Behave" },
+      { display: "why play matters at work", terms: ["play", "fun", "joy", "whimsy", "playful", "game", "delight", "serious unseriously"], url: "hub-play.html", dest: "Play as Practice" },
+      { display: "creativity at the edges", terms: ["creative", "creativity", "unconventional", "different", "outside", "art", "experiment", "code", "technology"], url: "hub-creative.html", dest: "Drawing Outside the Lines" },
 
-      // Contact / talk to someone
+      // ── Contact / talk to someone ──
       { display: "to talk to someone", terms: ["talk", "chat", "call", "consultation", "consult", "advice", "discuss", "connect", "reach out", "contact", "email", "hello"], url: "mailto:hello@joyus.studio", dest: "get in touch" },
 
-      // Work portfolio
+      // ── Work portfolio ──
       { display: "to see examples of your work", terms: ["work", "example", "portfolio", "case stud", "projects", "clients", "past work", "show me"], url: "work/index.html", dest: "all work" },
       { display: "to build something new", terms: ["build", "create", "make", "new project", "start", "idea", "something new", "dream"], url: "services.html", dest: "our services" },
       { display: "to understand my audience", terms: ["audience", "customer", "user", "persona", "segment", "target", "market research", "understand"], url: "services.html", dest: "our services" },
@@ -633,12 +650,12 @@
       if (!query || query.length === 0) {
         // No query: show a curated default set
         var defaults = [
-          CONTENT_MAP.find(function(e) { return e.display === "help with a pitch deck"; }),
-          CONTENT_MAP.find(function(e) { return e.display === "a brand that feels like me"; }),
-          CONTENT_MAP.find(function(e) { return e.display === "to redesign my website"; }),
-          CONTENT_MAP.find(function(e) { return e.display === "to talk to someone"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "the difference between story and telling"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "to understand why people gossip"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "why play matters at work"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "help with my pitch deck"; }),
           CONTENT_MAP.find(function(e) { return e.display === "to see examples of your work"; }),
-          CONTENT_MAP.find(function(e) { return e.display === "to understand pricing"; }),
+          CONTENT_MAP.find(function(e) { return e.display === "to talk to someone"; }),
         ].filter(Boolean);
         return { contentMatches: defaults, intentMatches: [] };
       }
