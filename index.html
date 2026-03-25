@@ -597,14 +597,14 @@
 
       console.log('Shape debug: segments=' + segs + ', aspectRatio=' + aspectRatio.toFixed(2));
 
-      // ── 3 lines → triangle ──
-      if (segs >= 2 && segs <= 4) {
+      // ── 3 lines → triangle (only 2-3 segments, very strict) ──
+      if (segs >= 2 && segs <= 3) {
         var m = SHAPES.triangle;
         return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
       }
 
-      // ── 4-5 lines → rectangle or square ──
-      if (segs >= 5 && segs <= 7) {
+      // ── 4-6 lines → rectangle or square ──
+      if (segs >= 4 && segs <= 6) {
         // Square easter egg: sides are roughly equal
         var sideRatio = Math.min(aspectRatio, 1 / aspectRatio);
         if (sideRatio > 0.8) {
@@ -615,8 +615,8 @@
         return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.9 };
       }
 
-      // ── 5+ lines or curvy → circle ──
-      if (segs >= 8) {
+      // ── 7+ lines or curvy → circle ──
+      if (segs >= 7) {
         var m = SHAPES.circle;
         return { page: m.page, hint: m.hint, shape: 'circle', confidence: 0.9 };
       }
