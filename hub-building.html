@@ -19,6 +19,17 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Building Something That Matters — Joyus Studio",
+    "description": "Going from zero to something real. What it takes to build a company, a product, or a mission that actually means something. Podcast episodes and case studies from Joyus Studio.",
+    "url": "https://kh9010.github.io/joyus-website/hub-building.html",
+    "isPartOf": { "@type": "WebSite", "name": "Joyus Studio" }
+  }
+  </script>
+
   <style>
     :root { --hub-accent: var(--cyan, #4FC4CF); }
 
@@ -276,6 +287,35 @@
       color: #333;
       font-style: italic;
     }
+    .hub-essay-inner p:first-child {
+      font-size: 1.15rem;
+      color: #333;
+    }
+    .hub-essay-inner p:first-child::before {
+      content: '\201C';
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      color: var(--hub-accent, #E91E7B);
+      float: left;
+      margin-right: 0.15rem;
+      margin-top: -0.1rem;
+      line-height: 1;
+      opacity: 0.4;
+    }
+    .hub-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--hub-accent, #E91E7B);
+      margin: 2rem auto;
+      opacity: 0.4;
+    }
+    .episode-card .ep-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
     /* ===== MOBILE ===== */
     @media (max-width: 600px) {
@@ -324,6 +364,8 @@
     <div class="hub-essay-inner">
       <p>Nobody really talks about the middle. The beginning has adrenaline, the end has celebration or relief, but the middle is just work. This is something we kept coming back to in our conversations with founders. When Preeti Suri, who left investment banking to build Adventure Tripper, was asked whether she wished she had taken the leap earlier, she was honest about it: "Just like you're never ready to get married or you're never ready to have a child" -- there is no perfect moment. She was able to take the risk partly because she had invested since her mid-twenties, partly because her husband had steady income, but she is clear-eyed that <em>the lifestyle absolutely takes a hit.</em> The cushion helps, but it does not remove the discomfort.</p>
 
+      <div class="hub-divider"></div>
+
       <p>Ambika Singh, who built Armoire, talked about something that rarely makes it into founder stories: the way suiting up, literally dressing for the role, helps you step into your own skin. "Getting sort of stepping into your own skin, I think helps all of us be who we want to be," she said. It sounds small, but it is a window into what sustaining really looks like. It is not about grand motivational speeches. It is about the small daily acts that keep you showing up. Their data showed that values-driven customers -- the ones who cared that it was women-owned, founder-led -- were actually their most loyal cohort. People care about the story behind the building.</p>
 
       <p>In our conversation about continuing projects, Kahran and Divya dug into their own ambivalence about the podcast as a thing they had been building for two years. Kahran reflected on how "the value that you get from something changes over time" and that skills he started the podcast to develop were now skills he felt adept at. But Divya offered a different frame: "I like making podcasts. It's a medium that appeals to me. It's a bit more on that side where it's like I don't paint to get something out of the painting because the act of painting itself is valuable." The question was not whether the podcast was successful by some external metric. The question was whether the act of doing it still mattered to them.</p>
@@ -343,6 +385,7 @@
       <div class="episode-list">
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Preeti-Suri-Tips-for-Women-Founders-and-Balancing-Health--Work-e35lhah" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7 E10</div>
           <div class="ep-body">
             <div class="ep-title">Preeti Suri: Tips for Women Founders</div>
@@ -351,6 +394,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Balancing-energy--expectations-and-perfectionism-with-Ambika-Singh--Founder-and-CEO-Armoire-e36q2ht" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7 E12</div>
           <div class="ep-body">
             <div class="ep-title">Balancing energy, expectations and perfectionism with Ambika Singh</div>
@@ -359,6 +403,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/MachPhy-Cool-Glide-to-Funding-e31rnqj" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7 E4</div>
           <div class="ep-body">
             <div class="ep-title">MachPhy: Cool Glide to Funding</div>
@@ -367,6 +412,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/503---Building-and-selling-a-food-business-with-Smiqqls-Dina-Holzapfel-e2k8kd1" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S5 E3</div>
           <div class="ep-body">
             <div class="ep-title">Building and selling a food business with Smiqql's Dina Holzapfel</div>

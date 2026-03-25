@@ -19,6 +19,17 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "How People Actually Behave — Joyus Studio",
+    "description": "How People Actually Behave — Behavioral design, psychology, and the messy reality of human decision-making. Podcasts, comics, and case studies from Joyus Studio.",
+    "url": "https://kh9010.github.io/joyus-website/hub-behavior.html",
+    "isPartOf": { "@type": "WebSite", "name": "Joyus Studio" }
+  }
+  </script>
+
   <style>
     body { --hub-accent: #D4A843; }
 
@@ -92,9 +103,21 @@
       padding: 1.5rem;
       text-decoration: none;
       color: inherit;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 50px 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 0 1rem;
       transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .podcast-card .pc-thumb {
+      grid-row: 1 / -1;
+      align-self: start;
+      margin-top: 0.1rem;
+    }
+    .podcast-card .ep-label,
+    .podcast-card h3,
+    .podcast-card .listen-link {
+      grid-column: 2;
     }
     .podcast-card:hover {
       transform: translateY(-4px);
@@ -286,6 +309,35 @@
       color: #333;
       font-style: italic;
     }
+    .hub-essay-inner p:first-child {
+      font-size: 1.15rem;
+      color: #333;
+    }
+    .hub-essay-inner p:first-child::before {
+      content: '\201C';
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      color: var(--hub-accent, #E91E7B);
+      float: left;
+      margin-right: 0.15rem;
+      margin-top: -0.1rem;
+      line-height: 1;
+      opacity: 0.4;
+    }
+    .hub-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--hub-accent, #E91E7B);
+      margin: 2rem auto;
+      opacity: 0.4;
+    }
+    .podcast-card .pc-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
     @media (max-width: 600px) {
       .podcast-grid,
@@ -332,6 +384,8 @@
     <div class="hub-essay-inner">
       <p>Early in the podcast, we did an episode on cognitive versus emotional experiences, and Kahran started pulling a thread that kept unraveling. "I realized that I don't have a solid model of failure," he said. "Like, what does good failure look like? I don't know." We build models for success all the time -- frameworks, playbooks, case studies of things that went right. But we almost never build models for what good failure looks like, even though that is where most of the actual learning happens. The question he kept circling was: what separates making a foolish decision from being a fool? "Just making a creative thing does not make you a creative person. But there is something that makes you a creative person. So then what is the mindset that a fool has?"</p>
 
+      <div class="hub-divider"></div>
+
       <p>This led us into thinking about how pain and learning are actually wired together. In our episode on pain and emotional signaling, Divya brought up the concept of eustress and distress. "The parts of our brain that are sensitive to pain are also the parts which are close to making new memories," she explained. "Quite literally, we learn through pain." She talked about watching a young child learn to walk -- if he falls down and nobody reacts with alarm, he does not know he was supposed to be upset. <em>We have formed these understandings of: I have this sensation, this sensation means this, I should then react in this way.</em> So much of what we call behavior is actually learned interpretation layered on top of a physical signal.</p>
 
       <p>When we talked about designing expectations, we got into how this plays out in product design. Kahran referenced Seth Godin's definition of quality as "whatever meets the spec" and how useful that framing is as a guard against perfectionism. But the deeper insight was about the gap between what someone expected and what they experienced. "Sometimes we get stuck because we're not understanding what expectation we are trying to meet," Divya observed. "And whose, and is that even a relevant expectation?" The maker of Mario, she pointed out, has said that nobody praises you for releasing a game on time -- people will happily wait for something great. But that is not true for products, because the expectations for products are different. <em>The same work can succeed or fail depending entirely on the expectations surrounding it.</em></p>
@@ -350,24 +404,28 @@
       <div class="podcast-grid">
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Cognitive-vs-Emotional-Experiences--Models-for-Failure-e1mudd4" target="_blank" rel="noopener" class="podcast-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
           <div class="ep-label">Season 1, Episode 3</div>
           <h3>Thinking on Cognitive vs Emotional Experiences &amp; Models for Failure</h3>
           <span class="listen-link">Listen on Spotify &rarr;</span>
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-decision-making-when-you-lack-certainty-e1tbpj5" target="_blank" rel="noopener" class="podcast-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
           <div class="ep-label">Season 2, Episode 2</div>
           <h3>Thinking on decision making when you lack certainty</h3>
           <span class="listen-link">Listen on Spotify &rarr;</span>
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Pain--Emotional-Signaling--Learning-and-Brain-Pathways-e1o4er9" target="_blank" rel="noopener" class="podcast-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
           <div class="ep-label">Season 1, Episode 5</div>
           <h3>Thinking on Pain &amp; Emotional Signaling</h3>
           <span class="listen-link">Listen on Spotify &rarr;</span>
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Expectations-e27v6ip" target="_blank" rel="noopener" class="podcast-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
           <div class="ep-label">Season 3, Episode 6</div>
           <h3>Thinking on Designing Expectations</h3>
           <span class="listen-link">Listen on Spotify &rarr;</span>

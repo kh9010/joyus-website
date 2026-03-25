@@ -19,6 +19,17 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Finding Your Story — Joyus Studio",
+    "description": "How to find, shape, and tell the story that's already in you. Podcast episodes, comics, and case studies on storytelling from Joyus Studio.",
+    "url": "https://kh9010.github.io/joyus-website/hub-story.html",
+    "isPartOf": { "@type": "WebSite", "name": "Joyus Studio" }
+  }
+  </script>
+
   <style>
     :root { --hub-accent: var(--pink, #E91E7B); }
 
@@ -308,6 +319,35 @@
       color: #333;
       font-style: italic;
     }
+    .hub-essay-inner p:first-child {
+      font-size: 1.15rem;
+      color: #333;
+    }
+    .hub-essay-inner p:first-child::before {
+      content: '\201C';
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      color: var(--hub-accent, #E91E7B);
+      float: left;
+      margin-right: 0.15rem;
+      margin-top: -0.1rem;
+      line-height: 1;
+      opacity: 0.4;
+    }
+    .hub-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--hub-accent, #E91E7B);
+      margin: 2rem auto;
+      opacity: 0.4;
+    }
+    .episode-card .ep-thumb {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
 
     /* ===== MOBILE ===== */
     @media (max-width: 600px) {
@@ -357,6 +397,8 @@
     <div class="hub-essay-inner">
       <p>Somewhere in the middle of our Story vs. Telling series, we landed on something that surprised us both. As Kahran puts it, "I think the issue is how we're telling the story, not so much what the story is." We had been going back and forth for weeks about why our own work was not reaching the people we felt it could reach, and it kept circling back to this one distinction: <em>the story is already there. The problem is almost always in the telling.</em></p>
 
+      <div class="hub-divider"></div>
+
       <p>This came up in a really personal way when Divya shared what she had realized about her own introductions. "I could tell the why behind everything when I was listening to you speak," she told Kahran. "And when I talk about these things, my introduction is very guarded. I'm not letting people see why I care about it, which makes it very hard for them to see why they should care about it." That hit hard, because it is the same thing we see with clients all the time. People strip the emotional core out of their story to make it feel more professional, and then wonder why nobody connects with it. As Divya describes it, "I was removing all the emotional course from the story. And then there was nothing left."</p>
 
       <p>There is also this thing about trust that kept surfacing. Kahran framed it as two different games: "There's a game of attention and there's a game of building trust. You can win the first without the second, but you can't win the second without some of the first." That resonated with what we saw when we worked with Cranberry.Fit on their storytelling. You can have the most authentic story in the world, but if you are not thinking about how people are encountering it and whether they have reason to stay, the authenticity alone is not going to carry you. In our conversation about the Cranberry.Fit website, we kept coming back to whether people could even tell what kind of company it was in the first few seconds, let alone feel drawn into a story.</p>
@@ -376,6 +418,7 @@
       <div class="episode-list">
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-Vs--Telling-Part-1-e335hnf" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7 E6</div>
           <div class="ep-body">
             <div class="ep-title">Story Vs. Telling Part 1</div>
@@ -384,6 +427,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-vs-Telling-Part-2-e33qhfc" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7 E7</div>
           <div class="ep-body">
             <div class="ep-title">Story vs Telling Part 2</div>
@@ -392,6 +436,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-vs-Telling-Part-3-e34eo6p" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">Bonus</div>
           <div class="ep-body">
             <div class="ep-title">Story vs Telling Part 3</div>
@@ -400,6 +445,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-vs--Telling-Part-4-e35197v" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7</div>
           <div class="ep-body">
             <div class="ep-title">Story vs. Telling Part 4</div>
@@ -408,6 +454,7 @@
         </a>
 
         <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Cranberry-Fit-Diving-into-Storytelling-e31ct7t" target="_blank" rel="noopener" class="episode-card">
+          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="ep-thumb" loading="lazy">
           <div class="ep-label">S7 E3</div>
           <div class="ep-body">
             <div class="ep-title">Cranberry.Fit: Diving into Storytelling</div>
