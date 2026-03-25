@@ -54,18 +54,24 @@
       color: #555;
       line-height: 1.7;
       max-width: 640px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2.5rem;
     }
     .hub-hero .pull-quote {
-      font-family: 'Caveat', cursive;
-      font-size: 2rem;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 4vw, 2.5rem);
       color: var(--hub-accent);
       line-height: 1.3;
+      text-align: center;
+      display: block;
+      padding: 2rem 0;
+      border-left: none;
+      max-width: 600px;
+      font-weight: 400;
     }
 
     /* ===== SECTIONS ===== */
     .hub-section {
-      padding: 4rem 2rem;
+      padding: 5rem 2rem;
     }
     .hub-section .container {
       max-width: 1000px;
@@ -99,7 +105,7 @@
     .episode-list {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      gap: 1.5rem;
     }
     .episode-card {
       display: flex;
@@ -111,11 +117,13 @@
       padding: 1.25rem 1.5rem;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-left-color 0.2s ease;
+      border-left: 3px solid transparent;
     }
     .episode-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-left-color: var(--hub-accent, #4FC4CF);
     }
     .episode-card .ep-label {
       font-family: 'DM Sans', monospace;
@@ -269,19 +277,22 @@
       transform: translateY(-2px);
     }
 
+    /* ===== ESSAY ===== */
     .hub-essay {
-      padding: 3rem 2rem 2rem;
+      padding: 4rem 2rem 3rem;
       background: white;
+      border-top: 4px solid transparent;
+      border-image: linear-gradient(90deg, #4FC4CF, rgba(79,196,207,0.2)) 1;
     }
     .hub-essay-inner {
-      max-width: 700px;
+      max-width: 640px;
       margin: 0 auto;
     }
     .hub-essay-inner p {
       font-size: 1.05rem;
-      line-height: 1.85;
+      line-height: 1.9;
       color: #444;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .hub-essay-inner em {
       color: #333;
@@ -295,7 +306,7 @@
       content: '\201C';
       font-family: 'DM Serif Display', serif;
       font-size: 3rem;
-      color: var(--hub-accent, #E91E7B);
+      color: var(--hub-accent, #4FC4CF);
       float: left;
       margin-right: 0.15rem;
       margin-top: -0.1rem;
@@ -305,8 +316,8 @@
     .hub-divider {
       width: 40px;
       height: 2px;
-      background: var(--hub-accent, #E91E7B);
-      margin: 2rem auto;
+      background: var(--hub-accent, #4FC4CF);
+      margin: 2.5rem auto;
       opacity: 0.4;
     }
     .episode-card .ep-thumb {
@@ -317,14 +328,94 @@
       flex-shrink: 0;
     }
 
+    /* ===== BIG QUOTE BAND ===== */
+    .hub-big-quote {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hub-big-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #222;
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .hub-big-quote .attribution {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent, #4FC4CF);
+      margin-top: 0.75rem;
+      opacity: 0.8;
+    }
+    .hub-tinted-band {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(79, 196, 207, 0.04), rgba(79, 196, 207, 0.08));
+    }
+
+    /* ===== QUOTES HORIZONTAL SCROLL ===== */
+    .hub-quotes-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hub-quotes-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .hub-quotes-scroll::-webkit-scrollbar-track {
+      background: #f0eeeb;
+      border-radius: 2px;
+    }
+    .hub-quotes-scroll::-webkit-scrollbar-thumb {
+      background: rgba(79, 196, 207, 0.3);
+      border-radius: 2px;
+    }
+    .hub-quote-card {
+      min-width: 300px;
+      max-width: 360px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      border-left: 3px solid var(--hub-accent, #4FC4CF);
+      padding: 1.25rem 1.5rem;
+      background: var(--warm-gray, #F5F3F0);
+      border-radius: 0 8px 8px 0;
+    }
+    .hub-quote-card p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 1.5;
+      font-style: italic;
+      margin-bottom: 0;
+    }
+
+    /* ===== READING CARDS ===== */
+    .hub-reading-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
     /* ===== MOBILE ===== */
     @media (max-width: 600px) {
       .hub-hero .inner { padding-left: 1.25rem; }
-      .hub-hero .pull-quote { font-size: 1.6rem; }
+      .hub-hero .pull-quote { font-size: 1.8rem; }
       .cases-grid { grid-template-columns: 1fr; }
       .explore-grid { grid-template-columns: 1fr; }
       .episode-card { flex-direction: column; gap: 0.5rem; }
       .episode-card .ep-label { min-width: auto; }
+      .hub-quotes-scroll {
+        flex-direction: column;
+        overflow-x: visible;
+      }
+      .hub-quote-card {
+        min-width: 100%;
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -360,6 +451,7 @@
     </div>
   </section>
 
+  <!-- ESSAY -->
   <section class="hub-essay">
     <div class="hub-essay-inner">
       <p>Nobody really talks about the middle. The beginning has adrenaline, the end has celebration or relief, but the middle is just work. This is something we kept coming back to in our conversations with founders. When Preeti Suri, who left investment banking to build Adventure Tripper, was asked whether she wished she had taken the leap earlier, she was honest about it: "Just like you're never ready to get married or you're never ready to have a child" -- there is no perfect moment. She was able to take the risk partly because she had invested since her mid-twenties, partly because her husband had steady income, but she is clear-eyed that <em>the lifestyle absolutely takes a hit.</em> The cushion helps, but it does not remove the discomfort.</p>
@@ -368,7 +460,7 @@
 
       <p>Ambika Singh, who built Armoire, talked about something that rarely makes it into founder stories: the way suiting up, literally dressing for the role, helps you step into your own skin. "Getting sort of stepping into your own skin, I think helps all of us be who we want to be," she said. It sounds small, but it is a window into what sustaining really looks like. It is not about grand motivational speeches. It is about the small daily acts that keep you showing up. Their data showed that values-driven customers -- the ones who cared that it was women-owned, founder-led -- were actually their most loyal cohort. People care about the story behind the building.</p>
 
-      <p>In our conversation about continuing projects, Kahran and Divya dug into their own ambivalence about the podcast as a thing they had been building for two years. Kahran reflected on how "the value that you get from something changes over time" and that skills he started the podcast to develop were now skills he felt adept at. But Divya offered a different frame: "I like making podcasts. It's a medium that appeals to me. It's a bit more on that side where it's like I don't paint to get something out of the painting because the act of painting itself is valuable." The question was not whether the podcast was successful by some external metric. The question was whether the act of doing it still mattered to them.</p>
+      <p>In our conversation about continuing projects, Kahran and Divya dug into their own ambivalence about the podcast as a thing they had been building for two years. Kahran reflected on how "the value that you get from something changes over time" and that skills he started the podcast to develop were now skills he felt adept at. But Divya offered a different frame: "I like making podcasts. It's a medium that appeals to me. It's a bit more on that side where it's like I don't paint to get something out of the painting because the act of painting itself is valuable."</p>
 
       <p>Dina Holzapfel, who built and then sold Smiqql, a cookie business she ran with her life partner, was bracingly honest about what that partnership looked like. Her co-founder was not in the mood to record with us. "When you're working with somebody, you're not always in the same line," she said. "Sometimes you can still go ahead and have a fun time. And sometimes the opportunity dies there." She called selling the company "the best decision" -- not because the building had failed, but because they recognized when the way they were operating no longer served them. Building something that matters sometimes means knowing when to let go of it, too.</p>
 
@@ -376,25 +468,33 @@
     </div>
   </section>
 
-<section class="hub-reading" style="padding:3rem 2rem;background:white;">
-  <div style="max-width:700px;margin:0 auto;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
-    <div style="display:flex;flex-direction:column;gap:1rem;">
-      <a href="thinking/the-two-person-studio.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#4FC4CF);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Two-Person Studio</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
-      <a href="thinking/why-your-nonprofits-website-isnt-raising-money.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#4FC4CF);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Why Your Nonprofit's Website Isn't Raising Money</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
-      <a href="thinking/from-zero-to-150-daily-sales.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#4FC4CF);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">From Zero to 150 Daily Sales</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
+  <!-- BIG QUOTE BAND -->
+  <section class="hub-tinted-band">
+    <div class="hub-big-quote">
+      <p>"The question was not whether the podcast was successful by some external metric. The question was whether the act of doing it still mattered to them."</p>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- READ — Essays -->
+  <section style="padding:5rem 2rem;background:white;">
+    <div style="max-width:700px;margin:0 auto;">
+      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
+      <div class="hub-reading-grid">
+        <a href="thinking/the-two-person-studio.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#4FC4CF);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Two-Person Studio</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+        <a href="thinking/why-your-nonprofits-website-isnt-raising-money.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#4FC4CF);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Why Your Nonprofit's Website Isn't Raising Money</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+        <a href="thinking/from-zero-to-150-daily-sales.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#4FC4CF);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">From Zero to 150 Daily Sales</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- LISTEN — Podcast Episodes -->
   <section class="hub-section alt-bg">
@@ -444,17 +544,20 @@
     </div>
   </section>
 
-<section class="hub-quotes" style="padding:3rem 2rem;background:white;">
-  <div style="max-width:700px;margin:0 auto;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">From the conversations</h2>
-    <div style="border-left:3px solid var(--hub-accent,#4FC4CF);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"As a founder, you have to learn that taking care of your health is not separate from building your company. Your body is the vehicle for everything you're trying to accomplish."</p>
+  <!-- FROM THE CONVERSATIONS — Horizontal Scroll -->
+  <section style="padding:5rem 2rem;background:white;">
+    <div style="max-width:1000px;margin:0 auto;">
+      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">From the conversations</h2>
+      <div class="hub-quotes-scroll">
+        <div class="hub-quote-card">
+          <p>"As a founder, you have to learn that taking care of your health is not separate from building your company. Your body is the vehicle for everything you're trying to accomplish."</p>
+        </div>
+        <div class="hub-quote-card">
+          <p>"Either you grab them informationally or you grab them emotionally, but you need to figure out which one you want to do."</p>
+        </div>
+      </div>
     </div>
-    <div style="border-left:3px solid var(--hub-accent,#4FC4CF);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"Either you grab them informationally or you grab them emotionally, but you need to figure out which one you want to do."</p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- READ — Comics (Coming Soon) -->
   <section class="hub-section">

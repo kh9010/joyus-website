@@ -52,16 +52,17 @@
       color: #555;
       line-height: 1.7;
       max-width: 600px;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
     .hub-hero .pull-quote {
-      font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
-      color: #333;
-      border-left: 4px solid var(--hub-accent);
-      padding-left: 1.25rem;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--hub-accent);
       margin: 0;
       line-height: 1.4;
+      border-left: none;
+      padding-left: 0;
+      font-style: italic;
     }
 
     /* ===== SHARED SECTION ===== */
@@ -296,19 +297,20 @@
       transform: translateY(-2px);
     }
 
+    /* ===== ESSAY — wider for creative hub ===== */
     .hub-essay {
-      padding: 3rem 2rem 2rem;
+      padding: 4rem 2rem 3rem;
       background: white;
     }
     .hub-essay-inner {
-      max-width: 700px;
+      max-width: 750px;
       margin: 0 auto;
     }
     .hub-essay-inner p {
       font-size: 1.05rem;
-      line-height: 1.85;
+      line-height: 1.9;
       color: #444;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .hub-essay-inner em {
       color: #333;
@@ -322,7 +324,7 @@
       content: '\201C';
       font-family: 'DM Serif Display', serif;
       font-size: 3rem;
-      color: var(--hub-accent, #E91E7B);
+      color: var(--hub-accent, #E8734A);
       float: left;
       margin-right: 0.15rem;
       margin-top: -0.1rem;
@@ -332,9 +334,109 @@
     .hub-divider {
       width: 40px;
       height: 2px;
-      background: var(--hub-accent, #E91E7B);
-      margin: 2rem auto;
+      background: var(--hub-accent, #E8734A);
+      margin: 2.5rem auto;
       opacity: 0.4;
+    }
+
+    /* ===== INSET QUOTE (offset, narrower) ===== */
+    .hub-inset-quote {
+      max-width: 500px;
+      margin: 2rem auto 2.5rem;
+      padding: 2rem 2.5rem;
+      background: rgba(232, 115, 74, 0.06);
+      border-radius: 8px;
+      text-align: center;
+    }
+    .hub-inset-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+      color: var(--hub-accent);
+      line-height: 1.4;
+      font-style: italic;
+      margin-bottom: 0;
+    }
+
+    /* ===== BIG QUOTE BAND ===== */
+    .hub-big-quote {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hub-big-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #222;
+      line-height: 1.4;
+      font-style: italic;
+    }
+    .hub-big-quote .attribution {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent, #E8734A);
+      margin-top: 0.75rem;
+      opacity: 0.8;
+    }
+    .hub-tinted-band {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(232, 115, 74, 0.04), rgba(232, 115, 74, 0.08));
+    }
+
+    /* ===== CORAL CONVERSATIONS SECTION ===== */
+    .hub-coral-conversations {
+      padding: 5rem 2rem;
+      background: #E8734A;
+    }
+    .hub-coral-conversations h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.5rem;
+    }
+    .hub-coral-conversations .hub-quotes-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hub-coral-conversations .hub-quotes-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .hub-coral-conversations .hub-quotes-scroll::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.15);
+      border-radius: 2px;
+    }
+    .hub-coral-conversations .hub-quotes-scroll::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.4);
+      border-radius: 2px;
+    }
+    .hub-coral-conversations .hub-quote-card {
+      min-width: 300px;
+      max-width: 360px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      border-left: 3px solid rgba(255,255,255,0.4);
+      padding: 1.25rem 1.5rem;
+      background: rgba(255,255,255,0.12);
+      border-radius: 0 8px 8px 0;
+    }
+    .hub-coral-conversations .hub-quote-card p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: white;
+      line-height: 1.5;
+      font-style: italic;
+      margin-bottom: 0;
+    }
+
+    /* ===== READING CARDS ===== */
+    .hub-reading-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
     @media (max-width: 600px) {
@@ -342,6 +444,16 @@
       .comic-grid,
       .cases-grid {
         grid-template-columns: 1fr;
+      }
+      .hub-coral-conversations .hub-quotes-scroll,
+      .hub-quotes-scroll {
+        flex-direction: column;
+        overflow-x: visible;
+      }
+      .hub-coral-conversations .hub-quote-card,
+      .hub-quote-card {
+        min-width: 100%;
+        max-width: 100%;
       }
     }
   </style>
@@ -378,6 +490,7 @@
     </div>
   </section>
 
+  <!-- ESSAY -->
   <section class="hub-essay">
     <div class="hub-essay-inner">
       <p>When we sat down to talk about writing as both communication and art, Kahran said something that stuck: "There's photography as documentation and there's photography as art and then there's photography as narrative." The same split applies to writing, to code, to design -- any medium where someone can be working in service of a message or working in service of expression, and sometimes doing both at once. The interesting work, as he put it, lives in the gap between what you want to say and what you actually say. Divya pushed on this, asking how writing is different from communication, and what unfolded was a conversation about <em>playing with form versus playing with meaning,</em> and how the most interesting creators are usually doing both simultaneously.</p>
@@ -385,6 +498,11 @@
       <div class="hub-divider"></div>
 
       <p>Computational Mama gave us a beautiful example of what that looks like in practice. She started a secret Instagram account to share her coding experiments because she did not want to mix it with her main work as a designer and culture sector professional. But then the moniker took on a life of its own. "I slogged my butt off for so many years in the museum and culture sector management kind of roles," she said. "And I have really no recognition for it. But I just felt I should embrace it as much as I want to." She described a kind of superhero identity effect -- not becoming a different person, but giving herself "a bit more space with this moniker, to be myself, to sort of say what I want to." Her path from design to development to creative coding dissolved the boundary between technical and creative work entirely.</p>
+
+      <!-- INSET QUOTE — narrower, offset -->
+      <div class="hub-inset-quote">
+        <p>"The tools that we design design us."</p>
+      </div>
 
       <p>Katieann Vogel, who has been everything from an outdoor adventure guide to a professional limerick writer to a poet, told us that what drew her to our podcast was not the vocabulary or the topics but the tone. "I just heard a lot of passion in how you two were speaking to each other," she said. "The mood and the tone is extremely inviting and a little bit different than anything else I'm listening to." That observation landed for us because it gets at something we believe deeply: the line between creative and technical, between art and strategy, is mostly a line people draw for institutional convenience. The real energy happens where those things collide.</p>
 
@@ -394,25 +512,33 @@
     </div>
   </section>
 
-<section class="hub-reading" style="padding:3rem 2rem;background:white;">
-  <div style="max-width:700px;margin:0 auto;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
-    <div style="display:flex;flex-direction:column;gap:1rem;">
-      <a href="thinking/ai-made-us-smaller-and-weirder.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">AI Made Us Smaller and Weirder</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
-      <a href="thinking/code-as-material.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Code as Material</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
-      <a href="thinking/the-accidental-brand.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Accidental Brand</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
+  <!-- BIG QUOTE BAND -->
+  <section class="hub-tinted-band">
+    <div class="hub-big-quote">
+      <p>"The tools that we design design us."</p>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- READ — Essays -->
+  <section style="padding:5rem 2rem;background:white;">
+    <div style="max-width:700px;margin:0 auto;">
+      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
+      <div class="hub-reading-grid">
+        <a href="thinking/ai-made-us-smaller-and-weirder.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">AI Made Us Smaller and Weirder</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+        <a href="thinking/code-as-material.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Code as Material</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+        <a href="thinking/the-accidental-brand.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Accidental Brand</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- LISTEN -->
   <section class="hub-section">
@@ -453,20 +579,23 @@
     </div>
   </section>
 
-<section class="hub-quotes" style="padding:3rem 2rem;background:white;">
-  <div style="max-width:700px;margin:0 auto;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">From the conversations</h2>
-    <div style="border-left:3px solid var(--hub-accent,#E8734A);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"Writing is one of those things where the gap between what you want to say and what you actually say is where all the interesting work happens."</p>
+  <!-- FROM THE CONVERSATIONS — Full coral background with white text -->
+  <section class="hub-coral-conversations">
+    <div style="max-width:1000px;margin:0 auto;">
+      <h2>From the conversations</h2>
+      <div class="hub-quotes-scroll">
+        <div class="hub-quote-card">
+          <p>"Writing is one of those things where the gap between what you want to say and what you actually say is where all the interesting work happens."</p>
+        </div>
+        <div class="hub-quote-card">
+          <p>"When you treat code like clay and design like logic, the boundary between creative and technical just disappears."</p>
+        </div>
+        <div class="hub-quote-card">
+          <p>"Gen Z looks at themselves as creators. They don't think you need to be drawing or making music to call yourself creative. There's no imposter syndrome about it."</p>
+        </div>
+      </div>
     </div>
-    <div style="border-left:3px solid var(--hub-accent,#E8734A);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"When you treat code like clay and design like logic, the boundary between creative and technical just disappears."</p>
-    </div>
-    <div style="border-left:3px solid var(--hub-accent,#E8734A);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"Gen Z looks at themselves as creators. They don't think you need to be drawing or making music to call yourself creative. There's no imposter syndrome about it."</p>
-    </div>
-  </div>
-</section>
+  </section>
 
   <!-- READ -->
   <section class="hub-section">

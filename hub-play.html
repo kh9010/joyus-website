@@ -42,26 +42,29 @@
       max-width: 700px;
     }
     .hub-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-family: 'Caveat', cursive;
+      font-size: clamp(3rem, 7vw, 4.5rem);
       margin-bottom: 1rem;
       color: var(--black, #111214);
+      font-weight: 700;
     }
     .hub-hero .subtitle {
       font-size: 1.1rem;
       color: #555;
       line-height: 1.7;
       max-width: 600px;
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
     }
     .hub-hero .pull-quote {
-      font-family: 'Caveat', cursive;
-      font-size: 1.6rem;
-      color: #333;
-      border-left: 4px solid var(--hub-accent);
-      padding-left: 1.25rem;
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--hub-accent);
       margin: 0;
       line-height: 1.4;
+      transform: rotate(-1deg);
+      display: inline-block;
+      border-left: none;
+      padding-left: 0;
     }
 
     /* ===== SHARED SECTION ===== */
@@ -76,9 +79,8 @@
       margin: 0 auto;
     }
     .hub-section-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
       color: var(--hub-accent);
       font-weight: 700;
       margin-bottom: 0.5rem;
@@ -88,6 +90,17 @@
       font-size: clamp(1.8rem, 4vw, 2.4rem);
       margin-bottom: 2rem;
       color: var(--black, #111214);
+    }
+
+    /* ===== WAVY DIVIDER ===== */
+    .hub-wavy-divider {
+      text-align: center;
+      padding: 1rem 0;
+      opacity: 0.3;
+      color: var(--hub-accent);
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      user-select: none;
     }
 
     /* ===== PODCAST CARDS ===== */
@@ -152,11 +165,11 @@
       gap: 0.35rem;
     }
 
-    /* ===== COMIC CARDS ===== */
+    /* ===== COMIC CARDS — Larger, side by side ===== */
     .comic-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
     }
     .comic-card {
       background: white;
@@ -168,7 +181,7 @@
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
     .comic-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-4px) rotate(0.5deg);
       box-shadow: 0 16px 40px rgba(0,0,0,0.1);
     }
     .comic-card img {
@@ -178,11 +191,11 @@
       display: block;
     }
     .comic-card .comic-card-body {
-      padding: 1.25rem;
+      padding: 1.5rem;
     }
     .comic-card h3 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
+      font-size: 1.25rem;
       color: #111;
       margin-bottom: 0.4rem;
     }
@@ -275,8 +288,8 @@
       text-align: center;
     }
     .hub-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-family: 'Caveat', cursive;
+      font-size: clamp(2rem, 4.5vw, 2.8rem);
       margin-bottom: 1.5rem;
       color: var(--black, #111214);
     }
@@ -296,19 +309,20 @@
       transform: translateY(-2px);
     }
 
+    /* ===== ESSAY ===== */
     .hub-essay {
-      padding: 3rem 2rem 2rem;
+      padding: 4rem 2rem 3rem;
       background: white;
     }
     .hub-essay-inner {
-      max-width: 700px;
+      max-width: 640px;
       margin: 0 auto;
     }
     .hub-essay-inner p {
       font-size: 1.05rem;
-      line-height: 1.85;
+      line-height: 1.9;
       color: #444;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
     }
     .hub-essay-inner em {
       color: #333;
@@ -322,7 +336,7 @@
       content: '\201C';
       font-family: 'DM Serif Display', serif;
       font-size: 3rem;
-      color: var(--hub-accent, #E91E7B);
+      color: var(--hub-accent, #5BBD72);
       float: left;
       margin-right: 0.15rem;
       margin-top: -0.1rem;
@@ -332,9 +346,82 @@
     .hub-divider {
       width: 40px;
       height: 2px;
-      background: var(--hub-accent, #E91E7B);
-      margin: 2rem auto;
+      background: var(--hub-accent, #5BBD72);
+      margin: 2.5rem auto;
       opacity: 0.4;
+    }
+
+    /* ===== BIG QUOTE BAND ===== */
+    .hub-big-quote {
+      text-align: center;
+      padding: 4rem 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .hub-big-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #222;
+      line-height: 1.4;
+      font-style: italic;
+      transform: rotate(-0.5deg);
+    }
+    .hub-big-quote .attribution {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent, #5BBD72);
+      margin-top: 0.75rem;
+      opacity: 0.8;
+    }
+    .hub-tinted-band {
+      padding: 4rem 2rem;
+      background: linear-gradient(135deg, rgba(91, 189, 114, 0.04), rgba(91, 189, 114, 0.08));
+    }
+
+    /* ===== QUOTES HORIZONTAL SCROLL ===== */
+    .hub-quotes-scroll {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hub-quotes-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+    .hub-quotes-scroll::-webkit-scrollbar-track {
+      background: #f0eeeb;
+      border-radius: 2px;
+    }
+    .hub-quotes-scroll::-webkit-scrollbar-thumb {
+      background: rgba(91, 189, 114, 0.3);
+      border-radius: 2px;
+    }
+    .hub-quote-card {
+      min-width: 300px;
+      max-width: 360px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+      border-left: 3px solid var(--hub-accent, #5BBD72);
+      padding: 1.25rem 1.5rem;
+      background: var(--warm-gray, #F5F3F0);
+      border-radius: 0 8px 8px 0;
+    }
+    .hub-quote-card p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 1.5;
+      font-style: italic;
+      margin-bottom: 0;
+    }
+
+    /* ===== READING CARDS ===== */
+    .hub-reading-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
     }
 
     @media (max-width: 600px) {
@@ -342,6 +429,17 @@
       .comic-grid,
       .cases-grid {
         grid-template-columns: 1fr;
+      }
+      .hub-hero .pull-quote {
+        transform: rotate(0deg);
+      }
+      .hub-quotes-scroll {
+        flex-direction: column;
+        overflow-x: visible;
+      }
+      .hub-quote-card {
+        min-width: 100%;
+        max-width: 100%;
       }
     }
   </style>
@@ -378,41 +476,50 @@
     </div>
   </section>
 
+  <!-- ESSAY -->
   <section class="hub-essay">
     <div class="hub-essay-inner">
       <p>When we started making comics together, something shifted. Kahran had never built a comic before, and for Divya, having a co-creator in that medium was entirely new. As Kahran described it, "bonding over the creation process is really a bonding moment. It's so arduous and fun, but it can be painful at times." What we found was that the play -- the actual making of the thing, figuring out the panels, arguing about what a character would do -- that was not separate from the serious work we do for clients. It was the same muscle. The comic-making taught us things about pacing, about visual communication, about when to leave things unsaid, that fed directly back into how we think about pitch decks and brand narratives.</p>
 
-      <div class="hub-divider"></div>
+      <div class="hub-wavy-divider">~ ~ ~ ~ ~</div>
 
       <p>Remy Siu, the creative director of 1000xResist, gave us one of the best descriptions of what play-as-practice looks like at scale. Their pitch for the game was: "What if a kind of immigrant teenage girl became the most important person on earth and spawned a whole society based around her personality and her baggage?" That is not a corporate brief. That is someone playing with an idea until it became something real. Their team was tiny, everyone wore multiple hats, and Remy came from theater and music -- not traditional game development. The game became one of the most celebrated of its year. Sometimes the most rigorous work comes from people who refused to stay in their lane.</p>
 
       <p>In our conversation about game design, Kahran noted how rare it is to just talk about the process of making a thing with another creator. "You and I don't talk to each other as creators all the time," he told Divya. She agreed, but added that what they do is "talk to each other at multiple levels" -- swinging between the strategic and the personal, the analytical and the intuitive, sometimes in the same sentence. That multi-level conversation is what play enables. It loosens up the thinking so you can move between registers without getting stuck in any one of them.</p>
 
-      <p>Then there is the paradox of trying to be unique. In our episode on conforming to be unique, Kahran talked about visiting the Bahamas and noticing "this desire to fit in with your community, which felt to me like overshadowing almost this desire to stand out." Divya connected it to something deeper: the reason people stay in closets of all kinds is not just fear of harsh rejection. "There's also the social rejection of the soft variety where it's like, but I'm not like these people. And they have been my people for the last 25 years." The harder you try to stand out, the more you end up conforming to someone else's definition of different. Real uniqueness, it turns out, comes from the same place as real play: <em>you have to stop performing and start doing.</em></p>
+      <p>Then there is the paradox of trying to be unique. In our episode on conforming to be unique, Kahran talked about visiting the Bahamas and noticing "this desire to fit in with your community, which felt to me like overshadowing almost this desire to stand out." Divya connected it to something deeper: the reason people stay in closets of all kinds is not just fear of harsh rejection. "There's also the social rejection of the soft variety where it's like, but I'm not like these people. And they have been my people for the last 25 years." The harder you try to stand out, the more you end up conforming to someone else's definition of different.</p>
 
       <p>Here is where we have explored this further.</p>
     </div>
   </section>
 
-<section class="hub-reading" style="padding:3rem 2rem;background:white;">
-  <div style="max-width:700px;margin:0 auto;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
-    <div style="display:flex;flex-direction:column;gap:1rem;">
-      <a href="thinking/doing-serious-things-unseriously.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#5BBD72);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Doing Serious Things Unseriously</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
-      <a href="thinking/what-making-comics-taught-us.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#5BBD72);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">What Making Comics Taught Us</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
-      <a href="thinking/the-game-designers-toolkit.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#5BBD72);transition:transform 0.2s;">
-        <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Game Designer's Toolkit</h3>
-        <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay →</p>
-      </a>
+  <!-- BIG QUOTE BAND -->
+  <section class="hub-tinted-band">
+    <div class="hub-big-quote">
+      <p>"Real uniqueness comes from the same place as real play: you have to stop performing and start doing."</p>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- READ — Essays -->
+  <section style="padding:5rem 2rem;background:white;">
+    <div style="max-width:700px;margin:0 auto;">
+      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
+      <div class="hub-reading-grid">
+        <a href="thinking/doing-serious-things-unseriously.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#5BBD72);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Doing Serious Things Unseriously</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+        <a href="thinking/what-making-comics-taught-us.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#5BBD72);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">What Making Comics Taught Us</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+        <a href="thinking/the-game-designers-toolkit.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#5BBD72);transition:transform 0.2s;">
+          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Game Designer's Toolkit</h3>
+          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- LISTEN -->
   <section class="hub-section">
@@ -453,22 +560,25 @@
     </div>
   </section>
 
-<section class="hub-quotes" style="padding:3rem 2rem;background:white;">
-  <div style="max-width:700px;margin:0 auto;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">From the conversations</h2>
-    <div style="border-left:3px solid var(--hub-accent,#5BBD72);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"There's a paradox in being unique: the harder you try to stand out, the more you end up conforming to someone else's definition of different."</p>
+  <!-- FROM THE CONVERSATIONS — Horizontal Scroll -->
+  <section style="padding:5rem 2rem;background:rgba(91, 189, 114, 0.05);">
+    <div style="max-width:1000px;margin:0 auto;">
+      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">From the conversations</h2>
+      <div class="hub-quotes-scroll">
+        <div class="hub-quote-card">
+          <p>"There's a paradox in being unique: the harder you try to stand out, the more you end up conforming to someone else's definition of different."</p>
+        </div>
+        <div class="hub-quote-card">
+          <p>"What if a kind of immigrant teenage girl became the most important person on earth and spawned a whole society based around her personality and her baggage?"</p>
+        </div>
+        <div class="hub-quote-card">
+          <p>"Bonding over the creation process is really a bonding moment. It's so arduous and fun, but it can be painful at times."</p>
+        </div>
+      </div>
     </div>
-    <div style="border-left:3px solid var(--hub-accent,#5BBD72);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"What if a kind of immigrant teenage girl became the most important person on earth and spawned a whole society based around her personality and her baggage?"</p>
-    </div>
-    <div style="border-left:3px solid var(--hub-accent,#5BBD72);padding:1rem 1.5rem;margin-bottom:1rem;background:var(--warm-gray,#F5F3F0);border-radius:0 8px 8px 0;">
-      <p style="font-family:'DM Serif Display',serif;font-size:1.05rem;color:#333;line-height:1.5;font-style:italic;margin-bottom:0;">"Bonding over the creation process is really a bonding moment. It's so arduous and fun, but it can be painful at times."</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-  <!-- READ -->
+  <!-- READ — Comics (larger, side by side) -->
   <section class="hub-section">
     <div class="inner">
       <div class="hub-section-label">Read</div>
@@ -494,6 +604,9 @@
       </div>
     </div>
   </section>
+
+  <!-- WAVY SEPARATOR -->
+  <div class="hub-wavy-divider">~ ~ ~ ~ ~ ~ ~ ~ ~</div>
 
   <!-- SEE THE WORK -->
   <section class="hub-section">
