@@ -15,30 +15,30 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
-    .post-hero { padding:8rem 2rem 3rem; background:var(--warm-gray,#F5F3F0); }
-    .post-hero .inner { max-width:700px; margin:0 auto; }
-    .post-hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,4vw,2.5rem); color:#111; margin-bottom:0.75rem; line-height:1.25; }
-    .post-meta { font-size:0.8rem; color:#999; text-transform:uppercase; letter-spacing:1px; margin-bottom:1rem; }
-    .post-hub-link { display:inline-block; font-size:0.75rem; text-transform:uppercase; letter-spacing:1.5px; padding:0.25rem 0.6rem; border-radius:3px; background:rgba(233,30,123,0.1); color:#E91E7B; text-decoration:none; margin-bottom:1rem; }
-    .post-content { padding:3rem 2rem 4rem; max-width:700px; margin:0 auto; }
-    .post-content p { font-size:1.05rem; line-height:1.85; color:#444; margin-bottom:1.25rem; }
-    .post-content em { color:#333; }
-    .post-pullquote { border-left:3px solid #E91E7B; padding:1rem 1.5rem; margin:2rem 0; background:var(--warm-gray,#F5F3F0); border-radius:0 8px 8px 0; }
-    .post-pullquote p { font-family:'DM Serif Display',serif; font-size:1.1rem; color:#333; font-style:italic; line-height:1.5; margin-bottom:0; }
-    .post-nav { padding:2rem; border-top:1px solid #eee; max-width:700px; margin:0 auto; }
-    .post-nav a { color:#111; text-decoration:none; font-weight:500; font-size:0.9rem; }
-    .post-nav a:hover { color:#E91E7B; }
+    body { --hub-accent: #E91E7B; }
+    .editorial-hero { padding: 8rem 2rem 3rem; background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%); }
+    .editorial-hero-inner { max-width: 640px; margin: 0 auto; }
+    .editorial-theme { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--hub-accent); display: block; margin-bottom: 0.75rem; text-decoration: none; }
+    .editorial-theme:hover { text-decoration: underline; }
+    .editorial-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); color: #111; line-height: 1.1; margin-bottom: 1.25rem; }
+    .editorial-lede { font-size: 1.15rem; line-height: 1.7; color: #555; border-left: 3px solid var(--hub-accent); padding-left: 1.25rem; margin-bottom: 0; }
+    .editorial-body { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #444; margin-bottom: 1.5rem; }
+    .editorial-body > p:first-of-type::first-letter { font-family: 'DM Serif Display', serif; font-size: 3.2rem; float: left; line-height: 1; margin-right: 0.12em; margin-top: 0.05em; color: var(--hub-accent); }
+    .editorial-body em { color: #333; font-style: italic; }
+    .pull-quote { margin: 3rem -2rem; padding: 2.5rem 2rem; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .pull-quote p { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.35; color: #222; font-style: italic; margin-bottom: 0; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .editorial-more { max-width: 680px; margin: 0 auto; padding: 0 2rem 4rem; border-top: 1px solid #eee; padding-top: 3rem; }
+    .editorial-more a { color: #111; text-decoration: none; font-weight: 500; font-size: 0.95rem; }
+    .editorial-more a:hover { color: var(--hub-accent); }
+    @media (max-width: 600px) { .pull-quote { margin: 3rem 0; } }
   </style>
 </head>
 <body>
   <nav class="nav-bar">
     <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a href="../home.html" class="logo"><img src="../images/logo.webp" alt="Joyus Studio"></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
       <ul class="nav-menu" id="navMenu">
         <li><a href="../work/index.html">Work</a></li>
         <li><a href="../comics/index.html">Comics</a></li>
@@ -50,21 +50,21 @@
     </div>
   </nav>
 
-  <section class="post-hero">
-    <div class="inner">
-      <a href="../hub-story.html" class="post-hub-link">Finding Your Story</a>
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <a href="../hub-story.html" class="editorial-theme">Finding Your Story</a>
       <h1>Your Pitch Deck is Not Your Story (But It Should Contain One)</h1>
-      <p class="post-meta">By Kahran Singh &amp; Divya Tak</p>
+      <p class="editorial-lede">Most pitch decks present data without a story. Why investor artifacts need narrative structure, not just information.</p>
     </div>
   </section>
 
-  <article class="post-content">
+  <article class="editorial-body">
     <p>We have spent a lot of time helping startups strengthen their ideas and take something that might be at the point of being a small idea, a little genesis, and get it into something bigger. Sometimes that means helping think through important artifacts that get created in the process. Sometimes they are pitch decks for investors. Sometimes they are to share the story with potential co-founders or early employees. And sometimes, as with the Smiqql acquisition deck we walked through on the podcast, they are to present a company as appealing for acquisition.</p>
 
     <p>The thing we keep running into is this: founders forget that they know the story. As Kahran puts it, "When you are a founder, when you're really close to the company, you forget that you know the story. You know so many parts already. So you have so much context that you're going to apply when you're thinking about what this thing is trying to tell. You're looking at not just the content actually in it, and you're actually looking beyond that into the content that is not there." That invisible context is the gap between the deck you built and the deck your investor reads.</p>
 
-    <div class="post-pullquote">
-      <p>"You want to have a story that you're presenting, and the information and the data that you're presenting as part of the company are coming as part of that story. The telling thing that sometimes happens is that people just try and let people come up with the story in their heads."</p>
+    <div class="pull-quote">
+      <p>"You want to have a story that you're presenting, and the information and the data that you're presenting as part of the company are coming as part of that story."</p>
     </div>
 
     <p>When we looked at the MachPhy investor deck, Divya noticed immediately that "sometimes you want to be super shiny, like you need something to grab the audience, and it's not doing that. Either you can grab them informationally, or you can grab them emotionally, but you need to figure out which one you want to do." The deck felt serious but it did not position the reader. It did not anchor them in anything other than sincerity. And sincerity without story is just data in a slide.</p>
@@ -73,7 +73,7 @@
 
     <p>With the Smiqql acquisition deck, we found ourselves asking a different set of questions. A key part of the story in an acquisition deck is the customer story. Kahran framed it as two pieces: "One is the business story, which could be the numbers story. What is the revenue? What are the margins? And then there is the customer story of why your customers are likely to stay with you, and why they are likely to recommend you to other people." Most decks we see focus almost entirely on the first piece and barely touch the second.</p>
 
-    <div class="post-pullquote">
+    <div class="pull-quote">
       <p>"Because investor decks are so high stakes in most cases, it's very valuable to quickly communicate more than one thing. Think about what each piece of information is doing here."</p>
     </div>
 
@@ -82,53 +82,27 @@
     <p>The throughline across all of these conversations is the same. Whether it is a pitch deck, an acquisition opportunity, or a brand website, you are not just presenting information. You are telling a story. And the most common failure is not a lack of data or even a lack of authenticity. <em>It is the assumption that the reader already knows what you know.</em> They do not. The deck is not the story. But if you build it right, the story lives inside it, and the reader can find their way in.</p>
   </article>
 
-  <div class="post-nav">
+  <section class="editorial-more">
     <a href="../hub-story.html">&larr; Back to Finding Your Story</a>
-  </div>
+  </section>
 
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio of makers.</p>
+      <div class="footer-brand"><h3>Joyus Studio</h3><p>A studio of makers.</p></div>
+      <nav class="footer-nav"><ul>
+        <li><a href="../home.html">Home</a></li><li><a href="../work/index.html">Work</a></li><li><a href="../comics/index.html">Comics</a></li><li><a href="../podcast.html">Podcast</a></li><li><a href="../services.html">Services</a></li><li><a href="../about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul></nav>
+      <div class="footer-themes"><h4>Themes</h4>
+        <a href="../hub-story.html">Finding Your Story</a><a href="../hub-building.html">Building Something That Matters</a><a href="../hub-behavior.html">How People Actually Behave</a><a href="../hub-play.html">Play as Practice</a><a href="../hub-creative.html">Drawing Outside the Lines</a>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="../work/index.html">Work</a></li>
-          <li><a href="../comics/index.html">Comics</a></li>
-          <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
+      <div class="footer-contact"><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Joyus Studio. All rights reserved.</p></div>
   </footer>
-
   <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => { navMenu.classList.toggle('active'); hamburger.classList.toggle('active'); });
-      document.querySelectorAll('.nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); hamburger.classList.remove('active'); }); });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => { if (window.scrollY > 0) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
+    const hamburger = document.getElementById('hamburger'); const navMenu = document.getElementById('navMenu');
+    if (hamburger) { hamburger.addEventListener('click', () => { navMenu.classList.toggle('active'); hamburger.classList.toggle('active'); }); document.querySelectorAll('.nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); hamburger.classList.remove('active'); }); }); }
+    const nav = document.querySelector('.nav-bar'); window.addEventListener('scroll', () => { if (window.scrollY > 0) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
   </script>
   <script src="../shape-echo.js"></script>
 </body>

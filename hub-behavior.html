@@ -33,348 +33,52 @@
   <style>
     body { --hub-accent: #D4A843; }
 
-    /* ===== HERO ===== */
-    .hub-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-hero .inner {
-      max-width: 700px;
-    }
-    .hub-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1rem;
-      color: var(--black, #111214);
-    }
-    .hub-hero .subtitle {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-    }
-    .hub-hero .pull-quote {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      color: var(--hub-accent);
-      line-height: 1.3;
-      margin: 0;
-      padding: 1.5rem 0;
-      border-left: none;
-    }
+    .editorial-hero { padding: 8rem 2rem 3rem; background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%); }
+    .editorial-hero-inner { max-width: 640px; margin: 0 auto; }
+    .editorial-theme { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--hub-accent); display: block; margin-bottom: 0.75rem; }
+    .editorial-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); color: #111; line-height: 1.1; margin-bottom: 1.25rem; }
+    .editorial-lede { font-size: 1.15rem; line-height: 1.7; color: #555; border-left: 3px solid var(--hub-accent); padding-left: 1.25rem; margin-bottom: 0; }
 
-    /* ===== ESSAY TEXT (narrow) ===== */
-    .hub-essay-narrow {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 4rem 2rem 3rem;
-    }
-    .hub-essay-narrow p {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: #444;
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-    .hub-essay-narrow p:first-child {
-      font-size: 1.15rem;
-      color: #333;
-    }
-    .hub-essay-narrow p:first-child::before {
-      content: '\201C';
-      font-family: 'DM Serif Display', serif;
-      font-size: 3rem;
-      color: var(--hub-accent, #D4A843);
-      float: left;
-      margin-right: 0.15rem;
-      margin-top: -0.1rem;
-      line-height: 1;
-      opacity: 0.4;
-    }
-    .hub-essay-narrow em {
-      color: #333;
-      font-style: italic;
-    }
+    .editorial-body { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #444; margin-bottom: 1.5rem; }
+    .editorial-body > p:first-of-type::first-letter { font-family: 'DM Serif Display', serif; font-size: 3.2rem; float: left; line-height: 1; margin-right: 0.12em; margin-top: 0.05em; color: var(--hub-accent); }
+    .editorial-body em { color: #333; font-style: italic; }
 
-    /* ===== FULL-WIDTH QUOTE BAND ===== */
-    .hub-quote-band {
-      padding: 4rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-quote-band-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .hub-quote-band-inner p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      color: #222;
-      line-height: 1.4;
-      font-style: italic;
-    }
+    .inline-card { margin: 2.5rem 0; border-radius: 8px; border: 1px solid #e8e6e4; border-left: 3px solid var(--hub-accent); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .inline-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .inline-card a { display: block; padding: 1.25rem 1.5rem; text-decoration: none; color: inherit; }
+    .inline-card-type { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--hub-accent); font-weight: 600; margin-bottom: 0.3rem; }
+    .inline-card-title { display: block; font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; line-height: 1.3; }
 
-    /* ===== ACCENT TINTED BAND ===== */
-    .hub-accent-band {
-      padding: 4rem 2rem;
-      background: linear-gradient(135deg, rgba(212, 168, 67, 0.04), rgba(212, 168, 67, 0.08));
-    }
-    .hub-accent-band-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      text-align: center;
-    }
-    .hub-accent-band-inner p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.4rem, 2.8vw, 2rem);
-      color: var(--hub-accent);
-      line-height: 1.4;
-      font-style: italic;
-    }
+    .pull-quote { margin: 3rem -2rem; padding: 2.5rem 2rem; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .pull-quote p { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.35; color: #222; font-style: italic; margin-bottom: 0.5rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .pull-quote cite { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--hub-accent); font-style: normal; }
 
-    /* ===== PODCAST SHELF (3-column grid, wider) ===== */
-    .hub-podcast-shelf {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-    .podcast-shelf-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.25rem;
-    }
-    .shelf-card {
-      background: white;
-      border: 1px solid #e8e6e4;
-      border-top: 3px solid var(--hub-accent, #D4A843);
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      display: flex;
-      flex-direction: column;
-    }
-    .shelf-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-    }
-    .shelf-card .card-type {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--hub-accent, #D4A843);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .shelf-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      color: #111;
-      margin-bottom: 0.75rem;
-      flex: 1;
-      line-height: 1.35;
-    }
-    .shelf-card .shelf-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-    }
+    .editorial-more { max-width: 680px; margin: 0 auto; padding: 0 2rem 4rem; border-top: 1px solid #eee; padding-top: 3rem; }
+    .editorial-more h2 { font-family: 'Caveat', cursive; font-size: 1.2rem; color: #999; margin-bottom: 1.5rem; }
+    .editorial-more .reading-link { display: block; padding: 1.25rem 1.5rem; border-radius: 8px; border: 1px solid #e8e6e4; border-left: 3px solid var(--hub-accent); text-decoration: none; color: inherit; margin-bottom: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .editorial-more .reading-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .editorial-more .reading-link h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; margin-bottom: 0.2rem; }
+    .editorial-more .reading-link p { font-size: 0.85rem; color: #888; margin: 0; }
 
-    /* ===== CASE STUDY GRID (2-column, wider) ===== */
-    .hub-cases-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-    }
-    .cases-2col {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    .case-card {
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #e8e6e4;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .case-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-    }
-    .case-card-image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
-    .case-card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .case-card:hover .case-card-image img {
-      transform: scale(1.03);
-    }
-    .case-card-body {
-      padding: 1.5rem;
-      flex: 1;
-    }
-    .case-card-body h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.4rem;
-      color: #111;
-    }
-    .case-card-body p {
-      font-size: 0.9rem;
-      color: #666;
-      line-height: 1.5;
-    }
+    .explore-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
+    .explore-pills a { display: inline-block; padding: 0.6rem 1.25rem; border: 1.5px solid var(--hub-accent); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--hub-accent); text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .explore-pills a:hover { background: var(--hub-accent); color: white; }
 
-    /* ===== BLOG LINKS ===== */
-    .hub-reading-section {
-      max-width: 640px;
-      margin: 0 auto;
-      padding: 3rem 2rem 4rem;
-      border-top: 1px solid #e8e6e4;
-    }
-    .hub-reading-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: #111;
-      margin-bottom: 1.5rem;
-    }
-    .hub-reading-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .hub-reading-grid a {
-      display: block;
-      padding: 1.25rem 1.5rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 8px;
-      text-decoration: none;
-      border-left: 3px solid var(--hub-accent, #D4A843);
-      transition: transform 0.2s;
-    }
-    .hub-reading-grid a:hover {
-      transform: translateX(4px);
-    }
-    .hub-reading-grid h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: #111;
-      margin-bottom: 0.3rem;
-    }
-    .hub-reading-grid p {
-      font-size: 0.9rem;
-      color: #666;
-      margin: 0;
-    }
+    .hub-cta { padding: 5rem 2rem; text-align: center; }
+    .hub-cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1.5rem; color: #111; }
+    .hub-cta .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; background: var(--hub-accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: opacity 0.2s, transform 0.2s; }
+    .hub-cta .cta-btn:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    /* ===== EXPLORE MORE ===== */
-    .hub-explore {
-      padding: 5rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-explore .inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .hub-explore .section-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--hub-accent);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .hub-explore h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      color: var(--black, #111214);
-    }
-    .explore-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .explore-pill {
-      display: inline-block;
-      padding: 0.6rem 1.25rem;
-      border: 1.5px solid var(--hub-accent);
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-      text-decoration: none;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .explore-pill:hover {
-      background: var(--hub-accent);
-      color: white;
-    }
-
-    /* ===== CTA ===== */
-    .hub-cta {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .hub-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      margin-bottom: 1.5rem;
-      color: var(--black, #111214);
-    }
-    .hub-cta .cta-btn {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      background: var(--hub-accent);
-      color: white;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    .hub-cta .cta-btn:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-    }
-
-    /* ===== MOBILE ===== */
-    @media (max-width: 600px) {
-      .podcast-shelf-grid {
-        grid-template-columns: 1fr;
-      }
-      .cases-2col {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 600px) { .pull-quote { margin: 3rem 0; } .explore-pills { flex-direction: column; } .explore-pills a { text-align: center; } }
   </style>
 </head>
 <body>
   <!-- NAVIGATION -->
   <nav class="nav-bar">
     <div class="nav-container">
-      <a href="home.html" class="logo">
-        <img src="images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <a href="home.html" class="logo"><img src="images/logo.webp" alt="Joyus Studio"></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
       <ul class="nav-menu" id="navMenu">
         <li><a href="work/index.html">Work</a></li>
         <li><a href="comics/index.html">Comics</a></li>
@@ -386,138 +90,99 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hub-hero">
-    <div class="inner">
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">How People Actually Behave</span>
       <h1>How People Actually Behave</h1>
-      <p class="subtitle">The gap between how people think they act and how they actually act. Behavioral design, psychology, and the messy reality of human decision-making.</p>
-      <p class="pull-quote">"People don't do what they say they'll do."</p>
+      <p class="editorial-lede">The gap between how people think they act and how they actually act. Behavioral design, psychology, and the messy reality of human decision-making.</p>
     </div>
   </section>
 
-  <!-- ESSAY OPENING (narrow, 640px) -->
-  <div class="hub-essay-narrow">
+  <article class="editorial-body">
+
     <p>Early in the podcast, we did an episode on cognitive versus emotional experiences, and Kahran started pulling a thread that kept unraveling.</p>
 
     <p>"I realized that I don't have a solid model of failure," he said. "Like, what does good failure look like? I don't know."</p>
-  </div>
 
-  <!-- FULL-WIDTH QUOTE BAND -->
-  <section class="hub-quote-band">
-    <div class="hub-quote-band-inner">
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Cognitive-vs-Emotional-Experiences--Models-for-Failure-e1mudd4" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Thinking on Cognitive vs Emotional Experiences &amp; Models for Failure &rarr;</span>
+      </a>
+    </div>
+
+    <div class="pull-quote">
       <p>"We build models for success all the time. But we almost never build models for what good failure looks like."</p>
     </div>
-  </section>
 
-  <!-- ESSAY MIDDLE (narrow) -->
-  <div class="hub-essay-narrow" style="padding-top:3rem;">
     <p>Even though that is where most of the actual learning happens. The question he kept circling was: what separates making a foolish decision from being a fool? "Just making a creative thing does not make you a creative person. But there is something that makes you a creative person. So then what is the mindset that a fool has?"</p>
 
     <p>This led us into thinking about how pain and learning are actually wired together. In our episode on pain and emotional signaling, Divya brought up the concept of eustress and distress. "The parts of our brain that are sensitive to pain are also the parts which are close to making new memories," she explained. "Quite literally, we learn through pain." She talked about watching a young child learn to walk -- if he falls down and nobody reacts with alarm, he does not know he was supposed to be upset. <em>We have formed these understandings of: I have this sensation, this sensation means this, I should then react in this way.</em> So much of what we call behavior is actually learned interpretation layered on top of a physical signal.</p>
-  </div>
 
-  <!-- 3-COLUMN PODCAST SHELF -->
-  <div class="hub-podcast-shelf">
-    <div class="podcast-shelf-grid">
-
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Cognitive-vs-Emotional-Experiences--Models-for-Failure-e1mudd4" target="_blank" rel="noopener" class="shelf-card">
-        <span class="card-type">Podcast</span>
-        <h3>Thinking on Cognitive vs Emotional Experiences &amp; Models for Failure</h3>
-        <span class="shelf-link">Listen on Spotify &rarr;</span>
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Pain--Emotional-Signaling--Learning-and-Brain-Pathways-e1o4er9" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Thinking on Pain &amp; Emotional Signaling &rarr;</span>
       </a>
-
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Pain--Emotional-Signaling--Learning-and-Brain-Pathways-e1o4er9" target="_blank" rel="noopener" class="shelf-card">
-        <span class="card-type">Podcast</span>
-        <h3>Thinking on Pain &amp; Emotional Signaling</h3>
-        <span class="shelf-link">Listen on Spotify &rarr;</span>
-      </a>
-
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Expectations-e27v6ip" target="_blank" rel="noopener" class="shelf-card">
-        <span class="card-type">Podcast</span>
-        <h3>Thinking on Designing Expectations</h3>
-        <span class="shelf-link">Listen on Spotify &rarr;</span>
-      </a>
-
     </div>
-  </div>
 
-  <!-- ESSAY CONTINUED (narrow) -->
-  <div class="hub-essay-narrow" style="padding-top:2rem;">
     <p>When we talked about designing expectations, we got into how this plays out in product design. Kahran referenced Seth Godin's definition of quality as "whatever meets the spec" and how useful that framing is as a guard against perfectionism. But the deeper insight was about the gap between what someone expected and what they experienced. "Sometimes we get stuck because we're not understanding what expectation we are trying to meet," Divya observed. "And whose, and is that even a relevant expectation?"</p>
+
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Expectations-e27v6ip" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Thinking on Designing Expectations &rarr;</span>
+      </a>
+    </div>
 
     <p>In our conversation about decision-making under uncertainty, we wrestled with how people actually make choices when they lack complete information. Divya talked about how even deciding on a brand mascot -- a potato, in their case -- required thinking not about whether it was the right answer, but about what emotion drove the decision. "What does it represent? What made you choose a quirky decision right now?" The meta-analysis of the decision matters as much as the decision itself.</p>
 
     <p>And in our loyalty episode, Kahran noticed that Nike had created multiple ways for him to "hang out with the brand" -- the shoes, the Run Club app, the shopping experience -- each touchpoint deepening the relationship without any single one feeling like a hard sell. That is how real loyalty works: not through one grand gesture, but through many small, well-designed encounters.</p>
-  </div>
 
-  <!-- FULL-WIDTH ACCENT BAND WITH CLOSING QUOTE -->
-  <section class="hub-accent-band">
-    <div class="hub-accent-band-inner">
-      <p>The same work can succeed or fail depending entirely on the expectations surrounding it.</p>
+    <div class="pull-quote">
+      <p>"The same work can succeed or fail depending entirely on the expectations surrounding it."</p>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/convegenius.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">ConveGenius &rarr;</span>
+      </a>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/tatsam.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Tatsam &rarr;</span>
+      </a>
+    </div>
+
+  </article>
+
+  <section class="editorial-more">
+    <h2>Keep exploring</h2>
+
+    <a href="thinking/designing-for-the-decision-they-almost-made.html" class="reading-link">
+      <h3>Designing for the Decision They Almost Made</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/pain-is-a-signal.html" class="reading-link">
+      <h3>Pain is a Signal, Not a Problem</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/why-people-gossip.html" class="reading-link">
+      <h3>Why People Gossip</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+
+    <div class="explore-pills">
+      <a href="hub-story.html">Finding Your Story</a>
+      <a href="hub-building.html">Building Something That Matters</a>
+      <a href="hub-play.html">Play as Practice</a>
+      <a href="hub-creative.html">Drawing Outside the Lines</a>
     </div>
   </section>
 
-  <!-- 2-COLUMN CASE STUDIES -->
-  <div class="hub-cases-section">
-    <div class="cases-2col">
-
-      <a href="work/convegenius.html" class="case-card">
-        <div class="case-card-image">
-          <img src="images/work/convegenius.jpg" alt="ConveGenius" loading="lazy">
-        </div>
-        <div class="case-card-body">
-          <h3>ConveGenius</h3>
-          <p>Gamification for 100K monthly students</p>
-        </div>
-      </a>
-
-      <a href="work/tatsam.html" class="case-card">
-        <div class="case-card-image">
-          <img src="images/work/tatsam.jpg" alt="Tatsam" loading="lazy">
-        </div>
-        <div class="case-card-body">
-          <h3>Tatsam</h3>
-          <p>Visual language for mental wellness</p>
-        </div>
-      </a>
-
-    </div>
-  </div>
-
-  <!-- BLOG POST LINKS -->
-  <div class="hub-reading-section">
-    <h2>Read more on this theme</h2>
-    <div class="hub-reading-grid">
-      <a href="thinking/designing-for-the-decision-they-almost-made.html">
-        <h3>Designing for the Decision They Almost Made</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-      <a href="thinking/pain-is-a-signal.html">
-        <h3>Pain is a Signal, Not a Problem</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-      <a href="thinking/why-people-gossip.html">
-        <h3>Why People Gossip</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-    </div>
-  </div>
-
-  <!-- EXPLORE MORE THEMES -->
-  <section class="hub-explore">
-    <div class="inner">
-      <div class="section-label">Keep exploring</div>
-      <h2>More Themes</h2>
-      <div class="explore-grid">
-        <a href="hub-story.html" class="explore-pill">Finding Your Story</a>
-        <a href="hub-building.html" class="explore-pill">Building Something That Matters</a>
-        <a href="hub-play.html" class="explore-pill">Play as Practice</a>
-        <a href="hub-creative.html" class="explore-pill">Drawing Outside the Lines</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
   <section class="hub-cta">
     <h2>Designing for real humans?</h2>
     <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
@@ -526,59 +191,27 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio of makers.</p>
+      <div class="footer-brand"><h3>Joyus Studio</h3><p>A studio of makers.</p></div>
+      <nav class="footer-nav"><ul>
+        <li><a href="home.html">Home</a></li><li><a href="work/index.html">Work</a></li><li><a href="comics/index.html">Comics</a></li><li><a href="podcast.html">Podcast</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul></nav>
+      <div class="footer-themes"><h4>Themes</h4>
+        <a href="hub-story.html">Finding Your Story</a><a href="hub-building.html">Building Something That Matters</a><a href="hub-behavior.html">How People Actually Behave</a><a href="hub-play.html">Play as Practice</a><a href="hub-creative.html">Drawing Outside the Lines</a>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="work/index.html">Work</a></li>
-          <li><a href="comics/index.html">Comics</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="hub-story.html">Finding Your Story</a>
-        <a href="hub-building.html">Building Something That Matters</a>
-        <a href="hub-behavior.html">How People Actually Behave</a>
-        <a href="hub-play.html">Play as Practice</a>
-        <a href="hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
+      <div class="footer-contact"><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Joyus Studio. All rights reserved.</p></div>
   </footer>
 
   <script>
-    // Mobile nav toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
+      hamburger.addEventListener('click', () => { navMenu.classList.toggle('active'); hamburger.classList.toggle('active'); });
+      document.querySelectorAll('.nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); hamburger.classList.remove('active'); }); });
     }
     const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
+    window.addEventListener('scroll', () => { if (window.scrollY > 0) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
   </script>
   <script src="shape-echo.js"></script>
 </body>

@@ -33,443 +33,52 @@
   <style>
     body { --hub-accent: #E8734A; }
 
-    /* ===== HERO ===== */
-    .hub-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-hero .inner {
-      max-width: 700px;
-    }
-    .hub-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1rem;
-      color: var(--black, #111214);
-    }
-    .hub-hero .subtitle {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-    }
-    .hub-hero .pull-quote {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      color: var(--hub-accent);
-      margin: 0;
-      line-height: 1.4;
-      border-left: none;
-      padding-left: 0;
-      font-style: italic;
-    }
+    .editorial-hero { padding: 8rem 2rem 3rem; background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%); }
+    .editorial-hero-inner { max-width: 640px; margin: 0 auto; }
+    .editorial-theme { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--hub-accent); display: block; margin-bottom: 0.75rem; }
+    .editorial-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); color: #111; line-height: 1.1; margin-bottom: 1.25rem; }
+    .editorial-lede { font-size: 1.15rem; line-height: 1.7; color: #555; border-left: 3px solid var(--hub-accent); padding-left: 1.25rem; margin-bottom: 0; }
 
-    /* ===== SHARED SECTION ===== */
-    .hub-section {
-      padding: 5rem 2rem;
-    }
-    .hub-section:nth-child(even) {
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-section .inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .hub-section-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--hub-accent);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .hub-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      margin-bottom: 2rem;
-      color: var(--black, #111214);
-    }
+    .editorial-body { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #444; margin-bottom: 1.5rem; }
+    .editorial-body > p:first-of-type::first-letter { font-family: 'DM Serif Display', serif; font-size: 3.2rem; float: left; line-height: 1; margin-right: 0.12em; margin-top: 0.05em; color: var(--hub-accent); }
+    .editorial-body em { color: #333; font-style: italic; }
 
-    /* ===== PODCAST CARDS ===== */
-    .podcast-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .podcast-card {
-      background: white;
-      border: 1px solid #e8e6e4;
-      border-radius: 8px;
-      padding: 1.5rem;
-      text-decoration: none;
-      color: inherit;
-      display: grid;
-      grid-template-columns: 50px 1fr;
-      grid-template-rows: auto auto auto;
-      gap: 0 1rem;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .podcast-card .pc-thumb {
-      width: 50px;
-      height: 50px;
-      border-radius: 6px;
-      object-fit: cover;
-      flex-shrink: 0;
-      grid-row: 1 / -1;
-      align-self: start;
-      margin-top: 0.1rem;
-    }
-    .podcast-card .ep-label,
-    .podcast-card h3,
-    .podcast-card .listen-link {
-      grid-column: 2;
-    }
-    .podcast-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-    }
-    .podcast-card .ep-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--hub-accent);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .podcast-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: #111;
-      margin-bottom: 0.75rem;
-      flex: 1;
-    }
-    .podcast-card .listen-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
+    .inline-card { margin: 2.5rem 0; border-radius: 8px; border: 1px solid #e8e6e4; border-left: 3px solid var(--hub-accent); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .inline-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .inline-card a { display: block; padding: 1.25rem 1.5rem; text-decoration: none; color: inherit; }
+    .inline-card-type { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--hub-accent); font-weight: 600; margin-bottom: 0.3rem; }
+    .inline-card-title { display: block; font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; line-height: 1.3; }
 
-    /* ===== COMIC CARDS ===== */
-    .comic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 1.5rem;
-    }
-    .comic-card {
-      background: white;
-      border: 1px solid #e8e6e4;
-      border-radius: 8px;
-      overflow: hidden;
-      text-decoration: none;
-      color: inherit;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .comic-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-    }
-    .comic-card img {
-      width: 100%;
-      aspect-ratio: 3 / 4;
-      object-fit: cover;
-      display: block;
-    }
-    .comic-card .comic-card-body {
-      padding: 1.25rem;
-    }
-    .comic-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: #111;
-      margin-bottom: 0.4rem;
-    }
-    .comic-card .read-link {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-    }
+    .pull-quote { margin: 3rem -2rem; padding: 2.5rem 2rem; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .pull-quote p { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.35; color: #222; font-style: italic; margin-bottom: 0.5rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .pull-quote cite { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--hub-accent); font-style: normal; }
 
-    /* ===== CASE STUDY CARDS ===== */
-    .cases-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 2rem;
-    }
-    .case-card {
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid #e8e6e4;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .case-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-    }
-    .case-card-image {
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-    }
-    .case-card-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .case-card:hover .case-card-image img {
-      transform: scale(1.03);
-    }
-    .case-card-body {
-      padding: 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .case-card-body h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .case-card-body p {
-      font-size: 0.95rem;
-      color: #666;
-      line-height: 1.55;
-      flex: 1;
-    }
+    .editorial-more { max-width: 680px; margin: 0 auto; padding: 0 2rem 4rem; border-top: 1px solid #eee; padding-top: 3rem; }
+    .editorial-more h2 { font-family: 'Caveat', cursive; font-size: 1.2rem; color: #999; margin-bottom: 1.5rem; }
+    .editorial-more .reading-link { display: block; padding: 1.25rem 1.5rem; border-radius: 8px; border: 1px solid #e8e6e4; border-left: 3px solid var(--hub-accent); text-decoration: none; color: inherit; margin-bottom: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .editorial-more .reading-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .editorial-more .reading-link h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; margin-bottom: 0.2rem; }
+    .editorial-more .reading-link p { font-size: 0.85rem; color: #888; margin: 0; }
 
-    /* ===== EXPLORE MORE ===== */
-    .explore-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .explore-pill {
-      display: inline-block;
-      padding: 0.6rem 1.25rem;
-      border: 1.5px solid var(--hub-accent);
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-      text-decoration: none;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .explore-pill:hover {
-      background: var(--hub-accent);
-      color: white;
-    }
+    .explore-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
+    .explore-pills a { display: inline-block; padding: 0.6rem 1.25rem; border: 1.5px solid var(--hub-accent); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--hub-accent); text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .explore-pills a:hover { background: var(--hub-accent); color: white; }
 
-    /* ===== CTA ===== */
-    .hub-cta {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .hub-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      margin-bottom: 1.5rem;
-      color: var(--black, #111214);
-    }
-    .hub-cta .cta-btn {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      background: var(--hub-accent);
-      color: white;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    .hub-cta .cta-btn:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-    }
+    .hub-cta { padding: 5rem 2rem; text-align: center; }
+    .hub-cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1.5rem; color: #111; }
+    .hub-cta .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; background: var(--hub-accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: opacity 0.2s, transform 0.2s; }
+    .hub-cta .cta-btn:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    /* ===== ESSAY — wider for creative hub ===== */
-    .hub-essay {
-      padding: 4rem 2rem 3rem;
-      background: white;
-    }
-    .hub-essay-inner {
-      max-width: 750px;
-      margin: 0 auto;
-    }
-    .hub-essay-inner p {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: #444;
-      margin-bottom: 1.5rem;
-    }
-    .hub-essay-inner em {
-      color: #333;
-      font-style: italic;
-    }
-    .hub-essay-inner p:first-child {
-      font-size: 1.15rem;
-      color: #333;
-    }
-    .hub-essay-inner p:first-child::before {
-      content: '\201C';
-      font-family: 'DM Serif Display', serif;
-      font-size: 3rem;
-      color: var(--hub-accent, #E8734A);
-      float: left;
-      margin-right: 0.15rem;
-      margin-top: -0.1rem;
-      line-height: 1;
-      opacity: 0.4;
-    }
-    .hub-divider {
-      width: 40px;
-      height: 2px;
-      background: var(--hub-accent, #E8734A);
-      margin: 2.5rem auto;
-      opacity: 0.4;
-    }
-
-    /* ===== INSET QUOTE (offset, narrower) ===== */
-    .hub-inset-quote {
-      max-width: 500px;
-      margin: 2rem auto 2.5rem;
-      padding: 2rem 2.5rem;
-      background: rgba(232, 115, 74, 0.06);
-      border-radius: 8px;
-      text-align: center;
-    }
-    .hub-inset-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-      color: var(--hub-accent);
-      line-height: 1.4;
-      font-style: italic;
-      margin-bottom: 0;
-    }
-
-    /* ===== BIG QUOTE BAND ===== */
-    .hub-big-quote {
-      text-align: center;
-      padding: 4rem 2rem;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .hub-big-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      color: #222;
-      line-height: 1.4;
-      font-style: italic;
-    }
-    .hub-big-quote .attribution {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--hub-accent, #E8734A);
-      margin-top: 0.75rem;
-      opacity: 0.8;
-    }
-    .hub-tinted-band {
-      padding: 4rem 2rem;
-      background: linear-gradient(135deg, rgba(232, 115, 74, 0.04), rgba(232, 115, 74, 0.08));
-    }
-
-    /* ===== CORAL CONVERSATIONS SECTION ===== */
-    .hub-coral-conversations {
-      padding: 5rem 2rem;
-      background: #E8734A;
-    }
-    .hub-coral-conversations h2 {
-      font-family: 'Caveat', cursive;
-      font-size: 1.3rem;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 1.5rem;
-    }
-    .hub-coral-conversations .hub-quotes-scroll {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .hub-coral-conversations .hub-quotes-scroll::-webkit-scrollbar {
-      height: 4px;
-    }
-    .hub-coral-conversations .hub-quotes-scroll::-webkit-scrollbar-track {
-      background: rgba(255,255,255,0.15);
-      border-radius: 2px;
-    }
-    .hub-coral-conversations .hub-quotes-scroll::-webkit-scrollbar-thumb {
-      background: rgba(255,255,255,0.4);
-      border-radius: 2px;
-    }
-    .hub-coral-conversations .hub-quote-card {
-      min-width: 300px;
-      max-width: 360px;
-      flex-shrink: 0;
-      scroll-snap-align: start;
-      border-left: 3px solid rgba(255,255,255,0.4);
-      padding: 1.25rem 1.5rem;
-      background: rgba(255,255,255,0.12);
-      border-radius: 0 8px 8px 0;
-    }
-    .hub-coral-conversations .hub-quote-card p {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      color: white;
-      line-height: 1.5;
-      font-style: italic;
-      margin-bottom: 0;
-    }
-
-    /* ===== READING CARDS ===== */
-    .hub-reading-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    @media (max-width: 600px) {
-      .podcast-grid,
-      .comic-grid,
-      .cases-grid {
-        grid-template-columns: 1fr;
-      }
-      .hub-coral-conversations .hub-quotes-scroll,
-      .hub-quotes-scroll {
-        flex-direction: column;
-        overflow-x: visible;
-      }
-      .hub-coral-conversations .hub-quote-card,
-      .hub-quote-card {
-        min-width: 100%;
-        max-width: 100%;
-      }
-    }
+    @media (max-width: 600px) { .pull-quote { margin: 3rem 0; } .explore-pills { flex-direction: column; } .explore-pills a { text-align: center; } }
   </style>
 </head>
 <body>
   <!-- NAVIGATION -->
   <nav class="nav-bar">
     <div class="nav-container">
-      <a href="home.html" class="logo">
-        <img src="images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <a href="home.html" class="logo"><img src="images/logo.webp" alt="Joyus Studio"></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
       <ul class="nav-menu" id="navMenu">
         <li><a href="work/index.html">Work</a></li>
         <li><a href="comics/index.html">Comics</a></li>
@@ -481,196 +90,116 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hub-hero">
-    <div class="inner">
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">Drawing Outside the Lines</span>
       <h1>Drawing Outside the Lines</h1>
-      <p class="subtitle">Creativity as rebellion. Making things that don't fit neatly into categories. The intersection of art, technology, and whatever feels right.</p>
-      <p class="pull-quote">"You don't find new ideas in the center. You find them where things collide."</p>
+      <p class="editorial-lede">Creativity as rebellion. Making things that don't fit neatly into categories. The intersection of art, technology, and whatever feels right.</p>
     </div>
   </section>
 
-  <!-- ESSAY -->
-  <section class="hub-essay">
-    <div class="hub-essay-inner">
-      <p style="color:#E8734A;font-size:1.18rem;">When we sat down to talk about writing as both communication and art, Kahran said something that stuck: "There's photography as documentation and there's photography as art and then there's photography as narrative."</p>
+  <article class="editorial-body">
 
-      <p>The same split applies to writing, to code, to design -- any medium where someone can be working in service of a message or working in service of expression, and sometimes doing both at once. The interesting work, as he put it, lives in the gap between what you want to say and what you actually say. Divya pushed on this, asking how writing is different from communication, and what unfolded was a conversation about <mark style="background:rgba(232,115,74,0.1);padding:0.1em 0.3em;border-radius:3px;">playing with form versus playing with meaning,</mark> and how the most interesting creators are usually doing both simultaneously.</p>
+    <p>When we sat down to talk about writing as both communication and art, Kahran said something that stuck: "There's photography as documentation and there's photography as art and then there's photography as narrative."</p>
 
-      <div style="height:2.5rem"></div>
+    <p>The same split applies to writing, to code, to design -- any medium where someone can be working in service of a message or working in service of expression, and sometimes doing both at once. The interesting work, as he put it, lives in the gap between what you want to say and what you actually say. Divya pushed on this, asking how writing is different from communication, and what unfolded was a conversation about playing with form versus playing with meaning, and how the most interesting creators are usually doing both simultaneously.</p>
 
-      <p>Computational Mama gave us a beautiful example of what that looks like in practice. She started a secret Instagram account to share her coding experiments because she did not want to mix it with her main work as a designer and culture sector professional. But then the moniker took on a life of its own.</p>
-
-      <p>"I slogged my butt off for so many years in the museum and culture sector management kind of roles," she said. "And I have really no recognition for it. But I just felt I should embrace it as much as I want to." She described <mark style="background:rgba(232,115,74,0.1);padding:0.1em 0.3em;border-radius:3px;">a kind of superhero identity effect</mark> -- not becoming a different person, but giving herself "a bit more space with this moniker, to be myself, to sort of say what I want to." Her path from design to development to creative coding dissolved the boundary between technical and creative work entirely.</p>
-
-      <div style="text-align:center;padding:3rem 0;max-width:460px;margin:0 auto;">
-        <p style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#E8734A;line-height:1.35;margin-bottom:0;">"The tools that we design design us."</p>
-      </div>
-
-      <p style="font-family:'Caveat',cursive;font-size:0.95rem;color:#999;line-height:1.6;">Katieann Vogel, who has been everything from an outdoor adventure guide to a professional limerick writer to a poet, told us that what drew her to our podcast was not the vocabulary or the topics but the tone.</p>
-
-      <p>"I just heard a lot of passion in how you two were speaking to each other," she said. "The mood and the tone is extremely inviting and a little bit different than anything else I'm listening to." That observation landed for us because it gets at something we believe deeply: <mark style="background:rgba(232,115,74,0.1);padding:0.1em 0.3em;border-radius:3px;">the line between creative and technical, between art and strategy, is mostly a line people draw for institutional convenience.</mark> The real energy happens where those things collide.</p>
-
-      <div style="height:2.5rem"></div>
-
-      <p>In our conversation about how LLMs have changed our thinking, Divya offered the framing that keeps coming back to us: "The tools that we design design us." The way we use language affects how we think, the way we design buildings affects how we feel, and now the way we use AI tools is reshaping how we approach problems. Kahran talked about using ChatGPT to recall a word he could not remember -- <em>in abeyance</em> -- and how that tiny moment felt like a shift in his relationship with his own memory.</p>
-
-      <p>But the deeper point was not about AI replacing anything. It was about noticing that these tools are changing the shape of our thinking in ways we are only beginning to understand, and that paying attention to that change is itself a creative act.</p>
-
-      <p>Here is where we have explored this further.</p>
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Spilling-Some-Tea-on-Writing-as-Communication-and-Art-e37ftr8" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Spilling Some Tea on Writing as Communication and Art &rarr;</span>
+      </a>
     </div>
-  </section>
 
-  <!-- BIG QUOTE BAND -->
-  <section class="hub-tinted-band">
-    <div class="hub-big-quote">
+    <p>Computational Mama gave us a beautiful example of what that looks like in practice. She started a secret Instagram account to share her coding experiments because she did not want to mix it with her main work as a designer and culture sector professional. But then the moniker took on a life of its own.</p>
+
+    <p>"I slogged my butt off for so many years in the museum and culture sector management kind of roles," she said. "And I have really no recognition for it. But I just felt I should embrace it as much as I want to." She described a kind of superhero identity effect -- not becoming a different person, but giving herself "a bit more space with this moniker, to be myself, to sort of say what I want to." Her path from design to development to creative coding dissolved the boundary between technical and creative work entirely.</p>
+
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Coding--Creativity--Culture-with-Computational-Mama-e2bsccl" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Thinking on Coding, Creativity &amp; Culture with Computational Mama &rarr;</span>
+      </a>
+    </div>
+
+    <div class="pull-quote">
       <p>"The tools that we design design us."</p>
+      <cite>Divya Tak</cite>
+    </div>
+
+    <p>Katieann Vogel, who has been everything from an outdoor adventure guide to a professional limerick writer to a poet, told us that what drew her to our podcast was not the vocabulary or the topics but the tone.</p>
+
+    <p>"I just heard a lot of passion in how you two were speaking to each other," she said. "The mood and the tone is extremely inviting and a little bit different than anything else I'm listening to." That observation landed for us because it gets at something we believe deeply: the line between creative and technical, between art and strategy, is mostly a line people draw for institutional convenience. The real energy happens where those things collide.</p>
+
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Katieann-Vogel-on-Unblocking-Yourself--Finding-Fulfillment--Creating-Art-with-Kahran-e2goufn" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Katieann Vogel on Unblocking Yourself, Finding Fulfillment &amp; Creating Art &rarr;</span>
+      </a>
+    </div>
+
+    <p>In our conversation about how LLMs have changed our thinking, Divya offered the framing that keeps coming back to us: "The tools that we design design us." The way we use language affects how we think, the way we design buildings affects how we feel, and now the way we use AI tools is reshaping how we approach problems. Kahran talked about using ChatGPT to recall a word he could not remember -- <em>in abeyance</em> -- and how that tiny moment felt like a shift in his relationship with his own memory.</p>
+
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-How-LLMs--GenAI--have-Changed-Our-Thinking-e29jne3" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Thinking on How LLMs (&amp; GenAI!) have Changed Our Thinking &rarr;</span>
+      </a>
+    </div>
+
+    <p>But the deeper point was not about AI replacing anything. It was about noticing that these tools are changing the shape of our thinking in ways we are only beginning to understand, and that paying attention to that change is itself a creative act.</p>
+
+    <div class="pull-quote">
+      <p>"You don't find new ideas in the center. You find them where things collide."</p>
+    </div>
+
+    <div class="inline-card">
+      <a href="comics/the-friend-comic.html">
+        <span class="inline-card-type">Comic</span>
+        <span class="inline-card-title">The Friend &rarr;</span>
+      </a>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/agemo.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Agemo / CodeWords &rarr;</span>
+      </a>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/rachna-nivas.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Rachna Nivas &rarr;</span>
+      </a>
+    </div>
+
+  </article>
+
+  <section class="editorial-more">
+    <h2>Keep exploring</h2>
+
+    <a href="thinking/ai-made-us-smaller-and-weirder.html" class="reading-link">
+      <h3>AI Made Us Smaller and Weirder</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/code-as-material.html" class="reading-link">
+      <h3>Code as Material</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/the-accidental-brand.html" class="reading-link">
+      <h3>The Accidental Brand</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+
+    <div class="explore-pills">
+      <a href="hub-story.html">Finding Your Story</a>
+      <a href="hub-building.html">Building Something That Matters</a>
+      <a href="hub-behavior.html">How People Actually Behave</a>
+      <a href="hub-play.html">Play as Practice</a>
     </div>
   </section>
 
-  <!-- READ — Essays -->
-  <section style="padding:5rem 2rem;background:white;">
-    <div style="max-width:700px;margin:0 auto;">
-      <h2 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1.5rem;">Read</h2>
-      <div class="hub-reading-grid">
-        <a href="thinking/ai-made-us-smaller-and-weirder.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
-          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">AI Made Us Smaller and Weirder</h3>
-          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
-        </a>
-        <a href="thinking/code-as-material.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
-          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">Code as Material</h3>
-          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
-        </a>
-        <a href="thinking/the-accidental-brand.html" style="display:block;padding:1.25rem 1.5rem;background:var(--warm-gray,#F5F3F0);border-radius:8px;text-decoration:none;border-left:3px solid var(--hub-accent,#E8734A);transition:transform 0.2s;">
-          <h3 style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:#111;margin-bottom:0.3rem;">The Accidental Brand</h3>
-          <p style="font-size:0.9rem;color:#666;margin:0;">Read the essay &rarr;</p>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- LISTEN -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">Listen</div>
-      <h2>Podcast Episodes</h2>
-      <div class="podcast-grid">
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Spilling-Some-Tea-on-Writing-as-Communication-and-Art-e37ftr8" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 7, Episode 13</div>
-          <h3>Spilling Some Tea on Writing as Communication and Art</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Coding--Creativity--Culture-with-Computational-Mama-e2bsccl" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 4, Episode 2</div>
-          <h3>Thinking on Coding, Creativity &amp; Culture with Computational Mama</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Katieann-Vogel-on-Unblocking-Yourself--Finding-Fulfillment--Creating-Art-with-Kahran-e2goufn" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 4, Episode 10</div>
-          <h3>Katieann Vogel on Unblocking Yourself, Finding Fulfillment &amp; Creating Art</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-        <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-How-LLMs--GenAI--have-Changed-Our-Thinking-e29jne3" target="_blank" rel="noopener" class="podcast-card">
-          <img src="images/illustration-podcast.jpg" alt="Thinking on Thinking podcast" class="pc-thumb" loading="lazy">
-          <div class="ep-label">Season 3, Episode 9</div>
-          <h3>Thinking on How LLMs (&amp; GenAI!) have Changed Our Thinking</h3>
-          <span class="listen-link">Listen on Spotify &rarr;</span>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- FROM THE CONVERSATIONS — Full coral background with white text -->
-  <section class="hub-coral-conversations">
-    <div style="max-width:1000px;margin:0 auto;">
-      <h2>From the conversations</h2>
-      <div class="hub-quotes-scroll">
-        <div class="hub-quote-card">
-          <p>"Writing is one of those things where the gap between what you want to say and what you actually say is where all the interesting work happens."</p>
-        </div>
-        <div class="hub-quote-card">
-          <p>"When you treat code like clay and design like logic, the boundary between creative and technical just disappears."</p>
-        </div>
-        <div class="hub-quote-card">
-          <p>"Gen Z looks at themselves as creators. They don't think you need to be drawing or making music to call yourself creative. There's no imposter syndrome about it."</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- READ -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">Read</div>
-      <h2>Comics</h2>
-      <div class="comic-grid">
-
-        <a href="comics/the-friend-comic.html" class="comic-card">
-          <img src="images/comics/friend/page-1.png" alt="The Friend comic cover" loading="lazy">
-          <div class="comic-card-body">
-            <h3>The Friend</h3>
-            <span class="read-link">Read the comic &rarr;</span>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- SEE THE WORK -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">See the work</div>
-      <h2>Case Studies</h2>
-      <div class="cases-grid">
-
-        <a href="work/agemo.html" class="case-card">
-          <div class="case-card-image">
-            <img src="images/work/agemo.jpg" alt="Agemo / CodeWords" loading="lazy">
-          </div>
-          <div class="case-card-body">
-            <h3>Agemo / CodeWords</h3>
-            <p>Making AI-powered development approachable</p>
-          </div>
-        </a>
-
-        <a href="work/rachna-nivas.html" class="case-card">
-          <div class="case-card-image">
-            <img src="images/work/rachna-nivas.jpg" alt="Rachna Nivas" loading="lazy">
-          </div>
-          <div class="case-card-body">
-            <h3>Rachna Nivas</h3>
-            <p>Helping a classical dancer find her digital voice without losing her artistic one</p>
-          </div>
-        </a>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- EXPLORE MORE THEMES -->
-  <section class="hub-section">
-    <div class="inner">
-      <div class="hub-section-label">Keep exploring</div>
-      <h2>More Themes</h2>
-      <div class="explore-grid">
-        <a href="hub-story.html" class="explore-pill">Finding Your Story</a>
-        <a href="hub-building.html" class="explore-pill">Building Something That Matters</a>
-        <a href="hub-behavior.html" class="explore-pill">How People Actually Behave</a>
-        <a href="hub-play.html" class="explore-pill">Play as Practice</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
   <section class="hub-cta">
     <h2>Want to make something unexpected?</h2>
     <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
@@ -679,59 +208,27 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio of makers.</p>
+      <div class="footer-brand"><h3>Joyus Studio</h3><p>A studio of makers.</p></div>
+      <nav class="footer-nav"><ul>
+        <li><a href="home.html">Home</a></li><li><a href="work/index.html">Work</a></li><li><a href="comics/index.html">Comics</a></li><li><a href="podcast.html">Podcast</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul></nav>
+      <div class="footer-themes"><h4>Themes</h4>
+        <a href="hub-story.html">Finding Your Story</a><a href="hub-building.html">Building Something That Matters</a><a href="hub-behavior.html">How People Actually Behave</a><a href="hub-play.html">Play as Practice</a><a href="hub-creative.html">Drawing Outside the Lines</a>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="work/index.html">Work</a></li>
-          <li><a href="comics/index.html">Comics</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="hub-story.html">Finding Your Story</a>
-        <a href="hub-building.html">Building Something That Matters</a>
-        <a href="hub-behavior.html">How People Actually Behave</a>
-        <a href="hub-play.html">Play as Practice</a>
-        <a href="hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
+      <div class="footer-contact"><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Joyus Studio. All rights reserved.</p></div>
   </footer>
 
   <script>
-    // Mobile nav toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
+      hamburger.addEventListener('click', () => { navMenu.classList.toggle('active'); hamburger.classList.toggle('active'); });
+      document.querySelectorAll('.nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); hamburger.classList.remove('active'); }); });
     }
     const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
+    window.addEventListener('scroll', () => { if (window.scrollY > 0) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
   </script>
   <script src="shape-echo.js"></script>
 </body>

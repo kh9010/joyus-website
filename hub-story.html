@@ -33,217 +33,184 @@
   <style>
     :root { --hub-accent: var(--pink, #E91E7B); }
 
-    /* ===== HERO ===== */
-    .hub-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
+    .editorial-hero {
+      padding: 8rem 2rem 3rem;
+      background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%);
     }
-    .hub-hero .inner {
-      max-width: 800px;
-      border-left: 5px solid var(--hub-accent);
-      padding-left: 2rem;
-    }
-    .hub-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.2rem, 5.5vw, 3.2rem);
-      margin-bottom: 1rem;
-      color: var(--black, #111214);
-    }
-    .hub-hero .description {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
+    .editorial-hero-inner {
       max-width: 640px;
-      margin-bottom: 2.5rem;
+      margin: 0 auto;
     }
-    .hub-hero .pull-quote {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 4vw, 2.5rem);
+    .editorial-theme {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
       color: var(--hub-accent);
-      line-height: 1.3;
-      text-align: center;
       display: block;
-      padding: 2rem 0;
-      border-left: none;
-      max-width: 600px;
+      margin-bottom: 0.75rem;
+    }
+    .editorial-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: #111;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .editorial-lede {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #555;
+      border-left: 3px solid var(--hub-accent);
+      padding-left: 1.25rem;
+      margin-bottom: 0;
     }
 
-    /* ===== INLINE FLOW ===== */
-    .hub-flow {
-      max-width: 700px;
+    .editorial-body {
+      max-width: 680px;
       margin: 0 auto;
-      padding: 4rem 2rem 3rem;
+      padding: 3rem 2rem 4rem;
     }
-    .hub-flow p {
+    .editorial-body p {
       font-size: 1.05rem;
-      line-height: 1.9;
+      line-height: 1.85;
       color: #444;
       margin-bottom: 1.5rem;
-      text-align: left;
     }
-    .hub-flow p:first-child {
-      font-size: 1.15rem;
-      color: #333;
-    }
-    .hub-flow p:first-child::before {
-      content: '\201C';
+    .editorial-body > p:first-of-type::first-letter {
       font-family: 'DM Serif Display', serif;
-      font-size: 3rem;
-      color: var(--hub-accent, #E91E7B);
+      font-size: 3.2rem;
       float: left;
-      margin-right: 0.15rem;
-      margin-top: -0.1rem;
       line-height: 1;
-      opacity: 0.4;
+      margin-right: 0.12em;
+      margin-top: 0.05em;
+      color: var(--hub-accent);
     }
-    .hub-flow em {
+    .editorial-body em {
       color: #333;
       font-style: italic;
     }
 
-    /* ===== INLINE CARDS ===== */
     .inline-card {
       margin: 2.5rem 0;
-      padding: 1.5rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 12px;
-      border-left: 3px solid var(--hub-accent, #E91E7B);
+      border-radius: 8px;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .inline-card .card-type {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--hub-accent, #E91E7B);
-      font-weight: 700;
+    .inline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
-    .inline-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: #111;
-      margin: 0.3rem 0 0;
-    }
-    .inline-card h3 a {
-      color: inherit;
-      text-decoration: none;
-    }
-    .inline-card h3 a:hover {
-      color: var(--hub-accent, #E91E7B);
-    }
-    .inline-card p {
-      font-size: 0.9rem !important;
-      color: #666 !important;
-      margin: 0.3rem 0 0 !important;
-      line-height: 1.5 !important;
-    }
-
-    /* Side-by-side cards */
-    .inline-card-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin: 2.5rem 0;
-    }
-    .inline-card-pair .inline-card {
-      margin: 0;
-    }
-
-    /* ===== BLOG LINKS ===== */
-    .hub-reading-section {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 3rem 2rem 4rem;
-      border-top: 1px solid #e8e6e4;
-    }
-    .hub-reading-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: #111;
-      margin-bottom: 1.5rem;
-    }
-    .hub-reading-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .hub-reading-grid a {
+    .inline-card a {
       display: block;
       padding: 1.25rem 1.5rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 8px;
       text-decoration: none;
-      border-left: 3px solid var(--hub-accent, #E91E7B);
-      transition: transform 0.2s;
+      color: inherit;
     }
-    .hub-reading-grid a:hover {
-      transform: translateX(4px);
+    .inline-card-type {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
     }
-    .hub-reading-grid h3 {
+    .inline-card-title {
+      display: block;
       font-family: 'DM Serif Display', serif;
       font-size: 1.1rem;
       color: #111;
-      margin-bottom: 0.3rem;
-    }
-    .hub-reading-grid p {
-      font-size: 0.9rem;
-      color: #666;
-      margin: 0;
+      line-height: 1.3;
     }
 
-    /* ===== EXPLORE MORE ===== */
-    .hub-explore {
-      padding: 5rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
+    .pull-quote {
+      margin: 3rem -2rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
     }
-    .hub-explore .inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .hub-explore .section-label {
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--hub-accent);
-      font-weight: 700;
-      margin-bottom: 0.25rem;
-    }
-    .hub-explore h2 {
+    .pull-quote p {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1.35;
+      color: #222;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pull-quote cite {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent);
+      font-style: normal;
+    }
+
+    .editorial-more {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 2rem 4rem;
+      border-top: 1px solid #eee;
+      padding-top: 3rem;
+    }
+    .editorial-more h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: #999;
       margin-bottom: 1.5rem;
-      color: var(--black, #111214);
     }
-    .explore-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1rem;
-    }
-    .explore-card {
+    .editorial-more .reading-link {
       display: block;
       padding: 1.25rem 1.5rem;
       border-radius: 8px;
-      border: 2px solid #e8e6e4;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
       text-decoration: none;
-      color: #111;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      line-height: 1.4;
-      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      color: inherit;
+      margin-bottom: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .explore-card:hover {
-      border-color: var(--hub-accent);
+    .editorial-more .reading-link:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
-    .explore-card .arrow {
-      display: block;
-      margin-top: 0.5rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 600;
-      color: var(--hub-accent);
+    .editorial-more .reading-link h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      margin-bottom: 0.2rem;
+    }
+    .editorial-more .reading-link p {
+      font-size: 0.85rem;
+      color: #888;
+      margin: 0;
     }
 
-    /* ===== CTA ===== */
+    .explore-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+    }
+    .explore-pills a {
+      display: inline-block;
+      padding: 0.6rem 1.25rem;
+      border: 1.5px solid var(--hub-accent);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--hub-accent);
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .explore-pills a:hover {
+      background: var(--hub-accent);
+      color: white;
+    }
+
     .hub-cta {
       padding: 5rem 2rem;
       text-align: center;
@@ -252,7 +219,7 @@
       font-family: 'DM Serif Display', serif;
       font-size: clamp(1.8rem, 4vw, 2.5rem);
       margin-bottom: 1.5rem;
-      color: var(--black, #111214);
+      color: #111;
     }
     .hub-cta .cta-btn {
       display: inline-block;
@@ -263,19 +230,17 @@
       border-radius: 50px;
       font-weight: 600;
       font-size: 1rem;
-      transition: opacity 0.2s ease, transform 0.2s ease;
+      transition: opacity 0.2s, transform 0.2s;
     }
     .hub-cta .cta-btn:hover {
       opacity: 0.88;
       transform: translateY(-2px);
     }
 
-    /* ===== MOBILE ===== */
     @media (max-width: 600px) {
-      .hub-hero .inner { padding-left: 1.25rem; }
-      .hub-hero .pull-quote { font-size: 1.8rem; }
-      .inline-card-pair { grid-template-columns: 1fr; }
-      .explore-grid { grid-template-columns: 1fr; }
+      .pull-quote { margin: 3rem 0; }
+      .explore-pills { flex-direction: column; }
+      .explore-pills a { text-align: center; }
     }
   </style>
 </head>
@@ -302,107 +267,96 @@
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hub-hero">
-    <div class="inner">
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">Finding Your Story</span>
       <h1>Finding Your Story</h1>
-      <p class="description">How to find, shape, and tell the story that's already in you. Whether it's a pitch deck, a brand narrative, or a personal voice — the story is always there. You just have to find it.</p>
-      <span class="pull-quote">"The story is already in you."</span>
+      <p class="editorial-lede">How to find, shape, and tell the story that's already in you. Whether it's a pitch deck, a brand narrative, or a personal voice — the story is always there. You just have to find it.</p>
     </div>
   </section>
 
-  <!-- CONTINUOUS EDITORIAL FLOW -->
-  <div class="hub-flow">
+  <article class="editorial-body">
 
     <p>Somewhere in the middle of our Story vs. Telling series, we landed on something that surprised us both.</p>
 
     <p>As Kahran puts it, "I think the issue is how we're telling the story, not so much what the story is." We had been going back and forth for weeks about why our own work was not reaching the people we felt it could reach, and it kept circling back to this one distinction: the story is already there. The problem is almost always in the telling.</p>
 
     <div class="inline-card">
-      <span class="card-type">Podcast</span>
-      <h3><a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-Vs--Telling-Part-1-e335hnf" target="_blank" rel="noopener">Story Vs. Telling Part 1 &rarr;</a></h3>
-      <p>The episode where we first pulled this thread apart.</p>
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-Vs--Telling-Part-1-e335hnf" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Story Vs. Telling Part 1 &rarr;</span>
+      </a>
     </div>
 
     <p>This came up in a really personal way when Divya shared what she had realized about her own introductions. "I could tell the why behind everything when I was listening to you speak," she told Kahran. "And when I talk about these things, my introduction is very guarded. I'm not letting people see why I care about it, which makes it very hard for them to see why they should care about it." That hit hard, because it is the same thing we see with clients all the time. People strip the emotional core out of their story to make it feel more professional, and then wonder why nobody connects with it.</p>
 
+    <div class="pull-quote">
+      <p>"I'm not letting people see why I care about it, which makes it very hard for them to see why they should care about it."</p>
+      <cite>Divya Tak</cite>
+    </div>
+
     <p>There is also this thing about trust that kept surfacing. Kahran framed it as two different games: "There's a game of attention and there's a game of building trust. You can win the first without the second, but you can't win the second without some of the first." That resonated with what we saw when we worked with Cranberry.Fit on their storytelling. You can have the most authentic story in the world, but if you are not thinking about how people are encountering it and whether they have reason to stay, the authenticity alone is not going to carry you.</p>
 
     <div class="inline-card">
-      <span class="card-type">Case Study</span>
-      <h3><a href="work/tomboyx.html">TomboyX &rarr;</a></h3>
-      <p>Investor storytelling that raised $5M — finding the story that was already there.</p>
+      <a href="work/tomboyx.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">TomboyX &rarr;</span>
+      </a>
     </div>
 
     <p>What we arrived at across those four episodes is that finding your story is not really about invention. It is about paying attention to the things you keep coming back to, the themes that keep showing up in your work, and then having the courage to share them honestly. As Divya put it after weeks of sitting with this, "I think the moment I start defining anything artistic, I start feeling like I don't want to define the audience. It resonates with whoever it resonates with."</p>
 
     <div class="inline-card">
-      <span class="card-type">Comic</span>
-      <h3><a href="comics/the-friend-comic.html">The Friend &rarr;</a></h3>
-      <p>A visual story about connection, vulnerability, and what we leave unsaid.</p>
-    </div>
-
-    <div class="inline-card-pair">
-      <div class="inline-card">
-        <span class="card-type">Case Study</span>
-        <h3><a href="work/rachna-nivas.html">Rachna Nivas &rarr;</a></h3>
-        <p>Helping a classical dancer find her digital voice</p>
-      </div>
-      <div class="inline-card">
-        <span class="card-type">Case Study</span>
-        <h3><a href="work/xtdb.html">XTDB &rarr;</a></h3>
-        <p>Full rebrand from CRUX to XTDB</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- BLOG POST LINKS -->
-  <div class="hub-reading-section">
-    <h2>Read more on this theme</h2>
-    <div class="hub-reading-grid">
-      <a href="thinking/your-pitch-deck-is-not-your-story.html">
-        <h3>Your Pitch Deck is Not Your Story</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-      <a href="thinking/voice-versus-tone.html">
-        <h3>The Difference Between Voice and Tone</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-      <a href="thinking/what-we-learned-from-story-vs-telling.html">
-        <h3>What We Learned from Story vs. Telling</h3>
-        <p>Read the essay &rarr;</p>
+      <a href="comics/the-friend-comic.html">
+        <span class="inline-card-type">Comic</span>
+        <span class="inline-card-title">The Friend &rarr;</span>
       </a>
     </div>
-  </div>
 
-  <!-- EXPLORE MORE THEMES -->
-  <section class="hub-explore">
-    <div class="inner">
-      <p class="section-label">Explore</p>
-      <h2>More Themes</h2>
-      <div class="explore-grid">
-        <a href="hub-building.html" class="explore-card">
-          Building Something That Matters
-          <span class="arrow">Explore &rarr;</span>
-        </a>
-        <a href="hub-behavior.html" class="explore-card">
-          How People Actually Behave
-          <span class="arrow">Explore &rarr;</span>
-        </a>
-        <a href="hub-play.html" class="explore-card">
-          Play as Practice
-          <span class="arrow">Explore &rarr;</span>
-        </a>
-        <a href="hub-creative.html" class="explore-card">
-          Drawing Outside the Lines
-          <span class="arrow">Explore &rarr;</span>
-        </a>
-      </div>
+    <div class="pull-quote">
+      <p>"The story is already in you."</p>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/rachna-nivas.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Rachna Nivas &rarr;</span>
+      </a>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/xtdb.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">XTDB &rarr;</span>
+      </a>
+    </div>
+
+  </article>
+
+  <section class="editorial-more">
+    <h2>Keep exploring</h2>
+
+    <a href="thinking/your-pitch-deck-is-not-your-story.html" class="reading-link">
+      <h3>Your Pitch Deck is Not Your Story</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/voice-versus-tone.html" class="reading-link">
+      <h3>The Difference Between Voice and Tone</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/what-we-learned-from-story-vs-telling.html" class="reading-link">
+      <h3>What We Learned from Story vs. Telling</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+
+    <div class="explore-pills">
+      <a href="hub-building.html">Building Something That Matters</a>
+      <a href="hub-behavior.html">How People Actually Behave</a>
+      <a href="hub-play.html">Play as Practice</a>
+      <a href="hub-creative.html">Drawing Outside the Lines</a>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="hub-cta">
     <h2>Have a story to tell?</h2>
     <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
@@ -444,7 +398,6 @@
   </footer>
 
   <script>
-    // Mobile nav toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     if (hamburger) {

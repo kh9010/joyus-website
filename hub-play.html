@@ -33,255 +33,52 @@
   <style>
     body { --hub-accent: #5BBD72; }
 
-    /* ===== HERO ===== */
-    .hub-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-hero .inner {
-      max-width: 700px;
-    }
-    .hub-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1rem;
-      color: var(--black, #111214);
-    }
-    .hub-hero .subtitle {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
-      max-width: 600px;
-      margin-bottom: 2.5rem;
-    }
-    .hub-hero .pull-quote {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
-      color: var(--hub-accent);
-      margin: 0;
-      line-height: 1.4;
-      border-left: none;
-      padding-left: 0;
-    }
+    .editorial-hero { padding: 8rem 2rem 3rem; background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%); }
+    .editorial-hero-inner { max-width: 640px; margin: 0 auto; }
+    .editorial-theme { font-family: 'Caveat', cursive; font-size: 1.1rem; color: var(--hub-accent); display: block; margin-bottom: 0.75rem; }
+    .editorial-hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.2rem); color: #111; line-height: 1.1; margin-bottom: 1.25rem; }
+    .editorial-lede { font-size: 1.15rem; line-height: 1.7; color: #555; border-left: 3px solid var(--hub-accent); padding-left: 1.25rem; margin-bottom: 0; }
 
-    /* ===== TWO-COLUMN FLOW ===== */
-    .hub-flow {
-      max-width: 1000px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.7fr 1fr;
-      gap: 2rem 3rem;
-      padding: 3rem 2rem;
-      align-items: start;
-    }
+    .editorial-body { max-width: 680px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #444; margin-bottom: 1.5rem; }
+    .editorial-body > p:first-of-type::first-letter { font-family: 'DM Serif Display', serif; font-size: 3.2rem; float: left; line-height: 1; margin-right: 0.12em; margin-top: 0.05em; color: var(--hub-accent); }
+    .editorial-body em { color: #333; font-style: italic; }
 
-    /* Essay column */
-    .hub-flow .essay-col p {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: #444;
-      margin-bottom: 1.5rem;
-      text-align: left;
-    }
-    .hub-flow .essay-col p:first-child {
-      font-size: 1.15rem;
-      color: #333;
-    }
-    .hub-flow .essay-col p:first-child::before {
-      content: '\201C';
-      font-family: 'DM Serif Display', serif;
-      font-size: 3rem;
-      color: var(--hub-accent, #5BBD72);
-      float: left;
-      margin-right: 0.15rem;
-      margin-top: -0.1rem;
-      line-height: 1;
-      opacity: 0.4;
-    }
-    .hub-flow .essay-col em {
-      color: #333;
-      font-style: italic;
-    }
+    .inline-card { margin: 2.5rem 0; border-radius: 8px; border: 1px solid #e8e6e4; border-left: 3px solid var(--hub-accent); overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+    .inline-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .inline-card a { display: block; padding: 1.25rem 1.5rem; text-decoration: none; color: inherit; }
+    .inline-card-type { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--hub-accent); font-weight: 600; margin-bottom: 0.3rem; }
+    .inline-card-title { display: block; font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; line-height: 1.3; }
 
-    /* Companion column cards */
-    .companion-col {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-      padding-top: 0.5rem;
-    }
-    .companion-card {
-      padding: 1.25rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 10px;
-      border-left: 3px solid var(--hub-accent, #5BBD72);
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      transition: transform 0.2s ease;
-    }
-    .companion-card:hover {
-      transform: translateX(3px);
-    }
-    .companion-card .card-type {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--hub-accent, #5BBD72);
-      font-weight: 700;
-    }
-    .companion-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1rem;
-      color: #111;
-      margin: 0.25rem 0 0;
-      line-height: 1.35;
-    }
-    .companion-card p {
-      font-size: 0.85rem;
-      color: #666;
-      margin: 0.25rem 0 0;
-      line-height: 1.5;
-    }
+    .pull-quote { margin: 3rem -2rem; padding: 2.5rem 2rem; text-align: center; border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+    .pull-quote p { font-family: 'DM Serif Display', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); line-height: 1.35; color: #222; font-style: italic; margin-bottom: 0.5rem; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .pull-quote cite { font-family: 'Caveat', cursive; font-size: 1rem; color: var(--hub-accent); font-style: normal; }
 
-    /* ===== FULL-WIDTH SECTIONS ===== */
-    .hub-full-section {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 2rem 4rem;
-    }
-    .hub-full-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: #111;
-      margin-bottom: 1.5rem;
-    }
+    .editorial-more { max-width: 680px; margin: 0 auto; padding: 0 2rem 4rem; border-top: 1px solid #eee; padding-top: 3rem; }
+    .editorial-more h2 { font-family: 'Caveat', cursive; font-size: 1.2rem; color: #999; margin-bottom: 1.5rem; }
+    .editorial-more .reading-link { display: block; padding: 1.25rem 1.5rem; border-radius: 8px; border: 1px solid #e8e6e4; border-left: 3px solid var(--hub-accent); text-decoration: none; color: inherit; margin-bottom: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+    .editorial-more .reading-link:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .editorial-more .reading-link h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; margin-bottom: 0.2rem; }
+    .editorial-more .reading-link p { font-size: 0.85rem; color: #888; margin: 0; }
 
-    /* Blog links row */
-    .hub-reading-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .hub-reading-grid a {
-      display: block;
-      padding: 1.25rem 1.5rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 8px;
-      text-decoration: none;
-      border-left: 3px solid var(--hub-accent, #5BBD72);
-      transition: transform 0.2s;
-    }
-    .hub-reading-grid a:hover {
-      transform: translateX(4px);
-    }
-    .hub-reading-grid h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1rem;
-      color: #111;
-      margin-bottom: 0.3rem;
-      line-height: 1.35;
-    }
-    .hub-reading-grid p {
-      font-size: 0.85rem;
-      color: #666;
-      margin: 0;
-    }
+    .explore-pills { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.5rem; }
+    .explore-pills a { display: inline-block; padding: 0.6rem 1.25rem; border: 1.5px solid var(--hub-accent); border-radius: 50px; font-size: 0.9rem; font-weight: 600; color: var(--hub-accent); text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .explore-pills a:hover { background: var(--hub-accent); color: white; }
 
-    /* ===== EXPLORE MORE ===== */
-    .hub-explore {
-      padding: 5rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .hub-explore .inner {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .hub-explore .section-label {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--hub-accent);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-    .hub-explore h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
-      margin-bottom: 1.5rem;
-      color: var(--black, #111214);
-    }
-    .explore-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .explore-pill {
-      display: inline-block;
-      padding: 0.6rem 1.25rem;
-      border: 1.5px solid var(--hub-accent);
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--hub-accent);
-      text-decoration: none;
-      transition: background 0.2s ease, color 0.2s ease;
-    }
-    .explore-pill:hover {
-      background: var(--hub-accent);
-      color: white;
-    }
+    .hub-cta { padding: 5rem 2rem; text-align: center; }
+    .hub-cta h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 4vw, 2.5rem); margin-bottom: 1.5rem; color: #111; }
+    .hub-cta .cta-btn { display: inline-block; padding: 0.9rem 2.5rem; background: var(--hub-accent); color: white; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; transition: opacity 0.2s, transform 0.2s; }
+    .hub-cta .cta-btn:hover { opacity: 0.88; transform: translateY(-2px); }
 
-    /* ===== CTA ===== */
-    .hub-cta {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .hub-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.4rem);
-      margin-bottom: 1.5rem;
-      color: var(--black, #111214);
-    }
-    .hub-cta .cta-btn {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      background: var(--hub-accent);
-      color: white;
-      border-radius: 50px;
-      font-size: 1rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-    .hub-cta .cta-btn:hover {
-      opacity: 0.88;
-      transform: translateY(-2px);
-    }
-
-    /* ===== MOBILE ===== */
-    @media (max-width: 768px) {
-      .hub-flow {
-        grid-template-columns: 1fr;
-      }
-      .hub-reading-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 600px) { .pull-quote { margin: 3rem 0; } .explore-pills { flex-direction: column; } .explore-pills a { text-align: center; } }
   </style>
 </head>
 <body>
   <!-- NAVIGATION -->
   <nav class="nav-bar">
     <div class="nav-container">
-      <a href="home.html" class="logo">
-        <img src="images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+      <a href="home.html" class="logo"><img src="images/logo.webp" alt="Joyus Studio"></a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
       <ul class="nav-menu" id="navMenu">
         <li><a href="work/index.html">Work</a></li>
         <li><a href="comics/index.html">Comics</a></li>
@@ -293,112 +90,100 @@
     </div>
   </nav>
 
-  <!-- HERO (full width) -->
-  <section class="hub-hero">
-    <div class="inner">
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">Play as Practice</span>
       <h1>Play as Practice</h1>
-      <p class="subtitle">Joy and rigor aren't opposites. The best work happens when you actually care — and when you play. Comics, zines, installations, and the creative work we make because we can't not make it.</p>
-      <p class="pull-quote">"The projects that haunt you are the ones worth doing."</p>
+      <p class="editorial-lede">Joy and rigor aren't opposites. The best work happens when you actually care — and when you play. Comics, zines, installations, and the creative work we make because we can't not make it.</p>
     </div>
   </section>
 
-  <!-- TWO-COLUMN: Essay paragraphs 1-2 + companion cards -->
-  <div class="hub-flow">
-    <div class="essay-col">
-      <p>When we started making comics together, something shifted.</p>
+  <article class="editorial-body">
 
-      <p>Kahran had never built a comic before, and for Divya, having a co-creator in that medium was entirely new. As Kahran described it, "bonding over the creation process is really a bonding moment. It's so arduous and fun, but it can be painful at times."</p>
+    <p>When we started making comics together, something shifted.</p>
 
-      <p>What we found was that the play -- the actual making of the thing, figuring out the panels, arguing about what a character would do -- that was not separate from the serious work we do for clients. It was the same muscle. The comic-making taught us things about pacing, about visual communication, about when to leave things unsaid, that fed directly back into how we think about pitch decks and brand narratives.</p>
-    </div>
+    <p>Kahran had never built a comic before, and for Divya, having a co-creator in that medium was entirely new. As Kahran described it, "bonding over the creation process is really a bonding moment. It's so arduous and fun, but it can be painful at times."</p>
 
-    <div class="companion-col">
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/504---Creating-comics-together-with-Kahran-and-Divya-e2kq15a" target="_blank" rel="noopener" class="companion-card">
-        <span class="card-type">Podcast</span>
-        <h3>Creating comics together with Kahran and Divya</h3>
-        <p>Season 5, Episode 4</p>
-      </a>
-      <a href="comics/the-friend-comic.html" class="companion-card">
-        <span class="card-type">Comic</span>
-        <h3>The Friend</h3>
-        <p>A visual story about connection and vulnerability</p>
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/504---Creating-comics-together-with-Kahran-and-Divya-e2kq15a" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Creating comics together with Kahran and Divya &rarr;</span>
       </a>
     </div>
-  </div>
 
-  <!-- TWO-COLUMN: Remy Siu section + 1000xResist -->
-  <div class="hub-flow" style="padding-top:0;">
-    <div class="essay-col">
-      <p>Remy Siu, the creative director of 1000xResist, gave us one of the best descriptions of what play-as-practice looks like at scale. His pitch: "What if a kind of immigrant teenage girl became the most important person on earth and spawned a whole society based around her personality and her baggage?"</p>
+    <p>What we found was that the play -- the actual making of the thing, figuring out the panels, arguing about what a character would do -- that was not separate from the serious work we do for clients. It was the same muscle. The comic-making taught us things about pacing, about visual communication, about when to leave things unsaid, that fed directly back into how we think about pitch decks and brand narratives.</p>
 
-      <p>That is not a corporate brief. That is someone playing with an idea until it became something real. Their team was tiny, everyone wore multiple hats, and Remy came from theater and music -- not traditional game development. The game became one of the most celebrated of its year. Sometimes the most rigorous work comes from people who refused to stay in their lane.</p>
-    </div>
-
-    <div class="companion-col">
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating-a-Successful-Game-in-1000xResist-with-Remy-Siu-of-Sunset-Visitor---Success-Part-6-e2u0svf" target="_blank" rel="noopener" class="companion-card">
-        <span class="card-type">Podcast</span>
-        <h3>Creating a Successful Game in 1000xResist with Remy Siu</h3>
-        <p>Season 6, Episode 6</p>
+    <div class="inline-card">
+      <a href="comics/the-friend-comic.html">
+        <span class="inline-card-type">Comic</span>
+        <span class="inline-card-title">The Friend &rarr;</span>
       </a>
     </div>
-  </div>
 
-  <!-- TWO-COLUMN: Conformity section + Gossip + Gliitch -->
-  <div class="hub-flow" style="padding-top:0;">
-    <div class="essay-col">
-      <p>In our conversation about game design, Kahran noted how rare it is to just talk about the process of making a thing with another creator. "You and I don't talk to each other as creators all the time," he told Divya. She agreed, but added that what they do is "talk to each other at multiple levels" -- swinging between the strategic and the personal, the analytical and the intuitive, sometimes in the same sentence. That multi-level conversation is what play enables. It loosens up the thinking so you can move between registers without getting stuck in any one of them.</p>
-
-      <p>Then there is the paradox of trying to be unique. In our episode on conforming to be unique, Kahran talked about visiting the Bahamas and noticing "this desire to fit in with your community, which felt to me like overshadowing almost this desire to stand out." Divya connected it to something deeper: the reason people stay in closets of all kinds is not just fear of harsh rejection. "There's also the social rejection of the soft variety where it's like, but I'm not like these people. And they have been my people for the last 25 years."</p>
+    <div class="pull-quote">
+      <p>"The projects that haunt you are the ones worth doing."</p>
     </div>
 
-    <div class="companion-col">
-      <a href="comics/gossip.html" class="companion-card">
-        <span class="card-type">Comic</span>
-        <h3>Gossip</h3>
-        <p>A comic about what people say when you leave the room</p>
-      </a>
-      <a href="work/gliitch.html" class="companion-card">
-        <span class="card-type">Case Study</span>
-        <h3>Gliitch</h3>
-        <p>Brand identity built on attitude, from name to visual system</p>
+    <p>Remy Siu, the creative director of 1000xResist, gave us one of the best descriptions of what play-as-practice looks like at scale. His pitch: "What if a kind of immigrant teenage girl became the most important person on earth and spawned a whole society based around her personality and her baggage?"</p>
+
+    <p>That is not a corporate brief. That is someone playing with an idea until it became something real. Their team was tiny, everyone wore multiple hats, and Remy came from theater and music -- not traditional game development. The game became one of the most celebrated of its year. Sometimes the most rigorous work comes from people who refused to stay in their lane.</p>
+
+    <div class="inline-card">
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating-a-Successful-Game-in-1000xResist-with-Remy-Siu-of-Sunset-Visitor---Success-Part-6-e2u0svf" target="_blank" rel="noopener">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">Creating a Successful Game in 1000xResist with Remy Siu &rarr;</span>
       </a>
     </div>
-  </div>
 
-  <!-- FULL-WIDTH: Blog post links row -->
-  <div class="hub-full-section" style="border-top:1px solid #e8e6e4;">
-    <h2>Read more on this theme</h2>
-    <div class="hub-reading-grid">
-      <a href="thinking/doing-serious-things-unseriously.html">
-        <h3>Doing Serious Things Unseriously</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-      <a href="thinking/what-making-comics-taught-us.html">
-        <h3>What Making Comics Taught Us</h3>
-        <p>Read the essay &rarr;</p>
-      </a>
-      <a href="thinking/the-game-designers-toolkit.html">
-        <h3>The Game Designer's Toolkit</h3>
-        <p>Read the essay &rarr;</p>
+    <p>In our conversation about game design, Kahran noted how rare it is to just talk about the process of making a thing with another creator. "You and I don't talk to each other as creators all the time," he told Divya. She agreed, but added that what they do is "talk to each other at multiple levels" -- swinging between the strategic and the personal, the analytical and the intuitive, sometimes in the same sentence. That multi-level conversation is what play enables. It loosens up the thinking so you can move between registers without getting stuck in any one of them.</p>
+
+    <p>Then there is the paradox of trying to be unique. In our episode on conforming to be unique, Kahran talked about visiting the Bahamas and noticing "this desire to fit in with your community, which felt to me like overshadowing almost this desire to stand out." Divya connected it to something deeper: the reason people stay in closets of all kinds is not just fear of harsh rejection. "There's also the social rejection of the soft variety where it's like, but I'm not like these people. And they have been my people for the last 25 years."</p>
+
+    <div class="inline-card">
+      <a href="comics/gossip.html">
+        <span class="inline-card-type">Comic</span>
+        <span class="inline-card-title">Gossip &rarr;</span>
       </a>
     </div>
-  </div>
 
-  <!-- FULL-WIDTH: Explore other themes -->
-  <section class="hub-explore">
-    <div class="inner">
-      <div class="section-label">Keep exploring</div>
-      <h2>More Themes</h2>
-      <div class="explore-grid">
-        <a href="hub-story.html" class="explore-pill">Finding Your Story</a>
-        <a href="hub-building.html" class="explore-pill">Building Something That Matters</a>
-        <a href="hub-behavior.html" class="explore-pill">How People Actually Behave</a>
-        <a href="hub-creative.html" class="explore-pill">Drawing Outside the Lines</a>
-      </div>
+    <div class="pull-quote">
+      <p>"There is this sort of playful self-indulgence that's always there. It's like, I'm getting away with something."</p>
+      <cite>Divya Tak</cite>
+    </div>
+
+    <div class="inline-card">
+      <a href="work/gliitch.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Gliitch &rarr;</span>
+      </a>
+    </div>
+
+  </article>
+
+  <section class="editorial-more">
+    <h2>Keep exploring</h2>
+
+    <a href="thinking/doing-serious-things-unseriously.html" class="reading-link">
+      <h3>Doing Serious Things Unseriously</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/what-making-comics-taught-us.html" class="reading-link">
+      <h3>What Making Comics Taught Us</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+    <a href="thinking/the-game-designers-toolkit.html" class="reading-link">
+      <h3>The Game Designer's Toolkit</h3>
+      <p>Read the essay &rarr;</p>
+    </a>
+
+    <div class="explore-pills">
+      <a href="hub-story.html">Finding Your Story</a>
+      <a href="hub-building.html">Building Something That Matters</a>
+      <a href="hub-behavior.html">How People Actually Behave</a>
+      <a href="hub-creative.html">Drawing Outside the Lines</a>
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="hub-cta">
     <h2>Want to make something joyful?</h2>
     <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
@@ -407,59 +192,27 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio of makers.</p>
+      <div class="footer-brand"><h3>Joyus Studio</h3><p>A studio of makers.</p></div>
+      <nav class="footer-nav"><ul>
+        <li><a href="home.html">Home</a></li><li><a href="work/index.html">Work</a></li><li><a href="comics/index.html">Comics</a></li><li><a href="podcast.html">Podcast</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul></nav>
+      <div class="footer-themes"><h4>Themes</h4>
+        <a href="hub-story.html">Finding Your Story</a><a href="hub-building.html">Building Something That Matters</a><a href="hub-behavior.html">How People Actually Behave</a><a href="hub-play.html">Play as Practice</a><a href="hub-creative.html">Drawing Outside the Lines</a>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="work/index.html">Work</a></li>
-          <li><a href="comics/index.html">Comics</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="hub-story.html">Finding Your Story</a>
-        <a href="hub-building.html">Building Something That Matters</a>
-        <a href="hub-behavior.html">How People Actually Behave</a>
-        <a href="hub-play.html">Play as Practice</a>
-        <a href="hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
+      <div class="footer-contact"><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Joyus Studio. All rights reserved.</p></div>
   </footer>
 
   <script>
-    // Mobile nav toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
     if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
+      hamburger.addEventListener('click', () => { navMenu.classList.toggle('active'); hamburger.classList.toggle('active'); });
+      document.querySelectorAll('.nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); hamburger.classList.remove('active'); }); });
     }
     const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
+    window.addEventListener('scroll', () => { if (window.scrollY > 0) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
   </script>
   <script src="shape-echo.js"></script>
 </body>

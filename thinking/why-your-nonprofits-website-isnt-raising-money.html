@@ -1,105 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Your nonprofit website might be failing not because of design but because it is not designing expectations. A behavioral look at donor experience.">
   <meta property="og:title" content="Why Your Nonprofit's Website Isn't Raising Money (A Behavioral Diagnosis) — Joyus Studio">
   <meta property="og:description" content="Your nonprofit website might be failing not because of design but because it is not designing expectations.">
   <meta property="og:type" content="article">
   <title>Why Your Nonprofit's Website Isn't Raising Money (A Behavioral Diagnosis) — Joyus Studio</title>
-  <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon"><link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <style>
-    .post-hero { padding:8rem 2rem 3rem; background:var(--warm-gray,#F5F3F0); }
-    .post-hero .inner { max-width:700px; margin:0 auto; }
-    .post-hero h1 { font-family:'DM Serif Display',serif; font-size:clamp(1.8rem,4vw,2.5rem); color:#111; margin-bottom:0.75rem; line-height:1.25; }
-    .post-meta { font-size:0.8rem; color:#999; text-transform:uppercase; letter-spacing:1px; margin-bottom:1rem; }
-    .post-hub-link { display:inline-block; font-size:0.75rem; text-transform:uppercase; letter-spacing:1.5px; padding:0.25rem 0.6rem; border-radius:3px; background:rgba(79,196,207,0.1); color:#4FC4CF; text-decoration:none; margin-bottom:1rem; }
-    .post-content { padding:3rem 2rem 4rem; max-width:700px; margin:0 auto; }
-    .post-content p { font-size:1.05rem; line-height:1.85; color:#444; margin-bottom:1.25rem; }
-    .post-content em { color:#333; }
-    .post-pullquote { border-left:3px solid #4FC4CF; padding:1rem 1.5rem; margin:2rem 0; background:var(--warm-gray,#F5F3F0); border-radius:0 8px 8px 0; }
-    .post-pullquote p { font-family:'DM Serif Display',serif; font-size:1.1rem; color:#333; font-style:italic; line-height:1.5; margin-bottom:0; }
-    .post-nav { padding:2rem; border-top:1px solid #eee; max-width:700px; margin:0 auto; }
-    .post-nav a { color:#111; text-decoration:none; font-weight:500; font-size:0.9rem; }
-    .post-nav a:hover { color:#4FC4CF; }
-  </style>
+  <style>body{--hub-accent:#4FC4CF}.editorial-hero{padding:8rem 2rem 3rem;background:linear-gradient(to bottom,var(--warm-gray,#F5F3F0) 0%,var(--warm-gray,#F5F3F0) 50%,#fff 100%)}.editorial-hero-inner{max-width:640px;margin:0 auto}.editorial-theme{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--hub-accent);display:block;margin-bottom:.75rem;text-decoration:none}.editorial-theme:hover{text-decoration:underline}.editorial-hero h1{font-family:'DM Serif Display',serif;font-size:clamp(2.2rem,5vw,3.2rem);color:#111;line-height:1.1;margin-bottom:1.25rem}.editorial-lede{font-size:1.15rem;line-height:1.7;color:#555;border-left:3px solid var(--hub-accent);padding-left:1.25rem;margin-bottom:0}.editorial-body{max-width:680px;margin:0 auto;padding:3rem 2rem 4rem}.editorial-body p{font-size:1.05rem;line-height:1.85;color:#444;margin-bottom:1.5rem}.editorial-body>p:first-of-type::first-letter{font-family:'DM Serif Display',serif;font-size:3.2rem;float:left;line-height:1;margin-right:.12em;margin-top:.05em;color:var(--hub-accent)}.editorial-body em{color:#333;font-style:italic}.pull-quote{margin:3rem -2rem;padding:2.5rem 2rem;text-align:center;border-top:1px solid #eee;border-bottom:1px solid #eee}.pull-quote p{font-family:'DM Serif Display',serif;font-size:clamp(1.4rem,3vw,1.9rem);line-height:1.35;color:#222;font-style:italic;margin-bottom:0;max-width:560px;margin-left:auto;margin-right:auto}.editorial-more{max-width:680px;margin:0 auto;padding:0 2rem 4rem;border-top:1px solid #eee;padding-top:3rem}.editorial-more a{color:#111;text-decoration:none;font-weight:500;font-size:.95rem}.editorial-more a:hover{color:var(--hub-accent)}@media(max-width:600px){.pull-quote{margin:3rem 0}}</style>
 </head>
 <body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo"><img src="../images/logo.webp" alt="Joyus Studio"></a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="../work/index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <section class="post-hero">
-    <div class="inner">
-      <a href="../hub-building.html" class="post-hub-link">Building Something That Matters</a>
-      <h1>Why Your Nonprofit's Website Isn't Raising Money (A Behavioral Diagnosis)</h1>
-      <p class="post-meta">By Kahran Singh &amp; Divya Tak</p>
-    </div>
-  </section>
-
-  <article class="post-content">
+  <nav class="nav-bar"><div class="nav-container"><a href="../home.html" class="logo"><img src="../images/logo.webp" alt="Joyus Studio"></a><button class="hamburger" id="hamburger" aria-label="Toggle navigation menu"><span></span><span></span><span></span></button><ul class="nav-menu" id="navMenu"><li><a href="../work/index.html">Work</a></li><li><a href="../comics/index.html">Comics</a></li><li><a href="../podcast.html">Podcast</a></li><li><a href="../services.html">Services</a></li><li><a href="../about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li></ul></div></nav>
+  <section class="editorial-hero"><div class="editorial-hero-inner">
+    <a href="../hub-building.html" class="editorial-theme">Building Something That Matters</a>
+    <h1>Why Your Nonprofit's Website Isn't Raising Money (A Behavioral Diagnosis)</h1>
+    <p class="editorial-lede">Your nonprofit website might be failing not because of design but because it is not designing expectations.</p>
+  </div></section>
+  <article class="editorial-body">
     <p>Seth Godin has this definition of quality that Divya brought up on the podcast: "Quality is whatever meets the spec." It sounds reductive, but the insight is deeper than it appears. The problem, as Divya explained, is that "sometimes we get stuck because we're not understanding what expectation we are trying to meet. And whose expectation is it? And is that even a relevant expectation?" Most nonprofit websites are stuck exactly here. They are designed to meet some vague notion of what a professional nonprofit website looks like. But nobody stopped to ask what the donor is expecting when they arrive.</p>
-
     <p>Kahran brought up fine dining as a counterpoint. "I remember there was one restaurant I once went to where every dish, like the physical serving platter or dish, was constructed with the food in mind. The chef actually was a potter. He would create the dish itself and then figure out the food that best accompanies it." That level of intentionality, where the container is designed for what it holds, is exactly what most websites lack. The container, the design, the layout, is built without thinking about the experience it is trying to hold.</p>
-
-    <div class="post-pullquote">
-      <p>"The issue is that you need to create more pre-experiences so people can understand what this thing is like. It's not that people don't spend money, but there's a difference between understanding what you're spending it on and not."</p>
-    </div>
-
+    <div class="pull-quote"><p>"The issue is that you need to create more pre-experiences so people can understand what this thing is like."</p></div>
     <p>This connects directly to what we discussed about loyalty and customer experiences. Kahran described how Nike creates multiple ways for you to "hang out with the brand." You use Nike Run Club, you buy the shoes, the shoes are with you regardless of whether you are using the app. "The brand has created multiple ways for you to kind of hang out with it." Most nonprofit websites offer exactly one way to interact: donate. There is no pre-experience. There is no way to hang out with the mission before you commit money to it.</p>
-
     <p>Divya observed something important about how markets evolve: "India ten years ago was a fairly brand-starved market. The general wisdom was just deliver the cheapest product and people will buy it. That is no longer the truth. There is a significant chunk of people who will be willing to pay a little bit extra if their experience goes from a six to an eight." The same evolution is happening in the nonprofit space. Donors are no longer just motivated by guilt or tax benefits. They want to feel connected to something. They want an experience that is worth more than the transaction.</p>
-
     <p>The behavioral diagnosis comes down to expectations and trust. Kahran made the point that "you have a bunch of pre-experiences, so you know what to expect. You know that in a South Indian restaurant, they tend to be very efficient, they tend to serve one of these ten items. So you're going to go in with this expectation." When someone arrives at a nonprofit website, what pre-experience do they have? If the answer is none, then the website has to do all the work of building that expectation from scratch. And most nonprofit websites do not even try.</p>
-
-    <div class="post-pullquote">
-      <p>"People are generally thinking about the value that the customer holds. The brand that shows that value as what we can offer, that is the brand people are going to be most inclined to build a relationship with."</p>
-    </div>
-
+    <div class="pull-quote"><p>"People are generally thinking about the value that the customer holds. The brand that shows that value as what we can offer, that is the brand people are going to be most inclined to build a relationship with."</p></div>
     <p>The fix is not better design in the aesthetic sense. It is better design in the behavioral sense. <em>What does a donor expect to feel when they arrive?</em> What pre-experience have you created through your emails, your social media, your word of mouth? Does the website meet that expectation or contradict it? And once someone has given, what are the other ways they can hang out with your mission that are not just asking for more money?</p>
-
     <p>Nonprofit websites fail to raise money for the same reason most consumer brands fail to build loyalty: they skip the part where you design the expectation. They go straight to the ask without building the world that makes the ask feel natural. The donation button is not the problem. Everything that comes before it is.</p>
   </article>
-
-  <div class="post-nav">
-    <a href="../hub-building.html">&larr; Back to Building Something That Matters</a>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand"><h3>Joyus Studio</h3><p>A studio of makers.</p></div>
-      <nav class="footer-nav"><ul>
-        <li><a href="../home.html">Home</a></li><li><a href="../work/index.html">Work</a></li><li><a href="../comics/index.html">Comics</a></li><li><a href="../podcast.html">Podcast</a></li><li><a href="../services.html">Services</a></li><li><a href="../about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul></nav>
-      <div class="footer-themes"><h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a><a href="../hub-building.html">Building Something That Matters</a><a href="../hub-behavior.html">How People Actually Behave</a><a href="../hub-play.html">Play as Practice</a><a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact"><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div>
-    </div>
-    <div class="footer-bottom"><p>&copy; 2026 Joyus Studio. All rights reserved.</p></div>
-  </footer>
-  <script>
-    const hamburger = document.getElementById('hamburger'); const navMenu = document.getElementById('navMenu');
-    if (hamburger) { hamburger.addEventListener('click', () => { navMenu.classList.toggle('active'); hamburger.classList.toggle('active'); }); document.querySelectorAll('.nav-menu a').forEach(link => { link.addEventListener('click', () => { navMenu.classList.remove('active'); hamburger.classList.remove('active'); }); }); }
-    const nav = document.querySelector('.nav-bar'); window.addEventListener('scroll', () => { if (window.scrollY > 0) nav.classList.add('scrolled'); else nav.classList.remove('scrolled'); });
-  </script>
+  <section class="editorial-more"><a href="../hub-building.html">&larr; Back to Building Something That Matters</a></section>
+  <footer class="footer"><div class="footer-content"><div class="footer-brand"><h3>Joyus Studio</h3><p>A studio of makers.</p></div><nav class="footer-nav"><ul><li><a href="../home.html">Home</a></li><li><a href="../work/index.html">Work</a></li><li><a href="../comics/index.html">Comics</a></li><li><a href="../podcast.html">Podcast</a></li><li><a href="../services.html">Services</a></li><li><a href="../about.html">About</a></li><li><a href="mailto:hello@joyus.studio">Contact</a></li></ul></nav><div class="footer-themes"><h4>Themes</h4><a href="../hub-story.html">Finding Your Story</a><a href="../hub-building.html">Building Something That Matters</a><a href="../hub-behavior.html">How People Actually Behave</a><a href="../hub-play.html">Play as Practice</a><a href="../hub-creative.html">Drawing Outside the Lines</a></div><div class="footer-contact"><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div></div><div class="footer-bottom"><p>&copy; 2026 Joyus Studio. All rights reserved.</p></div></footer>
+  <script>const hamburger=document.getElementById('hamburger');const navMenu=document.getElementById('navMenu');if(hamburger){hamburger.addEventListener('click',()=>{navMenu.classList.toggle('active');hamburger.classList.toggle('active');});document.querySelectorAll('.nav-menu a').forEach(link=>{link.addEventListener('click',()=>{navMenu.classList.remove('active');hamburger.classList.remove('active');});});}const nav=document.querySelector('.nav-bar');window.addEventListener('scroll',()=>{if(window.scrollY>0)nav.classList.add('scrolled');else nav.classList.remove('scrolled');});</script>
   <script src="../shape-echo.js"></script>
 </body>
 </html>
