@@ -562,161 +562,114 @@
       rectangle: { page: 'home.html',          hint: 'step inside' },
     };
 
-    // Classify shape — only 3 shapes + 1 easter egg, optimized for 95%+ accuracy
+    // ── Stroke-based shape classification ──
+    // Analyzes the actual drawing strokes, not the filled region.
+    // Much more accurate because it looks at what you DREW, not the blob inside.
+
+    function analyzeStrokes() {
+      // Combine all strokes into one path for analysis
+      var all = [];
+      for (var s = 0; s < allStrokes.length; s++) {
+        for (var i = 0; i < allStrokes[s].length; i++) {
+          all.push(allStrokes[s][i]);
+        }
+      }
+      if (all.length < 10) return { corners: 0, straight: 0, curved: 0 };
+
+      // Subsample for performance
+      var step = Math.max(1, Math.floor(all.length / 200));
+      var pts = [];
+      for (var i = 0; i < all.length; i += step) pts.push(all[i]);
+
+      // Simplify the stroke path to find dominant corners
+      var totalLen = 0;
+      for (var i = 1; i < pts.length; i++) totalLen += dist(pts[i - 1], pts[i]);
+      var simplified = simplifyHull(pts, totalLen * 0.04);
+
+      // Count sharp angle changes (> 30 degrees) in the simplified path
+      var sharpCorners = 0;
+      var gentleCurves = 0;
+      for (var i = 1; i < simplified.length - 1; i++) {
+        var prev = simplified[i - 1];
+        var curr = simplified[i];
+        var next = simplified[i + 1];
+        var a1 = Math.atan2(curr.y - prev.y, curr.x - prev.x);
+        var a2 = Math.atan2(next.y - curr.y, next.x - curr.x);
+        var diff = Math.abs(a2 - a1);
+        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+        if (diff > 0.5) sharpCorners++;  // > ~30 degrees
+        else if (diff > 0.15) gentleCurves++;
+      }
+
+      // Measure how "straight" the segments between corners are
+      // vs how "curved" (lots of gentle direction changes = circle)
+      return {
+        corners: sharpCorners,
+        totalPoints: simplified.length,
+        gentleCurves: gentleCurves,
+        curveRatio: gentleCurves / Math.max(1, sharpCorners + gentleCurves)
+      };
+    }
+
     function classifyShape(region) {
       var b = region.bounds;
       var shapeWidth = b.maxX - b.minX;
       var shapeHeight = b.maxY - b.minY;
-      var area = region.pixels.length * (1 / region.scale) * (1 / region.scale);
       var aspectRatio = shapeWidth / shapeHeight;
 
-      // Circularity
-      var r = Math.max(shapeWidth, shapeHeight) / 2;
-      var circleArea = Math.PI * r * r;
-      var circularity = area / circleArea;
+      // Analyze the actual strokes
+      var stroke = analyzeStrokes();
 
-      // Count corners via convex hull
-      var boundary = getBoundaryPoints(region);
-      var estimatedSides = 4; // default
+      console.log('Shape debug:', stroke, { aspectRatio: aspectRatio.toFixed(2) });
 
-      if (boundary.length >= 10) {
-        if (boundary.length > 500) {
-          var step = Math.ceil(boundary.length / 500);
-          var sampled = [];
-          for (var i = 0; i < boundary.length; i += step) sampled.push(boundary[i]);
-          boundary = sampled;
-        }
-        var hull = convexHull(boundary);
-        var perim = 0;
-        for (var i = 0; i < hull.length; i++) {
-          perim += dist(hull[i], hull[(i + 1) % hull.length]);
-        }
-        var simplified = simplifyHull(hull, perim * 0.06);
-        var rdpCorners = simplified.length;
-        var angleCorners = countCorners(hull, 0.3);
-        estimatedSides = Math.round((rdpCorners * 0.5 + angleCorners * 0.5));
+      // ── Circle: mostly gentle curves, very few sharp corners ──
+      if (stroke.corners <= 2 && stroke.curveRatio > 0.7) {
+        var m = SHAPES.circle;
+        return { page: m.page, hint: m.hint, shape: 'circle', confidence: stroke.curveRatio };
       }
 
-      // Debug — remove after tuning
-      console.log('Shape debug:', { estimatedSides: estimatedSides, rdpCorners: typeof rdpCorners !== 'undefined' ? rdpCorners : '?', angleCorners: typeof angleCorners !== 'undefined' ? angleCorners : '?', circularity: circularity.toFixed(3), aspectRatio: aspectRatio.toFixed(2) });
-
-      // ── Triangle: check FIRST because circle detection can eat triangles ──
-      // A hand-drawn triangle typically has 3-5 RDP corners and low-ish circularity
-      // but circularity can be higher than expected (0.4-0.6) for blobby triangles
-      if (estimatedSides <= 4 && circularity < 0.6) {
-        // Confirm it's really triangular: check if RDP simplification finds ~3 vertices
-        if (typeof rdpCorners !== 'undefined' && rdpCorners <= 4) {
+      // ── Triangle: exactly 3 sharp corners ──
+      if (stroke.corners >= 2 && stroke.corners <= 4 && stroke.curveRatio < 0.5) {
+        // Confirm with aspect ratio — triangles aren't usually extremely elongated
+        if (aspectRatio > 0.4 && aspectRatio < 2.5) {
           var m = SHAPES.triangle;
           return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
         }
       }
 
-      // ── Circle: high circularity, no clear corners ──
-      if (circularity > 0.6 && aspectRatio >= 0.65 && aspectRatio <= 1.5) {
-        var m = SHAPES.circle;
-        return { page: m.page, hint: m.hint, shape: 'circle', confidence: circularity };
-      }
-
-      // ── Square (easter egg): 4 corners AND nearly equal sides (within 15%) ──
-      if (estimatedSides >= 4 && estimatedSides <= 5 && circularity < 0.55) {
-        var sideRatio = Math.min(aspectRatio, 1 / aspectRatio); // 0-1, 1 = perfect square
-        if (sideRatio > 0.85) {
+      // ── Square (easter egg): 4 sharp corners + nearly equal sides ──
+      if (stroke.corners >= 3 && stroke.corners <= 5) {
+        var sideRatio = Math.min(aspectRatio, 1 / aspectRatio);
+        if (sideRatio > 0.8) {
           var m = SHAPES.square;
           return { page: m.page, hint: m.hint, shape: 'square', confidence: sideRatio };
         }
       }
 
-      // ── Rectangle (default for 4+ corners): anything else ──
+      // ── Rectangle: default ──
       var m = SHAPES.rectangle;
       return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.8 };
     }
 
-    // Generate points for a regular n-gon centered at (cx, cy) with radius r
-    function regularPolygonPoints(n, cx, cy, r) {
-      var pts = [];
-      for (var i = 0; i < n; i++) {
-        var angle = (2 * Math.PI * i / n) - Math.PI / 2; // start from top
-        pts.push(Math.round(cx + r * Math.cos(angle)) + ',' + Math.round(cy + r * Math.sin(angle)));
-      }
-      return pts.join(' ');
-    }
-
-    // Find the number of sides for a shape name
-    var SHAPE_SIDES = { circle: 0, triangle: 3, square: 4, rectangle: 4 };
-
-    // Flash a clean geometric shape over the user's drawing
+    // Simple label flash — just shows "you're a circle" near the shape, no outline clutter
     function flashGeometricShape(region, classification) {
+      if (classification.shape === 'rectangle') return; // don't flash for default
+
       var b = region.bounds;
       var cx = (b.minX + b.maxX) / 2;
-      var cy = (b.minY + b.maxY) / 2;
-      var w = b.maxX - b.minX;
-      var h = b.maxY - b.minY;
-      var r = Math.max(w, h) / 2 + 15;
+      var bottomY = b.maxY + 30;
 
-      var svgNS = 'http://www.w3.org/2000/svg';
-      var svg = document.createElementNS(svgNS, 'svg');
-      svg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:8;pointer-events:none;';
-      svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+      var label = document.createElement('div');
+      label.textContent = 'you\u2019re a ' + classification.shape;
+      label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.4rem;color:#E91E7B;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);';
 
-      var shapeType = classification.shape;
-      var pad = 15;
-      var el;
+      document.body.appendChild(label);
 
-      if (shapeType === 'circle') {
-        el = document.createElementNS(svgNS, 'circle');
-        el.setAttribute('cx', cx);
-        el.setAttribute('cy', cy);
-        el.setAttribute('r', r);
-      } else if (shapeType === 'triangle') {
-        el = document.createElementNS(svgNS, 'polygon');
-        el.setAttribute('points', regularPolygonPoints(3, cx, cy, r));
-      } else if (shapeType === 'square') {
-        var side = Math.max(w, h) + pad * 2;
-        el = document.createElementNS(svgNS, 'rect');
-        el.setAttribute('x', cx - side / 2);
-        el.setAttribute('y', cy - side / 2);
-        el.setAttribute('width', side);
-        el.setAttribute('height', side);
-        el.setAttribute('rx', '4');
-      } else if (shapeType === 'rectangle') {
-        el = document.createElementNS(svgNS, 'rect');
-        el.setAttribute('x', b.minX - pad);
-        el.setAttribute('y', b.minY - pad);
-        el.setAttribute('width', w + pad * 2);
-        el.setAttribute('height', h + pad * 2);
-        el.setAttribute('rx', '4');
-      } else {
-        return;
-      }
-
-      el.setAttribute('fill', 'none');
-      el.setAttribute('stroke', '#E91E7B');
-      el.setAttribute('stroke-width', '2.5');
-      el.setAttribute('stroke-dasharray', '8 4');
-      el.setAttribute('opacity', '0');
-      svg.appendChild(el);
-
-      // Label
-      var labelDiv = document.createElement('div');
-      labelDiv.textContent = 'you\u2019re a ' + shapeType;
-      labelDiv.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#E91E7B;text-align:center;opacity:0;transition:opacity 0.3s ease;left:' + cx + 'px;top:' + (cy + r + 25) + 'px;transform:translateX(-50%);';
-
-      document.body.appendChild(svg);
-      document.body.appendChild(labelDiv);
-
+      setTimeout(function () { label.style.opacity = '0.9'; }, 50);
       setTimeout(function () {
-        el.setAttribute('opacity', '0.5');
-        labelDiv.style.opacity = '0.85';
-      }, 100);
-
-      setTimeout(function () {
-        el.setAttribute('opacity', '0');
-        labelDiv.style.opacity = '0';
-        setTimeout(function () {
-          if (svg.parentNode) svg.parentNode.removeChild(svg);
-          if (labelDiv.parentNode) labelDiv.parentNode.removeChild(labelDiv);
-        }, 800);
-      }, 2800);
+        label.style.opacity = '0';
+        setTimeout(function () { if (label.parentNode) label.parentNode.removeChild(label); }, 500);
+      }, 2500);
     }
 
     // Show the shape hint near the shape
