@@ -581,13 +581,7 @@
       var circularity = area / circleArea;
       var aspectRatio = shapeWidth / shapeHeight;
 
-      // High circularity = circle
-      if (circularity > 0.6 && aspectRatio >= 0.65 && aspectRatio <= 1.5) {
-        var m = POLYGON_MAP[0]; // circle
-        return { page: m.page, hint: m.hint, shape: m.name, confidence: circularity };
-      }
-
-      // Count corners via convex hull
+      // Count corners via convex hull (do this BEFORE circle check so we can distinguish)
       var boundary = getBoundaryPoints(region);
       if (boundary.length < 10) {
         var m = POLYGON_MAP[0];
@@ -604,24 +598,30 @@
 
       var hull = convexHull(boundary);
 
-      // Simplify the hull to find dominant vertices
+      // Simplify the hull with aggressive tolerance to find dominant vertices
       var perim = 0;
       for (var i = 0; i < hull.length; i++) {
         perim += dist(hull[i], hull[(i + 1) % hull.length]);
       }
-      var epsilon = perim * 0.03; // simplification tolerance
-      var simplified = simplifyHull(hull, epsilon);
+      var simplified = simplifyHull(hull, perim * 0.05);
       var corners = simplified.length;
 
-      // Also try angle-based corner count on the hull
-      var angleCorners = countCorners(hull, 0.35);
+      // Also try angle-based corner count (more tolerant for hand-drawn shapes)
+      var angleCorners = countCorners(hull, 0.3);
 
-      // Use the average of both methods, biased toward the simpler one
-      var estimatedSides = Math.round((corners * 0.6 + angleCorners * 0.4));
+      // Use the average of both methods
+      var estimatedSides = Math.round((corners * 0.5 + angleCorners * 0.5));
 
       // Clamp to 3-10 range
       if (estimatedSides < 3) estimatedSides = 3;
       if (estimatedSides > 10) estimatedSides = 10;
+
+      // Circle: high circularity AND the corner detection doesn't find clear vertices
+      // (a hand-drawn circle will have many small "corners" but few dominant ones)
+      if (circularity > 0.65 && aspectRatio >= 0.7 && aspectRatio <= 1.4 && estimatedSides >= 7) {
+        var m = POLYGON_MAP[0]; // circle
+        return { page: m.page, hint: m.hint, shape: m.name, confidence: circularity };
+      }
 
       // Find the matching polygon
       var idx = estimatedSides - 2; // index into POLYGON_MAP (3→1, 4→2, etc.)
