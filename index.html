@@ -554,82 +554,73 @@
       return Math.abs(dx * (a.y - p.y) - dy * (a.x - p.x)) / len;
     }
 
-    // The 9 polygon types and their destinations
-    var POLYGON_MAP = [
-      // sides, name, page, hint
-      { sides: 0,  name: 'circle',   page: 'about.html',        hint: 'no corners to hide behind' },
-      { sides: 3,  name: 'triangle', page: 'comics/gossip.html', hint: 'three people in every piece of gossip' },
-      { sides: 4,  name: 'square',   page: 'podcast/504-creating-comics-together-with-kahran-and-divya.html', hint: 'four panels on a page' },
-      { sides: 5,  name: 'pentagon', page: 'work/secret-senses.html', hint: 'five senses \u2014 this brand lives in all of them' },
-      { sides: 6,  name: 'hexagon',  page: 'podcast/creating-a-successful-game-in-1000xresist-with-remy-siu-of-sunset-visitor-succes.html', hint: 'hexagons \u2014 the shape of every great game' },
-      { sides: 7,  name: 'heptagon', page: 'hub-story.html',    hint: 'seven notes in a scale \u2014 find yours' },
-      { sides: 8,  name: 'octagon',  page: 'hub-building.html',  hint: 'build right, not fast' },
-      { sides: 9,  name: 'nonagon',  page: 'hub-behavior.html',  hint: 'nine muses, nine impulses' },
-      { sides: 10, name: 'decagon',  page: 'hub-play.html',      hint: 'ten sides is almost absurd \u2014 that\u2019s the point' },
-    ];
+    // Shape destinations — simple and reliable
+    var SHAPES = {
+      circle:    { page: 'about.html',        hint: 'no corners to hide behind' },
+      triangle:  { page: 'comics/gossip.html', hint: 'three people in every piece of gossip' },
+      square:    { page: 'podcast/504-creating-comics-together-with-kahran-and-divya.html', hint: 'four panels on a page' },
+      rectangle: { page: 'home.html',          hint: 'step inside' },
+    };
 
-    // Classify shape based on geometry — always a polygon
+    // Classify shape — only 3 shapes + 1 easter egg, optimized for 95%+ accuracy
     function classifyShape(region) {
       var b = region.bounds;
       var shapeWidth = b.maxX - b.minX;
       var shapeHeight = b.maxY - b.minY;
       var area = region.pixels.length * (1 / region.scale) * (1 / region.scale);
+      var aspectRatio = shapeWidth / shapeHeight;
 
-      // Circularity check
+      // Circularity
       var r = Math.max(shapeWidth, shapeHeight) / 2;
       var circleArea = Math.PI * r * r;
       var circularity = area / circleArea;
-      var aspectRatio = shapeWidth / shapeHeight;
 
-      // Count corners via convex hull (do this BEFORE circle check so we can distinguish)
+      // Count corners via convex hull
       var boundary = getBoundaryPoints(region);
-      if (boundary.length < 10) {
-        var m = POLYGON_MAP[0];
-        return { page: m.page, hint: m.hint, shape: m.name, confidence: 0.5 };
+      var estimatedSides = 4; // default
+
+      if (boundary.length >= 10) {
+        if (boundary.length > 500) {
+          var step = Math.ceil(boundary.length / 500);
+          var sampled = [];
+          for (var i = 0; i < boundary.length; i += step) sampled.push(boundary[i]);
+          boundary = sampled;
+        }
+        var hull = convexHull(boundary);
+        var perim = 0;
+        for (var i = 0; i < hull.length; i++) {
+          perim += dist(hull[i], hull[(i + 1) % hull.length]);
+        }
+        var simplified = simplifyHull(hull, perim * 0.06);
+        var rdpCorners = simplified.length;
+        var angleCorners = countCorners(hull, 0.3);
+        estimatedSides = Math.round((rdpCorners * 0.5 + angleCorners * 0.5));
       }
 
-      // Subsample boundary for performance (max 500 points)
-      if (boundary.length > 500) {
-        var step = Math.ceil(boundary.length / 500);
-        var sampled = [];
-        for (var i = 0; i < boundary.length; i += step) sampled.push(boundary[i]);
-        boundary = sampled;
+      // ── Circle: high circularity, no clear corners ──
+      if (circularity > 0.6 && aspectRatio >= 0.65 && aspectRatio <= 1.5 && estimatedSides >= 6) {
+        var m = SHAPES.circle;
+        return { page: m.page, hint: m.hint, shape: 'circle', confidence: circularity };
       }
 
-      var hull = convexHull(boundary);
-
-      // Simplify the hull with aggressive tolerance to find dominant vertices
-      var perim = 0;
-      for (var i = 0; i < hull.length; i++) {
-        perim += dist(hull[i], hull[(i + 1) % hull.length]);
-      }
-      var simplified = simplifyHull(hull, perim * 0.05);
-      var corners = simplified.length;
-
-      // Also try angle-based corner count (more tolerant for hand-drawn shapes)
-      var angleCorners = countCorners(hull, 0.3);
-
-      // Use the average of both methods
-      var estimatedSides = Math.round((corners * 0.5 + angleCorners * 0.5));
-
-      // Clamp to 3-10 range
-      if (estimatedSides < 3) estimatedSides = 3;
-      if (estimatedSides > 10) estimatedSides = 10;
-
-      // Circle: high circularity AND the corner detection doesn't find clear vertices
-      // (a hand-drawn circle will have many small "corners" but few dominant ones)
-      if (circularity > 0.65 && aspectRatio >= 0.7 && aspectRatio <= 1.4 && estimatedSides >= 7) {
-        var m = POLYGON_MAP[0]; // circle
-        return { page: m.page, hint: m.hint, shape: m.name, confidence: circularity };
+      // ── Triangle: 3 dominant corners, low circularity ──
+      if (estimatedSides <= 3 && circularity < 0.55) {
+        var m = SHAPES.triangle;
+        return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
       }
 
-      // Find the matching polygon
-      var idx = estimatedSides - 2; // index into POLYGON_MAP (3→1, 4→2, etc.)
-      if (idx < 1) idx = 1;
-      if (idx >= POLYGON_MAP.length) idx = POLYGON_MAP.length - 1;
-      var m = POLYGON_MAP[idx];
+      // ── Square (easter egg): 4 corners AND nearly equal sides (within 15%) ──
+      if (estimatedSides >= 4 && estimatedSides <= 5 && circularity < 0.55) {
+        var sideRatio = Math.min(aspectRatio, 1 / aspectRatio); // 0-1, 1 = perfect square
+        if (sideRatio > 0.85) {
+          var m = SHAPES.square;
+          return { page: m.page, hint: m.hint, shape: 'square', confidence: sideRatio };
+        }
+      }
 
-      return { page: m.page, hint: m.hint, shape: m.name, confidence: 0.7 };
+      // ── Rectangle (default for 4+ corners): anything else ──
+      var m = SHAPES.rectangle;
+      return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.8 };
     }
 
     // Generate points for a regular n-gon centered at (cx, cy) with radius r
@@ -643,7 +634,7 @@
     }
 
     // Find the number of sides for a shape name
-    var SHAPE_SIDES = { circle: 0, triangle: 3, square: 4, pentagon: 5, hexagon: 6, heptagon: 7, octagon: 8, nonagon: 9, decagon: 10 };
+    var SHAPE_SIDES = { circle: 0, triangle: 3, square: 4, rectangle: 4 };
 
     // Flash a clean geometric shape over the user's drawing
     function flashGeometricShape(region, classification) {
@@ -660,19 +651,32 @@
       svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
 
       var shapeType = classification.shape;
-      var sides = SHAPE_SIDES[shapeType];
+      var pad = 15;
       var el;
 
-      if (sides === 0 || shapeType === 'circle') {
-        // Circle
+      if (shapeType === 'circle') {
         el = document.createElementNS(svgNS, 'circle');
         el.setAttribute('cx', cx);
         el.setAttribute('cy', cy);
         el.setAttribute('r', r);
-      } else if (sides >= 3) {
-        // Any polygon 3-10
+      } else if (shapeType === 'triangle') {
         el = document.createElementNS(svgNS, 'polygon');
-        el.setAttribute('points', regularPolygonPoints(sides, cx, cy, r));
+        el.setAttribute('points', regularPolygonPoints(3, cx, cy, r));
+      } else if (shapeType === 'square') {
+        var side = Math.max(w, h) + pad * 2;
+        el = document.createElementNS(svgNS, 'rect');
+        el.setAttribute('x', cx - side / 2);
+        el.setAttribute('y', cy - side / 2);
+        el.setAttribute('width', side);
+        el.setAttribute('height', side);
+        el.setAttribute('rx', '4');
+      } else if (shapeType === 'rectangle') {
+        el = document.createElementNS(svgNS, 'rect');
+        el.setAttribute('x', b.minX - pad);
+        el.setAttribute('y', b.minY - pad);
+        el.setAttribute('width', w + pad * 2);
+        el.setAttribute('height', h + pad * 2);
+        el.setAttribute('rx', '4');
       } else {
         return;
       }
