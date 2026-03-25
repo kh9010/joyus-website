@@ -281,10 +281,12 @@
               return { page: p, url: url };
             });
 
-            // Insert ticker after the nav shape
+            var plural = SHAPE_PLURALS[shapeType] || 'shapes';
+
+            // Desktop: insert ticker in nav after shape icon
             var navShape = document.querySelector('.nav-shape, .nav-draw-prompt');
             if (navShape) {
-              var ticker = createOthersTicker(pages, SHAPE_PLURALS[shapeType] || 'shapes');
+              var ticker = createOthersTicker(pages, plural);
               if (ticker) {
                 navShape.parentNode.insertBefore(ticker, navShape.nextSibling);
                 requestAnimationFrame(function () {
@@ -292,6 +294,29 @@
                 });
               }
             }
+
+            // Mobile: insert a slim banner below the nav
+            var mobileTicker = document.createElement('div');
+            mobileTicker.className = 'mobile-others-ticker';
+            mobileTicker.style.cssText = 'display:none;text-align:center;padding:0.5rem 1rem;font-family:"Caveat",cursive;font-size:0.9rem;color:#999;background:var(--warm-gray,#F5F3F0);border-bottom:1px solid #eee;margin-top:60px;';
+            var mPrefix = document.createElement('span');
+            mPrefix.textContent = 'other ' + plural + ' exploring \u2192 ';
+            var mLink = document.createElement('a');
+            mLink.style.cssText = 'color:#E91E7B;text-decoration:none;font-weight:500;';
+            mobileTicker.appendChild(mPrefix);
+            mobileTicker.appendChild(mLink);
+            document.body.insertBefore(mobileTicker, document.body.firstChild.nextSibling);
+
+            // Rotate mobile ticker
+            var mIdx = 0;
+            function rotateMobile() {
+              var entry = pages[mIdx % pages.length];
+              mLink.textContent = labelForPage(entry.page);
+              mLink.href = entry.url;
+              mIdx++;
+            }
+            rotateMobile();
+            setInterval(rotateMobile, 4000);
           })
           .catch(function () { /* silent */ });
       } catch (e) { /* silent */ }
