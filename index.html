@@ -563,92 +563,67 @@
     };
 
     // ── Stroke-based shape classification ──
-    // Analyzes the actual drawing strokes, not the filled region.
-    // Much more accurate because it looks at what you DREW, not the blob inside.
+    // Count distinct straight-ish line segments by finding sharp direction changes.
+    // 3 lines → triangle, 4 lines → rectangle, 4 equal lines → square, 5+ or curvy → circle
 
-    function analyzeStrokes() {
-      // Combine all strokes into one path for analysis
+    function countStraightSegments() {
       var all = [];
       for (var s = 0; s < allStrokes.length; s++) {
-        for (var i = 0; i < allStrokes[s].length; i++) {
-          all.push(allStrokes[s][i]);
-        }
+        for (var i = 0; i < allStrokes[s].length; i++) all.push(allStrokes[s][i]);
       }
-      if (all.length < 10) return { corners: 0, straight: 0, curved: 0 };
+      if (all.length < 10) return { segments: 0 };
 
-      // Subsample for performance
-      var step = Math.max(1, Math.floor(all.length / 200));
+      // Subsample to ~150 points
+      var step = Math.max(1, Math.floor(all.length / 150));
       var pts = [];
       for (var i = 0; i < all.length; i += step) pts.push(all[i]);
 
-      // Simplify the stroke path to find dominant corners
+      // Simplify to find the dominant straight segments
       var totalLen = 0;
       for (var i = 1; i < pts.length; i++) totalLen += dist(pts[i - 1], pts[i]);
-      var simplified = simplifyHull(pts, totalLen * 0.04);
+      var simplified = simplifyHull(pts, totalLen * 0.05);
 
-      // Count sharp angle changes (> 30 degrees) in the simplified path
-      var sharpCorners = 0;
-      var gentleCurves = 0;
-      for (var i = 1; i < simplified.length - 1; i++) {
-        var prev = simplified[i - 1];
-        var curr = simplified[i];
-        var next = simplified[i + 1];
-        var a1 = Math.atan2(curr.y - prev.y, curr.x - prev.x);
-        var a2 = Math.atan2(next.y - curr.y, next.x - curr.x);
-        var diff = Math.abs(a2 - a1);
-        if (diff > Math.PI) diff = 2 * Math.PI - diff;
-        if (diff > 0.5) sharpCorners++;  // > ~30 degrees
-        else if (diff > 0.15) gentleCurves++;
-      }
-
-      // Measure how "straight" the segments between corners are
-      // vs how "curved" (lots of gentle direction changes = circle)
-      return {
-        corners: sharpCorners,
-        totalPoints: simplified.length,
-        gentleCurves: gentleCurves,
-        curveRatio: gentleCurves / Math.max(1, sharpCorners + gentleCurves)
-      };
+      // The number of segments = number of points in simplified path - 1
+      // (each point is a "corner" between two segments)
+      return { segments: Math.max(1, simplified.length - 1) };
     }
 
     function classifyShape(region) {
       var b = region.bounds;
-      var shapeWidth = b.maxX - b.minX;
-      var shapeHeight = b.maxY - b.minY;
-      var aspectRatio = shapeWidth / shapeHeight;
+      var aspectRatio = (b.maxX - b.minX) / (b.maxY - b.minY);
 
-      // Analyze the actual strokes
-      var stroke = analyzeStrokes();
+      var result = countStraightSegments();
+      var segs = result.segments;
 
-      console.log('Shape debug:', stroke, { aspectRatio: aspectRatio.toFixed(2) });
+      console.log('Shape debug: segments=' + segs + ', aspectRatio=' + aspectRatio.toFixed(2));
 
-      // ── Circle: mostly gentle curves, very few sharp corners ──
-      if (stroke.corners <= 2 && stroke.curveRatio > 0.7) {
-        var m = SHAPES.circle;
-        return { page: m.page, hint: m.hint, shape: 'circle', confidence: stroke.curveRatio };
+      // ── 3 lines → triangle ──
+      if (segs >= 2 && segs <= 4) {
+        var m = SHAPES.triangle;
+        return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
       }
 
-      // ── Triangle: exactly 3 sharp corners ──
-      if (stroke.corners >= 2 && stroke.corners <= 4 && stroke.curveRatio < 0.5) {
-        // Confirm with aspect ratio — triangles aren't usually extremely elongated
-        if (aspectRatio > 0.4 && aspectRatio < 2.5) {
-          var m = SHAPES.triangle;
-          return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
-        }
-      }
-
-      // ── Square (easter egg): 4 sharp corners + nearly equal sides ──
-      if (stroke.corners >= 3 && stroke.corners <= 5) {
+      // ── 4-5 lines → rectangle or square ──
+      if (segs >= 5 && segs <= 7) {
+        // Square easter egg: sides are roughly equal
         var sideRatio = Math.min(aspectRatio, 1 / aspectRatio);
         if (sideRatio > 0.8) {
           var m = SHAPES.square;
           return { page: m.page, hint: m.hint, shape: 'square', confidence: sideRatio };
         }
+        var m = SHAPES.rectangle;
+        return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.9 };
       }
 
-      // ── Rectangle: default ──
+      // ── 5+ lines or curvy → circle ──
+      if (segs >= 8) {
+        var m = SHAPES.circle;
+        return { page: m.page, hint: m.hint, shape: 'circle', confidence: 0.9 };
+      }
+
+      // ── Fallback → rectangle ──
       var m = SHAPES.rectangle;
-      return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.8 };
+      return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.7 };
     }
 
     // Simple label flash — just shows "you're a circle" near the shape, no outline clutter
