@@ -597,16 +597,24 @@
         estimatedSides = Math.round((rdpCorners * 0.5 + angleCorners * 0.5));
       }
 
-      // ── Circle: high circularity, no clear corners ──
-      if (circularity > 0.6 && aspectRatio >= 0.65 && aspectRatio <= 1.5 && estimatedSides >= 6) {
-        var m = SHAPES.circle;
-        return { page: m.page, hint: m.hint, shape: 'circle', confidence: circularity };
+      // Debug — remove after tuning
+      console.log('Shape debug:', { estimatedSides: estimatedSides, rdpCorners: typeof rdpCorners !== 'undefined' ? rdpCorners : '?', angleCorners: typeof angleCorners !== 'undefined' ? angleCorners : '?', circularity: circularity.toFixed(3), aspectRatio: aspectRatio.toFixed(2) });
+
+      // ── Triangle: check FIRST because circle detection can eat triangles ──
+      // A hand-drawn triangle typically has 3-5 RDP corners and low-ish circularity
+      // but circularity can be higher than expected (0.4-0.6) for blobby triangles
+      if (estimatedSides <= 4 && circularity < 0.6) {
+        // Confirm it's really triangular: check if RDP simplification finds ~3 vertices
+        if (typeof rdpCorners !== 'undefined' && rdpCorners <= 4) {
+          var m = SHAPES.triangle;
+          return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
+        }
       }
 
-      // ── Triangle: 3 dominant corners, low circularity ──
-      if (estimatedSides <= 3 && circularity < 0.55) {
-        var m = SHAPES.triangle;
-        return { page: m.page, hint: m.hint, shape: 'triangle', confidence: 0.95 };
+      // ── Circle: high circularity, no clear corners ──
+      if (circularity > 0.6 && aspectRatio >= 0.65 && aspectRatio <= 1.5) {
+        var m = SHAPES.circle;
+        return { page: m.page, hint: m.hint, shape: 'circle', confidence: circularity };
       }
 
       // ── Square (easter egg): 4 corners AND nearly equal sides (within 15%) ──
