@@ -626,25 +626,29 @@
       return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.7 };
     }
 
-    // Simple label flash — just shows "you're a circle" near the shape, no outline clutter
+    // Combined shape label — shows "you're a triangle · three people in every piece of gossip"
     function flashGeometricShape(region, classification) {
-      if (classification.shape === 'rectangle') return; // don't flash for default
+      // Don't flash for rectangle (the default)
+      if (classification.shape === 'rectangle') return;
+    }
 
+    // Replaces both the flash AND the old showShapeHint with one combined label
+    function showCombinedHint(region, classification) {
       var b = region.bounds;
       var cx = (b.minX + b.maxX) / 2;
-      var bottomY = b.maxY + 30;
+      var bottomY = b.maxY + 25;
+      if (bottomY > window.innerHeight - 60) bottomY = b.minY - 35;
 
       var label = document.createElement('div');
-      label.textContent = 'you\u2019re a ' + classification.shape;
-      label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.4rem;color:#E91E7B;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);';
+      if (classification.shape !== 'rectangle') {
+        label.innerHTML = '<span style="color:#E91E7B;">' + classification.shape + '</span> · ' + classification.hint;
+      } else {
+        label.textContent = classification.hint;
+      }
+      label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#999;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);white-space:nowrap;';
 
       document.body.appendChild(label);
-
-      setTimeout(function () { label.style.opacity = '0.9'; }, 50);
-      setTimeout(function () {
-        label.style.opacity = '0';
-        setTimeout(function () { if (label.parentNode) label.parentNode.removeChild(label); }, 500);
-      }, 2500);
+      setTimeout(function () { label.style.opacity = '1'; }, 50);
     }
 
     // Show the shape hint near the shape
@@ -694,11 +698,8 @@
         // Redraw with illustration in the enclosed region
         redrawAll();
 
-        // Show hint near the shape
-        showShapeHint(region, classification);
-
-        // Flash the idealized geometric shape over the drawing
-        flashGeometricShape(region, classification);
+        // Show combined shape label + hint
+        showCombinedHint(region, classification);
 
         canvas.style.cursor = 'pointer';
         startPulse();
