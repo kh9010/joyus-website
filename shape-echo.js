@@ -170,7 +170,7 @@
 
     var container = document.createElement('span');
     container.className = 'nav-others-ticker';
-    container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.75rem;font-family:"Caveat",cursive;font-size:0.95rem;color:#999;overflow:hidden;max-width:260px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
+    container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.35rem;font-family:"Caveat",cursive;font-size:0.95rem;color:#999;overflow:hidden;max-width:260px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
 
     var prefix = document.createElement('span');
     prefix.textContent = 'other ' + (shapeLabel || 'shapes') + ' exploring → ';
