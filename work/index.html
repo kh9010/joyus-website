@@ -154,6 +154,8 @@
         .fade-in.animate.visible {
             opacity: 1;
             transform: none;
+            /* Reset transition so hover transform works cleanly */
+            transition: opacity 0.55s ease, transform 0.25s ease, box-shadow 0.25s ease;
         }
 
         @media (max-width: 600px) {
