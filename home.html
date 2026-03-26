@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Joyus Studio builds art, companies, brands and products. We help businesses create meaningful connections through design, strategy and storytelling.">
+  <meta name="description" content="Joyus Studio builds art, companies, brands, and products. We help businesses create meaningful connections through design, strategy, and storytelling.">
   <meta property="og:title" content="Joyus Studio — Design, Storytelling, Imagination">
-  <meta property="og:description" content="Joyus Studio builds art, companies, brands and products. We help businesses create meaningful connections through design, strategy and storytelling.">
+  <meta property="og:description" content="Joyus Studio builds art, companies, brands, and products. We help businesses create meaningful connections through design, strategy, and storytelling.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/">
@@ -363,16 +363,18 @@
   <!-- Intent Hero -->
   <section class="intent-hero">
     <div class="intent-content">
+      <p style="font-family:'DM Sans',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:0.75rem;">Experience Design Studio</p>
       <h1>I need...</h1>
       <div class="intent-input-wrap">
-        <input type="text" id="intentInput" placeholder="to tell a better story" autocomplete="off">
+        <input type="text" id="intentInput" placeholder="to tell a better story" autocomplete="off" aria-label="Tell us what you need help with">
         <div class="intent-suggestions" id="intentSuggestions"></div>
       </div>
+      <p style="font-family:'DM Sans',sans-serif;font-size:0.95rem;color:#888;margin-top:2rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">We help startups and mission-driven companies with brand strategy, visual design, and storytelling. <a href="work/index.html" style="color:#E91E7B;font-weight:600;text-decoration:none;">See our work</a> or <a href="services.html" style="color:#E91E7B;font-weight:600;text-decoration:none;">explore services</a>.</p>
     </div>
   </section>
 
   <!-- Interstitial overlay -->
-  <div class="intent-overlay" id="intentOverlay">
+  <div class="intent-overlay" id="intentOverlay" role="dialog" aria-label="Follow-up form">
     <div class="intent-overlay-inner">
       <p class="user-intent" id="overlayIntent"></p>
       <p class="overlay-ack">got it — we'll remember this</p>
@@ -385,6 +387,27 @@
       <a href="#" class="continue-link" id="continueLink">continue &rarr;</a>
     </div>
   </div>
+
+  <!-- Trust signals -->
+  <section style="background:#1a1a1a;padding:3.5rem 2rem;text-align:center;">
+    <div style="max-width:900px;margin:0 auto;">
+      <p style="font-family:'DM Sans',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:2px;color:#666;margin-bottom:1.5rem;">Results from our work</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:2.5rem 3.5rem;">
+        <div><span style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;">$5M</span><br><span style="font-size:0.8rem;color:#888;">raised for TomboyX</span></div>
+        <div><span style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;">0 &rarr; 150</span><br><span style="font-size:0.8rem;color:#888;">daily sales in 10 weeks</span></div>
+        <div><span style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;">100K</span><br><span style="font-size:0.8rem;color:#888;">monthly students engaged</span></div>
+        <div><span style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#fff;">$50M</span><br><span style="font-size:0.8rem;color:#888;">nonprofit donor redesign</span></div>
+      </div>
+      <p style="margin-top:2rem;"><a href="work/index.html" style="color:#E91E7B;font-weight:600;font-size:0.9rem;text-decoration:none;">See all case studies &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:4rem 2rem;text-align:center;background:var(--warm-gray,#F5F3F0);">
+    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);color:#111;margin-bottom:0.5rem;">Ready to work together?</h2>
+    <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">Whether you have a clear brief or just a nagging feeling something needs to change.</p>
+    <a href="mailto:hello@joyus.studio" class="cta-button" style="display:inline-block;padding:0.9rem 2.5rem;background:#E91E7B;color:#fff;text-decoration:none;border-radius:50px;font-weight:600;font-size:1rem;">hello@joyus.studio</a>
+  </section>
 
   <!-- Footer -->
   <footer class="footer">
