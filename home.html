@@ -18,7 +18,7 @@
     "name": "Joyus Studio",
     "url": "https://kh9010.github.io/joyus-website/",
     "logo": "https://kh9010.github.io/joyus-website/images/logo.png",
-    "description": "An experience design studio that builds art, companies, brands and products through behaviorally-sensitive systemic design.",
+    "description": "An experience design studio that builds art, companies, brands, and products through behaviorally-sensitive systemic design.",
     "founder": [
       {"@type": "Person", "name": "Kahran Singh"},
       {"@type": "Person", "name": "Divya Tak"}
@@ -338,6 +338,8 @@
 </head>
 <body>
 
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
   <!-- Navigation -->
   <nav class="nav-bar">
     <div class="nav-container">
@@ -361,13 +363,14 @@
   </nav>
 
   <!-- Intent Hero -->
+  <main id="main-content">
   <section class="intent-hero">
     <div class="intent-content">
       <p style="font-family:'DM Sans',sans-serif;font-size:0.85rem;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:0.75rem;">Experience Design Studio</p>
       <h1>I need...</h1>
       <div class="intent-input-wrap">
         <input type="text" id="intentInput" placeholder="to tell a better story" autocomplete="off" aria-label="Tell us what you need help with">
-        <div class="intent-suggestions" id="intentSuggestions"></div>
+        <div class="intent-suggestions" id="intentSuggestions" role="listbox" aria-label="Suggestions"></div>
       </div>
       <p style="font-family:'DM Sans',sans-serif;font-size:0.95rem;color:#888;margin-top:2rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">We help startups and mission-driven companies with brand strategy, visual design, and storytelling. <a href="work/index.html" style="color:#E91E7B;font-weight:600;text-decoration:none;">See our work</a> or <a href="services.html" style="color:#E91E7B;font-weight:600;text-decoration:none;">explore services</a>.</p>
     </div>
@@ -408,6 +411,8 @@
     <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">Whether you have a clear brief or just a nagging feeling something needs to change.</p>
     <a href="mailto:hello@joyus.studio" class="cta-button" style="display:inline-block;padding:0.9rem 2.5rem;background:#E91E7B;color:#fff;text-decoration:none;border-radius:50px;font-weight:600;font-size:1rem;">hello@joyus.studio</a>
   </section>
+
+  </main>
 
   <!-- Footer -->
   <footer class="footer">
