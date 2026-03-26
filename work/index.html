@@ -446,7 +446,15 @@
         // Animate cards below the fold on scroll (cards above fold are immediately visible)
         const obs = new IntersectionObserver((entries) => {
             entries.forEach(e => {
-                if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    obs.unobserve(e.target);
+                    // Remove animate class after entrance so hover transitions work cleanly
+                    setTimeout(() => {
+                        e.target.classList.remove('animate');
+                        e.target.classList.remove('fade-in');
+                    }, 600);
+                }
             });
         }, {threshold: 0.08, rootMargin: '0px 0px -60px 0px'});
         document.querySelectorAll('.fade-in').forEach((el, i) => {
