@@ -55,47 +55,120 @@
       margin-bottom: 0;
     }
 
-    .editorial-body {
-      max-width: 680px;
+    /* Two-column capability sections */
+    .capability {
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 3rem 2rem 4rem;
+      padding: 4rem 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
     }
-    .editorial-body p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.5rem;
+    .capability.reversed {
+      direction: rtl;
     }
-    .editorial-body h2 {
+    .capability.reversed > * {
+      direction: ltr;
+    }
+    .capability-text h2 {
       font-family: 'DM Serif Display', serif;
       font-size: 1.6rem;
       color: #111;
-      margin-top: 3rem;
       margin-bottom: 1rem;
     }
-    .editorial-body h2:first-of-type {
-      margin-top: 0;
+    .capability-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .capability-card {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #e8e6e4;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .capability-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+    }
+    .capability-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .capability-card-body {
+      padding: 1.25rem;
+    }
+    .capability-card-body span {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #E91E7B;
+      font-weight: 600;
+    }
+    .capability-card-body h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #111;
+      margin: 0.3rem 0 0;
     }
 
-    .inline-card {
-      margin: 2.5rem 0;
+    /* Section divider */
+    .section-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--hub-accent);
+      margin: 0 auto;
+      border: none;
+    }
+
+    /* Full-width AI highlight band */
+    .capability-highlight {
+      background: var(--warm-gray, #F5F3F0);
+      padding: 4rem 2rem;
+    }
+    .capability-highlight .inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .capability-highlight h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+    .capability-highlight p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .capability-highlight .inline-card {
+      margin: 1.5rem 0 0;
       border-radius: 8px;
       border: 1px solid #e8e6e4;
       border-left: 3px solid var(--hub-accent);
       overflow: hidden;
       transition: transform 0.2s, box-shadow 0.2s;
+      background: #fff;
     }
-    .inline-card:hover {
+    .capability-highlight .inline-card:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
-    .inline-card a {
+    .capability-highlight .inline-card a {
       display: block;
       padding: 1.25rem 1.5rem;
       text-decoration: none;
       color: inherit;
     }
-    .inline-card-type {
+    .capability-highlight .inline-card-type {
       display: block;
       font-size: 0.7rem;
       text-transform: uppercase;
@@ -104,12 +177,31 @@
       font-weight: 600;
       margin-bottom: 0.3rem;
     }
-    .inline-card-title {
+    .capability-highlight .inline-card-title {
       display: block;
       font-family: 'DM Serif Display', serif;
       font-size: 1.1rem;
       color: #111;
       line-height: 1.3;
+    }
+
+    /* Coaching section (text only, centered) */
+    .capability-simple {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+    .capability-simple h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+    .capability-simple p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 1rem;
     }
 
     .process-section {
@@ -160,7 +252,7 @@
     }
 
     .pricing-section {
-      max-width: 680px;
+      max-width: 700px;
       margin: 0 auto;
       padding: 3rem 2rem 2rem;
       border-top: 1px solid #eee;
@@ -179,7 +271,7 @@
     }
 
     .who-section {
-      max-width: 680px;
+      max-width: 900px;
       margin: 0 auto;
       padding: 2rem 2rem 3rem;
     }
@@ -234,6 +326,8 @@
     }
 
     @media (max-width: 768px) {
+      .capability { grid-template-columns: 1fr; }
+      .capability.reversed { direction: ltr; }
       .process-steps { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
@@ -276,59 +370,82 @@
     </div>
   </section>
 
-  <article class="editorial-body">
-
-    <h2>Brand Strategy &amp; Storytelling</h2>
-
-    <p>Every company has a story. The problem is almost never the story itself — it's how it's being told. We help founding teams find the narrative spine of their business: the thing that makes investors lean in, customers stay, and employees actually care. This might mean reworking a pitch deck, building an investor narrative from scratch, or just sitting with you until the argument clicks.</p>
-
-    <p>We've done this across fundraising rounds, board presentations, and go-to-market launches. The work is always specific to you — your stage, your market, your voice. We're not writing copy. We're finding the core of what you're trying to say.</p>
-
-    <div class="inline-card">
-      <a href="work/tomboyx.html">
-        <span class="inline-card-type">Case Study</span>
-        <span class="inline-card-title">TomboyX — $5M raised with a story that led with unit economics &rarr;</span>
-      </a>
+  <!-- Section 1: Brand Strategy — text left, card right -->
+  <section class="capability">
+    <div class="capability-text">
+      <h2>Brand Strategy &amp; Storytelling</h2>
+      <p>Every company has a story. The problem is almost never the story itself — it's how it's being told. We help founding teams find the narrative spine of their business: the thing that makes investors lean in, customers stay, and employees actually care.</p>
+      <p>We've done this across fundraising rounds, board presentations, and go-to-market launches. The work is always specific to you — your stage, your market, your voice. We're not writing copy. We're finding the core of what you're trying to say.</p>
     </div>
+    <a href="work/tomboyx.html" class="capability-card">
+      <img src="images/work/tomboyx.jpg" alt="TomboyX case study">
+      <div class="capability-card-body">
+        <span>Case Study</span>
+        <h3>TomboyX — $5M raised with a story that led with unit economics</h3>
+      </div>
+    </a>
+  </section>
 
-    <h2>Visual Design &amp; Identity</h2>
+  <hr class="section-divider">
 
-    <p>Visual language is not decoration — it's how people feel before they've read a single word. We build brand systems, packaging, and visual identities that carry meaning. Divya's background in illustration and design means everything we make has a handcrafted quality, even when it scales. From watercolor packaging for Secret Senses to the full visual language for Tatsam's mental wellness platform, we design things that feel like they belong to you.</p>
-
-    <div class="inline-card">
-      <a href="work/secret-senses.html">
-        <span class="inline-card-type">Case Study</span>
-        <span class="inline-card-title">Secret Senses — hand-drawn watercolors from sketchbook to shelf &rarr;</span>
-      </a>
+  <!-- Section 2: Visual Design — card left, text right (reversed) -->
+  <section class="capability reversed">
+    <div class="capability-text">
+      <h2>Visual Design &amp; Identity</h2>
+      <p>Visual language is not decoration — it's how people feel before they've read a single word. We build brand systems, packaging, and visual identities that carry meaning. Divya's background in illustration and design means everything we make has a handcrafted quality, even when it scales.</p>
+      <p>From watercolor packaging for Secret Senses to the full visual language for Tatsam's mental wellness platform, we design things that feel like they belong to you.</p>
     </div>
+    <a href="work/secret-senses.html" class="capability-card">
+      <img src="images/work/secret-senses.jpg" alt="Secret Senses case study">
+      <div class="capability-card-body">
+        <span>Case Study</span>
+        <h3>Secret Senses — hand-drawn watercolors from sketchbook to shelf</h3>
+      </div>
+    </a>
+  </section>
 
-    <h2>Behavioral Design</h2>
+  <hr class="section-divider">
 
-    <p>We design for how people actually behave — not how a spreadsheet says they should. That means gamification, user journey mapping, and understanding the real decision points where people drop off or lean in. Kahran's background in behavioral economics and Divya's experience in game design come together here: we build systems that respect how humans work, not how we wish they did.</p>
-
-    <div class="inline-card">
-      <a href="work/convegenius.html">
-        <span class="inline-card-type">Case Study</span>
-        <span class="inline-card-title">ConveGenius — gamification for 100K students, designed around real behavior &rarr;</span>
-      </a>
+  <!-- Section 3: Behavioral Design — text left, card right -->
+  <section class="capability">
+    <div class="capability-text">
+      <h2>Behavioral Design</h2>
+      <p>We design for how people actually behave — not how a spreadsheet says they should. That means gamification, user journey mapping, and understanding the real decision points where people drop off or lean in.</p>
+      <p>Kahran's background in behavioral economics and Divya's experience in game design come together here: we build systems that respect how humans work, not how we wish they did.</p>
     </div>
+    <a href="work/convegenius.html" class="capability-card">
+      <img src="images/work/convegenius.jpg" alt="ConveGenius case study">
+      <div class="capability-card-body">
+        <span>Case Study</span>
+        <h3>ConveGenius — gamification for 100K students, designed around real behavior</h3>
+      </div>
+    </a>
+  </section>
 
-    <h2>Thinking with AI</h2>
+  <hr class="section-divider">
 
-    <p>We use AI tools every day in our own practice — Claude, ChatGPT, Midjourney — and we run workshops for teams that want to get past the hype and build real workflows. The difference between AI as a gimmick and AI as a thinking partner is enormous, and most teams are stuck on the wrong side of that line. We help you cross it.</p>
-
-    <div class="inline-card">
-      <a href="ai-workshops.html">
-        <span class="inline-card-type">AI Workshops</span>
-        <span class="inline-card-title">Our dedicated AI workshops page — what teams learn and how we work &rarr;</span>
-      </a>
+  <!-- Section 4: Thinking with AI — full-width tinted band -->
+  <section class="capability-highlight">
+    <div class="inner">
+      <h2>Thinking with AI</h2>
+      <p>We use AI tools every day in our own practice — Claude, ChatGPT, Midjourney — and we run workshops for teams that want to get past the hype and build real workflows. The difference between AI as a gimmick and AI as a thinking partner is enormous, and most teams are stuck on the wrong side of that line. We help you cross it.</p>
+      <div class="inline-card">
+        <a href="ai-workshops.html">
+          <span class="inline-card-type">AI Workshops</span>
+          <span class="inline-card-title">Our dedicated AI workshops page — what teams learn and how we work &rarr;</span>
+        </a>
+      </div>
     </div>
+  </section>
 
+  <hr class="section-divider">
+
+  <!-- Section 5: Coaching — simple text, no case study -->
+  <section class="capability-simple">
     <h2>Coaching &amp; Advisory</h2>
-
-    <p>Sometimes you don't need a project — you need a thinking partner. We work alongside founders over weeks and months, helping sharpen narratives, prepare for high-stakes moments, and think through decisions that don't have obvious answers. This is not therapy and it's not mentorship. It's two people who have been in the room before, helping you get ready for yours.</p>
-
-  </article>
+    <p>Sometimes you don't need a project — you need a thinking partner. We work alongside founders over weeks and months, helping sharpen narratives, prepare for high-stakes moments, and think through decisions that don't have obvious answers.</p>
+    <p>This is not therapy and it's not mentorship. It's two people who have been in the room before, helping you get ready for yours.</p>
+  </section>
 
   <section class="process-section">
     <div class="inner">
