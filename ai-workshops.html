@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI workshops from Joyus Studio. We help teams build real AI workflows — not hype. Half-day workshops, multi-day intensives, and hands-on integration for creative and product teams.">
+  <meta property="og:title" content="AI Workshops — Joyus Studio">
+  <meta property="og:description" content="We run workshops for teams that want to get past the AI hype and build real workflows. We use these tools every day — including Claude Code, which helped build this very website.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/ai-workshops.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/ai-workshops.html">
+  <title>AI Workshops — Joyus Studio</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root { --hub-accent: #E91E7B; }
+
+    .editorial-hero {
+      padding: 8rem 2rem 3rem;
+      background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%);
+    }
+    .editorial-hero-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .editorial-theme {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--hub-accent);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .editorial-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: #111;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .editorial-lede {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #555;
+      border-left: 3px solid var(--hub-accent);
+      padding-left: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .editorial-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+    .editorial-body p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+    .editorial-body > p:first-of-type::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.12em;
+      margin-top: 0.05em;
+      color: var(--hub-accent);
+    }
+    .editorial-body em {
+      color: #333;
+      font-style: italic;
+    }
+    .editorial-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .inline-card {
+      margin: 2.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .inline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .inline-card a {
+      display: block;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .inline-card-type {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .inline-card-title {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      line-height: 1.3;
+    }
+
+    .pull-quote {
+      margin: 3rem -2rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .pull-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1.35;
+      color: #222;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pull-quote cite {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent);
+      font-style: normal;
+    }
+
+    .outcomes-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+    .outcomes-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 1.5rem;
+    }
+    .outcomes-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .outcomes-list li {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .outcomes-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.25rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+    }
+    .outcomes-list li:last-child { border-bottom: none; }
+
+    .note-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+      border-top: 1px solid #eee;
+    }
+    .note-section h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+    .note-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 2rem;
+      border-top: 1px solid #eee;
+    }
+    .pricing-section h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+    .pricing-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+    }
+
+    .cta-strip {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .cta-strip p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .pull-quote { margin: 3rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="home.html" class="logo">
+        <img src="images/logo.webp" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="comics/index.html">Comics</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">Thinking with AI</span>
+      <h1>AI didn't replace us. It changed how we think.</h1>
+      <p class="editorial-lede">We run workshops for teams that want to get past the AI hype and build real workflows. We use these tools every day — including Claude Code, which helped build this very website.</p>
+    </div>
+  </section>
+
+  <article class="editorial-body">
+
+    <p>Somewhere in the middle of recording our podcast episode about LLMs, Divya asked Kahran a question that caught both of us off guard: "How has your worldview evolved as you have been using these AI tools?" Not what you can do with them. How they've changed how you think. And the answer was more interesting than either of us expected.</p>
+
+    <p>What Kahran described was the feeling of having access to a knowledgeable conversation partner — someone you could explore ideas with, not just retrieve information from. "I started to feel like there's someone I can talk to about things who will be knowledgeable," he said. The difference between one-way research and a two-way conversation turned out to be enormous. It was, as he put it, "what was possible in a library when you had a great librarian to talk to, but was not really possible in Wikipedia. And now it's almost possible again."</p>
+
+    <p>That distinction — between knowledge being <em>available</em> and knowledge being <em>accessible</em> — became the backbone of how we think about AI integration. "I think the knowledge was always there, but it didn't feel accessible," Kahran said. "When you understand more of what led to something or the rationale or the reasoning, that's what makes it accessible. You're not memorizing it. You know why."</p>
+
+    <div class="pull-quote">
+      <p>"The tools that we design, design us."</p>
+      <cite>Divya Tak, on how AI changes the way we relate to the world</cite>
+    </div>
+
+    <p>Divya brought a different lens. She noticed that working with AI had separated the roles of creator and curator in her own mind. "In a weird way, at least in my mind, the creator and the curator roles have been separated and the creator is allowed to exist for longer," she said. The result was unexpected: not that AI made her less creative, but that it made her less precious. She could generate twenty-five ideas where she used to stop at ten, and — more importantly — she could let go of the good ones that weren't right for the project without it costing her emotionally. "I'm just finding it easier and easier to remove those ideas without it having an emotional cost on me."</p>
+
+    <p>This is what most teams miss about AI. The conversation is stuck on "will it replace us" when the real question is "how does it change the way we think?" Writing is still writing. Design is still design. But the relationship between generation and judgment shifts, and that shift matters enormously for how teams work together.</p>
+
+    <div class="inline-card">
+      <a href="podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html">
+        <span class="inline-card-type">Podcast</span>
+        <span class="inline-card-title">How LLMs &amp; GenAI Have Changed Our Thinking &rarr;</span>
+      </a>
+    </div>
+
+    <p>We wrote about this more directly in our essay about what AI actually did to our studio. It didn't make us bigger or faster in the way people expect. It made us smaller and weirder — more willing to try things, more comfortable with iteration, more honest about what we're good at and where the tools can pick up the slack. Kahran described what writing now feels like when he uses AI as a thinking partner rather than a drafting tool. The craft doesn't go away. It just changes shape.</p>
+
+    <div class="inline-card">
+      <a href="thinking/ai-made-us-smaller-and-weirder.html">
+        <span class="inline-card-type">Essay</span>
+        <span class="inline-card-title">AI Made Us Smaller and Weirder &rarr;</span>
+      </a>
+    </div>
+
+    <p>This is the foundation of our workshops. We don't teach AI as a technology. We teach it as a shift in how you relate to your own work — and then we get practical about which tools, which prompts, and which workflows actually hold up under pressure. We've done this with our own creative practice, with the Agemo product design work, and with teams ranging from two founders to full product organizations.</p>
+
+    <div class="inline-card">
+      <a href="work/agemo.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Agemo / CodeWords — AI product design from research to interface &rarr;</span>
+      </a>
+    </div>
+
+  </article>
+
+  <section class="outcomes-section">
+    <h2>What Teams Learn</h2>
+    <ul class="outcomes-list">
+      <li>How to identify which parts of your workflow AI can actually improve</li>
+      <li>Building prompting skills that go beyond "write me a..."</li>
+      <li>Using AI tools for research, ideation, and iteration — not just drafting</li>
+      <li>When to trust AI output and when to override it</li>
+      <li>Creating team-wide AI workflows that stick</li>
+    </ul>
+  </section>
+
+  <section class="note-section">
+    <h2>A note about this website</h2>
+    <p>This website was built in collaboration with Claude Code. The podcast transcripts were generated with Whisper. The essays were drawn from our real conversations. We don't use AI to replace our thinking — we use it to move faster while keeping our voice.</p>
+  </section>
+
+  <section class="pricing-section">
+    <h2>Pricing</h2>
+    <p>Half-day workshops start at $2,000. Multi-day intensives are custom. <a href="mailto:hello@joyus.studio" style="color:var(--hub-accent);font-weight:600;text-decoration:none;">Get in touch.</a></p>
+  </section>
+
+  <section class="cta-strip">
+    <h2>Ready to think differently with AI?</h2>
+    <p>Tell us about your team and what you're trying to figure out.</p>
+    <a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio of makers.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="comics/index.html">Comics</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-themes">
+        <h4>Themes</h4>
+        <a href="hub-story.html">Finding Your Story</a>
+        <a href="hub-building.html">Building Something That Matters</a>
+        <a href="hub-behavior.html">How People Actually Behave</a>
+        <a href="hub-play.html">Play as Practice</a>
+        <a href="hub-creative.html">Drawing Outside the Lines</a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
+<script src="shape-echo.js"></script>
+</body>
+</html>

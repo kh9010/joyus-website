@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Joyus Studio services: paid expertise sessions, workshops, coaching, and project-based engagements. Design, strategy, and storytelling for startups and mission-driven companies.">
+  <meta name="description" content="How Joyus Studio works: brand strategy, storytelling, visual design, behavioral design, AI workshops, and coaching for startups and mission-driven companies.">
   <meta property="og:title" content="Services — Joyus Studio">
-  <meta property="og:description" content="Joyus Studio services: paid expertise sessions, workshops, coaching, and project-based engagements. Design, strategy, and storytelling for startups and mission-driven companies.">
+  <meta property="og:description" content="How Joyus Studio works: brand strategy, storytelling, visual design, behavioral design, AI workshops, and coaching for startups and mission-driven companies.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/services.html">
@@ -19,103 +19,94 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .page-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .page-hero .inner {
-      max-width: 700px;
-    }
-    .page-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1rem;
-      color: #111;
-    }
-    .page-hero p {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
-    }
+    :root { --hub-accent: #E91E7B; }
 
-    .services-grid-section {
-      padding: 5rem 2rem;
-      max-width: 960px;
+    .editorial-hero {
+      padding: 8rem 2rem 3rem;
+      background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%);
+    }
+    .editorial-hero-inner {
+      max-width: 640px;
       margin: 0 auto;
     }
-    .service-row {
-      display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 2rem;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid #e8e6e4;
-      align-items: baseline;
-    }
-    .service-row:last-child { border-bottom: none; }
-    .service-price {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: #111;
-    }
-    .service-price span {
+    .editorial-theme {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--hub-accent);
       display: block;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8rem;
-      color: #999;
-      font-weight: 400;
+      margin-bottom: 0.75rem;
     }
-    .service-info h3 {
+    .editorial-hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.25rem;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
       color: #111;
-      margin-bottom: 0.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
     }
-    .service-info p {
-      font-size: 0.95rem;
+    .editorial-lede {
+      font-size: 1.15rem;
       line-height: 1.7;
       color: #555;
-      margin: 0;
+      border-left: 3px solid var(--hub-accent);
+      padding-left: 1.25rem;
+      margin-bottom: 0;
     }
 
-    .who-section {
-      padding: 4rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .who-section .inner {
-      max-width: 960px;
+    .editorial-body {
+      max-width: 680px;
       margin: 0 auto;
+      padding: 3rem 2rem 4rem;
     }
-    .who-section h2 {
+    .editorial-body p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+    .editorial-body h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #111;
+      margin-top: 3rem;
       margin-bottom: 1rem;
     }
-    .who-section p.intro {
-      font-size: 1.05rem;
-      color: #555;
-      line-height: 1.75;
-      margin-bottom: 2.5rem;
-      max-width: 700px;
+    .editorial-body h2:first-of-type {
+      margin-top: 0;
     }
-    .who-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
+
+    .inline-card {
+      margin: 2.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .who-card {
-      padding: 0;
+    .inline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
-    .who-card h3 {
+    .inline-card a {
+      display: block;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .inline-card-type {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .inline-card-title {
+      display: block;
       font-family: 'DM Serif Display', serif;
       font-size: 1.1rem;
       color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .who-card p {
-      font-size: 0.9rem;
-      color: #666;
-      line-height: 1.6;
+      line-height: 1.3;
     }
 
     .process-section {
@@ -165,14 +156,71 @@
       line-height: 1.55;
     }
 
+    .pricing-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      border-top: 1px solid #eee;
+    }
+    .pricing-section h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+    .pricing-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+
+    .who-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+    .who-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 1rem;
+    }
+    .who-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+    .who-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0 0;
+    }
+    .who-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      color: #444;
+      line-height: 1.7;
+    }
+    .who-list li:last-child { border-bottom: none; }
+    .who-list li strong {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #111;
+      margin-bottom: 0.2rem;
+      font-weight: 400;
+    }
+
     .cta-strip {
-      background: var(--warm-gray, #F5F3F0);
       padding: 5rem 2rem;
       text-align: center;
     }
     .cta-strip h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.8rem;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
       color: #111;
       margin-bottom: 0.5rem;
     }
@@ -183,14 +231,9 @@
     }
 
     @media (max-width: 768px) {
-      .who-grid { grid-template-columns: 1fr; }
       .process-steps { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 640px) {
-      .service-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-      }
       .process-steps { grid-template-columns: 1fr; }
     }
   </style>
@@ -221,69 +264,68 @@
   </nav>
 
   <main id="main-content">
-  <section class="page-hero">
-    <div class="inner">
-      <h1>We design, we build, we advise, we grow.</h1>
-      <p>We work in lots of different ways. Some clients need one focused conversation. Others bring us in for the whole journey.</p>
+
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">Working together</span>
+      <h1>The best work happens when you bring us in early</h1>
+      <p class="editorial-lede">We're a two-person studio. We don't hand off decks and disappear. We sit with you, figure out what's actually going on, and build the thing alongside you. Whether that's one conversation or a year-long partnership, we adapt to where you are.</p>
     </div>
   </section>
 
-  <section class="services-grid-section">
+  <article class="editorial-body">
 
-    <div class="service-row">
-      <div class="service-price">$200 <span>/ 60 min</span></div>
-      <div class="service-info">
-        <h3>Paid Expertise</h3>
-        <p>Not sure what your problem is? Ninety percent of the work is framing it correctly. One focused session often gives you the clarity to take the next right step.</p>
-      </div>
+    <h2>Brand Strategy &amp; Storytelling</h2>
+
+    <p>Every company has a story. The problem is almost never the story itself — it's how it's being told. We help founding teams find the narrative spine of their business: the thing that makes investors lean in, customers stay, and employees actually care. This might mean reworking a pitch deck, building an investor narrative from scratch, or just sitting with you until the argument clicks.</p>
+
+    <p>We've done this across fundraising rounds, board presentations, and go-to-market launches. The work is always specific to you — your stage, your market, your voice. We're not writing copy. We're finding the core of what you're trying to say.</p>
+
+    <div class="inline-card">
+      <a href="work/tomboyx.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">TomboyX — $5M raised with a story that led with unit economics &rarr;</span>
+      </a>
     </div>
 
-    <div class="service-row">
-      <div class="service-price">$2,000+</div>
-      <div class="service-info">
-        <h3>Workshops & Sprints</h3>
-        <p>Half-day to multi-day sessions that move your team from stuck to moving. We also run Thinking with AI workshops for teams ready to get past the hype.</p>
-      </div>
+    <h2>Visual Design &amp; Identity</h2>
+
+    <p>Visual language is not decoration — it's how people feel before they've read a single word. We build brand systems, packaging, and visual identities that carry meaning. Divya's background in illustration and design means everything we make has a handcrafted quality, even when it scales. From watercolor packaging for Secret Senses to the full visual language for Tatsam's mental wellness platform, we design things that feel like they belong to you.</p>
+
+    <div class="inline-card">
+      <a href="work/secret-senses.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">Secret Senses — hand-drawn watercolors from sketchbook to shelf &rarr;</span>
+      </a>
     </div>
 
-    <div class="service-row">
-      <div class="service-price">$5,000+ <span>6–8 sessions</span></div>
-      <div class="service-info">
-        <h3>Coaching & Prep</h3>
-        <p>We work alongside you over weeks to build and sharpen your narrative — for investors, boards, product teams, or the public. We help you find the spine of your argument.</p>
-      </div>
+    <h2>Behavioral Design</h2>
+
+    <p>We design for how people actually behave — not how a spreadsheet says they should. That means gamification, user journey mapping, and understanding the real decision points where people drop off or lean in. Kahran's background in behavioral economics and Divya's experience in game design come together here: we build systems that respect how humans work, not how we wish they did.</p>
+
+    <div class="inline-card">
+      <a href="work/convegenius.html">
+        <span class="inline-card-type">Case Study</span>
+        <span class="inline-card-title">ConveGenius — gamification for 100K students, designed around real behavior &rarr;</span>
+      </a>
     </div>
 
-    <div class="service-row">
-      <div class="service-price">Custom</div>
-      <div class="service-info">
-        <h3>Project-Based</h3>
-        <p>Genesis to go-to-market. We work on a milestone basis with founding teams doing something genuinely new — bringing design, strategy, and storytelling to bear simultaneously.</p>
-      </div>
+    <h2>Thinking with AI</h2>
+
+    <p>We use AI tools every day in our own practice — Claude, ChatGPT, Midjourney — and we run workshops for teams that want to get past the hype and build real workflows. The difference between AI as a gimmick and AI as a thinking partner is enormous, and most teams are stuck on the wrong side of that line. We help you cross it.</p>
+
+    <div class="inline-card">
+      <a href="ai-workshops.html">
+        <span class="inline-card-type">AI Workshops</span>
+        <span class="inline-card-title">Our dedicated AI workshops page — what teams learn and how we work &rarr;</span>
+      </a>
     </div>
 
-  </section>
+    <h2>Coaching &amp; Advisory</h2>
 
-  <section class="who-section">
-    <div class="inner">
-      <h2>Who We Work With</h2>
-      <p class="intro">We work best with founders, CEOs, and product leaders who know something needs to change but need help figuring out what — and how to make it land.</p>
-      <div class="who-grid">
-        <div class="who-card">
-          <h3>Startups &amp; SMEs</h3>
-          <p>Early-stage teams figuring out their product, their story, or both. People who want a thought partner, not a 90-slide deck.</p>
-        </div>
-        <div class="who-card">
-          <h3>Mission-Driven Companies</h3>
-          <p>Organizations where the story matters as much as the product. Nonprofits, social enterprises, and brands building around values — not just features.</p>
-        </div>
-        <div class="who-card">
-          <h3>Teams Going Through Change</h3>
-          <p>Companies navigating a rebrand, a funding round, a pivot, or a new market. When the stakes are high and the narrative needs to be sharp.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <p>Sometimes you don't need a project — you need a thinking partner. We work alongside founders over weeks and months, helping sharpen narratives, prepare for high-stakes moments, and think through decisions that don't have obvious answers. This is not therapy and it's not mentorship. It's two people who have been in the room before, helping you get ready for yours.</p>
+
+  </article>
 
   <section class="process-section">
     <div class="inner">
@@ -308,10 +350,34 @@
         <div class="process-step">
           <p class="step-num">04</p>
           <h3>Evolve</h3>
-          <p>We check how things landed, learn from what worked, and look for what to build next. The best projects keep going.</p>
+          <p>We check how things landed, learn from what happened, and look for what to build next. The best projects keep going.</p>
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="pricing-section">
+    <h2>Indicative pricing</h2>
+    <p>A conversation starts at $200. Workshops start at $2,000. Longer partnerships are custom — scoped to your stage, your constraints, and what you actually need. We'd rather talk about fit than quote a number.</p>
+  </section>
+
+  <section class="who-section">
+    <h2>Who We Work With</h2>
+    <p>We work best with founders, CEOs, and product leaders who know something needs to change but need help figuring out what — and how to make it land.</p>
+    <ul class="who-list">
+      <li>
+        <strong>Startups &amp; SMEs</strong>
+        Early-stage teams figuring out their product, their story, or both. People who want a thought partner, not a 90-slide deck.
+      </li>
+      <li>
+        <strong>Mission-Driven Companies</strong>
+        Organizations where the story matters as much as the product. Nonprofits, social enterprises, and brands building around values — not just features.
+      </li>
+      <li>
+        <strong>Teams Going Through Change</strong>
+        Companies navigating a rebrand, a funding round, a pivot, or a new market. When the stakes are high and the narrative needs to be sharp.
+      </li>
+    </ul>
   </section>
 
   <section class="cta-strip">
@@ -319,6 +385,7 @@
     <p>Whether you have a clear brief or just a nagging feeling something needs to change.</p>
     <a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a>
   </section>
+
   </main>
 
   <footer class="footer">
