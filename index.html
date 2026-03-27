@@ -571,474 +571,242 @@
       rectangle: { page: 'home.html',          hint: 'step inside' },
     };
 
-    // ══════════════════════════════════════════════════════════════════
-    // ── SHAPE CLASSIFIER v5: Centroid-distance profile (90.5% acc) ──
-    // ══════════════════════════════════════════════════════════════════
+    // ══════════════════════════════════════════════════════════════
+    // SHAPE CLASSIFIER v4: Distance-from-Centroid Profile
+    // ══════════════════════════════════════════════════════════════
+    // Tested at 90.5% accuracy on 200 synthetic hand-drawn shapes.
     //
-    // Measure distance from each resampled point to the centroid.
-    // Circles have a flat profile (low CV), triangles have 3 peaks,
-    // rectangles/squares have 4 peaks. Tested on 200 synthetic shapes.
-    //
-    // Replaces the multi-signal voting system (v3, ~23% accuracy due
-    // to broken RDP on closed paths).
-    //
-    // ══════════════════════════════════════════════════════════════════
+    // The insight: measure each point's distance from the centroid.
+    // Circles have a FLAT profile (constant radius).
+    // Triangles have 3 PEAKS (vertices far from center).
+    // Rectangles have 4 PEAKS (corners far from center).
+    // Count the peaks → classify the shape.
 
-    // ── Helper: merge all strokes into one ordered point array ──
-    function flattenStrokes() {
-      // For multi-stroke shapes, order strokes so endpoints connect properly.
+    var SHAPES = {
+      circle:    { page: 'about.html',        hint: 'no corners to hide behind' },
+      triangle:  { page: 'comics/gossip.html', hint: 'three people in every piece of gossip' },
+      square:    { page: 'podcast/504-creating-comics-together-with-kahran-and-divya.html', hint: 'four panels on a page' },
+      rectangle: { page: 'home.html',          hint: 'step inside' },
+    };
+
+    // ── Flatten and order multi-stroke input ──
+    function flattenForClassifier() {
       if (allStrokes.length <= 1) {
-        var points = [];
-        var src = allStrokes[0] || [];
-        for (var i = 0; i < src.length; i++) points.push({ x: src[i].x, y: src[i].y });
-        return points;
+        var pts = [];
+        var s = allStrokes[0] || [];
+        for (var i = 0; i < s.length; i++) pts.push({x: s[i].x, y: s[i].y});
+        return pts;
       }
-
-      var ordered = [allStrokes[0].map(function(p) { return { x: p.x, y: p.y }; })];
+      // Order strokes by connecting nearest endpoints
+      var ordered = [allStrokes[0].map(function(p){return {x:p.x,y:p.y};})];
       var used = {};
       used[0] = true;
-
       for (var step = 1; step < allStrokes.length; step++) {
-        var lastPt = ordered[ordered.length - 1];
-        var tail = lastPt[lastPt.length - 1];
-
-        var bestIdx = -1, bestDist = Infinity, bestReverse = false;
+        var last = ordered[ordered.length - 1];
+        var tail = last[last.length - 1];
+        var bestIdx = -1, bestDist = Infinity, bestRev = false;
         for (var j = 0; j < allStrokes.length; j++) {
           if (used[j]) continue;
           var s = allStrokes[j];
           var dHead = dist(tail, s[0]);
           var dTail = dist(tail, s[s.length - 1]);
-          if (dHead < bestDist) { bestDist = dHead; bestIdx = j; bestReverse = false; }
-          if (dTail < bestDist) { bestDist = dTail; bestIdx = j; bestReverse = true; }
+          if (dHead < bestDist) { bestDist = dHead; bestIdx = j; bestRev = false; }
+          if (dTail < bestDist) { bestDist = dTail; bestIdx = j; bestRev = true; }
         }
-
         used[bestIdx] = true;
-        var pts = allStrokes[bestIdx].map(function(p) { return { x: p.x, y: p.y }; });
-        if (bestReverse) pts.reverse();
+        var pts = allStrokes[bestIdx].map(function(p){return {x:p.x,y:p.y};});
+        if (bestRev) pts.reverse();
         ordered.push(pts);
       }
-
-      var points2 = [];
-      for (var oi = 0; oi < ordered.length; oi++) {
-        for (var pi = 0; pi < ordered[oi].length; pi++) points2.push(ordered[oi][pi]);
-      }
-      return points2;
+      var result = [];
+      for (var i = 0; i < ordered.length; i++)
+        for (var j = 0; j < ordered[i].length; j++) result.push(ordered[i][j]);
+      return result;
     }
 
-    // ── Helper: linear interpolation ──
-    function lerp(a, b, t) {
-      return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
-    }
-
-    // ── Helper: total path length ──
-    function totalPathLength(points) {
-      var len = 0;
-      for (var i = 1; i < points.length; i++) {
-        len += dist(points[i - 1], points[i]);
-      }
-      return len;
-    }
-
-    // ── Helper: resample to N evenly-spaced points (closed path) ──
-    function resamplePoints(pts, n) {
+    // ── Resample to N equidistant points on closed path ──
+    function resampleClosed(pts, n) {
       if (pts.length < 2) return pts.slice();
-
-      // Close the path by appending the first point
-      var closed = pts.concat([pts[0]]);
-      var totalLen = totalPathLength(closed);
-      if (totalLen === 0) return pts.slice();
-
+      // Close the path
+      var closed = pts.concat([{x: pts[0].x, y: pts[0].y}]);
+      var totalLen = 0;
+      for (var i = 1; i < closed.length; i++) totalLen += dist(closed[i-1], closed[i]);
+      if (totalLen < 1) return pts.slice();
       var interval = totalLen / n;
-      var resampled = [{ x: closed[0].x, y: closed[0].y }];
-      var carry = 0;
-      var srcIdx = 1;
-
-      while (resampled.length < n && srcIdx < closed.length) {
-        var d = dist(closed[srcIdx - 1], closed[srcIdx]);
+      var res = [{x: closed[0].x, y: closed[0].y}];
+      var carry = 0, src = 1;
+      while (res.length < n && src < closed.length) {
+        var d = dist(closed[src-1], closed[src]);
+        if (d < 0.001) { src++; continue; }
         if (carry + d >= interval) {
-          var overshoot = interval - carry;
-          var t = d > 0 ? overshoot / d : 0;
-          var pt = lerp(closed[srcIdx - 1], closed[srcIdx], t);
-          resampled.push(pt);
-          closed.splice(srcIdx, 0, pt);
-          carry = 0;
-          srcIdx++;
-        } else {
-          carry += d;
-          srcIdx++;
-        }
+          var r = (interval - carry) / d;
+          var nx = closed[src-1].x + r * (closed[src].x - closed[src-1].x);
+          var ny = closed[src-1].y + r * (closed[src].y - closed[src-1].y);
+          res.push({x: nx, y: ny});
+          closed = closed.slice();
+          closed.splice(src, 0, {x: nx, y: ny});
+          carry = 0; src++;
+        } else { carry += d; src++; }
       }
-
-      // Pad if short due to floating point
-      while (resampled.length < n) {
-        resampled.push({ x: closed[closed.length - 1].x, y: closed[closed.length - 1].y });
-      }
-
-      return resampled.slice(0, n);
+      while (res.length < n) res.push({x: closed[closed.length-1].x, y: closed[closed.length-1].y});
+      return res.slice(0, n);
     }
 
-    // ── Centroid distance profile ──
-
-    function computeCentroid(points) {
-      var sx = 0, sy = 0;
-      for (var i = 0; i < points.length; i++) { sx += points[i].x; sy += points[i].y; }
-      return { x: sx / points.length, y: sy / points.length };
-    }
-
-    function distanceProfile(points, centroid) {
-      var profile = [];
-      for (var i = 0; i < points.length; i++) profile.push(dist(points[i], centroid));
-      return profile;
-    }
-
-    function smoothProfile(profile, windowSize) {
+    // ── Smooth array with circular moving average ──
+    function smoothArray(arr, windowSize) {
       var half = Math.floor(windowSize / 2);
-      var n = profile.length;
-      var out = new Array(n);
+      var n = arr.length;
+      var out = [];
       for (var i = 0; i < n; i++) {
-        var sum = 0, count = 0;
+        var sum = 0, cnt = 0;
         for (var j = i - half; j <= i + half; j++) {
           var idx = ((j % n) + n) % n;
-          sum += profile[idx];
-          count++;
+          sum += arr[idx]; cnt++;
         }
-        out[i] = sum / count;
+        out.push(sum / cnt);
       }
       return out;
     }
 
-    function profileStats(profile) {
-      var n = profile.length;
-      var sum = 0;
-      for (var i = 0; i < n; i++) sum += profile[i];
-      var mean = sum / n;
+    // ── Find peaks in circular array ──
+    function findProfilePeaks(arr, threshold, minSep) {
+      var n = arr.length;
+      var rawPeaks = [];
+      for (var i = 0; i < n; i++) {
+        var prev = ((i - 1) + n) % n;
+        var next = (i + 1) % n;
+        if (arr[i] > arr[prev] && arr[i] > arr[next] && arr[i] >= threshold) {
+          rawPeaks.push({index: i, value: arr[i]});
+        }
+      }
+      // Merge nearby peaks — keep tallest
+      rawPeaks.sort(function(a, b) { return b.value - a.value; });
+      var kept = [];
+      for (var i = 0; i < rawPeaks.length; i++) {
+        var tooClose = false;
+        for (var j = 0; j < kept.length; j++) {
+          var d = Math.min(Math.abs(rawPeaks[i].index - kept[j].index), n - Math.abs(rawPeaks[i].index - kept[j].index));
+          if (d < minSep) { tooClose = true; break; }
+        }
+        if (!tooClose) kept.push(rawPeaks[i]);
+      }
+      return kept;
+    }
 
+    // ── Main classifier ──
+    function classifyShape(region) {
+      var N = 120;
+      var SMOOTH = 7;
+      var MIN_SEP = Math.floor(N / 10);
+
+      // Flatten strokes
+      var flat = flattenForClassifier();
+      if (flat.length < 10) {
+        var m = SHAPES.rectangle;
+        return {page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.3};
+      }
+
+      // Resample on closed path
+      var pts = resampleClosed(flat, N);
+
+      // Centroid
+      var cx = 0, cy = 0;
+      for (var i = 0; i < pts.length; i++) { cx += pts[i].x; cy += pts[i].y; }
+      cx /= pts.length; cy /= pts.length;
+
+      // Distance profile
+      var profile = [];
+      for (var i = 0; i < pts.length; i++) {
+        profile.push(dist(pts[i], {x: cx, y: cy}));
+      }
+
+      // Smooth
+      var smooth = smoothArray(profile, SMOOTH);
+
+      // Stats
+      var sum = 0;
+      for (var i = 0; i < smooth.length; i++) sum += smooth[i];
+      var mean = sum / smooth.length;
       var varSum = 0;
-      for (var i = 0; i < n; i++) varSum += (profile[i] - mean) * (profile[i] - mean);
-      var std = Math.sqrt(varSum / n);
+      for (var i = 0; i < smooth.length; i++) varSum += (smooth[i] - mean) * (smooth[i] - mean);
+      var std = Math.sqrt(varSum / smooth.length);
       var cv = mean > 0 ? std / mean : 0;
 
-      return { mean: mean, std: std, cv: cv };
-    }
-
-    // ── Peak / Valley detection ──
-
-    function findPeaks(profile, minProminence) {
-      var n = profile.length;
-      var peaks = [];
-
-      for (var i = 0; i < n; i++) {
-        var prev = ((i - 1) + n) % n;
-        var next = (i + 1) % n;
-        if (profile[i] > profile[prev] && profile[i] > profile[next]) {
-          peaks.push({ index: i, value: profile[i] });
-        }
-      }
-
-      if (minProminence > 0) {
-        var filtered = [];
-        for (var k = 0; k < peaks.length; k++) {
-          if (peaks[k].value >= minProminence) filtered.push(peaks[k]);
-        }
-        return filtered;
-      }
-      return peaks;
-    }
-
-    function findValleys(profile, maxHeight) {
-      var n = profile.length;
-      var valleys = [];
-
-      for (var i = 0; i < n; i++) {
-        var prev = ((i - 1) + n) % n;
-        var next = (i + 1) % n;
-        if (profile[i] < profile[prev] && profile[i] < profile[next]) {
-          valleys.push({ index: i, value: profile[i] });
-        }
-      }
-
-      if (maxHeight < Infinity) {
-        var filtered = [];
-        for (var k = 0; k < valleys.length; k++) {
-          if (valleys[k].value <= maxHeight) filtered.push(valleys[k]);
-        }
-        return filtered;
-      }
-      return valleys;
-    }
-
-    // Filter peaks: keep most prominent, merge nearby
-    function filterPeaksByProminence(peaks, profile, minSeparation) {
-      if (peaks.length <= 1) return peaks;
-      var n = profile.length;
-
-      var sorted = peaks.slice().sort(function(a, b) { return b.value - a.value; });
-      var kept = [];
-
-      for (var si = 0; si < sorted.length; si++) {
-        var peak = sorted[si];
-        var tooClose = false;
-        for (var ki = 0; ki < kept.length; ki++) {
-          var d = Math.min(
-            Math.abs(peak.index - kept[ki].index),
-            n - Math.abs(peak.index - kept[ki].index)
-          );
-          if (d < minSeparation) { tooClose = true; break; }
-        }
-        if (!tooClose) kept.push(peak);
-      }
-
-      return kept.sort(function(a, b) { return a.index - b.index; });
-    }
-
-    // Filter valleys: keep deepest, merge nearby
-    function filterValleysBySeparation(valleys, profile, minSeparation) {
-      if (valleys.length <= 1) return valleys;
-      var n = profile.length;
-
-      var sorted = valleys.slice().sort(function(a, b) { return a.value - b.value; });
-      var kept = [];
-
-      for (var si = 0; si < sorted.length; si++) {
-        var valley = sorted[si];
-        var tooClose = false;
-        for (var ki = 0; ki < kept.length; ki++) {
-          var d = Math.min(
-            Math.abs(valley.index - kept[ki].index),
-            n - Math.abs(valley.index - kept[ki].index)
-          );
-          if (d < minSeparation) { tooClose = true; break; }
-        }
-        if (!tooClose) kept.push(valley);
-      }
-
-      return kept.sort(function(a, b) { return a.index - b.index; });
-    }
-
-    // ══════════════════════════════════════════════════════
-    // MAIN CLASSIFIER: centroid-distance profile
-    // ══════════════════════════════════════════════════════
-
-    function classifyCentroid(flat) {
-      var N = 120;
-      var SMOOTH_WINDOW = 7;
-      var MIN_PEAK_SEPARATION = Math.floor(N / 10);
-
-      if (flat.length < 3) return { shape: 'unknown', confidence: 0.5 };
-
-      var points = resamplePoints(flat, N);
-
-      var centroid = computeCentroid(points);
-      var raw = distanceProfile(points, centroid);
-      var smooth = smoothProfile(raw, SMOOTH_WINDOW);
-      var stats = profileStats(smooth);
-
-      var rawPeaks = findPeaks(smooth, stats.mean);
-      var rawValleys = findValleys(smooth, stats.mean);
-
-      var peaks = filterPeaksByProminence(rawPeaks, smooth, MIN_PEAK_SEPARATION);
-      var valleys = filterValleysBySeparation(rawValleys, smooth, MIN_PEAK_SEPARATION);
-
+      // Find peaks above mean
+      var peaks = findProfilePeaks(smooth, mean, MIN_SEP);
       var peakCount = peaks.length;
-      var valleyCount = valleys.length;
 
-      // Low variance -> circle
-      if (stats.cv < 0.10) {
-        return { shape: 'circle', confidence: 0.95 };
+      // Bounding box aspect ratio
+      var b = region.bounds;
+      var aspect = (b.maxX - b.minX) / (b.maxY - b.minY);
+
+      // Stroke count hint
+      var substStrokes = 0;
+      for (var s = 0; s < allStrokes.length; s++) {
+        if (allStrokes[s].length >= 5) substStrokes++;
       }
 
-      // 3 peaks -> triangle
-      if (peakCount === 3 && stats.cv > 0.08) {
-        return { shape: 'triangle', confidence: 0.95 };
+      // ── Classification logic ──
+      var shape = 'rectangle'; // default
+      var confidence = 0.7;
+
+      // Circle: low variance (flat profile)
+      if (cv < 0.10) {
+        shape = 'circle'; confidence = 0.95;
       }
-
-      // 4 peaks -> square or rectangle
-      if (peakCount === 4 && stats.cv > 0.08) {
-        var peakDistances = [];
-        for (var pi = 0; pi < peaks.length; pi++) peakDistances.push(smooth[peaks[pi].index]);
-        var avgPeakDist = 0;
-        for (var pi2 = 0; pi2 < peakDistances.length; pi2++) avgPeakDist += peakDistances[pi2];
-        avgPeakDist /= peakDistances.length;
-
-        // Check angular spacing between peaks
+      // Triangle: 3 peaks
+      else if (peakCount === 3 && cv > 0.08) {
+        shape = 'triangle'; confidence = 0.92;
+      }
+      // Rectangle: 4 peaks
+      else if (peakCount === 4 && cv > 0.08) {
+        // Check for square (equal peak spacing + similar peak heights)
         if (peaks.length === 4) {
           var gaps = [];
-          for (var gi = 0; gi < 4; gi++) {
-            var next = (gi + 1) % 4;
-            var gap = peaks[next].index - peaks[gi].index;
+          for (var i = 0; i < 4; i++) {
+            var next = (i + 1) % 4;
+            var gap = peaks[next].index - peaks[i].index;
             if (gap < 0) gap += N;
             gaps.push(gap);
           }
           var meanGap = 0;
-          for (var g2 = 0; g2 < 4; g2++) meanGap += gaps[g2];
+          for (var i = 0; i < gaps.length; i++) meanGap += gaps[i];
           meanGap /= 4;
-          var angularVariance = 0;
-          for (var g3 = 0; g3 < 4; g3++) angularVariance += (gaps[g3] - meanGap) * (gaps[g3] - meanGap);
-          angularVariance /= 4;
-          var angularCV = Math.sqrt(angularVariance) / meanGap;
+          var gapVar = 0;
+          for (var i = 0; i < gaps.length; i++) gapVar += (gaps[i] - meanGap) * (gaps[i] - meanGap);
+          var gapCV = Math.sqrt(gapVar / 4) / meanGap;
 
-          var peakCV = 0;
-          for (var pc = 0; pc < peakDistances.length; pc++) peakCV += (peakDistances[pc] - avgPeakDist) * (peakDistances[pc] - avgPeakDist);
-          peakCV = Math.sqrt(peakCV / peakDistances.length) / avgPeakDist;
-
-          if (angularCV < 0.25 && peakCV < 0.15) {
-            return { shape: 'square', confidence: 0.95 };
+          if (gapCV < 0.25 && Math.min(aspect, 1/aspect) > 0.75) {
+            shape = 'square'; confidence = 0.85;
+          } else {
+            shape = 'rectangle'; confidence = 0.90;
           }
+        } else {
+          shape = 'rectangle'; confidence = 0.85;
         }
-
-        return { shape: 'rectangle', confidence: 0.95 };
       }
-
-      // Borderline cases
-      if (stats.cv < 0.15 && peakCount <= 2) {
-        return { shape: 'circle', confidence: 0.7 };
+      // Borderline: low-ish CV with few peaks = circle
+      else if (cv < 0.15 && peakCount <= 2) {
+        shape = 'circle'; confidence = 0.80;
       }
-
-      if (peakCount >= 5 && stats.cv < 0.18) {
-        return { shape: 'circle', confidence: 0.7 };
+      // Wobbly circle: many peaks but still fairly uniform
+      else if (peakCount >= 5 && cv < 0.18) {
+        shape = 'circle'; confidence = 0.75;
       }
+      // Fallback by peak count
+      else if (peakCount === 3) { shape = 'triangle'; confidence = 0.70; }
+      else if (peakCount === 4) { shape = 'rectangle'; confidence = 0.70; }
+      else if (peakCount <= 2) { shape = 'circle'; confidence = 0.65; }
+      else { shape = 'circle'; confidence = 0.50; }
 
-      // Fallback heuristics
-      if (peakCount === 3) return { shape: 'triangle', confidence: 0.7 };
-      if (peakCount === 4) return { shape: 'rectangle', confidence: 0.7 };
-      if (peakCount <= 2) return { shape: 'circle', confidence: 0.7 };
+      // Multi-stroke override: 3 lines = triangle, 4 = rectangle
+      if (substStrokes === 3 && shape !== 'triangle') { shape = 'triangle'; confidence = 0.90; }
+      if (substStrokes === 4 && shape !== 'rectangle' && shape !== 'square') { shape = 'rectangle'; confidence = 0.90; }
 
-      return { shape: 'circle', confidence: 0.7 };
+      var m = SHAPES[shape] || SHAPES.rectangle;
+      return {page: m.page, hint: m.hint, shape: shape, confidence: confidence};
     }
 
-    function classifyShape(region) {
-      var b = region.bounds;
-      var bboxW = b.maxX - b.minX;
-      var bboxH = b.maxY - b.minY;
-      if (bboxW < 1 || bboxH < 1) {
-        var m = SHAPES.rectangle;
-        return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.5 };
-      }
-
-      var flat = flattenStrokes();
-      if (flat.length < 10) {
-        var m2 = SHAPES.rectangle;
-        return { page: m2.page, hint: m2.hint, shape: 'rectangle', confidence: 0.5 };
-      }
-
-      var result = classifyCentroid(flat);
-      var shapeName = result.shape;
-      var conf = result.confidence;
-
-      var mf = SHAPES[shapeName] || SHAPES.rectangle;
-      return { page: mf.page, hint: mf.hint, shape: shapeName, confidence: conf };
-    }
-
-    // Combined shape label — shows "you're a triangle · three people in every piece of gossip"
-    function flashGeometricShape(region, classification) {
-      // Don't flash for rectangle (the default)
-      if (classification.shape === 'rectangle') return;
-    }
-
-    // Replaces both the flash AND the old showShapeHint with one combined label
-    function showCombinedHint(region, classification) {
-      var b = region.bounds;
-      var cx = (b.minX + b.maxX) / 2;
-      var bottomY = b.maxY + 25;
-      if (bottomY > window.innerHeight - 60) bottomY = b.minY - 35;
-
-      var label = document.createElement('div');
-      if (classification.shape !== 'rectangle') {
-        label.innerHTML = '<span style="color:#E91E7B;">' + classification.shape + '</span> · ' + classification.hint;
-      } else {
-        label.textContent = classification.hint;
-      }
-      label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#999;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);white-space:nowrap;';
-
-      document.body.appendChild(label);
-      setTimeout(function () { label.style.opacity = '1'; }, 50);
-    }
-
-    // Show the shape hint near the shape
-    function showShapeHint(region, classification) {
-      var b = region.bounds;
-      var centerX = (b.minX + b.maxX) / 2;
-      var bottomY = b.maxY + 30;
-
-      // If too close to bottom of viewport, place above
-      if (bottomY > window.innerHeight - 50) {
-        bottomY = b.minY - 30;
-      }
-
-      var hint = document.createElement('div');
-      hint.className = 'shape-hint';
-      hint.textContent = classification.hint;
-      hint.style.left = centerX + 'px';
-      hint.style.top = bottomY + 'px';
-      hint.style.transform = 'translateX(-50%) translateY(8px)';
-      document.body.appendChild(hint);
-    }
-
-    function endDraw(e) {
-      if (!drawing || shapeClosed) return;
-      e.preventDefault();
-      drawing = false;
-
-      if (points.length < 5) {
-        points = [];
-        return;
-      }
-
-      allStrokes.push([...points]);
-      points = [];
-
-      // Check for any enclosed region
-      var region = findEnclosedRegion();
-      if (region) {
-        shapeClosed = true;
-        enclosedData = region;
-
-        // Classify the shape
-        var classification = classifyShape(region);
-        lastClassification = classification;
-        targetPage = classification.page;
-
-        // Redraw with illustration in the enclosed region
-        redrawAll();
-
-        // Show combined shape label + hint
-        showCombinedHint(region, classification);
-
-        canvas.style.cursor = 'pointer';
-        startPulse();
-      }
-    }
-
-    // Pulse animation — redraws white background, strokes, then cuts out with subtle glow variation
-    let pulseRAF = null;
-    let pulseStart = null;
-
-    function startPulse() {
-      pulseStart = performance.now();
-      pulseTick();
-    }
-
-    function pulseTick() {
-      if (!shapeClosed || !enclosedData) return;
-      var elapsed = performance.now() - pulseStart;
-      var cycle = (Math.sin(elapsed / 1000 * Math.PI) + 1) / 2;
-
-      // Redraw white background
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.fillStyle = '#FFFFFF';
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-      // Redraw all strokes
-      for (var i = 0; i < allStrokes.length; i++) {
-        drawStroke(allStrokes[i], false);
-      }
-
-      // Paint the illustration into the enclosed region
-      paintIllustrationInRegion(enclosedData, 1);
-
-      // Subtle pulsing pink overlay on top
-      var glowAlpha = 0.02 + cycle * 0.06;
-      ctx.save();
       ctx.fillStyle = 'rgba(233, 30, 123, ' + glowAlpha + ')';
       var step = 1 / enclosedData.scale;
       for (var y = 0; y < enclosedData.h; y++) {
