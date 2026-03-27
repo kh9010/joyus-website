@@ -604,8 +604,6 @@
       var result = countStraightSegments();
       var segs = result.segments;
 
-      console.log('Shape debug: segments=' + segs + ', aspectRatio=' + aspectRatio.toFixed(2));
-
       // ── 3 lines → triangle (only 2-3 segments, very strict) ──
       if (segs >= 2 && segs <= 3) {
         var m = SHAPES.triangle;
