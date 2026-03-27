@@ -1165,6 +1165,65 @@
       return {page: m.page, hint: m.hint, shape: shape, confidence: confidence};
     }
 
+    // Simple label flash — shows "circle · no corners to hide behind"
+    function flashGeometricShape(region, classification) {
+      if (classification.shape === 'rectangle') return;
+    }
+
+    // Combined shape label + destination hint
+    function showCombinedHint(region, classification) {
+      var b = region.bounds;
+      var cx = (b.minX + b.maxX) / 2;
+      var bottomY = b.maxY + 25;
+      if (bottomY > window.innerHeight - 60) bottomY = b.minY - 35;
+
+      var label = document.createElement('div');
+      if (classification.shape !== 'rectangle') {
+        label.innerHTML = '<span style="color:#E91E7B;">' + classification.shape + '</span> \u00B7 ' + classification.hint;
+      } else {
+        label.textContent = classification.hint;
+      }
+      label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#999;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);white-space:nowrap;';
+
+      document.body.appendChild(label);
+      setTimeout(function () { label.style.opacity = '1'; }, 50);
+    }
+
+    function endDraw(e) {
+      if (!drawing || shapeClosed) return;
+      e.preventDefault();
+      drawing = false;
+
+      if (points.length < 5) {
+        points = [];
+        return;
+      }
+
+      allStrokes.push([...points]);
+      points = [];
+
+      // Check for any enclosed region
+      var region = findEnclosedRegion();
+      if (region) {
+        shapeClosed = true;
+        enclosedData = region;
+
+        // Classify the shape
+        var classification = classifyShape(region);
+        lastClassification = classification;
+        targetPage = classification.page;
+
+        // Redraw with illustration in the enclosed region
+        redrawAll();
+
+        // Show combined shape label + hint
+        showCombinedHint(region, classification);
+
+        canvas.style.cursor = 'pointer';
+        startPulse();
+      }
+    }
+
     // Pulse animation — redraws white background, strokes, then cuts out with subtle glow variation
     let pulseRAF = null;
     let pulseStart = null;
