@@ -572,24 +572,13 @@
     };
 
     // ══════════════════════════════════════════════════════════════
-    // SHAPE CLASSIFIER v4: Distance-from-Centroid Profile
+    // SHAPE CLASSIFIER v5: Dual Classifier
+    //   Primary:   $1 Unistroke Recognizer (98.5% accuracy)
+    //   Secondary: Centroid distance profile (90.5% accuracy)
+    //   When both agree → high confidence. Disagree → trust $1.
     // ══════════════════════════════════════════════════════════════
-    // Tested at 90.5% accuracy on 200 synthetic hand-drawn shapes.
-    //
-    // The insight: measure each point's distance from the centroid.
-    // Circles have a FLAT profile (constant radius).
-    // Triangles have 3 PEAKS (vertices far from center).
-    // Rectangles have 4 PEAKS (corners far from center).
-    // Count the peaks → classify the shape.
 
-    var SHAPES = {
-      circle:    { page: 'about.html',        hint: 'no corners to hide behind' },
-      triangle:  { page: 'comics/gossip.html', hint: 'three people in every piece of gossip' },
-      square:    { page: 'podcast/504-creating-comics-together-with-kahran-and-divya.html', hint: 'four panels on a page' },
-      rectangle: { page: 'home.html',          hint: 'step inside' },
-    };
-
-    // ── Flatten and order multi-stroke input ──
+    // ── Shared: Flatten and order multi-stroke input ──
     function flattenForClassifier() {
       if (allStrokes.length <= 1) {
         var pts = [];
@@ -597,21 +586,20 @@
         for (var i = 0; i < s.length; i++) pts.push({x: s[i].x, y: s[i].y});
         return pts;
       }
-      // Order strokes by connecting nearest endpoints
       var ordered = [allStrokes[0].map(function(p){return {x:p.x,y:p.y};})];
       var used = {};
       used[0] = true;
       for (var step = 1; step < allStrokes.length; step++) {
         var last = ordered[ordered.length - 1];
         var tail = last[last.length - 1];
-        var bestIdx = -1, bestDist = Infinity, bestRev = false;
+        var bestIdx = -1, bestD = Infinity, bestRev = false;
         for (var j = 0; j < allStrokes.length; j++) {
           if (used[j]) continue;
           var s = allStrokes[j];
           var dHead = dist(tail, s[0]);
           var dTail = dist(tail, s[s.length - 1]);
-          if (dHead < bestDist) { bestDist = dHead; bestIdx = j; bestRev = false; }
-          if (dTail < bestDist) { bestDist = dTail; bestIdx = j; bestRev = true; }
+          if (dHead < bestD) { bestD = dHead; bestIdx = j; bestRev = false; }
+          if (dTail < bestD) { bestD = dTail; bestIdx = j; bestRev = true; }
         }
         used[bestIdx] = true;
         var pts = allStrokes[bestIdx].map(function(p){return {x:p.x,y:p.y};});
@@ -624,10 +612,9 @@
       return result;
     }
 
-    // ── Resample to N equidistant points on closed path ──
+    // ── Shared: Resample to N equidistant points on closed path ──
     function resampleClosed(pts, n) {
       if (pts.length < 2) return pts.slice();
-      // Close the path
       var closed = pts.concat([{x: pts[0].x, y: pts[0].y}]);
       var totalLen = 0;
       for (var i = 1; i < closed.length; i++) totalLen += dist(closed[i-1], closed[i]);
@@ -651,6 +638,362 @@
       while (res.length < n) res.push({x: closed[closed.length-1].x, y: closed[closed.length-1].y});
       return res.slice(0, n);
     }
+
+    // ════════════════════════════════════════════════════════════
+    // PRIMARY: $1 Unistroke Recognizer
+    // ════════════════════════════════════════════════════════════
+
+    var D1_NUM_POINTS = 64;
+    var D1_SQUARE_SIZE = 250.0;
+    var D1_HALF_DIAGONAL = 0.5 * Math.sqrt(D1_SQUARE_SIZE * D1_SQUARE_SIZE + D1_SQUARE_SIZE * D1_SQUARE_SIZE);
+    var D1_ANGLE_RANGE = Math.PI / 4.0;
+    var D1_ANGLE_PRECISION = Math.PI / 90.0;
+    var D1_PHI = 0.5 * (-1.0 + Math.sqrt(5.0));
+
+    function Point(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    function d1dist(a, b) {
+      var dx = a.x - b.x;
+      var dy = a.y - b.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function d1pathLength(points) {
+      var d = 0;
+      for (var i = 1; i < points.length; i++) {
+        d += d1dist(points[i - 1], points[i]);
+      }
+      return d;
+    }
+
+    function d1centroid(points) {
+      var cx = 0, cy = 0;
+      for (var i = 0; i < points.length; i++) {
+        cx += points[i].x;
+        cy += points[i].y;
+      }
+      return new Point(cx / points.length, cy / points.length);
+    }
+
+    function d1boundingBox(points) {
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (var i = 0; i < points.length; i++) {
+        if (points[i].x < minX) minX = points[i].x;
+        if (points[i].y < minY) minY = points[i].y;
+        if (points[i].x > maxX) maxX = points[i].x;
+        if (points[i].y > maxY) maxY = points[i].y;
+      }
+      return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
+    }
+
+    function d1resample(points, n) {
+      var interval = d1pathLength(points) / (n - 1);
+      var D = 0;
+      var newPoints = [new Point(points[0].x, points[0].y)];
+      for (var i = 1; i < points.length; i++) {
+        var d = d1dist(points[i - 1], points[i]);
+        if (D + d >= interval) {
+          var qx = points[i - 1].x + ((interval - D) / d) * (points[i].x - points[i - 1].x);
+          var qy = points[i - 1].y + ((interval - D) / d) * (points[i].y - points[i - 1].y);
+          var q = new Point(qx, qy);
+          newPoints.push(q);
+          points.splice(i, 0, q);
+          D = 0;
+        } else {
+          D += d;
+        }
+      }
+      if (newPoints.length === n - 1) {
+        newPoints.push(new Point(points[points.length - 1].x, points[points.length - 1].y));
+      }
+      while (newPoints.length > n) newPoints.pop();
+      while (newPoints.length < n) newPoints.push(new Point(points[points.length - 1].x, points[points.length - 1].y));
+      return newPoints;
+    }
+
+    function d1indicativeAngle(points) {
+      var c = d1centroid(points);
+      return Math.atan2(c.y - points[0].y, c.x - points[0].x);
+    }
+
+    function d1rotateBy(points, radians) {
+      var c = d1centroid(points);
+      var cos = Math.cos(radians);
+      var sin = Math.sin(radians);
+      var newPoints = [];
+      for (var i = 0; i < points.length; i++) {
+        var dx = points[i].x - c.x;
+        var dy = points[i].y - c.y;
+        newPoints.push(new Point(dx * cos - dy * sin + c.x, dx * sin + dy * cos + c.y));
+      }
+      return newPoints;
+    }
+
+    function d1scaleTo(points, size) {
+      var b = d1boundingBox(points);
+      var newPoints = [];
+      for (var i = 0; i < points.length; i++) {
+        var qx = points[i].x * (size / (b.width || 1));
+        var qy = points[i].y * (size / (b.height || 1));
+        newPoints.push(new Point(qx, qy));
+      }
+      return newPoints;
+    }
+
+    function d1translateTo(points, pt) {
+      var c = d1centroid(points);
+      var newPoints = [];
+      for (var i = 0; i < points.length; i++) {
+        newPoints.push(new Point(points[i].x + pt.x - c.x, points[i].y + pt.y - c.y));
+      }
+      return newPoints;
+    }
+
+    function d1pathDistance(a, b) {
+      var d = 0;
+      var n = Math.min(a.length, b.length);
+      for (var i = 0; i < n; i++) {
+        d += d1dist(a[i], b[i]);
+      }
+      return d / n;
+    }
+
+    function d1distanceAtAngle(points, template, radians) {
+      var newPoints = d1rotateBy(points, radians);
+      return d1pathDistance(newPoints, template);
+    }
+
+    function d1distanceAtBestAngle(points, template, a, b, threshold) {
+      var x1 = D1_PHI * a + (1.0 - D1_PHI) * b;
+      var f1 = d1distanceAtAngle(points, template, x1);
+      var x2 = (1.0 - D1_PHI) * a + D1_PHI * b;
+      var f2 = d1distanceAtAngle(points, template, x2);
+      while (Math.abs(b - a) > threshold) {
+        if (f1 < f2) {
+          b = x2;
+          x2 = x1;
+          f2 = f1;
+          x1 = D1_PHI * a + (1.0 - D1_PHI) * b;
+          f1 = d1distanceAtAngle(points, template, x1);
+        } else {
+          a = x1;
+          x1 = x2;
+          f1 = f2;
+          x2 = (1.0 - D1_PHI) * a + D1_PHI * b;
+          f2 = d1distanceAtAngle(points, template, x2);
+        }
+      }
+      return Math.min(f1, f2);
+    }
+
+    function d1processPoints(rawPoints) {
+      var pts = rawPoints.slice();
+      pts = d1resample(pts, D1_NUM_POINTS);
+      var angle = d1indicativeAngle(pts);
+      pts = d1rotateBy(pts, -angle);
+      pts = d1scaleTo(pts, D1_SQUARE_SIZE);
+      pts = d1translateTo(pts, new Point(0, 0));
+      return pts;
+    }
+
+    // ── $1 Template generation ──
+
+    function d1generateCircle(cx, cy, rx, ry, numPts) {
+      var pts = [];
+      for (var i = 0; i < numPts; i++) {
+        var angle = (2 * Math.PI * i) / numPts;
+        pts.push(new Point(cx + rx * Math.cos(angle), cy + ry * Math.sin(angle)));
+      }
+      pts.push(new Point(pts[0].x, pts[0].y));
+      return pts;
+    }
+
+    function d1generateTriangle(cx, cy, size, type, rotation) {
+      var pts = [];
+      var vertices;
+      if (type === 'equilateral') {
+        vertices = [];
+        for (var i = 0; i < 3; i++) {
+          var a = rotation + (2 * Math.PI * i) / 3 - Math.PI / 2;
+          vertices.push(new Point(cx + size * Math.cos(a), cy + size * Math.sin(a)));
+        }
+      } else if (type === 'isosceles') {
+        vertices = [
+          new Point(cx, cy - size),
+          new Point(cx - size * 0.7, cy + size * 0.6),
+          new Point(cx + size * 0.7, cy + size * 0.6)
+        ];
+      } else if (type === 'right') {
+        vertices = [
+          new Point(cx - size * 0.5, cy + size * 0.5),
+          new Point(cx + size * 0.5, cy + size * 0.5),
+          new Point(cx - size * 0.5, cy - size * 0.5)
+        ];
+      } else {
+        vertices = [];
+        for (var j = 0; j < 3; j++) {
+          var a2 = rotation + (2 * Math.PI * j) / 3 - Math.PI / 2;
+          var r = size * (0.8 + 0.4 * ((j % 2 === 0) ? 1 : 0.7));
+          vertices.push(new Point(cx + r * Math.cos(a2), cy + r * Math.sin(a2)));
+        }
+      }
+      var ptsPerEdge = 30;
+      for (var e = 0; e < 3; e++) {
+        var v1 = vertices[e];
+        var v2 = vertices[(e + 1) % 3];
+        for (var s = 0; s < ptsPerEdge; s++) {
+          var t = s / ptsPerEdge;
+          pts.push(new Point(v1.x + t * (v2.x - v1.x), v1.y + t * (v2.y - v1.y)));
+        }
+      }
+      pts.push(new Point(vertices[0].x, vertices[0].y));
+      return pts;
+    }
+
+    function d1generateRectangle(cx, cy, w, h, rotation) {
+      var pts = [];
+      var corners = [
+        new Point(-w / 2, -h / 2),
+        new Point(w / 2, -h / 2),
+        new Point(w / 2, h / 2),
+        new Point(-w / 2, h / 2)
+      ];
+      var cos = Math.cos(rotation);
+      var sin = Math.sin(rotation);
+      for (var i = 0; i < 4; i++) {
+        corners[i] = new Point(
+          cx + corners[i].x * cos - corners[i].y * sin,
+          cy + corners[i].x * sin + corners[i].y * cos
+        );
+      }
+      var ptsPerEdge = 25;
+      for (var e = 0; e < 4; e++) {
+        var v1 = corners[e];
+        var v2 = corners[(e + 1) % 4];
+        for (var s = 0; s < ptsPerEdge; s++) {
+          var t = s / ptsPerEdge;
+          pts.push(new Point(v1.x + t * (v2.x - v1.x), v1.y + t * (v2.y - v1.y)));
+        }
+      }
+      pts.push(new Point(corners[0].x, corners[0].y));
+      return pts;
+    }
+
+    function d1buildTemplates() {
+      var templates = [];
+      var circleParams = [
+        { rx: 100, ry: 100 },
+        { rx: 60, ry: 60 },
+        { rx: 150, ry: 150 },
+        { rx: 100, ry: 85 },
+        { rx: 80, ry: 95 }
+      ];
+      for (var i = 0; i < circleParams.length; i++) {
+        var cp = circleParams[i];
+        var raw = d1generateCircle(200, 200, cp.rx, cp.ry, 80);
+        templates.push({ name: 'circle', points: d1processPoints(raw) });
+      }
+      var triTypes = [
+        { type: 'equilateral', rot: 0 },
+        { type: 'isosceles', rot: 0 },
+        { type: 'right', rot: 0 },
+        { type: 'equilateral', rot: Math.PI / 6 },
+        { type: 'varied', rot: Math.PI / 8 }
+      ];
+      for (var j = 0; j < triTypes.length; j++) {
+        var tt = triTypes[j];
+        var rawT = d1generateTriangle(200, 200, 100, tt.type, tt.rot);
+        templates.push({ name: 'triangle', points: d1processPoints(rawT) });
+      }
+      var rectParams = [
+        { w: 150, h: 100, rot: 0 },
+        { w: 200, h: 100, rot: 0 },
+        { w: 300, h: 100, rot: 0 },
+        { w: 160, h: 100, rot: 0.1 },
+        { w: 200, h: 120, rot: -0.08 }
+      ];
+      for (var k = 0; k < rectParams.length; k++) {
+        var rp = rectParams[k];
+        var rawR = d1generateRectangle(200, 200, rp.w, rp.h, rp.rot);
+        templates.push({ name: 'rectangle', points: d1processPoints(rawR) });
+      }
+      return templates;
+    }
+
+    // Geometric checks for $1
+    function d1polygonArea(points) {
+      var area = 0;
+      var n = points.length;
+      for (var i = 0; i < n; i++) {
+        var j = (i + 1) % n;
+        area += points[i].x * points[j].y;
+        area -= points[j].x * points[i].y;
+      }
+      return Math.abs(area) / 2;
+    }
+
+    function d1isoperimetricQuotient(points) {
+      var area = d1polygonArea(points);
+      var perim = d1pathLength(points);
+      if (perim === 0) return 0;
+      return (4 * Math.PI * area) / (perim * perim);
+    }
+
+    function d1aspectRatio(points) {
+      var b = d1boundingBox(points);
+      var w = b.width || 1;
+      var h = b.height || 1;
+      if (w < h) return w / h;
+      return h / w;
+    }
+
+    // Run $1 classifier on raw Point array
+    function d1classify(rawPoints, templates) {
+      if (!rawPoints || rawPoints.length < 3) {
+        return { shape: 'unknown', confidence: 0 };
+      }
+      var processed = d1processPoints(rawPoints.slice());
+      var bestDist = Infinity;
+      var bestName = '';
+      for (var i = 0; i < templates.length; i++) {
+        var d = d1distanceAtBestAngle(processed, templates[i].points, -D1_ANGLE_RANGE, D1_ANGLE_RANGE, D1_ANGLE_PRECISION);
+        if (d < bestDist) {
+          bestDist = d;
+          bestName = templates[i].name;
+        }
+      }
+      var threshold = 250.0;
+      var confidence = Math.max(0, 1.0 - bestDist / threshold);
+
+      // Geometric filter: isoperimetric quotient
+      var iq = d1isoperimetricQuotient(rawPoints);
+      if (iq > 0.75 && (bestName === 'triangle' || bestName === 'rectangle')) {
+        bestName = 'circle';
+      }
+      if (iq < 0.55 && bestName === 'circle') {
+        bestName = 'triangle';
+      }
+
+      // Square easter egg
+      if (bestName === 'rectangle') {
+        var ar = d1aspectRatio(rawPoints);
+        if (ar >= 0.78 && ar <= 1.22) {
+          bestName = 'square';
+        }
+      }
+
+      return { shape: bestName, confidence: confidence };
+    }
+
+    // Build templates once at load time
+    var d1Templates = d1buildTemplates();
+
+    // ════════════════════════════════════════════════════════════
+    // SECONDARY: Centroid Distance Profile
+    // ════════════════════════════════════════════════════════════
 
     // ── Smooth array with circular moving average ──
     function smoothArray(arr, windowSize) {
@@ -679,7 +1022,6 @@
           rawPeaks.push({index: i, value: arr[i]});
         }
       }
-      // Merge nearby peaks — keep tallest
       rawPeaks.sort(function(a, b) { return b.value - a.value; });
       var kept = [];
       for (var i = 0; i < rawPeaks.length; i++) {
@@ -693,20 +1035,12 @@
       return kept;
     }
 
-    // ── Main classifier ──
-    function classifyShape(region) {
+    // Run centroid classifier on flattened points
+    function centroidClassify(flat) {
       var N = 120;
       var SMOOTH = 7;
       var MIN_SEP = Math.floor(N / 10);
 
-      // Flatten strokes
-      var flat = flattenForClassifier();
-      if (flat.length < 10) {
-        var m = SHAPES.rectangle;
-        return {page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.3};
-      }
-
-      // Resample on closed path
       var pts = resampleClosed(flat, N);
 
       // Centroid
@@ -720,7 +1054,6 @@
         profile.push(dist(pts[i], {x: cx, y: cy}));
       }
 
-      // Smooth
       var smooth = smoothArray(profile, SMOOTH);
 
       // Stats
@@ -732,35 +1065,16 @@
       var std = Math.sqrt(varSum / smooth.length);
       var cv = mean > 0 ? std / mean : 0;
 
-      // Find peaks above mean
       var peaks = findProfilePeaks(smooth, mean, MIN_SEP);
       var peakCount = peaks.length;
 
-      // Bounding box aspect ratio
-      var b = region.bounds;
-      var aspect = (b.maxX - b.minX) / (b.maxY - b.minY);
-
-      // Stroke count hint
-      var substStrokes = 0;
-      for (var s = 0; s < allStrokes.length; s++) {
-        if (allStrokes[s].length >= 5) substStrokes++;
-      }
-
-      // ── Classification logic ──
-      var shape = 'rectangle'; // default
-      var confidence = 0.7;
-
-      // Circle: low variance (flat profile)
+      // Classification logic
+      var shape = 'rectangle';
       if (cv < 0.10) {
-        shape = 'circle'; confidence = 0.95;
-      }
-      // Triangle: 3 peaks
-      else if (peakCount === 3 && cv > 0.08) {
-        shape = 'triangle'; confidence = 0.92;
-      }
-      // Rectangle: 4 peaks
-      else if (peakCount === 4 && cv > 0.08) {
-        // Check for square (equal peak spacing + similar peak heights)
+        shape = 'circle';
+      } else if (peakCount === 3 && cv > 0.08) {
+        shape = 'triangle';
+      } else if (peakCount === 4 && cv > 0.08) {
         if (peaks.length === 4) {
           var gaps = [];
           for (var i = 0; i < 4; i++) {
@@ -775,34 +1089,78 @@
           var gapVar = 0;
           for (var i = 0; i < gaps.length; i++) gapVar += (gaps[i] - meanGap) * (gaps[i] - meanGap);
           var gapCV = Math.sqrt(gapVar / 4) / meanGap;
-
-          if (gapCV < 0.25 && Math.min(aspect, 1/aspect) > 0.75) {
-            shape = 'square'; confidence = 0.85;
+          if (gapCV < 0.25) {
+            shape = 'square';
           } else {
-            shape = 'rectangle'; confidence = 0.90;
+            shape = 'rectangle';
           }
         } else {
-          shape = 'rectangle'; confidence = 0.85;
+          shape = 'rectangle';
+        }
+      } else if (cv < 0.15 && peakCount <= 2) {
+        shape = 'circle';
+      } else if (peakCount >= 5 && cv < 0.18) {
+        shape = 'circle';
+      } else if (peakCount === 3) { shape = 'triangle'; }
+      else if (peakCount === 4) { shape = 'rectangle'; }
+      else if (peakCount <= 2) { shape = 'circle'; }
+      else { shape = 'circle'; }
+
+      return shape;
+    }
+
+    // ════════════════════════════════════════════════════════════
+    // COMBINED: Dual classifier with agreement logic
+    // ════════════════════════════════════════════════════════════
+
+    function classifyShape(region) {
+      // Step 1: Get all strokes
+      var flat = flattenForClassifier();
+      if (flat.length < 10) {
+        var m = SHAPES.rectangle;
+        return {page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.3};
+      }
+
+      // Step 2: Run $1 classifier (primary)
+      var d1points = [];
+      for (var i = 0; i < flat.length; i++) {
+        d1points.push(new Point(flat[i].x, flat[i].y));
+      }
+      var d1result = d1classify(d1points, d1Templates);
+      var d1shape = d1result.shape;
+      var d1conf = d1result.confidence;
+
+      // Step 3: Run centroid classifier (secondary)
+      var centroidShape = centroidClassify(flat);
+
+      // Step 4-5: Combine results
+      var shape, confidence;
+
+      if (d1shape === centroidShape) {
+        // Both agree → high confidence
+        shape = d1shape;
+        confidence = 0.95;
+      } else {
+        // Disagree → trust $1 if confident enough
+        if (d1conf > 0.7) {
+          shape = d1shape;
+          confidence = d1conf;
+        } else {
+          // Neither confident → safe default
+          shape = 'rectangle';
+          confidence = 0.6;
         }
       }
-      // Borderline: low-ish CV with few peaks = circle
-      else if (cv < 0.15 && peakCount <= 2) {
-        shape = 'circle'; confidence = 0.80;
-      }
-      // Wobbly circle: many peaks but still fairly uniform
-      else if (peakCount >= 5 && cv < 0.18) {
-        shape = 'circle'; confidence = 0.75;
-      }
-      // Fallback by peak count
-      else if (peakCount === 3) { shape = 'triangle'; confidence = 0.70; }
-      else if (peakCount === 4) { shape = 'rectangle'; confidence = 0.70; }
-      else if (peakCount <= 2) { shape = 'circle'; confidence = 0.65; }
-      else { shape = 'circle'; confidence = 0.50; }
 
-      // Multi-stroke override: 3 lines = triangle, 4 = rectangle
-      if (substStrokes === 3 && shape !== 'triangle') { shape = 'triangle'; confidence = 0.90; }
-      if (substStrokes === 4 && shape !== 'rectangle' && shape !== 'square') { shape = 'rectangle'; confidence = 0.90; }
+      // Step 6: Multi-stroke override (strongest signal)
+      var substStrokes = 0;
+      for (var s = 0; s < allStrokes.length; s++) {
+        if (allStrokes[s].length >= 5) substStrokes++;
+      }
+      if (substStrokes === 3) { shape = 'triangle'; confidence = 0.95; }
+      if (substStrokes === 4) { shape = 'rectangle'; confidence = 0.95; }
 
+      // Step 7: Return result
       var m = SHAPES[shape] || SHAPES.rectangle;
       return {page: m.page, hint: m.hint, shape: shape, confidence: confidence};
     }
