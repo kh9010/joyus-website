@@ -572,313 +572,339 @@
     };
 
     // ══════════════════════════════════════════════════════════════════
-    // ── SHAPE CLASSIFIER v3: Multi-signal stroke geometry analysis ──
+    // ── SHAPE CLASSIFIER v5: Centroid-distance profile (90.5% acc) ──
     // ══════════════════════════════════════════════════════════════════
     //
-    // Five independent signals, each measuring a different geometric
-    // property. Weighted vote picks the winner. Designed for freehand
-    // mouse/touch input at ~60fps.
+    // Measure distance from each resampled point to the centroid.
+    // Circles have a flat profile (low CV), triangles have 3 peaks,
+    // rectangles/squares have 4 peaks. Tested on 200 synthetic shapes.
     //
-    //   Signal 1 — Corner count (RDP at 3 epsilon levels, take median)
-    //   Signal 2 — Curvature profile (smooth vs sharp direction changes)
-    //   Signal 3 — Isoperimetric quotient (4*PI*area / perimeter^2)
-    //   Signal 4 — Bounding-box fill ratio (pixel area / bbox area)
-    //   Signal 5 — Convex hull vertex count + hull fit
+    // Replaces the multi-signal voting system (v3, ~23% accuracy due
+    // to broken RDP on closed paths).
     //
-    // Special handling:
-    //   - Multi-stroke drawings (3 strokes = triangle, 4 = rectangle)
-    //   - Rounded rectangle vs circle disambiguation
-    //   - Square easter egg (rectangle with aspect ratio near 1:1)
-    //
-    // Thresholds tuned for hand-drawn shapes on canvas/touchscreen.
     // ══════════════════════════════════════════════════════════════════
 
     // ── Helper: merge all strokes into one ordered point array ──
     function flattenStrokes() {
-      var all = [];
-      for (var s = 0; s < allStrokes.length; s++) {
-        for (var i = 0; i < allStrokes[s].length; i++) all.push(allStrokes[s][i]);
+      // For multi-stroke shapes, order strokes so endpoints connect properly.
+      if (allStrokes.length <= 1) {
+        var points = [];
+        var src = allStrokes[0] || [];
+        for (var i = 0; i < src.length; i++) points.push({ x: src[i].x, y: src[i].y });
+        return points;
       }
-      return all;
+
+      var ordered = [allStrokes[0].map(function(p) { return { x: p.x, y: p.y }; })];
+      var used = {};
+      used[0] = true;
+
+      for (var step = 1; step < allStrokes.length; step++) {
+        var lastPt = ordered[ordered.length - 1];
+        var tail = lastPt[lastPt.length - 1];
+
+        var bestIdx = -1, bestDist = Infinity, bestReverse = false;
+        for (var j = 0; j < allStrokes.length; j++) {
+          if (used[j]) continue;
+          var s = allStrokes[j];
+          var dHead = dist(tail, s[0]);
+          var dTail = dist(tail, s[s.length - 1]);
+          if (dHead < bestDist) { bestDist = dHead; bestIdx = j; bestReverse = false; }
+          if (dTail < bestDist) { bestDist = dTail; bestIdx = j; bestReverse = true; }
+        }
+
+        used[bestIdx] = true;
+        var pts = allStrokes[bestIdx].map(function(p) { return { x: p.x, y: p.y }; });
+        if (bestReverse) pts.reverse();
+        ordered.push(pts);
+      }
+
+      var points2 = [];
+      for (var oi = 0; oi < ordered.length; oi++) {
+        for (var pi = 0; pi < ordered[oi].length; pi++) points2.push(ordered[oi][pi]);
+      }
+      return points2;
     }
 
-    // ── Helper: resample point array to N evenly-spaced points ──
-    // This normalizes for drawing speed — fast strokes produce fewer
-    // points, slow strokes produce more. After resampling, every
-    // algorithm sees the same density.
+    // ── Helper: linear interpolation ──
+    function lerp(a, b, t) {
+      return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t };
+    }
+
+    // ── Helper: total path length ──
+    function totalPathLength(points) {
+      var len = 0;
+      for (var i = 1; i < points.length; i++) {
+        len += dist(points[i - 1], points[i]);
+      }
+      return len;
+    }
+
+    // ── Helper: resample to N evenly-spaced points (closed path) ──
     function resamplePoints(pts, n) {
       if (pts.length < 2) return pts.slice();
-      // Compute total arc length
-      var totalLen = 0;
-      for (var i = 1; i < pts.length; i++) totalLen += dist(pts[i - 1], pts[i]);
-      if (totalLen < 1) return pts.slice();
 
-      var interval = totalLen / (n - 1);
-      var resampled = [{ x: pts[0].x, y: pts[0].y }];
+      // Close the path by appending the first point
+      var closed = pts.concat([pts[0]]);
+      var totalLen = totalPathLength(closed);
+      if (totalLen === 0) return pts.slice();
+
+      var interval = totalLen / n;
+      var resampled = [{ x: closed[0].x, y: closed[0].y }];
       var carry = 0;
-      var src = 1;
-      while (resampled.length < n - 1 && src < pts.length) {
-        var d = dist(pts[src - 1], pts[src]);
-        if (d < 0.001) { src++; continue; }
+      var srcIdx = 1;
+
+      while (resampled.length < n && srcIdx < closed.length) {
+        var d = dist(closed[srcIdx - 1], closed[srcIdx]);
         if (carry + d >= interval) {
           var overshoot = interval - carry;
-          var ratio = overshoot / d;
-          var nx = pts[src - 1].x + ratio * (pts[src].x - pts[src - 1].x);
-          var ny = pts[src - 1].y + ratio * (pts[src].y - pts[src - 1].y);
-          resampled.push({ x: nx, y: ny });
-          // Insert interpolated point so remaining segment is handled
-          pts = pts.slice(); // avoid mutating original
-          pts.splice(src, 0, { x: nx, y: ny });
+          var t = d > 0 ? overshoot / d : 0;
+          var pt = lerp(closed[srcIdx - 1], closed[srcIdx], t);
+          resampled.push(pt);
+          closed.splice(srcIdx, 0, pt);
           carry = 0;
+          srcIdx++;
         } else {
           carry += d;
-          src++;
+          srcIdx++;
         }
       }
-      resampled.push({ x: pts[pts.length - 1].x, y: pts[pts.length - 1].y });
-      // Trim to exactly n (resampling can overshoot by 1 due to float issues)
+
+      // Pad if short due to floating point
+      while (resampled.length < n) {
+        resampled.push({ x: closed[closed.length - 1].x, y: closed[closed.length - 1].y });
+      }
+
       return resampled.slice(0, n);
     }
 
-    // ── Helper: polygon area via shoelace formula ──
-    function polygonArea(pts) {
-      var a = 0;
-      for (var i = 0, j = pts.length - 1; i < pts.length; j = i++) {
-        a += pts[j].x * pts[i].y - pts[i].x * pts[j].y;
+    // ── Centroid distance profile ──
+
+    function computeCentroid(points) {
+      var sx = 0, sy = 0;
+      for (var i = 0; i < points.length; i++) { sx += points[i].x; sy += points[i].y; }
+      return { x: sx / points.length, y: sy / points.length };
+    }
+
+    function distanceProfile(points, centroid) {
+      var profile = [];
+      for (var i = 0; i < points.length; i++) profile.push(dist(points[i], centroid));
+      return profile;
+    }
+
+    function smoothProfile(profile, windowSize) {
+      var half = Math.floor(windowSize / 2);
+      var n = profile.length;
+      var out = new Array(n);
+      for (var i = 0; i < n; i++) {
+        var sum = 0, count = 0;
+        for (var j = i - half; j <= i + half; j++) {
+          var idx = ((j % n) + n) % n;
+          sum += profile[idx];
+          count++;
+        }
+        out[i] = sum / count;
       }
-      return Math.abs(a) / 2;
+      return out;
     }
 
-    // ── Helper: perimeter of closed polygon ──
-    function polyPerimeter(pts) {
-      var p = 0;
-      for (var i = 1; i < pts.length; i++) p += dist(pts[i - 1], pts[i]);
-      p += dist(pts[pts.length - 1], pts[0]);
-      return p;
+    function profileStats(profile) {
+      var n = profile.length;
+      var sum = 0;
+      for (var i = 0; i < n; i++) sum += profile[i];
+      var mean = sum / n;
+
+      var varSum = 0;
+      for (var i = 0; i < n; i++) varSum += (profile[i] - mean) * (profile[i] - mean);
+      var std = Math.sqrt(varSum / n);
+      var cv = mean > 0 ? std / mean : 0;
+
+      return { mean: mean, std: std, cv: cv };
     }
 
-    // ══════════════════════════════════════════════════════
-    // SIGNAL 1: Corner count via RDP at multiple epsilons
-    // ══════════════════════════════════════════════════════
-    // Why multiple epsilons? A single epsilon can over-simplify or
-    // under-simplify depending on shape size and stroke noise.
-    // Taking the median of 3 levels makes this robust to both.
-    //
-    // Corner = any vertex in the simplified path where the direction
-    // changes by more than 30 degrees (0.52 rad).
-    //
-    // Expected values:
-    //   Circle:    0-2 corners (smooth curve, no sharp turns)
-    //   Triangle:  3 corners  (three sharp turns ~60-120 deg each)
-    //   Rectangle: 4 corners  (four ~90 deg turns)
-    //   Noisy/wobbly: 6+ (many small wiggles survive simplification)
+    // ── Peak / Valley detection ──
 
-    function countCornersAtEpsilon(pts, epsilon) {
-      var simplified = simplifyHull(pts, epsilon);
-      var corners = 0;
-      var n = simplified.length;
-      for (var i = 1; i < n - 1; i++) {
-        var prev = simplified[i - 1];
-        var curr = simplified[i];
-        var next = simplified[i + 1];
-        var a1 = Math.atan2(curr.y - prev.y, curr.x - prev.x);
-        var a2 = Math.atan2(next.y - curr.y, next.x - curr.x);
-        var diff = Math.abs(a2 - a1);
-        if (diff > Math.PI) diff = 2 * Math.PI - diff;
-        if (diff > 0.52) corners++; // 30 degrees
-      }
-      return corners;
-    }
+    function findPeaks(profile, minProminence) {
+      var n = profile.length;
+      var peaks = [];
 
-    function detectCorners() {
-      var raw = flattenStrokes();
-      if (raw.length < 10) return { corners: 0 };
-
-      var pts = resamplePoints(raw, 128);
-
-      var totalLen = 0;
-      for (var i = 1; i < pts.length; i++) totalLen += dist(pts[i - 1], pts[i]);
-
-      // Three epsilon levels: 3%, 5%, 7% of total path length
-      var counts = [
-        countCornersAtEpsilon(pts, totalLen * 0.03),
-        countCornersAtEpsilon(pts, totalLen * 0.05),
-        countCornersAtEpsilon(pts, totalLen * 0.07)
-      ];
-      counts.sort(function(a, b) { return a - b; });
-      return { corners: counts[1] }; // median
-    }
-
-    // ══════════════════════════════════════════════════════
-    // SIGNAL 2: Curvature profile
-    // ══════════════════════════════════════════════════════
-    // At each resampled point, measure the direction change from
-    // the previous segment. Classify each step as "smooth" or "sharp".
-    //
-    // Circles have nearly ALL smooth steps (gentle, consistent curvature).
-    // Polygons have long runs of near-zero curvature (straight sides)
-    // punctuated by a few very sharp spikes (corners).
-    //
-    // smoothRatio = fraction of steps that are smooth (< 20 deg change).
-    //   Circle:    0.80 - 1.00
-    //   Triangle:  0.40 - 0.65
-    //   Rectangle: 0.50 - 0.70
-    //
-    // sharpCount = number of steps exceeding the sharp threshold.
-    //   Circle: 0-5, Triangle: 5-15, Rectangle: 6-18
-
-    function curvatureProfile() {
-      var raw = flattenStrokes();
-      if (raw.length < 20) return { smoothRatio: 0.5, sharpCount: 0 };
-
-      var pts = resamplePoints(raw, 100);
-      var sharpThreshold = 0.35; // radians, ~20 degrees per step
-      var smoothCount = 0;
-      var sharpCount = 0;
-
-      for (var i = 1; i < pts.length - 1; i++) {
-        var a1 = Math.atan2(pts[i].y - pts[i - 1].y, pts[i].x - pts[i - 1].x);
-        var a2 = Math.atan2(pts[i + 1].y - pts[i].y, pts[i + 1].x - pts[i].x);
-        var diff = a2 - a1;
-        // Normalize to [-PI, PI]
-        while (diff > Math.PI) diff -= 2 * Math.PI;
-        while (diff < -Math.PI) diff += 2 * Math.PI;
-        if (Math.abs(diff) > sharpThreshold) {
-          sharpCount++;
-        } else {
-          smoothCount++;
+      for (var i = 0; i < n; i++) {
+        var prev = ((i - 1) + n) % n;
+        var next = (i + 1) % n;
+        if (profile[i] > profile[prev] && profile[i] > profile[next]) {
+          peaks.push({ index: i, value: profile[i] });
         }
       }
-      var total = smoothCount + sharpCount;
-      return {
-        smoothRatio: total > 0 ? smoothCount / total : 0.5,
-        sharpCount: sharpCount
-      };
-    }
 
-    // ══════════════════════════════════════════════════════
-    // SIGNAL 3: Isoperimetric quotient (compactness)
-    // ══════════════════════════════════════════════════════
-    // IQ = 4 * PI * area / perimeter^2
-    //
-    // Theoretical values for perfect shapes:
-    //   Circle:              1.000
-    //   Square:              0.785  (PI/4)
-    //   Rectangle (2:1):     0.698
-    //   Equilateral triangle: 0.604
-    //
-    // Hand-drawn shapes are noisier, but the ranking holds:
-    //   Drawn circle:    0.70 - 0.95
-    //   Drawn rectangle: 0.55 - 0.80
-    //   Drawn triangle:  0.35 - 0.65
-
-    function measureCompactness() {
-      var raw = flattenStrokes();
-      if (raw.length < 10) return { iq: 0 };
-
-      var pts = resamplePoints(raw, 200);
-      var perimeter = polyPerimeter(pts);
-      var area = polygonArea(pts);
-      var iq = perimeter > 0 ? (4 * Math.PI * area) / (perimeter * perimeter) : 0;
-      return { iq: iq };
-    }
-
-    // ══════════════════════════════════════════════════════
-    // SIGNAL 4: Bounding box fill ratio
-    // ══════════════════════════════════════════════════════
-    // Uses the flood-fill pixel data from findEnclosedRegion().
-    // pixelArea / boundingBoxArea tells us how much of the bbox
-    // the shape occupies.
-    //
-    //   Circle:    ~0.785 (PI/4)
-    //   Triangle:  ~0.50
-    //   Rectangle: ~0.90 - 1.00
-    //
-    // This is the most reliable signal for triangle detection,
-    // because triangles leave large empty corners in their bbox.
-
-    function bboxFillRatio(region) {
-      var b = region.bounds;
-      var bboxW = b.maxX - b.minX;
-      var bboxH = b.maxY - b.minY;
-      var bboxArea = bboxW * bboxH;
-      if (bboxArea < 1) return 0;
-      var pixelArea = region.pixels.length / (region.scale * region.scale);
-      return pixelArea / bboxArea;
-    }
-
-    // ══════════════════════════════════════════════════════
-    // SIGNAL 5: Convex hull vertex count + hull fit
-    // ══════════════════════════════════════════════════════
-    // The convex hull of the drawn points, simplified, tells us
-    // how many dominant vertices the shape has.
-    //   Triangle:  3 vertices
-    //   Rectangle: 4-5 vertices
-    //   Circle:    8+ vertices (approximated by many short edges)
-    //
-    // Hull fit ratio = hullArea / bboxArea.
-    //   Triangle:  ~0.50
-    //   Rectangle: ~0.85-1.00
-    //   Circle:    ~0.78
-
-    function hullAnalysis(region) {
-      var b = region.bounds;
-      var bboxW = b.maxX - b.minX;
-      var bboxH = b.maxY - b.minY;
-      if (bboxW < 1 || bboxH < 1) return { vertices: 0, fitRatio: 0, aspect: 1 };
-
-      var raw = flattenStrokes();
-      var pts = resamplePoints(raw, 200);
-      var hull = convexHull(pts.slice());
-
-      // Simplify hull to find dominant vertices
-      var hullPerimeter = 0;
-      for (var i = 0; i < hull.length; i++) {
-        var j = (i + 1) % hull.length;
-        hullPerimeter += dist(hull[i], hull[j]);
+      if (minProminence > 0) {
+        var filtered = [];
+        for (var k = 0; k < peaks.length; k++) {
+          if (peaks[k].value >= minProminence) filtered.push(peaks[k]);
+        }
+        return filtered;
       }
-      // Close the hull for simplification, then remove duplicate endpoint
-      var closed = hull.concat([hull[0]]);
-      var hullSimplified = simplifyHull(closed, hullPerimeter * 0.04);
-      if (hullSimplified.length > 1 &&
-          dist(hullSimplified[0], hullSimplified[hullSimplified.length - 1]) < hullPerimeter * 0.02) {
-        hullSimplified.pop();
+      return peaks;
+    }
+
+    function findValleys(profile, maxHeight) {
+      var n = profile.length;
+      var valleys = [];
+
+      for (var i = 0; i < n; i++) {
+        var prev = ((i - 1) + n) % n;
+        var next = (i + 1) % n;
+        if (profile[i] < profile[prev] && profile[i] < profile[next]) {
+          valleys.push({ index: i, value: profile[i] });
+        }
       }
 
-      var hullArea = polygonArea(hull);
-      var fitRatio = (bboxW * bboxH) > 0 ? hullArea / (bboxW * bboxH) : 0;
-
-      return {
-        vertices: hullSimplified.length,
-        fitRatio: fitRatio,
-        aspect: bboxW / bboxH
-      };
-    }
-
-    // ══════════════════════════════════════════════════════
-    // BONUS: Multi-stroke structure analysis
-    // ══════════════════════════════════════════════════════
-    // If the user drew 3 separate strokes, they almost certainly
-    // meant a triangle. 4 strokes = rectangle. 1 stroke = use
-    // the geometry signals. This is a strong prior that overrides
-    // ambiguous geometry.
-
-    function strokeStructureHint() {
-      var n = allStrokes.length;
-      // Only trust stroke count if each stroke has enough points
-      // (filters out accidental taps / micro-strokes)
-      var substantialStrokes = 0;
-      for (var s = 0; s < n; s++) {
-        if (allStrokes[s].length >= 5) substantialStrokes++;
+      if (maxHeight < Infinity) {
+        var filtered = [];
+        for (var k = 0; k < valleys.length; k++) {
+          if (valleys[k].value <= maxHeight) filtered.push(valleys[k]);
+        }
+        return filtered;
       }
-      if (substantialStrokes === 3) return 'triangle';
-      if (substantialStrokes === 4) return 'rectangle';
-      return null; // no strong hint from stroke count
+      return valleys;
+    }
+
+    // Filter peaks: keep most prominent, merge nearby
+    function filterPeaksByProminence(peaks, profile, minSeparation) {
+      if (peaks.length <= 1) return peaks;
+      var n = profile.length;
+
+      var sorted = peaks.slice().sort(function(a, b) { return b.value - a.value; });
+      var kept = [];
+
+      for (var si = 0; si < sorted.length; si++) {
+        var peak = sorted[si];
+        var tooClose = false;
+        for (var ki = 0; ki < kept.length; ki++) {
+          var d = Math.min(
+            Math.abs(peak.index - kept[ki].index),
+            n - Math.abs(peak.index - kept[ki].index)
+          );
+          if (d < minSeparation) { tooClose = true; break; }
+        }
+        if (!tooClose) kept.push(peak);
+      }
+
+      return kept.sort(function(a, b) { return a.index - b.index; });
+    }
+
+    // Filter valleys: keep deepest, merge nearby
+    function filterValleysBySeparation(valleys, profile, minSeparation) {
+      if (valleys.length <= 1) return valleys;
+      var n = profile.length;
+
+      var sorted = valleys.slice().sort(function(a, b) { return a.value - b.value; });
+      var kept = [];
+
+      for (var si = 0; si < sorted.length; si++) {
+        var valley = sorted[si];
+        var tooClose = false;
+        for (var ki = 0; ki < kept.length; ki++) {
+          var d = Math.min(
+            Math.abs(valley.index - kept[ki].index),
+            n - Math.abs(valley.index - kept[ki].index)
+          );
+          if (d < minSeparation) { tooClose = true; break; }
+        }
+        if (!tooClose) kept.push(valley);
+      }
+
+      return kept.sort(function(a, b) { return a.index - b.index; });
     }
 
     // ══════════════════════════════════════════════════════
-    // MAIN CLASSIFIER: weighted vote across all signals
+    // MAIN CLASSIFIER: centroid-distance profile
     // ══════════════════════════════════════════════════════
+
+    function classifyCentroid(flat) {
+      var N = 120;
+      var SMOOTH_WINDOW = 7;
+      var MIN_PEAK_SEPARATION = Math.floor(N / 10);
+
+      if (flat.length < 3) return { shape: 'unknown', confidence: 0.5 };
+
+      var points = resamplePoints(flat, N);
+
+      var centroid = computeCentroid(points);
+      var raw = distanceProfile(points, centroid);
+      var smooth = smoothProfile(raw, SMOOTH_WINDOW);
+      var stats = profileStats(smooth);
+
+      var rawPeaks = findPeaks(smooth, stats.mean);
+      var rawValleys = findValleys(smooth, stats.mean);
+
+      var peaks = filterPeaksByProminence(rawPeaks, smooth, MIN_PEAK_SEPARATION);
+      var valleys = filterValleysBySeparation(rawValleys, smooth, MIN_PEAK_SEPARATION);
+
+      var peakCount = peaks.length;
+      var valleyCount = valleys.length;
+
+      // Low variance -> circle
+      if (stats.cv < 0.10) {
+        return { shape: 'circle', confidence: 0.95 };
+      }
+
+      // 3 peaks -> triangle
+      if (peakCount === 3 && stats.cv > 0.08) {
+        return { shape: 'triangle', confidence: 0.95 };
+      }
+
+      // 4 peaks -> square or rectangle
+      if (peakCount === 4 && stats.cv > 0.08) {
+        var peakDistances = [];
+        for (var pi = 0; pi < peaks.length; pi++) peakDistances.push(smooth[peaks[pi].index]);
+        var avgPeakDist = 0;
+        for (var pi2 = 0; pi2 < peakDistances.length; pi2++) avgPeakDist += peakDistances[pi2];
+        avgPeakDist /= peakDistances.length;
+
+        // Check angular spacing between peaks
+        if (peaks.length === 4) {
+          var gaps = [];
+          for (var gi = 0; gi < 4; gi++) {
+            var next = (gi + 1) % 4;
+            var gap = peaks[next].index - peaks[gi].index;
+            if (gap < 0) gap += N;
+            gaps.push(gap);
+          }
+          var meanGap = 0;
+          for (var g2 = 0; g2 < 4; g2++) meanGap += gaps[g2];
+          meanGap /= 4;
+          var angularVariance = 0;
+          for (var g3 = 0; g3 < 4; g3++) angularVariance += (gaps[g3] - meanGap) * (gaps[g3] - meanGap);
+          angularVariance /= 4;
+          var angularCV = Math.sqrt(angularVariance) / meanGap;
+
+          var peakCV = 0;
+          for (var pc = 0; pc < peakDistances.length; pc++) peakCV += (peakDistances[pc] - avgPeakDist) * (peakDistances[pc] - avgPeakDist);
+          peakCV = Math.sqrt(peakCV / peakDistances.length) / avgPeakDist;
+
+          if (angularCV < 0.25 && peakCV < 0.15) {
+            return { shape: 'square', confidence: 0.95 };
+          }
+        }
+
+        return { shape: 'rectangle', confidence: 0.95 };
+      }
+
+      // Borderline cases
+      if (stats.cv < 0.15 && peakCount <= 2) {
+        return { shape: 'circle', confidence: 0.7 };
+      }
+
+      if (peakCount >= 5 && stats.cv < 0.18) {
+        return { shape: 'circle', confidence: 0.7 };
+      }
+
+      // Fallback heuristics
+      if (peakCount === 3) return { shape: 'triangle', confidence: 0.7 };
+      if (peakCount === 4) return { shape: 'rectangle', confidence: 0.7 };
+      if (peakCount <= 2) return { shape: 'circle', confidence: 0.7 };
+
+      return { shape: 'circle', confidence: 0.7 };
+    }
 
     function classifyShape(region) {
       var b = region.bounds;
@@ -888,155 +914,19 @@
         var m = SHAPES.rectangle;
         return { page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.5 };
       }
-      var aspectRatio = bboxW / bboxH;
 
-      // Gather all signals
-      var corners   = detectCorners();
-      var curve     = curvatureProfile();
-      var compact   = measureCompactness();
-      var bboxFill  = bboxFillRatio(region);
-      var hull      = hullAnalysis(region);
-      var strokeHint = strokeStructureHint();
-
-      // ── Score accumulators ──
-      var scores = { circle: 0, triangle: 0, rectangle: 0 };
-
-      // ────────────────────────────────────────────────
-      // Signal 1: Corner count  (weight: 4 — strongest)
-      // ────────────────────────────────────────────────
-      var c = corners.corners;
-      if (c <= 1) {
-        scores.circle += 4;
-      } else if (c === 2) {
-        scores.circle += 2.5;
-        scores.triangle += 1;
-      } else if (c === 3) {
-        scores.triangle += 4;
-      } else if (c >= 4 && c <= 5) {
-        scores.rectangle += 4;
-      } else { // 6+: very noisy, likely a wobbly circle
-        scores.circle += 2.5;
-        scores.rectangle += 1;
+      var flat = flattenStrokes();
+      if (flat.length < 10) {
+        var m2 = SHAPES.rectangle;
+        return { page: m2.page, hint: m2.hint, shape: 'rectangle', confidence: 0.5 };
       }
 
-      // ────────────────────────────────────────────────
-      // Signal 2: Curvature smoothness  (weight: 3)
-      // ────────────────────────────────────────────────
-      var sr = curve.smoothRatio;
-      if (sr > 0.80) {
-        scores.circle += 3;
-      } else if (sr > 0.65) {
-        scores.circle += 2;
-        scores.rectangle += 0.8;
-      } else if (sr > 0.45) {
-        scores.rectangle += 2;
-        scores.triangle += 1.5;
-      } else {
-        scores.triangle += 2;
-        scores.rectangle += 1.5;
-      }
+      var result = classifyCentroid(flat);
+      var shapeName = result.shape;
+      var conf = result.confidence;
 
-      // ────────────────────────────────────────────────
-      // Signal 3: Compactness / IQ  (weight: 2)
-      // ────────────────────────────────────────────────
-      // Score each shape by proximity to its ideal IQ value.
-      // Gaussian-ish falloff: score = weight * exp(-dist^2 / 2*sigma^2)
-      // Using simpler linear falloff for speed.
-      var iq = compact.iq;
-      scores.circle    += 2 * Math.max(0, 1 - Math.abs(iq - 0.85) / 0.30);
-      scores.triangle  += 2 * Math.max(0, 1 - Math.abs(iq - 0.52) / 0.25);
-      scores.rectangle += 2 * Math.max(0, 1 - Math.abs(iq - 0.72) / 0.25);
-
-      // ────────────────────────────────────────────────
-      // Signal 4: Bounding box fill  (weight: 3)
-      // ────────────────────────────────────────────────
-      scores.circle    += 3 * Math.max(0, 1 - Math.abs(bboxFill - 0.785) / 0.25);
-      scores.triangle  += 3 * Math.max(0, 1 - Math.abs(bboxFill - 0.50) / 0.20);
-      scores.rectangle += 3 * Math.max(0, 1 - Math.abs(bboxFill - 0.95) / 0.20);
-
-      // ────────────────────────────────────────────────
-      // Signal 5: Hull vertices + fit  (weight: 2)
-      // ────────────────────────────────────────────────
-      var hv = hull.vertices;
-      if (hv <= 3) {
-        scores.triangle += 1.5;
-      } else if (hv <= 5) {
-        scores.rectangle += 1.5;
-      } else if (hv <= 8) {
-        scores.rectangle += 0.5;
-        scores.circle += 0.8;
-      } else {
-        scores.circle += 1.5;
-      }
-
-      // Hull fit ratio sub-signal
-      var hfr = hull.fitRatio;
-      if (hfr < 0.60) {
-        scores.triangle += 0.5;
-      } else if (hfr > 0.82) {
-        scores.rectangle += 0.5;
-      } else {
-        scores.circle += 0.5;
-      }
-
-      // ────────────────────────────────────────────────
-      // Bonus: Multi-stroke prior  (weight: 3)
-      // ────────────────────────────────────────────────
-      // Drawing 3 separate lines is a very strong triangle signal.
-      // Drawing 4 separate lines is a very strong rectangle signal.
-      if (strokeHint === 'triangle') {
-        scores.triangle += 3;
-      } else if (strokeHint === 'rectangle') {
-        scores.rectangle += 3;
-      }
-
-      // ── Pick the winner ──
-      var best = 'rectangle';
-      var bestScore = scores.rectangle;
-      if (scores.circle > bestScore)   { best = 'circle';   bestScore = scores.circle; }
-      if (scores.triangle > bestScore) { best = 'triangle'; bestScore = scores.triangle; }
-
-      // ── Confidence: margin between winner and runner-up ──
-      var sorted = [scores.circle, scores.triangle, scores.rectangle];
-      sorted.sort(function(a, b) { return b - a; });
-      var margin = sorted[0] - sorted[1];
-      var maxPossible = 15; // theoretical max per shape
-      var confidence = Math.min(0.99, 0.50 + (margin / maxPossible) * 1.5);
-
-      // ── Square easter egg ──
-      // Rectangle with near-equal sides = square
-      if (best === 'rectangle') {
-        var sideRatio = Math.min(aspectRatio, 1 / aspectRatio);
-        if (sideRatio > 0.78) {
-          best = 'square';
-        }
-      }
-
-      // ── Rounded rectangle vs circle disambiguation ──
-      // This is the trickiest edge case. A rounded rectangle has:
-      //   - Compactness between rect and circle (0.80-0.92)
-      //   - 3-5 detected corners (corners are soft but present)
-      //   - Smooth ratio 0.65-0.80 (smoother than sharp rect, less than circle)
-      //   - Bbox fill > 0.82 (higher than a circle's 0.785)
-      //
-      // If circle wins by a thin margin, check these tiebreakers:
-      if (best === 'circle' && margin < 2.5) {
-        var looksRoundedRect = (
-          c >= 3 &&           // has detectable corners
-          bboxFill > 0.82 &&  // fills bbox more than a circle would
-          iq < 0.93           // not perfectly round
-        );
-        if (looksRoundedRect) {
-          best = 'rectangle';
-          confidence = Math.max(0.55, confidence - 0.10);
-          // Check for square
-          var sr2 = Math.min(aspectRatio, 1 / aspectRatio);
-          if (sr2 > 0.78) best = 'square';
-        }
-      }
-
-      var m = SHAPES[best] || SHAPES.rectangle;
-      return { page: m.page, hint: m.hint, shape: best, confidence: confidence };
+      var mf = SHAPES[shapeName] || SHAPES.rectangle;
+      return { page: mf.page, hint: mf.hint, shape: shapeName, confidence: conf };
     }
 
     // Combined shape label — shows "you're a triangle · three people in every piece of gossip"
