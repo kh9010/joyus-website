@@ -162,7 +162,7 @@
   // ── "Others are reading" ticker in the nav ──
   var SHAPE_PLURALS = {
     circle: 'circles', triangle: 'triangles', square: 'squares',
-    rectangle: 'rectangles', other: 'shapes'
+    rectangle: null, other: 'shapes'
   };
 
   function createOthersTicker(pages, shapeLabel) {
@@ -173,7 +173,7 @@
     container.style.cssText = 'display:inline-block;vertical-align:middle;margin-left:0.35rem;font-family:"Caveat",cursive;font-size:0.95rem;color:#999;overflow:hidden;max-width:260px;white-space:nowrap;opacity:0;transition:opacity 0.6s ease;';
 
     var prefix = document.createElement('span');
-    prefix.textContent = 'other ' + (shapeLabel || 'shapes') + ' exploring → ';
+    prefix.textContent = shapeLabel ? 'other ' + shapeLabel + ' exploring \u2192 ' : 'others are exploring \u2192 ';
     prefix.style.cssText = 'color:#ddd;';
     container.appendChild(prefix);
 

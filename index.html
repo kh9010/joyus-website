@@ -565,10 +565,10 @@
 
     // Shape destinations — simple and reliable
     var SHAPES = {
-      circle:    { page: 'about.html',        hint: 'no corners to hide behind' },
-      triangle:  { page: 'comics/gossip.html', hint: 'three people in every piece of gossip' },
-      square:    { page: 'podcast/504-creating-comics-together-with-kahran-and-divya.html', hint: 'four panels on a page' },
-      rectangle: { page: 'home.html',          hint: 'step inside' },
+      circle:    { page: 'about.html',        hint: 'I see a circle. Let\u2019s take you where there\u2019s no corners to hide behind' },
+      triangle:  { page: 'podcast/creating-a-successful-game-in-1000xresist-with-remy-siu-of-sunset-visitor-succes.html', hint: 'seems trianglish... did you know there\u2019s three levels when designing a game' },
+      square:    { page: 'hub-play.html',      hint: 'wait, is that a square? lemme show you something fun' },
+      rectangle: { page: 'home.html',          hint: 'you\u2019ve drawn your door... welcome in' },
     };
 
     // ══════════════════════════════════════════════════════════════
@@ -1178,11 +1178,7 @@
       if (bottomY > window.innerHeight - 60) bottomY = b.minY - 35;
 
       var label = document.createElement('div');
-      if (classification.shape !== 'rectangle') {
-        label.innerHTML = '<span style="color:#E91E7B;">' + classification.shape + '</span> \u00B7 ' + classification.hint;
-      } else {
-        label.textContent = classification.hint;
-      }
+      label.textContent = classification.hint;
       label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#999;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);white-space:nowrap;';
 
       document.body.appendChild(label);
