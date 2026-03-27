@@ -1165,6 +1165,36 @@
       return {page: m.page, hint: m.hint, shape: shape, confidence: confidence};
     }
 
+    // Pulse animation — redraws white background, strokes, then cuts out with subtle glow variation
+    let pulseRAF = null;
+    let pulseStart = null;
+
+    function startPulse() {
+      pulseStart = performance.now();
+      pulseTick();
+    }
+
+    function pulseTick() {
+      if (!shapeClosed || !enclosedData) return;
+      var elapsed = performance.now() - pulseStart;
+      var cycle = (Math.sin(elapsed / 1000 * Math.PI) + 1) / 2;
+
+      // Redraw white background
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Redraw all strokes
+      for (var i = 0; i < allStrokes.length; i++) {
+        drawStroke(allStrokes[i], false);
+      }
+
+      // Paint the illustration into the enclosed region
+      paintIllustrationInRegion(enclosedData, 1);
+
+      // Subtle pulsing pink overlay on top
+      var glowAlpha = 0.02 + cycle * 0.06;
+      ctx.save();
       ctx.fillStyle = 'rgba(233, 30, 123, ' + glowAlpha + ')';
       var step = 1 / enclosedData.scale;
       for (var y = 0; y < enclosedData.h; y++) {
