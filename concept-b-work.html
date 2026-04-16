@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --rule: rgba(17, 18, 20, 0.1);
+
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+
+    --x: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  /* ============ NAV ============ */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+  }
+  .nav-logo img { height: 32px; width: auto; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: 0.95rem; color: var(--ink);
+    transition: color 0.2s; position: relative;
+  }
+  .nav-links a.active::after {
+    content: ""; position: absolute; bottom: -4px; left: 0; right: 0;
+    height: 2px; background: var(--pink);
+  }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta { border-bottom: 1.5px solid var(--ink); padding-bottom: 2px; }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  @media (max-width: 720px) {
+    .nav-links { gap: 1.25rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ============ HERO (compact, gets out of the way) ============ */
+  .hero {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vh, 4rem) var(--x) clamp(2rem, 4vh, 3rem);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 3rem;
+    align-items: end;
+  }
+  .hero-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.25rem;
+    color: var(--pink);
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-weight: 500;
+    font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  .hero h1 .em {
+    font-style: italic;
+    color: var(--pink);
+    font-weight: 500;
+  }
+  .hero-meta {
+    text-align: right;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .hero-meta .count {
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .hero-meta .hint {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--cyan);
+    display: inline-block;
+    margin-top: 0.5rem;
+    transform: rotate(-2deg);
+  }
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 1.25rem; }
+    .hero-meta { text-align: left; }
+  }
+
+  /* ============ WORK GRID (image-forward bento) ============ */
+  .grid-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--x) clamp(3rem, 8vh, 6rem);
+    width: 100%;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1rem;
+    grid-auto-flow: row;
+  }
+
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    background: #EBE6DC;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    display: flex;
+  }
+  .tile:hover { transform: translateY(-4px); }
+  .tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.4s;
+    filter: saturate(0.92);
+  }
+  .tile:hover img { transform: scale(1.04); filter: saturate(1.05); }
+
+  /* Overlay gradient for readability */
+  .tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,18,20,0.55) 0%, rgba(17,18,20,0) 45%);
+    z-index: 1;
+    transition: opacity 0.35s;
+  }
+  .tile:hover::before { opacity: 0.85; }
+
+  .tile-meta {
+    position: relative;
+    z-index: 2;
+    align-self: flex-end;
+    width: 100%;
+    padding: clamp(1rem, 2vw, 1.75rem);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1rem;
+  }
+  .tile-num {
+    position: absolute;
+    top: clamp(0.85rem, 1.8vw, 1.5rem);
+    left: clamp(0.85rem, 1.8vw, 1.5rem);
+    z-index: 2;
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+    opacity: 0.75;
+    font-variant-numeric: tabular-nums;
+  }
+  .tile-year {
+    position: absolute;
+    top: clamp(0.85rem, 1.8vw, 1.5rem);
+    right: clamp(0.85rem, 1.8vw, 1.5rem);
+    z-index: 2;
+    color: #fff;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    opacity: 0.75;
+    font-variant-numeric: tabular-nums;
+  }
+  .tile-client {
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+    transform: translateY(0);
+    transition: transform 0.35s ease;
+  }
+  .tile:hover .tile-client { transform: translateY(-2px); }
+  .tile-tags {
+    font-size: 0.82rem;
+    opacity: 0.85;
+    letter-spacing: 0.01em;
+  }
+  .tile-arrow {
+    font-size: 1.25rem;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.3s, transform 0.3s;
+    flex-shrink: 0;
+    margin-bottom: 0.15rem;
+  }
+  .tile:hover .tile-arrow { opacity: 1; transform: translateX(0); }
+
+  /* Tile sizing — asymmetric bento */
+  .t-big     { grid-column: span 8; aspect-ratio: 4 / 3; }
+  .t-port    { grid-column: span 4; aspect-ratio: 3 / 4.5; }
+  .t-wide    { grid-column: span 7; aspect-ratio: 16 / 10; }
+  .t-med     { grid-column: span 5; aspect-ratio: 5 / 4; }
+  .t-third   { grid-column: span 4; aspect-ratio: 1 / 1; }
+  .t-half    { grid-column: span 6; aspect-ratio: 3 / 2; }
+  .t-feature { grid-column: span 12; aspect-ratio: 21 / 9; }
+
+  @media (max-width: 960px) {
+    .t-big, .t-port, .t-wide, .t-med, .t-third, .t-half, .t-feature {
+      grid-column: span 6;
+      aspect-ratio: 4 / 3;
+    }
+  }
+  @media (max-width: 560px) {
+    .t-big, .t-port, .t-wide, .t-med, .t-third, .t-half, .t-feature {
+      grid-column: span 12;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  /* Caveat annotation on one tile */
+  .tile-note {
+    position: absolute;
+    top: -0.5rem;
+    right: 2rem;
+    font-family: var(--hand);
+    font-size: 1.25rem;
+    color: var(--pink);
+    background: var(--cream);
+    padding: 0 0.5rem;
+    transform: rotate(-3deg);
+    z-index: 3;
+  }
+
+  /* ============ CLOSING ============ */
+  .closing {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vh, 6rem) var(--x);
+    width: 100%;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: end;
+  }
+  .closing-quote {
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+  }
+  .closing-quote .em { font-style: italic; color: var(--pink); font-weight: 500; }
+  .closing-cta { text-align: right; }
+  .closing-cta .eye {
+    font-family: var(--hand);
+    font-size: 1.35rem;
+    color: var(--pink);
+    margin-bottom: 0.5rem;
+    display: inline-block;
+  }
+  .closing-cta .email {
+    display: inline-block;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 3px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .closing-cta .email:hover { color: var(--pink); border-bottom-color: var(--pink); }
+
+  @media (max-width: 720px) {
+    .closing { grid-template-columns: 1fr; gap: 2rem; }
+    .closing-cta { text-align: left; }
+  }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .footer a:hover { color: var(--pink); }
+  @media (max-width: 560px) {
+    .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="concept-b.html">
+      <img src="images/logo.webp" alt="Joyus Studio" />
+    </a>
+    <div class="nav-links">
+      <a href="concept-b-work.html" class="active">Work</a>
+      <a href="podcast.html">Podcast</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div>
+      <span class="hero-eyebrow">selected work · 2021 &rarr; now</span>
+      <h1>We build <span class="em">art</span>, companies, brands, products.</h1>
+    </div>
+    <div class="hero-meta">
+      <div class="count">10 projects · 4 countries</div>
+      <span class="hint">some still unfolding</span>
+    </div>
+  </section>
+
+  <div class="grid-wrap">
+    <div class="grid">
+
+      <a class="tile t-big" href="work/klydo.html">
+        <span class="tile-note">ongoing</span>
+        <img src="images/work/klydo.jpg" alt="Klydo" loading="lazy" />
+        <span class="tile-num">01</span>
+        <span class="tile-year">2025—</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">Klydo</div>
+            <div class="tile-tags">Product Strategy · Brand · GTM</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-port" href="work/tomboyx.html">
+        <img src="images/work/tomboyx.jpg" alt="TomboyX" loading="lazy" />
+        <span class="tile-num">02</span>
+        <span class="tile-year">2024</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">TomboyX</div>
+            <div class="tile-tags">Story · Investor Pitch</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-med" href="work/tatsam.html">
+        <img src="images/work/tatsam.jpg" alt="Tatsam" loading="lazy" />
+        <span class="tile-num">03</span>
+        <span class="tile-year">2023</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">Tatsam</div>
+            <div class="tile-tags">Visual Language · Product Strategy</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-wide" href="work/pratham.html">
+        <img src="images/work/pratham.jpg" alt="PrathamUSA" loading="lazy" />
+        <span class="tile-num">04</span>
+        <span class="tile-year">2021</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">PrathamUSA</div>
+            <div class="tile-tags">Donor Research · Information Flow</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-third" href="work/convegenius.html">
+        <img src="images/work/convegenius.jpg" alt="ConveGenius" loading="lazy" />
+        <span class="tile-num">05</span>
+        <span class="tile-year">2022</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">ConveGenius</div>
+            <div class="tile-tags">Gamification · Behavioral Design</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-third" href="work/secret-senses.html">
+        <img src="images/work/secret-senses.jpg" alt="Secret Senses" loading="lazy" />
+        <span class="tile-num">06</span>
+        <span class="tile-year">2023</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">Secret Senses</div>
+            <div class="tile-tags">Identity · Packaging</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-third" href="work/xtdb.html">
+        <img src="images/work/xtdb.jpg" alt="XTDB" loading="lazy" />
+        <span class="tile-num">07</span>
+        <span class="tile-year">2022</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">XTDB</div>
+            <div class="tile-tags">Re-branding · Brand Guide</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-half" href="work/agemo.html">
+        <img src="images/work/agemo.jpg" alt="Agemo" loading="lazy" />
+        <span class="tile-num">08</span>
+        <span class="tile-year">2024</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">Agemo</div>
+            <div class="tile-tags">Research · Product Strategy · Interface</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-half" href="work/gliitch.html">
+        <img src="images/work/gliitch.jpg" alt="Gliitch" loading="lazy" />
+        <span class="tile-num">09</span>
+        <span class="tile-year">2023</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">Gliitch</div>
+            <div class="tile-tags">Branding · Media Guides</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+      <a class="tile t-feature" href="work/rachna-nivas.html">
+        <img src="images/work/rachna-nivas.jpg" alt="Rachna Nivas" loading="lazy" />
+        <span class="tile-num">10</span>
+        <span class="tile-year">2024</span>
+        <div class="tile-meta">
+          <div>
+            <div class="tile-client">Rachna Nivas</div>
+            <div class="tile-tags">Identity Finding · Content Strategy · Artifacts</div>
+          </div>
+          <div class="tile-arrow">→</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <section class="closing">
+    <p class="closing-quote">Projects that <span class="em">haunt you</span> until the day they're made.</p>
+    <div class="closing-cta">
+      <span class="eye">be our friends</span><br />
+      <a class="email" href="mailto:hello@joyus.studio">hello@joyus.studio &rarr;</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+</body>
+</html>
