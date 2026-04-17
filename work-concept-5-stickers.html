@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — 05 Pinboard · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --green: #5BBD72;
+    --violet: #A87BD9;
+    --peach: #E8734A;
+    --earth: #C49A6C;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+    --cork: #F0EADC;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.55; -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--x); max-width: 1400px; margin: 0 auto;
+    position: relative; z-index: 10;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; }
+
+  /* intro */
+  .intro {
+    max-width: 1400px; margin: 0 auto;
+    padding: clamp(2rem, 5vh, 4rem) var(--x) clamp(2rem, 4vh, 3rem);
+  }
+  .eyebrow {
+    font-family: var(--hand); font-size: 1.35rem; color: var(--pink);
+    display: inline-block; margin-bottom: 1rem;
+  }
+  h1.intro-h1 {
+    font-weight: 600; font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+    line-height: 0.98; letter-spacing: -0.035em; margin-bottom: 1rem;
+    max-width: 18ch;
+  }
+  h1.intro-h1 em { font-style: italic; color: var(--ink-soft); font-weight: 500; }
+  .intro-lede {
+    font-size: 1.1rem; color: var(--ink-soft); max-width: 48ch;
+  }
+  .intro-hint {
+    font-family: var(--hand); color: var(--ink-fade); font-size: 1.1rem;
+    margin-top: 1.5rem; display: flex; align-items: baseline; gap: 0.5rem;
+  }
+  .intro-hint::before {
+    content: "↓"; color: var(--pink);
+    transform: translateY(2px) rotate(-15deg); display: inline-block;
+  }
+
+  /* the pinboard */
+  .pinboard {
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--x);
+    min-height: 820px;
+    overflow: hidden;
+  }
+  .pinboard-inner {
+    position: relative;
+    width: 100%;
+    min-height: 820px;
+  }
+  .artifact {
+    position: absolute;
+    cursor: pointer;
+    transform-origin: center;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.3s, filter 0.4s, z-index 0s;
+    will-change: transform;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    font-family: inherit;
+    text-align: left;
+    z-index: 1;
+  }
+  .artifact:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 30 !important;
+    filter: drop-shadow(0 16px 28px rgba(17,18,20,0.18));
+  }
+  .artifact.dimmed { filter: grayscale(1) opacity(0.35); }
+
+  /* pin dot — gives each artifact a pinned-to-board feel */
+  .artifact::after {
+    content: ""; position: absolute;
+    top: -4px; left: 50%;
+    transform: translateX(-50%);
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.3), 0 2px 4px rgba(17,18,20,0.35);
+    z-index: 2;
+  }
+  .artifact[data-pin="cyan"]::after { background: var(--cyan); }
+  .artifact[data-pin="mustard"]::after { background: var(--mustard); }
+  .artifact[data-pin="ink"]::after { background: var(--ink); }
+  .artifact[data-pin="none"]::after { display: none; }
+
+  /* ========== ARTIFACT TYPES ========== */
+
+  /* deck slide — TomboyX */
+  .art-slide {
+    width: 220px;
+    background: #fff;
+    border: 1px solid rgba(17,18,20,0.08);
+    padding: 1rem 1rem 1.25rem;
+    box-shadow: 0 2px 6px rgba(17,18,20,0.06);
+  }
+  .art-slide .slide-bar {
+    height: 6px; background: var(--pink);
+    width: 40%; margin-bottom: 0.6rem;
+  }
+  .art-slide .slide-headline {
+    font-weight: 600; font-size: 0.95rem;
+    letter-spacing: -0.01em; line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+  .art-slide .slide-body {
+    font-size: 0.65rem; color: var(--ink-fade);
+    line-height: 1.5;
+  }
+  .art-slide .slide-note {
+    position: absolute; top: -8px; right: -40px;
+    font-family: var(--hand); font-size: 1.05rem;
+    color: var(--pink); transform: rotate(8deg);
+    background: #fffbe2; padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+  }
+  .art-label {
+    display: block;
+    font-family: var(--hand);
+    color: var(--ink);
+    font-size: 1.1rem;
+    margin-top: 0.5rem;
+    line-height: 1.1;
+  }
+  .art-client {
+    font-weight: 600; font-size: 0.9rem;
+    color: var(--ink); margin-top: 0.4rem;
+    display: block;
+  }
+
+  /* stat badge — Klydo */
+  .art-stat {
+    width: 180px; height: 180px;
+    background: var(--mustard);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+  }
+  .art-stat .stat-n {
+    font-weight: 700;
+    font-size: 2.6rem;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: var(--ink);
+  }
+  .art-stat .stat-u {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 0.2rem;
+  }
+  .art-stat .stat-label {
+    font-family: var(--hand);
+    color: var(--ink);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    line-height: 1.1;
+    max-width: 120px;
+  }
+
+  /* phone mockup — Tatsam */
+  .art-phone {
+    width: 130px; height: 240px;
+    background: var(--cyan);
+    border-radius: 24px;
+    padding: 14px 10px;
+    box-shadow: 0 6px 14px rgba(17,18,20,0.12);
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .art-phone .p-notch {
+    width: 35%; height: 5px; background: rgba(17,18,20,0.4);
+    border-radius: 3px; align-self: center; margin-bottom: 2px;
+  }
+  .art-phone .p-row { height: 10px; border-radius: 3px; background: rgba(255,255,255,0.7); }
+  .art-phone .p-row.short { width: 50%; }
+  .art-phone .p-card {
+    flex: 1;
+    background: rgba(255,255,255,0.9);
+    border-radius: 10px;
+    padding: 8px;
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .art-phone .p-card-title {
+    height: 8px; width: 70%; background: var(--ink); border-radius: 2px;
+  }
+  .art-phone .p-card-line { height: 5px; background: rgba(17,18,20,0.2); border-radius: 2px; }
+  .art-phone .p-card-line.s { width: 80%; }
+  .art-phone .p-card-line.ss { width: 60%; }
+
+  /* torn-paper quote — Pratham */
+  .art-quote {
+    width: 230px;
+    background: #fff;
+    padding: 1.1rem 1.2rem;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--ink);
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+    clip-path: polygon(3% 4%, 15% 0, 30% 6%, 48% 1%, 66% 7%, 82% 2%, 97% 6%, 100% 22%, 97% 48%, 100% 70%, 96% 92%, 82% 96%, 62% 100%, 40% 95%, 20% 100%, 5% 96%, 0 76%, 3% 50%, 0 24%);
+  }
+  .art-quote::before { content: "&ldquo;"; font-size: 2rem; font-family: var(--hand); color: var(--pink); line-height: 0.5; display: block; }
+  .art-quote-cite {
+    font-family: var(--hand); color: var(--ink-soft);
+    font-size: 1rem; display: block; margin-top: 0.6rem;
+  }
+
+  /* chart card — ConveGenius */
+  .art-chart {
+    width: 180px;
+    background: var(--violet);
+    padding: 1rem;
+    border-radius: 8px;
+    color: var(--cream);
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+  }
+  .art-chart .chart-title {
+    font-family: var(--hand); font-size: 1.1rem; margin-bottom: 0.5rem;
+  }
+  .art-chart .chart-bars {
+    display: flex; gap: 6px; align-items: flex-end; height: 80px;
+    border-bottom: 1px solid rgba(251,247,240,0.3);
+    padding-bottom: 0;
+  }
+  .art-chart .chart-bar {
+    flex: 1; background: var(--cream); border-radius: 2px 2px 0 0;
+  }
+  .art-chart .chart-label {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    opacity: 0.85;
+    letter-spacing: 0.05em;
+  }
+
+  /* swatch card — Secret Senses */
+  .art-swatch {
+    width: 180px;
+    background: var(--peach);
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+  }
+  .art-swatch .swatch-top {
+    display: flex; gap: 6px; margin-bottom: 0.75rem;
+  }
+  .art-swatch .swatch-sq {
+    flex: 1; aspect-ratio: 1;
+    border-radius: 3px;
+  }
+  .art-swatch .sq-1 { background: #D77F5A; }
+  .art-swatch .sq-2 { background: #F0C9A0; }
+  .art-swatch .sq-3 { background: #8E3D2A; }
+  .art-swatch .sq-4 { background: #F9E9D6; }
+  .art-swatch .swatch-h {
+    font-weight: 600; font-size: 0.9rem;
+    letter-spacing: -0.01em;
+    color: var(--cream);
+  }
+  .art-swatch .swatch-sub {
+    font-family: var(--hand); font-size: 0.95rem;
+    color: var(--cream); opacity: 0.85;
+    margin-top: 0.2rem;
+  }
+
+  /* origami-ish mark — XTDB */
+  .art-mark {
+    width: 150px; height: 150px;
+    background: var(--ink);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.1);
+  }
+  .art-mark .mark-text {
+    font-family: var(--sans);
+    font-weight: 700;
+    color: var(--cream);
+    font-size: 1.6rem;
+    letter-spacing: -0.03em;
+    text-align: center;
+  }
+  .art-mark .mark-text small {
+    display: block;
+    font-weight: 400;
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    margin-top: 0.3rem;
+    opacity: 0.7;
+  }
+
+  /* onboarding strip — Agemo */
+  .art-steps {
+    width: 180px;
+    background: var(--green);
+    border-radius: 8px;
+    padding: 0.9rem;
+    display: flex; flex-direction: column; gap: 0.45rem;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+  }
+  .art-steps .step-head {
+    font-family: var(--hand); font-size: 1rem;
+    color: var(--ink); margin-bottom: 0.3rem;
+  }
+  .art-steps .step-row {
+    display: flex; align-items: center; gap: 0.5rem;
+    font-size: 0.72rem; color: var(--ink);
+  }
+  .art-steps .step-dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 0.6rem;
+    font-weight: 600;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .art-steps .step-line {
+    flex: 1;
+    height: 4px; background: rgba(17,18,20,0.2); border-radius: 2px;
+  }
+
+  /* glitch wordmark — Gliitch */
+  .art-glitch {
+    padding: 1rem 1.3rem;
+    background: var(--ink);
+    font-weight: 700;
+    font-size: 1.8rem;
+    letter-spacing: -0.02em;
+    position: relative;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.1);
+  }
+  .art-glitch .g-text { position: relative; color: var(--cream); }
+  .art-glitch .g-text::before {
+    content: "gliitch";
+    position: absolute; top: 0; left: 2px;
+    color: var(--pink); mix-blend-mode: lighten;
+    clip-path: inset(0 0 50% 0);
+  }
+  .art-glitch .g-text::after {
+    content: "gliitch";
+    position: absolute; top: 0; left: -2px;
+    color: var(--cyan); mix-blend-mode: lighten;
+    clip-path: inset(50% 0 0 0);
+  }
+
+  /* polaroid — Rachna Nivas */
+  .art-polaroid {
+    width: 150px;
+    background: #fff;
+    padding: 8px 8px 34px;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.12);
+  }
+  .art-polaroid .p-img {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, #E8B84A, #C49A6C);
+    position: relative;
+  }
+  .art-polaroid .p-img::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(circle at 50% 45%, rgba(255,255,255,0.2), transparent 60%);
+  }
+  .art-polaroid .p-caption {
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    color: var(--ink);
+    text-align: center;
+    margin-top: 0.35rem;
+  }
+
+  /* sticky note (wild card) — ConveGenius */
+  .art-sticky {
+    width: 170px;
+    background: #FCEAA0;
+    padding: 0.9rem 1rem;
+    box-shadow: 2px 4px 10px rgba(17,18,20,0.12);
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+  .art-sticky strong {
+    font-family: var(--sans);
+    font-weight: 600; font-size: 0.8rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--ink-soft);
+    display: block; margin-bottom: 0.3rem;
+  }
+
+  /* ===== details panel ===== */
+  .details {
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    margin-top: 3rem;
+  }
+  .detail {
+    max-width: 900px; margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: start;
+  }
+  .detail:last-child { border-bottom: 0; }
+  .detail-artifact-spot {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 240px;
+    padding: 1rem;
+  }
+  .detail h2 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 600; letter-spacing: -0.03em;
+    line-height: 0.98; margin-bottom: 0.5rem;
+  }
+  .detail-sub {
+    font-family: var(--hand); color: var(--ink-soft);
+    font-size: 1.2rem; display: block; margin-bottom: 1.5rem;
+  }
+  .detail p {
+    font-size: 1.05rem; color: var(--ink);
+    line-height: 1.65; margin-bottom: 1rem; max-width: 48ch;
+  }
+  .detail-meta {
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 0.4rem 1rem;
+    font-size: 0.9rem; margin: 1.25rem 0;
+    padding: 1rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    max-width: 40ch;
+  }
+  .detail-meta dt { font-family: var(--hand); color: var(--ink-fade); font-size: 1rem; }
+  .detail-link {
+    font-family: var(--hand); font-size: 1.15rem; color: var(--pink);
+    border-bottom: 1px solid var(--pink); padding-bottom: 1px;
+    display: inline-block;
+  }
+  .detail-link:hover { opacity: 0.75; }
+
+  @media (max-width: 880px) {
+    .detail { grid-template-columns: 1fr; }
+    .detail-artifact-spot { order: -1; min-height: auto; padding: 2rem 1rem 0; }
+  }
+
+  /* closing */
+  .closing {
+    max-width: 820px; margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 6vh, 5rem);
+  }
+  .closing h3 {
+    font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .closing .pink { color: var(--pink); border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+  .closing .hint { font-family: var(--hand); color: var(--ink-soft); font-size: 1.15rem; display: block; }
+
+  .foot {
+    border-top: 1px solid var(--rule); padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto; display: flex;
+    justify-content: space-between; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  /* mobile: collapse the scatter into a vertical flow of artifacts */
+  @media (max-width: 880px) {
+    .pinboard { min-height: auto; }
+    .pinboard-inner { min-height: auto; display: flex; flex-direction: column; align-items: center; gap: 2.5rem; padding: 2rem 0 3rem; }
+    .artifact {
+      position: static !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="services-concept-5-stickers.html">services in this style →</a>
+      <a href="services-concepts.html" class="nav-back">← all concepts</a>
+    </div>
+  </nav>
+
+  <section class="intro">
+    <span class="eyebrow">the studio wall, scattered</span>
+    <h1 class="intro-h1">Ten artifacts <em>from ten projects.</em></h1>
+    <p class="intro-lede">Instead of a grid of logos, this is what the physical studio wall looks like — a deck slide, a color swatch, a torn quote, a phone mock, a polaroid. Each one is from a real project. Click any artifact to read the story behind it.</p>
+    <p class="intro-hint">hover to lift · click to open</p>
+  </section>
+
+  <div class="pinboard" id="pinboard">
+    <div class="pinboard-inner" id="board">
+
+      <!-- 1. TomboyX · deck slide with Caveat note -->
+      <button class="artifact" data-target="d-tomboyx" data-pin="pink"
+              style="top: 20px; left: 4%; transform: rotate(-4deg);">
+        <div class="art-slide">
+          <div class="slide-bar"></div>
+          <div class="slide-headline">Why the retail investor is the wrong audience.</div>
+          <div class="slide-body">TomboyX · slide 3 of 18 · institutional deck<br/>(one of three decks we wrote)</div>
+          <span class="slide-note">$5M raised ✓</span>
+        </div>
+        <span class="art-client">TomboyX · pitch · 2025</span>
+      </button>
+
+      <!-- 2. Klydo · stat badge -->
+      <button class="artifact" data-target="d-klydo" data-pin="mustard"
+              style="top: 70px; left: 34%; transform: rotate(5deg);">
+        <div class="art-stat">
+          <div class="stat-n">150</div>
+          <div class="stat-u">/ day</div>
+          <div class="stat-label">from zero by Jan 1</div>
+        </div>
+        <span class="art-client">Klydo · launch · 2025</span>
+      </button>
+
+      <!-- 3. Tatsam · phone mock -->
+      <button class="artifact" data-target="d-tatsam" data-pin="cyan"
+              style="top: 30px; left: 56%; transform: rotate(-3deg);">
+        <div class="art-phone">
+          <div class="p-notch"></div>
+          <div class="p-row short"></div>
+          <div class="p-card">
+            <div class="p-card-title"></div>
+            <div class="p-card-line"></div>
+            <div class="p-card-line s"></div>
+            <div class="p-card-line ss"></div>
+            <div class="p-card-line"></div>
+          </div>
+        </div>
+        <span class="art-client">Tatsam · design system · 2024</span>
+      </button>
+
+      <!-- 4. Pratham · torn-paper quote -->
+      <button class="artifact" data-target="d-pratham" data-pin="ink"
+              style="top: 60px; left: 76%; transform: rotate(6deg);">
+        <div class="art-quote">
+          They gave us the one document nobody on our team could have written.
+          <span class="art-quote-cite">— Pratham USA leadership</span>
+        </div>
+        <span class="art-client">Pratham · donor research · 2024</span>
+      </button>
+
+      <!-- 5. ConveGenius · chart card -->
+      <button class="artifact" data-target="d-convegenius" data-pin="pink"
+              style="top: 320px; left: 3%; transform: rotate(4deg);">
+        <div class="art-chart">
+          <div class="chart-title">completion, Q2</div>
+          <div class="chart-bars">
+            <div class="chart-bar" style="height: 24%;"></div>
+            <div class="chart-bar" style="height: 36%;"></div>
+            <div class="chart-bar" style="height: 28%;"></div>
+            <div class="chart-bar" style="height: 62%;"></div>
+            <div class="chart-bar" style="height: 78%;"></div>
+            <div class="chart-bar" style="height: 92%;"></div>
+          </div>
+          <div class="chart-label">engagement framework · week 1–6</div>
+        </div>
+        <span class="art-client">ConveGenius · 2× completion · 2025</span>
+      </button>
+
+      <!-- 6. Secret Senses · swatch card -->
+      <button class="artifact" data-target="d-secret" data-pin="cyan"
+              style="top: 350px; left: 27%; transform: rotate(-5deg);">
+        <div class="art-swatch">
+          <div class="swatch-top">
+            <div class="swatch-sq sq-1"></div>
+            <div class="swatch-sq sq-2"></div>
+            <div class="swatch-sq sq-3"></div>
+            <div class="swatch-sq sq-4"></div>
+          </div>
+          <div class="swatch-h">Secret Senses — Palette 01</div>
+          <div class="swatch-sub">paisley · watercolor · print</div>
+        </div>
+        <span class="art-client">Secret Senses · brand · 2024</span>
+      </button>
+
+      <!-- 7. XTDB · mark -->
+      <button class="artifact" data-target="d-xtdb" data-pin="mustard"
+              style="top: 350px; left: 50%; transform: rotate(8deg);">
+        <div class="art-mark">
+          <div class="mark-text">
+            XTDB
+            <small>formerly CRUX</small>
+          </div>
+        </div>
+        <span class="art-client">XTDB · rename · 2024</span>
+      </button>
+
+      <!-- 8. Agemo · onboarding strip -->
+      <button class="artifact" data-target="d-agemo" data-pin="pink"
+              style="top: 340px; left: 72%; transform: rotate(-6deg);">
+        <div class="art-steps">
+          <div class="step-head">onboarding · 6 screens</div>
+          <div class="step-row"><span class="step-dot">1</span><span class="step-line"></span></div>
+          <div class="step-row"><span class="step-dot">2</span><span class="step-line"></span></div>
+          <div class="step-row"><span class="step-dot">3</span><span class="step-line"></span></div>
+          <div class="step-row"><span class="step-dot">4</span><span class="step-line"></span></div>
+          <div class="step-row"><span class="step-dot">5</span><span class="step-line"></span></div>
+          <div class="step-row"><span class="step-dot">6</span><span class="step-line"></span></div>
+        </div>
+        <span class="art-client">Agemo · 3.2× completion · 2025</span>
+      </button>
+
+      <!-- 9. Gliitch · glitch wordmark -->
+      <button class="artifact" data-target="d-gliitch" data-pin="cyan"
+              style="top: 600px; left: 12%; transform: rotate(-2deg);">
+        <div class="art-glitch">
+          <span class="g-text">gliitch</span>
+        </div>
+        <span class="art-client">Gliitch · identity · 2024</span>
+      </button>
+
+      <!-- 10. Rachna Nivas · polaroid -->
+      <button class="artifact" data-target="d-rachna" data-pin="ink"
+              style="top: 580px; left: 40%; transform: rotate(5deg);">
+        <div class="art-polaroid">
+          <div class="p-img"></div>
+          <div class="p-caption">Rachna, rehearsal</div>
+        </div>
+        <span class="art-client">Rachna Nivas · brand · 2024</span>
+      </button>
+
+      <!-- 11. Extra — sticky note with a process quote -->
+      <button class="artifact" data-target="d-convegenius" data-pin="none"
+              style="top: 620px; left: 62%; transform: rotate(-8deg);">
+        <div class="art-sticky">
+          <strong>reminder</strong>
+          growth mechanics were killing retention.
+          pick engagement.
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+  <div class="details">
+
+    <section class="detail" id="d-tomboyx">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(-4deg);">
+          <div class="art-slide">
+            <div class="slide-bar"></div>
+            <div class="slide-headline">Why the retail investor is the wrong audience.</div>
+            <div class="slide-body">TomboyX · slide 3 of 18 · institutional deck</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Three decks instead of one.</h2>
+        <span class="detail-sub">TomboyX · story · investor pitch · 2025</span>
+        <p>TomboyX came to us mid-down-round. The old deck wasn't working because it was trying to land with three audiences at once. We killed it and built three, each in the founders' voice, each with a different opening. Eight weeks. $5M raised.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>Seattle · $25M ARR apparel</dd>
+          <dt>ask</dt><dd>Re-raise after a down-round</dd>
+          <dt>outcome</dt><dd>$5M raised · three decks · one story</dd>
+        </dl>
+        <a class="detail-link" href="work/tomboyx.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-klydo">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(5deg);">
+          <div class="art-stat">
+            <div class="stat-n">150</div>
+            <div class="stat-u">/ day</div>
+            <div class="stat-label">from zero by Jan 1</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Zero to 150 daily sales by January 1.</h2>
+        <span class="detail-sub">Klydo · product · brand · GTM · 2025</span>
+        <p>Ten-week sprint. When the branding person quit in week six, we opened Figma. When the team's internal story started to fracture, we brought in a best-selling writer to build the myth that would unify it. The site shipped on December 29.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>Bangalore · pre-Series A</dd>
+          <dt>ask</dt><dd>Launch before Jan 1</dd>
+          <dt>outcome</dt><dd>0 → 150 daily sales in week one</dd>
+        </dl>
+        <a class="detail-link" href="work/klydo.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-tatsam">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(-3deg);">
+          <div class="art-phone">
+            <div class="p-notch"></div>
+            <div class="p-row short"></div>
+            <div class="p-card">
+              <div class="p-card-title"></div>
+              <div class="p-card-line"></div>
+              <div class="p-card-line s"></div>
+              <div class="p-card-line ss"></div>
+              <div class="p-card-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Calm on the outside, agency under the hood.</h2>
+        <span class="detail-sub">Tatsam · design system · 2024</span>
+        <p>Mental health design systems tend to pick one register — soft-and-nurturing or clinical-and-authoritative. Tatsam needed both. We built a system that pairs patient motion and quiet palette with a research-backed, decision-forward onboarding. Users who complete week one retain at 3× category benchmark.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>Delhi · India seed</dd>
+          <dt>ask</dt><dd>Heal without softening</dd>
+          <dt>outcome</dt><dd>3× week-1 retention</dd>
+        </dl>
+        <a class="detail-link" href="work/tatsam.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-pratham">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(6deg);">
+          <div class="art-quote">
+            They gave us the one document nobody on our team could have written.
+            <span class="art-quote-cite">— Pratham USA leadership</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>One year of quiet conversations.</h2>
+        <span class="detail-sub">Pratham USA · research · process · 2024</span>
+        <p>Post-COVID donor collapse, no clear why. We spent a year interviewing lapsed, active, and almost-gave donors. The insight: the right format wasn't the newsletter — it was long-form publications donors could carry to their dinner tables.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>NYC · $50M USA nonprofit</dd>
+          <dt>ask</dt><dd>Find the why behind the donor collapse</dd>
+          <dt>outcome</dt><dd>6-stage donor model · new publishing strategy</dd>
+        </dl>
+        <a class="detail-link" href="work/pratham.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-convegenius">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(4deg);">
+          <div class="art-chart">
+            <div class="chart-title">completion, Q2</div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height: 24%;"></div>
+              <div class="chart-bar" style="height: 36%;"></div>
+              <div class="chart-bar" style="height: 28%;"></div>
+              <div class="chart-bar" style="height: 62%;"></div>
+              <div class="chart-bar" style="height: 78%;"></div>
+              <div class="chart-bar" style="height: 92%;"></div>
+            </div>
+            <div class="chart-label">engagement framework · week 1–6</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Growth versus engagement — we picked the harder one.</h2>
+        <span class="detail-sub">ConveGenius · framework · 2025</span>
+        <p>Kids were opening the app. Kids weren't finishing modules. We built a rewards framework that separates growth mechanics from engagement mechanics — and showed the data that said growth was quietly killing retention. They chose engagement. Completion rates doubled.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>India edtech · 100K monthly students</dd>
+          <dt>ask</dt><dd>Why the drop-off after signup?</dd>
+          <dt>outcome</dt><dd>2× completion in the first quarter</dd>
+        </dl>
+        <a class="detail-link" href="work/convegenius.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-secret">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(-5deg);">
+          <div class="art-swatch">
+            <div class="swatch-top">
+              <div class="swatch-sq sq-1"></div>
+              <div class="swatch-sq sq-2"></div>
+              <div class="swatch-sq sq-3"></div>
+              <div class="swatch-sq sq-4"></div>
+            </div>
+            <div class="swatch-h">Secret Senses — Palette 01</div>
+            <div class="swatch-sub">paisley · watercolor · print</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>A brand drawn in Procreate.</h2>
+        <span class="detail-sub">Secret Senses · identity · illustration · 2024</span>
+        <p>Bootstrapped hair care brand that needed to look nothing like the rest of the shelf. We drew a floral and paisley watercolor system from mark to packaging — warm where the category is clinical, personal where it is corporate.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>India · bootstrapped</dd>
+          <dt>ask</dt><dd>Look nothing like the shelf</dd>
+          <dt>outcome</dt><dd>DTC launch + 2 retail partnerships</dd>
+        </dl>
+        <a class="detail-link" href="work/secret-senses.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-xtdb">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(8deg);">
+          <div class="art-mark">
+            <div class="mark-text">
+              XTDB
+              <small>formerly CRUX</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Origami for a temporal database.</h2>
+        <span class="detail-sub">XTDB · re-brand · 2024</span>
+        <p>Renamed from CRUX. We needed a mark that could communicate "temporal" without looking like a clock. Origami became the system — folds, surfaces, the single piece of paper that becomes anything. The mark moves from 2D logo to 3D temporal object in docs, slides, hero.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>Canada · ~$10M ARR database</dd>
+          <dt>ask</dt><dd>Rebuild identity around new product thesis</dd>
+          <dt>outcome</dt><dd>Full system, launched on relaunch day</dd>
+        </dl>
+        <a class="detail-link" href="work/xtdb.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-agemo">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(-6deg);">
+          <div class="art-steps">
+            <div class="step-head">onboarding · 6 screens</div>
+            <div class="step-row"><span class="step-dot">1</span><span class="step-line"></span></div>
+            <div class="step-row"><span class="step-dot">2</span><span class="step-line"></span></div>
+            <div class="step-row"><span class="step-dot">3</span><span class="step-line"></span></div>
+            <div class="step-row"><span class="step-dot">4</span><span class="step-line"></span></div>
+            <div class="step-row"><span class="step-dot">5</span><span class="step-line"></span></div>
+            <div class="step-row"><span class="step-dot">6</span><span class="step-line"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>From "what is this" to "I ship with it."</h2>
+        <span class="detail-sub">Agemo · onboarding · 2025</span>
+        <p>Engineers were bouncing in the first session. We rebuilt onboarding for exploratory users — the people who try a tool without reading docs. Six screens, each a single decision. Session completion up 3.2×.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>UK · pre-Series A GenAI tool</dd>
+          <dt>ask</dt><dd>Fix the first session</dd>
+          <dt>outcome</dt><dd>3.2× session completion, 4× conversion</dd>
+        </dl>
+        <a class="detail-link" href="work/agemo.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-gliitch">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(-2deg);">
+          <div class="art-glitch">
+            <span class="g-text">gliitch</span>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Two colors. One broken-on-purpose mark.</h2>
+        <span class="detail-sub">Gliitch · identity · 2024</span>
+        <p>Restaurant tech category that usually plays it safe. Gliitch wanted to feel like 2024, not 2004. We built a two-color glitch mark, Memphis-grid menus, and an irreverent voice. It stood out on every POS stand it got installed on.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>Hong Kong · bootstrapped</dd>
+          <dt>ask</dt><dd>Feel like now, not then</dd>
+          <dt>outcome</dt><dd>Full brand system in 5 weeks</dd>
+        </dl>
+        <a class="detail-link" href="work/gliitch.html">read the full story →</a>
+      </div>
+    </section>
+
+    <section class="detail" id="d-rachna">
+      <div class="detail-artifact-spot">
+        <div class="artifact" style="position: relative; transform: rotate(5deg);">
+          <div class="art-polaroid">
+            <div class="p-img"></div>
+            <div class="p-caption">Rachna, rehearsal</div>
+          </div>
+        </div>
+      </div>
+      <div class="detail-body">
+        <h2>Her voice, her craft, no blonde-ification.</h2>
+        <span class="detail-sub">Rachna Nivas · content strategy · 2024</span>
+        <p>NYC Kathak dancer, sole practitioner, no brand budget. We built an authenticity-forward content strategy and brand book positioned around the craft, not the credentials. Six months in, inquiries tripled.</p>
+        <dl class="detail-meta">
+          <dt>where</dt><dd>NYC · solo practitioner</dd>
+          <dt>ask</dt><dd>Show up online without sounding like a brand</dd>
+          <dt>outcome</dt><dd>3× inquiries in six months</dd>
+        </dl>
+        <a class="detail-link" href="work/rachna-nivas.html">read the full story →</a>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="closing">
+    <h3>Spot an artifact that felt like your problem? — <a href="mailto:hello@joyus.studio" class="pink">be our friends.</a></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    const board = document.getElementById('board');
+    const pinboard = document.getElementById('pinboard');
+    const artifacts = board.querySelectorAll('.artifact');
+
+    artifacts.forEach(a => {
+      const m = a.style.transform.match(/rotate\(([-\d.]+)deg\)/);
+      a.dataset.rot = m ? m[1] : 0;
+    });
+
+    let mouseX = 0, mouseY = 0;
+    let rafId = null;
+
+    pinboard.addEventListener('mousemove', (e) => {
+      const rect = pinboard.getBoundingClientRect();
+      mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+      mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+      if (!rafId) rafId = requestAnimationFrame(update);
+    });
+    pinboard.addEventListener('mouseleave', () => {
+      mouseX = 0; mouseY = 0;
+      if (!rafId) rafId = requestAnimationFrame(update);
+    });
+
+    function update() {
+      artifacts.forEach((a, i) => {
+        if (a.matches(':hover')) return; // don't override hover transform
+        const depth = (i % 3 + 1) * 5;
+        const dx = mouseX * depth;
+        const dy = mouseY * depth;
+        const rot = a.dataset.rot;
+        a.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+      });
+      rafId = null;
+    }
+
+    artifacts.forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = a.dataset.target;
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        artifacts.forEach(x => x.classList.toggle('dimmed', x !== a));
+        setTimeout(() => artifacts.forEach(x => x.classList.remove('dimmed')), 1400);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+</body>
+</html>

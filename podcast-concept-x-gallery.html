@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Joyus Letters — a podcast, issued quarterly · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --violet: #A87BD9;
+    --cream: #FBF7F0;
+    --paper: #F4EFE5;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.12);
+    --rule-soft: rgba(17,18,20,0.06);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  body.panel-open { overflow: hidden; }
+  a, button { color: inherit; text-decoration: none; transition: color 0.2s; font-family: inherit; }
+
+  .progress { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 200; }
+  .progress-fill { height: 100%; background: var(--pink); width: 0; transition: width 0.15s; }
+
+  /* ============ NAV ============ */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem var(--x); max-width: 1400px; margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .nav-logo { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.9rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-back { font-family: var(--hand); font-size: 1.05rem; }
+
+  /* ============ MASTHEAD ============ */
+  .masthead {
+    border-bottom: 1px solid var(--ink);
+    padding: clamp(2rem, 5vh, 3.5rem) var(--x) clamp(1.25rem, 3vh, 2rem);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .masthead-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap; gap: 0.75rem;
+  }
+  .masthead-top .vol { color: var(--pink); }
+  .masthead-title {
+    font-weight: 500;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    margin-bottom: 1rem;
+  }
+  .masthead-title em { font-style: italic; font-weight: 500; color: var(--ink-soft); }
+  .masthead-sub {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    gap: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  .masthead-dek {
+    font-style: italic;
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    color: var(--ink-soft);
+    max-width: 54ch;
+    line-height: 1.45;
+  }
+  .masthead-where {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    font-size: 0.8rem;
+  }
+  .masthead-where a {
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--ink);
+  }
+  .masthead-where a:hover { background: var(--ink); color: var(--cream); }
+  .masthead-where a::before { content: "♪ "; color: var(--pink); }
+
+  /* ============ LEAD FEATURE ============ */
+  .lead {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 3.5fr 2fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: start;
+  }
+  .lead-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.5rem;
+    display: block;
+    grid-column: 1 / -1;
+  }
+  .lead-left { }
+  .lead-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .lead-kicker em { color: var(--pink); font-style: normal; }
+  .lead-headline {
+    font-weight: 500;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    margin-bottom: 1.5rem;
+    max-width: 22ch;
+  }
+  .lead-headline em { color: var(--pink); font-style: italic; font-weight: 500; }
+  .lead-dek {
+    font-style: italic;
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    line-height: 1.45;
+    color: var(--ink-soft);
+    max-width: 32ch;
+    margin-bottom: 1.75rem;
+  }
+  .lead-byline {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-fade);
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.75rem;
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .lead-byline span { color: var(--ink); }
+  .lead-excerpt {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    column-count: 1;
+  }
+  .lead-excerpt::first-letter {
+    font-family: var(--sans);
+    font-weight: 500;
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.85;
+    padding: 0.3rem 0.55rem 0 0;
+    color: var(--pink);
+  }
+  .lead-excerpt p { margin-bottom: 1rem; }
+  .lead-excerpt p em.mark { color: var(--pink); font-style: normal; font-weight: 500; }
+  .lead-affordance {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+  }
+  .lead-affordance button, .lead-affordance a {
+    display: inline-flex; align-items: center; gap: 0.55rem;
+    padding: 0.7rem 1.4rem 0.7rem 1.1rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    font-size: 0.9rem; font-weight: 500;
+    background: transparent; cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+    color: var(--ink);
+  }
+  .lead-affordance button.primary {
+    background: var(--ink); color: var(--cream);
+  }
+  .lead-affordance button.primary::before { content: "▶"; font-size: 0.7rem; }
+  .lead-affordance button.primary:hover { background: var(--pink); border-color: var(--pink); }
+  .lead-affordance button.secondary::before { content: "✎"; color: var(--pink); font-size: 0.8rem; }
+  .lead-affordance button.secondary:hover { background: var(--paper); }
+  .lead-affordance .read-time {
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink-fade);
+    align-self: center;
+    margin-left: 0.25rem;
+  }
+
+  .lead-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-top: 2rem;
+  }
+  .lead-art {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1.75rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .lead-art::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 40%;
+    background: linear-gradient(to top,
+      #5E3A8E 0%,
+      rgba(94, 58, 142, 0.4) 60%,
+      transparent 100%);
+  }
+  .lead-art-issue {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--mustard);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+  .lead-art-quote {
+    font-family: var(--hand);
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    line-height: 1.2;
+    color: var(--cream);
+    max-width: 20ch;
+    position: relative;
+    z-index: 2;
+  }
+  .lead-art-quote em { color: var(--mustard); font-style: normal; }
+  .lead-art-guest {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(251, 247, 240, 0.6);
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+  .lead-pair {
+    display: flex; flex-direction: column;
+    gap: 0.3rem;
+    padding: 1rem 1.1rem;
+    background: var(--paper);
+    border-left: 2px solid var(--pink);
+  }
+  .lead-pair .p-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+  .lead-pair h4 {
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+  .lead-pair .p-meta {
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    color: var(--ink-fade);
+    margin-top: 0.1rem;
+  }
+
+  @media (max-width: 900px) {
+    .lead { grid-template-columns: 1fr; }
+    .lead-right { flex-direction: row; flex-wrap: wrap; }
+    .lead-art { flex: 1; min-width: 240px; }
+    .lead-pair { flex: 1; min-width: 240px; }
+  }
+
+  /* ============ CURRENTLY RUNNING / THREADS ============ */
+  .threads {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+  }
+  .threads-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 3rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .threads-h2 {
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    max-width: 28ch;
+  }
+  .threads-h2 em { font-style: italic; color: var(--ink-soft); }
+  .threads-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.65rem;
+    display: block;
+  }
+  .threads-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+  }
+  .thread {
+    padding: 1.75rem 1.5rem 0 0;
+    border-left: 1px solid var(--rule);
+    padding-left: 1.5rem;
+    display: flex; flex-direction: column;
+    min-height: 280px;
+  }
+  .thread:first-child { border-left: 0; padding-left: 0; }
+  .thread-q {
+    font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .thread-q em { font-style: italic; color: var(--pink); }
+  .thread-eps {
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--rule);
+  }
+  .thread-ep {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: color 0.15s, padding 0.2s;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .thread-ep:first-child { border-top: 0; }
+  .thread-ep:hover { color: var(--pink); padding-left: 0.25rem; }
+  .thread-ep .t {
+    letter-spacing: -0.005em;
+    padding-right: 1rem;
+  }
+  .thread-ep .n {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--ink-fade);
+    white-space: nowrap;
+  }
+  .thread-more {
+    margin-top: 1rem;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--ink-fade);
+    align-self: flex-start;
+  }
+  .thread-more:hover { color: var(--pink); }
+  @media (max-width: 880px) {
+    .threads-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .thread { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+    .thread:first-child { border-top: 0; padding-top: 0; }
+  }
+
+  /* ============ ALSO IN THIS ISSUE ============ */
+  .issue {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+  }
+  .issue-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .issue-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+  .issue-meta {
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1.1rem;
+  }
+  .pieces {
+    display: flex; flex-direction: column;
+  }
+  .piece {
+    display: grid;
+    grid-template-columns: 50px 3fr 1.5fr;
+    gap: clamp(1rem, 2vw, 2.5rem);
+    align-items: start;
+    padding: 1.75rem 0;
+    border-top: 1px solid var(--rule);
+    cursor: pointer;
+    transition: padding 0.2s;
+  }
+  .piece:hover { padding-left: 0.5rem; }
+  .piece:hover .piece-title { color: var(--pink); }
+  .piece-num {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    color: var(--ink-fade);
+  }
+  .piece-title {
+    font-weight: 500;
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.45rem;
+    transition: color 0.2s;
+  }
+  .piece-title em { font-style: italic; color: var(--ink-soft); }
+  .piece-dek {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    max-width: 52ch;
+  }
+  .piece-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-fade);
+    text-transform: uppercase;
+    padding-top: 0.2rem;
+  }
+  .piece-meta > div { margin-bottom: 0.35rem; }
+  .piece-meta .guest {
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    color: var(--ink);
+    text-transform: none;
+  }
+  @media (max-width: 720px) {
+    .piece { grid-template-columns: 40px 1fr; }
+    .piece-meta { grid-column: 2 / -1; margin-top: 0.5rem; }
+  }
+
+  /* ============ ARCHIVE CUTS ============ */
+  .archive {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .archive-inner { padding: 0; }
+  .archive-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .archive-h2 {
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 2.25rem;
+    max-width: 24ch;
+  }
+  .archive-h2 em { font-style: italic; color: var(--ink-soft); }
+  .cuts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .cut {
+    padding: 1.25rem 1.25rem 1.1rem;
+    background: var(--cream);
+    border: 1px solid var(--rule);
+    cursor: pointer;
+    transition: transform 0.25s, box-shadow 0.25s;
+    display: flex; flex-direction: column; gap: 0.5rem;
+  }
+  .cut:hover {
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+  .cut-count {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    color: var(--pink);
+    text-transform: uppercase;
+  }
+  .cut-title {
+    font-weight: 500;
+    font-size: 1.1rem;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .cut-hours {
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    color: var(--ink-fade);
+    margin-top: auto;
+    padding-top: 0.5rem;
+  }
+  @media (max-width: 880px) {
+    .cuts { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) {
+    .cuts { grid-template-columns: 1fr; }
+  }
+
+  /* ============ EDITOR'S NOTE ============ */
+  .note {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 5rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+  }
+  .note-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .note h2 {
+    font-weight: 500;
+    font-size: clamp(1.5rem, 2.8vw, 2rem);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    max-width: 26ch;
+  }
+  .note h2 em { font-style: italic; color: var(--ink-soft); }
+  .note p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .note p:last-of-type { color: var(--ink-soft); }
+  .note-sign {
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--pink);
+    margin-top: 1.5rem;
+    display: block;
+  }
+  .note-sign::before { content: "— "; color: var(--ink-fade); }
+  .note-sign-date {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-fade);
+    text-transform: uppercase;
+    margin-top: 0.3rem;
+    display: block;
+  }
+
+  /* ============ ENDMATTER ============ */
+  .endmatter {
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x) clamp(2rem, 4vh, 3rem);
+    max-width: 1400px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2rem, 4vw, 4rem);
+  }
+  .em-block h3 {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1rem;
+  }
+  .em-block p {
+    font-size: 1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    max-width: 42ch;
+  }
+  .em-block p em { color: var(--ink); font-style: normal; font-weight: 500; }
+  .em-subs {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .em-subs a {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    color: var(--ink);
+  }
+  .em-subs a:hover { background: var(--ink); color: var(--cream); }
+  .em-subs a::before { content: "♪ "; color: var(--pink); }
+  .em-email {
+    font-size: 1.1rem;
+    color: var(--pink);
+    border-bottom: 1.5px solid var(--pink);
+    padding-bottom: 1px;
+    display: inline-block;
+  }
+  @media (max-width: 720px) {
+    .endmatter { grid-template-columns: 1fr; }
+  }
+
+  /* ============ PANEL ============ */
+  .panel-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(17,18,20,0.4);
+    z-index: 300; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .panel-backdrop.open { opacity: 1; pointer-events: auto; }
+  .panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(620px, 92vw);
+    background: var(--cream);
+    z-index: 400;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow-y: auto;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.12);
+  }
+  .panel.open { transform: translateX(0); }
+  .panel-close {
+    position: sticky; top: 0;
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
+    z-index: 2;
+  }
+  .panel-close .n {
+    font-family: var(--mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-fade);
+  }
+  .panel-close button {
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .panel-close button:hover { background: var(--ink); color: var(--cream); }
+  .panel-body { padding: 2rem 2.5rem 3.5rem; }
+  .panel-kicker {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+    display: block;
+    margin-bottom: 0.8rem;
+  }
+  .panel-body h2 {
+    font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+  .panel-body .hosts {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    padding: 0.65rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.5rem;
+  }
+  .panel-body .spot-embed {
+    width: 100%; height: 140px;
+    border-radius: 10px;
+    background: var(--ink); color: var(--cream);
+    padding: 0.9rem 1.15rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .panel-body .spot-embed::before {
+    content: "Spotify embed";
+    font-family: var(--mono);
+    font-size: 0.7rem; letter-spacing: 0.15em;
+    color: rgba(251,247,240,0.4);
+  }
+  .panel-body .spot-embed .play {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: #1DB954; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    align-self: flex-start;
+  }
+  .panel-body .spot-embed .bar {
+    height: 3px; background: rgba(251,247,240,0.2);
+    border-radius: 2px; position: relative;
+  }
+  .panel-body .spot-embed .bar::before {
+    content: ""; position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 28%; background: #1DB954; border-radius: 2px;
+  }
+  .panel-body .excerpt {
+    border-left: 3px solid var(--pink);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+    font-size: 1rem; line-height: 1.55;
+    color: var(--ink-soft); margin: 1.25rem 0;
+  }
+  .panel-body .link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    background: var(--ink); color: var(--cream);
+    border-radius: 999px;
+    font-size: 0.92rem; font-weight: 500;
+  }
+  .panel-body .link:hover { background: var(--pink); }
+
+  .foot {
+    padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress"><div class="progress-fill" id="pf"></div></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="home-concept-x-gallery.html">Home</a>
+      <a href="work-concept-3-verbs.html">Work</a>
+      <a href="services-concept-3-verbs.html">Services</a>
+      <a href="services-concepts.html" class="nav-back">← concepts</a>
+    </div>
+  </nav>
+
+  <!-- ==================== MASTHEAD ==================== -->
+  <header class="masthead">
+    <div class="masthead-top">
+      <span>The Joyus Letters <span class="vol">· vol. iii · no. 03</span></span>
+      <span>Dec 2025 · issued quarterly · 88 conversations to date</span>
+    </div>
+    <h1 class="masthead-title">A podcast, <em>issued quarterly</em> — by two people who keep asking the same questions in different rooms.</h1>
+    <div class="masthead-sub">
+      <p class="masthead-dek">Every episode becomes an essay; every quarter becomes a small collection of one. Hosted by Kahran Singh &amp; Divya Tak.</p>
+      <div class="masthead-where">
+        <a href="#">Spotify</a>
+        <a href="#">Apple</a>
+        <a href="#">iHeart</a>
+        <a href="#">RSS</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== LEAD FEATURE ==================== -->
+  <article class="lead">
+    <span class="lead-label">the lead · Vol. III No. 03</span>
+    <div class="lead-left">
+      <span class="lead-kicker">on selling a thing <em>nobody knows how to buy yet</em></span>
+      <h2 class="lead-headline">Every retailer came into the room <em>thinking they already knew what it was.</em></h2>
+      <p class="lead-dek">A product that worked. A pitch that didn't. And four months of un-teaching the closest thing they'd seen before.</p>
+      <p class="lead-byline">
+        <span>Ep 503</span> · <span>52 min</span> · <span>with Dina Holzapfel, founder of Smiqql</span> · <span>hosted by Kahran</span>
+      </p>
+      <div class="lead-excerpt">
+        <p>I kept thinking the pitch was the product. I'd walk into a meeting with a deck and a sample, and the buyer would nod in all the right places, and then a week later they'd come back with a question that made it clear they'd heard an entirely different product than the one I'd described.</p>
+        <p>Eventually I realized it wasn't about the pitch. They weren't deciding whether <em class="mark">my</em> product was good. They were deciding whether the product they'd already pattern-matched me to was good. And the product they'd pattern-matched me to wasn't <em class="mark">mine</em>.</p>
+        <p>So the whole next four months was about un-teaching. Not explaining what we were — explaining what we weren't, enough times in enough different ways that the match finally broke. That was the work. The pitch came after.</p>
+      </div>
+      <div class="lead-affordance">
+        <button class="primary" data-target="ep-503"><span>listen &mdash; 52 min</span></button>
+        <button class="secondary" data-target="ep-503-essay">read the essay</button>
+        <span class="read-time">or keep scrolling</span>
+      </div>
+    </div>
+    <aside class="lead-right">
+      <div class="lead-art">
+        <span class="lead-art-issue">Vol. III — No. 03 · Lead · Dec 2025</span>
+        <p class="lead-art-quote">&ldquo;They weren't deciding if my product was good. <em>They were deciding if the product they'd pattern-matched me to was good.&rdquo;</em></p>
+        <span class="lead-art-guest">— Dina Holzapfel, Smiqql</span>
+      </div>
+      <div class="lead-pair">
+        <span class="p-label">paired essay · in /thinking</span>
+        <h4>The cost of the closest match.</h4>
+        <span class="p-meta">a 7-min read · drawn from the transcript</span>
+      </div>
+    </aside>
+  </article>
+
+  <!-- ==================== CURRENTLY RUNNING ==================== -->
+  <section class="threads">
+    <header>
+      <span class="threads-kicker">currently running · three open questions</span>
+      <h2 class="threads-h2">The show isn't really a feed. It's a set of <em>questions we keep returning to</em> — usually from a different angle each time.</h2>
+    </header>
+    <div class="threads-grid">
+
+      <div class="thread">
+        <p class="thread-q">What does success look like <em>for the version of you who doesn't get it?</em></p>
+        <div class="thread-eps">
+          <div class="thread-ep" data-target="ep-success-1"><span class="t">The confoundedness of success (pt 1)</span><span class="n">55 min</span></div>
+          <div class="thread-ep"><span class="t">Expectations vs. definitions (pt 2)</span><span class="n">51 min</span></div>
+          <div class="thread-ep"><span class="t">After success with Pradeep Singh (pt 3)</span><span class="n">47 min</span></div>
+          <div class="thread-ep"><span class="t">Unraveling purpose (pt 4)</span><span class="n">59 min</span></div>
+        </div>
+        <a class="thread-more" href="#">see all 8 in the series →</a>
+      </div>
+
+      <div class="thread">
+        <p class="thread-q">When is the story the problem, <em>and when is the telling?</em></p>
+        <div class="thread-eps">
+          <div class="thread-ep" data-target="ep-svt"><span class="t">Story vs Telling — Part one</span><span class="n">42 min</span></div>
+          <div class="thread-ep"><span class="t">Part two — the telling gap</span><span class="n">48 min</span></div>
+          <div class="thread-ep"><span class="t">Part three — what breaks in scaling</span><span class="n">51 min</span></div>
+          <div class="thread-ep"><span class="t">Part four — and the brand question</span><span class="n">57 min</span></div>
+        </div>
+        <a class="thread-more" href="#">the full mini-series →</a>
+      </div>
+
+      <div class="thread">
+        <p class="thread-q">What does partnership teach <em>that a book on co-founding can't?</em></p>
+        <div class="thread-eps">
+          <div class="thread-ep" data-target="ep-504"><span class="t">Making comics together · solo</span><span class="n">48 min</span></div>
+          <div class="thread-ep"><span class="t">Navigating changing dynamics</span><span class="n">62 min</span></div>
+          <div class="thread-ep"><span class="t">How to make hard things easier</span><span class="n">44 min</span></div>
+          <div class="thread-ep"><span class="t">On continuing projects</span><span class="n">39 min</span></div>
+        </div>
+        <a class="thread-more" href="#">the full thread →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== ALSO IN THIS ISSUE ==================== -->
+  <section class="issue">
+    <div class="issue-head">
+      <span class="issue-kicker">also in this issue · five pieces</span>
+      <span class="issue-meta">Q4 2025 · fifteen minutes to an hour fifteen</span>
+    </div>
+    <div class="pieces">
+
+      <article class="piece" data-target="ep-505">
+        <span class="piece-num">02</span>
+        <div>
+          <h3 class="piece-title">We didn't want the healthcare market &mdash; <em>we wanted the healthcare problem.</em></h3>
+          <p class="piece-dek">What it takes to build for a condition instead of a category. Abhineet &amp; Ritika on founding RocketHealth India before the infrastructure they needed actually existed.</p>
+        </div>
+        <div class="piece-meta">
+          <div>EP 505 · 61 MIN</div>
+          <div><span class="guest">with Abhineet &amp; Ritika</span></div>
+          <div>Hosted by Divya</div>
+        </div>
+      </article>
+
+      <article class="piece" data-target="ep-504">
+        <span class="piece-num">03</span>
+        <div>
+          <h3 class="piece-title">Making comics together &mdash; <em>what two people learn that a book on partnership can't teach them.</em></h3>
+          <p class="piece-dek">A rare solo episode. On the discipline of making something with no boss, week after week, and what a year of it reveals about the person you're making it with.</p>
+        </div>
+        <div class="piece-meta">
+          <div>EP 504 · 48 MIN</div>
+          <div><span class="guest">Kahran &amp; Divya</span></div>
+          <div>solo episode</div>
+        </div>
+      </article>
+
+      <article class="piece" data-target="ep-alt">
+        <span class="piece-num">04</span>
+        <div>
+          <h3 class="piece-title">&ldquo;We talk about capitalism like it's weather. <em>It was built — and it can be unbuilt.&rdquo;</em></h3>
+          <p class="piece-dek">Ten years of mapping cooperative structures, commons-based governance, and post-growth economics, distilled into a 73-minute conversation. Humbling episode.</p>
+        </div>
+        <div class="piece-meta">
+          <div>EP · 73 MIN</div>
+          <div><span class="guest">with Nomaan X</span></div>
+          <div>Hosted by Kahran</div>
+        </div>
+      </article>
+
+      <article class="piece" data-target="ep-anurati">
+        <span class="piece-num">05</span>
+        <div>
+          <h3 class="piece-title">The most permission-giving medium is <em>the one that lets people try on selves they wouldn't otherwise try.</em></h3>
+          <p class="piece-dek">A decade in game design, read as a case study for any designer in any medium trying to build permission into their work.</p>
+        </div>
+        <div class="piece-meta">
+          <div>EP · 58 MIN</div>
+          <div><span class="guest">with Anurati Srivastva</span></div>
+          <div>Hosted by Divya</div>
+        </div>
+      </article>
+
+      <article class="piece" data-target="ep-katie">
+        <span class="piece-num">06</span>
+        <div>
+          <h3 class="piece-title">Courage is cheap. <em>Daring costs you something.</em></h3>
+          <p class="piece-dek">Katieann Vogel has been working at the distinction between those two words for years. Her answer surprised us &mdash; and has shaped every scoping call we've had since.</p>
+        </div>
+        <div class="piece-meta">
+          <div>EP · 52 MIN</div>
+          <div><span class="guest">with Katieann Vogel</span></div>
+          <div>Hosted by Divya</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ==================== ARCHIVE CUTS ==================== -->
+  <section class="archive">
+    <div class="archive-inner">
+      <span class="archive-kicker">from the archive · curated cuts</span>
+      <h2 class="archive-h2">If you want to binge something, <em>we've already made the playlists.</em></h2>
+      <div class="cuts">
+        <a class="cut" href="#">
+          <span class="cut-count">8 eps</span>
+          <h3 class="cut-title">The Success Series</h3>
+          <span class="cut-hours">6h 50m · listen in order</span>
+        </a>
+        <a class="cut" href="#">
+          <span class="cut-count">4 eps</span>
+          <h3 class="cut-title">Story vs Telling</h3>
+          <span class="cut-hours">3h 18m · listen in order</span>
+        </a>
+        <a class="cut" href="#">
+          <span class="cut-count">6 eps</span>
+          <h3 class="cut-title">On Craft &amp; Scale</h3>
+          <span class="cut-hours">5h 30m · any order</span>
+        </a>
+        <a class="cut" href="#">
+          <span class="cut-count">7 eps</span>
+          <h3 class="cut-title">The Partnership Pieces</h3>
+          <span class="cut-hours">5h 05m · any order</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EDITOR'S NOTE ==================== -->
+  <section class="note">
+    <span class="note-kicker">a note from the editors</span>
+    <h2>This week we rerecorded part of an episode we'd already released — <em>because the question we'd asked in it had stopped being ours.</em></h2>
+    <p>Three months ago we put out an ep about building for a market that doesn't exist yet. We got quite a lot of mail about it, some of it kind, most of it asking a version of the same question: <em>okay, but how do you pay rent while you're un-teaching the buyer?</em></p>
+    <p>We'd asked the wrong question. The one that matters isn't about existence, it's about patience. So we rerecorded it. The corrected version's in the feed now, under the same episode number. The old version's still there too, because we don't want to pretend we didn't ask it the first way. Both are true of a moment.</p>
+    <span class="note-sign">Kahran &amp; Divya</span>
+    <span class="note-sign-date">17 April 2026</span>
+  </section>
+
+  <!-- ==================== ENDMATTER ==================== -->
+  <footer class="endmatter">
+    <div class="em-block">
+      <h3>How to follow along</h3>
+      <p>New pieces run <em>most Tuesdays</em>. Quarterly issues of the Letters drop in March, June, September, December. The essay counterpart to each episode runs 48 hours after the audio.</p>
+      <div class="em-subs">
+        <a href="#">Spotify</a>
+        <a href="#">Apple</a>
+        <a href="#">iHeart</a>
+        <a href="#">RSS</a>
+      </div>
+    </div>
+    <div class="em-block">
+      <h3>Correspondence</h3>
+      <p>Notes, topic suggestions, disagreements, guest nominations. We read everything that lands at <em>the address below</em> and reply to most of it.</p>
+      <a class="em-email" href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+    </div>
+  </footer>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <!-- ============ PANEL ============ -->
+  <div class="panel-backdrop" id="backdrop"></div>
+  <aside class="panel" id="panel" aria-hidden="true">
+    <div class="panel-close">
+      <span class="n" id="panelNum">EP 503 · 52 min</span>
+      <button id="panelClose" aria-label="Close">×</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+
+  <script id="eps" type="application/json">
+  {
+    "ep-503": {
+      "num": "EP 503 · VOL. III — NO. 03",
+      "kicker": "the lead · on selling what nobody knows how to buy",
+      "title": "Every retailer came into the room thinking they already knew what it was.",
+      "hosts": "HOSTED BY KAHRAN · WITH DINA HOLZAPFEL · 52 MIN",
+      "excerpt": "The product worked. What didn't was the pitch — because every retailer came in with a mental model the product wasn't built for. Four months of un-teaching. Hardest stretch of the company, and the one that made the rest of it possible."
+    },
+    "ep-503-essay": {
+      "num": "ESSAY · THINKING",
+      "kicker": "paired with EP 503",
+      "title": "The cost of the closest match.",
+      "hosts": "A 7-MIN READ · DRAWN FROM THE EP 503 TRANSCRIPT",
+      "excerpt": "When you sell something the market hasn't categorized yet, the buyer's brain reaches for the closest thing they've seen — not because they aren't paying attention, but because it's efficient. You're not really selling the product. You're fighting the closest match."
+    },
+    "ep-504": {
+      "num": "EP 504 · 48 MIN",
+      "kicker": "a rare solo episode · making together",
+      "title": "Making comics together — what it teaches that a book on partnership can't.",
+      "hosts": "KAHRAN &amp; DIVYA · NO GUEST · 48 MIN",
+      "excerpt": "A year in we realized the discipline of making something together — week after week, with no boss, no deadline anyone else cares about — was teaching us more about partnership than any book on co-founding had."
+    },
+    "ep-505": {
+      "num": "EP 505 · 61 MIN",
+      "kicker": "on building for a market that doesn't exist yet",
+      "title": "We wanted the healthcare problem, not the healthcare market.",
+      "hosts": "HOSTED BY DIVYA · WITH ABHINEET &amp; RITIKA, ROCKETHEALTH · 61 MIN",
+      "excerpt": "The market assumes a payer, an insurer, an existing infrastructure. The problem assumes a person with a symptom. If you build for the problem first, the market eventually forms around you — but you pay for the delay."
+    },
+    "ep-success-1": {
+      "num": "SUCCESS SERIES · PART 1 · 55 MIN",
+      "kicker": "the series opener",
+      "title": "The confoundedness of success.",
+      "hosts": "KAHRAN &amp; DIVYA · 55 MIN · PART 1 OF 8",
+      "excerpt": "At minute 14: why does every success framework silently assume you make it? If that's the question you've been trying to articulate, you'll finish the series. If it feels like empty navel-gazing, you can turn it off without guilt. Honest filter."
+    },
+    "ep-svt": {
+      "num": "STORY VS TELLING · PART 1 · 42 MIN",
+      "kicker": "the 4-part mini-series",
+      "title": "Part one — when the story is fine and the telling is the problem.",
+      "hosts": "KAHRAN &amp; DIVYA · 42 MIN · PART 1 OF 4",
+      "excerpt": "In client after client, we'd hear the team describe their work beautifully in a room of three people, and then watch them fumble it in a pitch. The story was fine. The telling wasn't. What we found when we tried to separate the two."
+    },
+    "ep-alt": {
+      "num": "EP · ALTERNATIVES · 73 MIN",
+      "kicker": "with nomaan x",
+      "title": "Alternatives to capitalism.",
+      "hosts": "HOSTED BY KAHRAN · WITH NOMAAN X · 73 MIN",
+      "excerpt": "We talk about capitalism like it's weather — something that just is. But it's a set of decisions people made, and it can be unmade. Nomaan walked us through the alternatives he's spent ten years mapping."
+    },
+    "ep-anurati": {
+      "num": "EP · GAME DESIGN · 58 MIN",
+      "kicker": "with anurati srivastva",
+      "title": "The most permission-giving medium is the one that lets people try on selves they wouldn't otherwise try.",
+      "hosts": "HOSTED BY DIVYA · WITH ANURATI · 58 MIN",
+      "excerpt": "Games are the most permission-giving medium we have — they let people try on versions of themselves they wouldn't otherwise try. Anurati's decade in game design reads as a case study for how designers in any medium can build that permission."
+    },
+    "ep-katie": {
+      "num": "EP · COURAGE VS DARING · 52 MIN",
+      "kicker": "with katieann vogel",
+      "title": "Courage is cheap. Daring costs you something.",
+      "hosts": "HOSTED BY DIVYA · WITH KATIEANN VOGEL · 52 MIN",
+      "excerpt": "Courage is something you can talk yourself into. Daring requires giving up a version of the self you were. Katieann's been at that distinction for years and her answer surprised us."
+    }
+  }
+  </script>
+
+  <script>
+    const eps = JSON.parse(document.getElementById('eps').textContent);
+    const panel = document.getElementById('panel');
+    const backdrop = document.getElementById('backdrop');
+    const panelBody = document.getElementById('panelBody');
+    const panelNum = document.getElementById('panelNum');
+    const panelClose = document.getElementById('panelClose');
+
+    function openPanel(id) {
+      const d = eps[id];
+      if (!d) return;
+      panelNum.textContent = d.num;
+      panelBody.innerHTML =
+        '<span class="panel-kicker">' + d.kicker + '</span>' +
+        '<h2>' + d.title + '</h2>' +
+        '<p class="hosts">' + d.hosts + '</p>' +
+        '<div class="spot-embed"><div class="play">▶</div><div class="bar"></div></div>' +
+        '<blockquote class="excerpt">' + d.excerpt + '</blockquote>' +
+        '<a class="link" href="#">open the full transcript / essay →</a>';
+      panel.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.classList.add('panel-open');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.scrollTop = 0;
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.classList.remove('panel-open');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+    document.querySelectorAll('[data-target]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const target = el.dataset.target;
+        if (target && (target.startsWith('ep-'))) { e.preventDefault(); openPanel(target); }
+      });
+    });
+    panelClose.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+    });
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('pf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

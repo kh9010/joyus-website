@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — 04 Manifesto · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  /* nav */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.75rem; font-size: 0.92rem; }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-back {
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+  }
+  .nav-back:hover { color: var(--pink); }
+
+  /* hero */
+  .hero {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vh, 8rem) var(--x) clamp(2rem, 4vh, 3rem);
+  }
+  .eyebrow {
+    font-family: var(--hand);
+    font-size: 1.35rem;
+    color: var(--pink);
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-weight: 500;
+    font-size: clamp(2.75rem, 6.5vw, 5rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.75rem;
+  }
+  h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .hero-lede {
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    max-width: 42ch;
+    line-height: 1.5;
+  }
+
+  /* principles */
+  .principles {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vh, 8rem) var(--x);
+    position: relative;
+  }
+  .principle {
+    margin-bottom: clamp(5rem, 10vh, 8rem);
+    position: relative;
+  }
+  .principle-num {
+    position: absolute;
+    top: 0.4rem;
+    left: -3.5rem;
+    font-family: var(--hand);
+    font-size: 1.75rem;
+    color: var(--pink);
+    font-weight: 500;
+  }
+  .principle h2 {
+    font-weight: 500;
+    font-size: clamp(2rem, 4.5vw, 3.25rem);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .principle p {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .principle p + p { color: var(--ink-soft); }
+  .principle a.proof {
+    border-bottom: 1px solid var(--pink);
+    padding-bottom: 1px;
+  }
+  .principle a.proof:hover { color: var(--pink); }
+
+  @media (max-width: 720px) {
+    .principle-num { position: static; display: block; margin-bottom: 0.5rem; }
+  }
+
+  /* summary strip */
+  .summary {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 2.25rem var(--x);
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    justify-content: center;
+    align-items: baseline;
+  }
+  .summary-label {
+    font-family: var(--hand);
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+    margin-right: 0.5rem;
+  }
+  .summary-verb {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .summary-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--ink-fade);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 0.25rem 3px;
+    vertical-align: middle;
+  }
+
+  /* closing */
+  .closing {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(3rem, 6vh, 5rem);
+    text-align: left;
+  }
+  .closing h3 {
+    font-weight: 500;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .closing .pink {
+    color: var(--pink);
+    border-bottom: 2px solid var(--pink);
+    padding-bottom: 1px;
+  }
+  .closing .pink:hover { opacity: 0.75; }
+  .closing .hint {
+    font-family: var(--hand);
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    margin-top: 0.75rem;
+    display: block;
+  }
+
+  /* footer */
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="services-concepts.html" class="nav-back">← all concepts</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <span class="eyebrow">what we do &amp; how we think about it</span>
+    <h1>We believe a few things.<br><em>Everything else follows.</em></h1>
+    <p class="hero-lede">This page doesn't list what we sell. It tells you what we think about the work — and the kind of projects that tends to attract.</p>
+  </section>
+
+  <div class="principles">
+    <div class="principle">
+      <span class="principle-num">01</span>
+      <h2>We think before we make.</h2>
+      <p>Strategy isn't a deliverable. It's the conversation that saves you from building the wrong thing. Most of what we do starts there — sitting with a founder for two weeks or six, naming what isn't landing, and only then deciding whether anything needs to be made at all.</p>
+      <p>When <a class="proof" href="work/tomboyx.html">TomboyX came to us</a> mid-down-round, the first four weeks were a whiteboard. No deck. No design. Just three audiences and what each one needed to hear. The deck was the last thing we built.</p>
+    </div>
+
+    <div class="principle">
+      <span class="principle-num">02</span>
+      <h2>Advisory is the front door.</h2>
+      <p>Most of what we do, you can afford. An hour of us thinking with you is worth more than a week of someone else executing on the wrong brief — and we'd rather help you figure out you don't need us than sell you work you don't need.</p>
+      <p>Build work is selective. We turn a lot of it down, usually kindly. That's how we keep the advisory honest.</p>
+    </div>
+
+    <div class="principle">
+      <span class="principle-num">03</span>
+      <h2>We wear many hats on purpose.</h2>
+      <p>The deck we use to introduce ourselves calls us <em>theoretical experimentalists.</em> What that actually means: on any given project, we might be the strategist in week one, the illustrator in week three, the person writing your investor email in week five, and the coach talking you off a ledge in week seven.</p>
+      <p>When <a class="proof" href="work/klydo.html">Klydo's branding person quit at week six</a>, we opened Figma. When the narratives started to diverge, we brought in a best-selling writer to build the myth that would unify the team. That's the job.</p>
+    </div>
+
+    <div class="principle">
+      <span class="principle-num">04</span>
+      <h2>We don't sell hours.</h2>
+      <p>Time-and-materials rewards the wrong people. Milestones reward the wrong outcomes. We scope work by the shape of the problem — how long it takes us to make a decent recommendation, not how many billable slots fit between now and the deadline.</p>
+      <p>If a project genuinely needs an hour, it costs an hour. If it needs three months, it costs three months. Nobody gets a discount for us pretending to be faster than we are.</p>
+    </div>
+
+    <div class="principle">
+      <span class="principle-num">05</span>
+      <h2>The smallest team we can ship with.</h2>
+      <p>Joyus is two people by design, not by constraint. We add collaborators — writers, illustrators, researchers, engineers — only when the problem genuinely needs them, and we stay on the call with you the whole time. You don't hand off to an account manager. You don't explain your project to a fifth person. The people who took the brief are the people shipping the work.</p>
+    </div>
+
+    <div class="principle">
+      <span class="principle-num">06</span>
+      <h2>We build with a few.</h2>
+      <p>Most studios want scale. We want fit. Of the companies who reach out, we take on maybe one in five — not because we're full, but because the studio works best when we believe in the thing we're helping ship. Saying no is part of what makes the yes mean something.</p>
+      <p>If you're here because you read an essay or heard us on the podcast and thought &ldquo;these two might get it&rdquo; — you're probably right.</p>
+    </div>
+  </div>
+
+  <div class="summary">
+    <span class="summary-label">what that tends to look like:</span>
+    <span class="summary-verb">advise</span><span class="summary-dot"></span>
+    <span class="summary-verb">design</span><span class="summary-dot"></span>
+    <span class="summary-verb">build</span><span class="summary-dot"></span>
+    <span class="summary-verb">manage</span><span class="summary-dot"></span>
+    <span class="summary-verb">tell</span><span class="summary-dot"></span>
+    <span class="summary-verb">grow</span>
+  </div>
+
+  <section class="closing">
+    <h3>If any of this felt right — <a href="mailto:hello@joyus.studio" class="pink">be our friends.</a></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+</body>
+</html>

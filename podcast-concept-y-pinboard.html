@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Podcast — Style Y Pinboard · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --green: #5BBD72;
+    --violet: #A87BD9;
+    --peach: #E8734A;
+    --earth: #C49A6C;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans); background: var(--cream); color: var(--ink);
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+    min-height: 100vh; display: flex; flex-direction: column;
+  }
+  body.panel-open { overflow: hidden; }
+  a, button { color: inherit; text-decoration: none; transition: color 0.2s; font-family: inherit; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem var(--x); max-width: 1400px; margin: 0 auto; width: 100%;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-soft); }
+
+  /* intro */
+  .intro {
+    max-width: 1400px; margin: 0 auto;
+    padding: 0.5rem var(--x) 1rem; width: 100%;
+  }
+  .intro .lede {
+    font-family: var(--hand); font-size: 1.3rem;
+    color: var(--ink-soft); display: inline-flex;
+    align-items: baseline; gap: 0.4rem;
+  }
+  .intro .lede::before {
+    content: "↓"; color: var(--pink);
+    transform: translateY(2px) rotate(-20deg);
+  }
+  .intro small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    color: var(--ink-fade);
+    margin-top: 0.25rem;
+  }
+  .intro .subs {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  .sub-pill {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    color: var(--ink);
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .sub-pill:hover { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+  .sub-pill::before { content: "♪"; color: var(--pink); }
+
+  /* ==================== PINBOARD ==================== */
+  .pinboard {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--x) 3rem;
+  }
+  .pinboard-inner {
+    position: relative;
+    width: 100%;
+    height: clamp(920px, 110vh, 1180px);
+    min-height: 900px;
+  }
+
+  .artifact {
+    position: absolute;
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.3s, filter 0.4s;
+    will-change: transform;
+    border: 0; background: transparent; padding: 0;
+    cursor: pointer; text-align: left;
+    color: inherit; font-family: inherit;
+    z-index: 1;
+  }
+  .artifact:hover {
+    z-index: 30;
+    filter: drop-shadow(0 16px 28px rgba(17,18,20,0.2));
+  }
+  .artifact:hover .art-inner {
+    transform: scale(1.04) rotate(0deg);
+  }
+  .art-inner {
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+  }
+  /* pushpin */
+  .art-inner::before {
+    content: "";
+    position: absolute;
+    top: -5px; left: 50%;
+    transform: translateX(-50%);
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.3), 0 2px 4px rgba(17,18,20,0.35);
+    z-index: 2;
+  }
+  .artifact[data-pin="cyan"] .art-inner::before { background: var(--cyan); }
+  .artifact[data-pin="mustard"] .art-inner::before { background: var(--mustard); }
+  .artifact[data-pin="ink"] .art-inner::before { background: var(--ink); }
+  .artifact[data-pin="green"] .art-inner::before { background: var(--green); }
+  .artifact[data-pin="none"] .art-inner::before { display: none; }
+
+  .art-tag {
+    display: block;
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    color: var(--ink-fade);
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* =========== CASSETTE =========== */
+  .art-cassette .art-inner {
+    width: 260px;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 6px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.3);
+    padding: 0.75rem 0.9rem;
+    transform: rotate(-3deg);
+  }
+  .art-cassette .ct-label {
+    background: var(--cream);
+    color: var(--ink);
+    padding: 0.4rem 0.7rem;
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+    border-radius: 2px;
+  }
+  .art-cassette .ct-label span {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-fade);
+    text-transform: uppercase;
+    margin-top: 0.1rem;
+  }
+  .art-cassette .ct-body {
+    display: flex; align-items: center;
+    padding: 0.5rem 0.25rem;
+  }
+  .art-cassette .ct-reel {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: rgba(251,247,240,0.15);
+    border: 1px dashed rgba(251,247,240,0.35);
+    flex-shrink: 0;
+  }
+  .art-cassette .ct-tape {
+    flex: 1;
+    height: 3px;
+    background: var(--pink);
+    opacity: 0.65;
+    margin: 0 0.45rem;
+  }
+  .art-cassette .ct-foot {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: rgba(251,247,240,0.45);
+    margin-top: 0.3rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  /* =========== TICKET =========== */
+  .art-ticket .art-inner {
+    width: 280px;
+    background: var(--violet);
+    color: var(--cream);
+    padding: 0.9rem 1rem 0.95rem 1.3rem;
+    box-shadow: 0 6px 14px rgba(17,18,20,0.18);
+    display: flex; align-items: stretch; gap: 0.75rem;
+    transform: rotate(4deg);
+    clip-path: polygon(0 0, 86% 0, 86% 15%, 92% 15%, 92% 20%, 86% 20%, 86% 35%, 92% 35%, 92% 40%, 86% 40%, 86% 55%, 92% 55%, 92% 60%, 86% 60%, 86% 75%, 92% 75%, 92% 80%, 86% 80%, 86% 100%, 0 100%);
+  }
+  .art-ticket .tk-left { flex: 1; }
+  .art-ticket .tk-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    margin-bottom: 0.4rem;
+  }
+  .art-ticket h3 {
+    font-weight: 600; font-size: 0.95rem;
+    line-height: 1.2; letter-spacing: -0.005em;
+    margin-bottom: 0.45rem;
+  }
+  .art-ticket .tk-meta {
+    font-size: 0.7rem;
+    color: rgba(251,247,240,0.65);
+    letter-spacing: 0.03em;
+  }
+  .art-ticket .tk-play {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--pink); color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    align-self: center;
+    flex-shrink: 0; margin-right: 0.5rem;
+  }
+
+  /* =========== NAPKIN · scribbled quote =========== */
+  .art-napkin .art-inner {
+    width: 250px;
+    background: #fff;
+    padding: 1.4rem 1.5rem;
+    box-shadow: 0 6px 14px rgba(17,18,20,0.12);
+    transform: rotate(-5deg);
+    clip-path: polygon(2% 4%, 18% 0, 32% 8%, 50% 2%, 68% 7%, 82% 1%, 96% 8%, 100% 25%, 98% 50%, 100% 75%, 95% 94%, 82% 98%, 64% 92%, 48% 100%, 30% 94%, 15% 99%, 4% 93%, 0 72%, 3% 48%, 0 22%);
+    position: relative;
+  }
+  .art-napkin::after {
+    content: "";
+    position: absolute;
+    top: 10%; left: 15%;
+    width: 45%; height: 2px;
+    background: rgba(232, 184, 74, 0.4);
+    transform: rotate(12deg);
+    pointer-events: none;
+  }
+  .art-napkin .n-quote {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--ink);
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+  }
+  .art-napkin .n-quote em { color: var(--pink); font-style: normal; }
+  .art-napkin .n-src {
+    font-family: var(--sans);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    border-top: 1px dotted var(--ink-fade);
+    padding-top: 0.4rem;
+  }
+
+  /* =========== POLAROID · guest =========== */
+  .art-polaroid .art-inner {
+    width: 160px;
+    background: #fff;
+    padding: 10px 10px 40px;
+    box-shadow: 0 6px 14px rgba(17,18,20,0.15);
+    transform: rotate(-6deg);
+  }
+  .art-polaroid .p-img {
+    width: 100%; aspect-ratio: 1;
+    position: relative;
+  }
+  .art-polaroid.guest-1 .p-img { background: linear-gradient(135deg, #E8734A, #8E3D2A); }
+  .art-polaroid.guest-2 .p-img { background: linear-gradient(135deg, #4FC4CF, #5E3A8E); }
+  .art-polaroid.guest-3 .p-img { background: linear-gradient(135deg, #5BBD72, #2d8a4a); }
+  .art-polaroid .p-img::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 35%; height: 45%;
+    background: radial-gradient(circle at 50% 40%,
+      rgba(17,18,20,0.45) 0%,
+      rgba(17,18,20,0.75) 70%);
+    border-radius: 50% 50% 45% 45%;
+  }
+  .art-polaroid .p-cap {
+    position: absolute;
+    bottom: 10px; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .art-polaroid .p-cap small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-top: 0.1rem;
+  }
+
+  /* =========== VOICEMAIL SLIP =========== */
+  .art-voicemail .art-inner {
+    width: 230px;
+    background: var(--mustard);
+    padding: 0.85rem 1rem;
+    transform: rotate(3deg);
+    box-shadow: 0 4px 10px rgba(17,18,20,0.12);
+  }
+  .art-voicemail .vm-head {
+    display: flex; justify-content: space-between;
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.6;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.35rem;
+    margin-bottom: 0.6rem;
+  }
+  .art-voicemail .vm-from {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink);
+    margin-bottom: 0.1rem;
+  }
+  .art-voicemail h3 {
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: -0.005em;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    color: var(--ink);
+  }
+  .art-voicemail .vm-len {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    color: var(--ink);
+    opacity: 0.65;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .art-voicemail .vm-len::before {
+    content: "▶";
+    font-size: 0.65rem;
+    color: var(--pink);
+  }
+
+  /* =========== MATCHBOOK · series =========== */
+  .art-match .art-inner {
+    width: 180px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 1rem 1rem 0.75rem;
+    border-radius: 4px 4px 8px 8px;
+    transform: rotate(-4deg);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .art-match .art-inner::after {
+    content: "";
+    position: absolute;
+    left: 15%; right: 15%; bottom: -4px;
+    height: 6px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--mustard) 0 6px,
+      var(--ink) 6px 9px
+    );
+  }
+  .art-match .m-label {
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.18em;
+    color: var(--mustard);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .art-match h3 {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.05;
+    color: var(--cream);
+    margin-bottom: 0.4rem;
+  }
+  .art-match h3 em {
+    display: block;
+    font-weight: 400;
+    color: var(--pink);
+    font-size: 1.1rem;
+    font-style: italic;
+  }
+  .art-match .m-count {
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(251,247,240,0.6);
+    text-transform: uppercase;
+  }
+
+  /* =========== PLAY / VINYL DISC =========== */
+  .art-disc .art-inner {
+    width: 150px; height: 150px;
+    border-radius: 50%;
+    background: var(--ink);
+    position: relative;
+    transform: rotate(6deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  }
+  .art-disc .art-inner::after {
+    content: "";
+    position: absolute;
+    inset: 40%;
+    border-radius: 50%;
+    background: var(--pink);
+  }
+  .art-disc .d-rings {
+    position: absolute;
+    inset: 10%;
+    border-radius: 50%;
+    border: 1px solid rgba(251,247,240,0.12);
+    box-shadow:
+      inset 0 0 0 12px rgba(251,247,240,0.02),
+      inset 0 0 0 24px rgba(251,247,240,0.04);
+  }
+
+  /* =========== STICKY NOTE =========== */
+  .art-sticky .art-inner {
+    width: 170px;
+    background: #FCEAA0;
+    padding: 0.95rem 1.1rem;
+    box-shadow: 3px 4px 10px rgba(17,18,20,0.14);
+    transform: rotate(-7deg);
+  }
+  .art-sticky .st-n {
+    font-family: var(--sans);
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: block;
+    margin-bottom: 0.35rem;
+  }
+  .art-sticky h3 {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.25rem;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .art-sticky .st-meta {
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    color: var(--ink-soft);
+    margin-top: 0.45rem;
+    letter-spacing: 0.02em;
+  }
+
+  /* =========== LITTLE CARD — solo ep =========== */
+  .art-card .art-inner {
+    width: 210px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    padding: 0.85rem 1rem 1rem;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+    transform: rotate(2deg);
+  }
+  .art-card .c-top {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.5rem;
+    border-bottom: 1.5px solid var(--pink);
+    padding-bottom: 0.3rem;
+  }
+  .art-card h3 {
+    font-weight: 600;
+    font-size: 0.92rem;
+    letter-spacing: -0.005em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .art-card .c-by {
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+  }
+  .art-card .c-foot {
+    display: flex; justify-content: space-between;
+    font-family: var(--sans);
+    font-size: 0.68rem;
+    color: var(--ink-fade);
+    margin-top: 0.6rem;
+    padding-top: 0.4rem;
+    border-top: 1px dotted var(--rule);
+  }
+
+  /* ==================== ARCHIVE ==================== */
+  .archive {
+    padding: clamp(3rem, 6vh, 5rem) var(--x);
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+  }
+  .archive-inner { max-width: 1000px; margin: 0 auto; }
+  .archive-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .archive h2 {
+    font-weight: 500;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.025em; line-height: 1.1;
+    margin-bottom: 2rem;
+  }
+  .archive h2 em { font-style: italic; color: var(--ink-soft); }
+  .season {
+    margin-bottom: 2rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 1.25rem;
+  }
+  .season-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 1rem;
+  }
+  .season-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: -0.015em;
+  }
+  .season-meta {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink-fade);
+  }
+  .ep-row {
+    display: grid;
+    grid-template-columns: 54px 1fr auto;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--rule);
+    align-items: baseline;
+    font-size: 0.92rem;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .ep-row:first-child { border-top: 0; }
+  .ep-row:hover { color: var(--pink); }
+  .ep-row .n { font-family: var(--sans); font-size: 0.72rem; letter-spacing: 0.08em; color: var(--ink-fade); }
+  .ep-row .m { font-family: var(--hand); color: var(--ink-fade); font-size: 0.95rem; }
+
+  /* ==================== PANEL ==================== */
+  .panel-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(17,18,20,0.4);
+    z-index: 300; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .panel-backdrop.open { opacity: 1; pointer-events: auto; }
+  .panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(560px, 92vw);
+    background: var(--cream);
+    z-index: 400;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.2,0.8,0.2,1);
+    overflow-y: auto;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.12);
+  }
+  .panel.open { transform: translateX(0); }
+  .panel-close {
+    position: sticky; top: 0;
+    padding: 1rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: var(--cream); border-bottom: 1px solid var(--rule); z-index: 2;
+  }
+  .panel-close .n {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-fade);
+  }
+  .panel-close button {
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .panel-close button:hover { background: var(--ink); color: var(--cream); }
+  .panel-body { padding: 2rem 2.5rem 3.5rem; }
+  .panel-eyebrow { font-family: var(--hand); font-size: 1.15rem; color: var(--pink); display: block; margin-bottom: 0.65rem; }
+  .panel-body h2 {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin-bottom: 1rem;
+  }
+  .panel-body .hosts {
+    font-family: var(--hand); font-size: 1.1rem;
+    color: var(--ink-soft); margin-bottom: 1.5rem;
+  }
+  .panel-body .spot-embed {
+    width: 100%; height: 138px;
+    border-radius: 10px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.9rem 1.15rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  .panel-body .spot-embed::before {
+    content: "Spotify embed";
+    font-family: var(--sans);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: rgba(251,247,240,0.4);
+  }
+  .panel-body .spot-embed .play {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: #1DB954; color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    align-self: flex-start;
+  }
+  .panel-body .spot-embed .bar {
+    height: 3px; background: rgba(251,247,240,0.2);
+    border-radius: 2px; position: relative;
+  }
+  .panel-body .spot-embed .bar::before {
+    content: ""; position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 28%;
+    background: #1DB954; border-radius: 2px;
+  }
+  .panel-body .excerpt {
+    border-left: 3px solid var(--pink);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+    font-size: 1rem; line-height: 1.55;
+    color: var(--ink-soft); margin: 1.25rem 0;
+  }
+  .panel-body .link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.85rem 1.4rem;
+    background: var(--ink); color: var(--cream);
+    border-radius: 999px;
+    font-size: 0.95rem; font-weight: 500;
+  }
+  .panel-body .link:hover { background: var(--pink); }
+
+  .closing {
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
+    max-width: 820px; margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .closing h3 {
+    font-weight: 500; font-size: clamp(1.4rem, 2.8vw, 2rem);
+    letter-spacing: -0.02em; line-height: 1.25;
+    margin-bottom: 0.75rem;
+  }
+  .closing h3 em { font-style: italic; color: var(--ink-soft); }
+  .closing .hint { font-family: var(--hand); color: var(--ink-soft); font-size: 1.1rem; display: block; }
+
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto;
+    display: flex; justify-content: space-between;
+    font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  @media (max-width: 960px) {
+    .art-cassette .art-inner { width: 220px; }
+    .art-ticket .art-inner { width: 240px; }
+    .art-napkin .art-inner { width: 210px; }
+    .art-match .art-inner { width: 155px; }
+  }
+  @media (max-width: 720px) {
+    .pinboard-inner {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.25rem;
+      padding: 1.5rem 0 3rem;
+    }
+    .artifact { position: static !important; }
+    .art-inner { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="home-concept-y-pinboard.html">Home</a>
+      <a href="work-concept-5-stickers.html">Work</a>
+      <a href="services-concept-5-stickers.html">Services</a>
+      <a href="services-concepts.html" class="nav-back">← concepts</a>
+    </div>
+  </nav>
+
+  <div class="intro">
+    <span class="lede">the podcast wall. pick something to put on.</span>
+    <small>88 conversations about making things — pinned by vibe, not by date. archive below for the completionists.</small>
+    <div class="subs">
+      <a class="sub-pill" href="#">Spotify</a>
+      <a class="sub-pill" href="#">Apple Podcasts</a>
+      <a class="sub-pill" href="#">iHeart</a>
+      <a class="sub-pill" href="#">RSS</a>
+    </div>
+  </div>
+
+  <!-- ==================== PINBOARD ==================== -->
+  <section class="pinboard" id="pinboard">
+    <div class="pinboard-inner" id="board">
+
+      <!-- 1 · cassette — ep 503 (featured, top-center-left) -->
+      <div class="artifact art-cassette" data-target="ep-503" data-pin="pink"
+           style="top: 2%; left: 8%;">
+        <div class="art-inner">
+          <div class="ct-label">
+            ep 503 · food business
+            <span>DEC 2025 · SIDE A</span>
+          </div>
+          <div class="ct-body">
+            <div class="ct-reel"></div>
+            <div class="ct-tape"></div>
+            <div class="ct-reel"></div>
+          </div>
+          <div class="ct-foot">52 min · with Dina</div>
+        </div>
+        <span class="art-tag">new this week</span>
+      </div>
+
+      <!-- 2 · violet ticket — ep 505 -->
+      <div class="artifact art-ticket" data-target="ep-505" data-pin="mustard"
+           style="top: 4%; left: 40%;">
+        <div class="art-inner">
+          <div class="tk-left">
+            <div class="tk-label">ep 505 · healthcare india</div>
+            <h3>We wanted the problem, not the market.</h3>
+            <div class="tk-meta">with RocketHealth's Abhineet &amp; Ritika · 61 min</div>
+          </div>
+          <div class="tk-play">▶</div>
+        </div>
+        <span class="art-tag">ep 505</span>
+      </div>
+
+      <!-- 3 · napkin · story vs telling quote -->
+      <div class="artifact art-napkin" data-target="ep-svt" data-pin="cyan"
+           style="top: 6%; right: 4%;">
+        <div class="art-inner">
+          <p class="n-quote">&ldquo;story is what happens. <em>telling is how we make it carry.</em>&rdquo;</p>
+          <p class="n-src">Story vs Telling · part 2</p>
+        </div>
+        <span class="art-tag">4-part series</span>
+      </div>
+
+      <!-- 4 · polaroid guest 1 — Nomaan -->
+      <div class="artifact art-polaroid guest-1" data-target="ep-alt" data-pin="ink"
+           style="top: 34%; left: 3%;">
+        <div class="art-inner">
+          <div class="p-img"></div>
+          <div class="p-cap">
+            Nomaan X
+            <small>alternatives · 73 min</small>
+          </div>
+        </div>
+        <span class="art-tag">guest ep</span>
+      </div>
+
+      <!-- 5 · voicemail slip · success series opener -->
+      <div class="artifact art-voicemail" data-target="ep-success-1" data-pin="pink"
+           style="top: 34%; left: 26%;">
+        <div class="art-inner">
+          <div class="vm-head">
+            <span>voicemail · 55:04</span>
+            <span>unplayed</span>
+          </div>
+          <div class="vm-from">from: Kahran &amp; Divya</div>
+          <h3>The confoundedness of success.</h3>
+          <div class="vm-len">part 1 · 55 min</div>
+        </div>
+        <span class="art-tag">success series</span>
+      </div>
+
+      <!-- 6 · matchbook · the success series (8 eps) -->
+      <div class="artifact art-match" data-target="ep-success-all" data-pin="mustard"
+           style="top: 32%; left: 48%;">
+        <div class="art-inner">
+          <div class="m-label">series</div>
+          <h3>the success<em>series</em></h3>
+          <div class="m-count">8 eps · 412 min</div>
+        </div>
+        <span class="art-tag">start from one</span>
+      </div>
+
+      <!-- 7 · polaroid guest 2 — Anurati -->
+      <div class="artifact art-polaroid guest-2" data-target="ep-anurati" data-pin="cyan"
+           style="top: 32%; left: 68%;">
+        <div class="art-inner">
+          <div class="p-img"></div>
+          <div class="p-cap">
+            Anurati S.
+            <small>game design · 58 min</small>
+          </div>
+        </div>
+        <span class="art-tag">guest ep</span>
+      </div>
+
+      <!-- 8 · little card · solo comics ep -->
+      <div class="artifact art-card" data-target="ep-504" data-pin="ink"
+           style="top: 34%; right: 4%;">
+        <div class="art-inner">
+          <div class="c-top">
+            <span>ep 504</span>
+            <span>solo</span>
+          </div>
+          <h3>Making comics together.</h3>
+          <div class="c-by">Kahran &amp; Divya · Dec 2025</div>
+          <div class="c-foot">
+            <span>48 min</span>
+            <span>both hosts</span>
+          </div>
+        </div>
+        <span class="art-tag">a rare solo ep</span>
+      </div>
+
+      <!-- 9 · sticky note · thinking ep -->
+      <div class="artifact art-sticky" data-target="ep-creative" data-pin="none"
+           style="top: 64%; left: 6%;">
+        <div class="art-inner">
+          <span class="st-n">ep — s1</span>
+          <h3>Thinking on the creative process.</h3>
+          <div class="st-meta">43 min · season 1</div>
+        </div>
+        <span class="art-tag">s1 classic</span>
+      </div>
+
+      <!-- 10 · vinyl disc · "wrapped" ep -->
+      <div class="artifact art-disc" data-target="ep-wrapped" data-pin="cyan"
+           style="top: 64%; left: 26%;">
+        <div class="art-inner">
+          <div class="d-rings"></div>
+        </div>
+        <span class="art-tag">season one wrapped</span>
+      </div>
+
+      <!-- 11 · polaroid guest 3 — Katieann -->
+      <div class="artifact art-polaroid guest-3" data-target="ep-katie" data-pin="green"
+           style="top: 62%; left: 42%;">
+        <div class="art-inner">
+          <div class="p-img"></div>
+          <div class="p-cap">
+            Katieann
+            <small>unblocking · 52 min</small>
+          </div>
+        </div>
+        <span class="art-tag">guest ep</span>
+      </div>
+
+      <!-- 12 · napkin · courage vs daring -->
+      <div class="artifact art-napkin" data-target="ep-katie" data-pin="pink"
+           style="top: 64%; left: 60%;">
+        <div class="art-inner">
+          <p class="n-quote">&ldquo;courage is cheap. <em>daring costs you something.</em>&rdquo;</p>
+          <p class="n-src">Katieann Vogel · s2</p>
+        </div>
+        <span class="art-tag">a line worth keeping</span>
+      </div>
+
+      <!-- 13 · cassette — alt topic -->
+      <div class="artifact art-cassette" data-target="ep-finance" data-pin="mustard"
+           style="top: 66%; right: 4%;">
+        <div class="art-inner">
+          <div class="ct-label">
+            personal finance
+            <span>S2 · SIDE B</span>
+          </div>
+          <div class="ct-body">
+            <div class="ct-reel"></div>
+            <div class="ct-tape"></div>
+            <div class="ct-reel"></div>
+          </div>
+          <div class="ct-foot">saving vs investing</div>
+        </div>
+        <span class="art-tag">saving vs investing</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== ARCHIVE ==================== -->
+  <section class="archive">
+    <div class="archive-inner">
+      <span class="archive-eyebrow">for the completionists —</span>
+      <h2>The full archive. <em>88 conversations, three seasons.</em></h2>
+
+      <div class="season">
+        <div class="season-head">
+          <span class="season-name">Season 3 · ongoing</span>
+          <span class="season-meta">23 eps · 2025</span>
+        </div>
+        <div class="ep-row" data-target="ep-503"><span class="n">503</span><span>Building &amp; selling a food business · with Dina</span><span class="m">52 min →</span></div>
+        <div class="ep-row" data-target="ep-504"><span class="n">504</span><span>Making comics together · solo</span><span class="m">48 min →</span></div>
+        <div class="ep-row" data-target="ep-505"><span class="n">505</span><span>Healthcare in India · RocketHealth</span><span class="m">61 min →</span></div>
+        <div class="ep-row"><span class="n">506</span><span>On designing expectations</span><span class="m">39 min →</span></div>
+        <div class="ep-row"><span class="n">507</span><span>Revisiting ep 8 · AI &amp; the future of work</span><span class="m">44 min →</span></div>
+      </div>
+
+      <div class="season">
+        <div class="season-head">
+          <span class="season-name">Season 2 · the success series</span>
+          <span class="season-meta">32 eps · 2024</span>
+        </div>
+        <div class="ep-row" data-target="ep-success-1"><span class="n">—</span><span>The confoundedness of success (part 1)</span><span class="m">55 min →</span></div>
+        <div class="ep-row"><span class="n">—</span><span>Expectations &amp; definitions of success (part 2)</span><span class="m">51 min →</span></div>
+        <div class="ep-row"><span class="n">—</span><span>After success with Pradeep Singh (part 3)</span><span class="m">47 min →</span></div>
+        <div class="ep-row" data-target="ep-svt"><span class="n">—</span><span>Story vs Telling · 4-part mini-series</span><span class="m">198 min →</span></div>
+        <div class="ep-row" data-target="ep-katie"><span class="n">—</span><span>Courage vs daring · with Katieann Vogel</span><span class="m">52 min →</span></div>
+      </div>
+
+      <div class="season">
+        <div class="season-head">
+          <span class="season-name">Season 1 · the beginnings</span>
+          <span class="season-meta">33 eps · 2023</span>
+        </div>
+        <div class="ep-row" data-target="ep-creative"><span class="n">—</span><span>Thinking on the creative process</span><span class="m">43 min →</span></div>
+        <div class="ep-row"><span class="n">—</span><span>Thinking on designing for the end</span><span class="m">38 min →</span></div>
+        <div class="ep-row" data-target="ep-wrapped"><span class="n">—</span><span>Season one wrapped</span><span class="m">67 min →</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h3>New eps most Tuesdays. <em><a href="#">Follow where you listen.</a></em></h3>
+    <span class="hint">or just tell us what you're making · hello@joyus.studio</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <!-- ==================== PANEL ==================== -->
+  <div class="panel-backdrop" id="backdrop"></div>
+  <aside class="panel" id="panel" aria-hidden="true">
+    <div class="panel-close">
+      <span class="n" id="panelNum">EP 503 / 88</span>
+      <button id="panelClose" aria-label="Close">×</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+
+  <script id="eps" type="application/json">
+  {
+    "ep-503": { "num": "EP 503 / 88", "eyebrow": "on building things nobody knows how to buy yet", "title": "Food business with Smiqql's Dina Holzapfel", "hosts": "with Dina · 52 min", "excerpt": "The product worked. What didn't work was the pitch — because every retailer came in with a mental model the product wasn't built for. We had to un-teach the model before we could sell anything. Hardest four months of the company." },
+    "ep-504": { "num": "EP 504 / 88", "eyebrow": "a rare solo ep", "title": "Making comics together", "hosts": "Kahran &amp; Divya · 48 min", "excerpt": "We didn't start making comics because we thought they'd work commercially. We started because they felt right. A year in we realized the discipline of making something together — week after week — was teaching us more about partnership than any book on co-founding had." },
+    "ep-505": { "num": "EP 505 / 88", "eyebrow": "on building for a market that doesn't exist yet", "title": "Healthcare in India with RocketHealth", "hosts": "with Abhineet &amp; Ritika · 61 min", "excerpt": "We didn't want the healthcare market — the market assumes payers, insurers, infrastructure. We wanted the healthcare problem: people have symptoms, people need to be heard, people need a next step. Build for the problem and the market eventually forms around you." },
+    "ep-svt": { "num": "SERIES · STORY VS TELLING", "eyebrow": "the four-part mini-series", "title": "Story vs Telling · parts 1 through 4", "hosts": "Kahran &amp; Divya · 4 eps · 198 min", "excerpt": "Story is what happens. Telling is how we make it carry. We kept finding that the \"brand problem\" was rarely a story problem — teams had plenty of story. It was a telling problem. Four episodes trying to separate the two." },
+    "ep-alt": { "num": "EP · ALTERNATIVES", "eyebrow": "with nomaan x", "title": "Alternatives to capitalism, with Nomaan X", "hosts": "with Nomaan · 73 min", "excerpt": "We talk about capitalism like it's weather — something that just is. But it's a set of decisions people made, and it can be unmade. Nomaan walked us through alternatives he's spent ten years mapping: cooperative structures, commons-based governance, post-growth economics." },
+    "ep-success-1": { "num": "SUCCESS SERIES · PART 1", "eyebrow": "the success series opens", "title": "The confoundedness of success", "hosts": "Kahran &amp; Divya · 55 min", "excerpt": "Every founder we talked to had a model of success that only worked if they got it. No model survived the version of reality where things didn't go their way. So we started pulling at the thread: what success models actually hold up for the people who make it and the people who don't?" },
+    "ep-success-all": { "num": "SUCCESS SERIES · 8 EPS", "eyebrow": "the full eight-part series", "title": "The success series · all eight", "hosts": "Kahran &amp; Divya · 8 eps · 412 min", "excerpt": "Across eight episodes, we stress-tested every success model we could find — achievement-driven, authenticity-driven, craft-driven, invisible-contribution-driven. Plus two conversations each with Pradeep Singh and Meghana Srinivas. The one series to listen to in order." },
+    "ep-anurati": { "num": "EP · GAME DESIGN", "eyebrow": "with anurati srivastva", "title": "On games &amp; game design, with Anurati", "hosts": "with Anurati · hosted by Divya · 58 min", "excerpt": "Games are the most permission-giving medium we have — they let people try on selves they wouldn't otherwise try. Anurati's decade in game design is a case study for how designers in any medium can build that permission." },
+    "ep-creative": { "num": "EP · SEASON 1", "eyebrow": "a classic from s1", "title": "Thinking on the creative process", "hosts": "Kahran &amp; Divya · 43 min", "excerpt": "One of the earliest episodes we made. We were trying to figure out what \"process\" even meant in a creative context — and whether having one was itself a creative move or a crutch. We don't agree with everything we said, but the argument still holds up." },
+    "ep-wrapped": { "num": "EP · SEASON 1 FINALE", "eyebrow": "looking back", "title": "Season one wrapped", "hosts": "Kahran &amp; Divya · 67 min", "excerpt": "Thirty-three episodes in, we looked back at season one and what we'd learned about podcasting, about each other, and about the questions that were still open. This one you listen to only after you've heard enough of season one to care." },
+    "ep-katie": { "num": "EP · COURAGE VS DARING", "eyebrow": "with katieann vogel", "title": "Courage vs daring, with Katieann Vogel", "hosts": "with Katieann · 52 min", "excerpt": "Courage is cheap — it's something you can talk yourself into. Daring costs you something — it requires giving up a version of the self you were. Katieann's been working at that distinction for years and her answer surprised us." },
+    "ep-finance": { "num": "EP · PERSONAL FINANCE", "eyebrow": "with kahran &amp; divya", "title": "Saving vs investing · a conversation", "hosts": "Kahran &amp; Divya · 42 min", "excerpt": "Personal finance advice is often packaged to make you feel smart for following it. We wanted to separate the actual reasoning behind saving vs investing — what each one is actually for, and when each one is the right move for a creative practice." }
+  }
+  </script>
+
+  <script>
+    const eps = JSON.parse(document.getElementById('eps').textContent);
+    const panel = document.getElementById('panel');
+    const backdrop = document.getElementById('backdrop');
+    const panelBody = document.getElementById('panelBody');
+    const panelNum = document.getElementById('panelNum');
+    const panelClose = document.getElementById('panelClose');
+
+    function openPanel(id) {
+      const data = eps[id];
+      if (!data) return;
+      panelNum.textContent = data.num;
+      let html = '';
+      html += '<span class="panel-eyebrow">' + data.eyebrow + '</span>';
+      html += '<h2>' + data.title + '</h2>';
+      html += '<p class="hosts">' + data.hosts + '</p>';
+      html += '<div class="spot-embed"><div class="play">▶</div><div class="bar"></div></div>';
+      html += '<blockquote class="excerpt">' + data.excerpt + '</blockquote>';
+      html += '<a class="link" href="#">open the full transcript →</a>';
+      panelBody.innerHTML = html;
+      panel.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.classList.add('panel-open');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.scrollTop = 0;
+    }
+    function closePanel() {
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.classList.remove('panel-open');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelectorAll('[data-target]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const target = el.dataset.target;
+        if (target && target.startsWith('ep-')) {
+          e.preventDefault();
+          openPanel(target);
+        }
+      });
+    });
+    panelClose.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+    });
+
+    // Mouse parallax on the pinboard
+    const board = document.getElementById('board');
+    const pinboard = document.getElementById('pinboard');
+    const artifacts = board.querySelectorAll('.artifact');
+
+    artifacts.forEach((a, i) => {
+      const inner = a.querySelector('.art-inner');
+      const m = inner.style.transform.match(/rotate\(([-\d.]+)deg\)/);
+      a.dataset.rot = m ? m[1] : 0;
+      a.dataset.depth = (i % 3 + 1) * 5;
+    });
+
+    let mx = 0, my = 0, raf = null;
+    pinboard.addEventListener('mousemove', (e) => {
+      const r = pinboard.getBoundingClientRect();
+      mx = (e.clientX - r.left) / r.width - 0.5;
+      my = (e.clientY - r.top) / r.height - 0.5;
+      if (!raf) raf = requestAnimationFrame(update);
+    });
+    pinboard.addEventListener('mouseleave', () => { mx = 0; my = 0; if (!raf) raf = requestAnimationFrame(update); });
+    function update() {
+      artifacts.forEach(a => {
+        if (a.matches(':hover')) return;
+        const inner = a.querySelector('.art-inner');
+        const d = a.dataset.depth || 5;
+        const dx = mx * d, dy = my * d;
+        const rot = a.dataset.rot || 0;
+        inner.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+      });
+      raf = null;
+    }
+  </script>
+
+</body>
+</html>

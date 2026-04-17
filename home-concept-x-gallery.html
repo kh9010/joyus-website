@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home — Style X Gallery · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans); background: var(--cream); color: var(--ink);
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  body.panel-open { overflow: hidden; }
+  a, button { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  /* nav */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--x); max-width: 1400px; margin: 0 auto;
+    position: absolute; top: 0; left: 0; right: 0; z-index: 10;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  .nav-back {
+    font-family: var(--hand); font-size: 1.1rem; color: var(--ink-soft);
+  }
+
+  /* progress */
+  .progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px; z-index: 200;
+  }
+  .progress-fill { height: 100%; background: var(--pink); width: 0; transition: width 0.15s; }
+
+  /* ===== HERO BAND — the first poster ===== */
+  .hero-band {
+    position: relative;
+    min-height: 100vh;
+    background: var(--cream);
+    overflow: hidden;
+    padding: clamp(5rem, 10vh, 8rem) var(--x) 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  /* decorative ink stroke */
+  .hero-ink {
+    position: absolute;
+    top: 8%; right: -8%;
+    width: 60vw; max-width: 700px;
+    opacity: 0.07;
+    pointer-events: none;
+    transform: rotate(-15deg);
+  }
+  /* the composition around the intent box */
+  .hero-inner {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-studio-mark {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-fade);
+    margin-bottom: clamp(3rem, 8vh, 5rem);
+    display: block;
+  }
+  .hero-studio-mark span { color: var(--pink); }
+
+  .hero-h1 {
+    font-weight: 600;
+    font-size: clamp(3.5rem, 10vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+    margin-bottom: 2.25rem;
+  }
+  .hero-h1 .ellipsis { color: var(--ink-fade); }
+
+  .hero-sub {
+    font-style: italic;
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    color: var(--ink-soft);
+    max-width: 44ch;
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+  }
+  .hero-sub em { color: var(--ink); font-style: normal; }
+
+  /* intent slab */
+  .intent-wrap {
+    max-width: 620px;
+    position: relative;
+    margin-bottom: 1.25rem;
+  }
+  .intent-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    box-shadow: 6px 6px 0 var(--pink);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    padding: 0.4rem 0.5rem 0.4rem 1.6rem;
+  }
+  .intent-box:focus-within {
+    box-shadow: 6px 6px 0 var(--cyan);
+    transform: translate(-1px, -1px);
+  }
+  #intentInput {
+    flex: 1; border: 0; background: transparent;
+    padding: 1rem 0.5rem 1rem 0;
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    color: var(--ink);
+    outline: none;
+    letter-spacing: -0.005em;
+  }
+  #intentInput::placeholder { color: #a9a49b; font-style: italic; }
+  .intent-arrow {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--cream);
+    font-size: 1.1rem; color: var(--ink);
+    flex-shrink: 0;
+    transition: background 0.25s, color 0.25s, transform 0.35s cubic-bezier(0.2,0.8,0.2,1);
+    border: 0;
+    cursor: pointer;
+  }
+  .intent-box:focus-within .intent-arrow {
+    background: var(--pink); color: #fff; transform: translateX(3px);
+  }
+  .intent-hint {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin-left: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .intent-hint::before {
+    content: "";
+    display: inline-block;
+    width: 22px; height: 10px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 10'><path d='M1 5 Q 8 0 14 5 T 21 5' stroke='%23E91E7B' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>") no-repeat center / contain;
+  }
+
+  /* suggestions drop-in */
+  #intentSuggestions {
+    position: absolute;
+    top: calc(100% + 0.75rem); left: 0; right: 0;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 14px;
+    box-shadow: 0 14px 40px rgba(17,18,20,0.08);
+    overflow: hidden; z-index: 10;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  #intentSuggestions.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .sug {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 0.85rem 1.3rem;
+    border-top: 1px solid var(--rule);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .sug:first-child { border-top: 0; }
+  .sug:hover { background: var(--cream); }
+  .sug-text { font-size: 0.98rem; color: var(--ink); }
+  .sug-dest { font-family: var(--hand); font-size: 1rem; color: var(--ink-soft); }
+
+  /* hero scroll hint */
+  .hero-scroll {
+    position: absolute;
+    bottom: clamp(2rem, 4vh, 3rem);
+    left: var(--x);
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink-fade);
+    display: flex; align-items: baseline; gap: 0.4rem;
+  }
+  .hero-scroll::before {
+    content: "↓"; color: var(--pink);
+    transform: translateY(2px) rotate(-15deg);
+    display: inline-block;
+  }
+
+  /* hero side composition — stacked paper / ink elements, pure CSS */
+  .hero-composition {
+    position: absolute;
+    right: clamp(1rem, 6vw, 5rem);
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(180px, 22vw, 320px);
+    aspect-ratio: 3/4;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .hero-composition .paper {
+    position: absolute;
+    inset: 0;
+    background: #fff;
+    border: 1px solid rgba(17,18,20,0.1);
+    box-shadow: 0 6px 14px rgba(17,18,20,0.06);
+  }
+  .hero-composition .paper-1 { transform: rotate(-6deg) translate(-28px, -18px); opacity: 0.65; }
+  .hero-composition .paper-2 { transform: rotate(-2deg) translate(-12px, -8px); opacity: 0.85; }
+  .hero-composition .paper-3 {
+    transform: rotate(2deg);
+    padding: 1.5rem;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .hero-composition .paper-3::before {
+    content: ""; display: block;
+    width: 28%; height: 5px;
+    background: var(--pink);
+  }
+  .hero-composition .paper-caveat {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .hero-composition .paper-caveat span {
+    display: block;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-fade);
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+  }
+  .hero-composition .paper-tape {
+    position: absolute;
+    top: -10px; left: 30%;
+    width: 40%; height: 20px;
+    background: rgba(232, 184, 74, 0.5);
+    transform: rotate(-2deg);
+  }
+
+  @media (max-width: 820px) {
+    .hero-composition { display: none; }
+    .hero-h1 { font-size: clamp(2.75rem, 14vw, 5rem); }
+  }
+
+  /* ===== BAND 2 — one featured case ===== */
+  .featured {
+    position: relative;
+    min-height: 85vh;
+    background: #8b1048;
+    color: var(--cream);
+    padding: clamp(3rem, 6vh, 5rem) var(--x);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  .featured-top {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    opacity: 0.6;
+  }
+  .featured-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    padding-top: 3rem;
+  }
+  .featured-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--mustard);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .featured-client {
+    font-weight: 600;
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    margin-bottom: 1rem;
+  }
+  .featured-outcome {
+    font-style: italic;
+    font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+    max-width: 40ch; line-height: 1.35;
+    opacity: 0.9;
+  }
+  .featured-outcome em { color: var(--mustard); font-style: normal; font-weight: 500; }
+  .featured-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .featured-link {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.75rem 1.5rem 0.75rem 1.25rem;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.95rem; font-weight: 500;
+    transition: background 0.25s, color 0.25s, transform 0.25s;
+    cursor: pointer;
+    background: transparent;
+    color: inherit;
+  }
+  .featured-link::before { content: "○"; font-size: 0.8rem; }
+  .featured-link:hover { transform: translateX(4px); }
+  .featured-link.primary {
+    background: var(--cream); color: var(--ink); border-color: var(--cream);
+  }
+  .featured-link.primary:hover { background: var(--mustard); border-color: var(--mustard); }
+
+  .featured-comp {
+    position: absolute;
+    top: 50%; right: 6%;
+    transform: translateY(-50%);
+    width: clamp(220px, 30vw, 440px);
+    aspect-ratio: 4/3;
+    pointer-events: none;
+  }
+  .featured-comp .slide {
+    position: absolute; inset: 0;
+    background: var(--cream);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    padding: 1.5rem;
+    color: var(--ink);
+  }
+  .featured-comp .slide::before {
+    content: ""; display: block;
+    width: 30%; height: 6px;
+    background: var(--pink); margin-bottom: 0.6rem;
+  }
+  .featured-comp .slide-1 { transform: translate(-40px, -32px) rotate(-5deg); opacity: 0.55; }
+  .featured-comp .slide-2 { transform: translate(-20px, -16px) rotate(-2deg); opacity: 0.8; }
+  .featured-comp .slide-3 { transform: rotate(1.5deg); }
+  .featured-comp .slide-3::after {
+    content: "three audiences · one story";
+    font-family: var(--hand); font-size: 1.5rem;
+    color: var(--ink); display: block;
+    margin-top: 0.5rem; line-height: 1.2;
+  }
+
+  .featured-bottom {
+    display: flex; justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    opacity: 0.55;
+    flex-wrap: wrap; gap: 1rem;
+    margin-top: 3rem;
+  }
+  .featured-bottom dt {
+    text-transform: uppercase;
+    color: var(--mustard);
+    margin-bottom: 0.2rem;
+  }
+
+  @media (max-width: 820px) {
+    .featured-comp { opacity: 0.25; right: -5%; }
+  }
+
+  /* ===== BAND 3 — paired feed ===== */
+  .feed {
+    padding: clamp(4rem, 8vh, 6rem) var(--x);
+    background: var(--cream);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .feed-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--ink-fade);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .feed-h2 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(1.75rem, 3.5vw, 2.75rem);
+    letter-spacing: -0.025em;
+    line-height: 1.1;
+    max-width: 24ch;
+    margin-bottom: 3rem;
+  }
+  .feed-h2 em { font-style: italic; color: var(--ink-soft); }
+
+  .feed-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .feed-card {
+    border-top: 2px solid var(--ink);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.25s;
+  }
+  .feed-card:hover { transform: translateY(-3px); }
+  .feed-card-type {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pink);
+  }
+  .feed-card-title {
+    font-weight: 500;
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+  .feed-card-excerpt {
+    font-style: italic;
+    color: var(--ink-soft);
+    line-height: 1.55;
+    font-size: 1rem;
+  }
+  .feed-card-meta {
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink-fade);
+  }
+  .feed-card:hover .feed-card-meta { color: var(--pink); }
+
+  @media (max-width: 720px) {
+    .feed-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ===== closing ===== */
+  .closing-band {
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 6vh, 5rem);
+    max-width: 900px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .closing-band h3 {
+    font-weight: 500;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .closing-band h3 em {
+    color: var(--pink);
+    border-bottom: 2px solid var(--pink);
+    padding-bottom: 1px;
+    font-style: normal;
+  }
+  .closing-band .hint {
+    font-family: var(--hand);
+    color: var(--ink-soft);
+    font-size: 1.15rem;
+    display: block;
+  }
+
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress"><div class="progress-fill" id="pf"></div></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="work-concept-3-verbs.html">Work</a>
+      <a href="services-concept-3-verbs.html">Services</a>
+      <a href="#" style="pointer-events: none; opacity: 0.5;">Podcast</a>
+      <a href="#" style="pointer-events: none; opacity: 0.5;">About</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+      <a class="nav-back" href="services-concepts.html">← concepts</a>
+    </div>
+  </nav>
+
+  <!-- ============ HERO BAND ============ -->
+  <section class="hero-band">
+    <svg class="hero-ink" viewBox="0 0 400 400" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M50 200 Q 120 80, 220 130 T 380 240" stroke="var(--pink)" stroke-linecap="round" />
+      <path d="M80 260 Q 180 190, 290 230" stroke="var(--ink)" stroke-linecap="round" opacity="0.5" />
+    </svg>
+
+    <div class="hero-composition">
+      <div class="paper paper-1"></div>
+      <div class="paper paper-2"></div>
+      <div class="paper paper-3">
+        <span class="paper-tape"></span>
+        <div></div>
+        <div class="paper-caveat">
+          calm on the outside, agency underneath
+          <span>Tatsam · 2024</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-inner">
+      <span class="hero-studio-mark">JOYUS STUDIO · <span>advisory &amp; design</span> · est. 2023</span>
+
+      <h1 class="hero-h1">I need<span class="ellipsis">…</span></h1>
+      <p class="hero-sub">Tell us what's on your mind. <em>We think with everyone. We build with a few.</em></p>
+
+      <div class="intent-wrap">
+        <form class="intent-box" onsubmit="event.preventDefault(); handleSubmit();">
+          <input id="intentInput" type="text"
+                 placeholder="to tell a better story"
+                 autocomplete="off"
+                 aria-label="Tell us what you need" />
+          <button class="intent-arrow" aria-label="Submit" type="submit">→</button>
+        </form>
+        <span class="intent-hint">tell us, we'll figure it out</span>
+
+        <div id="intentSuggestions" role="listbox" aria-label="Suggestions">
+          <div class="sug" data-url="work-concept-3-verbs.html"><span class="sug-text">help with a pitch deck</span><span class="sug-dest">→ TomboyX</span></div>
+          <div class="sug" data-url="work-concept-3-verbs.html"><span class="sug-text">to launch a product from zero</span><span class="sug-dest">→ Klydo</span></div>
+          <div class="sug" data-url="work-concept-3-verbs.html"><span class="sug-text">a brand that feels like me</span><span class="sug-dest">→ Tatsam</span></div>
+          <div class="sug" data-url="services-concept-3-verbs.html"><span class="sug-text">to just think with someone</span><span class="sug-dest">→ advisory</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">three things worth seeing below</div>
+  </section>
+
+  <!-- ============ FEATURED CASE ============ -->
+  <section class="featured">
+    <div class="featured-top">
+      <span>featured · 01</span>
+      <span>the studio, this quarter</span>
+    </div>
+    <div class="featured-inner">
+      <span class="featured-eyebrow">the pitch rescue</span>
+      <h2 class="featured-client">TomboyX</h2>
+      <p class="featured-outcome">Three decks, each in the founders' voice. <em>$5M raised</em> after a down-round.</p>
+      <div class="featured-actions">
+        <a class="featured-link primary" href="work/tomboyx.html">read the full story</a>
+        <a class="featured-link" href="work-concept-3-verbs.html">the whole gallery →</a>
+      </div>
+    </div>
+
+    <div class="featured-comp">
+      <div class="slide slide-1"></div>
+      <div class="slide slide-2"></div>
+      <div class="slide slide-3">A deck written for three audiences.</div>
+    </div>
+
+    <dl class="featured-bottom">
+      <div><dt>engagement</dt><dd>Story · Investor Pitch</dd></div>
+      <div><dt>duration</dt><dd>8 weeks</dd></div>
+      <div><dt>scale</dt><dd>$25M ARR apparel</dd></div>
+      <div><dt>year</dt><dd>2025</dd></div>
+    </dl>
+  </section>
+
+  <!-- ============ FEED BAND ============ -->
+  <section class="feed">
+    <span class="feed-eyebrow">also, and in case you want —</span>
+    <h2 class="feed-h2">Two things <em>from this week.</em></h2>
+
+    <div class="feed-grid">
+      <a class="feed-card" href="thinking/the-two-person-studio.html">
+        <span class="feed-card-type">essay · thinking</span>
+        <div class="feed-card-title">The two-person studio.</div>
+        <p class="feed-card-excerpt">&ldquo;Joyus is two people by design, not by constraint. Adding people should cost more than it saves — and most of the time, it does.&rdquo;</p>
+        <span class="feed-card-meta">read it · 7 min →</span>
+      </a>
+      <a class="feed-card" href="#" onclick="event.preventDefault(); alert('(would link to latest pod ep)')">
+        <span class="feed-card-type">episode · podcast</span>
+        <div class="feed-card-title">Building &amp; selling a food business, with Smiqql's Dina.</div>
+        <p class="feed-card-excerpt">&ldquo;The hardest part wasn't the product. It was explaining the product to the people who thought they knew what it was.&rdquo;</p>
+        <span class="feed-card-meta">listen · 52 min →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ CLOSING ============ -->
+  <section class="closing-band">
+    <h3>Not sure where to start? Just say hi — <em><a href="mailto:hello@joyus.studio">hello@joyus.studio.</a></em></h3>
+    <span class="hint">we read everything · no funnels · no drip</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    // intent dropdown open/close
+    const input = document.getElementById('intentInput');
+    const box = document.getElementById('intentSuggestions');
+    input.addEventListener('focus', () => box.classList.add('open'));
+    input.addEventListener('blur', () => {
+      setTimeout(() => box.classList.remove('open'), 150);
+    });
+    document.querySelectorAll('.sug').forEach(s => {
+      s.addEventListener('mousedown', () => {
+        const url = s.dataset.url;
+        if (url) window.location.href = url;
+      });
+    });
+    function handleSubmit() {
+      const v = input.value.trim();
+      if (!v) return;
+      alert('(in real home, this opens the interstitial with "' + v + '")');
+    }
+
+    // progress bar
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('pf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

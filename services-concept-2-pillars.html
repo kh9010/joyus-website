@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — 02 Pillars &amp; Process · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--x); max-width: 1400px; margin: 0 auto;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-soft); }
+  .nav-back:hover { color: var(--pink); }
+
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vh, 8rem) var(--x) clamp(3rem, 6vh, 5rem);
+  }
+  .eyebrow {
+    font-family: var(--hand); font-size: 1.35rem; color: var(--pink); display: inline-block; margin-bottom: 1.25rem;
+  }
+  h1 {
+    font-weight: 600;
+    font-size: clamp(3rem, 7.5vw, 6rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.75rem;
+    max-width: 14ch;
+  }
+  h1 em { font-style: italic; color: var(--ink-soft); font-weight: 500; }
+  .hero-lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    color: var(--ink-soft);
+    max-width: 48ch;
+  }
+
+  /* pillars */
+  .pillars {
+    max-width: 1200px; margin: 0 auto; padding: clamp(3rem, 6vh, 5rem) var(--x);
+  }
+  .pillars-intro {
+    font-family: var(--hand); font-size: 1.4rem; color: var(--ink-soft); margin-bottom: 2rem;
+  }
+  .pillar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .pillar {
+    padding: 2.5rem 0;
+    border-right: 1px solid var(--rule);
+    padding-right: 2rem;
+    position: relative;
+  }
+  .pillar:last-child { border-right: 0; padding-right: 0; }
+  .pillar-num {
+    font-family: var(--hand);
+    color: var(--pink);
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+  }
+  .pillar h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.25rem;
+  }
+  .pillar-kicker {
+    font-family: var(--hand);
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: block;
+  }
+  .pillar p {
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+  }
+  .pillar ul {
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .pillar ul li {
+    padding: 0.5rem 0;
+    border-top: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+  .pillar ul li:first-child { border-top: 0; padding-top: 0; }
+  .pillar-proof {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    border-left: 2px solid var(--pink);
+    padding-left: 0.75rem;
+  }
+  .pillar-proof a {
+    border-bottom: 1px solid currentColor;
+  }
+  .pillar-proof a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+
+  @media (max-width: 880px) {
+    .pillar-grid { grid-template-columns: 1fr; }
+    .pillar {
+      border-right: 0;
+      border-bottom: 1px solid var(--rule);
+      padding-right: 0;
+    }
+    .pillar:last-child { border-bottom: 0; }
+  }
+
+  /* process */
+  .process {
+    max-width: 1400px; margin: 0 auto; padding: clamp(5rem, 10vh, 8rem) var(--x);
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 24px;
+    margin-top: clamp(2rem, 5vh, 4rem);
+    margin-bottom: clamp(2rem, 5vh, 4rem);
+    margin-left: clamp(1.5rem, 4vw, 3rem);
+    margin-right: clamp(1.5rem, 4vw, 3rem);
+  }
+  .process-intro {
+    font-family: var(--hand); color: var(--pink); font-size: 1.3rem; margin-bottom: 0.5rem;
+  }
+  .process h2 {
+    font-weight: 600;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    letter-spacing: -0.025em;
+    margin-bottom: 3rem;
+    max-width: 18ch;
+  }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .steps::before {
+    content: "";
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    height: 1px;
+    background: rgba(251,247,240,0.2);
+    z-index: 0;
+  }
+  .step { position: relative; padding-right: 1.5rem; }
+  .step-dot {
+    width: 14px;
+    height: 14px;
+    background: var(--pink);
+    border-radius: 50%;
+    margin-bottom: 1.75rem;
+    position: relative;
+    z-index: 1;
+  }
+  .step-num {
+    font-family: var(--hand);
+    color: var(--mustard);
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+  }
+  .step h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+  .step p {
+    font-size: 0.9rem;
+    color: rgba(251,247,240,0.7);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 880px) {
+    .steps { grid-template-columns: 1fr; gap: 2rem; }
+    .steps::before { display: none; }
+    .step { padding-right: 0; display: flex; gap: 1rem; }
+    .step-dot { flex-shrink: 0; margin-top: 0.3rem; margin-bottom: 0; }
+    .step-body { flex: 1; }
+  }
+
+  /* who */
+  .who {
+    max-width: 980px; margin: 0 auto; padding: clamp(4rem, 8vh, 6rem) var(--x);
+  }
+  .who h2 {
+    font-weight: 500; font-size: clamp(2rem, 4.5vw, 3rem);
+    letter-spacing: -0.025em; margin-bottom: 1.5rem;
+    max-width: 20ch;
+  }
+  .who p { font-size: 1.1rem; color: var(--ink-soft); max-width: 55ch; }
+
+  /* closing */
+  .closing {
+    max-width: 980px; margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 6vh, 5rem);
+  }
+  .closing h3 {
+    font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .closing .pink { color: var(--pink); border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+  .closing .pink:hover { opacity: 0.75; }
+  .closing .hint { font-family: var(--hand); color: var(--ink-soft); font-size: 1.15rem; display: block; }
+
+  .foot {
+    border-top: 1px solid var(--rule); padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto; display: flex;
+    justify-content: space-between; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  /* scroll reveal */
+  .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.6s, transform 0.6s; }
+  .reveal.seen { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <a class="nav-back" href="services-concepts.html">← all concepts</a>
+  </nav>
+
+  <section class="hero">
+    <span class="eyebrow">what we do · how it flows</span>
+    <h1>Think with us, <em>build with us,</em> or both.</h1>
+    <p class="hero-lede">Most of what we sell is advice. Some of what we sell is the thing we design and ship after that advice. Both live in the same two-person studio.</p>
+  </section>
+
+  <section class="pillars">
+    <p class="pillars-intro">three ways we show up —</p>
+    <div class="pillar-grid">
+      <div class="pillar reveal">
+        <div class="pillar-num">01</div>
+        <h2>Advise</h2>
+        <span class="pillar-kicker">think with you</span>
+        <p>Most projects start here. We sit with the problem — for an afternoon, a week, a quarter — and help you figure out what's actually off before anyone touches Figma.</p>
+        <ul>
+          <li>Strategic sounding-board retainers</li>
+          <li>Investor-facing narrative work</li>
+          <li>Product &amp; audience diagnostics</li>
+          <li>Founder coaching</li>
+        </ul>
+        <div class="pillar-proof">
+          Told <a href="work/tomboyx.html">TomboyX</a> their deck needed three decks, not one. $5M raised.
+        </div>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-num">02</div>
+        <h2>Design</h2>
+        <span class="pillar-kicker">make with you</span>
+        <p>When thinking has produced a decision, we design the artifacts that carry it — identity, product, pitch, packaging. Cross-disciplinary by default: we pick up whichever hat the project needs.</p>
+        <ul>
+          <li>Brand identity &amp; systems</li>
+          <li>Product &amp; interface design</li>
+          <li>Pitch decks &amp; narrative docs</li>
+          <li>Illustration, packaging, and print</li>
+        </ul>
+        <div class="pillar-proof">
+          Built <a href="work/tatsam.html">Tatsam's</a> design system: calm on the outside, agency under the hood.
+        </div>
+      </div>
+
+      <div class="pillar reveal">
+        <div class="pillar-num">03</div>
+        <h2>Build</h2>
+        <span class="pillar-kicker">ship with you</span>
+        <p>Selective. We take on build engagements when a project's shape genuinely needs us to own delivery — usually for 8–16 weeks, usually in close partnership with your team, usually with a clear hand-off planned from day one.</p>
+        <ul>
+          <li>Zero-to-one product launches</li>
+          <li>Go-to-market sprints</li>
+          <li>Full brand builds under deadline</li>
+          <li>Research → prototype → ship</li>
+        </ul>
+        <div class="pillar-proof">
+          Took <a href="work/klydo.html">Klydo</a> from zero to 150 daily sales by January 1st.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process">
+    <div class="process-intro">the same three, as a flow —</div>
+    <h2>How a typical engagement actually unfolds.</h2>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <div class="step-body">
+          <div class="step-num">01</div>
+          <h3>Sit with the problem.</h3>
+          <p>No scope yet. An honest conversation about what's actually broken, and whether we're the right people for it.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <div class="step-body">
+          <div class="step-num">02</div>
+          <h3>Name what's off.</h3>
+          <p>A short written read of what we see and what we'd change. Usually one to three weeks. Sometimes it ends here.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <div class="step-body">
+          <div class="step-num">03</div>
+          <h3>Sketch a plan.</h3>
+          <p>If there's a thing to make, we scope it — tight brief, hard deadline, named collaborators, price agreed before work starts.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <div class="step-body">
+          <div class="step-num">04</div>
+          <h3>Make the thing.</h3>
+          <p>Two of us, in your channel, shipping. No PMs, no handoffs, no explaining the brief again to a fifth person.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-dot"></div>
+        <div class="step-body">
+          <div class="step-num">05</div>
+          <h3>Tune as it meets people.</h3>
+          <p>A plan for what happens after launch — what to watch, what to change, when to stop.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="who">
+    <h2>We think with everyone.<br>We build with a few.</h2>
+    <p>Of the projects that reach us, we take on roughly one in five as build work. The rest — if we think we can help — we'll advise. If we don't think we can help, we'll tell you, and sometimes point you somewhere that can.</p>
+  </section>
+
+  <section class="closing">
+    <h3>Worth a conversation? — <a href="mailto:hello@joyus.studio" class="pink">be our friends.</a></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('seen');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+</body>
+</html>

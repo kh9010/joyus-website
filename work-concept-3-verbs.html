@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — 03 Gallery Parade · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --green: #5BBD72;
+    --violet: #A87BD9;
+    --peach: #E8734A;
+    --earth: #C49A6C;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans); background: var(--cream); color: var(--ink);
+    line-height: 1.5; -webkit-font-smoothing: antialiased;
+  }
+  body.panel-open { overflow: hidden; }
+  a, button { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--x); max-width: 1400px; margin: 0 auto;
+    position: relative; z-index: 10;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; }
+
+  /* Progress bar */
+  .progress {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    z-index: 200;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--pink);
+    width: 0;
+    transition: width 0.15s ease-out;
+  }
+
+  /* Progress counter */
+  .counter {
+    position: fixed;
+    bottom: clamp(1rem, 3vh, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    background: rgba(251, 247, 240, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--rule);
+    z-index: 150;
+    transition: color 0.3s, background 0.3s, border-color 0.3s;
+  }
+  .counter.on-dark {
+    color: var(--cream);
+    background: rgba(17, 18, 20, 0.6);
+    border-color: rgba(251, 247, 240, 0.2);
+  }
+  .counter span { color: var(--ink-fade); }
+  .counter.on-dark span { color: rgba(251, 247, 240, 0.5); }
+
+  /* Intro */
+  .intro {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(3rem, 8vh, 6rem) var(--x) clamp(4rem, 10vh, 7rem);
+  }
+  .eyebrow {
+    font-family: var(--hand); font-size: 1.35rem; color: var(--pink);
+    display: inline-block; margin-bottom: 1rem;
+  }
+  h1.intro-h1 {
+    font-weight: 600; font-size: clamp(2.5rem, 6.5vw, 5rem);
+    line-height: 0.98; letter-spacing: -0.035em;
+    margin-bottom: 1.5rem; max-width: 18ch;
+  }
+  h1.intro-h1 em { font-style: italic; color: var(--ink-soft); font-weight: 500; }
+  .intro-lede {
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    color: var(--ink-soft); max-width: 50ch;
+  }
+  .intro-hint {
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    display: flex; align-items: baseline; gap: 0.5rem;
+  }
+  .intro-hint::before {
+    content: "↓"; color: var(--pink);
+    transform: translateY(2px) rotate(-15deg);
+    display: inline-block;
+  }
+
+  /* ==================================================
+     CASE BAND — each one is a unique full-bleed composition
+     ================================================== */
+  .band {
+    position: relative;
+    min-height: 95vh;
+    display: flex;
+    overflow: hidden;
+    border-top: 1px solid var(--rule);
+  }
+
+  .band-inner {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 5rem) var(--x);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 95vh;
+  }
+
+  /* The number watermark */
+  .band-num {
+    position: absolute;
+    top: clamp(1.25rem, 3vh, 2rem);
+    left: clamp(1.5rem, 4vw, 3rem);
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.2em;
+    color: inherit;
+    opacity: 0.55;
+  }
+  .band-num span { opacity: 0.45; }
+
+  /* The top meta strip */
+  .band-meta {
+    position: absolute;
+    top: clamp(1.25rem, 3vh, 2rem);
+    right: clamp(1.5rem, 4vw, 3rem);
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  /* The bottom label — client name + outcome + trigger */
+  .band-label {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 900px;
+  }
+  .band-label .eyebrow-sm {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    opacity: 0.75;
+  }
+  .band-client {
+    font-weight: 600;
+    font-size: clamp(3rem, 10vw, 8rem);
+    line-height: 0.88;
+    letter-spacing: -0.04em;
+    margin: 0;
+  }
+  .band-outcome {
+    font-style: italic;
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+    line-height: 1.35;
+    max-width: 40ch;
+    opacity: 0.88;
+  }
+  .band-outcome em { color: var(--pink); font-style: normal; font-weight: 500; }
+
+  .band-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem 0.75rem 1.25rem;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    background: transparent;
+    margin-top: 0.75rem;
+    align-self: flex-start;
+    transition: background 0.25s, color 0.25s, transform 0.25s, border-color 0.25s;
+  }
+  .band-trigger::before {
+    content: "○";
+    font-size: 0.8rem;
+    transition: transform 0.35s;
+  }
+  .band-trigger:hover {
+    transform: translateX(4px);
+  }
+  .band-trigger:hover::before {
+    transform: scale(1.15);
+  }
+
+  /* Spec strip — 3 pieces of data along the bottom */
+  .band-spec {
+    position: relative;
+    z-index: 3;
+    display: flex;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid currentColor;
+    opacity: 0.85;
+    max-width: 820px;
+  }
+  .band-spec > div { display: flex; flex-direction: column; gap: 0.25rem; }
+  .band-spec dt {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.5;
+  }
+  .band-spec dd { font-size: 0.95rem; line-height: 1.4; }
+
+  /* ==================================================
+     PER-BAND COMPOSITIONS (each client, unique)
+     ================================================== */
+
+  /* 01 TomboyX — dark pink, stacked deck slides */
+  .b-tomboyx {
+    background: #8b1048;
+    color: var(--cream);
+  }
+  .b-tomboyx .comp {
+    position: absolute;
+    top: 40%;
+    right: 6%;
+    transform: translateY(-50%);
+    width: clamp(220px, 30vw, 440px);
+    aspect-ratio: 4/3;
+    pointer-events: none;
+  }
+  .b-tomboyx .comp .slide {
+    position: absolute;
+    inset: 0;
+    background: var(--cream);
+    border-radius: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    padding: 1.5rem;
+    color: var(--ink);
+  }
+  .b-tomboyx .comp .slide::before {
+    content: ""; display: block;
+    width: 30%; height: 6px;
+    background: var(--pink); margin-bottom: 0.6rem;
+  }
+  .b-tomboyx .comp .slide-1 { transform: translate(-40px, -32px) rotate(-5deg); opacity: 0.55; }
+  .b-tomboyx .comp .slide-2 { transform: translate(-20px, -16px) rotate(-2deg); opacity: 0.8; }
+  .b-tomboyx .comp .slide-3 { transform: rotate(1.5deg); }
+  .b-tomboyx .comp .slide-3::after {
+    content: "three audiences · one story";
+    font-family: var(--hand); font-size: 1.5rem;
+    color: var(--ink); display: block;
+    margin-top: 0.5rem; line-height: 1.2;
+  }
+
+  /* 02 Klydo — mustard, huge 150/day stat */
+  .b-klydo {
+    background: var(--mustard);
+    color: var(--ink);
+  }
+  .b-klydo .comp {
+    position: absolute;
+    top: 50%; right: 8%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(8rem, 22vw, 18rem);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    text-align: right;
+    opacity: 0.9;
+  }
+  .b-klydo .comp::after {
+    content: "/ day";
+    display: block;
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    margin-top: -0.5rem;
+    opacity: 0.6;
+  }
+  .b-klydo .comp-annot {
+    position: absolute;
+    bottom: 24%;
+    right: 10%;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--ink);
+    transform: rotate(-4deg);
+    opacity: 0.75;
+  }
+  .b-klydo .comp-annot::before { content: "↖ "; }
+
+  /* 03 Tatsam — cyan, gentle phone mockup + ripple rings */
+  .b-tatsam {
+    background: linear-gradient(135deg, #4FC4CF 0%, #6ed0d8 100%);
+    color: var(--ink);
+  }
+  .b-tatsam .rings {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+  .b-tatsam .rings::before,
+  .b-tatsam .rings::after {
+    content: ""; position: absolute;
+    border: 1.5px solid var(--cream);
+    border-radius: 50%;
+  }
+  .b-tatsam .rings::before {
+    right: 10%; top: 20%;
+    width: 45vw; height: 45vw; max-width: 500px; max-height: 500px;
+  }
+  .b-tatsam .rings::after {
+    right: 22%; top: 32%;
+    width: 25vw; height: 25vw; max-width: 280px; max-height: 280px;
+  }
+  .b-tatsam .comp {
+    position: absolute;
+    top: 50%; right: 12%;
+    transform: translateY(-50%) rotate(-3deg);
+    width: 170px; height: 340px;
+    background: var(--cream);
+    border-radius: 28px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    padding: 22px 14px;
+    display: flex; flex-direction: column; gap: 10px;
+    pointer-events: none;
+  }
+  .b-tatsam .comp .notch {
+    width: 35%; height: 5px; background: rgba(17,18,20,0.3);
+    border-radius: 3px; align-self: center;
+  }
+  .b-tatsam .comp .row { height: 10px; border-radius: 3px; background: rgba(17,18,20,0.08); }
+  .b-tatsam .comp .row.short { width: 50%; }
+  .b-tatsam .comp .card {
+    flex: 1;
+    background: var(--cyan);
+    border-radius: 12px;
+    padding: 14px;
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  /* 04 Pratham — dark ink, donor-journey arrow diagram */
+  .b-pratham {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .b-pratham .comp {
+    position: absolute;
+    top: 50%; right: 8%;
+    transform: translateY(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(2, auto);
+    gap: 1rem 1.75rem;
+    pointer-events: none;
+  }
+  .b-pratham .comp .step {
+    width: clamp(80px, 10vw, 120px);
+    height: clamp(80px, 10vw, 120px);
+    border: 1.5px solid var(--cream);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--hand);
+    font-size: clamp(1rem, 1.3vw, 1.3rem);
+    color: var(--cream);
+    text-align: center;
+    line-height: 1.1;
+    position: relative;
+  }
+  .b-pratham .comp .step.filled {
+    background: var(--pink);
+    border-color: var(--pink);
+    color: var(--cream);
+  }
+  .b-pratham .comp .step::after {
+    content: "→";
+    position: absolute;
+    right: -1.3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--cream);
+    opacity: 0.6;
+    font-family: var(--sans);
+    font-size: 1.1rem;
+  }
+  .b-pratham .comp .step:nth-child(3n)::after { display: none; }
+  .b-pratham .comp .step:last-child::after { display: none; }
+
+  /* 05 ConveGenius — violet, bar chart */
+  .b-convegenius {
+    background: #5E3A8E;
+    color: var(--cream);
+  }
+  .b-convegenius .comp {
+    position: absolute;
+    top: 52%; right: 8%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: flex-end;
+    gap: clamp(10px, 1.5vw, 20px);
+    height: clamp(200px, 30vh, 340px);
+    pointer-events: none;
+  }
+  .b-convegenius .comp .bar {
+    width: clamp(30px, 4vw, 55px);
+    background: var(--mustard);
+    border-radius: 3px 3px 0 0;
+    position: relative;
+  }
+  .b-convegenius .comp .bar.pink { background: var(--pink); }
+  .b-convegenius .comp .bar::before {
+    content: attr(data-label);
+    position: absolute;
+    top: -1.5rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--cream);
+    opacity: 0.6;
+  }
+  .b-convegenius .comp .bar::after {
+    content: attr(data-week);
+    position: absolute;
+    bottom: -1.5rem; left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--cream);
+    opacity: 0.4;
+  }
+
+  /* 06 Secret Senses — peach, paisley-ish SVG + swatch grid */
+  .b-secret {
+    background: #DB6E4A;
+    color: var(--cream);
+  }
+  .b-secret .paisley {
+    position: absolute;
+    top: -10%; right: -8%;
+    width: 55vw; max-width: 650px;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+  .b-secret .swatch-grid {
+    position: absolute;
+    top: 50%; right: 12%;
+    transform: translateY(-50%) rotate(3deg);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: clamp(200px, 28vw, 360px);
+    pointer-events: none;
+  }
+  .b-secret .swatch-grid > div {
+    aspect-ratio: 1;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  }
+  .b-secret .swatch-grid > div:nth-child(1) { background: #F0C9A0; }
+  .b-secret .swatch-grid > div:nth-child(2) { background: #8E3D2A; }
+  .b-secret .swatch-grid > div:nth-child(3) { background: #F9E9D6; }
+  .b-secret .swatch-grid > div:nth-child(4) { background: #D77F5A; }
+
+  /* 07 XTDB — near-black, big origami mark + rename note */
+  .b-xtdb {
+    background: #0a0a0c;
+    color: var(--cream);
+  }
+  .b-xtdb .mark {
+    position: absolute;
+    top: 50%; right: 10%;
+    transform: translateY(-50%);
+    width: clamp(180px, 25vw, 340px);
+    aspect-ratio: 1;
+    background: var(--cream);
+    clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .b-xtdb .mark::before {
+    content: "XTDB";
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: -0.04em;
+    color: var(--ink);
+  }
+  .b-xtdb .mark-note {
+    position: absolute;
+    top: 42%; right: 4%;
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--mustard);
+    transform: rotate(-6deg);
+    pointer-events: none;
+  }
+  .b-xtdb .mark-note::before { content: "formerly "; color: rgba(251,247,240,0.5); font-style: italic; }
+
+  /* 08 Agemo — green, 6-step onboarding */
+  .b-agemo {
+    background: #2d8a4a;
+    color: var(--cream);
+  }
+  .b-agemo .comp {
+    position: absolute;
+    top: 50%; right: 10%;
+    transform: translateY(-50%);
+    width: clamp(240px, 32vw, 420px);
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    pointer-events: none;
+  }
+  .b-agemo .comp .step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.2rem;
+    background: rgba(251, 247, 240, 0.12);
+    border-radius: 10px;
+    backdrop-filter: blur(2px);
+  }
+  .b-agemo .comp .step .n {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--cream); color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 0.82rem;
+    flex-shrink: 0;
+  }
+  .b-agemo .comp .step .label {
+    font-size: 0.92rem;
+    letter-spacing: -0.01em;
+  }
+  .b-agemo .comp .step.done { background: rgba(251, 247, 240, 0.22); }
+  .b-agemo .comp .step.done .n { background: var(--mustard); color: var(--ink); }
+
+  /* 09 Gliitch — magenta/cyan glitch */
+  .b-gliitch {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .b-gliitch .comp {
+    position: absolute;
+    top: 50%; right: 8%;
+    transform: translateY(-50%);
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(6rem, 18vw, 14rem);
+    letter-spacing: -0.04em;
+    line-height: 1;
+    position: absolute;
+    pointer-events: none;
+  }
+  .b-gliitch .comp .g { position: relative; color: var(--cream); display: inline-block; }
+  .b-gliitch .comp .g::before,
+  .b-gliitch .comp .g::after {
+    content: "gliitch";
+    position: absolute;
+    top: 0; left: 0; width: 100%;
+  }
+  .b-gliitch .comp .g::before {
+    color: var(--pink);
+    transform: translate(6px, 3px);
+    mix-blend-mode: screen;
+    clip-path: inset(0 0 55% 0);
+  }
+  .b-gliitch .comp .g::after {
+    color: var(--cyan);
+    transform: translate(-6px, -3px);
+    mix-blend-mode: screen;
+    clip-path: inset(52% 0 0 0);
+  }
+
+  /* 10 Rachna Nivas — warm gradient, polaroid + signature */
+  .b-rachna {
+    background: linear-gradient(160deg, #E8B84A 0%, #C49A6C 100%);
+    color: var(--ink);
+  }
+  .b-rachna .polaroid {
+    position: absolute;
+    top: 50%; right: 12%;
+    transform: translateY(-50%) rotate(4deg);
+    width: clamp(220px, 28vw, 340px);
+    background: var(--cream);
+    padding: 14px 14px 60px;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.18);
+    pointer-events: none;
+  }
+  .b-rachna .polaroid .p-img {
+    width: 100%; aspect-ratio: 3/4;
+    background:
+      radial-gradient(circle at 50% 40%, rgba(17,18,20,0.3) 0%, rgba(17,18,20,0.65) 70%),
+      linear-gradient(135deg, #8e5b2a, #4a2f18);
+    position: relative;
+  }
+  .b-rachna .polaroid .p-img::before {
+    content: ""; position: absolute;
+    top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%; height: 40%;
+    background: radial-gradient(circle, rgba(232,184,74,0.3), transparent 60%);
+    border-radius: 50%;
+  }
+  .b-rachna .polaroid .p-sig {
+    position: absolute;
+    bottom: 12px; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+
+  /* ==================================================
+     STORY PANEL
+     ================================================== */
+  .panel-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(17,18,20,0.4);
+    z-index: 300;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .panel-backdrop.open { opacity: 1; pointer-events: auto; }
+
+  .panel {
+    position: fixed;
+    top: 0; right: 0; bottom: 0;
+    width: min(640px, 92vw);
+    background: var(--cream);
+    z-index: 400;
+    transform: translateX(100%);
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    overflow-y: auto;
+    box-shadow: -20px 0 60px rgba(0,0,0,0.12);
+  }
+  .panel.open { transform: translateX(0); }
+
+  .panel-close {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
+    z-index: 2;
+  }
+  .panel-close-num {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-fade);
+  }
+  .panel-close button {
+    background: transparent;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.2s, color 0.2s;
+  }
+  .panel-close button:hover { background: var(--ink); color: var(--cream); }
+
+  .panel-body {
+    padding: 2.5rem 2.5rem 4rem;
+  }
+  .panel-eyebrow {
+    font-family: var(--hand); font-size: 1.2rem; color: var(--pink);
+    margin-bottom: 0.75rem; display: block;
+  }
+  .panel-body h2 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.04;
+    margin-bottom: 1.25rem;
+  }
+  .panel-body h2 em { font-style: italic; color: var(--ink-soft); }
+  .panel-body .story {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+  .panel-body .story em.mark { color: var(--pink); font-style: normal; font-weight: 500; }
+
+  .panel-meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1.25rem;
+    margin: 2rem 0;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+  .panel-meta dt {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    align-self: center;
+  }
+  .panel-meta dd { color: var(--ink); }
+
+  .panel-quote {
+    border-left: 3px solid var(--pink);
+    padding: 0.4rem 0 0.4rem 1.25rem;
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin: 1.5rem 0 2rem;
+  }
+  .panel-quote cite {
+    display: block;
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink);
+    font-style: normal;
+    margin-top: 0.75rem;
+  }
+
+  .panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 1.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  .panel-link:hover { background: var(--pink); }
+
+  /* Closing */
+  .closing {
+    max-width: 820px; margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 6vh, 5rem);
+    border-top: 1px solid var(--rule);
+  }
+  .closing h3 {
+    font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .closing .pink { color: var(--pink); border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+  .closing .hint { font-family: var(--hand); color: var(--ink-soft); font-size: 1.15rem; display: block; }
+
+  .foot {
+    border-top: 1px solid var(--rule); padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto; display: flex;
+    justify-content: space-between; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  @media (max-width: 720px) {
+    .band { min-height: 80vh; }
+    .band-inner { min-height: 80vh; }
+    .band .comp, .b-tomboyx .comp, .b-klydo .comp, .b-tatsam .comp,
+    .b-pratham .comp, .b-convegenius .comp, .b-secret .swatch-grid,
+    .b-xtdb .mark, .b-agemo .comp, .b-gliitch .comp, .b-rachna .polaroid {
+      opacity: 0.35;
+      right: -5%;
+    }
+    .b-klydo .comp-annot, .b-xtdb .mark-note, .b-secret .paisley { display: none; }
+    .band-client { font-size: clamp(2.5rem, 13vw, 5rem); }
+    .band-outcome { font-size: 1.05rem; }
+    .counter { bottom: auto; top: 80px; right: 1rem; font-size: 0.7rem; padding: 0.35rem 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="services-concept-3-verbs.html">services in this style →</a>
+      <a href="services-concepts.html" class="nav-back">← all concepts</a>
+    </div>
+  </nav>
+
+  <div class="counter" id="counter"><span>01 /</span> 10</div>
+
+  <section class="intro">
+    <span class="eyebrow">ten projects · one gallery</span>
+    <h1 class="intro-h1">Walk the studio wall. <em>Open a story when something catches.</em></h1>
+    <p class="intro-lede">Each band below is a project. Scroll through like you're walking past pieces in a gallery. When one stops you, click to open the story — context, decisions, what changed.</p>
+    <p class="intro-hint">scroll to walk · click to read</p>
+  </section>
+
+  <!-- ============ 01 TomboyX ============ -->
+  <section class="band b-tomboyx" id="b-01" data-n="01" data-target="s-tomboyx">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 01 / 10</div>
+      <div class="band-meta">Seattle · 2025</div>
+      <div class="comp">
+        <div class="slide slide-1"></div>
+        <div class="slide slide-2"></div>
+        <div class="slide slide-3">A deck written for three audiences.</div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the pitch rescue</span>
+        <h2 class="band-client">TomboyX</h2>
+        <p class="band-outcome">Three decks, each in the founders' voice. <em>$5M raised</em> after a down-round.</p>
+        <button class="band-trigger" data-target="s-tomboyx">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Story · Investor Pitch</dd></div>
+        <div><dt>duration</dt><dd>8 weeks</dd></div>
+        <div><dt>scale</dt><dd>$25M ARR apparel</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 02 Klydo ============ -->
+  <section class="band b-klydo" id="b-02" data-n="02" data-target="s-klydo">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 02 / 10</div>
+      <div class="band-meta">Bangalore · 2025</div>
+      <div class="comp">150</div>
+      <div class="comp-annot">daily sales, week one</div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the launch sprint</span>
+        <h2 class="band-client">Klydo</h2>
+        <p class="band-outcome">Zero to 150 daily sales by January 1. <em>Branding person quit at week six.</em> We opened Figma.</p>
+        <button class="band-trigger" data-target="s-klydo">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Product · Brand · GTM</dd></div>
+        <div><dt>duration</dt><dd>10 weeks</dd></div>
+        <div><dt>scale</dt><dd>Pre-Series A quick-commerce</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 03 Tatsam ============ -->
+  <section class="band b-tatsam" id="b-03" data-n="03" data-target="s-tatsam">
+    <div class="band-inner">
+      <div class="rings"></div>
+      <div class="band-num"><span>project</span> 03 / 10</div>
+      <div class="band-meta">Delhi · 2024</div>
+      <div class="comp">
+        <div class="notch"></div>
+        <div class="row short"></div>
+        <div class="card">today, feel it</div>
+        <div class="row"></div>
+        <div class="row short"></div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the calm system</span>
+        <h2 class="band-client">Tatsam</h2>
+        <p class="band-outcome">A mental health app that pairs patient motion with research-backed rigor. <em>3× week-one retention.</em></p>
+        <button class="band-trigger" data-target="s-tatsam">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Visual System · Product · Brand</dd></div>
+        <div><dt>duration</dt><dd>14 weeks</dd></div>
+        <div><dt>scale</dt><dd>India seed, mental health</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 04 Pratham ============ -->
+  <section class="band b-pratham" id="b-04" data-n="04" data-target="s-pratham">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 04 / 10</div>
+      <div class="band-meta">NYC · 2024</div>
+      <div class="comp">
+        <div class="step">the<br>ask</div>
+        <div class="step">the<br>listen</div>
+        <div class="step filled">the<br>gift</div>
+        <div class="step">the<br>ack</div>
+        <div class="step">the<br>story</div>
+        <div class="step">the<br>return</div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the donor study</span>
+        <h2 class="band-client">Pratham USA</h2>
+        <p class="band-outcome">A year of conversations became <em>a six-stage donor journey</em> — and a publishing strategy that moved them off newsletters.</p>
+        <button class="band-trigger" data-target="s-pratham">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Research · Process · Information</dd></div>
+        <div><dt>duration</dt><dd>12-month retainer</dd></div>
+        <div><dt>scale</dt><dd>$50M USA nonprofit</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 05 ConveGenius ============ -->
+  <section class="band b-convegenius" id="b-05" data-n="05" data-target="s-convegenius">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 05 / 10</div>
+      <div class="band-meta">India · 2025</div>
+      <div class="comp">
+        <div class="bar" data-label="22%" data-week="w1" style="height: 22%;"></div>
+        <div class="bar" data-label="31%" data-week="w2" style="height: 31%;"></div>
+        <div class="bar" data-label="28%" data-week="w3" style="height: 28%;"></div>
+        <div class="bar pink" data-label="58%" data-week="w4" style="height: 58%;"></div>
+        <div class="bar pink" data-label="74%" data-week="w5" style="height: 74%;"></div>
+        <div class="bar pink" data-label="88%" data-week="w6" style="height: 88%;"></div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the behavior pivot</span>
+        <h2 class="band-client">ConveGenius</h2>
+        <p class="band-outcome">Growth versus engagement. We showed them the data. They picked engagement. <em>Completion doubled.</em></p>
+        <button class="band-trigger" data-target="s-convegenius">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>User Research · Gamification · Behavior</dd></div>
+        <div><dt>duration</dt><dd>8 weeks + follow-on</dd></div>
+        <div><dt>scale</dt><dd>100K monthly students</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 06 Secret Senses ============ -->
+  <section class="band b-secret" id="b-06" data-n="06" data-target="s-secret">
+    <div class="band-inner">
+      <svg class="paisley" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="M100 30 C 150 50, 160 110, 120 150 C 80 180, 40 150, 50 110 C 60 80, 80 60, 100 70 C 115 78, 115 100, 100 110 C 90 115, 80 108, 85 95" />
+        <path d="M60 80 C 70 70, 85 75, 85 90" />
+        <path d="M110 115 C 125 105, 140 115, 135 130" />
+        <circle cx="100" cy="110" r="5" fill="currentColor" stroke="none" />
+        <circle cx="70" cy="85" r="3" fill="currentColor" stroke="none" />
+      </svg>
+      <div class="band-num"><span>project</span> 06 / 10</div>
+      <div class="band-meta">India · 2024</div>
+      <div class="swatch-grid">
+        <div></div><div></div><div></div><div></div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the drawn brand</span>
+        <h2 class="band-client">Secret Senses</h2>
+        <p class="band-outcome">A hair-care brand drawn in Procreate, shipped to print. <em>Warm where the shelf is clinical.</em></p>
+        <button class="band-trigger" data-target="s-secret">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Identity · Illustration · Packaging</dd></div>
+        <div><dt>duration</dt><dd>6 weeks</dd></div>
+        <div><dt>scale</dt><dd>Bootstrapped DTC</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 07 XTDB ============ -->
+  <section class="band b-xtdb" id="b-07" data-n="07" data-target="s-xtdb">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 07 / 10</div>
+      <div class="band-meta">Canada · 2024</div>
+      <div class="mark"></div>
+      <div class="mark-note">CRUX</div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the rename</span>
+        <h2 class="band-client">XTDB</h2>
+        <p class="band-outcome">From CRUX to XTDB. Origami as a system — <em>folds, surfaces, one sheet that becomes anything.</em></p>
+        <button class="band-trigger" data-target="s-xtdb">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Re-branding · Brand Guidelines</dd></div>
+        <div><dt>duration</dt><dd>8 weeks</dd></div>
+        <div><dt>scale</dt><dd>$10M ARR temporal database</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 08 Agemo ============ -->
+  <section class="band b-agemo" id="b-08" data-n="08" data-target="s-agemo">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 08 / 10</div>
+      <div class="band-meta">UK · 2025</div>
+      <div class="comp">
+        <div class="step done"><div class="n">1</div><div class="label">pick a language</div></div>
+        <div class="step done"><div class="n">2</div><div class="label">paste your code</div></div>
+        <div class="step done"><div class="n">3</div><div class="label">watch it think</div></div>
+        <div class="step"><div class="n">4</div><div class="label">ask a question</div></div>
+        <div class="step"><div class="n">5</div><div class="label">ship the change</div></div>
+        <div class="step"><div class="n">6</div><div class="label">you're in</div></div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the onboarding rebuild</span>
+        <h2 class="band-client">Agemo</h2>
+        <p class="band-outcome">Six screens, each a single decision. Engineers go from "what is this" to "I ship with it" — <em>3.2× session completion.</em></p>
+        <button class="band-trigger" data-target="s-agemo">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Research · Strategy · Interface</dd></div>
+        <div><dt>duration</dt><dd>10 weeks</dd></div>
+        <div><dt>scale</dt><dd>Pre-Series A GenAI tool</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 09 Gliitch ============ -->
+  <section class="band b-gliitch" id="b-09" data-n="09" data-target="s-gliitch">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 09 / 10</div>
+      <div class="band-meta">Hong Kong · 2024</div>
+      <div class="comp"><span class="g">gliitch</span></div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the irreverent identity</span>
+        <h2 class="band-client">Gliitch</h2>
+        <p class="band-outcome">Two colors, one broken-on-purpose mark. A restaurant-tech brand that <em>feels like 2024, not 2004.</em></p>
+        <button class="band-trigger" data-target="s-gliitch">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Moodboarding · Branding · Media</dd></div>
+        <div><dt>duration</dt><dd>5 weeks</dd></div>
+        <div><dt>scale</dt><dd>Bootstrapped restaurant tech</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ 10 Rachna Nivas ============ -->
+  <section class="band b-rachna" id="b-10" data-n="10" data-target="s-rachna">
+    <div class="band-inner">
+      <div class="band-num"><span>project</span> 10 / 10</div>
+      <div class="band-meta">NYC · 2024</div>
+      <div class="polaroid">
+        <div class="p-img"></div>
+        <div class="p-sig">Rachna, rehearsal</div>
+      </div>
+      <div class="band-label">
+        <span class="eyebrow-sm">the authenticity play</span>
+        <h2 class="band-client">Rachna Nivas</h2>
+        <p class="band-outcome">Her voice, her craft, no blonde-ification. Positioned around the work itself. <em>Inquiries tripled in six months.</em></p>
+        <button class="band-trigger" data-target="s-rachna">open the story</button>
+      </div>
+      <dl class="band-spec">
+        <div><dt>engagement</dt><dd>Identity · Leverage · Artifacts</dd></div>
+        <div><dt>duration</dt><dd>6 weeks</dd></div>
+        <div><dt>scale</dt><dd>Solo practitioner, NYC Kathak</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h3>Spot a project that felt like yours? — <a href="mailto:hello@joyus.studio" class="pink">be our friends.</a></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <!-- ============ STORY PANEL ============ -->
+  <div class="panel-backdrop" id="backdrop"></div>
+  <aside class="panel" id="panel" aria-hidden="true">
+    <div class="panel-close">
+      <span class="panel-close-num" id="panelNum">PROJECT 01 / 10</span>
+      <button aria-label="Close" id="panelClose">×</button>
+    </div>
+    <div class="panel-body" id="panelBody"></div>
+  </aside>
+
+  <!-- Story content (JSON) -->
+  <script id="stories" type="application/json">
+  {
+    "s-tomboyx": {
+      "num": "01 / 10",
+      "eyebrow": "the pitch rescue",
+      "title": "Three decks instead of <em>one.</em>",
+      "story": "TomboyX came to us mid-down-round. The old deck wasn't working because it was trying to land with three audiences at once — retail investors, institutional, strategics. We killed it and built <em class=\"mark\">three decks</em>, each in the founders' voice, each with a different opening. Eight weeks later, $5M raised.",
+      "meta": {
+        "where": "Seattle · $25M ARR apparel",
+        "when": "2025 · 8 weeks",
+        "ask": "Re-raise after a down-round",
+        "outcome": "$5M raised · three decks · one story"
+      },
+      "quote": "They told us to kill the deck and start over. That ended up being the deck.",
+      "cite": "— Fran Dunaway, Founder",
+      "link": "work/tomboyx.html"
+    },
+    "s-klydo": {
+      "num": "02 / 10",
+      "eyebrow": "the launch sprint",
+      "title": "Zero to 150 daily sales <em>by January 1.</em>",
+      "story": "Ten-week sprint. Brand, product strategy, launch, narrative. When the branding person quit in week six, we opened Figma. When the team's internal story started to fracture, we brought in a best-selling writer to build the myth that would unify it. The site shipped <em class=\"mark\">on December 29.</em>",
+      "meta": {
+        "where": "Bangalore · pre-Series A",
+        "when": "2025 · 10 weeks",
+        "ask": "Launch before Jan 1",
+        "outcome": "0 → 150 daily sales in week one"
+      },
+      "quote": "We genuinely don't know another studio that would have handled week six the way they did.",
+      "cite": "— Klydo co-founder",
+      "link": "work/klydo.html"
+    },
+    "s-tatsam": {
+      "num": "03 / 10",
+      "eyebrow": "the calm system",
+      "title": "Calm on the outside, <em>agency under the hood.</em>",
+      "story": "Mental health design systems tend to pick one register — soft-and-nurturing or clinical-and-authoritative. Tatsam needed both. We built a system that pairs <em class=\"mark\">patient motion and quiet palette</em> with a research-backed, decision-forward onboarding. Users who complete week one retain at 3× category benchmark.",
+      "meta": {
+        "where": "Delhi · India seed",
+        "when": "2024 · 14 weeks",
+        "ask": "Heal without softening",
+        "outcome": "3× week-1 retention"
+      },
+      "quote": "We wanted it to feel safe without being twee. They got it in one direction.",
+      "cite": "— Tatsam founding team",
+      "link": "work/tatsam.html"
+    },
+    "s-pratham": {
+      "num": "04 / 10",
+      "eyebrow": "the donor study",
+      "title": "One year of <em>quiet conversations.</em>",
+      "story": "Post-COVID donor collapse, no clear why. We spent a year interviewing lapsed, active, and almost-gave donors. The insight: the right format wasn't the newsletter — it was <em class=\"mark\">long-form publications donors could carry to their dinner tables.</em> A six-stage donor journey model came out of it, and their publishing strategy followed.",
+      "meta": {
+        "where": "NYC · $50M USA nonprofit",
+        "when": "2024 · 12-month retainer",
+        "ask": "Find the why behind the donor collapse",
+        "outcome": "6-stage donor model · new publishing strategy"
+      },
+      "quote": "They gave us the one document nobody on our team could have written.",
+      "cite": "— Pratham USA leadership",
+      "link": "work/pratham.html"
+    },
+    "s-convegenius": {
+      "num": "05 / 10",
+      "eyebrow": "the behavior pivot",
+      "title": "We picked <em>the harder one.</em>",
+      "story": "Kids were opening the app. Kids weren't finishing modules. We built a rewards framework that separates growth mechanics (invites, streak-on-signup) from engagement mechanics (mastery, self-paced reflection) — and showed the data that said the growth mechanics were <em class=\"mark\">quietly killing retention.</em> They chose engagement. Completion rates doubled in the first quarter.",
+      "meta": {
+        "where": "India edtech · 100K monthly students",
+        "when": "2025 · 8 weeks + follow-on",
+        "ask": "Why the drop-off after signup?",
+        "outcome": "2× completion in the first quarter"
+      },
+      "quote": "They showed us that the thing we thought was working was quietly killing our retention.",
+      "cite": "— ConveGenius product lead",
+      "link": "work/convegenius.html"
+    },
+    "s-secret": {
+      "num": "06 / 10",
+      "eyebrow": "the drawn brand",
+      "title": "A brand drawn <em>in Procreate.</em>",
+      "story": "Bootstrapped hair care brand that needed to look nothing like the rest of the shelf. We drew a floral and paisley watercolor system <em class=\"mark\">from mark to packaging</em> — warm where the category is clinical, personal where the category is corporate. Launched DTC, picked up by two retail chains.",
+      "meta": {
+        "where": "India · bootstrapped",
+        "when": "2024 · 6 weeks",
+        "ask": "Look nothing like the shelf",
+        "outcome": "DTC launch + 2 retail partnerships"
+      },
+      "quote": "",
+      "cite": "",
+      "link": "work/secret-senses.html"
+    },
+    "s-xtdb": {
+      "num": "07 / 10",
+      "eyebrow": "the rename",
+      "title": "Origami for a <em>temporal database.</em>",
+      "story": "Renamed from CRUX. We needed a mark that could communicate \"temporal\" without looking like a clock. Origami became the system — <em class=\"mark\">folds, surfaces, the single piece of paper that becomes anything.</em> The mark moves from 2D logo to 3D temporal object in docs, slides, hero. Engineers wept (the good kind).",
+      "meta": {
+        "where": "Canada · ~$10M ARR database",
+        "when": "2024 · 8 weeks",
+        "ask": "Rebuild identity around new product thesis",
+        "outcome": "Full system, launched on relaunch day"
+      },
+      "quote": "",
+      "cite": "",
+      "link": "work/xtdb.html"
+    },
+    "s-agemo": {
+      "num": "08 / 10",
+      "eyebrow": "the onboarding rebuild",
+      "title": "From &ldquo;what is this&rdquo; to <em>&ldquo;I ship with it.&rdquo;</em>",
+      "story": "Engineers were bouncing in the first session. We rebuilt onboarding for exploratory users — the people who try a tool without reading docs. <em class=\"mark\">Six screens, each a single decision.</em> Session completion up 3.2×. Engineers who complete onboarding convert at 4× the rate of those who don't.",
+      "meta": {
+        "where": "UK · pre-Series A GenAI tool",
+        "when": "2025 · 10 weeks",
+        "ask": "Fix the first session",
+        "outcome": "3.2× session completion, 4× conversion"
+      },
+      "quote": "",
+      "cite": "",
+      "link": "work/agemo.html"
+    },
+    "s-gliitch": {
+      "num": "09 / 10",
+      "eyebrow": "the irreverent identity",
+      "title": "Two colors. <em>One broken-on-purpose mark.</em>",
+      "story": "Restaurant tech category that usually plays it safe. Gliitch wanted to feel like 2024, not 2004. We built a <em class=\"mark\">two-color glitch mark</em>, Memphis-grid menus, and an irreverent voice. It stood out on every POS stand it got installed on.",
+      "meta": {
+        "where": "Hong Kong · bootstrapped",
+        "when": "2024 · 5 weeks",
+        "ask": "Feel like now, not then",
+        "outcome": "Full brand system in 5 weeks"
+      },
+      "quote": "",
+      "cite": "",
+      "link": "work/gliitch.html"
+    },
+    "s-rachna": {
+      "num": "10 / 10",
+      "eyebrow": "the authenticity play",
+      "title": "Her voice. <em>Her craft. No blonde-ification.</em>",
+      "story": "NYC Kathak dancer, sole practitioner, no brand budget. We built an authenticity-forward content strategy and brand book <em class=\"mark\">positioned around the craft, not the credentials.</em> Six months in, inquiries tripled — without a single piece of traditional marketing.",
+      "meta": {
+        "where": "NYC · solo practitioner",
+        "when": "2024 · 6 weeks",
+        "ask": "Show up online without sounding like a brand",
+        "outcome": "3× inquiries in six months"
+      },
+      "quote": "",
+      "cite": "",
+      "link": "work/rachna-nivas.html"
+    }
+  }
+  </script>
+
+  <script>
+    const stories = JSON.parse(document.getElementById('stories').textContent);
+    const panel = document.getElementById('panel');
+    const backdrop = document.getElementById('backdrop');
+    const panelBody = document.getElementById('panelBody');
+    const panelNum = document.getElementById('panelNum');
+    const panelClose = document.getElementById('panelClose');
+    const counter = document.getElementById('counter');
+    const progressFill = document.getElementById('progressFill');
+
+    // Open panel
+    function openPanel(target) {
+      const data = stories[target];
+      if (!data) return;
+      panelNum.textContent = 'PROJECT ' + data.num;
+      let html = '';
+      html += '<span class="panel-eyebrow">' + data.eyebrow + '</span>';
+      html += '<h2>' + data.title + '</h2>';
+      html += '<p class="story">' + data.story + '</p>';
+      html += '<dl class="panel-meta">';
+      for (const [k, v] of Object.entries(data.meta)) {
+        html += '<dt>' + k + '</dt><dd>' + v + '</dd>';
+      }
+      html += '</dl>';
+      if (data.quote) {
+        html += '<blockquote class="panel-quote">&ldquo;' + data.quote + '&rdquo;<cite>' + data.cite + '</cite></blockquote>';
+      }
+      html += '<a class="panel-link" href="' + data.link + '">read the full case study →</a>';
+      panelBody.innerHTML = html;
+      panel.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.classList.add('panel-open');
+      panel.setAttribute('aria-hidden', 'false');
+      panel.scrollTop = 0;
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.classList.remove('panel-open');
+      panel.setAttribute('aria-hidden', 'true');
+    }
+
+    document.querySelectorAll('[data-target]').forEach(el => {
+      el.addEventListener('click', (e) => {
+        const target = el.dataset.target;
+        if (target && target.startsWith('s-')) {
+          e.preventDefault();
+          openPanel(target);
+        }
+      });
+    });
+
+    panelClose.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+    });
+
+    // Counter + progress + dark-mode counter switch
+    const bands = document.querySelectorAll('.band');
+    const darkBands = new Set(['b-tomboyx', 'b-pratham', 'b-xtdb', 'b-gliitch', 'b-convegenius', 'b-agemo']);
+
+    const bandIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio > 0.4) {
+          const n = e.target.dataset.n;
+          counter.innerHTML = '<span>' + n + ' /</span> 10';
+          const cls = [...e.target.classList].find(c => c.startsWith('b-'));
+          counter.classList.toggle('on-dark', darkBands.has(cls));
+        }
+      });
+    }, { threshold: [0.4, 0.6] });
+    bands.forEach(b => bandIO.observe(b));
+
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      const pct = (window.scrollY / total) * 100;
+      progressFill.style.width = pct + '%';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
