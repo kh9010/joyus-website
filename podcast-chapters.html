@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thinking on Thinking · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem var(--x);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; color: var(--ink); }
+  .nav-logo::after {
+    content: "";
+    display: inline-block;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--pink);
+    margin-left: 0.35rem;
+    vertical-align: 1px;
+  }
+
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  @media (max-width: 720px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.15s linear;
+  }
+
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .d-pink { background: var(--pink); }
+  .d-cyan { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 60vh;
+    padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--pink);
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 16ch;
+    position: relative; z-index: 2;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--cyan);
+  }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-top: 1.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-meta {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-fade);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    max-width: 54ch;
+    position: relative; z-index: 2;
+  }
+  .hero-meta span + span::before {
+    content: " · ";
+    color: var(--ink-fade);
+    padding: 0 0.15em;
+  }
+  .hero .dh1 { width: 280px; height: 280px; top: 8%; right: -3%; }
+  .hero .dh2 { width: 46px; height: 46px; bottom: 20%; right: 22%; }
+  .hero .dh3 { width: 20px; height: 20px; top: 30%; right: 34%; }
+
+  /* ============ FEATURED EPISODE (with Spotify embed) ============ */
+  .featured {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .featured-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .featured-label::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+  .featured-ep-no {
+    font-family: var(--hand);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 600;
+    line-height: 0.85;
+    color: var(--pink);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .featured-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    max-width: 22ch;
+  }
+  .featured-guest {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    color: var(--pink);
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    transform: rotate(-1deg);
+  }
+  .featured-excerpt {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-bottom: 2rem;
+    font-style: italic;
+    padding-left: 1rem;
+    border-left: 3px solid var(--ink);
+  }
+  .featured-excerpt em { font-style: normal; color: var(--ink); font-weight: 500; }
+
+  /* Spotify embed */
+  .player-wrap {
+    margin: 2rem 0 1rem;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 32px -14px rgba(44, 53, 68, 0.14);
+  }
+  .player-wrap iframe {
+    width: 100%;
+    height: 232px;
+    border: 0;
+    display: block;
+    background: #fff;
+  }
+  .player-hint {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--ink-fade);
+    display: inline-flex; align-items: baseline; gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .player-hint::before { content: "↑"; color: var(--pink); font-family: var(--sans); transform: translateY(2px); }
+
+  .featured-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+  .btn-secondary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .btn-secondary:hover { color: var(--pink); border-bottom-color: var(--pink); }
+
+  /* ============ SERIES (listen in order) ============ */
+  .series {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2.25rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .section-head h2 {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+  }
+  .section-head h2::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--cyan);
+  }
+  .section-head .aside {
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1.1rem;
+  }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+  }
+  .series-card {
+    position: relative;
+    padding: 2rem 1.75rem 2.25rem;
+    border-radius: 22px;
+    color: var(--ink);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .series-card:hover { transform: translateY(-4px); }
+  .series-card.s-pink { background: var(--pink); color: #fff; }
+  .series-card.s-cyan { background: var(--cyan); }
+  .series-card.s-yellow { background: var(--yellow); }
+
+  .series-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .series-card.s-pink .series-label { color: rgba(255,255,255,0.85); }
+  .series-title {
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3vw, 2.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0.75rem 0 1rem;
+  }
+  .series-title em {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-style: normal;
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 1em;
+  }
+  .series-count {
+    font-family: var(--hand);
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  .series-dur {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    letter-spacing: 0.05em;
+  }
+  .series-more {
+    margin-top: 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    align-self: flex-start;
+    padding-bottom: 3px;
+    border-bottom: 2px solid currentColor;
+  }
+  .series-card::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    width: 120px; height: 120px;
+    top: -20px; right: -30px;
+  }
+  .series-card.s-pink::after   { background: var(--yellow); opacity: 0.85; }
+  .series-card.s-cyan::after   { background: var(--pink); }
+  .series-card.s-yellow::after { background: var(--cyan); }
+
+  /* ============ BACKLOG ============ */
+  .backlog {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1080px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .backlog .section-head h2::before { background: var(--yellow); }
+
+  .bk-list { list-style: none; }
+  .bk-item {
+    display: grid;
+    grid-template-columns: 86px 1fr auto auto;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--rule);
+    transition: padding 0.2s;
+  }
+  .bk-item:first-child { border-top: 0; padding-top: 0.5rem; }
+  .bk-item:hover { padding-left: 0.5rem; color: var(--pink); }
+  .bk-se {
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--ink-fade);
+    font-weight: 500;
+    line-height: 1;
+  }
+  .bk-item:hover .bk-se { color: var(--pink); }
+  .bk-title {
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .bk-date {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-fade);
+    white-space: nowrap;
+  }
+  .bk-dur {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-fade);
+    white-space: nowrap;
+    min-width: 52px;
+    text-align: right;
+  }
+  @media (max-width: 720px) {
+    .bk-item {
+      grid-template-columns: 60px 1fr;
+      row-gap: 0.3rem;
+    }
+    .bk-date, .bk-dur { grid-column: 2 / -1; }
+  }
+
+  .backlog-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 2rem;
+    font-weight: 500;
+    font-size: 0.92rem;
+    padding-bottom: 2px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .backlog-more:hover { color: var(--pink); border-bottom-color: var(--pink); }
+
+  /* ============ SUBSCRIBE ============ */
+  .subscribe {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .subscribe-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .subscribe-label::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--pink);
+  }
+  .subscribe h2 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 22ch;
+    margin: 0 auto 1.5rem;
+  }
+  .subscribe h2 em { font-style: normal; color: var(--cyan); }
+  .subscribe-pills {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    transition: transform 0.25s, background 0.25s, color 0.25s;
+  }
+  .pill::before {
+    content: "♪";
+    font-size: 0.85rem;
+    color: var(--pink);
+  }
+  .pill:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .pill:hover::before { color: var(--yellow); }
+
+  /* ============ CLOSING ============ */
+  .closing {
+    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--ink);
+    margin-top: 2rem;
+  }
+  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+  .closing-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--yellow);
+  }
+  .closing h3 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+    position: relative; z-index: 2;
+  }
+  .closing h3 em { font-style: normal; color: var(--pink); }
+  .closing h3 a {
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px;
+    color: var(--pink);
+  }
+  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .closing .hint {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink-fade);
+    position: relative; z-index: 2;
+  }
+
+  .foot {
+    padding: 1.5rem var(--x) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="thread"><div class="thread-fill" id="tf"></div></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="home-chapters.html">joyus</a>
+    <div class="nav-links">
+      <a href="work-chapters.html">Work</a>
+      <a href="services-chapters.html">Services</a>
+      <a href="podcast-chapters.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    </div>
+  </nav>
+
+  <!-- =========== HERO =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-cyan"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-pink"></span>
+
+    <span class="hero-eyebrow">the podcast</span>
+    <h1>Thinking on <em>Thinking.</em></h1>
+    <p class="hero-sub">A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey.</p>
+    <p class="hero-meta">
+      <span>Hosted by Divya Tak &amp; Kahran Singh</span><span>82 episodes</span><span>since 2023</span>
+    </p>
+  </section>
+
+  <!-- =========== FEATURED (latest + Spotify embed) =========== -->
+  <section class="featured">
+    <span class="featured-label">most recent episode</span>
+
+    <div class="featured-ep-no">S7 · E14</div>
+    <h2 class="featured-title">Alternatives to Capitalism.</h2>
+    <span class="featured-guest">with Nomaan X</span>
+    <p class="featured-excerpt">
+      Kahran and Nomaan discuss values &amp; capitalism, public and private sectors, and higher education and scientific advancement <em>from the perspective of society.</em> Open, deeply interesting conversations on how to engage with the community, how to build a different kind of society.
+    </p>
+
+    <div class="player-wrap">
+      <iframe
+        src="https://open.spotify.com/embed/show/1tr060dblBf7kUvIQ1Qanz?utm_source=generator&theme=0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        title="Thinking on Thinking — Spotify player">
+      </iframe>
+    </div>
+    <span class="player-hint">latest episode plays at the top · scroll the embed for more</span>
+
+    <div class="featured-actions">
+      <a class="btn-secondary" href="podcast/alternatives-to-capitalism-with-nomaan-x.html">read the episode notes →</a>
+    </div>
+  </section>
+
+  <!-- =========== LISTEN IN ORDER (real series) =========== -->
+  <section class="series">
+    <div class="section-head">
+      <h2>listen in order</h2>
+      <span class="aside">multi-part threads</span>
+    </div>
+    <div class="series-grid">
+
+      <a class="series-card s-pink" href="#">
+        <div>
+          <span class="series-label">season 6 · 8 parts</span>
+          <h3 class="series-title">The Success <em>series</em></h3>
+        </div>
+        <div>
+          <div class="series-count">8 conversations</div>
+          <div class="series-dur">from the confoundedness of success to building motivation</div>
+          <span class="series-more">open the series →</span>
+        </div>
+      </a>
+
+      <a class="series-card s-cyan" href="#">
+        <div>
+          <span class="series-label">season 7 · 4 parts</span>
+          <h3 class="series-title">Story <em>vs telling</em></h3>
+        </div>
+        <div>
+          <div class="series-count">4 conversations</div>
+          <div class="series-dur">Kahran &amp; Divya on what makes a story land</div>
+          <span class="series-more">open the series →</span>
+        </div>
+      </a>
+
+      <a class="series-card s-yellow" href="#">
+        <div>
+          <span class="series-label">thinking on thinking</span>
+          <h3 class="series-title">Founder <em>interviews</em></h3>
+        </div>
+        <div>
+          <div class="series-count">Dozens of them</div>
+          <div class="series-dur">Smiqql · RocketHealth · Almora · MachPhy · Cranberry · Armoire · AdventureTripr</div>
+          <span class="series-more">browse all →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- =========== BACKLOG (real episodes) =========== -->
+  <section class="backlog">
+    <div class="section-head">
+      <h2>backlog</h2>
+      <span class="aside">older / from the shelf</span>
+    </div>
+    <ul class="bk-list">
+
+      <li><a class="bk-item" href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html">
+        <span class="bk-se">S7E13</span>
+        <span class="bk-title">Spilling Some Tea on Writing as Communication and Art</span>
+        <span class="bk-date">Aug 2025</span>
+        <span class="bk-dur">38 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html">
+        <span class="bk-se">S7E12</span>
+        <span class="bk-title">Balancing energy, expectations and perfectionism with Ambika Singh, Founder &amp; CEO Armoire</span>
+        <span class="bk-date">Aug 2025</span>
+        <span class="bk-dur">53 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/when-its-conforming-to-be-unique.html">
+        <span class="bk-se">S7E11</span>
+        <span class="bk-title">When it's Conforming to be Unique</span>
+        <span class="bk-date">Aug 2025</span>
+        <span class="bk-dur">41 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
+        <span class="bk-se">S7E10</span>
+        <span class="bk-title">Preeti Suri: Tips for Women Founders and Balancing Health &amp; Work</span>
+        <span class="bk-date">Jul 2025</span>
+        <span class="bk-dur">35 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/story-vs-telling-part-2.html">
+        <span class="bk-se">S7E7</span>
+        <span class="bk-title">Story vs Telling, Part 2</span>
+        <span class="bk-date">Jun 2025</span>
+        <span class="bk-dur">30 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/story-vs-telling-part-1.html">
+        <span class="bk-se">S7E6</span>
+        <span class="bk-title">Story vs Telling, Part 1</span>
+        <span class="bk-date">May 2025</span>
+        <span class="bk-dur">24 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/almora-crafting-desire-in-business.html">
+        <span class="bk-se">S7E5</span>
+        <span class="bk-title">Almora — Crafting Desire in Business</span>
+        <span class="bk-date">May 2025</span>
+        <span class="bk-dur">60 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/machphy-cool-glide-to-funding.html">
+        <span class="bk-se">S7E4</span>
+        <span class="bk-title">MachPhy — Cool Glide to Funding</span>
+        <span class="bk-date">Apr 2025</span>
+        <span class="bk-dur">46 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/cranberry-fit-diving-into-storytelling.html">
+        <span class="bk-se">S7E3</span>
+        <span class="bk-title">Cranberry.Fit — Diving into Storytelling</span>
+        <span class="bk-date">Apr 2025</span>
+        <span class="bk-dur">40 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/thinking-on-the-smiqql-acquisition-deck.html">
+        <span class="bk-se">S7E1</span>
+        <span class="bk-title">Thinking on the Smiqql Acquisition Deck</span>
+        <span class="bk-date">Feb 2025</span>
+        <span class="bk-dur">42 min</span>
+      </a></li>
+
+    </ul>
+    <a class="backlog-more" href="podcast.html">the full 82-episode archive →</a>
+  </section>
+
+  <!-- =========== SUBSCRIBE =========== -->
+  <section class="subscribe">
+    <span class="subscribe-label">follow along</span>
+    <h2>New episodes land irregularly. <em>Subscribe on your app of choice.</em></h2>
+    <div class="subscribe-pills">
+      <a class="pill" href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener">Spotify</a>
+      <a class="pill" href="https://podcasts.apple.com/us/podcast/id1636574012" target="_blank" rel="noopener">Apple Podcasts</a>
+      <a class="pill" href="https://www.iheart.com/podcast/" target="_blank" rel="noopener">iHeart</a>
+      <a class="pill" href="podcast.html">RSS / Feed</a>
+    </div>
+  </section>
+
+  <!-- =========== CLOSING =========== -->
+  <section class="closing">
+    <span class="dot dx1 d-pink"></span>
+    <span class="dot dx2 d-cyan"></span>
+    <span class="dot dx3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h3>A topic you wish someone was making an episode about? <em><a href="mailto:hello@joyus.studio">Tell us.</a></em></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

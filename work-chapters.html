@@ -42,9 +42,9 @@
     justify-content: space-between;
     align-items: center;
     z-index: 500;
-    pointer-events: none;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
   }
-  .nav > * { pointer-events: auto; }
   .nav-logo { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; color: var(--ink); }
   .nav-logo::after {
     content: "";
@@ -54,6 +54,21 @@
     background: var(--pink);
     margin-left: 0.35rem;
     vertical-align: 1px;
+  }
+
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  @media (max-width: 720px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
   }
 
   /* progress thread */
@@ -442,7 +457,13 @@
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
   <nav class="nav">
-    <a class="nav-logo" href="services-concepts.html">joyus</a>
+    <a class="nav-logo" href="home-chapters.html">joyus</a>
+    <div class="nav-links">
+      <a href="work-chapters.html">Work</a>
+      <a href="services-chapters.html">Services</a>
+      <a href="podcast-chapters.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    </div>
   </nav>
 
   <!-- =========== HERO =========== -->
