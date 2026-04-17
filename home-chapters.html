@@ -30,8 +30,6 @@
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
   }
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
 
@@ -45,15 +43,15 @@
     justify-content: space-between;
     align-items: center;
   }
-  .nav-logo { font-weight: 600; font-size: 1rem; color: var(--ink); letter-spacing: -0.01em; }
-  .nav-logo::after {
-    content: "";
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--pink);
-    margin-left: 0.35rem;
-    vertical-align: 1px;
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .nav-logo img {
+    height: 32px;
+    width: auto;
+    display: block;
   }
   .nav-links { display: flex; gap: 1.75rem; align-items: center; }
   .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
@@ -79,9 +77,11 @@
 
   /* ============ HERO — the intent moment ============ */
   .hero {
-    flex: 1;
+    /* fills the viewport exactly — nav sits above this in flow,
+       the closing section sits below the fold */
+    min-height: calc(100vh - 5rem);
     position: relative;
-    padding: clamp(2rem, 5vh, 4rem) 0 clamp(3rem, 7vh, 5rem);
+    padding: clamp(3rem, 8vh, 6rem) 0 clamp(3rem, 8vh, 6rem);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -141,7 +141,7 @@
   .intent-wrap {
     max-width: 680px;
     position: relative;
-    z-index: 2;
+    z-index: 20;
     margin-bottom: 2rem;
   }
   .intent-annotation {
@@ -369,7 +369,7 @@
 <body>
 
   <nav class="nav">
-    <a class="nav-logo" href="/">joyus</a>
+    <a class="nav-logo" href="/"><img src="images/logo.webp" alt="Joyus Studio" /></a>
     <div class="nav-links">
       <a href="work-chapters.html">Work</a>
       <a href="services-chapters.html">Services</a>

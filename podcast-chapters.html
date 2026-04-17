@@ -44,15 +44,15 @@
     background: rgba(250, 247, 242, 0.88);
     backdrop-filter: blur(8px);
   }
-  .nav-logo { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; color: var(--ink); }
-  .nav-logo::after {
-    content: "";
-    display: inline-block;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--pink);
-    margin-left: 0.35rem;
-    vertical-align: 1px;
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .nav-logo img {
+    height: 32px;
+    width: auto;
+    display: block;
   }
 
   .nav-links { display: flex; gap: 1.75rem; align-items: center; }
@@ -562,7 +562,7 @@
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
   <nav class="nav">
-    <a class="nav-logo" href="home-chapters.html">joyus</a>
+    <a class="nav-logo" href="home-chapters.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
     <div class="nav-links">
       <a href="work-chapters.html">Work</a>
       <a href="services-chapters.html">Services</a>
