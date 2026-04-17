@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home — Style Y Pinboard · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --green: #5BBD72;
+    --violet: #A87BD9;
+    --peach: #E8734A;
+    --earth: #C49A6C;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  a, button { color: inherit; text-decoration: none; transition: color 0.2s; font-family: inherit; }
+
+  /* nav */
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem var(--x); max-width: 1400px; margin: 0 auto; width: 100%;
+    position: relative; z-index: 10;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta { border-bottom: 1.5px solid var(--ink); padding-bottom: 2px; }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-soft); }
+
+  /* intro line */
+  .intro-line {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.5rem var(--x) 1rem;
+    width: 100%;
+  }
+  .intro-line span {
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--ink-soft);
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+  .intro-line span::before {
+    content: "↓";
+    color: var(--pink);
+    transform: translateY(2px) rotate(-20deg);
+    display: inline-block;
+  }
+  .intro-line small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+    color: var(--ink-fade);
+    margin-top: 0.25rem;
+  }
+
+  /* ===== pinboard ===== */
+  .pinboard {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    flex: 1;
+    padding: 0 var(--x) 3rem;
+  }
+  .pinboard-inner {
+    position: relative;
+    width: 100%;
+    height: clamp(720px, 88vh, 920px);
+    min-height: 720px;
+  }
+
+  .artifact {
+    position: absolute;
+    transform-origin: center;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.3s, filter 0.4s;
+    will-change: transform;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    color: inherit;
+    font-family: inherit;
+    z-index: 1;
+  }
+  .artifact:hover {
+    z-index: 30;
+    filter: drop-shadow(0 16px 28px rgba(17,18,20,0.2));
+  }
+  .artifact:hover .art-inner {
+    transform: scale(1.04) rotate(0deg);
+  }
+  .art-inner {
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+  }
+  /* pushpin */
+  .art-inner::before {
+    content: "";
+    position: absolute;
+    top: -6px; left: 50%;
+    transform: translateX(-50%);
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--pink);
+    box-shadow: inset 0 -2px 3px rgba(0,0,0,0.3), 0 2px 4px rgba(17,18,20,0.35);
+    z-index: 2;
+  }
+  .artifact[data-pin="cyan"] .art-inner::before { background: var(--cyan); }
+  .artifact[data-pin="mustard"] .art-inner::before { background: var(--mustard); }
+  .artifact[data-pin="ink"] .art-inner::before { background: var(--ink); }
+  .artifact[data-pin="none"] .art-inner::before { display: none; }
+
+  .art-client {
+    display: block;
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink-fade);
+    margin-top: 0.5rem;
+    text-align: center;
+  }
+
+  /* ============ STICKY NOTE · intent box ============ */
+  .sticky-intent {
+    position: absolute;
+    top: 28%;
+    left: 35%;
+    z-index: 10 !important;
+    width: clamp(280px, 30vw, 380px);
+  }
+  .sticky-intent .art-inner {
+    background: #FCEAA0;
+    padding: 1.5rem 1.5rem 1.75rem;
+    box-shadow: 4px 6px 14px rgba(17,18,20,0.15);
+    transform: rotate(-2deg);
+  }
+  .sticky-intent .art-inner::before { background: var(--ink); }
+  .sticky-intent h2 {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .sticky-intent .sub {
+    font-family: var(--sans);
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .sticky-intent .intent-box {
+    display: flex;
+    align-items: center;
+    background: var(--cream);
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    padding: 0.3rem 0.4rem 0.3rem 1.1rem;
+    transition: box-shadow 0.3s, transform 0.3s;
+    box-shadow: 4px 4px 0 var(--pink);
+  }
+  .sticky-intent .intent-box:focus-within {
+    box-shadow: 4px 4px 0 var(--cyan);
+    transform: translate(-1px, -1px);
+  }
+  .sticky-intent input {
+    flex: 1; border: 0; background: transparent;
+    padding: 0.65rem 0.5rem 0.65rem 0;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink);
+    outline: none;
+    min-width: 0;
+  }
+  .sticky-intent input::placeholder { color: #a9a49b; font-style: italic; }
+  .sticky-intent .arrow {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--cream);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.95rem;
+    border: 0; cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .sticky-intent .intent-box:focus-within .arrow {
+    background: var(--pink);
+    transform: translateX(3px);
+  }
+  .sticky-intent .hint {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-top: 0.75rem;
+    display: block;
+    line-height: 1.1;
+  }
+
+  /* suggestions — stick out below the sticky */
+  .sticky-intent .suggestions {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 10px;
+    box-shadow: 0 12px 30px rgba(17,18,20,0.12);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+    z-index: 15;
+  }
+  .sticky-intent .suggestions.open {
+    opacity: 1; transform: translateY(0); pointer-events: auto;
+  }
+  .sticky-intent .sug {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--rule);
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: #fff;
+  }
+  .sticky-intent .sug:first-child { border-top: 0; }
+  .sticky-intent .sug:hover { background: var(--cream); color: var(--pink); }
+  .sticky-intent .sug-dest { font-family: var(--hand); color: var(--ink-fade); font-size: 0.95rem; }
+
+  /* ============ POLAROID · about ============ */
+  .art-polaroid-about {
+    position: absolute;
+    top: 2%;
+    left: 3%;
+    z-index: 3;
+  }
+  .art-polaroid-about .art-inner {
+    width: 180px;
+    background: #fff;
+    padding: 10px 10px 40px;
+    box-shadow: 0 6px 14px rgba(17,18,20,0.12);
+    transform: rotate(-5deg);
+  }
+  .art-polaroid-about .p-img {
+    width: 100%; aspect-ratio: 1;
+    background: linear-gradient(135deg, #E8B84A 0%, #C49A6C 100%);
+    position: relative;
+  }
+  .art-polaroid-about .p-img::after {
+    content: "K · D";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(17,18,20,0.55);
+    font-family: var(--hand);
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .art-polaroid-about .p-cap {
+    position: absolute;
+    bottom: 10px; left: 0; right: 0;
+    text-align: center;
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+  .art-polaroid-about .p-cap small {
+    display: block;
+    font-family: var(--sans);
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-top: 0.1rem;
+  }
+
+  /* ============ DECK SLIDE · recent work ============ */
+  .art-slide {
+    position: absolute;
+    top: 4%;
+    right: 4%;
+    z-index: 4;
+  }
+  .art-slide .art-inner {
+    width: 240px;
+    background: #fff;
+    padding: 1rem 1.1rem 1.25rem;
+    border: 1px solid var(--rule);
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+    transform: rotate(4deg);
+  }
+  .art-slide .slide-bar { height: 5px; background: var(--pink); width: 35%; margin-bottom: 0.6rem; }
+  .art-slide .slide-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-bottom: 0.4rem;
+  }
+  .art-slide h3 {
+    font-weight: 600; font-size: 1.05rem;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .art-slide .slide-meta {
+    display: flex; gap: 0.5rem;
+    font-size: 0.68rem;
+    color: var(--ink-fade);
+    font-family: var(--sans);
+    letter-spacing: 0.05em;
+  }
+  .art-slide .slide-note {
+    position: absolute;
+    top: -10px; right: -48px;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--pink);
+    background: #fffbe2;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    box-shadow: 1px 2px 4px rgba(0,0,0,0.08);
+    transform: rotate(10deg);
+  }
+
+  /* ============ TICKET STUB · podcast ============ */
+  .art-ticket {
+    position: absolute;
+    top: 38%;
+    left: 2%;
+    z-index: 3;
+  }
+  .art-ticket .art-inner {
+    width: 260px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.8rem 1rem 0.85rem 1.3rem;
+    transform: rotate(-6deg);
+    box-shadow: 0 6px 14px rgba(17,18,20,0.18);
+    display: flex;
+    align-items: stretch;
+    gap: 0.75rem;
+    clip-path: polygon(0 0, 88% 0, 88% 15%, 92% 15%, 92% 20%, 88% 20%, 88% 35%, 92% 35%, 92% 40%, 88% 40%, 88% 55%, 92% 55%, 92% 60%, 88% 60%, 88% 75%, 92% 75%, 92% 80%, 88% 80%, 88% 100%, 0 100%);
+  }
+  .art-ticket .tk-left { flex: 1; }
+  .art-ticket .tk-label {
+    font-family: var(--sans);
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--mustard);
+    margin-bottom: 0.4rem;
+  }
+  .art-ticket h3 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    margin-bottom: 0.5rem;
+  }
+  .art-ticket .tk-meta {
+    font-size: 0.7rem;
+    color: rgba(251, 247, 240, 0.6);
+    font-family: var(--sans);
+    letter-spacing: 0.03em;
+  }
+  .art-ticket .tk-play {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    background: var(--pink);
+    color: var(--cream);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    align-self: center;
+    flex-shrink: 0;
+    margin-right: 0.5rem;
+  }
+
+  /* ============ TORN QUOTE · thinking ============ */
+  .art-quote {
+    position: absolute;
+    top: 60%;
+    left: 40%;
+    z-index: 4;
+  }
+  .art-quote .art-inner {
+    width: 260px;
+    background: #fff;
+    padding: 1.15rem 1.3rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink);
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+    transform: rotate(3deg);
+    clip-path: polygon(3% 5%, 15% 0, 30% 6%, 48% 1%, 66% 7%, 82% 2%, 97% 6%, 100% 24%, 97% 48%, 100% 70%, 96% 92%, 82% 96%, 62% 100%, 40% 95%, 20% 100%, 5% 96%, 0 76%, 3% 50%, 0 24%);
+  }
+  .art-quote .q-open {
+    font-family: var(--hand);
+    font-size: 2rem;
+    color: var(--pink);
+    line-height: 0.3;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .art-quote em { color: var(--ink-soft); font-style: normal; font-weight: 500; }
+  .art-quote .q-cite {
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1rem;
+    display: block;
+    margin-top: 0.75rem;
+  }
+
+  /* ============ SWATCH · design artifact ============ */
+  .art-swatch {
+    position: absolute;
+    top: 52%;
+    right: 22%;
+    z-index: 3;
+  }
+  .art-swatch .art-inner {
+    width: 170px;
+    background: #DB6E4A;
+    padding: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(17,18,20,0.08);
+    transform: rotate(-5deg);
+  }
+  .art-swatch .sw-grid {
+    display: flex; gap: 6px; margin-bottom: 0.7rem;
+  }
+  .art-swatch .sw-grid > div {
+    flex: 1; aspect-ratio: 1; border-radius: 3px;
+  }
+  .art-swatch .sw-grid .s1 { background: #F0C9A0; }
+  .art-swatch .sw-grid .s2 { background: #8E3D2A; }
+  .art-swatch .sw-grid .s3 { background: #F9E9D6; }
+  .art-swatch .sw-grid .s4 { background: #D77F5A; }
+  .art-swatch .sw-label {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: var(--cream);
+    margin-bottom: 0.2rem;
+  }
+  .art-swatch .sw-sub {
+    font-family: var(--hand);
+    font-size: 0.9rem;
+    color: var(--cream);
+    opacity: 0.8;
+  }
+
+  /* ============ COMIC PANEL · comics ============ */
+  .art-comic {
+    position: absolute;
+    bottom: 6%;
+    right: 6%;
+    z-index: 3;
+  }
+  .art-comic .art-inner {
+    width: 200px;
+    background: #fff;
+    border: 2px solid var(--ink);
+    padding: 0;
+    transform: rotate(5deg);
+    box-shadow: 0 6px 14px rgba(17,18,20,0.12);
+  }
+  .art-comic .panel-1 {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: linear-gradient(135deg, #FCEAA0 50%, #f9d560 50%);
+    position: relative;
+    border-bottom: 2px solid var(--ink);
+  }
+  .art-comic .bubble {
+    position: absolute;
+    top: 10px; left: 10px;
+    background: var(--cream);
+    border: 1.5px solid var(--ink);
+    padding: 3px 7px;
+    font-family: var(--hand);
+    font-size: 0.8rem;
+    color: var(--ink);
+    border-radius: 10px;
+    line-height: 1;
+  }
+  .art-comic .figure {
+    position: absolute;
+    bottom: 5px; right: 15px;
+    width: 30px; height: 40px;
+    background: var(--ink);
+    border-radius: 50% 50% 25% 25%;
+  }
+  .art-comic .caption {
+    padding: 0.5rem 0.75rem;
+    font-family: var(--hand);
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+
+  /* ============ BUSINESS CARD · contact ============ */
+  .art-card {
+    position: absolute;
+    bottom: 12%;
+    left: 24%;
+    z-index: 4;
+  }
+  .art-card .art-inner {
+    width: 230px;
+    background: var(--cream);
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--rule);
+    box-shadow: 0 6px 14px rgba(17,18,20,0.1);
+    transform: rotate(-3deg);
+    display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .art-card .c-name {
+    font-weight: 600; font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .art-card .c-role {
+    font-family: var(--hand);
+    color: var(--pink);
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+  }
+  .art-card .c-email {
+    font-size: 0.88rem;
+    font-family: var(--sans);
+    border-top: 1px solid var(--rule);
+    padding-top: 0.4rem;
+    margin-top: 0.25rem;
+    color: var(--ink);
+  }
+  .art-card .c-divider {
+    height: 4px; background: var(--ink); width: 20%;
+  }
+
+  /* responsive */
+  @media (max-width: 960px) {
+    .sticky-intent { top: 22%; left: 8%; width: clamp(260px, 60vw, 340px); }
+    .art-polaroid-about .art-inner { width: 140px; }
+    .art-slide .art-inner { width: 200px; }
+    .art-ticket .art-inner { width: 220px; }
+    .art-quote .art-inner { width: 220px; }
+  }
+  @media (max-width: 720px) {
+    /* collapse pinboard to a vertical flow on mobile */
+    .pinboard-inner {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 2rem 0;
+    }
+    .artifact {
+      position: static !important;
+    }
+    .art-inner {
+      transform: none !important;
+    }
+    .sticky-intent { width: 100%; max-width: 360px; }
+    .intro-line { padding-top: 1rem; }
+  }
+
+  /* closing + footer */
+  .closing {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
+    border-top: 1px solid var(--rule);
+  }
+  .closing h3 {
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .closing h3 em {
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .closing .hint {
+    font-family: var(--hand);
+    color: var(--ink-soft);
+    font-size: 1.1rem;
+    display: block;
+  }
+
+  .foot {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <div class="nav-links">
+      <a href="work-concept-3-verbs.html">Work</a>
+      <a href="services-concept-3-verbs.html">Services</a>
+      <a href="#" style="pointer-events: none; opacity: 0.5;">Podcast</a>
+      <a href="#" style="pointer-events: none; opacity: 0.5;">About</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+      <a class="nav-back" href="services-concepts.html">← concepts</a>
+    </div>
+  </nav>
+
+  <div class="intro-line">
+    <span>this is the studio wall. have a look around.</span>
+    <small>type what you need in the yellow sticky — or pick up any artifact and follow it.</small>
+  </div>
+
+  <section class="pinboard" id="pinboard">
+    <div class="pinboard-inner" id="board">
+
+      <!-- sticky note · intent box -->
+      <div class="artifact sticky-intent" data-pin="ink" style="--rot: -2deg;">
+        <div class="art-inner">
+          <h2>Tell us what you<br/>need. We'll figure<br/>it out.</h2>
+          <span class="sub">We think with everyone. We build with a few.</span>
+          <form class="intent-box" onsubmit="event.preventDefault(); submitIntent();">
+            <input id="intentInput" type="text"
+                   placeholder="I need…"
+                   autocomplete="off"
+                   aria-label="Tell us what you need" />
+            <button class="arrow" type="submit" aria-label="Submit">→</button>
+          </form>
+          <span class="hint">or pick up one of the pinned pieces ↙</span>
+
+          <div class="suggestions" id="suggestions">
+            <div class="sug" data-url="work-concept-3-verbs.html"><span>help with a pitch deck</span><span class="sug-dest">→ TomboyX</span></div>
+            <div class="sug" data-url="work-concept-3-verbs.html"><span>launch a product from zero</span><span class="sug-dest">→ Klydo</span></div>
+            <div class="sug" data-url="work-concept-3-verbs.html"><span>a brand that feels like me</span><span class="sug-dest">→ Tatsam</span></div>
+            <div class="sug" data-url="services-concept-3-verbs.html"><span>to just think with someone</span><span class="sug-dest">→ advisory</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- polaroid · about -->
+      <a class="artifact art-polaroid-about" data-pin="pink" href="#" onclick="event.preventDefault(); alert('(would link to /about)')">
+        <div class="art-inner">
+          <div class="p-img"></div>
+          <div class="p-cap">
+            Kahran &amp; Divya
+            <small>about us</small>
+          </div>
+        </div>
+        <span class="art-client">the two of us</span>
+      </a>
+
+      <!-- deck slide · recent work -->
+      <a class="artifact art-slide" data-pin="cyan" href="work-concept-3-verbs.html">
+        <div class="art-inner">
+          <div class="slide-bar"></div>
+          <div class="slide-label">from the studio</div>
+          <h3>Three decks instead of one.</h3>
+          <div class="slide-meta">
+            <span>TomboyX</span> · <span>2025</span> · <span>$5M raised</span>
+          </div>
+          <span class="slide-note">8 wks · closed ✓</span>
+        </div>
+        <span class="art-client">recent work → open the gallery</span>
+      </a>
+
+      <!-- ticket · podcast -->
+      <a class="artifact art-ticket" data-pin="mustard" href="#" onclick="event.preventDefault(); alert('(would open latest podcast episode)')">
+        <div class="art-inner">
+          <div class="tk-left">
+            <div class="tk-label">ep 503 · new this week</div>
+            <h3>Building &amp; selling a food business.</h3>
+            <div class="tk-meta">with Smiqql's Dina · 52 min</div>
+          </div>
+          <div class="tk-play">▶</div>
+        </div>
+        <span class="art-client">podcast → listen</span>
+      </a>
+
+      <!-- torn quote · thinking -->
+      <a class="artifact art-quote" data-pin="none" href="thinking/the-two-person-studio.html">
+        <div class="art-inner">
+          <span class="q-open">&ldquo;</span>
+          Joyus is two people <em>by design</em>, not by constraint. Adding people should cost more than it saves — and most of the time, it does.
+          <span class="q-cite">— The two-person studio</span>
+        </div>
+        <span class="art-client">from the thinking → read it</span>
+      </a>
+
+      <!-- swatch · design artifact -->
+      <a class="artifact art-swatch" data-pin="cyan" href="work-concept-3-verbs.html">
+        <div class="art-inner">
+          <div class="sw-grid">
+            <div class="s1"></div>
+            <div class="s2"></div>
+            <div class="s3"></div>
+            <div class="s4"></div>
+          </div>
+          <div class="sw-label">Secret Senses</div>
+          <div class="sw-sub">paisley · watercolor</div>
+        </div>
+        <span class="art-client">a brand we drew</span>
+      </a>
+
+      <!-- comic panel · comics -->
+      <a class="artifact art-comic" data-pin="pink" href="#" onclick="event.preventDefault(); alert('(would link to /comics)')">
+        <div class="art-inner">
+          <div class="panel-1">
+            <div class="bubble">...but is it a friend?</div>
+            <div class="figure"></div>
+          </div>
+          <div class="caption">from The Friend Comic →</div>
+        </div>
+        <span class="art-client">comics we make</span>
+      </a>
+
+      <!-- business card · contact -->
+      <a class="artifact art-card" data-pin="ink" href="mailto:hello@joyus.studio">
+        <div class="art-inner">
+          <div class="c-role">be our friends</div>
+          <div class="c-name">Kahran &amp; Divya</div>
+          <div class="c-divider"></div>
+          <div class="c-email">hello@joyus.studio</div>
+        </div>
+        <span class="art-client">or just email</span>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="closing">
+    <h3>That's about it. <em>Everything is a link — poke around.</em></h3>
+    <span class="hint">we rearrange the wall weekly · nothing auto-generated</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    // Suggestions for intent box
+    const input = document.getElementById('intentInput');
+    const sug = document.getElementById('suggestions');
+    input.addEventListener('focus', () => sug.classList.add('open'));
+    input.addEventListener('blur', () => setTimeout(() => sug.classList.remove('open'), 150));
+    document.querySelectorAll('.sticky-intent .sug').forEach(s => {
+      s.addEventListener('mousedown', () => {
+        const url = s.dataset.url;
+        if (url) window.location.href = url;
+      });
+    });
+    function submitIntent() {
+      const v = input.value.trim();
+      if (!v) return;
+      alert('(in real home, this opens the interstitial with "' + v + '")');
+    }
+
+    // Mouse parallax on the pinboard
+    const board = document.getElementById('board');
+    const pinboard = document.getElementById('pinboard');
+    const artifacts = board.querySelectorAll('.artifact');
+
+    // Save each artifact's .art-inner base rotation
+    artifacts.forEach((a, i) => {
+      const inner = a.querySelector('.art-inner');
+      if (!inner) return;
+      const style = getComputedStyle(inner);
+      const m = inner.style.transform.match(/rotate\(([-\d.]+)deg\)/);
+      a.dataset.rot = m ? m[1] : 0;
+      // depth by index mod 3
+      a.dataset.depth = (i % 3 + 1) * 5;
+    });
+
+    let mx = 0, my = 0, raf = null;
+
+    pinboard.addEventListener('mousemove', (e) => {
+      // don't drift while typing
+      if (document.activeElement === input) return;
+      const r = pinboard.getBoundingClientRect();
+      mx = (e.clientX - r.left) / r.width - 0.5;
+      my = (e.clientY - r.top) / r.height - 0.5;
+      if (!raf) raf = requestAnimationFrame(update);
+    });
+    pinboard.addEventListener('mouseleave', () => {
+      mx = 0; my = 0;
+      if (!raf) raf = requestAnimationFrame(update);
+    });
+
+    function update() {
+      artifacts.forEach(a => {
+        if (a.matches(':hover')) return;
+        const inner = a.querySelector('.art-inner');
+        if (!inner) return;
+        const d = a.dataset.depth || 5;
+        const dx = mx * d, dy = my * d;
+        const rot = a.dataset.rot || 0;
+        inner.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+      });
+      raf = null;
+    }
+  </script>
+
+</body>
+</html>

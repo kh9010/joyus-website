@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joyus Studio — Studio Atelier concept</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   Studio Atelier — Concept A
+   Disciplined, archival, typographic, curatorial.
+   ========================================================= */
+
+:root{
+  /* Type */
+  --sans: 'Archivo', 'Inter', system-ui, sans-serif;
+  --serif: 'Fraunces', Georgia, serif;
+  --mono: 'JetBrains Mono', ui-monospace, monospace;
+  --hand: 'Caveat', cursive;
+
+  /* Type scale */
+  --fs-micro: 11px;
+  --fs-eyebrow: 12px;
+  --fs-label: 13px;
+  --fs-body: 16px;
+  --fs-lede: 20px;
+  --fs-h3: 26px;
+  --fs-h2: 40px;
+  --fs-h1: clamp(52px, 7.2vw, 112px);
+  --fs-display: clamp(72px, 11vw, 168px);
+
+  --lh-tight: 0.96;
+  --lh-snug: 1.1;
+  --lh-body: 1.55;
+
+  /* Colors — paper-forward with single spot accent */
+  --paper: #F4F1EA;          /* warm archival paper */
+  --paper-2: #EDE8DC;        /* subtle band */
+  --ink: #111214;            /* deep ink */
+  --ink-2: #2B2C2F;          /* secondary */
+  --rule: #1112141A;         /* hairline */
+  --rule-2: #11121412;
+
+  --pink: #E91E7B;           /* Joyus pink */
+  --cyan: #4FC4CF;           /* Joyus cyan */
+  --ochre: #D4A843;          /* behavior accent */
+  --green: #5BBD72;          /* play accent */
+  --amber: #E8734A;          /* creative accent */
+
+  --spot: var(--pink);       /* current spot accent */
+
+  /* Layout */
+  --gutter: clamp(20px, 4vw, 56px);
+  --maxw: 1440px;
+  --col: minmax(0, 1fr);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{background:var(--paper)}
+body{
+  font-family: var(--sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing:antialiased;
+  font-feature-settings:"ss01","cv11","liga";
+}
+a{color:inherit; text-decoration:none}
+button{font:inherit; color:inherit; background:none; border:0; cursor:pointer}
+img{display:block; max-width:100%; height:auto}
+
+/* Archival paper texture (very faint) */
+body::before{
+  content:"";
+  position:fixed; inset:0;
+  pointer-events:none; z-index:0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, #fff7 0%, transparent 60%),
+    radial-gradient(800px 500px at 110% 20%, #0001 0%, transparent 60%);
+  mix-blend-mode:multiply;
+}
+
+.shell{
+  position:relative; z-index:1;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+/* =====================  NAV  ===================== */
+.nav{
+  display:grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items:center;
+  padding: 22px 0 18px;
+  border-bottom: 1px solid var(--rule);
+  position: sticky; top:0; z-index: 20;
+  background: color-mix(in oklab, var(--paper) 92%, transparent);
+  backdrop-filter: saturate(120%) blur(6px);
+}
+.nav__meta{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  display:flex; gap:18px;
+}
+.nav__meta b{font-weight:500; color:var(--ink)}
+.nav__logo{
+  display:flex; align-items:center; justify-content:center;
+  gap: 10px;
+}
+.nav__logo img{height:28px; width:auto}
+.nav__links{
+  justify-self:end;
+  display:flex; gap: 28px;
+  font-size: var(--fs-label);
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.nav__links a{position:relative; padding: 4px 0}
+.nav__links a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-2px;
+  height:1px; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .35s cubic-bezier(.2,.7,.2,1);
+}
+.nav__links a:hover::after{transform: scaleX(1)}
+.nav__cta{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  margin-left: 12px;
+  transition: background .25s ease, color .25s ease;
+}
+.nav__cta:hover{background: var(--ink); color: var(--paper)}
+
+/* =====================  HERO  ===================== */
+.hero{
+  position:relative;
+  padding: 88px 0 64px;
+  border-bottom: 1px solid var(--rule);
+}
+.hero__index{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  display:flex; gap:22px; align-items:center;
+  margin-bottom: 44px;
+}
+.hero__index .dot{
+  width:6px; height:6px; border-radius:50%;
+  background: var(--spot);
+  display:inline-block;
+}
+.hero__h1{
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.03em;
+  margin: 0 0 36px;
+  max-width: 16ch;
+}
+.hero__h1 em{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+}
+.hero__h1 .spot{
+  color: var(--spot);
+}
+
+.hero__grid{
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap: clamp(24px, 4vw, 72px);
+  align-items: end;
+}
+.hero__lede{
+  font-size: var(--fs-lede);
+  line-height: 1.42;
+  color: var(--ink-2);
+  max-width: 48ch;
+  margin: 0;
+}
+.hero__lede b{color: var(--ink); font-weight: 600}
+
+/* Intent box — the key interaction */
+.intent{
+  position: relative;
+  margin-top: 40px;
+  grid-column: 1 / -1;
+}
+.intent__label{
+  display:flex; align-items:center; gap: 10px;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 10px;
+}
+.intent__label::before{
+  content:""; width: 18px; height:1px; background: var(--ink);
+}
+.intent__row{
+  display:flex; align-items: baseline; gap: 14px;
+  padding: 14px 0 12px;
+  border-bottom: 1.5px solid var(--ink);
+  position: relative;
+}
+.intent__row::after{
+  content:""; position:absolute; left:0; bottom:-1.5px; height: 2px;
+  width: 0; background: var(--spot);
+  transition: width .5s cubic-bezier(.2,.7,.2,1);
+}
+.intent__row.is-focus::after{width: 100%}
+.intent__prefix{
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: clamp(28px, 4.2vw, 44px);
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+#intentInput{
+  flex: 1;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(26px, 3.8vw, 40px);
+  letter-spacing: -0.01em;
+  border: 0; outline: 0; background: transparent;
+  color: var(--ink);
+  padding: 0;
+}
+#intentInput::placeholder{color: #1112147a}
+.intent__enter{
+  font-family: var(--mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--ink);
+  transition: background .25s ease, color .25s ease, transform .25s ease;
+  white-space:nowrap;
+}
+.intent__enter:hover{background: var(--ink); color: var(--paper); transform: translateY(-1px)}
+
+#intentSuggestions{
+  margin-top: 18px;
+  display:grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--rule);
+}
+.sug{
+  display:grid;
+  grid-template-columns: 56px 1fr auto 120px;
+  gap: 20px;
+  align-items: center;
+  padding: 16px 6px;
+  border-bottom: 1px solid var(--rule);
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease, padding-left .25s ease;
+}
+.sug:hover{
+  background: #11121408;
+  transform: translateY(-1px);
+  padding-left: 14px;
+}
+.sug__num{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  color: var(--ink-2);
+}
+.sug__text{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 17px;
+  letter-spacing: -0.005em;
+}
+.sug__text em{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+.sug__arrow{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink-2);
+  letter-spacing: .01em;
+}
+.sug__case{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-align: right;
+  position: relative;
+  padding-right: 18px;
+}
+.sug__case::after{
+  content:"→"; position:absolute; right:0; top:50%; transform:translateY(-50%);
+  font-family: var(--sans); font-weight: 500; font-size: 14px;
+  transition: transform .3s ease;
+}
+.sug:hover .sug__case::after{transform: translate(4px, -50%)}
+
+/* Deck-ish concentric arcs + dot grid */
+.hero__arcs{
+  position:absolute; top: 24px; right: calc(var(--gutter) * -.2);
+  width: min(380px, 32vw); aspect-ratio: 1;
+  pointer-events:none; opacity:.85;
+}
+.hero__arcs svg{width:100%; height:100%}
+.dot-grid{
+  position:absolute; bottom: 34px; left: calc(var(--gutter) - 8px);
+  display:grid; grid-template-columns: repeat(5, 6px); gap: 14px;
+  opacity:.7;
+}
+.dot-grid span{
+  width:6px; height:6px; border-radius:50%; background: var(--spot);
+}
+.dot-grid span:nth-child(3n){background: var(--ink)}
+.dot-grid span:nth-child(5n){background: var(--cyan)}
+
+/* Handwritten margin annotations */
+.annot{
+  position: absolute;
+  font-family: var(--hand);
+  font-weight: 500;
+  color: var(--ink-2);
+  font-size: 22px;
+  line-height: 1.15;
+  max-width: 200px;
+  pointer-events: none;
+}
+.annot svg{
+  position:absolute;
+  width: 100px; height: 60px;
+  overflow: visible;
+}
+.annot--hero{
+  top: 44%;
+  right: calc(var(--gutter) + 8px);
+  transform: rotate(-3deg);
+  max-width: 190px;
+  text-align: left;
+}
+.annot--hero svg{left: -78px; top: 14px; transform: rotate(14deg)}
+
+/* =====================  PROOF STRIP  ===================== */
+.proof{
+  padding: 36px 0 40px;
+  border-bottom: 1px solid var(--rule);
+}
+.proof__eyebrow{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+}
+.proof__grid{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.stat{
+  border-left: 1px solid var(--rule);
+  padding: 6px 0 8px 18px;
+}
+.stat:first-child{border-left: 0; padding-left: 0}
+.stat__n{
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(32px, 3.2vw, 46px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.stat__n span{color: var(--spot)}
+.stat__l{
+  font-family: var(--sans);
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.35;
+  max-width: 28ch;
+}
+.stat__tag{
+  display:inline-block;
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+/* =====================  SELECTED WORK  ===================== */
+.work{
+  padding: 88px 0 96px;
+  position: relative;
+  border-bottom: 1px solid var(--rule);
+}
+.work__head{
+  display:grid;
+  grid-template-columns: auto 1fr auto;
+  align-items:end;
+  gap: 32px;
+  margin-bottom: 48px;
+}
+.work__title{
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: var(--fs-h2);
+  letter-spacing: -0.025em;
+  line-height: 1;
+  margin: 0;
+}
+.work__title em{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.work__rule{
+  height: 1px;
+  background: var(--ink);
+  align-self: center;
+  margin-bottom: 10px;
+}
+.work__meta{
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  text-align:right;
+  line-height: 1.4;
+}
+
+.work__grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 36px 32px;
+}
+.card{
+  display:block;
+  position:relative;
+  cursor:pointer;
+  transition: transform .4s cubic-bezier(.2,.7,.2,1);
+}
+.card:hover{transform: translateY(-4px)}
+.card__frame{
+  position:relative;
+  aspect-ratio: 4/5;
+  background: var(--paper-2);
+  overflow:hidden;
+  border-radius: 2px;
+}
+.card__frame img{
+  width:100%; height:100%;
+  object-fit: cover;
+  transition: transform .8s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+  filter: saturate(.92) contrast(.98);
+}
+.card:hover .card__frame img{transform: scale(1.04); filter: saturate(1) contrast(1)}
+.card__badge{
+  position:absolute; top: 14px; left: 14px;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--ink);
+  z-index: 2;
+}
+.card__index{
+  position:absolute; bottom: 14px; right: 16px;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  color: var(--paper);
+  mix-blend-mode: difference;
+  z-index: 2;
+}
+.card__meta{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px 12px;
+  padding-top: 14px;
+}
+.card__client{
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.015em;
+}
+.card__client em{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+}
+.card__year{
+  font-family: var(--mono);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: .14em;
+  color: var(--ink-2);
+  align-self: center;
+}
+.card__scope{
+  grid-column: 1 / -1;
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.45;
+  max-width: 38ch;
+}
+.card__tags{
+  grid-column: 1 / -1;
+  display:flex; flex-wrap:wrap; gap: 6px;
+  margin-top: 2px;
+}
+.tag{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--ink-2);
+}
+.card.accent-cyan .card__frame{box-shadow: inset 0 0 0 1px #11121410}
+.card.accent-cyan .tag.is-spot{border-color: var(--cyan); color: var(--cyan)}
+.card.accent-pink .tag.is-spot{border-color: var(--pink); color: var(--pink)}
+.card.accent-ochre .tag.is-spot{border-color: var(--ochre); color: var(--ochre)}
+
+/* Marker strip between hero + work */
+.ticker{
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 18px 0;
+  overflow: hidden;
+  background: var(--paper);
+}
+.ticker__track{
+  display:flex;
+  gap: 40px;
+  animation: scroll 42s linear infinite;
+  white-space: nowrap;
+  font-family: var(--mono);
+  font-size: var(--fs-label);
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.ticker__track span{display:inline-flex; align-items:center; gap:14px}
+.ticker__track em{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink);
+  font-size: 16px;
+}
+.ticker__track b{color: var(--spot); font-weight: 500}
+@keyframes scroll{
+  from{transform: translateX(0)}
+  to{transform: translateX(-50%)}
+}
+
+/* =====================  CTA FOOTER  ===================== */
+.foot{
+  padding: 120px 0 72px;
+  position: relative;
+  background: var(--paper);
+}
+.foot__grid{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 40px;
+}
+.foot__say{
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: var(--fs-display);
+  line-height: .92;
+  letter-spacing: -0.045em;
+  margin: 0 0 18px;
+}
+.foot__say em{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+.foot__say .spot{color: var(--spot)}
+.foot__email{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: clamp(22px, 2.4vw, 32px);
+  letter-spacing: -0.015em;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 4px;
+  display:inline-block;
+  transition: color .3s ease, border-color .3s ease, transform .3s ease;
+}
+.foot__email:hover{color: var(--spot); border-color: var(--spot); transform: translateY(-2px)}
+.foot__sig{
+  font-family: var(--hand);
+  font-size: 28px;
+  color: var(--ink-2);
+  text-align:right;
+  line-height: 1.1;
+}
+.foot__sig b{color: var(--ink); font-weight: 600}
+
+.foot__meta{
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  font-family: var(--mono);
+  font-size: var(--fs-micro);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.foot__meta b{font-weight: 500; color: var(--ink); display:block; margin-bottom: 6px}
+
+/* Dot grid accent in foot */
+.foot__dots{
+  position:absolute; top: 40px; right: var(--gutter);
+  display:grid; grid-template-columns: repeat(6, 6px); gap: 16px;
+  opacity:.6;
+}
+.foot__dots span{width:6px; height:6px; border-radius:50%; background: var(--ink)}
+.foot__dots span:nth-child(7n){background: var(--spot)}
+.foot__dots span:nth-child(11n){background: var(--cyan)}
+
+/* Marker annotations around sections */
+.annot--work{
+  top: 72px;
+  right: calc(var(--gutter) + 40px);
+  transform: rotate(2deg);
+  max-width: 220px;
+}
+.annot--work svg{right: -80px; top: 30px; transform: rotate(-10deg)}
+
+.annot--foot{
+  position: absolute;
+  bottom: 140px;
+  left: calc(var(--gutter) + 4px);
+  transform: rotate(-4deg);
+  font-family: var(--hand);
+  font-weight: 500;
+  color: var(--ink-2);
+  font-size: 22px;
+  max-width: 220px;
+}
+.annot--foot svg{position:absolute; left: 120px; top: -8px; width: 90px; height: 60px; transform: rotate(18deg)}
+
+/* Small helpers */
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* Responsive */
+@media (max-width: 900px){
+  .hero__grid{grid-template-columns: 1fr}
+  .work__grid{grid-template-columns: 1fr 1fr}
+  .proof__grid{grid-template-columns: 1fr 1fr; gap: 20px}
+  .foot__meta{grid-template-columns: 1fr 1fr}
+  .hero__arcs{display:none}
+  .annot--hero, .annot--work{display:none}
+  .sug{grid-template-columns: 36px 1fr; }
+  .sug__arrow, .sug__case{display:none}
+}
+@media (max-width: 600px){
+  .nav{grid-template-columns: 1fr auto}
+  .nav__meta{display:none}
+  .nav__links{display:none}
+  .work__grid{grid-template-columns: 1fr}
+  .work__head{grid-template-columns: 1fr; gap: 16px}
+  .work__rule{display:none}
+  .intent__row{flex-wrap: wrap}
+  .intent__enter{margin-top: 8px}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ====== NAV ====== -->
+  <header class="nav">
+    <div class="nav__meta">
+      <span><b>Joyus Studio</b></span>
+      <span>Est. 2022 — BLR / NYC</span>
+      <span>Index 001 / Spring ’26</span>
+    </div>
+    <a class="nav__logo" href="#" aria-label="Joyus home">
+      <img src="images/logo.webp" alt="Joyus">
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#podcast">Podcast</a>
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a class="nav__cta" href="mailto:hello@joyus.studio">Say hello</a>
+    </nav>
+  </header>
+
+  <!-- ====== HERO ====== -->
+  <section class="hero">
+    <div class="hero__index">
+      <span class="dot"></span>
+      <span>§01 — Studio Index</span>
+      <span>Advisory + Design, since 2022</span>
+      <span style="margin-left:auto">Two people. Many disciplines.</span>
+    </div>
+
+    <h1 class="hero__h1">
+      We think with <em>everyone</em>. <br>
+      We <span class="spot">build</span> with a few.
+    </h1>
+
+    <div class="hero__grid">
+      <p class="hero__lede">
+        Joyus is a two-person advisory studio run by <b>Kahran Singh</b> and <b>Divya Tak</b>.
+        We move between brand, product, research, behavioral design and illustration —
+        depending on what the project actually needs. <em>Theoretical experimentalists, mostly.</em>
+      </p>
+
+      <div class="hero__arcs" aria-hidden="true">
+        <svg viewBox="0 0 400 400" fill="none">
+          <g stroke="#4FC4CF" stroke-width="1.2">
+            <circle cx="400" cy="0" r="140"/>
+            <circle cx="400" cy="0" r="180"/>
+            <circle cx="400" cy="0" r="220"/>
+            <circle cx="400" cy="0" r="260"/>
+            <circle cx="400" cy="0" r="300"/>
+            <circle cx="400" cy="0" r="340"/>
+          </g>
+          <g fill="#E91E7B">
+            <circle cx="240" cy="280" r="3"/>
+            <circle cx="260" cy="300" r="3"/>
+            <circle cx="220" cy="300" r="3"/>
+            <circle cx="280" cy="280" r="3"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="dot-grid" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Intent box -->
+    <div class="intent">
+      <div class="intent__label">Start here</div>
+      <div class="intent__row" id="intentRow">
+        <span class="intent__prefix">I need —</span>
+        <input id="intentInput" type="text" placeholder="to tell a better story" autocomplete="off" spellcheck="false">
+        <button class="intent__enter" type="button">Send ⏎</button>
+      </div>
+
+      <div id="intentSuggestions" role="listbox" aria-label="Suggestions">
+        <a class="sug" href="#work" role="option">
+          <span class="sug__num">01</span>
+          <span class="sug__text">help with <em>a pitch deck</em> that actually raises money</span>
+          <span class="sug__arrow">see how</span>
+          <span class="sug__case">TomboyX · $5M</span>
+        </a>
+        <a class="sug" href="#work" role="option">
+          <span class="sug__num">02</span>
+          <span class="sug__text">a <em>visual language</em> that doesn’t feel like everyone else</span>
+          <span class="sug__arrow">see how</span>
+          <span class="sug__case">Tatsam</span>
+        </a>
+        <a class="sug" href="#work" role="option">
+          <span class="sug__num">03</span>
+          <span class="sug__text">to go from <em>0 to 150 daily sales</em> without breaking the brand</span>
+          <span class="sug__arrow">see how</span>
+          <span class="sug__case">Klydo</span>
+        </a>
+        <a class="sug" href="#work" role="option">
+          <span class="sug__num">04</span>
+          <span class="sug__text"><em>behavioral design</em> for something a million people use</span>
+          <span class="sug__arrow">see how</span>
+          <span class="sug__case">ConveGenius</span>
+        </a>
+        <a class="sug" href="#work" role="option">
+          <span class="sug__num">05</span>
+          <span class="sug__text">just to <em>think out loud</em> with someone clever</span>
+          <span class="sug__arrow">be friends</span>
+          <span class="sug__case">Advisory</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Handwritten margin annotation #1 -->
+    <div class="annot annot--hero" aria-hidden="true">
+      <svg viewBox="0 0 100 60">
+        <path d="M5,50 C 30,30 55,35 85,12" fill="none" stroke="#111214" stroke-width="1" stroke-linecap="round"/>
+        <path d="M80,8 L86,12 L82,18" fill="none" stroke="#111214" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      type whatever<br>you actually want —<br>we’ll match it to a case study
+    </div>
+  </section>
+
+  <!-- ====== TICKER ====== -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span><em>selected clients</em></span>
+      <span>— TomboyX</span>
+      <span>— Klydo</span>
+      <span>— Tatsam</span>
+      <span>— ConveGenius</span>
+      <span>— XTDB</span>
+      <span>— PrathamUSA</span>
+      <span>— Secret Senses</span>
+      <span><em>we build</em> <b>art, companies, brands &amp; products.</b></span>
+      <span><em>selected clients</em></span>
+      <span>— TomboyX</span>
+      <span>— Klydo</span>
+      <span>— Tatsam</span>
+      <span>— ConveGenius</span>
+      <span>— XTDB</span>
+      <span>— PrathamUSA</span>
+      <span>— Secret Senses</span>
+      <span><em>we build</em> <b>art, companies, brands &amp; products.</b></span>
+    </div>
+  </div>
+
+  <!-- ====== PROOF STRIP ====== -->
+  <section class="proof">
+    <div class="proof__eyebrow">§02 — Receipts</div>
+    <div class="proof__grid">
+      <div class="stat">
+        <div class="stat__n">$5<span>M</span></div>
+        <div class="stat__l">raised on the investor deck we designed for TomboyX’s down round.</div>
+        <span class="stat__tag">Pitch / Brand</span>
+      </div>
+      <div class="stat">
+        <div class="stat__n">0 <span>→</span> 150</div>
+        <div class="stat__l">daily sales for Klydo in under a season — GTM + identity.</div>
+        <span class="stat__tag">GTM</span>
+      </div>
+      <div class="stat">
+        <div class="stat__n">100<span>K</span></div>
+        <div class="stat__l">students reached through behavior-designed learning with ConveGenius.</div>
+        <span class="stat__tag">Behavior</span>
+      </div>
+      <div class="stat">
+        <div class="stat__n">$50<span>M</span></div>
+        <div class="stat__l">nonprofit repositioning + growth strategy for PrathamUSA.</div>
+        <span class="stat__tag">Strategy</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SELECTED WORK ====== -->
+  <section class="work" id="work">
+    <div class="work__head">
+      <h2 class="work__title">Selected <em>work</em></h2>
+      <div class="work__rule"></div>
+      <div class="work__meta">
+        §03 — 2022 / 2026<br>
+        Three of twenty-two
+      </div>
+    </div>
+
+    <div class="work__grid">
+      <a class="card accent-pink" href="#">
+        <div class="card__frame">
+          <span class="card__badge">Pitch · Brand</span>
+          <img src="images/work/tomboyx.jpg" alt="TomboyX — pitch deck and investor story">
+          <span class="card__index">001 / TBX</span>
+        </div>
+        <div class="card__meta">
+          <div class="card__client">TomboyX <em>— Fit For You</em></div>
+          <div class="card__year">2024</div>
+          <div class="card__scope">Investor deck + brand narrative for a $5M down-round raise. Framed the fit story around values, not inventory.</div>
+          <div class="card__tags">
+            <span class="tag is-spot">$5M raised</span>
+            <span class="tag">Deck</span>
+            <span class="tag">Brand</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card accent-ochre" href="#">
+        <div class="card__frame">
+          <span class="card__badge">GTM · Identity</span>
+          <img src="images/work/klydo.jpg" alt="Klydo — go-to-market identity">
+          <span class="card__index">002 / KLY</span>
+        </div>
+        <div class="card__meta">
+          <div class="card__client">Klydo <em>— launch</em></div>
+          <div class="card__year">2025</div>
+          <div class="card__scope">0 → 150 daily sales in a single quarter. Identity, packaging, and a GTM that actually shipped.</div>
+          <div class="card__tags">
+            <span class="tag is-spot">0 → 150/day</span>
+            <span class="tag">GTM</span>
+            <span class="tag">Identity</span>
+          </div>
+        </div>
+      </a>
+
+      <a class="card accent-cyan" href="#">
+        <div class="card__frame">
+          <span class="card__badge">Visual Language</span>
+          <img src="images/work/tatsam.jpg" alt="Tatsam — mental health visual language">
+          <span class="card__index">003 / TTS</span>
+        </div>
+        <div class="card__meta">
+          <div class="card__client">Tatsam <em>— a softer clinic</em></div>
+          <div class="card__year">2023</div>
+          <div class="card__scope">Colors, shapes and photography that make therapy feel like camaraderie — before a user ever speaks to a therapist.</div>
+          <div class="card__tags">
+            <span class="tag is-spot">Visual language</span>
+            <span class="tag">Mental health</span>
+            <span class="tag">System</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Handwritten margin annotation #2 -->
+    <div class="annot annot--work" aria-hidden="true">
+      <svg viewBox="0 0 100 60">
+        <path d="M95,50 C 70,32 50,40 15,14" fill="none" stroke="#111214" stroke-width="1" stroke-linecap="round"/>
+        <path d="M20,8 L14,14 L18,20" fill="none" stroke="#111214" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      every project<br>gets its own <u>palette</u> —<br>we don’t have a house colour
+    </div>
+  </section>
+
+  <!-- ====== CTA FOOTER ====== -->
+  <section class="foot">
+    <div class="foot__dots" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="foot__grid">
+      <div>
+        <h2 class="foot__say">be our <em>friends.</em></h2>
+        <a class="foot__email" href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+      <div class="foot__sig">
+        <b>— Kahran &amp; Divya</b><br>
+        (we read every note.)
+      </div>
+    </div>
+
+    <!-- Annotation #3 bonus -->
+    <div class="annot--foot" aria-hidden="true">
+      <svg viewBox="0 0 100 60">
+        <path d="M8,8 C 30,30 55,28 90,50" fill="none" stroke="#111214" stroke-width="1" stroke-linecap="round"/>
+        <path d="M86,42 L92,52 L82,52" fill="none" stroke="#111214" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      yes, <u>really</u> friends —<br>not a newsletter list
+    </div>
+
+    <div class="foot__meta">
+      <div><b>Studio</b>Bangalore · New York<br>Est. 2022</div>
+      <div><b>Index</b>§01 Studio · §02 Receipts<br>§03 Selected work</div>
+      <div><b>Disciplines</b>Advisory · Brand · Product<br>Research · Behavior · Illustration</div>
+      <div><b>Listen</b>The Joyus Podcast<br>Episodes 001 — 069</div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // Intent input focus underline + tiny interactions
+  (function(){
+    var row = document.getElementById('intentRow');
+    var input = document.getElementById('intentInput');
+    if(!input) return;
+    input.addEventListener('focus', function(){ row.classList.add('is-focus'); });
+    input.addEventListener('blur', function(){
+      if(!input.value) row.classList.remove('is-focus');
+    });
+    // Hitting Enter animates a soft pulse and pretends to submit
+    input.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' && input.value.trim().length){
+        row.classList.add('is-focus');
+        input.blur();
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>

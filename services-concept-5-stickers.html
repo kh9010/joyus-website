@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — 05 Sticker Board · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --green: #5BBD72;
+    --violet: #A87BD9;
+    --peach: #E8734A;
+    --earth: #C49A6C;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--x); max-width: 1400px; margin: 0 auto;
+    position: relative; z-index: 10;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-soft); }
+  .nav-back:hover { color: var(--pink); }
+
+  /* ===== sticker field ===== */
+  .field {
+    position: relative;
+    min-height: 88vh;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(1rem, 3vh, 2rem) var(--x) clamp(3rem, 6vh, 5rem);
+    overflow: hidden;
+  }
+  .field-intro {
+    position: relative;
+    z-index: 5;
+    pointer-events: none;
+    max-width: 640px;
+    padding-top: clamp(2rem, 6vh, 5rem);
+    padding-bottom: clamp(2rem, 5vh, 4rem);
+  }
+  .eyebrow {
+    font-family: var(--hand); font-size: 1.35rem; color: var(--pink);
+    display: inline-block; margin-bottom: 1rem;
+  }
+  h1.field-h1 {
+    font-weight: 600;
+    font-size: clamp(2.5rem, 6.5vw, 4.75rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin-bottom: 1rem;
+  }
+  h1.field-h1 em { font-style: italic; color: var(--ink-soft); font-weight: 500; }
+  .field-lede {
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    max-width: 46ch;
+  }
+  .field-hint {
+    position: relative;
+    z-index: 5;
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1.15rem;
+    margin-top: 1.5rem;
+  }
+  .field-hint::before {
+    content: "↓";
+    display: inline-block;
+    transform: translateY(2px) rotate(-20deg);
+    margin-right: 0.4rem;
+    color: var(--pink);
+  }
+
+  /* ===== the stickers ===== */
+  .stickers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .sticker {
+    position: absolute;
+    padding: 0.9rem 1.4rem;
+    font-family: var(--hand);
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    transform-origin: center;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.25s, filter 0.35s;
+    will-change: transform;
+    white-space: nowrap;
+  }
+  .sticker:hover {
+    transform: scale(1.06) rotate(0deg) !important;
+    box-shadow: 0 8px 24px rgba(17,18,20,0.16);
+    z-index: 20;
+  }
+  .sticker.dimmed { filter: grayscale(1) opacity(0.35); }
+
+  /* sticker shapes */
+  .sh-circle { border-radius: 999px; }
+  .sh-square { border-radius: 8px; }
+  .sh-tag {
+    border-radius: 4px 18px 4px 18px;
+  }
+  .sh-hex {
+    clip-path: polygon(20% 0, 80% 0, 100% 50%, 80% 100%, 20% 100%, 0 50%);
+    padding-left: 2rem; padding-right: 2rem;
+  }
+  .sh-torn {
+    clip-path: polygon(3% 8%, 12% 0, 28% 6%, 44% 2%, 58% 8%, 72% 0, 88% 5%, 97% 12%, 100% 30%, 96% 50%, 100% 72%, 93% 90%, 82% 97%, 65% 93%, 48% 100%, 32% 94%, 18% 100%, 6% 93%, 0 78%, 4% 55%, 0 30%);
+    padding: 1.1rem 1.6rem;
+  }
+  .sh-burst {
+    clip-path: polygon(50% 0%, 60% 12%, 75% 8%, 76% 24%, 92% 24%, 86% 40%, 100% 50%, 86% 60%, 92% 76%, 76% 76%, 75% 92%, 60% 88%, 50% 100%, 40% 88%, 25% 92%, 24% 76%, 8% 76%, 14% 60%, 0 50%, 14% 40%, 8% 24%, 24% 24%, 25% 8%, 40% 12%);
+    padding: 1.4rem 1.6rem;
+  }
+
+  /* sticker colors */
+  .co-pink { background: var(--pink); color: var(--cream); }
+  .co-cyan { background: var(--cyan); color: var(--ink); }
+  .co-mustard { background: var(--mustard); color: var(--ink); }
+  .co-green { background: var(--green); color: var(--ink); }
+  .co-violet { background: var(--violet); color: var(--cream); }
+  .co-peach { background: var(--peach); color: var(--cream); }
+  .co-earth { background: var(--earth); color: var(--ink); }
+  .co-ink { background: var(--ink); color: var(--cream); }
+  .co-cream { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
+
+  /* ===== detail sections ===== */
+  .details {
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+  }
+  .detail {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+    scroll-margin-top: 2rem;
+  }
+  .detail:last-child { border-bottom: 0; }
+  .detail-sticker-preview {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+  }
+  .detail h2 {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    margin-bottom: 1.25rem;
+    max-width: 18ch;
+  }
+  .detail h2 em { font-style: italic; color: var(--ink-soft); }
+  .detail p {
+    font-size: 1.1rem;
+    color: var(--ink);
+    line-height: 1.7;
+    max-width: 56ch;
+    margin-bottom: 1rem;
+  }
+  .detail p.muted { color: var(--ink-soft); }
+  .detail-row {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .detail-row div { flex: 1; min-width: 200px; }
+  .detail-row h4 {
+    font-family: var(--hand);
+    color: var(--pink);
+    font-size: 1.15rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .detail-row p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 0;
+  }
+
+  /* closing */
+  .closing {
+    max-width: 820px; margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 6vh, 5rem);
+    text-align: left;
+  }
+  .closing h3 {
+    font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .closing .pink { color: var(--pink); border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+  .closing .pink:hover { opacity: 0.75; }
+  .closing .hint { font-family: var(--hand); color: var(--ink-soft); font-size: 1.15rem; display: block; }
+
+  .foot {
+    border-top: 1px solid var(--rule); padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto; display: flex;
+    justify-content: space-between; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  @media (max-width: 720px) {
+    /* On mobile, present stickers as a static grid rather than scattered */
+    .stickers {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      padding: 1.5rem var(--x) 3rem;
+    }
+    .sticker {
+      position: static !important;
+      transform: none !important;
+      font-size: 1.1rem;
+    }
+    .field { min-height: auto; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <a class="nav-back" href="services-concepts.html">← all concepts</a>
+  </nav>
+
+  <section class="field" id="field">
+    <div class="field-intro">
+      <span class="eyebrow">the hats we actually wear</span>
+      <h1 class="field-h1">Pick one. <em>We've probably done a version of it.</em></h1>
+      <p class="field-lede">The deck calls us <em>theoretical experimentalists</em>. What that really means is we move between disciplines inside a single project. Below: the nine hats we pick up most often. Hover one to bring it forward. Click to read what it means.</p>
+      <p class="field-hint">nine hats, scattered — click one</p>
+    </div>
+
+    <div class="stickers" id="stickers">
+      <button class="sticker sh-circle co-pink" data-target="d-advise"
+              style="top: 8%; left: 62%; transform: rotate(-6deg);">advise</button>
+      <button class="sticker sh-tag co-cyan" data-target="d-brand"
+              style="top: 22%; left: 78%; transform: rotate(4deg);">brand &amp; identity</button>
+      <button class="sticker sh-hex co-mustard" data-target="d-research"
+              style="top: 36%; left: 58%; transform: rotate(-3deg);">research</button>
+      <button class="sticker sh-square co-ink" data-target="d-product"
+              style="top: 52%; left: 70%; transform: rotate(5deg);">product &amp; interface</button>
+      <button class="sticker sh-torn co-violet" data-target="d-behavior"
+              style="top: 10%; left: 34%; transform: rotate(8deg);">behavioral design</button>
+      <button class="sticker sh-circle co-green" data-target="d-illustration"
+              style="top: 42%; left: 30%; transform: rotate(-5deg);">illustration</button>
+      <button class="sticker sh-burst co-peach" data-target="d-gtm"
+              style="top: 62%; left: 42%; transform: rotate(3deg);">go-to-market</button>
+      <button class="sticker sh-tag co-cream" data-target="d-pitch"
+              style="top: 72%; left: 18%; transform: rotate(-4deg);">pitch &amp; narrative</button>
+      <button class="sticker sh-square co-earth" data-target="d-coaching"
+              style="top: 76%; left: 62%; transform: rotate(6deg);">founder coaching</button>
+    </div>
+  </section>
+
+  <div class="details">
+    <section class="detail" id="d-advise">
+      <span class="detail-sticker-preview co-pink">advise</span>
+      <h2>Think <em>with you</em>, not for you.</h2>
+      <p>The cheapest, most used thing we sell. An hour, a week, a quarter — time in your room, asking the questions the team has stopped asking each other. Sometimes it turns into design work. Often it doesn't.</p>
+      <p class="muted">We've done this for pre-seed founders, $50M nonprofits, Series B execs, and two-person co-founder pairs in week four of a split.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>2-week diagnostic → written POV → open-ended retainer.</p></div>
+        <div><h4>billed as</h4><p>Flat week rates. No time-sheets.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-brand">
+      <span class="detail-sticker-preview co-cyan">brand &amp; identity</span>
+      <h2>The visible shape of a decision you've already made.</h2>
+      <p>Full identity systems — mark, type, color, voice, motion — built to survive the company outgrowing its first self. We like the ones where the constraints are genuinely weird (a database, a comedy startup, a Kathak dancer).</p>
+      <p class="muted">XTDB (temporal database → origami logo). Gliitch (restaurant tech → two-color glitch). Tatsam (mental health → calm + agency). Secret Senses (hair care → Procreate florals).</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>3–6 weeks. Strategy first, then marks, then system.</p></div>
+        <div><h4>delivers</h4><p>Brand book, marks, type, usage system, design tokens.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-research">
+      <span class="detail-sticker-preview co-mustard">research</span>
+      <h2>Before we make, we talk to the people.</h2>
+      <p>User interviews, donor interviews, customer journey work, competitive reads. Usually 8–15 conversations, synthesized into one short document you can hand to the team. We're allergic to 40-slide research readouts nobody reads.</p>
+      <p class="muted">Pratham's six-stage donor model came out of a year of quiet conversations. Agemo's onboarding came out of one weekend of watching users open the tool cold.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>2–4 weeks. Interviews + synthesis + one decision doc.</p></div>
+        <div><h4>pairs well with</h4><p>Advise, product, GTM.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-product">
+      <span class="detail-sticker-preview co-ink">product &amp; interface</span>
+      <h2>Figma, in close partnership with your engineers.</h2>
+      <p>Product-sized UX — onboarding, core loops, new features — designed to be built. We write the spec, we sit in the PR reviews, we argue about spacing with your engineers. No designer-over-the-wall work.</p>
+      <p class="muted">Agemo's GenAI coding tool onboarding. Tatsam's full app. ConveGenius's rewards system.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>6–12 weeks. Design + eng partnership.</p></div>
+        <div><h4>delivers</h4><p>Flows, components, tokens, specs your team can actually build from.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-behavior">
+      <span class="detail-sticker-preview co-violet">behavioral design</span>
+      <h2>Why people do the thing — or don't.</h2>
+      <p>Grounded in behavioral science, not in lifted Duolingo patterns. We help teams tell the difference between what gets users to repeat (engagement) and what gets them to invite others (growth) — and pick the one their product actually needs.</p>
+      <p class="muted">ConveGenius picked engagement. Agemo changed the onboarding to match how exploratory users actually move.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>2–4 weeks of framework + audit, then 6-week pilot.</p></div>
+        <div><h4>delivers</h4><p>A framework, a set of bets, a measurement plan.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-illustration">
+      <span class="detail-sticker-preview co-green">illustration</span>
+      <h2>Drawing, not stock.</h2>
+      <p>Hand-drawn illustration systems — packaging, editorial, product moments, comics. Divya's primary craft. We lean into this when a brand has to feel warm, personal, and defiant of templates.</p>
+      <p class="muted">Secret Senses watercolors, the entire JoyusComics catalog, editorial accents across most client work.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>Project-based. 1–8 weeks depending on scope.</p></div>
+        <div><h4>medium</h4><p>Procreate, print, digital motion.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-gtm">
+      <span class="detail-sticker-preview co-peach">go-to-market</span>
+      <h2>The sprint where strategy meets shipping.</h2>
+      <p>Launch sprints for zero-to-one products and new-market entries. Typically 6–10 weeks. We own positioning, creative, and the first four weeks of launch — not the ten-week distribution campaign after that.</p>
+      <p class="muted">Klydo: zero to 150 daily sales by Jan 1. Several unnamed YC companies with unusual launch constraints.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>6–10 weeks. Positioning → creative → launch → 4-week tune.</p></div>
+        <div><h4>pairs with</h4><p>Brand, pitch, product.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-pitch">
+      <span class="detail-sticker-preview co-cream">pitch &amp; narrative</span>
+      <h2>The deck isn't the deck. The story is.</h2>
+      <p>Investor decks, founder origin stories, keynote narratives, internal myth-making. We interview the team, find the through-line, and write the version that holds up under the skeptical question.</p>
+      <p class="muted">TomboyX: three audiences, three decks. A down-round became a $5M raise. Countless unnamed seed decks.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>2–4 weeks. Interviews + narrative + deck design.</p></div>
+        <div><h4>delivers</h4><p>One deck. Sometimes three. Always with the story doc underneath.</p></div>
+      </div>
+    </section>
+
+    <section class="detail" id="d-coaching">
+      <span class="detail-sticker-preview co-earth">founder coaching</span>
+      <h2>The person behind the company.</h2>
+      <p>Ongoing 1:1 work with founders on the things that aren't deliverable — decisions, anxieties, co-founder tension, self-presentation. Usually 60-minute sessions, biweekly. Sometimes the most important thing we do for a company.</p>
+      <div class="detail-row">
+        <div><h4>typical shape</h4><p>Ongoing. Minimum 3-month commitment.</p></div>
+        <div><h4>boundaries</h4><p>We're not therapists. For what coaching does and doesn't do — ask first.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <section class="closing">
+    <h3>Spot a hat you want us to put on? — <a href="mailto:hello@joyus.studio" class="pink">be our friends.</a></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    // capture each sticker's starting rotation
+    const stickers = document.querySelectorAll('.sticker');
+    stickers.forEach(s => {
+      const m = s.style.transform.match(/rotate\(([-\d.]+)deg\)/);
+      s.dataset.rot = m ? m[1] : 0;
+    });
+
+    // mouse parallax
+    const field = document.getElementById('field');
+    let mouseX = 0, mouseY = 0;
+    let rafId = null;
+
+    field.addEventListener('mousemove', (e) => {
+      const rect = field.getBoundingClientRect();
+      mouseX = (e.clientX - rect.left) / rect.width - 0.5;
+      mouseY = (e.clientY - rect.top) / rect.height - 0.5;
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateStickers);
+      }
+    });
+
+    field.addEventListener('mouseleave', () => {
+      mouseX = 0; mouseY = 0;
+      if (!rafId) rafId = requestAnimationFrame(updateStickers);
+    });
+
+    function updateStickers() {
+      stickers.forEach((s, i) => {
+        const depth = (i % 3 + 1) * 6;  // 6, 12, 18 px
+        const dx = mouseX * depth;
+        const dy = mouseY * depth;
+        const rot = s.dataset.rot;
+        s.style.transform = `translate(${dx}px, ${dy}px) rotate(${rot}deg)`;
+      });
+      rafId = null;
+    }
+
+    // click → highlight + scroll to detail
+    stickers.forEach(s => {
+      s.addEventListener('click', () => {
+        const targetId = s.dataset.target;
+        const target = document.getElementById(targetId);
+        // dim others, pop this
+        stickers.forEach(x => x.classList.toggle('dimmed', x !== s));
+        setTimeout(() => {
+          stickers.forEach(x => x.classList.remove('dimmed'));
+        }, 1200);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+
+</body>
+</html>

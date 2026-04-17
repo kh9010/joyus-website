@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --rule: rgba(17, 18, 20, 0.08);
+
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+
+    --display: clamp(3.5rem, 9vw, 7.5rem);
+    --lede: clamp(1.05rem, 1.4vw, 1.2rem);
+
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.55;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; }
+
+  /* ============ NAV ============ */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .nav-logo img { height: 32px; width: auto; }
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 0.95rem;
+    color: var(--ink);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+
+  @media (max-width: 720px) {
+    .nav-links { gap: 1.25rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ============ HERO ============ */
+  .hero {
+    flex: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vh, 9rem) var(--x) clamp(3rem, 6vh, 5rem);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.35rem;
+    color: var(--pink);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+  .hero-h1 {
+    font-weight: 600;
+    font-size: var(--display);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.75rem;
+  }
+  .hero-h1 .ellipsis { color: var(--ink-soft); }
+  .hero-lede {
+    font-size: var(--lede);
+    color: var(--ink-soft);
+    max-width: 42ch;
+    margin-bottom: 3rem;
+    line-height: 1.55;
+  }
+
+  /* Intent box — signature move */
+  .intent-wrap { max-width: 640px; position: relative; }
+  .intent-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--ink);
+    border-radius: 999px;
+    box-shadow: 5px 5px 0 var(--pink);
+    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
+    padding: 0.35rem 0.5rem 0.35rem 1.5rem;
+  }
+  .intent-box:focus-within {
+    box-shadow: 5px 5px 0 var(--cyan);
+    transform: translate(-1px, -1px);
+    border-color: var(--ink);
+  }
+  #intentInput {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    padding: 0.95rem 0.5rem 0.95rem 0;
+    font-family: var(--sans);
+    font-size: 1.1rem;
+    color: var(--ink);
+    outline: none;
+    letter-spacing: -0.005em;
+  }
+  #intentInput::placeholder {
+    color: #a9a49b;
+    font-style: italic;
+  }
+  .intent-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: var(--cream);
+    font-size: 1.1rem;
+    color: var(--ink);
+    flex-shrink: 0;
+    transition: background 0.25s, color 0.25s, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .intent-box:focus-within .intent-arrow {
+    background: var(--pink);
+    color: #fff;
+    transform: translateX(3px);
+  }
+
+  .intent-hint {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin-top: 0.75rem;
+    margin-left: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .intent-hint::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 10px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 10'><path d='M1 5 Q 8 0 14 5 T 21 5' stroke='%23E91E7B' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>") no-repeat center / contain;
+  }
+
+  /* Suggestions — hidden until focused */
+  #intentSuggestions {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    box-shadow: 0 14px 40px rgba(17, 18, 20, 0.08);
+    overflow: hidden;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  #intentSuggestions.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .sug {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 0.9rem 1.25rem;
+    border-top: 1px solid var(--rule);
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .sug:first-child { border-top: 0; }
+  .sug:hover { background: var(--cream); }
+  .sug-text { font-size: 0.98rem; color: var(--ink); }
+  .sug-dest { font-family: var(--hand); font-size: 1rem; color: var(--ink-soft); }
+
+  /* ============ FOOTER ============ */
+  .footer {
+    border-top: 1px solid var(--rule);
+    padding: 1.5rem var(--x);
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .footer a:hover { color: var(--pink); }
+
+  @media (max-width: 560px) {
+    .footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="/">
+      <img src="images/logo.webp" alt="Joyus Studio" />
+    </a>
+    <div class="nav-links">
+      <a href="work/index.html">Work</a>
+      <a href="podcast.html">Podcast</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <span class="hero-eyebrow">advisory &amp; design studio</span>
+    <h1 class="hero-h1">I need<span class="ellipsis">…</span></h1>
+    <p class="hero-lede">We help startups and mission-driven companies figure out what's not landing — then design what comes next.</p>
+
+    <div class="intent-wrap">
+      <div class="intent-box">
+        <input
+          id="intentInput"
+          type="text"
+          placeholder="to tell a better story"
+          autocomplete="off"
+          aria-label="Tell us what you need"
+        />
+        <span class="intent-arrow" aria-hidden="true">→</span>
+      </div>
+      <span class="intent-hint">tell us, we'll figure it out</span>
+
+      <div id="intentSuggestions" role="listbox" aria-label="Suggestions">
+        <div class="sug">
+          <span class="sug-text">help with a pitch deck</span>
+          <span class="sug-dest">→ TomboyX</span>
+        </div>
+        <div class="sug">
+          <span class="sug-text">to launch a product from zero</span>
+          <span class="sug-dest">→ Klydo</span>
+        </div>
+        <div class="sug">
+          <span class="sug-text">a brand that feels like me</span>
+          <span class="sug-dest">→ Tatsam</span>
+        </div>
+        <div class="sug">
+          <span class="sug-text">to fix a broken donor journey</span>
+          <span class="sug-dest">→ PrathamUSA</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    const input = document.getElementById('intentInput');
+    const box = document.getElementById('intentSuggestions');
+    input.addEventListener('focus', () => box.classList.add('open'));
+    input.addEventListener('blur', () => {
+      // Delay so clicks on suggestions register
+      setTimeout(() => box.classList.remove('open'), 120);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Concepts — Services &amp; Work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    background: #FBF7F0;
+    color: #111214;
+    line-height: 1.55;
+    min-height: 100vh;
+    padding: clamp(3rem, 8vh, 6rem) clamp(1.5rem, 4vw, 3rem);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .eyebrow {
+    font-family: 'Caveat', cursive;
+    font-size: 1.35rem;
+    color: #E91E7B;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  h1 {
+    font-weight: 600;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  p.lede { color: #555; max-width: 55ch; margin-bottom: 3rem; font-size: 1.1rem; }
+
+  .section-label {
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    color: #555;
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid rgba(17,18,20,0.1);
+  }
+  .section-label span { color: #E91E7B; }
+
+  .list { display: grid; gap: 1.25rem; margin-bottom: 2rem; }
+  @media (min-width: 720px) {
+    .list.split { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  }
+  .card {
+    display: block;
+    padding: 1.75rem 2rem;
+    background: #fff;
+    border: 1px solid rgba(17,18,20,0.08);
+    border-radius: 16px;
+    box-shadow: 5px 5px 0 #E91E7B;
+    transition: box-shadow 0.25s, transform 0.25s;
+    color: #111214;
+    text-decoration: none;
+  }
+  .card:hover {
+    box-shadow: 5px 5px 0 #4FC4CF;
+    transform: translate(-1px, -1px);
+  }
+  .card.cyan { box-shadow: 5px 5px 0 #4FC4CF; }
+  .card.cyan:hover { box-shadow: 5px 5px 0 #E91E7B; }
+  .card-num {
+    font-family: 'Caveat', cursive;
+    font-size: 1.25rem;
+    color: #E91E7B;
+    margin-bottom: 0.4rem;
+  }
+  .card.cyan .card-num { color: #3B8F96; }
+  .card-title {
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.4rem;
+    line-height: 1.2;
+  }
+  .card-sub { color: #555; font-size: 0.95rem; line-height: 1.5; }
+  .card-meta {
+    display: block;
+    font-family: 'Caveat', cursive;
+    color: #888;
+    font-size: 1rem;
+    margin-top: 0.6rem;
+  }
+  .note {
+    font-family: 'Caveat', cursive;
+    color: #888;
+    font-size: 1.05rem;
+    margin-top: 1rem;
+    font-style: italic;
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="eyebrow">design concept mockups · pick your favorites</span>
+    <h1>Five concepts for services.<br>Two of those, extended to work.</h1>
+    <p class="lede">Each concept is a different answer to the same question: what should this page look like when a bullet list is the worst option? Same palette and type across all seven so you're comparing structure, not swatches.</p>
+
+    <div class="section-label">services page — <span>5 directions</span></div>
+    <div class="list">
+      <a class="card" href="services-concept-1-ledger.html">
+        <div class="card-num">01 · the ledger</div>
+        <div class="card-title">A log of every engagement, tagged and dated.</div>
+        <div class="card-sub">Proof-over-claim. Refuses the services page entirely. Filter by advise / design / build / tell / grow.</div>
+      </a>
+      <a class="card" href="services-concept-2-pillars.html">
+        <div class="card-num">02 · pillars &amp; process</div>
+        <div class="card-title">Three pillars on top, a 5-step process below.</div>
+        <div class="card-sub">Clearest readout in 30 seconds. Same capabilities shown as inventory and as flow.</div>
+      </a>
+      <a class="card" href="services-concept-3-verbs.html">
+        <div class="card-num">03 · the verb index</div>
+        <div class="card-title">Six verbs from the deck. Six sections. Six case studies.</div>
+        <div class="card-sub">Design, build, manage, market, advise, grow — numbered, photo-backed, scroll-snapped.</div>
+        <span class="card-meta">also has a work version ↓</span>
+      </a>
+      <a class="card" href="services-concept-4-manifesto.html">
+        <div class="card-num">04 · the manifesto</div>
+        <div class="card-title">Six principles. No bullets. Just prose.</div>
+        <div class="card-sub">Most &ldquo;Kahran and Divya writing&rdquo; version. Voice is the differentiator.</div>
+      </a>
+      <a class="card" href="services-concept-5-stickers.html">
+        <div class="card-num">05 · the sticker board</div>
+        <div class="card-title">A toolbox of hats, scattered and pickable.</div>
+        <div class="card-sub">Most memorable. Most technically ambitious. Playful on top, cerebral underneath.</div>
+        <span class="card-meta">also has a work version ↓</span>
+      </a>
+    </div>
+
+    <div class="section-label">work page — <span>2 directions (concepts 03 and 05)</span></div>
+    <div class="list split">
+      <a class="card cyan" href="work-concept-3-verbs.html">
+        <div class="card-num">03 · the gallery parade — for work</div>
+        <div class="card-title">Ten full-bleed bands. Each its own poster.</div>
+        <div class="card-sub">The imagery IS the interface. Scroll through ten project bands — each a unique composition, not a templated card. Click &ldquo;open the story&rdquo; on any one and the narrative slides in as a side panel over the image. Studio X&rsquo;s accordion-over-imagery, done for case work.</div>
+      </a>
+      <a class="card cyan" href="work-concept-5-stickers.html">
+        <div class="card-num">05 · the pinboard — for work</div>
+        <div class="card-title">The studio wall, scattered. Artifacts, not labels.</div>
+        <div class="card-sub">A deck slide, a stat badge, a torn-paper quote, a phone mock, a swatch, an origami mark, an onboarding strip, a glitch mark, a polaroid, a sticky note. Each artifact is from a real project. Hover lifts, click scrolls to the story. Feels like walking into the studio.</div>
+      </a>
+    </div>
+
+    <p class="note">The work mockups translate the style's soul into work-native structure — not the services layout transplanted.</p>
+
+    <div class="section-label">home page — <span>same 2 styles, home-native</span></div>
+    <div class="list split">
+      <a class="card cyan" href="home-concept-x-gallery.html">
+        <div class="card-num">X · gallery home</div>
+        <div class="card-title">One tasteful opening. Two careful peeks.</div>
+        <div class="card-sub">Hero band with the intent box as the slab, a composed side element (tape, stacked paper, Caveat annotation). Below: one featured case as a full poster, one paired feed band (thinking + podcast). Restrained on purpose — Studio X says one great image beats ten okay ones.</div>
+      </a>
+      <a class="card cyan" href="home-concept-y-pinboard.html">
+        <div class="card-num">Y · pinboard home</div>
+        <div class="card-title">The whole home is the studio wall.</div>
+        <div class="card-sub">Intent box lives on a yellow sticky note — alongside a founders' polaroid (→ about), a deck slide (→ work), a podcast ticket stub (→ latest ep), a torn essay quote (→ thinking), a color swatch, a comic panel, a business card. Mouse drifts them. Every artifact is a way in.</div>
+      </a>
+    </div>
+
+    <p class="note">Home X asks: &ldquo;what's the one thing to show first?&rdquo; Home Y asks: &ldquo;what's everything to show at once?&rdquo;</p>
+
+    <div class="section-label">podcast page — <span>same 2 styles, podcast-native</span></div>
+    <div class="list split">
+      <a class="card cyan" href="podcast-concept-x-gallery.html">
+        <div class="card-num">X · The Joyus Letters</div>
+        <div class="card-title">The podcast, treated as a quarterly journal.</div>
+        <div class="card-sub">Masthead, lead feature, currently-running threads, five other pieces in the issue, curated archive cuts, editors' note. The reader opts in because the presentation is the show's sensibility — not because a band shouted &ldquo;why listen.&rdquo; Every episode is a piece in an issue; every quarter is a volume. You browse it like reading, not like shopping.</div>
+      </a>
+      <a class="card cyan" href="podcast-concept-y-pinboard.html">
+        <div class="card-num">Y · pinboard podcast</div>
+        <div class="card-title">A wall of episode artifacts. Pick one to put on.</div>
+        <div class="card-sub">Twelve artifacts scattered &mdash; cassette tapes, ticket stubs, napkins with scribbled quotes, guest polaroids, a voicemail slip, a matchbook for the success series, a vinyl disc, sticky notes. Each represents an episode. Mouse drifts them; click opens the player. Archive below for completionists.</div>
+      </a>
+    </div>
+
+    <p class="note">Podcast X asks: &ldquo;which moment should stop them?&rdquo; Podcast Y asks: &ldquo;what should they pick up?&rdquo;</p>
+  </div>
+</body>
+</html>

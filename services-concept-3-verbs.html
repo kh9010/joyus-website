@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Services — 03 Verb Index · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --mustard: #E8B84A;
+    --cream: #FBF7F0;
+    --ink: #111214;
+    --ink-soft: #555;
+    --ink-fade: #888;
+    --rule: rgba(17,18,20,0.1);
+    --sans: 'Space Grotesk', system-ui, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.5rem var(--x); max-width: 1400px; margin: 0 auto;
+  }
+  .nav-logo { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+  .nav-back { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-soft); }
+  .nav-back:hover { color: var(--pink); }
+
+  /* side index */
+  .side-index {
+    position: fixed;
+    left: clamp(1rem, 2vw, 2rem);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 50;
+    display: none;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  @media (min-width: 960px) {
+    .side-index { display: flex; }
+  }
+  .side-index a {
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--ink-fade);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .side-index a::before {
+    content: "";
+    width: 14px; height: 1px;
+    background: currentColor;
+    transition: width 0.25s;
+  }
+  .side-index a.active,
+  .side-index a:hover { color: var(--pink); }
+  .side-index a.active::before { width: 28px; }
+
+  /* hero */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(4rem, 10vh, 8rem) var(--x) clamp(3rem, 6vh, 5rem);
+  }
+  .eyebrow {
+    font-family: var(--hand); font-size: 1.35rem; color: var(--pink);
+    display: inline-block; margin-bottom: 1.25rem;
+  }
+  h1.hero-h1 {
+    font-weight: 600;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 0.96;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.75rem;
+    max-width: 16ch;
+  }
+  h1.hero-h1 em { font-style: italic; color: var(--ink-soft); font-weight: 500; }
+  .hero-lede {
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    color: var(--ink-soft);
+    max-width: 48ch;
+    line-height: 1.55;
+  }
+
+  /* verb section */
+  .verb {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(5rem, 12vh, 10rem) var(--x);
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: start;
+    position: relative;
+  }
+  .verb:nth-child(even) .verb-img { order: -1; }
+  .verb:nth-child(even) .verb-body { order: 0; }
+
+  .verb-num {
+    font-family: var(--hand);
+    color: var(--pink);
+    font-size: 1.8rem;
+    line-height: 1;
+    position: sticky;
+    top: 2rem;
+  }
+  .verb-body .verb-title {
+    font-size: clamp(4rem, 12vw, 10rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    margin-bottom: 1.25rem;
+  }
+  .verb-manifesto {
+    font-style: italic;
+    font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+    color: var(--ink-soft);
+    margin-bottom: 2rem;
+    max-width: 28ch;
+    line-height: 1.45;
+  }
+  .verb-list {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+  .verb-list li {
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--rule);
+    font-size: 0.95rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: baseline;
+  }
+  .verb-list li:first-child { border-top: 0; padding-top: 0; }
+  .verb-list li .mono {
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1rem;
+  }
+  .verb-pullquote {
+    border-left: 3px solid var(--pink);
+    padding: 0.3rem 0 0.3rem 1rem;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .verb-pullquote cite {
+    display: block;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-style: normal;
+    margin-top: 0.5rem;
+  }
+
+  .verb-img {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #ddd;
+  }
+  .verb-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, transparent 40%, rgba(17,18,20,0.35) 100%);
+  }
+  .verb-img img { width: 100%; height: 100%; object-fit: cover; }
+  .verb-img-label {
+    position: absolute;
+    bottom: 1rem; left: 1.2rem;
+    color: #fff;
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    z-index: 1;
+  }
+
+  @media (max-width: 880px) {
+    .verb { grid-template-columns: 1fr; padding: clamp(3rem, 8vh, 6rem) var(--x); }
+    .verb-num { position: static; margin-bottom: 0.5rem; }
+    .verb:nth-child(even) .verb-img { order: 0; }
+    .verb-img { order: 2; margin-top: 1.5rem; }
+  }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+  .reveal.seen { opacity: 1; transform: translateY(0); }
+
+  /* closing */
+  .closing {
+    max-width: 820px; margin: 0 auto;
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 6vh, 5rem);
+    border-top: 1px solid var(--rule);
+    text-align: left;
+  }
+  .closing h3 {
+    font-weight: 500; font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 0.75rem;
+  }
+  .closing .pink { color: var(--pink); border-bottom: 2px solid var(--pink); padding-bottom: 1px; }
+  .closing .pink:hover { opacity: 0.75; }
+  .closing .hint { font-family: var(--hand); color: var(--ink-soft); font-size: 1.15rem; display: block; }
+
+  .foot {
+    border-top: 1px solid var(--rule); padding: 1.5rem var(--x);
+    max-width: 1400px; margin: 0 auto; display: flex;
+    justify-content: space-between; font-size: 0.85rem; color: var(--ink-soft);
+  }
+
+  /* placeholder swatches (stand-ins for case images) */
+  .swatch-1 { background: linear-gradient(135deg, #E91E7B, #A87BD9); }
+  .swatch-2 { background: linear-gradient(135deg, #4FC4CF, #3B8F96); }
+  .swatch-3 { background: linear-gradient(135deg, #E8B84A, #D48F2A); }
+  .swatch-4 { background: linear-gradient(135deg, #111214, #3a3d42); }
+  .swatch-5 { background: linear-gradient(135deg, #5BBD72, #2d8a4a); }
+  .swatch-6 { background: linear-gradient(135deg, #E8734A, #8a3d1a); }
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav-logo" href="services-concepts.html">Joyus Studio</a>
+    <a class="nav-back" href="services-concepts.html">← all concepts</a>
+  </nav>
+
+  <aside class="side-index" aria-label="Jump to verb">
+    <a href="#v01" data-n="01" class="active">01 advise</a>
+    <a href="#v02" data-n="02">02 design</a>
+    <a href="#v03" data-n="03">03 build</a>
+    <a href="#v04" data-n="04">04 manage</a>
+    <a href="#v05" data-n="05">05 tell</a>
+    <a href="#v06" data-n="06">06 grow</a>
+  </aside>
+
+  <section class="hero">
+    <span class="eyebrow">six verbs · six case studies</span>
+    <h1 class="hero-h1">We design, build, manage, market, <em>advise, grow.</em></h1>
+    <p class="hero-lede">Six verbs the deck uses to describe what we do — and the projects that prove each one is not a claim. Scroll slowly. Numbered from top.</p>
+  </section>
+
+  <article class="verb reveal" id="v01">
+    <div class="verb-num">01</div>
+    <div class="verb-body">
+      <h2 class="verb-title">advise.</h2>
+      <p class="verb-manifesto">Most of what we do is thinking with you, not for you.</p>
+      <ul class="verb-list">
+        <li><span>Strategic sounding-board retainers</span><span class="mono">ongoing</span></li>
+        <li><span>Investor-facing narrative work</span><span class="mono">2–4 wks</span></li>
+        <li><span>Product &amp; audience diagnostics</span><span class="mono">2 wks</span></li>
+        <li><span>Founder coaching</span><span class="mono">recurring</span></li>
+      </ul>
+      <blockquote class="verb-pullquote">
+        "They told us to kill the deck and start over. That was the deck."
+        <cite>— a founder we still work with</cite>
+      </blockquote>
+    </div>
+    <div class="verb-img swatch-1">
+      <span class="verb-img-label">TomboyX · pitch deck · 2025</span>
+    </div>
+  </article>
+
+  <article class="verb reveal" id="v02">
+    <div class="verb-num">02</div>
+    <div class="verb-body">
+      <h2 class="verb-title">design.</h2>
+      <p class="verb-manifesto">When thinking has produced a decision, we make the artifacts that carry it.</p>
+      <ul class="verb-list">
+        <li><span>Brand identity &amp; visual systems</span><span class="mono">3–6 wks</span></li>
+        <li><span>Product &amp; interface design</span><span class="mono">6–12 wks</span></li>
+        <li><span>Illustration &amp; packaging</span><span class="mono">varies</span></li>
+        <li><span>Editorial &amp; narrative design</span><span class="mono">1–4 wks</span></li>
+      </ul>
+      <blockquote class="verb-pullquote">
+        "We wanted something calm on the outside and ambitious underneath. They got it in one go."
+        <cite>— Tatsam team</cite>
+      </blockquote>
+    </div>
+    <div class="verb-img swatch-2">
+      <span class="verb-img-label">Tatsam · mental health app · 2024</span>
+    </div>
+  </article>
+
+  <article class="verb reveal" id="v03">
+    <div class="verb-num">03</div>
+    <div class="verb-body">
+      <h2 class="verb-title">build.</h2>
+      <p class="verb-manifesto">Selective. When we own delivery, we own the whole shape — no handoff.</p>
+      <ul class="verb-list">
+        <li><span>Zero-to-one product launches</span><span class="mono">8–16 wks</span></li>
+        <li><span>GTM sprints with a real deadline</span><span class="mono">6–10 wks</span></li>
+        <li><span>Full brand builds under pressure</span><span class="mono">4–8 wks</span></li>
+        <li><span>Research → prototype → ship</span><span class="mono">10–14 wks</span></li>
+      </ul>
+      <blockquote class="verb-pullquote">
+        "When our branding person quit in week six, they opened Figma the next morning."
+        <cite>— Klydo co-founder</cite>
+      </blockquote>
+    </div>
+    <div class="verb-img swatch-3">
+      <span class="verb-img-label">Klydo · zero to 150/day · 2025</span>
+    </div>
+  </article>
+
+  <article class="verb reveal" id="v04">
+    <div class="verb-num">04</div>
+    <div class="verb-body">
+      <h2 class="verb-title">manage.</h2>
+      <p class="verb-manifesto">Two of us in your channel, every day, for as long as the project needs.</p>
+      <ul class="verb-list">
+        <li><span>Embedded design leadership</span><span class="mono">quarter</span></li>
+        <li><span>Fractional head-of-product</span><span class="mono">quarter+</span></li>
+        <li><span>Research-ops ownership</span><span class="mono">project</span></li>
+        <li><span>Hiring your first brand/design lead</span><span class="mono">6–10 wks</span></li>
+      </ul>
+      <blockquote class="verb-pullquote">
+        "They ran the process I would have run — without the 40 hours of my week."
+        <cite>— a Series-A founder we worked with</cite>
+      </blockquote>
+    </div>
+    <div class="verb-img swatch-4">
+      <span class="verb-img-label">Pratham USA · donor journey · 2024</span>
+    </div>
+  </article>
+
+  <article class="verb reveal" id="v05">
+    <div class="verb-num">05</div>
+    <div class="verb-body">
+      <h2 class="verb-title">tell.</h2>
+      <p class="verb-manifesto">The story that unifies the team is usually the same story that lands with investors and customers.</p>
+      <ul class="verb-list">
+        <li><span>Pitch decks &amp; investor narratives</span><span class="mono">2–4 wks</span></li>
+        <li><span>Website copy &amp; positioning</span><span class="mono">3–6 wks</span></li>
+        <li><span>Founder origin stories</span><span class="mono">2 wks</span></li>
+        <li><span>Internal narrative docs</span><span class="mono">1–3 wks</span></li>
+      </ul>
+      <blockquote class="verb-pullquote">
+        "When narratives started to diverge, they brought in a best-selling writer to build the myth that would unify the team."
+        <cite>— Klydo, again</cite>
+      </blockquote>
+    </div>
+    <div class="verb-img swatch-5">
+      <span class="verb-img-label">Rachna Nivas · authenticity content · 2024</span>
+    </div>
+  </article>
+
+  <article class="verb reveal" id="v06">
+    <div class="verb-num">06</div>
+    <div class="verb-body">
+      <h2 class="verb-title">grow.</h2>
+      <p class="verb-manifesto">After launch, the work isn't done. We stay long enough to see what worked and what didn't.</p>
+      <ul class="verb-list">
+        <li><span>Post-launch tuning retainers</span><span class="mono">monthly</span></li>
+        <li><span>Behavioral &amp; engagement design</span><span class="mono">project</span></li>
+        <li><span>Creator &amp; community strategy</span><span class="mono">project</span></li>
+        <li><span>Growth vs engagement frameworks</span><span class="mono">2–4 wks</span></li>
+      </ul>
+      <blockquote class="verb-pullquote">
+        "They helped us pick engagement over growth — and then showed us why the first six months of data said the opposite."
+        <cite>— ConveGenius</cite>
+      </blockquote>
+    </div>
+    <div class="verb-img swatch-6">
+      <span class="verb-img-label">ConveGenius · rewards framework · 2025</span>
+    </div>
+  </article>
+
+  <section class="closing">
+    <h3>Pick a verb. <a href="mailto:hello@joyus.studio" class="pink">Be our friends.</a></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    const verbs = document.querySelectorAll('.verb');
+    const links = document.querySelectorAll('.side-index a');
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting && e.intersectionRatio > 0.15) {
+          e.target.classList.add('seen');
+        }
+      });
+    }, { threshold: [0.15, 0.5] });
+    verbs.forEach(v => io.observe(v));
+
+    // Side index active state
+    const activeIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const id = e.target.id;
+          links.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    verbs.forEach(v => activeIO.observe(v));
+  </script>
+
+</body>
+</html>
