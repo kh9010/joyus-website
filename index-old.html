@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="Joyus Studio helps startups and mission-driven companies figure out what's not landing — and what to do about it. Advisory, design, and storytelling grounded in behavioral science.">
+  <meta property="og:title" content="Joyus Studio — Design, Storytelling, Imagination">
+  <meta property="og:description" content="Joyus Studio helps startups and mission-driven companies figure out what's not landing. Advisory, design, and storytelling grounded in behavioral science.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/">
+  <title>Joyus Studio — Design, Storytelling, Imagination</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #FFFFFF;
+      font-family: 'DM Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Background illustration — hidden behind white canvas, revealed via cutout */
+    .bg-illustration {
+      display: none;
+    }
+
+    .splash-logo {
+      position: fixed;
+      top: 1.5rem;
+      left: 1.5rem;
+      z-index: 10;
+      opacity: 0.3;
+      transition: opacity 0.4s ease;
+    }
+
+    .splash-logo img {
+      height: 28px;
+      width: auto;
+    }
+
+    .splash-prompt {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: #ccc;
+      pointer-events: none;
+      transition: opacity 0.6s ease;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .splash-prompt.hidden {
+      opacity: 0;
+    }
+
+    .splash-prompt.enter-prompt {
+      opacity: 0;
+      animation: fadeInPrompt 0.8s ease 0.3s forwards;
+      color: #E91E7B;
+      font-size: 1.6rem;
+      cursor: default;
+    }
+
+    @keyframes fadeInPrompt {
+      from { opacity: 0; transform: translate(-50%, -50%) translateY(6px); }
+      to { opacity: 1; transform: translate(-50%, -50%) translateY(0); }
+    }
+
+    /* Shape hint label positioned near the shape */
+    .shape-hint {
+      position: fixed;
+      z-index: 10;
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #E91E7B;
+      pointer-events: none;
+      opacity: 0;
+      animation: fadeInHint 1s ease 0.5s forwards;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    @keyframes fadeInHint {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 0.9; transform: translateY(0); }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      cursor: crosshair;
+    }
+
+    /* Pulse glow overlay for closed shape */
+    .shape-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .shape-glow.active {
+      opacity: 1;
+      animation: pulseGlow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    /* Page fade out */
+    .splash-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      transition: opacity 0.7s ease;
+    }
+
+    .splash-wrapper.fade-out {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background illustration revealed through canvas cutout -->
+  <div class="bg-illustration" id="bgIllustration"></div>
+
+  <h1 class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Joyus Studio — Design, Storytelling, Imagination</h1>
+  <div class="splash-wrapper" id="splashWrapper">
+    <a href="home.html" class="splash-logo">
+      <img src="images/logo.webp" alt="Joyus Studio">
+    </a>
+
+    <div class="splash-prompt" id="prompt">draw something</div>
+
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <script>
+    if (sessionStorage.getItem('joyus_entered')) {
+      window.location.replace('home.html');
+    }
+
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    const promptEl = document.getElementById('prompt');
+    if (isTouchDevice) promptEl.textContent = 'draw with your finger';
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const wrapper = document.getElementById('splashWrapper');
+
+    let drawing = false;
+    let points = [];
+    let allStrokes = [];
+    let shapeClosed = false;
+    let closedShape = null;
+    let hasStartedDrawing = false;
+    let targetPage = 'home.html';
+    let lastClassification = null;
+
+    const PINK = '#E91E7B';
+
+    function resize() {
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = window.innerWidth + 'px';
+      canvas.style.height = window.innerHeight + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      redrawAll();
+    }
+
+    function redrawAll() {
+      // Fill with white so the canvas is opaque (hides illustration behind)
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Redraw all completed strokes
+      for (const stroke of allStrokes) {
+        drawStroke(stroke, false);
+      }
+      // Redraw current stroke
+      if (points.length > 1) {
+        drawStroke(points, false);
+      }
+      // If shape is closed, paint the illustration into the enclosed region
+      if (shapeClosed && enclosedData) {
+        paintIllustrationInRegion(enclosedData, 1);
+      }
+    }
+
+    function drawStroke(pts, incremental) {
+      if (pts.length < 2) return;
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.beginPath();
+      ctx.strokeStyle = 'rgba(233, 30, 123, 0.6)';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+
+      if (incremental) {
+        // Only draw the last segment
+        const i = pts.length - 1;
+        ctx.moveTo(pts[i - 1].x, pts[i - 1].y);
+        ctx.lineTo(pts[i].x, pts[i].y);
+      } else {
+        ctx.moveTo(pts[0].x, pts[0].y);
+        for (let i = 1; i < pts.length; i++) {
+          ctx.lineTo(pts[i].x, pts[i].y);
+        }
+      }
+      ctx.stroke();
+    }
+
+    function drawFill() {
+      if (!closedShape || closedShape.length < 3) return;
+      const closedStroke = closedShape;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(closedStroke[0].x, closedStroke[0].y);
+      for (let i = 1; i < closedStroke.length; i++) {
+        ctx.lineTo(closedStroke[i].x, closedStroke[i].y);
+      }
+      ctx.closePath();
+
+      // Gradient fill
+      const bounds = getBounds(closedStroke);
+      const gradient = ctx.createLinearGradient(bounds.minX, bounds.minY, bounds.maxX, bounds.maxY);
+      gradient.addColorStop(0, 'rgba(233, 30, 123, 0.15)');
+      gradient.addColorStop(0.5, 'rgba(233, 30, 123, 0.25)');
+      gradient.addColorStop(1, 'rgba(233, 30, 123, 0.12)');
+      ctx.fillStyle = gradient;
+      ctx.fill();
+
+      // Redraw the stroke on top, slightly stronger
+      ctx.strokeStyle = 'rgba(233, 30, 123, 0.8)';
+      ctx.lineWidth = 2.5;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+
+      // Soft glow around shape
+      ctx.shadowColor = 'rgba(233, 30, 123, 0.3)';
+      ctx.shadowBlur = 20;
+      ctx.strokeStyle = 'rgba(233, 30, 123, 0.3)';
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    function getBounds(pts) {
+      let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (const p of pts) {
+        if (p.x < minX) minX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+      }
+      return { minX, minY, maxX, maxY };
+    }
+
+    function getPos(e) {
+      if (e.touches && e.touches.length > 0) {
+        return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      }
+      return { x: e.clientX, y: e.clientY };
+    }
+
+    function dist(a, b) {
+      return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+    }
+
+    function isInsideShape(point, polygon) {
+      // Ray-casting algorithm
+      let inside = false;
+      for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+        const xi = polygon[i].x, yi = polygon[i].y;
+        const xj = polygon[j].x, yj = polygon[j].y;
+        const intersect = ((yi > point.y) !== (yj > point.y))
+          && (point.x < (xj - xi) * (point.y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+      }
+      return inside;
+    }
+
+    function startDraw(e) {
+      if (shapeClosed) return;
+      e.preventDefault();
+      drawing = true;
+      const pos = getPos(e);
+      points = [pos];
+
+      if (!hasStartedDrawing) {
+        hasStartedDrawing = true;
+        promptEl.classList.add('hidden');
+      }
+    }
+
+    function moveDraw(e) {
+      if (!drawing || shapeClosed) return;
+      e.preventDefault();
+      const pos = getPos(e);
+      points.push(pos);
+      drawStroke(points, true);
+    }
+
+    // Detect enclosed regions using a small offscreen canvas + flood fill
+    function findEnclosedRegion() {
+      var scale = 0.15; // work at 15% resolution for speed
+      var w = Math.ceil(window.innerWidth * scale);
+      var h = Math.ceil(window.innerHeight * scale);
+      var off = document.createElement('canvas');
+      off.width = w;
+      off.height = h;
+      var oc = off.getContext('2d');
+
+      // Draw all strokes onto the small canvas
+      oc.strokeStyle = '#000';
+      oc.lineWidth = Math.max(2, 3 * scale);
+      oc.lineCap = 'round';
+      oc.lineJoin = 'round';
+      for (var s = 0; s < allStrokes.length; s++) {
+        var stroke = allStrokes[s];
+        if (stroke.length < 2) continue;
+        oc.beginPath();
+        oc.moveTo(stroke[0].x * scale, stroke[0].y * scale);
+        for (var i = 1; i < stroke.length; i++) {
+          oc.lineTo(stroke[i].x * scale, stroke[i].y * scale);
+        }
+        oc.stroke();
+      }
+
+      // Get pixel data
+      var imgData = oc.getImageData(0, 0, w, h);
+      var data = imgData.data;
+      var visited = new Uint8Array(w * h);
+
+      // Mark stroke pixels as visited (they're walls)
+      for (var i = 0; i < w * h; i++) {
+        if (data[i * 4 + 3] > 30) visited[i] = 1; // has alpha = stroke pixel
+      }
+
+      // Flood fill from all edges to find "outside" pixels
+      var queue = [];
+      for (var x = 0; x < w; x++) {
+        if (!visited[x]) queue.push(x); // top edge
+        var bot = (h - 1) * w + x;
+        if (!visited[bot]) queue.push(bot);
+      }
+      for (var y = 0; y < h; y++) {
+        var left = y * w;
+        if (!visited[left]) queue.push(left);
+        var right = y * w + w - 1;
+        if (!visited[right]) queue.push(right);
+      }
+
+      // BFS flood fill
+      for (var qi = 0; qi < queue.length; qi++) {
+        var idx = queue[qi];
+        if (visited[idx]) continue;
+        visited[idx] = 2; // 2 = outside
+        var px = idx % w, py = Math.floor(idx / w);
+        if (px > 0 && !visited[idx - 1]) queue.push(idx - 1);
+        if (px < w - 1 && !visited[idx + 1]) queue.push(idx + 1);
+        if (py > 0 && !visited[idx - w]) queue.push(idx - w);
+        if (py < h - 1 && !visited[idx + w]) queue.push(idx + w);
+      }
+
+      // Any pixel that's not visited (not wall, not outside) is inside an enclosed region
+      var insidePixels = [];
+      for (var i = 0; i < w * h; i++) {
+        if (visited[i] === 0) {
+          insidePixels.push({
+            x: (i % w) / scale,
+            y: Math.floor(i / w) / scale
+          });
+        }
+      }
+
+      if (insidePixels.length < 20) return null; // too small, probably noise
+
+      // Build a convex-ish outline from the inside pixels for fill rendering
+      // Just return the bounding info and use the offscreen data for the fill
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (var i = 0; i < insidePixels.length; i++) {
+        var p = insidePixels[i];
+        if (p.x < minX) minX = p.x;
+        if (p.y < minY) minY = p.y;
+        if (p.x > maxX) maxX = p.x;
+        if (p.y > maxY) maxY = p.y;
+      }
+
+      return { pixels: insidePixels, bounds: { minX: minX, minY: minY, maxX: maxX, maxY: maxY }, visited: visited, scale: scale, w: w, h: h };
+    }
+
+    var enclosedData = null;
+
+    // Preload the illustration image
+    var illustrationImg = new Image();
+    illustrationImg.src = 'images/illustration-hero.png';
+
+    // Paint the illustration into the enclosed region on the canvas
+    function paintIllustrationInRegion(region, alpha) {
+      if (!illustrationImg.complete) return;
+      var step = 1 / region.scale;
+      var vw = window.innerWidth;
+      var vh = window.innerHeight;
+
+      // Draw the illustration to a temp canvas, scaled to cover viewport
+      var tmpCanvas = document.createElement('canvas');
+      tmpCanvas.width = vw;
+      tmpCanvas.height = vh;
+      var tmpCtx = tmpCanvas.getContext('2d');
+
+      // Contain logic: fit entire image centered in viewport
+      var imgW = illustrationImg.naturalWidth;
+      var imgH = illustrationImg.naturalHeight;
+      var imgScale = Math.min(vw * 0.7 / imgW, vh * 0.7 / imgH);
+      var drawW = imgW * imgScale;
+      var drawH = imgH * imgScale;
+      var offsetX = (vw - drawW) / 2;
+      var offsetY = (vh - drawH) / 2;
+      tmpCtx.fillStyle = '#FFFFFF';
+      tmpCtx.fillRect(0, 0, vw, vh);
+      tmpCtx.drawImage(illustrationImg, offsetX, offsetY, drawW, drawH);
+
+      // Now paint only the enclosed pixels from the temp canvas onto the main canvas
+      ctx.save();
+      ctx.globalAlpha = alpha || 1;
+      for (var y = 0; y < region.h; y++) {
+        for (var x = 0; x < region.w; x++) {
+          if (region.visited[y * region.w + x] === 0) {
+            var sx = Math.floor(x / region.scale);
+            var sy = Math.floor(y / region.scale);
+            ctx.drawImage(tmpCanvas, sx, sy, step, step, sx, sy, step, step);
+          }
+        }
+      }
+      ctx.globalAlpha = 1;
+      ctx.restore();
+    }
+
+    // ── Polygon detection ──
+    // Extract boundary points from the enclosed region, then count corners
+    function getBoundaryPoints(region) {
+      var pts = [];
+      var s = region.scale;
+      for (var i = 0; i < region.pixels.length; i++) {
+        var px = Math.floor(region.pixels[i].x * s);
+        var py = Math.floor(region.pixels[i].y * s);
+        var idx = py * region.w + px;
+        if (px <= 0 || px >= region.w - 1 || py <= 0 || py >= region.h - 1 ||
+            region.visited[idx - 1] !== 0 || region.visited[idx + 1] !== 0 ||
+            region.visited[idx - region.w] !== 0 || region.visited[idx + region.w] !== 0) {
+          pts.push({ x: region.pixels[i].x, y: region.pixels[i].y });
+        }
+      }
+      return pts;
+    }
+
+    // Simple convex hull (Graham scan)
+    function convexHull(points) {
+      if (points.length < 3) return points;
+      // Find lowest point
+      var start = 0;
+      for (var i = 1; i < points.length; i++) {
+        if (points[i].y > points[start].y || (points[i].y === points[start].y && points[i].x < points[start].x))
+          start = i;
+      }
+      var pivot = points[start];
+      var sorted = points.slice().sort(function (a, b) {
+        var aa = Math.atan2(a.y - pivot.y, a.x - pivot.x);
+        var ba = Math.atan2(b.y - pivot.y, b.x - pivot.x);
+        return aa - ba || dist(pivot, a) - dist(pivot, b);
+      });
+      var hull = [sorted[0], sorted[1]];
+      for (var i = 2; i < sorted.length; i++) {
+        while (hull.length > 1 && cross(hull[hull.length - 2], hull[hull.length - 1], sorted[i]) <= 0)
+          hull.pop();
+        hull.push(sorted[i]);
+      }
+      return hull;
+    }
+
+    function cross(o, a, b) {
+      return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+    }
+
+    // Count significant corners on a polygon using angle-based detection
+    function countCorners(hull, tolerance) {
+      if (hull.length < 3) return hull.length;
+      tolerance = tolerance || 0.4; // radians — ~23 degrees
+      var corners = 0;
+      var n = hull.length;
+      for (var i = 0; i < n; i++) {
+        var prev = hull[(i - 1 + n) % n];
+        var curr = hull[i];
+        var next = hull[(i + 1) % n];
+        var a1 = Math.atan2(curr.y - prev.y, curr.x - prev.x);
+        var a2 = Math.atan2(next.y - curr.y, next.x - curr.x);
+        var diff = Math.abs(a2 - a1);
+        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+        if (diff > tolerance) corners++;
+      }
+      return corners;
+    }
+
+    // Simplify hull using Ramer-Douglas-Peucker
+    function simplifyHull(pts, epsilon) {
+      if (pts.length < 3) return pts;
+      var maxDist = 0, maxIdx = 0;
+      var start = pts[0], end = pts[pts.length - 1];
+      for (var i = 1; i < pts.length - 1; i++) {
+        var d = pointLineDistance(pts[i], start, end);
+        if (d > maxDist) { maxDist = d; maxIdx = i; }
+      }
+      if (maxDist > epsilon) {
+        var left = simplifyHull(pts.slice(0, maxIdx + 1), epsilon);
+        var right = simplifyHull(pts.slice(maxIdx), epsilon);
+        return left.slice(0, -1).concat(right);
+      }
+      return [start, end];
+    }
+
+    function pointLineDistance(p, a, b) {
+      var dx = b.x - a.x, dy = b.y - a.y;
+      var len = Math.sqrt(dx * dx + dy * dy);
+      if (len === 0) return dist(p, a);
+      return Math.abs(dx * (a.y - p.y) - dy * (a.x - p.x)) / len;
+    }
+
+    // Shape destinations — simple and reliable
+    var SHAPES = {
+      circle:    { page: 'about.html',        hint: 'looks circular... let\u2019s tell you the whole story' },
+      triangle:  { page: 'hub-games.html',      hint: 'seems trianglish... did you know there\u2019s three levels when designing a game' },
+      square:    { page: 'comics/index.html',  hint: 'wait, is that a square? lemme show you something fun' },
+      rectangle: { page: 'home.html',          hint: 'you\u2019ve drawn your door... welcome in' },
+    };
+
+    // ══════════════════════════════════════════════════════════════
+    // SHAPE CLASSIFIER v5: Dual Classifier
+    //   Primary:   $1 Unistroke Recognizer (98.5% accuracy)
+    //   Secondary: Centroid distance profile (90.5% accuracy)
+    //   When both agree → high confidence. Disagree → trust $1.
+    // ══════════════════════════════════════════════════════════════
+
+    // ── Shared: Flatten and order multi-stroke input ──
+    function flattenForClassifier() {
+      if (allStrokes.length <= 1) {
+        var pts = [];
+        var s = allStrokes[0] || [];
+        for (var i = 0; i < s.length; i++) pts.push({x: s[i].x, y: s[i].y});
+        return pts;
+      }
+      var ordered = [allStrokes[0].map(function(p){return {x:p.x,y:p.y};})];
+      var used = {};
+      used[0] = true;
+      for (var step = 1; step < allStrokes.length; step++) {
+        var last = ordered[ordered.length - 1];
+        var tail = last[last.length - 1];
+        var bestIdx = -1, bestD = Infinity, bestRev = false;
+        for (var j = 0; j < allStrokes.length; j++) {
+          if (used[j]) continue;
+          var s = allStrokes[j];
+          var dHead = dist(tail, s[0]);
+          var dTail = dist(tail, s[s.length - 1]);
+          if (dHead < bestD) { bestD = dHead; bestIdx = j; bestRev = false; }
+          if (dTail < bestD) { bestD = dTail; bestIdx = j; bestRev = true; }
+        }
+        used[bestIdx] = true;
+        var pts = allStrokes[bestIdx].map(function(p){return {x:p.x,y:p.y};});
+        if (bestRev) pts.reverse();
+        ordered.push(pts);
+      }
+      var result = [];
+      for (var i = 0; i < ordered.length; i++)
+        for (var j = 0; j < ordered[i].length; j++) result.push(ordered[i][j]);
+      return result;
+    }
+
+    // ── Shared: Resample to N equidistant points on closed path ──
+    function resampleClosed(pts, n) {
+      if (pts.length < 2) return pts.slice();
+      var closed = pts.concat([{x: pts[0].x, y: pts[0].y}]);
+      var totalLen = 0;
+      for (var i = 1; i < closed.length; i++) totalLen += dist(closed[i-1], closed[i]);
+      if (totalLen < 1) return pts.slice();
+      var interval = totalLen / n;
+      var res = [{x: closed[0].x, y: closed[0].y}];
+      var carry = 0, src = 1;
+      while (res.length < n && src < closed.length) {
+        var d = dist(closed[src-1], closed[src]);
+        if (d < 0.001) { src++; continue; }
+        if (carry + d >= interval) {
+          var r = (interval - carry) / d;
+          var nx = closed[src-1].x + r * (closed[src].x - closed[src-1].x);
+          var ny = closed[src-1].y + r * (closed[src].y - closed[src-1].y);
+          res.push({x: nx, y: ny});
+          closed = closed.slice();
+          closed.splice(src, 0, {x: nx, y: ny});
+          carry = 0; src++;
+        } else { carry += d; src++; }
+      }
+      while (res.length < n) res.push({x: closed[closed.length-1].x, y: closed[closed.length-1].y});
+      return res.slice(0, n);
+    }
+
+    // ════════════════════════════════════════════════════════════
+    // PRIMARY: $1 Unistroke Recognizer
+    // ════════════════════════════════════════════════════════════
+
+    var D1_NUM_POINTS = 64;
+    var D1_SQUARE_SIZE = 250.0;
+    var D1_HALF_DIAGONAL = 0.5 * Math.sqrt(D1_SQUARE_SIZE * D1_SQUARE_SIZE + D1_SQUARE_SIZE * D1_SQUARE_SIZE);
+    var D1_ANGLE_RANGE = Math.PI / 4.0;
+    var D1_ANGLE_PRECISION = Math.PI / 90.0;
+    var D1_PHI = 0.5 * (-1.0 + Math.sqrt(5.0));
+
+    function Point(x, y) {
+      this.x = x;
+      this.y = y;
+    }
+
+    function d1dist(a, b) {
+      var dx = a.x - b.x;
+      var dy = a.y - b.y;
+      return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    function d1pathLength(points) {
+      var d = 0;
+      for (var i = 1; i < points.length; i++) {
+        d += d1dist(points[i - 1], points[i]);
+      }
+      return d;
+    }
+
+    function d1centroid(points) {
+      var cx = 0, cy = 0;
+      for (var i = 0; i < points.length; i++) {
+        cx += points[i].x;
+        cy += points[i].y;
+      }
+      return new Point(cx / points.length, cy / points.length);
+    }
+
+    function d1boundingBox(points) {
+      var minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+      for (var i = 0; i < points.length; i++) {
+        if (points[i].x < minX) minX = points[i].x;
+        if (points[i].y < minY) minY = points[i].y;
+        if (points[i].x > maxX) maxX = points[i].x;
+        if (points[i].y > maxY) maxY = points[i].y;
+      }
+      return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
+    }
+
+    function d1resample(points, n) {
+      var interval = d1pathLength(points) / (n - 1);
+      var D = 0;
+      var newPoints = [new Point(points[0].x, points[0].y)];
+      for (var i = 1; i < points.length; i++) {
+        var d = d1dist(points[i - 1], points[i]);
+        if (D + d >= interval) {
+          var qx = points[i - 1].x + ((interval - D) / d) * (points[i].x - points[i - 1].x);
+          var qy = points[i - 1].y + ((interval - D) / d) * (points[i].y - points[i - 1].y);
+          var q = new Point(qx, qy);
+          newPoints.push(q);
+          points.splice(i, 0, q);
+          D = 0;
+        } else {
+          D += d;
+        }
+      }
+      if (newPoints.length === n - 1) {
+        newPoints.push(new Point(points[points.length - 1].x, points[points.length - 1].y));
+      }
+      while (newPoints.length > n) newPoints.pop();
+      while (newPoints.length < n) newPoints.push(new Point(points[points.length - 1].x, points[points.length - 1].y));
+      return newPoints;
+    }
+
+    function d1indicativeAngle(points) {
+      var c = d1centroid(points);
+      return Math.atan2(c.y - points[0].y, c.x - points[0].x);
+    }
+
+    function d1rotateBy(points, radians) {
+      var c = d1centroid(points);
+      var cos = Math.cos(radians);
+      var sin = Math.sin(radians);
+      var newPoints = [];
+      for (var i = 0; i < points.length; i++) {
+        var dx = points[i].x - c.x;
+        var dy = points[i].y - c.y;
+        newPoints.push(new Point(dx * cos - dy * sin + c.x, dx * sin + dy * cos + c.y));
+      }
+      return newPoints;
+    }
+
+    function d1scaleTo(points, size) {
+      var b = d1boundingBox(points);
+      var newPoints = [];
+      for (var i = 0; i < points.length; i++) {
+        var qx = points[i].x * (size / (b.width || 1));
+        var qy = points[i].y * (size / (b.height || 1));
+        newPoints.push(new Point(qx, qy));
+      }
+      return newPoints;
+    }
+
+    function d1translateTo(points, pt) {
+      var c = d1centroid(points);
+      var newPoints = [];
+      for (var i = 0; i < points.length; i++) {
+        newPoints.push(new Point(points[i].x + pt.x - c.x, points[i].y + pt.y - c.y));
+      }
+      return newPoints;
+    }
+
+    function d1pathDistance(a, b) {
+      var d = 0;
+      var n = Math.min(a.length, b.length);
+      for (var i = 0; i < n; i++) {
+        d += d1dist(a[i], b[i]);
+      }
+      return d / n;
+    }
+
+    function d1distanceAtAngle(points, template, radians) {
+      var newPoints = d1rotateBy(points, radians);
+      return d1pathDistance(newPoints, template);
+    }
+
+    function d1distanceAtBestAngle(points, template, a, b, threshold) {
+      var x1 = D1_PHI * a + (1.0 - D1_PHI) * b;
+      var f1 = d1distanceAtAngle(points, template, x1);
+      var x2 = (1.0 - D1_PHI) * a + D1_PHI * b;
+      var f2 = d1distanceAtAngle(points, template, x2);
+      while (Math.abs(b - a) > threshold) {
+        if (f1 < f2) {
+          b = x2;
+          x2 = x1;
+          f2 = f1;
+          x1 = D1_PHI * a + (1.0 - D1_PHI) * b;
+          f1 = d1distanceAtAngle(points, template, x1);
+        } else {
+          a = x1;
+          x1 = x2;
+          f1 = f2;
+          x2 = (1.0 - D1_PHI) * a + D1_PHI * b;
+          f2 = d1distanceAtAngle(points, template, x2);
+        }
+      }
+      return Math.min(f1, f2);
+    }
+
+    function d1processPoints(rawPoints) {
+      var pts = rawPoints.slice();
+      pts = d1resample(pts, D1_NUM_POINTS);
+      var angle = d1indicativeAngle(pts);
+      pts = d1rotateBy(pts, -angle);
+      pts = d1scaleTo(pts, D1_SQUARE_SIZE);
+      pts = d1translateTo(pts, new Point(0, 0));
+      return pts;
+    }
+
+    // ── $1 Template generation ──
+
+    function d1generateCircle(cx, cy, rx, ry, numPts) {
+      var pts = [];
+      for (var i = 0; i < numPts; i++) {
+        var angle = (2 * Math.PI * i) / numPts;
+        pts.push(new Point(cx + rx * Math.cos(angle), cy + ry * Math.sin(angle)));
+      }
+      pts.push(new Point(pts[0].x, pts[0].y));
+      return pts;
+    }
+
+    function d1generateTriangle(cx, cy, size, type, rotation) {
+      var pts = [];
+      var vertices;
+      if (type === 'equilateral') {
+        vertices = [];
+        for (var i = 0; i < 3; i++) {
+          var a = rotation + (2 * Math.PI * i) / 3 - Math.PI / 2;
+          vertices.push(new Point(cx + size * Math.cos(a), cy + size * Math.sin(a)));
+        }
+      } else if (type === 'isosceles') {
+        vertices = [
+          new Point(cx, cy - size),
+          new Point(cx - size * 0.7, cy + size * 0.6),
+          new Point(cx + size * 0.7, cy + size * 0.6)
+        ];
+      } else if (type === 'right') {
+        vertices = [
+          new Point(cx - size * 0.5, cy + size * 0.5),
+          new Point(cx + size * 0.5, cy + size * 0.5),
+          new Point(cx - size * 0.5, cy - size * 0.5)
+        ];
+      } else {
+        vertices = [];
+        for (var j = 0; j < 3; j++) {
+          var a2 = rotation + (2 * Math.PI * j) / 3 - Math.PI / 2;
+          var r = size * (0.8 + 0.4 * ((j % 2 === 0) ? 1 : 0.7));
+          vertices.push(new Point(cx + r * Math.cos(a2), cy + r * Math.sin(a2)));
+        }
+      }
+      var ptsPerEdge = 30;
+      for (var e = 0; e < 3; e++) {
+        var v1 = vertices[e];
+        var v2 = vertices[(e + 1) % 3];
+        for (var s = 0; s < ptsPerEdge; s++) {
+          var t = s / ptsPerEdge;
+          pts.push(new Point(v1.x + t * (v2.x - v1.x), v1.y + t * (v2.y - v1.y)));
+        }
+      }
+      pts.push(new Point(vertices[0].x, vertices[0].y));
+      return pts;
+    }
+
+    function d1generateRectangle(cx, cy, w, h, rotation) {
+      var pts = [];
+      var corners = [
+        new Point(-w / 2, -h / 2),
+        new Point(w / 2, -h / 2),
+        new Point(w / 2, h / 2),
+        new Point(-w / 2, h / 2)
+      ];
+      var cos = Math.cos(rotation);
+      var sin = Math.sin(rotation);
+      for (var i = 0; i < 4; i++) {
+        corners[i] = new Point(
+          cx + corners[i].x * cos - corners[i].y * sin,
+          cy + corners[i].x * sin + corners[i].y * cos
+        );
+      }
+      var ptsPerEdge = 25;
+      for (var e = 0; e < 4; e++) {
+        var v1 = corners[e];
+        var v2 = corners[(e + 1) % 4];
+        for (var s = 0; s < ptsPerEdge; s++) {
+          var t = s / ptsPerEdge;
+          pts.push(new Point(v1.x + t * (v2.x - v1.x), v1.y + t * (v2.y - v1.y)));
+        }
+      }
+      pts.push(new Point(corners[0].x, corners[0].y));
+      return pts;
+    }
+
+    function d1buildTemplates() {
+      var templates = [];
+      var circleParams = [
+        { rx: 100, ry: 100 },
+        { rx: 60, ry: 60 },
+        { rx: 150, ry: 150 },
+        { rx: 100, ry: 85 },
+        { rx: 80, ry: 95 }
+      ];
+      for (var i = 0; i < circleParams.length; i++) {
+        var cp = circleParams[i];
+        var raw = d1generateCircle(200, 200, cp.rx, cp.ry, 80);
+        templates.push({ name: 'circle', points: d1processPoints(raw) });
+      }
+      var triTypes = [
+        { type: 'equilateral', rot: 0 },
+        { type: 'isosceles', rot: 0 },
+        { type: 'right', rot: 0 },
+        { type: 'equilateral', rot: Math.PI / 6 },
+        { type: 'varied', rot: Math.PI / 8 }
+      ];
+      for (var j = 0; j < triTypes.length; j++) {
+        var tt = triTypes[j];
+        var rawT = d1generateTriangle(200, 200, 100, tt.type, tt.rot);
+        templates.push({ name: 'triangle', points: d1processPoints(rawT) });
+      }
+      var rectParams = [
+        { w: 150, h: 100, rot: 0 },
+        { w: 200, h: 100, rot: 0 },
+        { w: 300, h: 100, rot: 0 },
+        { w: 160, h: 100, rot: 0.1 },
+        { w: 200, h: 120, rot: -0.08 }
+      ];
+      for (var k = 0; k < rectParams.length; k++) {
+        var rp = rectParams[k];
+        var rawR = d1generateRectangle(200, 200, rp.w, rp.h, rp.rot);
+        templates.push({ name: 'rectangle', points: d1processPoints(rawR) });
+      }
+      return templates;
+    }
+
+    // Geometric checks for $1
+    function d1polygonArea(points) {
+      var area = 0;
+      var n = points.length;
+      for (var i = 0; i < n; i++) {
+        var j = (i + 1) % n;
+        area += points[i].x * points[j].y;
+        area -= points[j].x * points[i].y;
+      }
+      return Math.abs(area) / 2;
+    }
+
+    function d1isoperimetricQuotient(points) {
+      var area = d1polygonArea(points);
+      var perim = d1pathLength(points);
+      if (perim === 0) return 0;
+      return (4 * Math.PI * area) / (perim * perim);
+    }
+
+    function d1aspectRatio(points) {
+      var b = d1boundingBox(points);
+      var w = b.width || 1;
+      var h = b.height || 1;
+      if (w < h) return w / h;
+      return h / w;
+    }
+
+    // Run $1 classifier on raw Point array
+    function d1classify(rawPoints, templates) {
+      if (!rawPoints || rawPoints.length < 3) {
+        return { shape: 'unknown', confidence: 0 };
+      }
+      var processed = d1processPoints(rawPoints.slice());
+      var bestDist = Infinity;
+      var bestName = '';
+      for (var i = 0; i < templates.length; i++) {
+        var d = d1distanceAtBestAngle(processed, templates[i].points, -D1_ANGLE_RANGE, D1_ANGLE_RANGE, D1_ANGLE_PRECISION);
+        if (d < bestDist) {
+          bestDist = d;
+          bestName = templates[i].name;
+        }
+      }
+      var threshold = 250.0;
+      var confidence = Math.max(0, 1.0 - bestDist / threshold);
+
+      // Geometric filter: isoperimetric quotient
+      var iq = d1isoperimetricQuotient(rawPoints);
+      if (iq > 0.75 && (bestName === 'triangle' || bestName === 'rectangle')) {
+        bestName = 'circle';
+      }
+      if (iq < 0.55 && bestName === 'circle') {
+        bestName = 'triangle';
+      }
+
+      // Square easter egg
+      if (bestName === 'rectangle') {
+        var ar = d1aspectRatio(rawPoints);
+        if (ar >= 0.78 && ar <= 1.22) {
+          bestName = 'square';
+        }
+      }
+
+      return { shape: bestName, confidence: confidence };
+    }
+
+    // Build templates once at load time
+    var d1Templates = d1buildTemplates();
+
+    // ════════════════════════════════════════════════════════════
+    // SECONDARY: Centroid Distance Profile
+    // ════════════════════════════════════════════════════════════
+
+    // ── Smooth array with circular moving average ──
+    function smoothArray(arr, windowSize) {
+      var half = Math.floor(windowSize / 2);
+      var n = arr.length;
+      var out = [];
+      for (var i = 0; i < n; i++) {
+        var sum = 0, cnt = 0;
+        for (var j = i - half; j <= i + half; j++) {
+          var idx = ((j % n) + n) % n;
+          sum += arr[idx]; cnt++;
+        }
+        out.push(sum / cnt);
+      }
+      return out;
+    }
+
+    // ── Find peaks in circular array ──
+    function findProfilePeaks(arr, threshold, minSep) {
+      var n = arr.length;
+      var rawPeaks = [];
+      for (var i = 0; i < n; i++) {
+        var prev = ((i - 1) + n) % n;
+        var next = (i + 1) % n;
+        if (arr[i] > arr[prev] && arr[i] > arr[next] && arr[i] >= threshold) {
+          rawPeaks.push({index: i, value: arr[i]});
+        }
+      }
+      rawPeaks.sort(function(a, b) { return b.value - a.value; });
+      var kept = [];
+      for (var i = 0; i < rawPeaks.length; i++) {
+        var tooClose = false;
+        for (var j = 0; j < kept.length; j++) {
+          var d = Math.min(Math.abs(rawPeaks[i].index - kept[j].index), n - Math.abs(rawPeaks[i].index - kept[j].index));
+          if (d < minSep) { tooClose = true; break; }
+        }
+        if (!tooClose) kept.push(rawPeaks[i]);
+      }
+      return kept;
+    }
+
+    // Run centroid classifier on flattened points
+    function centroidClassify(flat) {
+      var N = 120;
+      var SMOOTH = 7;
+      var MIN_SEP = Math.floor(N / 10);
+
+      var pts = resampleClosed(flat, N);
+
+      // Centroid
+      var cx = 0, cy = 0;
+      for (var i = 0; i < pts.length; i++) { cx += pts[i].x; cy += pts[i].y; }
+      cx /= pts.length; cy /= pts.length;
+
+      // Distance profile
+      var profile = [];
+      for (var i = 0; i < pts.length; i++) {
+        profile.push(dist(pts[i], {x: cx, y: cy}));
+      }
+
+      var smooth = smoothArray(profile, SMOOTH);
+
+      // Stats
+      var sum = 0;
+      for (var i = 0; i < smooth.length; i++) sum += smooth[i];
+      var mean = sum / smooth.length;
+      var varSum = 0;
+      for (var i = 0; i < smooth.length; i++) varSum += (smooth[i] - mean) * (smooth[i] - mean);
+      var std = Math.sqrt(varSum / smooth.length);
+      var cv = mean > 0 ? std / mean : 0;
+
+      var peaks = findProfilePeaks(smooth, mean, MIN_SEP);
+      var peakCount = peaks.length;
+
+      // Classification logic
+      var shape = 'rectangle';
+      if (cv < 0.10) {
+        shape = 'circle';
+      } else if (peakCount === 3 && cv > 0.08) {
+        shape = 'triangle';
+      } else if (peakCount === 4 && cv > 0.08) {
+        if (peaks.length === 4) {
+          var gaps = [];
+          for (var i = 0; i < 4; i++) {
+            var next = (i + 1) % 4;
+            var gap = peaks[next].index - peaks[i].index;
+            if (gap < 0) gap += N;
+            gaps.push(gap);
+          }
+          var meanGap = 0;
+          for (var i = 0; i < gaps.length; i++) meanGap += gaps[i];
+          meanGap /= 4;
+          var gapVar = 0;
+          for (var i = 0; i < gaps.length; i++) gapVar += (gaps[i] - meanGap) * (gaps[i] - meanGap);
+          var gapCV = Math.sqrt(gapVar / 4) / meanGap;
+          if (gapCV < 0.25) {
+            shape = 'square';
+          } else {
+            shape = 'rectangle';
+          }
+        } else {
+          shape = 'rectangle';
+        }
+      } else if (cv < 0.15 && peakCount <= 2) {
+        shape = 'circle';
+      } else if (peakCount >= 5 && cv < 0.18) {
+        shape = 'circle';
+      } else if (peakCount === 3) { shape = 'triangle'; }
+      else if (peakCount === 4) { shape = 'rectangle'; }
+      else if (peakCount <= 2) { shape = 'circle'; }
+      else { shape = 'circle'; }
+
+      return shape;
+    }
+
+    // ════════════════════════════════════════════════════════════
+    // COMBINED: Dual classifier with agreement logic
+    // ════════════════════════════════════════════════════════════
+
+    function classifyShape(region) {
+      // Step 1: Get all strokes
+      var flat = flattenForClassifier();
+      if (flat.length < 10) {
+        var m = SHAPES.rectangle;
+        return {page: m.page, hint: m.hint, shape: 'rectangle', confidence: 0.3};
+      }
+
+      // Step 2: Run $1 classifier (primary)
+      var d1points = [];
+      for (var i = 0; i < flat.length; i++) {
+        d1points.push(new Point(flat[i].x, flat[i].y));
+      }
+      var d1result = d1classify(d1points, d1Templates);
+      var d1shape = d1result.shape;
+      var d1conf = d1result.confidence;
+
+      // Step 3: Run centroid classifier (secondary)
+      var centroidShape = centroidClassify(flat);
+
+      // Step 4-5: Combine results
+      var shape, confidence;
+
+      if (d1shape === centroidShape) {
+        // Both agree → high confidence
+        shape = d1shape;
+        confidence = 0.95;
+      } else {
+        // Disagree → trust $1 if confident enough
+        if (d1conf > 0.7) {
+          shape = d1shape;
+          confidence = d1conf;
+        } else {
+          // Neither confident → safe default
+          shape = 'rectangle';
+          confidence = 0.6;
+        }
+      }
+
+      // Step 6: Multi-stroke override (strongest signal)
+      var substStrokes = 0;
+      for (var s = 0; s < allStrokes.length; s++) {
+        if (allStrokes[s].length >= 5) substStrokes++;
+      }
+      if (substStrokes === 3) { shape = 'triangle'; confidence = 0.95; }
+      if (substStrokes === 4) { shape = 'rectangle'; confidence = 0.95; }
+
+      // Step 7: Return result
+      var m = SHAPES[shape] || SHAPES.rectangle;
+      return {page: m.page, hint: m.hint, shape: shape, confidence: confidence};
+    }
+
+    // Simple label flash — shows "circle · no corners to hide behind"
+    function flashGeometricShape(region, classification) {
+      if (classification.shape === 'rectangle') return;
+    }
+
+    // Combined shape label + destination hint
+    function showCombinedHint(region, classification) {
+      var b = region.bounds;
+      var cx = (b.minX + b.maxX) / 2;
+      var bottomY = b.maxY + 25;
+      if (bottomY > window.innerHeight - 60) bottomY = b.minY - 35;
+
+      var label = document.createElement('div');
+      label.textContent = classification.hint;
+      label.style.cssText = 'position:fixed;z-index:9;pointer-events:none;font-family:Caveat,cursive;font-size:1.3rem;color:#999;text-align:center;opacity:0;transition:opacity 0.4s ease;left:' + cx + 'px;top:' + bottomY + 'px;transform:translateX(-50%);white-space:nowrap;';
+
+      document.body.appendChild(label);
+      setTimeout(function () { label.style.opacity = '1'; }, 50);
+    }
+
+    function endDraw(e) {
+      if (!drawing || shapeClosed) return;
+      e.preventDefault();
+      drawing = false;
+
+      if (points.length < 5) {
+        points = [];
+        return;
+      }
+
+      allStrokes.push([...points]);
+      points = [];
+
+      // Check for any enclosed region
+      var region = findEnclosedRegion();
+      if (region) {
+        shapeClosed = true;
+        enclosedData = region;
+
+        // Classify the shape
+        var classification = classifyShape(region);
+        lastClassification = classification;
+        targetPage = classification.page;
+
+        // Redraw with illustration in the enclosed region
+        redrawAll();
+
+        // Show combined shape label + hint
+        showCombinedHint(region, classification);
+
+        canvas.style.cursor = 'pointer';
+        startPulse();
+      }
+    }
+
+    // Pulse animation — redraws white background, strokes, then cuts out with subtle glow variation
+    let pulseRAF = null;
+    let pulseStart = null;
+
+    function startPulse() {
+      pulseStart = performance.now();
+      pulseTick();
+    }
+
+    function pulseTick() {
+      if (!shapeClosed || !enclosedData) return;
+      var elapsed = performance.now() - pulseStart;
+      var cycle = (Math.sin(elapsed / 1000 * Math.PI) + 1) / 2;
+
+      // Redraw white background
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+      // Redraw all strokes
+      for (var i = 0; i < allStrokes.length; i++) {
+        drawStroke(allStrokes[i], false);
+      }
+
+      // Paint the illustration into the enclosed region
+      paintIllustrationInRegion(enclosedData, 1);
+
+      // Subtle pulsing pink overlay on top
+      var glowAlpha = 0.02 + cycle * 0.06;
+      ctx.save();
+      ctx.fillStyle = 'rgba(233, 30, 123, ' + glowAlpha + ')';
+      var step = 1 / enclosedData.scale;
+      for (var y = 0; y < enclosedData.h; y++) {
+        for (var x = 0; x < enclosedData.w; x++) {
+          if (enclosedData.visited[y * enclosedData.w + x] === 0) {
+            ctx.fillRect(x / enclosedData.scale, y / enclosedData.scale, step, step);
+          }
+        }
+      }
+      ctx.restore();
+
+      pulseRAF = requestAnimationFrame(pulseTick);
+    }
+
+    function handleClick(e) {
+      if (!shapeClosed || !enclosedData) return;
+      var pos = getPos(e);
+      // Check if click is inside the enclosed region
+      var sx = Math.floor(pos.x * enclosedData.scale);
+      var sy = Math.floor(pos.y * enclosedData.scale);
+      if (sx >= 0 && sx < enclosedData.w && sy >= 0 && sy < enclosedData.h) {
+        if (enclosedData.visited[sy * enclosedData.w + sx] === 0) {
+          enterSite();
+        }
+      }
+    }
+
+    function enterSite() {
+      sessionStorage.setItem('joyus_entered', '1');
+      sessionStorage.removeItem('joyus_shape_replayed'); // ensure hero replay on first landing
+
+      var normalizedPath = allStrokes.map(function(s) {
+        return s.map(function(p) {
+          return { x: p.x / window.innerWidth, y: p.y / window.innerHeight };
+        });
+      });
+
+      // Store the drawn shape so it can be echoed in the nav on the landing page
+      sessionStorage.setItem('joyus_shape', JSON.stringify({
+        path: normalizedPath,
+        hint: targetPage,
+        shapeType: lastClassification ? lastClassification.shape : 'other'
+      }));
+
+      // Save shape to Firestore so other visitors can see it
+      if (typeof firebase !== 'undefined' && firebase.firestore) {
+        try {
+          var db = firebase.firestore();
+          // Only save first 3 strokes, simplified, to keep docs small
+          var simplifiedPath = normalizedPath.slice(0, 3).map(function(s) {
+            // Sample every Nth point to reduce size
+            var step = Math.max(1, Math.floor(s.length / 30));
+            var sampled = [];
+            for (var i = 0; i < s.length; i += step) sampled.push(s[i]);
+            return sampled;
+          });
+          db.collection('shapes').add({
+            path: JSON.stringify(simplifiedPath),
+            shapeType: lastClassification ? lastClassification.shape : 'other',
+            confidence: lastClassification ? lastClassification.confidence : 0,
+            page: targetPage,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+          });
+        } catch (e) { /* silent */ }
+      }
+
+      if (pulseRAF) cancelAnimationFrame(pulseRAF);
+      wrapper.classList.add('fade-out');
+      setTimeout(() => {
+        window.location.href = targetPage;
+      }, 700);
+    }
+
+    // Event listeners
+    // Mouse
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', moveDraw);
+    canvas.addEventListener('mouseup', endDraw);
+    canvas.addEventListener('mouseleave', endDraw);
+
+    // Touch
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', moveDraw, { passive: false });
+    canvas.addEventListener('touchend', endDraw, { passive: false });
+    canvas.addEventListener('touchcancel', endDraw, { passive: false });
+
+    // Click to enter
+    canvas.addEventListener('click', handleClick);
+    canvas.addEventListener('touchend', function(e) {
+      if (!shapeClosed || !enclosedData) return;
+      setTimeout(function() {
+        if (!shapeClosed) return;
+        var touch = e.changedTouches && e.changedTouches[0];
+        if (!touch) return;
+        var pos = { x: touch.clientX, y: touch.clientY };
+        var sx = Math.floor(pos.x * enclosedData.scale);
+        var sy = Math.floor(pos.y * enclosedData.scale);
+        if (sx >= 0 && sx < enclosedData.w && sy >= 0 && sy < enclosedData.h) {
+          if (enclosedData.visited[sy * enclosedData.w + sx] === 0) {
+            enterSite();
+          }
+        }
+      }, 50);
+    });
+
+    // Prevent scrolling on touch
+    document.body.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
+    // Resize
+    window.addEventListener('resize', resize);
+    resize();
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+      authDomain: "joyus-studio.firebaseapp.com",
+      projectId: "joyus-studio",
+      storageBucket: "joyus-studio.firebasestorage.app",
+      messagingSenderId: "654710924238",
+      appId: "1:654710924238:web:c300c98f31d2f620b3c19f",
+      measurementId: "G-K7PDLTYWF6"
+    });
+    firebase.firestore().settings({ experimentalAutoDetectLongPolling: true, merge: true });
+  </script>
+</body>
+</html>

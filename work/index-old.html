@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Case studies from Joyus Studio — brand strategy, product design, visual language and storytelling for companies like TomboyX, Klydo, Tatsam, PrathamUSA and more.">
+  <meta property="og:title" content="Our Work — Joyus Studio">
+  <meta property="og:description" content="Case studies from Joyus Studio — brand strategy, product design, visual language and storytelling for companies like TomboyX, Klydo, Tatsam, PrathamUSA and more.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/index.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/index.html">
+    <title>Our Work — Joyus Studio</title>
+    <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .work-page-hero {
+            padding: 8rem 2rem 4rem;
+            background: var(--warm-gray, #F5F3F0);
+            text-align: center;
+        }
+        .work-page-hero .container {
+            max-width: 900px;
+        }
+        .work-page-hero h1 {
+            margin-bottom: 1rem;
+        }
+        .work-page-hero p {
+            color: #555;
+            font-size: 1.15rem;
+            max-width: 680px;
+            line-height: 1.7;
+        }
+        .work-section {
+            padding: 5rem 2rem;
+        }
+        .work-section .container {
+            max-width: 1200px;
+        }
+
+        /* Case card grid */
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+
+        .case-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #e8e6e4;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+        }
+
+        /* Image card (with real photo) */
+        .case-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            position: relative;
+        }
+        .case-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+        .case-card:hover .case-card-image img {
+            /* card already lifts on hover — no separate image zoom */
+        }
+        /* Color fallback if no image */
+        .case-card-color {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .case-card-color span {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            color: white;
+            font-weight: 600;
+        }
+
+        .case-card-body {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .case-card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 0.75rem;
+        }
+        .case-card-tags span {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #888;
+            background: #f4f2f0;
+            padding: 0.3rem 0.6rem;
+            border-radius: 3px;
+        }
+        .case-card-body h3 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #111;
+        }
+        .case-card-body p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.55;
+            flex: 1;
+            margin-bottom: 1rem;
+        }
+        .case-card-stat {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f0eeec;
+        }
+
+        .fade-in {
+            opacity: 1;
+            transform: none;
+        }
+        .fade-in.animate {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+        .fade-in.animate.visible {
+            opacity: 1;
+            transform: none;
+            /* Reset transition so hover transform works cleanly */
+            transition: opacity 0.55s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        @media (max-width: 600px) {
+            .cases-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+    <!-- NAVIGATION -->
+    <nav class="nav-bar">
+        <div class="nav-container">
+            <a href="../home.html" class="logo">
+                <img src="../images/logo.webp" alt="Joyus Studio">
+            </a>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Work</a></li>
+                <li><a href="../comics/index.html">Comics</a></li>
+        <li><a href="../podcast.html">Podcast</a></li>
+                <li><a href="../services.html">Services</a></li>
+                <li><a href="../about.html">About</a></li>
+                <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <main id="main-content">
+    <section class="work-page-hero">
+        <div class="container">
+            <h1>Our Work</h1>
+            <p>Brand strategy, visual design, and storytelling for startups and mission-driven companies. From raising $5M to reaching 100K students — here's how we helped.</p>
+        </div>
+    </section>
+
+    <!-- CASE STUDIES GRID -->
+    <section class="work-section">
+        <div class="container">
+            <div class="cases-grid">
+
+                <!-- TomboyX -->
+                <a href="tomboyx.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/tomboyx.jpg" alt="TomboyX investor storytelling" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Brand Story</span>
+                            <span>Investor Pitch</span>
+                        </div>
+                        <h3>TomboyX</h3>
+                        <p>Reframing an investor narrative around unit economics — not identity politics.</p>
+                        <div class="case-card-stat">$5M raised in a down market</div>
+                    </div>
+                </a>
+
+                <!-- Klydo -->
+                <a href="klydo.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/klydo.jpg" alt="Klydo fashion startup" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Product Strategy</span>
+                            <span>Brand Story</span>
+                            <span>GTM</span>
+                        </div>
+                        <h3>Klydo</h3>
+                        <p>Building a high-growth fashion startup for the instant gratification era — from 4 people to 150 daily sales.</p>
+                        <div class="case-card-stat">0 → 150 daily sales in 10 weeks</div>
+                    </div>
+                </a>
+
+                <!-- Tatsam -->
+                <a href="tatsam.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/tatsam.jpg" alt="Tatsam mental wellness visual language" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Visual Language</span>
+                            <span>Brand Building</span>
+                            <span>Product Strategy</span>
+                        </div>
+                        <h3>Tatsam</h3>
+                        <p>How do you make mental wellness feel approachable in a culture where it carries real stigma?</p>
+                        <div class="case-card-stat">Holistic design for a sensitive space</div>
+                    </div>
+                </a>
+
+                <!-- PrathamUSA -->
+                <a href="pratham.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/pratham.jpg" alt="PrathamUSA donor journey" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Donor Research</span>
+                            <span>Process Creation</span>
+                            <span>Information Flow</span>
+                        </div>
+                        <h3>PrathamUSA</h3>
+                        <p>Rebuilding the donor journey for a $50M nonprofit — so the people who give feel as seen as the children they support.</p>
+                        <div class="case-card-stat">$50M nonprofit · Donor journey redesign</div>
+                    </div>
+                </a>
+
+                <!-- ConveGenius -->
+                <a href="convegenius.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/convegenius.jpg" alt="ConveGenius gamification strategy" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>User Research</span>
+                            <span>Gamification</span>
+                            <span>Behavioral Design</span>
+                        </div>
+                        <h3>ConveGenius</h3>
+                        <p>Gamification strategy for 100K monthly active students — designed around how real kids actually behave, not theory.</p>
+                        <div class="case-card-stat">100K monthly students · Behavior change framework</div>
+                    </div>
+                </a>
+
+                <!-- Secret Senses -->
+                <a href="secret-senses.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/secret-senses.jpg" alt="Secret Senses product packaging" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Identity Design</span>
+                            <span>Illustrations</span>
+                            <span>Packaging</span>
+                        </div>
+                        <h3>Secret Senses</h3>
+                        <p>When the founder's own art becomes the product's identity — packaging that feels handcrafted because it genuinely is.</p>
+                        <div class="case-card-stat">From sketchbook to shelf</div>
+                    </div>
+                </a>
+
+                <!-- XTDB -->
+                <a href="xtdb.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/xtdb.jpg" alt="XTDB rebrand" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Rebranding</span>
+                            <span>Brand Guidelines</span>
+                        </div>
+                        <h3>XTDB</h3>
+                        <p>Full rebrand for a $10M ARR database company — from CRUX to XTDB, built for enterprise conversations and developer love.</p>
+                        <div class="case-card-stat">CRUX → XTDB · brand built for enterprise and developers alike</div>
+                    </div>
+                </a>
+
+                <!-- Agemo / CodeWords -->
+                <a href="agemo.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/agemo.jpg" alt="Agemo CodeWords interface design" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Research</span>
+                            <span>Product Strategy</span>
+                            <span>Interface Design</span>
+                        </div>
+                        <h3>Agemo / CodeWords</h3>
+                        <p>Making AI-powered development approachable — research to interface, built around real developer mental models.</p>
+                        <div class="case-card-stat">Research to interface design</div>
+                    </div>
+                </a>
+
+                <!-- Gliitch -->
+                <a href="gliitch.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/gliitch.jpg" alt="Gliitch brand identity" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Moodboarding</span>
+                            <span>Branding</span>
+                            <span>Media Guides</span>
+                        </div>
+                        <h3>Gliitch</h3>
+                        <p>Creating the visual identity for a Hong Kong digital provider — from name and attitude to a complete brand system.</p>
+                        <div class="case-card-stat">Moodboard to brand system</div>
+                    </div>
+                </a>
+
+                <!-- Rachna Nivas -->
+                <a href="rachna-nivas.html" class="case-card fade-in">
+                    <div class="case-card-image">
+                        <img src="../images/work/rachna-nivas.jpg" alt="Rachna Nivas digital identity" loading="lazy">
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-card-tags">
+                            <span>Identity Finding</span>
+                            <span>Leverage Building</span>
+                            <span>Content Strategy</span>
+                        </div>
+                        <h3>Rachna Nivas</h3>
+                        <p>Helping a classical dancer find her digital voice without losing her artistic one — authenticity as strategy.</p>
+                        <div class="case-card-stat">A digital presence built on depth, not reach</div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding:5rem 2rem;background:var(--warm-gray,#F5F3F0);">
+      <div style="max-width:900px;margin:0 auto;">
+        <h2 style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#111;margin-bottom:0.5rem;">Facing a challenge like these?</h2>
+        <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">We'd love to hear what you're working through.</p>
+        <a href="mailto:hello@joyus.studio" style="display:inline-block;padding:0.9rem 2.5rem;background:#E91E7B;color:#fff;text-decoration:none;border-radius:50px;font-weight:600;font-size:1rem;">Get in touch</a>
+      </div>
+    </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Joyus Studio</h3>
+                <p>A studio that thinks — and makes.</p>
+            </div>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="../home.html">Home</a></li>
+                    <li><a href="index.html">Work</a></li>
+                    <li><a href="../comics/index.html">Comics</a></li>
+        <li><a href="../podcast.html">Podcast</a></li>
+                    <li><a href="../services.html">Services</a></li>
+                    <li><a href="../about.html">About</a></li>
+                    <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="footer-themes">
+        <h4>Themes</h4>
+        <a href="../hub-story.html">Finding Your Story</a>
+        <a href="../hub-building.html">Building Something That Matters</a>
+        <a href="../hub-behavior.html">How People Actually Behave</a>
+        <a href="../hub-play.html">Play as Practice</a>
+        <a href="../hub-games.html">Game Design Thinking</a>
+        <a href="../hub-creative.html">Drawing Outside the Lines</a>
+      </div>
+      <div class="footer-contact">
+                <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburger) {
+            hamburger.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            });
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    hamburger.classList.remove('active');
+                });
+            });
+        }
+        const nav = document.querySelector('.nav-bar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 0) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+
+        // Animate cards below the fold on scroll (cards above fold are immediately visible)
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('visible');
+                    obs.unobserve(e.target);
+                    // Remove animate class after entrance so hover transitions work cleanly
+                    setTimeout(() => {
+                        e.target.classList.remove('animate');
+                        e.target.classList.remove('fade-in');
+                    }, 600);
+                }
+            });
+        }, {threshold: 0.08, rootMargin: '0px 0px -60px 0px'});
+        document.querySelectorAll('.fade-in').forEach((el, i) => {
+            if (i >= 4) {  // first 4 cards visible immediately, rest animate on scroll
+                el.classList.add('animate');
+                obs.observe(el);
+            }
+        });
+    </script>
+<script src="../shape-echo.js"></script>
+</body>
+</html>

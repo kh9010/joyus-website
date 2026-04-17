@@ -1,471 +1,746 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Case studies from Joyus Studio — brand strategy, product design, visual language and storytelling for companies like TomboyX, Klydo, Tatsam, PrathamUSA and more.">
-  <meta property="og:title" content="Our Work — Joyus Studio">
-  <meta property="og:description" content="Case studies from Joyus Studio — brand strategy, product design, visual language and storytelling for companies like TomboyX, Klydo, Tatsam, PrathamUSA and more.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/index.html">
-  <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/index.html">
-    <title>Our Work — Joyus Studio</title>
-    <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
-    <style>
-        .work-page-hero {
-            padding: 8rem 2rem 4rem;
-            background: var(--warm-gray, #F5F3F0);
-            text-align: center;
-        }
-        .work-page-hero .container {
-            max-width: 900px;
-        }
-        .work-page-hero h1 {
-            margin-bottom: 1rem;
-        }
-        .work-page-hero p {
-            color: #555;
-            font-size: 1.15rem;
-            max-width: 680px;
-            line-height: 1.7;
-        }
-        .work-section {
-            padding: 5rem 2rem;
-        }
-        .work-section .container {
-            max-width: 1200px;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
 
-        /* Case card grid */
-        .cases-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 2rem;
-        }
+  /* NAV */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem var(--x);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .nav-logo img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
 
-        .case-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid #e8e6e4;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-        }
-        .case-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-        }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  @media (max-width: 720px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
 
-        /* Image card (with real photo) */
-        .case-card-image {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            position: relative;
-        }
-        .case-card-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-        .case-card:hover .case-card-image img {
-            /* card already lifts on hover — no separate image zoom */
-        }
-        /* Color fallback if no image */
-        .case-card-color {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .case-card-color span {
-            font-family: 'DM Serif Display', serif;
-            font-size: 2rem;
-            color: white;
-            font-weight: 600;
-        }
+  /* progress thread */
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.15s linear;
+  }
 
-        .case-card-body {
-            padding: 1.5rem;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .case-card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-bottom: 0.75rem;
-        }
-        .case-card-tags span {
-            font-size: 0.72rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #888;
-            background: #f4f2f0;
-            padding: 0.3rem 0.6rem;
-            border-radius: 3px;
-        }
-        .case-card-body h3 {
-            font-family: 'DM Serif Display', serif;
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #111;
-        }
-        .case-card-body p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.55;
-            flex: 1;
-            margin-bottom: 1rem;
-        }
-        .case-card-stat {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding-top: 0.75rem;
-            border-top: 1px solid #f0eeec;
-        }
+  /* DOTS */
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .d-pink   { background: var(--pink); }
+  .d-cyan   { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
 
-        .fade-in {
-            opacity: 1;
-            transform: none;
-        }
-        .fade-in.animate {
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.55s ease, transform 0.55s ease;
-        }
-        .fade-in.animate.visible {
-            opacity: 1;
-            transform: none;
-            /* Reset transition so hover transform works cleanly */
-            transition: opacity 0.55s ease, transform 0.25s ease, box-shadow 0.25s ease;
-        }
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 58vh;
+    padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 18ch;
+    position: relative; z-index: 2;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--pink);
+  }
+  .hero-meta {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-fade);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    max-width: 52ch;
+    position: relative; z-index: 2;
+  }
+  .hero-meta span + span::before {
+    content: " · ";
+    color: var(--ink-fade);
+    padding: 0 0.15em;
+  }
+  .hero .dh1 { width: 260px; height: 260px; top: 12%; right: -4%; }
+  .hero .dh2 { width: 42px; height: 42px; bottom: 20%; right: 18%; }
+  .hero .dh3 { width: 18px; height: 18px; top: 30%; right: 28%; }
 
-        @media (max-width: 600px) {
-            .cases-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  /* ============ STACK — sticky cards as a physical stack ============ */
+  .stack { position: relative; }
+
+  .p {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    width: 100%;
+    /* transparent — page bg is the "table" under the stack */
+    padding: clamp(2rem, 5vh, 4rem) clamp(1rem, 3vw, 3rem);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .p:nth-child(1)  { z-index: 1; }
+  .p:nth-child(2)  { z-index: 2; }
+  .p:nth-child(3)  { z-index: 3; }
+  .p:nth-child(4)  { z-index: 4; }
+  .p:nth-child(5)  { z-index: 5; }
+  .p:nth-child(6)  { z-index: 6; }
+  .p:nth-child(7)  { z-index: 7; }
+  .p:nth-child(8)  { z-index: 8; }
+  .p:nth-child(9)  { z-index: 9; }
+  .p:nth-child(10) { z-index: 10; }
+
+  /* the actual card — an inset panel on the page (~25% bigger) */
+  .p-panel {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    background: #ffffff;
+    border-radius: 26px;
+    padding: clamp(3.75rem, 8.5vh, 6.25rem) clamp(2.5rem, 5vw, 5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5.5vw, 4.5rem);
+    align-items: stretch;
+    /* subtle shadow — just enough to feel lifted off the page */
+    box-shadow:
+      0 24px 48px -20px rgba(44, 53, 68, 0.14),
+      0 6px 12px -4px rgba(44, 53, 68, 0.06),
+      0 1px 2px rgba(44, 53, 68, 0.04);
+    overflow: hidden;
+    transform: rotate(var(--tilt, -2deg));
+  }
+
+  /* scroll-driven pile: card arrives tilted, straightens briefly when
+     it's the active top card, then tilts back as it gets covered by the
+     next card. --tilt alternates per card, so cards under the pile
+     tilt on alternating sides, reading as a real stack. */
+  @supports (animation-timeline: view()) {
+    .p-panel {
+      animation: pile linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+    @keyframes pile {
+      0%   { transform: rotate(var(--tilt)); }   /* arriving from below, tilted */
+      40%  { transform: rotate(0deg); }          /* settled — active top */
+      60%  { transform: rotate(0deg); }          /* stay settled briefly */
+      100% { transform: rotate(var(--tilt)); }   /* tilted back as it goes under */
+    }
+  }
+
+  /* per-card resting tilt — strong, alternating sides so the stack reads */
+  .p:nth-child(1)  .p-panel { --tilt: -3.2deg; }
+  .p:nth-child(2)  .p-panel { --tilt:  2.9deg; }
+  .p:nth-child(3)  .p-panel { --tilt: -2.5deg; }
+  .p:nth-child(4)  .p-panel { --tilt:  3.1deg; }
+  .p:nth-child(5)  .p-panel { --tilt: -2.7deg; }
+  .p:nth-child(6)  .p-panel { --tilt:  2.4deg; }
+  .p:nth-child(7)  .p-panel { --tilt: -3deg;   }
+  .p:nth-child(8)  .p-panel { --tilt:  2.6deg; }
+  .p:nth-child(9)  .p-panel { --tilt: -2.8deg; }
+  .p:nth-child(10) .p-panel { --tilt:  2.3deg; }
+
+  /* big colored shape — behind image */
+  .p-d1 {
+    width: clamp(320px, 52vh, 620px);
+    height: clamp(320px, 52vh, 620px);
+    top: -8%;
+    left: -10%;
+  }
+  .p-d2 { width: 22px; height: 22px; top: 78%; left: 42%; }
+  .p-d3 { width: 14px; height: 14px; top: 18%; right: 14%; }
+  .p-d4 { width: 42px; height: 42px; bottom: 14%; right: 22%; }
+
+  /* framed image — stretches to panel height, 4:3 or taller */
+  .p-frame {
+    position: relative;
+    z-index: 2;
+    aspect-ratio: 4/3;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px -10px rgba(44, 53, 68, 0.24),
+                0 2px 6px rgba(44, 53, 68, 0.08);
+    width: 100%;
+    align-self: stretch;
+  }
+  .p-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* text column — positioned above dots, vertically centered */
+  .p-text {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 32rem;
+  }
+
+  /* BIG DECORATIVE NUMBER — Caveat, color-cycled, tilted */
+  .p-big-no {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(5.5rem, 11vw, 10rem);
+    line-height: 0.82;
+    transform: rotate(-4deg);
+    display: inline-block;
+    align-self: flex-start;
+    margin-left: -0.1em;
+    margin-bottom: 0.45rem;
+  }
+  .p-name {
+    font-weight: 700;
+    font-size: clamp(3.2rem, 6.8vw, 5.6rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 0.65rem;
+  }
+  .p-rule {
+    width: 4.5rem;
+    height: 5px;
+    margin: 0.85rem 0 1.5rem;
+    border-radius: 2.5px;
+  }
+  .p-outcome {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(2.2rem, 3.1vw, 2.85rem);
+    line-height: 1;
+    margin-bottom: 2rem;
+    transform: rotate(-1.5deg);
+    align-self: flex-start;
+  }
+  .p-tags {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.75rem;
+  }
+  .p-tags span + span::before {
+    content: " · ";
+    color: var(--ink-fade);
+    padding: 0 0.2rem;
+  }
+  .p-meta {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-fade);
+    margin-bottom: 2rem;
+  }
+  .p-meta span + span::before {
+    content: " · ";
+    color: var(--ink-fade);
+    padding: 0 0.15em;
+  }
+  /* bold pill link — full brand color */
+  .p-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.85rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+    background: var(--ink);
+    align-self: flex-start;
+    transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.25s;
+    box-shadow: 0 7px 0 var(--ink);
+  }
+  .p-link:hover { transform: translateY(-2px); box-shadow: 0 9px 0 var(--ink); }
+
+  /* ============ ACCENT COLOR CYCLES — strong use ============ */
+  /* cycle 1: PINK */
+  .p:nth-child(3n+1) .p-d1      { background: var(--pink); }
+  .p:nth-child(3n+1) .p-d2      { background: var(--cyan); }
+  .p:nth-child(3n+1) .p-d3      { background: var(--yellow); }
+  .p:nth-child(3n+1) .p-d4      { background: var(--pink); opacity: 0.5; }
+  .p:nth-child(3n+1) .p-big-no  { color: var(--pink); }
+  .p:nth-child(3n+1) .p-rule    { background: var(--pink); }
+  .p:nth-child(3n+1) .p-outcome { color: var(--pink); }
+  .p:nth-child(3n+1) .p-link    { background: var(--pink); box-shadow: 0 7px 0 #9a1453; }
+  .p:nth-child(3n+1) .p-link:hover { box-shadow: 0 9px 0 #9a1453; }
+
+  /* cycle 2: CYAN */
+  .p:nth-child(3n+2) .p-d1      { background: var(--cyan); }
+  .p:nth-child(3n+2) .p-d2      { background: var(--yellow); }
+  .p:nth-child(3n+2) .p-d3      { background: var(--pink); }
+  .p:nth-child(3n+2) .p-d4      { background: var(--cyan); opacity: 0.5; }
+  .p:nth-child(3n+2) .p-big-no  { color: var(--cyan); }
+  .p:nth-child(3n+2) .p-rule    { background: var(--cyan); }
+  .p:nth-child(3n+2) .p-outcome { color: var(--cyan); }
+  .p:nth-child(3n+2) .p-link    { background: var(--cyan); color: var(--ink); box-shadow: 0 7px 0 #2d8b93; }
+  .p:nth-child(3n+2) .p-link:hover { box-shadow: 0 9px 0 #2d8b93; }
+
+  /* cycle 3: YELLOW — darker shade for text contrast on cream */
+  .p:nth-child(3n+3) .p-d1      { background: var(--yellow); }
+  .p:nth-child(3n+3) .p-d2      { background: var(--pink); }
+  .p:nth-child(3n+3) .p-d3      { background: var(--cyan); }
+  .p:nth-child(3n+3) .p-d4      { background: var(--yellow); opacity: 0.55; }
+  .p:nth-child(3n+3) .p-big-no  { color: #c79a2a; }
+  .p:nth-child(3n+3) .p-rule    { background: #c79a2a; }
+  .p:nth-child(3n+3) .p-outcome { color: #c79a2a; }
+  .p:nth-child(3n+3) .p-link    { background: var(--yellow); color: var(--ink); box-shadow: 0 7px 0 #a37d20; }
+  .p:nth-child(3n+3) .p-link:hover { box-shadow: 0 9px 0 #a37d20; }
+
+  @media (max-width: 880px) {
+    .p-panel {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 2rem 1.5rem;
+    }
+    .p-frame { justify-self: start; max-width: 100%; }
+    .p-text { order: 2; max-width: 100%; }
+    .p-d1 { width: 70vw; height: 70vw; }
+  }
+
+  /* ============ CLOSING ============ */
+  .closing {
+    position: relative;
+    z-index: 20;
+    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+    background: var(--bg);
+    overflow: hidden;
+    border-top: 2px solid var(--ink);
+  }
+  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+  .closing-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--cyan);
+  }
+  .closing h3 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+    position: relative; z-index: 2;
+  }
+  .closing h3 em { font-style: normal; color: var(--pink); }
+  .closing h3 a {
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px;
+    color: var(--pink);
+  }
+  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .closing .hint {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink-fade);
+    position: relative; z-index: 2;
+  }
+
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: var(--bg);
+    padding: 1.5rem var(--x) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.05em;
+  }
+</style>
 </head>
 <body>
-    <a href="#main-content" class="skip-to-content">Skip to content</a>
 
-    <!-- NAVIGATION -->
-    <nav class="nav-bar">
-        <div class="nav-container">
-            <a href="../home.html" class="logo">
-                <img src="../images/logo.webp" alt="Joyus Studio">
-            </a>
-            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html" class="active">Work</a></li>
-                <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-                <li><a href="../services.html">Services</a></li>
-                <li><a href="../about.html">About</a></li>
-                <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-            </ul>
+  <div class="thread"><div class="thread-fill" id="tf"></div></div>
+
+  <nav class="nav">
+    <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="../services.html">Services</a>
+      <a href="../podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    </div>
+  </nav>
+
+  <!-- =========== HERO =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-cyan"></span>
+    <span class="dot dh2 d-pink"></span>
+    <span class="dot dh3 d-yellow"></span>
+
+    <span class="hero-eyebrow">the work</span>
+    <h1>We think with everyone. <em>We build with a few.</em></h1>
+    <p class="hero-meta">
+      <span>Here are those few</span><span>2023 — 2026</span><span>with founders, nonprofits, and people making good things</span>
+    </p>
+  </section>
+
+  <!-- =========== STACK OF PROJECTS (most recent first) =========== -->
+  <main class="stack" id="stack">
+
+    
+
+    
+
+    
+
+    <section class="p" id="p-01">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/tomboyx.jpg" alt="TomboyX" />
         </div>
-    </nav>
-
-    <!-- PAGE HEADER -->
-    <main id="main-content">
-    <section class="work-page-hero">
-        <div class="container">
-            <h1>Our Work</h1>
-            <p>Brand strategy, visual design, and storytelling for startups and mission-driven companies. From raising $5M to reaching 100K students — here's how we helped.</p>
+        <div class="p-text">
+          <span class="p-big-no">01.</span>
+          <h2 class="p-name">TomboyX</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">$5M raised</div>
+          <div class="p-tags"><span>Story</span><span>Investor Pitch</span></div>
+          <div class="p-meta"><span>Seattle · $25M ARR apparel</span><span>2025 · 8 wks</span></div>
+          <a class="p-link" href="tomboyx.html">read the story →</a>
         </div>
-    </section>
-
-    <!-- CASE STUDIES GRID -->
-    <section class="work-section">
-        <div class="container">
-            <div class="cases-grid">
-
-                <!-- TomboyX -->
-                <a href="tomboyx.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/tomboyx.jpg" alt="TomboyX investor storytelling" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Brand Story</span>
-                            <span>Investor Pitch</span>
-                        </div>
-                        <h3>TomboyX</h3>
-                        <p>Reframing an investor narrative around unit economics — not identity politics.</p>
-                        <div class="case-card-stat">$5M raised in a down market</div>
-                    </div>
-                </a>
-
-                <!-- Klydo -->
-                <a href="klydo.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/klydo.jpg" alt="Klydo fashion startup" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Product Strategy</span>
-                            <span>Brand Story</span>
-                            <span>GTM</span>
-                        </div>
-                        <h3>Klydo</h3>
-                        <p>Building a high-growth fashion startup for the instant gratification era — from 4 people to 150 daily sales.</p>
-                        <div class="case-card-stat">0 → 150 daily sales in 10 weeks</div>
-                    </div>
-                </a>
-
-                <!-- Tatsam -->
-                <a href="tatsam.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/tatsam.jpg" alt="Tatsam mental wellness visual language" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Visual Language</span>
-                            <span>Brand Building</span>
-                            <span>Product Strategy</span>
-                        </div>
-                        <h3>Tatsam</h3>
-                        <p>How do you make mental wellness feel approachable in a culture where it carries real stigma?</p>
-                        <div class="case-card-stat">Holistic design for a sensitive space</div>
-                    </div>
-                </a>
-
-                <!-- PrathamUSA -->
-                <a href="pratham.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/pratham.jpg" alt="PrathamUSA donor journey" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Donor Research</span>
-                            <span>Process Creation</span>
-                            <span>Information Flow</span>
-                        </div>
-                        <h3>PrathamUSA</h3>
-                        <p>Rebuilding the donor journey for a $50M nonprofit — so the people who give feel as seen as the children they support.</p>
-                        <div class="case-card-stat">$50M nonprofit · Donor journey redesign</div>
-                    </div>
-                </a>
-
-                <!-- ConveGenius -->
-                <a href="convegenius.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/convegenius.jpg" alt="ConveGenius gamification strategy" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>User Research</span>
-                            <span>Gamification</span>
-                            <span>Behavioral Design</span>
-                        </div>
-                        <h3>ConveGenius</h3>
-                        <p>Gamification strategy for 100K monthly active students — designed around how real kids actually behave, not theory.</p>
-                        <div class="case-card-stat">100K monthly students · Behavior change framework</div>
-                    </div>
-                </a>
-
-                <!-- Secret Senses -->
-                <a href="secret-senses.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/secret-senses.jpg" alt="Secret Senses product packaging" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Identity Design</span>
-                            <span>Illustrations</span>
-                            <span>Packaging</span>
-                        </div>
-                        <h3>Secret Senses</h3>
-                        <p>When the founder's own art becomes the product's identity — packaging that feels handcrafted because it genuinely is.</p>
-                        <div class="case-card-stat">From sketchbook to shelf</div>
-                    </div>
-                </a>
-
-                <!-- XTDB -->
-                <a href="xtdb.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/xtdb.jpg" alt="XTDB rebrand" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Rebranding</span>
-                            <span>Brand Guidelines</span>
-                        </div>
-                        <h3>XTDB</h3>
-                        <p>Full rebrand for a $10M ARR database company — from CRUX to XTDB, built for enterprise conversations and developer love.</p>
-                        <div class="case-card-stat">CRUX → XTDB · brand built for enterprise and developers alike</div>
-                    </div>
-                </a>
-
-                <!-- Agemo / CodeWords -->
-                <a href="agemo.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/agemo.jpg" alt="Agemo CodeWords interface design" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Research</span>
-                            <span>Product Strategy</span>
-                            <span>Interface Design</span>
-                        </div>
-                        <h3>Agemo / CodeWords</h3>
-                        <p>Making AI-powered development approachable — research to interface, built around real developer mental models.</p>
-                        <div class="case-card-stat">Research to interface design</div>
-                    </div>
-                </a>
-
-                <!-- Gliitch -->
-                <a href="gliitch.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/gliitch.jpg" alt="Gliitch brand identity" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Moodboarding</span>
-                            <span>Branding</span>
-                            <span>Media Guides</span>
-                        </div>
-                        <h3>Gliitch</h3>
-                        <p>Creating the visual identity for a Hong Kong digital provider — from name and attitude to a complete brand system.</p>
-                        <div class="case-card-stat">Moodboard to brand system</div>
-                    </div>
-                </a>
-
-                <!-- Rachna Nivas -->
-                <a href="rachna-nivas.html" class="case-card fade-in">
-                    <div class="case-card-image">
-                        <img src="../images/work/rachna-nivas.jpg" alt="Rachna Nivas digital identity" loading="lazy">
-                    </div>
-                    <div class="case-card-body">
-                        <div class="case-card-tags">
-                            <span>Identity Finding</span>
-                            <span>Leverage Building</span>
-                            <span>Content Strategy</span>
-                        </div>
-                        <h3>Rachna Nivas</h3>
-                        <p>Helping a classical dancer find her digital voice without losing her artistic one — authenticity as strategy.</p>
-                        <div class="case-card-stat">A digital presence built on depth, not reach</div>
-                    </div>
-                </a>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section style="padding:5rem 2rem;background:var(--warm-gray,#F5F3F0);">
-      <div style="max-width:900px;margin:0 auto;">
-        <h2 style="font-family:'DM Serif Display',serif;font-size:1.8rem;color:#111;margin-bottom:0.5rem;">Facing a challenge like these?</h2>
-        <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">We'd love to hear what you're working through.</p>
-        <a href="mailto:hello@joyus.studio" style="display:inline-block;padding:0.9rem 2.5rem;background:#E91E7B;color:#fff;text-decoration:none;border-radius:50px;font-weight:600;font-size:1rem;">Get in touch</a>
       </div>
     </section>
-    </main>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3>Joyus Studio</h3>
-                <p>A studio that thinks — and makes.</p>
-            </div>
-            <nav class="footer-nav">
-                <ul>
-                    <li><a href="../home.html">Home</a></li>
-                    <li><a href="index.html">Work</a></li>
-                    <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-                    <li><a href="../services.html">Services</a></li>
-                    <li><a href="../about.html">About</a></li>
-                    <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-                </ul>
-            </nav>
-            <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
+    <section class="p" id="p-02">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/klydo.jpg" alt="Klydo" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">02.</span>
+          <h2 class="p-name">Klydo</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">0 → 150 / day</div>
+          <div class="p-tags"><span>Product</span><span>Brand</span><span>GTM</span></div>
+          <div class="p-meta"><span>Bangalore · pre-Series A</span><span>2025 · 10 wks</span></div>
+          <a class="p-link" href="klydo.html">read the story →</a>
+        </div>
       </div>
-      <div class="footer-contact">
-                <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-        </div>
-    </footer>
+    </section>
 
-    <script>
-        // Mobile nav toggle
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('navMenu');
-        if (hamburger) {
-            hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
-            document.querySelectorAll('.nav-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                });
-            });
-        }
-        const nav = document.querySelector('.nav-bar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 0) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        });
+    <section class="p" id="p-03">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/convegenius.jpg" alt="ConveGenius" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">03.</span>
+          <h2 class="p-name">ConveGenius</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">2× completion</div>
+          <div class="p-tags"><span>Research</span><span>Gamification</span><span>Behavior</span></div>
+          <div class="p-meta"><span>India edtech · 100K students</span><span>2025 · 8 wks</span></div>
+          <a class="p-link" href="convegenius.html">read the story →</a>
+        </div>
+      </div>
+    </section>
 
-        // Animate cards below the fold on scroll (cards above fold are immediately visible)
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    obs.unobserve(e.target);
-                    // Remove animate class after entrance so hover transitions work cleanly
-                    setTimeout(() => {
-                        e.target.classList.remove('animate');
-                        e.target.classList.remove('fade-in');
-                    }, 600);
-                }
-            });
-        }, {threshold: 0.08, rootMargin: '0px 0px -60px 0px'});
-        document.querySelectorAll('.fade-in').forEach((el, i) => {
-            if (i >= 4) {  // first 4 cards visible immediately, rest animate on scroll
-                el.classList.add('animate');
-                obs.observe(el);
-            }
+    <section class="p" id="p-04">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/agemo.jpg" alt="Agemo" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">04.</span>
+          <h2 class="p-name">Agemo</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">3.2× session completion</div>
+          <div class="p-tags"><span>Research</span><span>Strategy</span><span>Interface</span></div>
+          <div class="p-meta"><span>UK · pre-Series A GenAI</span><span>2025 · 10 wks</span></div>
+          <a class="p-link" href="agemo.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-05">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/tatsam.jpg" alt="Tatsam" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">05.</span>
+          <h2 class="p-name">Tatsam</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">3× week-1 retention</div>
+          <div class="p-tags"><span>Visual System</span><span>Product</span><span>Brand</span></div>
+          <div class="p-meta"><span>Delhi · India seed, mental health</span><span>2024 · 14 wks</span></div>
+          <a class="p-link" href="tatsam.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-06">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/pratham.jpg" alt="Pratham USA" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">06.</span>
+          <h2 class="p-name">Pratham USA</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">6-stage donor journey</div>
+          <div class="p-tags"><span>Research</span><span>Process</span><span>Information Flow</span></div>
+          <div class="p-meta"><span>NYC · $50M nonprofit</span><span>2024 · 12 mo</span></div>
+          <a class="p-link" href="pratham.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-07">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/secret-senses.jpg" alt="Secret Senses" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">07.</span>
+          <h2 class="p-name">Secret Senses</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">DTC + 2 retail</div>
+          <div class="p-tags"><span>Identity</span><span>Illustration</span><span>Packaging</span></div>
+          <div class="p-meta"><span>India · bootstrapped hair care</span><span>2024 · 6 wks</span></div>
+          <a class="p-link" href="secret-senses.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-08">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/xtdb.jpg" alt="XTDB" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">08.</span>
+          <h2 class="p-name">XTDB</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">formerly CRUX</div>
+          <div class="p-tags"><span>Re-branding</span><span>Brand Guidelines</span></div>
+          <div class="p-meta"><span>Canada · ~$10M ARR database</span><span>2024 · 8 wks</span></div>
+          <a class="p-link" href="xtdb.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-09">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/gliitch.jpg" alt="Gliitch" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">09.</span>
+          <h2 class="p-name">Gliitch</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">two-color glitch brand</div>
+          <div class="p-tags"><span>Moodboarding</span><span>Branding</span><span>Media</span></div>
+          <div class="p-meta"><span>Hong Kong · bootstrapped</span><span>2024 · 5 wks</span></div>
+          <a class="p-link" href="gliitch.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-10">
+      <div class="p-panel">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/rachna-nivas.jpg" alt="Rachna Nivas" />
+        </div>
+        <div class="p-text">
+          <span class="p-big-no">10.</span>
+          <h2 class="p-name">Rachna Nivas</h2>
+          <div class="p-rule"></div>
+          <div class="p-outcome">3× inquiries</div>
+          <div class="p-tags"><span>Identity</span><span>Leverage</span><span>Artifacts</span></div>
+          <div class="p-meta"><span>NYC · solo Kathak practitioner</span><span>2024 · 6 wks</span></div>
+          <a class="p-link" href="rachna-nivas.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+  
+
+  
+
+  
+
+  </main>
+
+  <!-- =========== CLOSING =========== -->
+  <section class="closing">
+    <span class="dot dx1 d-pink"></span>
+    <span class="dot dx2 d-cyan"></span>
+    <span class="dot dx3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h3>See a project that feels like yours? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </footer>
+
+  <script>
+    // Fallback for browsers without CSS scroll-timeline (old Firefox/Safari):
+    // use IntersectionObserver to straighten the card when it's ~fully visible.
+    if (!CSS.supports('animation-timeline: view()')) {
+      const cards = document.querySelectorAll('.p-panel');
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          e.target.style.transform = (e.intersectionRatio > 0.9) ? 'rotate(0deg)' : '';
+          e.target.style.transition = 'transform 0.6s ease';
         });
-    </script>
-<script src="../shape-echo.js"></script>
+      }, { threshold: [0, 0.5, 0.8, 0.9, 0.98] });
+      cards.forEach(c => obs.observe(c));
+    }
+
+    // Progress bar
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
+  </script>
+
 </body>
 </html>
