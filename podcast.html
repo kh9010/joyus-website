@@ -1,670 +1,778 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Thinking on Thinking — a podcast by Joyus Studio exploring behavior, work, life, and the real questions of entrepreneurship. Hosted by Divya Tak & Kahran Singh.">
-  <meta property="og:title" content="Thinking on Thinking — Joyus Studio">
-  <meta property="og:description" content="A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/podcast.html">
-  <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/podcast.html">
-  <title>Thinking on Thinking — Joyus Studio</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://open.spotify.com" crossorigin>
-  <link rel="preconnect" href="https://embed.podcasts.apple.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "PodcastSeries",
-    "name": "Thinking on Thinking",
-    "description": "A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey.",
-    "url": "https://kh9010.github.io/joyus-website/podcast.html",
-    "author": [
-      { "@type": "Person", "name": "Divya Tak" },
-      { "@type": "Person", "name": "Kahran Singh" }
-    ],
-    "publisher": {
-      "@type": "Organization",
-      "name": "Joyus Studio",
-      "url": "https://kh9010.github.io/joyus-website/"
-    },
-    "webFeed": [
-      "https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz",
-      "https://podcasts.apple.com/us/podcast/thinking-on-thinking/id1636574012",
-      "https://www.iheart.com/podcast/269-thinking-on-thinking-135286508/"
-    ]
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thinking on Thinking · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
   }
-  </script>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
 
-  <style>
-    /* ===== HERO ===== */
-    .podcast-page-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .podcast-page-hero .inner {
-      max-width: 700px;
-    }
-    .podcast-page-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1rem;
-      color: var(--black, #111214);
-    }
-    .podcast-page-hero .subtitle {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
-      max-width: 600px;
-      margin-bottom: 2rem;
-    }
-    .platform-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .platform-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.6rem 1.25rem;
-      border-radius: 50px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.3s;
-      border: 2px solid var(--black, #111214);
-      color: var(--black, #111214);
-      background: transparent;
-    }
-    .platform-link:hover {
-      background: var(--black, #111214);
-      color: var(--white, #fff);
-      opacity: 1;
-    }
-    .platform-link svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-    }
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem var(--x);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+  }
+  .nav-logo {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+  }
+  .nav-logo img {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
 
-    /* ===== FILTER BAR ===== */
-    .filter-bar {
-      padding: 0 2rem;
-      background: var(--white, #fff);
-      position: sticky;
-      top: 60px;
-      z-index: 50;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .filter-bar .inner {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 1rem 0;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .filter-pill {
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      font-family: 'DM Sans', sans-serif;
-      border: 1.5px solid #ddd;
-      background: transparent;
-      color: #666;
-      cursor: pointer;
-      transition: all 0.25s;
-      text-transform: capitalize;
-    }
-    .filter-pill:hover {
-      border-color: var(--pink, #E91E7B);
-      color: var(--pink, #E91E7B);
-    }
-    .filter-pill.active {
-      background: var(--pink, #E91E7B);
-      border-color: var(--pink, #E91E7B);
-      color: #fff;
-    }
+  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
+  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
+  .nav-links a:hover { color: var(--pink); }
+  .nav-cta {
+    border-bottom: 1.5px solid var(--ink);
+    padding-bottom: 2px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .nav-cta:hover { border-bottom-color: var(--pink); }
+  @media (max-width: 720px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
 
-    /* ===== EPISODES SECTION ===== */
-    .episodes-section {
-      padding: 3rem 2rem 5rem;
-    }
-    .episodes-section .inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.15s linear;
+  }
 
-    /* ===== SEASON GROUP ===== */
-    .season-group {
-      margin-bottom: 2rem;
-    }
-    .season-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      padding: 1rem 0;
-      border-bottom: 2px solid var(--warm-gray, #F5F3F0);
-      user-select: none;
-      transition: border-color 0.3s;
-    }
-    .season-header:hover {
-      border-bottom-color: var(--pink, #E91E7B);
-    }
-    .season-header h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      margin-bottom: 0;
-      color: var(--black, #111214);
-    }
-    .season-header .episode-count {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.85rem;
-      color: #999;
-      font-weight: 400;
-      margin-left: 0.75rem;
-    }
-    .season-header .toggle-icon {
-      font-size: 1.4rem;
-      color: #bbb;
-      transition: transform 0.3s;
-      line-height: 1;
-    }
-    .season-group.open .season-header .toggle-icon {
-      transform: rotate(180deg);
-    }
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .d-pink { background: var(--pink); }
+  .d-cyan { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
 
-    .season-episodes {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.5s ease;
-    }
-    .season-group.open .season-episodes {
-      max-height: 10000px;
-    }
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 60vh;
+    padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--pink);
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 16ch;
+    position: relative; z-index: 2;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--cyan);
+  }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-top: 1.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-meta {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-fade);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    max-width: 54ch;
+    position: relative; z-index: 2;
+  }
+  .hero-meta span + span::before {
+    content: " · ";
+    color: var(--ink-fade);
+    padding: 0 0.15em;
+  }
+  .hero .dh1 { width: 280px; height: 280px; top: 8%; right: -3%; }
+  .hero .dh2 { width: 46px; height: 46px; bottom: 20%; right: 22%; }
+  .hero .dh3 { width: 20px; height: 20px; top: 30%; right: 34%; }
 
-    /* ===== EPISODE CARD ===== */
-    .episode-card {
-      background: #fff;
-      border: 1px solid #e8e6e4;
-      border-radius: 12px;
-      padding: 1.75rem;
-      margin-top: 1rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
-      opacity: 0;
-      transform: translateY(16px);
-    }
-    .episode-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .episode-card.hidden {
-      display: none;
-    }
-    .episode-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-    }
-    .episode-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.6rem;
-      flex-wrap: wrap;
-    }
-    .episode-number {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--pink, #E91E7B);
-      font-weight: 600;
-    }
-    .episode-duration {
-      font-size: 0.8rem;
-      color: #999;
-    }
-    .episode-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.5rem;
-      color: var(--black, #111214);
-      line-height: 1.35;
-    }
-    .episode-description {
-      font-size: 0.95rem;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .episode-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .episode-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-    }
-    .episode-tag {
-      font-size: 0.7rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 50px;
-      font-weight: 500;
-      text-transform: capitalize;
-    }
-    .episode-tag[data-tag="storytelling"] { background: #FFF0F5; color: #C2185B; }
-    .episode-tag[data-tag="business"]     { background: #E8F5E9; color: #2E7D32; }
-    .episode-tag[data-tag="design"]       { background: #E3F2FD; color: #1565C0; }
-    .episode-tag[data-tag="behavior"]     { background: #FFF3E0; color: #E65100; }
-    .episode-tag[data-tag="creative"]     { background: #F3E5F5; color: #7B1FA2; }
-    .episode-tag[data-tag="ai"]           { background: #E0F7FA; color: #00838F; }
-    .episode-tag[data-tag="growth"]       { background: #FFFDE7; color: #9E9D24; }
-    .episode-tag[data-tag="ideas"]        { background: #ECEFF1; color: #546E7A; }
+  /* ============ FEATURED EPISODE (with Spotify embed) ============ */
+  .featured {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .featured-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .featured-label::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+  .featured-ep-no {
+    font-family: var(--hand);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 600;
+    line-height: 0.85;
+    color: var(--pink);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .featured-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+    max-width: 22ch;
+  }
+  .featured-guest {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 2vw, 1.7rem);
+    color: var(--pink);
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    transform: rotate(-1deg);
+  }
+  .featured-excerpt {
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-bottom: 2rem;
+    font-style: italic;
+    padding-left: 1rem;
+    border-left: 3px solid var(--ink);
+  }
+  .featured-excerpt em { font-style: normal; color: var(--ink); font-weight: 500; }
 
-    .listen-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--pink, #E91E7B);
-      text-decoration: none;
-      white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-    .listen-link:hover {
-      opacity: 0.7;
-    }
-    .listen-link svg {
-      width: 16px;
-      height: 16px;
-    }
+  /* Spotify embed */
+  .player-wrap {
+    margin: 2rem 0 1rem;
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 32px -14px rgba(44, 53, 68, 0.14);
+  }
+  .player-wrap iframe {
+    width: 100%;
+    height: 232px;
+    border: 0;
+    display: block;
+    background: #fff;
+  }
+  .player-hint {
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--ink-fade);
+    display: inline-flex; align-items: baseline; gap: 0.4rem;
+    margin-top: 0.5rem;
+  }
+  .player-hint::before { content: "↑"; color: var(--pink); font-family: var(--sans); transform: translateY(2px); }
 
-    /* ===== NO RESULTS ===== */
-    .no-results {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #999;
-      display: none;
-    }
-    .no-results.show {
-      display: block;
-    }
-    .no-results p {
-      font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
-    }
+  .featured-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 1.5rem;
+  }
+  .btn-secondary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px;
+  }
+  .btn-secondary:hover { color: var(--pink); border-bottom-color: var(--pink); }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 600px) {
-      .podcast-page-hero { padding: 7rem 1.5rem 3rem; }
-      .platform-links { flex-direction: column; }
-      .platform-link { justify-content: center; }
-      .filter-bar .inner { gap: 0.4rem; }
-      .filter-pill { font-size: 0.75rem; padding: 0.35rem 0.8rem; }
-      .episode-card { padding: 1.25rem; }
-      .episode-card h3 { font-size: 1.05rem; }
-      .episode-footer { flex-direction: column; align-items: flex-start; }
+  /* ============ SERIES (listen in order) ============ */
+  .series {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 2.25rem;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .section-head h2 {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+  }
+  .section-head h2::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--cyan);
+  }
+  .section-head .aside {
+    font-family: var(--hand);
+    color: var(--ink-fade);
+    font-size: 1.1rem;
+  }
+
+  .series-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+  }
+  .series-card {
+    position: relative;
+    padding: 2rem 1.75rem 2.25rem;
+    border-radius: 22px;
+    color: var(--ink);
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .series-card:hover { transform: translateY(-4px); }
+  .series-card.s-pink { background: var(--pink); color: #fff; }
+  .series-card.s-cyan { background: var(--cyan); }
+  .series-card.s-yellow { background: var(--yellow); }
+
+  .series-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+  .series-card.s-pink .series-label { color: rgba(255,255,255,0.85); }
+  .series-title {
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3vw, 2.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0.75rem 0 1rem;
+  }
+  .series-title em {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-style: normal;
+    display: block;
+    margin-top: 0.15rem;
+    font-size: 1em;
+  }
+  .series-count {
+    font-family: var(--hand);
+    font-weight: 500;
+    font-size: 1.3rem;
+    line-height: 1.1;
+    margin-bottom: 0.25rem;
+  }
+  .series-dur {
+    font-size: 0.85rem;
+    opacity: 0.85;
+    letter-spacing: 0.05em;
+  }
+  .series-more {
+    margin-top: 1.25rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    align-self: flex-start;
+    padding-bottom: 3px;
+    border-bottom: 2px solid currentColor;
+  }
+  .series-card::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    width: 120px; height: 120px;
+    top: -20px; right: -30px;
+  }
+  .series-card.s-pink::after   { background: var(--yellow); opacity: 0.85; }
+  .series-card.s-cyan::after   { background: var(--pink); }
+  .series-card.s-yellow::after { background: var(--cyan); }
+
+  /* ============ BACKLOG ============ */
+  .backlog {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1080px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .backlog .section-head h2::before { background: var(--yellow); }
+
+  .bk-list { list-style: none; }
+  .bk-item {
+    display: grid;
+    grid-template-columns: 86px 1fr auto auto;
+    gap: clamp(1rem, 2vw, 2rem);
+    align-items: baseline;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--rule);
+    transition: padding 0.2s;
+  }
+  .bk-item:first-child { border-top: 0; padding-top: 0.5rem; }
+  .bk-item:hover { padding-left: 0.5rem; color: var(--pink); }
+  .bk-se {
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--ink-fade);
+    font-weight: 500;
+    line-height: 1;
+  }
+  .bk-item:hover .bk-se { color: var(--pink); }
+  .bk-title {
+    font-weight: 500;
+    font-size: 1.05rem;
+    letter-spacing: -0.005em;
+    line-height: 1.3;
+  }
+  .bk-date {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-fade);
+    white-space: nowrap;
+  }
+  .bk-dur {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--ink-fade);
+    white-space: nowrap;
+    min-width: 52px;
+    text-align: right;
+  }
+  @media (max-width: 720px) {
+    .bk-item {
+      grid-template-columns: 60px 1fr;
+      row-gap: 0.3rem;
     }
-  </style>
+    .bk-date, .bk-dur { grid-column: 2 / -1; }
+  }
+
+  .backlog-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 2rem;
+    font-weight: 500;
+    font-size: 0.92rem;
+    padding-bottom: 2px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .backlog-more:hover { color: var(--pink); border-bottom-color: var(--pink); }
+
+  /* ============ SUBSCRIBE ============ */
+  .subscribe {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1280px;
+    margin: 0 auto;
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .subscribe-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .subscribe-label::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--pink);
+  }
+  .subscribe h2 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    max-width: 22ch;
+    margin: 0 auto 1.5rem;
+  }
+  .subscribe h2 em { font-style: normal; color: var(--cyan); }
+  .subscribe-pills {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    transition: transform 0.25s, background 0.25s, color 0.25s;
+  }
+  .pill::before {
+    content: "♪";
+    font-size: 0.85rem;
+    color: var(--pink);
+  }
+  .pill:hover { background: var(--ink); color: #fff; transform: translateY(-2px); }
+  .pill:hover::before { color: var(--yellow); }
+
+  /* ============ CLOSING ============ */
+  .closing {
+    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--ink);
+    margin-top: 2rem;
+  }
+  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+  .closing-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--yellow);
+  }
+  .closing h3 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+    position: relative; z-index: 2;
+  }
+  .closing h3 em { font-style: normal; color: var(--pink); }
+  .closing h3 a {
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px;
+    color: var(--pink);
+  }
+  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .closing .hint {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink-fade);
+    position: relative; z-index: 2;
+  }
+
+  .foot {
+    padding: 1.5rem var(--x) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.05em;
+  }
+</style>
 </head>
 <body>
 
-  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="home.html" class="logo">
-        <img src="images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="work/index.html">Work</a></li>
-        <li><a href="comics/index.html">Comics</a></li>
-        <li><a href="podcast.html" class="active">Podcast</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
+  <nav class="nav">
+    <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+    <div class="nav-links">
+      <a href="work/">Work</a>
+      <a href="services.html">Services</a>
+      <a href="podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
     </div>
   </nav>
 
-  <main id="main-content">
-  <section class="podcast-page-hero">
-    <div class="inner">
-      <h1>Thinking on Thinking</h1>
-      <p class="subtitle">A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey. Hosted by Divya Tak &amp; Kahran Singh.</p>
-      <div class="platform-links">
-        <a href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener" class="platform-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-          Spotify
-        </a>
-        <a href="https://podcasts.apple.com/us/podcast/thinking-on-thinking/id1636574012" target="_blank" rel="noopener" class="platform-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.34 0A5.328 5.328 0 000 5.34v13.32A5.328 5.328 0 005.34 24h13.32A5.328 5.328 0 0024 18.66V5.34A5.328 5.328 0 0018.66 0H5.34zm6.525 2.568c2.336 0 4.448.902 6.056 2.587 1.224 1.272 1.912 2.619 2.264 4.392.12.6-.12 1.2-.6 1.5s-1.14.24-1.56-.18c-.24-.24-.36-.54-.42-.9-.24-1.2-.72-2.16-1.56-3.024-1.2-1.2-2.688-1.86-4.344-1.86-3.396 0-6.168 2.772-6.168 6.168 0 1.656.66 3.144 1.86 4.344.864.84 1.824 1.32 3.024 1.56.36.06.66.18.9.42.42.42.48 1.02.18 1.56s-.9.72-1.5.6c-1.773-.352-3.12-1.04-4.392-2.264C3.47 15.813 2.568 13.557 2.568 11.136c0-5.136 4.176-8.568 9.297-8.568zM12 7.32c2.1 0 3.816 1.716 3.816 3.816 0 1.068-.444 2.04-1.152 2.736-.48.48-.48.48-.48 1.2v1.968c0 .6-.24 1.14-.672 1.56-.42.42-.96.648-1.572.648-.6 0-1.14-.24-1.56-.66a2.182 2.182 0 01-.66-1.56V15.06c0-.708 0-.708-.48-1.188A3.793 3.793 0 018.184 11.136c0-2.1 1.716-3.816 3.816-3.816zm0 9.96c.372 0 .66.288.66.66v2.4a.657.657 0 01-.66.66.657.657 0 01-.66-.66v-2.4c0-.372.288-.66.66-.66z"/></svg>
-          Apple Podcasts
-        </a>
-        <a href="https://www.iheart.com/podcast/269-thinking-on-thinking-135286508/" target="_blank" rel="noopener" class="platform-link">
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.8c3.975 0 7.2 3.225 7.2 7.2 0 1.675-.578 3.216-1.544 4.436L12 9.6l-5.656 6.836A7.163 7.163 0 014.8 12c0-3.975 3.225-7.2 7.2-7.2zm0 3.6a1.8 1.8 0 100 3.6 1.8 1.8 0 000-3.6z"/></svg>
-          iHeart
-        </a>
-      </div>
+  <!-- =========== HERO =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-cyan"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-pink"></span>
+
+    <span class="hero-eyebrow">the podcast</span>
+    <h1>Thinking on <em>Thinking.</em></h1>
+    <p class="hero-sub">A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey.</p>
+    <p class="hero-meta">
+      <span>Hosted by Divya Tak &amp; Kahran Singh</span><span>82 episodes</span><span>since 2023</span>
+    </p>
+  </section>
+
+  <!-- =========== FEATURED (latest + Spotify embed) =========== -->
+  <section class="featured">
+    <span class="featured-label">most recent episode</span>
+
+    <div class="featured-ep-no">S7 · E14</div>
+    <h2 class="featured-title">Alternatives to Capitalism.</h2>
+    <span class="featured-guest">with Nomaan X</span>
+    <p class="featured-excerpt">
+      Kahran and Nomaan discuss values &amp; capitalism, public and private sectors, and higher education and scientific advancement <em>from the perspective of society.</em> Open, deeply interesting conversations on how to engage with the community, how to build a different kind of society.
+    </p>
+
+    <div class="player-wrap">
+      <iframe
+        src="https://open.spotify.com/embed/show/1tr060dblBf7kUvIQ1Qanz?utm_source=generator&theme=0"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy"
+        title="Thinking on Thinking — Spotify player">
+      </iframe>
+    </div>
+    <span class="player-hint">latest episode plays at the top · scroll the embed for more</span>
+
+    <div class="featured-actions">
+      <a class="btn-secondary" href="podcast/alternatives-to-capitalism-with-nomaan-x.html">read the episode notes →</a>
     </div>
   </section>
 
-  <div class="filter-bar">
-    <div class="inner">
-      <button class="filter-pill active" data-filter="all">All</button>
-      <button class="filter-pill" data-filter="storytelling">Storytelling</button>
-      <button class="filter-pill" data-filter="business">Business</button>
-      <button class="filter-pill" data-filter="design">Design</button>
-      <button class="filter-pill" data-filter="behavior">Behavior</button>
-      <button class="filter-pill" data-filter="creative">Creative</button>
-      <button class="filter-pill" data-filter="ai">AI</button>
-      <button class="filter-pill" data-filter="growth">Growth</button>
+  <!-- =========== LISTEN IN ORDER (real series) =========== -->
+  <section class="series">
+    <div class="section-head">
+      <h2>listen in order</h2>
+      <span class="aside">multi-part threads</span>
     </div>
-  </div>
+    <div class="series-grid">
 
-  <section class="episodes-section">
-    <div class="inner" id="episodesContainer">
-      <!-- Rendered by JS -->
-    </div>
-    <div class="no-results" id="noResults">
-      <p>No episodes match that filter.</p>
+      <a class="series-card s-pink" href="#">
+        <div>
+          <span class="series-label">season 6 · 8 parts</span>
+          <h3 class="series-title">The Success <em>series</em></h3>
+        </div>
+        <div>
+          <div class="series-count">8 conversations</div>
+          <div class="series-dur">from the confoundedness of success to building motivation</div>
+          <span class="series-more">open the series →</span>
+        </div>
+      </a>
+
+      <a class="series-card s-cyan" href="#">
+        <div>
+          <span class="series-label">season 7 · 4 parts</span>
+          <h3 class="series-title">Story <em>vs telling</em></h3>
+        </div>
+        <div>
+          <div class="series-count">4 conversations</div>
+          <div class="series-dur">Kahran &amp; Divya on what makes a story land</div>
+          <span class="series-more">open the series →</span>
+        </div>
+      </a>
+
+      <a class="series-card s-yellow" href="#">
+        <div>
+          <span class="series-label">thinking on thinking</span>
+          <h3 class="series-title">Founder <em>interviews</em></h3>
+        </div>
+        <div>
+          <div class="series-count">Dozens of them</div>
+          <div class="series-dur">Smiqql · RocketHealth · Almora · MachPhy · Cranberry · Armoire · AdventureTripr</div>
+          <span class="series-more">browse all →</span>
+        </div>
+      </a>
+
     </div>
   </section>
 
-  <!-- Studio CTA -->
-  <section style="padding:4rem 2rem;text-align:center;background:var(--warm-gray,#F5F3F0);border-top:1px solid #e8e6e4;">
-    <p style="font-family:'DM Sans',sans-serif;font-size:0.95rem;color:#666;line-height:1.7;max-width:500px;margin:0 auto 1rem;">The same thinking behind this podcast drives the work we do with clients. <strong style="color:#111;">Joyus is also a studio you can hire.</strong></p>
-    <a href="services.html" style="display:inline-block;padding:0.7rem 2rem;border:2px solid #111;color:#111;text-decoration:none;border-radius:50px;font-weight:600;font-size:0.9rem;margin-right:0.75rem;transition:all 0.2s;">See our services</a>
-    <a href="work/index.html" style="display:inline-block;padding:0.7rem 2rem;color:#E91E7B;text-decoration:none;font-weight:600;font-size:0.9rem;">Browse our work &rarr;</a>
-  </section>
-  </main>
+  <!-- =========== BACKLOG (real episodes) =========== -->
+  <section class="backlog">
+    <div class="section-head">
+      <h2>backlog</h2>
+      <span class="aside">older / from the shelf</span>
+    </div>
+    <ul class="bk-list">
 
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
-      </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="home.html">Home</a></li>
-          <li><a href="work/index.html">Work</a></li>
-          <li><a href="comics/index.html">Comics</a></li>
-          <li><a href="podcast.html">Podcast</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="hub-story.html">Finding Your Story</a>
-        <a href="hub-building.html">Building Something That Matters</a>
-        <a href="hub-behavior.html">How People Actually Behave</a>
-        <a href="hub-play.html">Play as Practice</a>
-        <a href="hub-games.html">Game Design Thinking</a>
-        <a href="hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
+      <li><a class="bk-item" href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html">
+        <span class="bk-se">S7E13</span>
+        <span class="bk-title">Spilling Some Tea on Writing as Communication and Art</span>
+        <span class="bk-date">Aug 2025</span>
+        <span class="bk-dur">38 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html">
+        <span class="bk-se">S7E12</span>
+        <span class="bk-title">Balancing energy, expectations and perfectionism with Ambika Singh, Founder &amp; CEO Armoire</span>
+        <span class="bk-date">Aug 2025</span>
+        <span class="bk-dur">53 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/when-its-conforming-to-be-unique.html">
+        <span class="bk-se">S7E11</span>
+        <span class="bk-title">When it's Conforming to be Unique</span>
+        <span class="bk-date">Aug 2025</span>
+        <span class="bk-dur">41 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
+        <span class="bk-se">S7E10</span>
+        <span class="bk-title">Preeti Suri: Tips for Women Founders and Balancing Health &amp; Work</span>
+        <span class="bk-date">Jul 2025</span>
+        <span class="bk-dur">35 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/story-vs-telling-part-2.html">
+        <span class="bk-se">S7E7</span>
+        <span class="bk-title">Story vs Telling, Part 2</span>
+        <span class="bk-date">Jun 2025</span>
+        <span class="bk-dur">30 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/story-vs-telling-part-1.html">
+        <span class="bk-se">S7E6</span>
+        <span class="bk-title">Story vs Telling, Part 1</span>
+        <span class="bk-date">May 2025</span>
+        <span class="bk-dur">24 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/almora-crafting-desire-in-business.html">
+        <span class="bk-se">S7E5</span>
+        <span class="bk-title">Almora — Crafting Desire in Business</span>
+        <span class="bk-date">May 2025</span>
+        <span class="bk-dur">60 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/machphy-cool-glide-to-funding.html">
+        <span class="bk-se">S7E4</span>
+        <span class="bk-title">MachPhy — Cool Glide to Funding</span>
+        <span class="bk-date">Apr 2025</span>
+        <span class="bk-dur">46 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/cranberry-fit-diving-into-storytelling.html">
+        <span class="bk-se">S7E3</span>
+        <span class="bk-title">Cranberry.Fit — Diving into Storytelling</span>
+        <span class="bk-date">Apr 2025</span>
+        <span class="bk-dur">40 min</span>
+      </a></li>
+
+      <li><a class="bk-item" href="podcast/thinking-on-the-smiqql-acquisition-deck.html">
+        <span class="bk-se">S7E1</span>
+        <span class="bk-title">Thinking on the Smiqql Acquisition Deck</span>
+        <span class="bk-date">Feb 2025</span>
+        <span class="bk-dur">42 min</span>
+      </a></li>
+
+    </ul>
+    <a class="backlog-more" href="podcast.html">the full 82-episode archive →</a>
+  </section>
+
+  <!-- =========== SUBSCRIBE =========== -->
+  <section class="subscribe">
+    <span class="subscribe-label">follow along</span>
+    <h2>New episodes land irregularly. <em>Subscribe on your app of choice.</em></h2>
+    <div class="subscribe-pills">
+      <a class="pill" href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener">Spotify</a>
+      <a class="pill" href="https://podcasts.apple.com/us/podcast/id1636574012" target="_blank" rel="noopener">Apple Podcasts</a>
+      <a class="pill" href="https://www.iheart.com/podcast/" target="_blank" rel="noopener">iHeart</a>
+      <a class="pill" href="podcast.html">RSS / Feed</a>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
+  </section>
+
+  <!-- =========== CLOSING =========== -->
+  <section class="closing">
+    <span class="dot dx1 d-pink"></span>
+    <span class="dot dx2 d-cyan"></span>
+    <span class="dot dx3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h3>A topic you wish someone was making an episode about? <em><a href="mailto:hello@joyus.studio">Tell us.</a></em></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
   </footer>
 
   <script>
-    // ===== HELPERS =====
-    function toSlug(title) {
-      return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80);
-    }
-
-    // ===== EPISODE DATA =====
-    const EPISODES = [
-      { season:7, episode:14, title:"Alternatives to Capitalism with Nomaan X", description:"Kahran and Nomaan discuss values & capitalism, public and private sectors, and higher education and scientific advancement from the perspective of society. Open, deeply interesting conversations on how to engage with the community, how to build a different kind of society, and the questions that", tags:["business"], duration:"58 min", date:"2025-10-01", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Alternatives-to-Capitalism-with-Nomaan-X-e38vk9o" },
-      { season:7, episode:13, title:"Spilling Some Tea on Writing as Communication and Art", description:"Kahran and Divya talk about writing in all its different forms: as a craft, for communication, as a means of expression. We talk about writing how to leverage AI while keeping your voice, how the diversity of genres and institutions that have touched you influence your outputs. How can you grow and", tags:["creative", "ai"], duration:"38 min", date:"2025-08-29", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Spilling-Some-Tea-on-Writing-as-Communication-and-Art-e37ftr8" },
-      { season:7, episode:12, title:"Balancing energy, expectations and perfectionism with Ambika Singh, Founder and CEO Armoire", description:"In this special Singh siblings edition of thinking on thinking, Kahran gets deep with his sister and founder of Armoire about how she navigates expectations, keeps up her motivation, manages her brand all while driving a business with high values.", tags:["business", "design", "behavior", "growth"], duration:"53 min", date:"2025-08-13", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Balancing-energy--expectations-and-perfectionism-with-Ambika-Singh--Founder-and-CEO-Armoire-e36q2ht" },
-      { season:7, episode:11, title:"When its Conforming to be Unique", description:"Kahran and Divya explore how the efforts to be unique can lead to conforming. Exploring the role of ambition, artistic communities and how the costs and perceived costs drive nonconformity.", tags:["creative"], duration:"41 min", date:"2025-08-03", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/When-its-Conforming-to-be-Unique-e36d96l" },
-      { season:7, episode:10, title:"Preeti Suri: Tips for Women Founders and Balancing Health & Work", description:"Preeti Suri, founder of AdventureTripr and TripGenie, talks about building a company in the age of LLMs, how her body has signaled to her about burnout, and the signs that tell her when she needs to spend more time with the family and her son. Kahran and Preeti also talk about connecting with", tags:["business", "ai", "growth"], duration:"35 min", date:"2025-07-16", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Preeti-Suri-Tips-for-Women-Founders-and-Balancing-Health--Work-e35lhah" },
-      { season:7, episode:7, title:"Story vs Telling Part 2", description:"In part 2 of this storytelling series, Kahran and Divya find Divya's story live on the air, or at least the parts that feel most important for her to highlight and share.", tags:["storytelling", "creative"], duration:"30 min", date:"2025-06-04", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-vs-Telling-Part-2-e33qhfc" },
-      { season:7, episode:6, title:"Story Vs. Telling Part 1", description:"In this episode, Kahran and Divya discuss why Divya doesn't feel like she is able to find her audience or this podcast's audience. Kahran goes deep into exploring different facets of the problem. This is part 1 of the series.", tags:["storytelling", "creative"], duration:"24 min", date:"2025-05-21", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-Vs--Telling-Part-1-e335hnf" },
-      { season:7, episode:5, title:"Almora: Crafting Desire in Business", description:"Divya and Kahran dive in to the luxury Ayurvedic brand Almora Botanica. How to build emotional connection? How do you engage beyond cognitively? How to choose where to reinforce ideas, where to simplify, and how to ground yourself in an investor deck? Also a jump into looking at colors and how the", tags:["storytelling", "business", "design", "behavior", "creative"], duration:"1h 0m", date:"2025-05-07", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Almora-Crafting-Desire-in-Business-e32e377" },
-      { season:7, episode:4, title:"MachPhy: Cool Glide to Funding", description:"MachPhy Solutions uses Advanced Thermal Material to transform the economics around cooling — a revolution for many industries. As they kick off their fundraise, Divya and Kahran break down the strengths and areas for improvement in their investor deck. Curious about how the deck stands today or", tags:["storytelling", "business"], duration:"46 min", date:"2025-04-23", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/MachPhy-Cool-Glide-to-Funding-e31rnqj" },
-      { season:7, episode:3, title:"Cranberry.Fit: Diving into Storytelling", description:"Divya and Kahran look at the design, messaging, and user experience of Cranberry.Fit's website, the company co-founded and run by our guest from Season 4, Aditi Dimri. We explore the emotional aspects of marketing related to PMS, the importance of community, and how to build trust with users while", tags:["storytelling", "business", "design", "behavior"], duration:"46 min", date:"2025-04-10", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Cranberry-Fit-Diving-into-Storytelling-e31ct7t" },
-      { season:7, episode:2, title:"Anuki Premachandra: Planting the Seeds for Understanding", description:"Divya interviews Anuki on leadership, working with the development and corporate sectors and leading people to understanding through communication. Anuki talks about leveraging the public discourse, balancing clients while achieve advocacy goals, and how Anuki looks to build a leading creative", tags:["business", "creative", "growth"], duration:"36 min", date:"2025-03-26", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Anuki-Premachandra-Planting-the-Seeds-for-Understanding-e30fsmv" },
-      { season:7, episode:1, title:"Thinking on the Smiqql Acquisition Deck", description:"In this first video episode, Kahran and Divya break down the deck that Smiqql recently used for their acquisition, looking at what the different parts of the deck are doing and places they could be more successful.In this new running series, we invite listeners to submit artifacts (decks, websites,", tags:["storytelling", "creative", "growth"], duration:"47 min", date:"2025-03-12", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-the-Smiqql-Acquisition-Deck-e2vo972" },
-      { season:7, episode:0, title:"Story vs. Telling Part 4", description:"In the final part of our conversation about figuring out the story, Kahran and Divya get to the bottom of it all. How to actually create a story that people care about? The answer? \u0022Find out why you care about this\u0022", tags:["storytelling", "creative"], duration:"26 min", date:"2025-07-02", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-vs--Telling-Part-4-e35197v" },
-      { season:6, episode:8, title:"Building the Motivation for Success: Part 8", description:"Divya and Kahran discuss externalizing motivation and particularly externalizing parts of the hard parts of the creative process, and speak of embodied versus cognitive thinking. And the difference between finding resonance and liking something. Mentions include: the book I'm Very Into You, which", tags:["business", "behavior", "creative", "growth"], duration:"35 min", date:"2025-02-26", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Building-the-Motivation-for-Success-Part-8-e2vdpko" },
-      { season:6, episode:7, title:"Thinking on Absurdist Successes and 1000xResist - Success: Part 7", description:"Divya and Kahran talk about how culture influences your expectations of absurdist elements in storytelling (and success, ofc) , using the discussion with Remy Siu about 1000xResist as a basis for the conversation.Internally consistent and logic are often prioritized by western authors unlike", tags:["storytelling", "creative", "growth"], duration:"42 min", date:"2025-02-12", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Absurdist-Successes-and-1000xResist---Success-Part-7-e2upr8c" },
-      { season:6, episode:6, title:"Creating a Successful Game in 1000xResist with Remy Siu of Sunset Visitor - Success: Part 6", description:"Remy Siu, Creative Director of 1000xResist, speaks with Divya about the how questions — how they made such an incredible game that breaks so many molds, how Remy came to run a game studio with a background in composition and dance, how to exist as a performing artists in today, in Vancouver, in", tags:["creative", "growth"], duration:"1h 4m", date:"2025-01-29", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating-a-Successful-Game-in-1000xResist-with-Remy-Siu-of-Sunset-Visitor---Success-Part-6-e2u0svf" },
-      { season:6, episode:5, title:"Success through Achieving vs Authenticity - Success: Part 5", description:"Kahran shares stories of his grandfather, SSH Rehman, former director of ITC Limited and leader of ITC Hotels, Divya discusses quality years and Bryan Johnson, Also featured: the graphic novel Sandman, success in academic vs success in life. And there is more unpacking of Pradeep Singh's chasing of", tags:["creative", "growth"], duration:"42 min", date:"2025-01-15", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Success-through-Achieving-vs-Authenticity---Success-Part-5-e2tjj0b" },
-      { season:6, episode:4, title:"Unraveling Purpose & Success: Part 4", description:"Can you find a sense of purpose without pursuing success? In a fireside chat format, Kahran shares with Divya his surprise that his father, Pradeep, had never felt successful, as Pradeep shared in our last episode, and Kahran and Divya articulate some of the emulate-able parts of Pradeep's approach", tags:["creative", "growth"], duration:"42 min", date:"2025-01-02", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Unraveling-Purpose--Success-Part-4-e2svgs8" },
-      { season:6, episode:2, title:"Expectations & Definitions of Success: Part 2", description:"Kahran and Divya break down what it means to be successful — and to have been successful and no longer be so. When do our cultural definitions permeate our feelings about successful? And when do they preclude achievement in success? What does it mean to have achievement in success? This second", tags:["creative", "growth"], duration:"45 min", date:"2024-12-04", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Expectations--Definitions-of-Success-Part-2-e2rsgfn" },
-      { season:6, episode:1, title:"The Confoundedness of Success: Part 1", description:"Success: achieving it, the moving goalposts of it, the feeling of it, in a trait, the way we tell ourselves stories of it and, of course, what is it. This discussion deeply jumps into a topic where Divya and Kahran have spent a lot of time, and bring views from their previously divergent, and now,", tags:["creative", "growth"], duration:"39 min", date:"2024-11-20", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/The-Confoundedness-of-Success-Part-1-e2r8tm2" },
-      { season:5, episode:13, title:"Building GenAI for Visual Storytelling with Divya & Dashtoon Co-Founder, Soumyadeep Mukerjee", description:"In this episode Divya talks to Soumyadeep, recently named Forbes 30 under 30 in Asia for Consumer Tech, about learning visual styles as he builds his AI models for his startup, Dashtoon, breaking down computer vision as a technology and the role of media in driving tech.", tags:["storytelling", "business", "design", "creative", "ai"], duration:"48 min", date:"2024-10-16", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Building-GenAI-for-Visual-Storytelling-with-Divya--Dashtoon-Co-Founder--Soumyadeep-Mukerjee-e2polkf" },
-      { season:5, episode:12, title:"How to Make Hard Things Easier with Kahran & Divya", description:"As our motivations change, and especially in doing new things, finding how you can make them slightly easier for yourself can be helpful in accomplishing them. Of course, some things are regardless just hard to do, but between Kahran and Divya there are some diverse approaches and stories abound of", tags:["behavior"], duration:"31 min", date:"2024-10-02", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/How-to-Make-Hard-Things-Easier-with-Kahran--Divya-e2p51lg" },
-      { season:5, episode:11, title:"Satisfaction with Success with Kahran & Alva10's co-founder, Lena Chaihorsky", description:"This week Kahran talks to Lena Chaihorsky, founder of Alva10 not about her business but about how her growth as an entrepreneur has helped her in other areas of her life, in feeling joy and satisfaction as well as how she sees herself as a citizen, and the importance of emotional growth.", tags:["business", "behavior", "creative", "growth"], duration:"46 min", date:"2024-09-18", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Satisfaction-with-Success-with-Kahran--Alva10s-co-founder--Lena-Chaihorsky-e2oi11e" },
-      { season:5, episode:10, title:"Trust vs Confidence, in yourself, your skills & your environment", description:"In this episode, Kahran and Divya break down feelings of trust and feelings of confidence, and look at where they differ and where the nuance is important, especially thinking about consumer businesses and experiences.", tags:["business"], duration:"27 min", date:"2024-09-04", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Trust-vs-Confidence--in-yourself--your-skills--your-environment-e2o01ru" },
-      { season:5, episode:9, title:"Caravaning across Africa with Divya & artists Shikhant and Shivi", description:"Divya talks to Shikhant and Shivi about their travels, journey with the african caravan, teaching kids art, about collaborating with people who are special to you, and more, in this episode filled with interesting stories.", tags:["creative"], duration:"38 min", date:"2024-08-21", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Caravaning-across-Africa-with-Divya--artists-Shikhant-and-Shivi-e2nf10v" },
-      { season:5, episode:8, title:"How to Find Fair Compensation with Kahran & Divya", description:"In this episode, Divya and Kahran have a meandering conversation starting around compensation and work into compensation for your life. How can you measure compensation beyond straight up money that you get in exchange for your work? How do you value that type of compensation? And why do tornado", tags:["creative"], duration:"27 min", date:"2024-08-07", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/How-to-Find-Fair-Compensation-with-Kahran--Divya-e2mtqhj" },
-      { season:5, episode:7, title:"Navigating Changing Dynamics & Relationships with Kahran and Prem & Andrew, co-founders of Humanly", description:"Kahran chats with Prem and Andrew from Humanly about building the company together, growing, creating avenues for growth for themselves, each other and those who work with them.", tags:["business", "growth"], duration:"49 min", date:"2024-07-24", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Navigating-Changing-Dynamics--Relationships-with-Kahran-and-Prem--Andrew--co-founders-of-Humanly-e2mcuvl" },
-      { season:5, episode:6, title:"Authenticity, Grace & Trust, in Work and with Yourself", description:"Kahran and Divya talk about authenticity, and get into discussing grace, trust and more. This one is reminiscent of one of the earlier episodes of Thinking on Thinking where we talk in depth about the nuances of certain ideas.", tags:["ideas"], duration:"39 min", date:"2024-07-10", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Authenticity--Grace--Trust--in-Work-and-with-Yourself-e2lsdra" },
-      { season:5, episode:5, title:"505- Building healthcare in India with RocketHealth's Abhineet and Ritika", description:"Ritika and Abhineet, founders of RocketHealth, and sibling duo, talk about learnings on their journey of working together as siblings, to leveraging strengths of each other and how they have found a mission that aligns them both together.", tags:["business"], duration:"43 min", date:"2024-06-26", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/505--Building-healthcare-in-India-with-RocketHealths-Abhineet-and-Ritika-e2laq4a" },
-      { season:5, episode:4, title:"504 - Creating comics together with Kahran and Divya", description:"How do you build things together, especially creative work. As Kahran and Divya embark on experimenting with new mediums and on new projects, they discuss their experience of working together for the first time on making comics.", tags:["business", "creative"], duration:"27 min", date:"2024-06-12", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/504---Creating-comics-together-with-Kahran-and-Divya-e2kq15a" },
-      { season:5, episode:3, title:"503 - Building and selling a food business with Smiqql's Dina Holzapfel", description:"In this episode of thinking on thinking, Kahran talks to Dina Holzapfel about building a food business with her life partner and the intricacies of what you gain when you sell your business. Of lessons learnt from a long journey of entrepreneurship and much more.", tags:["business", "creative"], duration:"36 min", date:"2024-05-29", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/503---Building-and-selling-a-food-business-with-Smiqqls-Dina-Holzapfel-e2k8kd1" },
-      { season:5, episode:2, title:"Kahran & Divya on Continuing Projects", description:"Topical for this season, co-founders and hosts Divya and Kahran find themselves in some tension, with Kahran questioning his commitment to the podcast, and wondering about how the rewards in doing something change over time. Also how preconceived notions influence our ability to see options.", tags:["business"], duration:"30 min", date:"2024-05-15", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Kahran--Divya-on-Continuing-Projects-e2jo181" },
-      { season:5, episode:1, title:"Being Co-Travel Influencers with Divya & the Searats", description:"Rashmee & Anant, aka the Searats, are married travel influencers. We talk about what it's like to build a business with your partner, being instinct-driven, and how happiness comes from being cringe. And how it feels create a space people feel they can judge you and your relationship, but also", tags:["business", "creative"], duration:"42 min", date:"2024-05-01", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Being-Co-Travel-Influencers-with-Divya--the-Searats-e2j4ak0" },
-      { season:5, episode:0, title:"Revisiting 402 - Careers & Creativity with Computational_Mama", description:"As we wrap up this season of Thinking on Thinking, we revisit one of our favs from last season. Where we talked to Computational mama about her life and her creative process.", tags:["creative", "growth"], duration:"37 min", date:"2024-10-30", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Revisiting-402---Careers--Creativity-with-Computational_Mama-e2qb23n" },
-      { season:4, episode:12, title:"Creating & Game Design with Kahran & Divya", description:"We dive deep into the creative process, and our roadblocks and success there, before pivoting into game design, and the wealth of games that came up in Divya's conversation with Anurati Srivastva and the fascinating ideas from Kahran's conversation with Katieann Vogel.", tags:["design", "creative", "growth"], duration:"31 min", date:"2024-04-03", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Creating--Game-Design-with-Kahran--Divya-e2htpfh" },
-      { season:4, episode:11, title:"Anurati Srivastva on Games and Game Design with Divya", description:"A fascinating discussion of different games, game design, and approach to creation with Anurati Srivastva.", tags:["design"], duration:"47 min", date:"2024-03-24", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Anurati-Srivastva-on-Games-and-Game-Design-with-Divya-e2hgor1" },
-      { season:4, episode:10, title:"Katieann Vogel on Unblocking Yourself, Finding Fulfillment & Creating Art with Kahran", description:"Katieann Vogel, an ocean poet, speaks with Kahran this week on the path from computer science to becoming an ocean poet, what it means to spend your life in nature and creating, and how to find a sense of stability and centeredness.", tags:["creative", "ai"], duration:"38 min", date:"2024-03-07", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Katieann-Vogel-on-Unblocking-Yourself--Finding-Fulfillment--Creating-Art-with-Kahran-e2goufn" },
-      { season:4, episode:9, title:"Kahran & Divya on the Learnings from Meghana Srinivas & Samhita Arni", description:"Divya & Kahran come back together on the interesting ideas we learned from Meghana Srinivas & Samhita Arni in episodes 7 & 8 of this season 4: rituals, success, perception and identity.", tags:["design", "growth"], duration:"32 min", date:"2024-02-22", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Kahran--Divya-on-the-Learnings-from-Meghana-Srinivas--Samhita-Arni-e2g46dj" },
-      { season:4, episode:8, title:"Meghana Srinivas on Rituals, Feeling Safe and Finding your Tribe", description:"Divya and Meghana discuss about Meghana's journey from being a cancer researcher to a startup founder, and her experience of working in an industry that requires a lot of emotional labour and how she finds her balance through rituals. They also discuss her uncanny ability to bring the most", tags:["business", "behavior", "creative", "growth"], duration:"59 min", date:"2024-02-07", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Meghana-Srinivas-on-Rituals--Feeling-Safe-and-Finding-your-Tribe-e2fftvd" },
-      { season:4, episode:7, title:"Thinking on Being Successful with Samhita Arni", description:"When you write your first NY Times bestseller at the age of 8, do you feel successful all your life? Is there a successful identity? Or is chasing success a Sisyphean task? Kahran and Sam Arni have an incredible conversation, talking about culture, what it means to add value, and how you feel", tags:["design", "growth"], duration:"49 min", date:"2024-01-25", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Being-Successful-with-Samhita-Arni-e2etet1" },
-      { season:4, episode:6, title:"Thinking on the Careers & Identity of Fran Dunaway and Aditi Dimri", description:"Kahran and Divya come back together to share their thoughts on our two remarkable guests — Aditi and Fran — and how both seem to share a very different view of the notion of identity, and how that has shaped their lives.", tags:["design", "growth"], duration:"36 min", date:"2024-01-11", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-the-Careers--Identity-of-Fran-Dunaway-and-Aditi-Dimri-e2e9lbj" },
-      { season:4, episode:5, title:"Thinking on Finding your Path, Making a Startup & Walking Away from Academia with Aditi Dimri", description:"Divya talks this week with Aditi Dimri, co-founder of cranberry.fit, about starting her career in academia and microeconomics before finding her desire to for fulfillment took her to more direct desires to help — first to more actionable projects, and then to starting a company herself!", tags:["business", "creative", "ai", "growth"], duration:"44 min", date:"2023-12-27", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Finding-your-Path--Making-a-Startup--Walking-Away-from-Academia-with-Aditi-Dimri-e2dmqqk" },
-      { season:4, episode:4, title:"Thinking on Careers & Work with Fran Dunaway", description:"Kahran talks this week with Fran Dunaway about her careers before she started her company, TomboyX, and how she has found her identity outside of her career, or perhaps, better said, found her identity in all of her careers.", tags:["business", "design", "creative", "growth"], duration:"55 min", date:"2023-12-13", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Careers--Work-with-Fran-Dunaway-e2d7m1m" },
-      { season:4, episode:3, title:"Thinking on Manasi K & Computational Mama", description:"Divya and Kahran come together to share their insights from the interviews with Manasi Khare in episode 31, and Computational Mama in episode 32.", tags:["ideas"], duration:"27 min", date:"2023-11-29", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Manasi-K--Computational-Mama-e2ciqb9" },
-      { season:4, episode:2, title:"Thinking on Coding, Creativity & Culture with Computational Mama", description:"Divya talks with Computational Mama about her journey into coding; finding herself as a coder after being a designer; ideas of identity; how art, culture and coding intersect, as well as Computational Mama's journey in the moniker being born, having a son, and introducing coding and design to", tags:["design", "creative"], duration:"37 min", date:"2023-11-15", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Coding--Creativity--Culture-with-Computational-Mama-e2bsccl" },
-      { season:4, episode:1, title:"Thinking on Patriotism, Law & Life with Manasi K", description:"Kahran & Manasi Khare have a sweeping conversation about law, pretending to be someone else, systemic thinking in the Indian context, and what it means to be a patriot.", tags:["ideas"], duration:"49 min", date:"2023-10-31", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Patriotism--Law--Life-with-Manasi-K-e2b9iof" },
-      { season:3, episode:11, title:"Revisiting Episode 16: Thinking on Designing Spaces (and changing your mind!)", description:"In the interlude before starting Season 4, we pull ep 16 from the archive this week. There's some interesting ideas about how to think about sightless, how vignettes shape your experience, and, as always, the role of expectations in outcomes.", tags:["design", "creative"], duration:"41 min", date:"2023-10-18", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Revisiting-Episode-16-Thinking-on-Designing-Spaces-and-changing-your-mind-e2aqeds" },
-      { season:3, episode:10, title:"Thinking on Accepted Truths, Defaults and How We Got Here", description:"As engineers we do not learn to take responsibility for our users' attention — and in fact we learn the opposite — grab more market share at all costs! Where has this perspective taken us? We explore this idea from the view of Meta's choices, but also from the perspective of defaults, and", tags:["ideas"], duration:"33 min", date:"2023-10-04", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Accepted-Truths--Defaults-and-How-We-Got-Here-e2a5tug" },
-      { season:3, episode:9, title:"Thinking on How LLMs (& GenAI!) have Changed Our Thinking", description:"We've started seeing differences in the way we think and create since we started using LLMs. From tactical things like remembering ear-worms, to abstract things like how we value ideas, we've found ChatGPT, Midjourney, and GenAI have changed the way we think, work, and create.", tags:["creative", "ai"], duration:"46 min", date:"2023-09-20", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-How-LLMs--GenAI--have-Changed-Our-Thinking-e29jne3" },
-      { season:3, episode:8, title:"Thinking on the Creative Process", description:"Motivating yourself, especially on self-driven projects, can be hard. Once you finally have something works, how do you keep evolving it? We talk this week on breaking out of creative ruts and how to evolve, using the podcast as a meta example.", tags:["creative"], duration:"36 min", date:"2023-09-07", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-the-Creative-Process-e290qcf" },
-      { season:3, episode:7, title:"Thinking on Describing What You Do and How You Do It", description:"How do different understandings of 'what you do' affect the course of a company? How do they affect you as a person? Kahran and Divya talk about how they got to joyus studio's single line vision, and share ideas to help others get there with their learnings.", tags:["business", "creative"], duration:"35 min", date:"2023-08-23", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Describing-What-You-Do-and-How-You-Do-It-e28etj9" },
-      { season:3, episode:6, title:"Thinking on Designing Expectations", description:"How do you create pre-experiences to put people in the right mindset for your experience? How do those create expectations you can exceed? In this wide reaching conversation we discuss Seth Godin, activation energy, fine dining and more.", tags:["design", "growth"], duration:"43 min", date:"2023-08-10", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Expectations-e27v6ip" },
-      { season:3, episode:5, title:"Thinking on how Different Learners Solve Problems, Buy Goods and Go on their Customer Journeys", description:"We know different learners learn differently, but how do different learners create works, get inspiration, or decide products or services are right for them? The customer journey changes for different types of learners.", tags:["ideas"], duration:"46 min", date:"2023-07-27", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-how-Different-Learners-Solve-Problems--Buy-Goods-and-Go-on-their-Customer-Journeys-e27e4bu" },
-      { season:3, episode:4, title:"Thinking on Work after Covid-19", description:"Is it right to have work from home when not everyone can? How do we resolve moral questions about fairness in a post-COVID world? This week we explore post-COVID work, thinking about how local governments, small businesses, and larger businesses can navigate questions of fairness.", tags:["business"], duration:"39 min", date:"2023-07-12", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Work-after-Covid-19-e26p4d1" },
-      { season:3, episode:3, title:"After Success, with Pradeep Singh - Success: Part 3", description:"What happens after you build a successful company, make a fortune, and achieve the goals you set out to achieve? What is success in the afterwards? In a conversation spanning success, purpose, motivation and satisfaction, Divya interviews Pradeep Singh, the founder and former CEO of Aditi", tags:["business", "behavior", "creative", "growth"], duration:"49 min", date:"2024-12-18", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/After-Success--with-Pradeep-Singh---Success-Part-3-e2sgf4r" },
-      { season:3, episode:3, title:"Thinking on Serendipity & Making Life Work For You", description:"How do things work out for successful people? How do you make things work out for yourself? Is it positive psychology, or can you actually influence outcomes just by trying to make it happen?", tags:["behavior", "creative", "growth"], duration:"37 min", date:"2023-06-28", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Serendipity--Making-Life-Work-For-You-e26aqsm" },
-      { season:3, episode:2, title:"Thinking on Ethics and Affording your Morals", description:"What values are you willing to pay for? Does it change for your personal life, versus your work persona? When does ethical stop feeling ethical? This week, Divya and Kahran explore these questions in the context of today's society, today's technology and the nature of late capitalism.", tags:["ideas"], duration:"29 min", date:"2023-06-14", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Ethics-and-Affording-your-Morals-e25sp9c" },
-      { season:3, episode:1, title:"Thinking on Personal Finance and Saving vs Investing", description:"Kahran shares some of the lessons and thinking that guide his attitudes towards investing, saving and other types of finance in this wide reaching episode that looks at how to leverage your skills and assets to create more freedom.", tags:["ideas"], duration:"38 min", date:"2023-05-31", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Personal-Finance-and-Saving-vs-Investing-e251qu0" },
-      { season:2, episode:21, title:"Revisiting Episode 8: Thinking on AI, the Future of Work, and the Commoditization of High(er) Skilled Labor", description:"What will happen when we have more and more AI systems as our co-pilots? This week we revisit episode 8 from season 1 to see how our thoughts have changed in the last 6 months.", tags:["ai"], duration:"44 min", date:"2023-05-17", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Revisiting-Episode-8-Thinking-on-AI--the-Future-of-Work--and-the-Commoditization-of-Higher-Skilled-Labor-e247l01" },
-      { season:2, episode:10, title:"Thinking on Working in Partnership with Generative AI (GenAI)", description:"Where can we apply GenAI to our work to accelerate progress? We talk about this in conjunction with drugs! and marketing tools! and more! and also touch on the incredible progress in AI of the past few weeks.", tags:["creative", "ai"], duration:"20 min", date:"2023-05-03", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Working-in-Partnership-with-Generative-AI-GenAI-e23i8cd" },
-      { season:2, episode:9, title:"Thinking on Obedience (and Discipline)", description:"As free-thinkers and believers in agency, we were very surprised to realize in this conversation that we believe obedience has its place — and can be required to create big, complex things that take belief.", tags:["ideas"], duration:"27 min", date:"2023-04-19", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Obedience-and-Discipline-e22o9r1" },
-      { season:2, episode:8, title:"Thinking on Courage vs Daring", description:"We always applaud courage but not always daring? Daring is for rogues and courage is for knights, whether they choose to be good or evil. Do we always want to foster courage, but not always daring?", tags:["creative"], duration:"26 min", date:"2023-04-05", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Courage-vs-Daring-e21vroj" },
-      { season:2, episode:7, title:"Thinking on Leverage: What it Means and How you Do it", description:"How leveraged are you, and how afraid are you of looking at your assets in your life as being leverage-able? In this episode we think on the word leverage, both from a personal finance side and a social side.", tags:["ideas"], duration:"34 min", date:"2023-03-22", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Leverage-What-it-Means-and-How-you-Do-it-e210ja3" },
-      { season:2, episode:6, title:"Thinking on Designing Spaces (and changing your mind)", description:"This episode we talk about spaces and how Divya has a resistance towards designing them because of a lack of heuristics and Kahran shares how he thinks about spaces. A major part of being open to changing your mind is the process through which you change your mind and reorient yourself in a new", tags:["design", "creative"], duration:"41 min", date:"2023-03-09", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Designing-Spaces-and-changing-your-mind-e203a2e" },
-      { season:2, episode:5, title:"Thinking on Building Trust", description:"What leads to you building trust? Where do you start from in trusting things? Are you like Divya, and start from 0, or like Kahran, and start from +10? Does it change for you depending on the context?", tags:["business", "creative"], duration:"39 min", date:"2023-02-22", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Building-Trust-e1vclcc" },
-      { season:2, episode:4, title:"Thinking on Loyalty & Customer Experiences", description:"What drives loyalty? Why do we spend lots of time with some brands, but don't feel loyalty towards them? What about the opposite — sometimes we feel very loyal to brands we may rarely purchase from?", tags:["design"], duration:"27 min", date:"2023-02-08", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Loyalty--Customer-Experiences-e1ulg3t" },
-      { season:2, episode:3, title:"Thinking on caring and being invested", description:"How do we grow to care about things? Does a sense of care result in loyalty? What is the difference between caring and being invested?", tags:["design"], duration:"36 min", date:"2023-01-25", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-caring-and-being-invested-e1u0i5v" },
-      { season:2, episode:2, title:"Thinking on decision making when you lack certainty", description:"How can you better prepare yourself to make decisions, especially when you have been putting off that decision? This week we talk about strategies for making decisions with uncertainty.", tags:["behavior"], duration:"36 min", date:"2023-01-11", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-decision-making-when-you-lack-certainty-e1tbpj5" },
-      { season:2, episode:1, title:"Thinking on designing for the End", description:"Are there always more customers? Is there always more attention? Is this way of marketing, and life, sustainable? This week we think about time-bound behaviors!", tags:["design", "behavior"], duration:"49 min", date:"2022-12-28", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-designing-for-the-End-e1sq2fb" },
-      { season:1, episode:11, title:"Season One Wrapped!", description:"We have loved publishing the first season of Thinking on Thinking. We will be back in Jan 2023 with Season 2, where we will dive deeper in ideas around motivation, behavior and more!", tags:["behavior"], duration:"0 min", date:"2022-12-24", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Season-One-Wrapped-e1sllnc" },
-      { season:1, episode:10, title:"Thinking on Making Better Decisions", description:"How do you make decisions? What helps and what doesn't? What stops you from making said decisions and what aids you in making them faster?", tags:["behavior", "creative"], duration:"31 min", date:"2022-11-30", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Making-Better-Decisions-e1ri29f" },
-      { season:1, episode:9, title:"Thinking on Kindness vs. Niceness", description:"Can taking blood on your hands be a kindness? Is it a niceness? What does it mean to be nice vs. kind? Can kind things be done in a polite way, or is politeness and niceness tied at the hip?", tags:["ideas"], duration:"39 min", date:"2022-11-16", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Kindness-vs--Niceness-e1qpme6" },
-      { season:1, episode:8, title:"Thinking on AI, the Future of Work, and the Commoditization of High(er) Skilled Labor", description:"What will happen as we have more and more AI systems as our co-pilots? How will we value things when AI has been involved in the creation? And is this the same trend towards commoditization of higher and higher skilled labor?", tags:["ai"], duration:"44 min", date:"2022-11-03", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-AI--the-Future-of-Work--and-the-Commoditization-of-Higher-Skilled-Labor-e1q66ek" },
-      { season:1, episode:7, title:"Thinking on Confidence & Feelings of Success, Failure and Achievement", description:"What leads to you feeling successful? Are they the things the same things that lead to you feeling confident?", tags:["behavior", "growth"], duration:"33 min", date:"2022-10-19", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Confidence--Feelings-of-Success--Failure-and-Achievement-e1pfjcr" },
-      { season:1, episode:6, title:"Thinking on Learning to Change our Thoughts", description:"Is the way you do one thing, the way you do everything? It's a common Buddhist saying but this week, we examine if it is actually true, and we talk about how we learn things.", tags:["ideas"], duration:"33 min", date:"2022-10-05", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Learning-to-Change-our-Thoughts-e1oq082" },
-      { season:1, episode:5, title:"Thinking on Pain & Emotional Signaling, Learning and Brain Pathways", description:"Why is pain helpful? How do we distinguish between different kinds of pain? How can we be cognizant of when we're acting to protect ourselves, and when those protective instincts becomes routines that guide our thinking?", tags:["behavior"], duration:"26 min", date:"2022-09-21", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Pain--Emotional-Signaling--Learning-and-Brain-Pathways-e1o4er9" },
-      { season:1, episode:4, title:"Thinking on Podcasts & How We Listen", description:"What are the expectations of your audience? Can you support those expectations? Are those expectations uniform across the audience?", tags:["ideas"], duration:"25 min", date:"2022-09-07", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Podcasts--How-We-Listen-e1nh75j" },
-      { season:1, episode:3, title:"Thinking on Cognitive vs Emotional Experiences & Models for Failure", description:"What does it mean to accept the data but not the feeling? How does our ability to accept failure influence our ability to do new things? What are better ways to fail?", tags:["behavior"], duration:"30 min", date:"2022-08-25", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Cognitive-vs-Emotional-Experiences--Models-for-Failure-e1mudd4" },
-      { season:1, episode:2, title:"Thinking on Signaling & Being In-Group", description:"How do we signal — to the right people, with the right message, at the right time? How do we choose our in-group?", tags:["creative"], duration:"22 min", date:"2022-08-10", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Signaling--Being-In-Group-e1lo1rl" },
-      { season:1, episode:1, title:"Thinking on Success & Models for Building Success", description:"How do you think about success? What are the components of your success? This week, we explore how to construct a model for success, defining success, success ecosystems, and more.", tags:["business", "growth"], duration:"23 min", date:"2022-07-26", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Thinking-on-Success--Models-for-Building-Success-e1lo1ns" },
-      { season:0, episode:0, title:"Story vs Telling Part 3", description:"Conclusions are found for Divya in how to tell her story in a resonant and authentic way in this workshop-style episode with Kahran and Divya", tags:["storytelling", "creative"], duration:"24 min", date:"2025-06-19", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Story-vs-Telling-Part-3-e34eo6p" },
-      { season:0, episode:0, title:"Revisiting episode 29 : Thinking on LLMs and GenAI", description:"As we take a break between the seasons, we revisit episode 29, where we discussed about generative AI and how it has changed out ways of thinking and doing work.", tags:["ai"], duration:"46 min", date:"2024-04-18", spotify:"https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Revisiting-episode-29--Thinking-on-LLMs-and-GenAI-e2iitnf" }
-    ];
-
-    // ===== RENDER EPISODES =====
-    function renderEpisodes(filter) {
-      const container = document.getElementById('episodesContainer');
-      const noResults = document.getElementById('noResults');
-      container.innerHTML = '';
-
-      const filtered = filter === 'all'
-        ? EPISODES
-        : EPISODES.filter(ep => ep.tags.includes(filter));
-
-      if (filtered.length === 0) {
-        noResults.classList.add('show');
-        return;
-      }
-      noResults.classList.remove('show');
-
-      // Group by season, descending
-      const seasons = {};
-      filtered.forEach(ep => {
-        const key = ep.season;
-        if (!seasons[key]) seasons[key] = [];
-        seasons[key].push(ep);
-      });
-
-      const sortedSeasons = Object.keys(seasons).map(Number).sort((a, b) => b - a);
-
-      sortedSeasons.forEach((seasonNum, idx) => {
-        const eps = seasons[seasonNum];
-        eps.sort((a, b) => b.episode - a.episode);
-
-        const group = document.createElement('div');
-        group.className = 'season-group' + (idx === 0 ? ' open' : '');
-
-        const seasonLabel = seasonNum === 0 ? 'Bonus Episodes' : `Season ${seasonNum}`;
-
-        group.innerHTML = `
-          <div class="season-header">
-            <div>
-              <h2>${seasonLabel}<span class="episode-count">${eps.length} episode${eps.length !== 1 ? 's' : ''}</span></h2>
-            </div>
-            <span class="toggle-icon">\u25BE</span>
-          </div>
-          <div class="season-episodes">
-            ${eps.map(ep => {
-              const epLabel = seasonNum === 0
-                ? 'Bonus'
-                : `S${ep.season} E${ep.episode}`;
-              return `
-                <div class="episode-card" data-tags="${ep.tags.join(',')}">
-                  <div class="episode-meta">
-                    <span class="episode-number">${epLabel}</span>
-                    <span class="episode-duration">${ep.duration}</span>
-                  </div>
-                  <h3><a href="podcast/${toSlug(ep.title)}.html" style="color:inherit;text-decoration:none;">${ep.title}</a></h3>
-                  <p class="episode-description">${ep.description}</p>
-                  <div class="episode-footer">
-                    <div class="episode-tags">
-                      ${ep.tags.map(t => `<span class="episode-tag" data-tag="${t}">${t}</span>`).join('')}
-                    </div>
-                    <a href="podcast/${toSlug(ep.title)}.html" class="listen-link">
-                      Listen &rarr;
-                    </a>
-                  </div>
-                </div>`;
-            }).join('')}
-          </div>
-        `;
-
-        container.appendChild(group);
-      });
-
-      // Bind season toggle
-      document.querySelectorAll('.season-header').forEach(header => {
-        header.addEventListener('click', () => {
-          header.closest('.season-group').classList.toggle('open');
-        });
-      });
-
-      // Fade-in on scroll
-      initScrollObserver();
-    }
-
-    // ===== FILTER PILLS =====
-    document.querySelectorAll('.filter-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-        pill.classList.add('active');
-        renderEpisodes(pill.dataset.filter);
-      });
-    });
-
-    // ===== SCROLL FADE-IN =====
-    function initScrollObserver() {
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('visible');
-            obs.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-      document.querySelectorAll('.episode-card').forEach((el, i) => {
-        el.style.transitionDelay = `${Math.min(i, 8) * 0.06}s`;
-        obs.observe(el);
-      });
-    }
-
-    // ===== MOBILE NAV =====
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-
-    // ===== NAV SCROLL SHADOW =====
-    const nav = document.querySelector('.nav-bar');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-
-    // ===== INIT =====
-    renderEpisodes('all');
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
   </script>
-<script src="shape-echo.js"></script>
+
 </body>
 </html>
