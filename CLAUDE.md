@@ -135,16 +135,16 @@ All Firestore writes are best-effort (try/catch, silent on failure). The UI neve
 - `.claude/scheduled_tasks.lock` — runtime artifact, ignore.
 - `notion-pass1-storytelling.md` + `notion-site-review.csv` — in-progress editorial review tracking (Week 1 of April 2026). Read these if the user asks about the "site review" or "pass 1/2/3" — they encode the current content-review workflow.
 
-## Pre-deploy QA (run before the last commit of the day)
+## Pre-deploy QA (before shipping changes)
 
-Spin up 6 agents in parallel for a final pass. Each should fix issues directly, not just report.
+Run these checks directly — no need to spawn parallel agents. Fix issues as you find them.
 
-1. **UX** — dead ends, missing CTAs, hover states, mobile breakpoints, nav consistency, a11y (aria-labels, skip-to-content link, focus-visible outlines).
-2. **Grammar** — typos, double hyphens → em dashes, Oxford commas, name spellings (Kahran Singh, Divya Tak). **Skip `podcast/*.html` transcript blocks.**
-3. **Product marketing** — value prop clarity, trust signals, CTAs on every page, hub→service bridges, advisory-first positioning.
-4. **SEO** — title + meta description (150–160 chars) + og tags + canonical + twitter:card on every page. JSON-LD: `CollectionPage` on hubs, `Article` on `thinking/*`, `CreativeWork` on `work/*`, `Service` on `services.html` / `ai-workshops.html`, `PodcastSeries` on `podcast.html`. One `<h1>` per page. Sitemap covers all public pages.
-5. **QA (programmatic)** — every internal link resolves, every non-splash page includes `shape-echo.js` with correct relative path, nav + footer + footer-themes + footer-contact blocks are present and consistent, no stray `console.log`.
-6. **Analytics** — Firebase config identical in `index.html`, `home.html`, `shape-echo.js`. Measurement ID is `G-K7PDLTYWF6` only. Firestore collection names are `intents`, `shapes`, `shape_visits`.
+- **UX**: dead ends, missing CTAs, hover states, mobile breakpoints, nav consistency, a11y (aria-labels, focus-visible outlines).
+- **Grammar**: typos, double hyphens → em dashes, Oxford commas, name spellings (Kahran Singh, Divya Tak). **Skip `podcast/*.html` transcript blocks.**
+- **Product marketing**: value-prop clarity, trust signals, CTAs on every page, advisory-first positioning.
+- **SEO**: title + meta description (150–160 chars) + og tags + canonical + twitter:card on every page. JSON-LD where appropriate. One `<h1>` per page. Sitemap covers public pages.
+- **Link check**: every internal link resolves, nav + footer consistent across pages, no stray `console.log`.
+- **Analytics**: Firebase config identical everywhere that uses it. Measurement ID is `G-K7PDLTYWF6` only. Firestore collection names are `intents`, `shapes`, `shape_visits`.
 
 ## Gotchas
 
