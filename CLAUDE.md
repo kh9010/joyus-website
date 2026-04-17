@@ -135,17 +135,6 @@ All Firestore writes are best-effort (try/catch, silent on failure). The UI neve
 - `.claude/scheduled_tasks.lock` — runtime artifact, ignore.
 - `notion-pass1-storytelling.md` + `notion-site-review.csv` — in-progress editorial review tracking (Week 1 of April 2026). Read these if the user asks about the "site review" or "pass 1/2/3" — they encode the current content-review workflow.
 
-## Pre-deploy QA (before shipping changes)
-
-Run these checks directly — no need to spawn parallel agents. Fix issues as you find them.
-
-- **UX**: dead ends, missing CTAs, hover states, mobile breakpoints, nav consistency, a11y (aria-labels, focus-visible outlines).
-- **Grammar**: typos, double hyphens → em dashes, Oxford commas, name spellings (Kahran Singh, Divya Tak). **Skip `podcast/*.html` transcript blocks.**
-- **Product marketing**: value-prop clarity, trust signals, CTAs on every page, advisory-first positioning.
-- **SEO**: title + meta description (150–160 chars) + og tags + canonical + twitter:card on every page. JSON-LD where appropriate. One `<h1>` per page. Sitemap covers public pages.
-- **Link check**: every internal link resolves, nav + footer consistent across pages, no stray `console.log`.
-- **Analytics**: Firebase config identical everywhere that uses it. Measurement ID is `G-K7PDLTYWF6` only. Firestore collection names are `intents`, `shapes`, `shape_visits`.
-
 ## Gotchas
 
 - **Do not add GA tag `G-H63H3KD6WQ`** anywhere. That's Kahran's personal site. Joyus uses `G-K7PDLTYWF6`.
