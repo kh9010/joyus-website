@@ -3,319 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="How Joyus Studio built the brand identity and visual language for Gliitch, a creative technology company.">
-  <meta property="og:title" content="Gliitch — Joyus Studio">
-  <meta property="og:description" content="How Joyus Studio built the brand identity and visual language for Gliitch, a creative technology company.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/gliitch.jpg">
+  <meta name="description" content="A vibrant brand identity for Gliitch, a Hong Kong digital provider to small restaurants. By Joyus Studio.">
+  <meta property="og:title" content="gliitch — Joyus Studio">
+  <meta property="og:description" content="Moodboarding, branding and media guides for a digital provider to small restaurants in Hong Kong.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/gliitch/cover.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/gliitch.html">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/gliitch.html">
-  <title>Gliitch — Joyus Studio</title>
+  <title>gliitch — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <style>
-    .case-hero {
-      padding: 7rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-      text-align: center;
-    }
-    .case-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      margin-bottom: 0.75rem;
-      color: #111;
-    }
-    .case-subtitle {
-      font-size: 1.15rem;
-      color: #555;
-      max-width: 680px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-    .case-meta {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .meta-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-    }
-    .meta-value {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .case-highlight {
-      background: #1a1a1a;
-      color: white;
-      padding: 4rem 2rem;
-    }
-    .case-highlight-content {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
-      text-align: center;
-    }
-    .highlight-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.8rem;
-      color: white;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      max-width: 140px;
-      line-height: 1.4;
-    }
-    .case-image-full {
-      width: 100%;
-      max-height: 520px;
-      overflow: hidden;
-      border-bottom: 1px solid #eee;
-    }
-    .case-image-full img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .case-section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .case-section.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .case-section.alt {
-      background: var(--warm-gray, #F5F3F0);
-      max-width: 100%;
-      padding: 4rem 2rem;
-    }
-    .case-section.alt .section-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .case-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      margin-bottom: 1.25rem;
-      color: #111;
-    }
-    .case-section p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.1rem;
-    }
-    .case-section p:last-child { margin-bottom: 0; }
-    .case-nav-bar {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e8e6e4;
-    }
-    .case-nav-prev, .case-nav-next {
-      font-size: 0.9rem;
-      color: #666;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
-    @media (max-width: 640px) {
-      .case-highlight-content { gap: 2rem; }
-      .stat-number { font-size: 2rem; }
-      .case-meta { gap: 1.5rem; }
-      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=4">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"Gliitch","description":"How Joyus Studio built the brand identity and visual language for Gliitch, a creative technology company.","url":"https://kh9010.github.io/joyus-website/work/gliitch.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"gliitch","description":"Moodboarding, branding and media guides for a digital provider to small restaurants in Hong Kong.","url":"https://kh9010.github.io/joyus-website/work/gliitch.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
 </head>
-<body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
+<body class="work-page">
+
+  <nav class="nav">
+    <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio"></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="../services.html">Services</a>
+      <a href="../podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
     </div>
   </nav>
 
-  <section class="case-hero">
-    <h1>Gliitch</h1>
-    <p class="case-subtitle">Creating the visual identity for a Hong Kong digital provider</p>
-    <div class="case-meta">
-      <div class="meta-item">
-        <span class="meta-label">Client</span>
-        <span class="meta-value">Gliitch</span>
+  <header class="cs-cover">
+    <div class="cs-cover-image" style="background-image:url('../images/work/gliitch/cover.webp');" role="img" aria-label="Gliitch brand identity mockup"></div>
+    <div class="cs-cover-meta">
+      <p class="cs-eyebrow">a case study</p>
+      <h1>gliitch</h1>
+      <p class="cs-tagline">Digital provider to small restaurants in Hong Kong with a strong personality needing a strong brand identity.</p>
+      <ul class="cs-services">
+        <li>Moodboarding</li>
+        <li>Branding</li>
+        <li>Media Guides</li>
+      </ul>
+      <div class="cs-meta-row">
+        <span>Hong Kong</span>
+        <span>10–25 employees</span>
+        <span>Bootstrapped</span>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Location</span>
-        <span class="meta-value">Hong Kong</span>
+    </div>
+  </header>
+
+  <!-- Slide 94 — Moodboarding -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
+      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">memphis energy meets HK street</p>
+      <div class="cs-tabs">
+        <span class="name">gliitch</span>
+        <span class="tab active">Moodboarding</span>
+        <span class="tab">Branding</span>
+        <span class="tab">Media Guides</span>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Services</span>
-        <span class="meta-value">Moodboarding, Branding, Media Guides</span>
+
+      <p class="cs-intro">Gliitch needed a brand revitalization that would <strong>stand out in the colorful and diverse local market</strong> in Hong Kong, while supporting co-branding with all its small-restaurant customers online and digitally.</p>
+      <p class="cs-sub">Balance vibrance &amp; loudness across different axes — with adaptability.</p>
+
+      <div class="cs-cluster cols-1">
+        <figure class="cs-fig hero">
+          <img src="../images/work/gliitch/slide94-moodboarding-1.webp" alt="Gliitch final moodboard" loading="lazy">
+          <p class="cs-note solid">bold colors</p>
+          <p class="cs-note">multiple primary colors for high energy</p>
+          <p class="cs-note">strong geometric shapes</p>
+          <p class="cs-note">supporting patterns</p>
+        </figure>
+      </div>
+
+      <div class="cs-cluster cols-4" style="margin-top:2.5rem;">
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide94-moodboarding-2.webp" alt="Color palette tile" loading="lazy">
+          <p class="cs-note">memphis-style design language</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide94-moodboarding-3.webp" alt="Color palette tile" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide94-moodboarding-4.webp" alt="Color palette tile" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide94-moodboarding-5.webp" alt="Color palette tile" loading="lazy">
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="case-highlight">
-    <div class="case-highlight-content">
-      <div class="highlight-stat">
-        <span class="stat-number">Moodboard</span>
-        <span class="stat-label">To complete brand system</span>
+  <div class="cs-bridge">↓ now narrow it — <em>the mark</em></div>
+
+  <!-- Slide 95 — Branding: logo candidates + final + sub-brands -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
+      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
+      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">the logo we landed on</p>
+      <div class="cs-tabs">
+        <span class="name">gliitch</span>
+        <span class="tab">Moodboarding</span>
+        <span class="tab active">Branding</span>
+        <span class="tab">Media Guides</span>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Identity</span>
-        <span class="stat-label">Mark, color, typography, voice</span>
+
+      <p class="cs-intro">The new logo set the tone for the branding. With <strong>just two colors in the final version</strong>, the shapes allude to nostalgic emotional energies that stand out in the hyper-future-focused competitive market environment.</p>
+      <p class="cs-sub">Logo candidates — explored across container, contrast and circular forms.</p>
+
+      <div class="cs-cluster cols-4">
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-1.webp" alt="Logo option — container" loading="lazy">
+          <p class="cs-note">container</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-2.webp" alt="Logo option — high-contrast glitch" loading="lazy">
+          <p class="cs-note">high-contrast broken / glitch effects</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-3.webp" alt="Logo option — subtle glitch" loading="lazy">
+          <p class="cs-note">subtle-contrast broken / glitch effects</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-4.webp" alt="Logo option — circular nostalgia" loading="lazy">
+          <p class="cs-note">circular form, reminiscent of nostalgic TV logos</p>
+        </figure>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Media-ready</span>
-        <span class="stat-label">Guidelines for every channel</span>
+
+      <div class="cs-cluster cols-1" style="margin-top:3rem;">
+        <figure class="cs-fig hero">
+          <img src="../images/work/gliitch/slide95-branding-5.webp" alt="Gliitch final logo" loading="lazy">
+          <p class="cs-note solid">final logo — keeps glitch effects and nostalgia elements while supporting sub-brands</p>
+        </figure>
+      </div>
+
+      <div class="cs-cluster cols-3" style="margin-top:2rem;">
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-6.webp" alt="Gliitch sub-brand logo" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-7.webp" alt="Gliitch sub-brand logo" loading="lazy">
+          <p class="cs-note">sub-brand logos are easily derived from the main logo</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide95-branding-8.webp" alt="Gliitch sub-brand logo" loading="lazy">
+        </figure>
       </div>
     </div>
   </section>
 
-  <div class="case-image-full">
-    <img src="../images/work/gliitch.jpg" alt="Gliitch brand identity and visual system mockups" loading="lazy">
-  </div>
+  <div class="cs-bridge">↓ then bring it <em>to life — in motion</em></div>
 
-  <section class="case-section fade-in">
-    <h2>The Challenge</h2>
-    <p>Gliitch, a digital service provider in Hong Kong, had a great name — the deliberate misspelling captured exactly the irreverent, technically-grounded personality they wanted to project. What they lacked was a visual identity system to match. They needed to go from name and attitude to a complete brand that could work across digital platforms, media appearances, and client-facing materials.</p>
-  </section>
-
-  <section class="case-section alt">
-    <div class="section-inner">
-      <h2>Our Approach</h2>
-      <p>Moodboarding was the essential first step: establishing the visual territory before committing to any specific mark or color. We explored the intersection of digital-native aesthetics and Hong Kong's distinctive visual culture — finding a tone that felt fresh and international without being generic. The final brand direction leaned into controlled imperfection: the glitch aesthetic made visual, but made elegant.</p><p>The identity system — mark, color palette, typography, tone of voice — gave Gliitch a complete toolkit. The media guides made sure anyone creating content for the brand could do it consistently, whether they were designing social posts or preparing pitch decks for enterprise clients.</p>
+  <!-- Slide 96 — Media Guides: video stills -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
+      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
+      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
     </div>
-  </section>
-
-  <section class="case-section fade-in">
-    <h2>The Outcome</h2>
-    <p>Gliitch launched with a brand identity that lived up to its name — distinctive, technically-aware, and genuinely memorable in a market crowded with generic digital agency aesthetics. The brand system has proven flexible enough to work across the different contexts of their business: developer-facing, executive-facing, and media-facing, all from one coherent visual foundation.</p>
-  </section>
-
-  <section class="related-work" style="padding:2rem 2rem 0;max-width:900px;margin:0 auto;">
-    <h3 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1rem;">You might also like</h3>
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-      <a href="xtdb.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">XTDB →</a>
-      <a href="secret-senses.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Secret Senses →</a>
-      <a href="rachna-nivas.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Rachna Nivas →</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">now it moves</p>
+      <div class="cs-tabs">
+        <span class="name">gliitch</span>
+        <span class="tab">Moodboarding</span>
+        <span class="tab">Branding</span>
+        <span class="tab active">Media Guides</span>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+
+      <p class="cs-intro">Extending the branding to video brought a <strong>sense of play</strong> — with elements interacting with each other, and the view space, in a way that was impossible with a simple two-dimensional branding.</p>
+
+      <div class="cs-cluster cols-3">
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide96-media-1.webp" alt="Gliitch video still — closing animation" loading="lazy">
+          <p class="cs-note">a sense of abundance from the closing screen animation, using colors and quick transitions</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide96-media-2.webp" alt="Gliitch video still — transitions" loading="lazy">
+          <p class="cs-note solid">transitions let elements enter and exit the screen, heightening the sense of play and fun</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/gliitch/slide96-media-3.webp" alt="Gliitch video still — three dimensions" loading="lazy">
+          <p class="cs-note">extending the branding to three dimensions dramatically increases edge cases, requiring different logo versions for chaotic visual scenes</p>
+        </figure>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
+  </section>
+
+  <section class="cs-closing">
+    <span class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
+    </span>
+    <span class="cs-closing-label">your move</span>
+    <h3>Ready to <em>get loud, on purpose</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="tatsam.html">next case study: tatsam <span class="arrow">→</span></a>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-    const sections = document.querySelectorAll('.case-section');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
-    sections.forEach(s => obs.observe(s));
-  </script>
-<script src="../shape-echo.js"></script>
+  <script src="../shape-echo.js"></script>
 </body>
 </html>

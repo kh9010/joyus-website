@@ -3,323 +3,290 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="How Joyus Studio designed the visual language for Tatsam, a mental health app — making a stigma-heavy space feel warm and safe.">
-  <meta property="og:title" content="Tatsam — Joyus Studio">
-  <meta property="og:description" content="How Joyus Studio designed the visual language for Tatsam, a mental health app — making a stigma-heavy space feel warm and safe.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/tatsam.jpg">
+  <meta name="description" content="Visual language, brand, product strategy and bespoke client research for Tatsam, a holistic mental health app. By Joyus Studio.">
+  <meta property="og:title" content="tatsam — Joyus Studio">
+  <meta property="og:description" content="Visual language, brand, product strategy and bespoke client research for a holistic mental health app.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/tatsam/cover.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/tatsam.html">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/tatsam.html">
-  <title>Tatsam — Joyus Studio</title>
+  <title>tatsam — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <style>
-    .case-hero {
-      padding: 7rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-      text-align: center;
-    }
-    .case-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      margin-bottom: 0.75rem;
-      color: #111;
-    }
-    .case-subtitle {
-      font-size: 1.15rem;
-      color: #555;
-      max-width: 680px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-    .case-meta {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .meta-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-    }
-    .meta-value {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .case-highlight {
-      background: #1a1a1a;
-      color: white;
-      padding: 4rem 2rem;
-    }
-    .case-highlight-content {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
-      text-align: center;
-    }
-    .highlight-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.8rem;
-      color: white;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      max-width: 140px;
-      line-height: 1.4;
-    }
-    .case-image-full {
-      width: 100%;
-      max-height: 520px;
-      overflow: hidden;
-      border-bottom: 1px solid #eee;
-    }
-    .case-image-full img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .case-section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .case-section.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .case-section.alt {
-      background: var(--warm-gray, #F5F3F0);
-      max-width: 100%;
-      padding: 4rem 2rem;
-    }
-    .case-section.alt .section-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .case-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      margin-bottom: 1.25rem;
-      color: #111;
-    }
-    .case-section p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.1rem;
-    }
-    .case-section p:last-child { margin-bottom: 0; }
-    .case-nav-bar {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e8e6e4;
-    }
-    .case-nav-prev, .case-nav-next {
-      font-size: 0.9rem;
-      color: #666;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
-    @media (max-width: 640px) {
-      .case-highlight-content { gap: 2rem; }
-      .stat-number { font-size: 2rem; }
-      .case-meta { gap: 1.5rem; }
-      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=4">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"Tatsam","description":"How Joyus Studio designed the visual language for Tatsam, a mental health app — making a stigma-heavy space feel warm and safe.","url":"https://kh9010.github.io/joyus-website/work/tatsam.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"tatsam","description":"Visual language, brand, product strategy and bespoke client research for a holistic mental health app.","url":"https://kh9010.github.io/joyus-website/work/tatsam.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
 </head>
-<body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
+<body class="work-page">
+
+  <nav class="nav">
+    <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio"></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="../services.html">Services</a>
+      <a href="../podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
     </div>
   </nav>
 
-  <section class="case-hero">
-    <h1>Tatsam</h1>
-    <p class="case-subtitle">Designing the visual language for mental wellness in India</p>
-    <div class="case-meta">
-      <div class="meta-item">
-        <span class="meta-label">Client</span>
-        <span class="meta-value">Tatsam</span>
+  <header class="cs-cover">
+    <div class="cs-cover-image" style="background-image:url('../images/work/tatsam/cover.webp');" role="img" aria-label="Tatsam product mockup"></div>
+    <div class="cs-cover-meta">
+      <p class="cs-eyebrow">a case study</p>
+      <h1>tatsam</h1>
+      <p class="cs-tagline">A holistic mental health app needing a design to give a sense of calm and agency to users.</p>
+      <ul class="cs-services">
+        <li>Visual Language Building</li>
+        <li>Brand Building</li>
+        <li>Product Strategy</li>
+        <li>Bespoke Solutioning</li>
+      </ul>
+      <div class="cs-meta-row">
+        <span>India</span>
+        <span>10–50 employees</span>
+        <span>Seed funded</span>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Location</span>
-        <span class="meta-value">India</span>
+    </div>
+  </header>
+
+  <!-- Slide 106 — Brand Building: brand guide -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
+      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">what the brand says, how it sounds</p>
+      <div class="cs-tabs">
+        <span class="name">tatsam</span>
+        <span class="tab">Visual Language Building</span>
+        <span class="tab active">Brand Building</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab">Bespoke Solutioning</span>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Category</span>
-        <span class="meta-value">Mental Health App</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Services</span>
-        <span class="meta-value">Visual Language, Brand Building, Product Strategy</span>
+
+      <p class="cs-intro">The brand guide covers <strong>presence, communication and philosophy</strong> — for internal and external audiences. This was the outcome of multiple deep brainstorming sessions and generative workshops with the founders and team.</p>
+      <p class="cs-sub">Aesthetic imagery reinforces brand values · product details align what we "say" with what we "do" · brand-voice guidelines align the user experience across visuals, audio and video.</p>
+
+      <div class="cs-cluster cols-3">
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-4.webp" alt="Tatsam brand-guide cover" loading="lazy">
+          <p class="cs-note solid">believe in</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-5.webp" alt="Tatsam offering page" loading="lazy">
+          <p class="cs-note">aesthetic imagery reinforces brand values</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-3.webp" alt="Tatsam brand-guide page" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-2.webp" alt="Tatsam product detail" loading="lazy">
+          <p class="cs-note">product details align what we "say" with what we "do"</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-6.webp" alt="Tatsam logo guidelines" loading="lazy">
+          <p class="cs-note">our logo</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-7.webp" alt="Tatsam voice guidelines" loading="lazy">
+          <p class="cs-note">our voice</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-8.webp" alt="Tatsam voice guidelines 2" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-9.webp" alt="Tatsam audio guidelines" loading="lazy">
+          <p class="cs-note">audio</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-10.webp" alt="Tatsam visual guidelines" loading="lazy">
+          <p class="cs-note">brand voice across mediums aligns the user's experience whether they consume visuals, audio, videos or more</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide106-brand-1.webp" alt="Tatsam app surface" loading="lazy">
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="case-highlight">
-    <div class="case-highlight-content">
-      <div class="highlight-stat">
-        <span class="stat-number">4</span>
-        <span class="stat-label">Disciplines working in harmony</span>
+  <div class="cs-bridge">↓ then the visual language <em>itself</em></div>
+
+  <!-- Slide 107 — Visual Language Building -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
+      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
+      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">calm shapes, fresh tones</p>
+      <div class="cs-tabs">
+        <span class="name">tatsam</span>
+        <span class="tab active">Visual Language Building</span>
+        <span class="tab">Brand Building</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab">Bespoke Solutioning</span>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">India</span>
-        <span class="stat-label">Designing for a stigma-heavy space</span>
+
+      <p class="cs-intro">As a mental health company, Tatsam needed an <strong>inviting, calming and comforting visual language</strong>. The design uses colors and shapes to create a sense of camaraderie and intimacy that kickstarts the relationship even before a user speaks to a therapist.</p>
+
+      <div class="cs-cluster cols-1">
+        <figure class="cs-fig hero contain">
+          <img src="../images/work/tatsam/slide107-visual-4.webp" alt="Tatsam visual language — logo + iconography mosaic" loading="lazy">
+          <p class="cs-note solid">logo and primary colors give a sense of energy and vibrance, while soothing</p>
+          <p class="cs-note">prominently placed geometric elements are recognizable and feel expressively playful</p>
+          <p class="cs-note">supporting colors for the visual language use tones of nature for freshness and calm</p>
+        </figure>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">End-to-end</span>
-        <span class="stat-label">Visual language to product strategy</span>
+
+      <div class="cs-cluster cols-3" style="margin-top:2.5rem;">
+        <figure class="cs-fig contain">
+          <img src="../images/work/tatsam/slide107-visual-1.webp" alt="Iconography — blooming flower" loading="lazy">
+          <p class="cs-note">iconography reinforces memorability with expressive linework and cutout shapes</p>
+        </figure>
+        <figure class="cs-fig contain">
+          <img src="../images/work/tatsam/slide107-visual-2.webp" alt="Iconography — last leaf" loading="lazy">
+        </figure>
+        <figure class="cs-fig contain">
+          <img src="../images/work/tatsam/slide107-visual-3.webp" alt="Photographic imagery — waterfall" loading="lazy">
+          <p class="cs-note">photographic imagery based on nature and natural objects — grounding while communicating open possibility and the wide expanse of space</p>
+        </figure>
       </div>
     </div>
   </section>
 
-  <div class="case-image-full">
-    <img src="../images/work/tatsam.jpg" alt="Tatsam visual language system with botanical illustrations by Divya Tak" loading="lazy">
-  </div>
+  <div class="cs-bridge">↓ now <em>the product</em></div>
 
-  <section class="case-section fade-in">
-    <h2>The Challenge</h2>
-    <p>Tatsam set out to build a mental health app for India — a market where mental wellness carries real cultural stigma. The challenge wasn't just app design. It was creating an entire visual and emotional language from scratch, one that could make mental health feel approachable, warm, and culturally resonant. Every color, every illustration, every word needed to say: you're safe here.</p><p>Western mental health apps were too clinical. Indian equivalents felt dated. There was a genuine white space, but filling it required getting the visual language exactly right — because in this category, design IS the product.</p>
-  </section>
-
-  <section class="case-section alt">
-    <div class="section-inner">
-      <h2>Our Approach</h2>
-      <p>The visual system needed to start from first principles. The botanical illustration language became the emotional core — organic, alive, Indian without being kitsch. We chose colors from the warm end of the spectrum, forms that felt soft and unguarded. The brand identity work went well beyond logos into a complete emotional framework guiding every touchpoint, from onboarding screens to daily check-in flows.</p><p>Product strategy ran in parallel with visual language. Features were only added when they served real user needs — we pushed back hard on anything that felt feature-box-ticking. The bespoke solutioning work meant developing custom approaches to genuinely novel problems: how do you prompt someone to open up about anxiety? What does a safe space look like on a 6-inch screen?</p>
+  <!-- Slide 108 — Product Strategy: onboarding flow -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
+      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
+      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
     </div>
-  </section>
-
-  <section class="case-section fade-in">
-    <h2>The Outcome</h2>
-    <p>Tatsam launched with a visual identity unlike anything in the Indian mental health space. The brand language became a key differentiator, helping users engage with mental wellness content without the stigma barrier that had blocked earlier products. The botanical illustration system became the brand's most recognizable asset — a visual shorthand for warmth, care, and quiet safety.</p>
-  </section>
-
-  <section class="related-work" style="padding:2rem 2rem 0;max-width:900px;margin:0 auto;">
-    <h3 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1rem;">You might also like</h3>
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-      <a href="secret-senses.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Secret Senses →</a>
-      <a href="pratham.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">PrathamUSA →</a>
-      <a href="klydo.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Klydo →</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">an onboarding that doesn't overwhelm</p>
+      <div class="cs-tabs">
+        <span class="name">tatsam</span>
+        <span class="tab">Visual Language Building</span>
+        <span class="tab">Brand Building</span>
+        <span class="tab active">Product Strategy</span>
+        <span class="tab">Bespoke Solutioning</span>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
+
+      <p class="cs-intro">A <strong>research-backed onboarding flow</strong> — designed in collaboration with psychologists to build intimacy with the client without overwhelming them.</p>
+
+      <div class="cs-cluster cols-1">
+        <figure class="cs-fig phone">
+          <img src="../images/work/tatsam/slide108-product-1.webp" alt="Tatsam opening screen" loading="lazy">
+          <p class="cs-note solid">subheading reinforces the promise to the user of autonomy and holistic wellness</p>
+          <p class="cs-note">playful visual elements reinforce a sense of invitation with gentle animations</p>
+        </figure>
       </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+
+      <p class="cs-stage-label">Stage 1 — Initial Rapport</p>
+      <p class="cs-sub">Step 1: sign-up starts with creating a space for feelings &amp; trust to build rapport with new users.</p>
+      <div class="cs-cluster cols-3">
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-2.webp" alt="Ask name" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-3.webp" alt="Ask feeling" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-4.webp" alt="Additional details" loading="lazy"></figure>
+      </div>
+
+      <p class="cs-stage-label">Stage 2 — Life Details</p>
+      <p class="cs-sub">Step 2: gathering details on the user's life and what they might like to change or evolve helps them feel seen and understood.</p>
+      <div class="cs-cluster cols-3">
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-5.webp" alt="Hub initial" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-6.webp" alt="Wheel of life 1" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-7.webp" alt="Wheel of life 2" loading="lazy"></figure>
+      </div>
+
+      <p class="cs-stage-label">Stage 3 — Goal Selection</p>
+      <p class="cs-sub">Step 3: giving a sense of agency in deciding on goals aligns incentives and increases motivation.</p>
+      <div class="cs-cluster cols-2">
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-8.webp" alt="Onboarding incomplete 1" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-9.webp" alt="Onboarding incomplete 2" loading="lazy"></figure>
+      </div>
+
+      <p class="cs-stage-label">Stage 4 — Plan Creation</p>
+      <p class="cs-sub">Step 4: create an achievable plan that leverages users' initial enthusiasm to start the behavior change.</p>
+      <div class="cs-cluster cols-2">
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-10.webp" alt="Self-driven plan" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/tatsam/slide108-product-11.webp" alt="Play section" loading="lazy"></figure>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+  </section>
+
+  <div class="cs-bridge">↓ and how we tell <em>the company story</em></div>
+
+  <!-- Slide 109 — Bespoke Solutioning -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
+      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
     </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">B2B reports — informative without alarming</p>
+      <div class="cs-tabs">
+        <span class="name">tatsam</span>
+        <span class="tab">Visual Language Building</span>
+        <span class="tab">Brand Building</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab active">Bespoke Solutioning</span>
+      </div>
+
+      <p class="cs-intro">Tatsam's B2B clients required <strong>in-depth research for each project</strong> — and the data story to be presented in a way that appropriately tells the current state of wellbeing in the organization.</p>
+
+      <div class="cs-cluster cols-1">
+        <figure class="cs-fig hero">
+          <img src="../images/work/tatsam/slide109-bespoke-1.webp" alt="Tatsam bespoke dashboard hero" loading="lazy">
+          <p class="cs-note solid">overview of the key areas of concern for the team</p>
+          <p class="cs-note">highlighting critical areas that require attention</p>
+        </figure>
+      </div>
+
+      <div class="cs-cluster cols-4" style="margin-top:2.5rem;">
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide109-bespoke-2.webp" alt="Tatsam report page — demo" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide109-bespoke-3.webp" alt="Tatsam report page — M" loading="lazy">
+          <p class="cs-note">presenting a detailed company analysis — balancing being informative without being alarmist</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide109-bespoke-4.webp" alt="Tatsam report page — L" loading="lazy">
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/tatsam/slide109-bespoke-5.webp" alt="Tatsam report page — J" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-closing">
+    <span class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
+    </span>
+    <span class="cs-closing-label">your move</span>
+    <h3>Building something that needs to feel <em>calm and human</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="agemo.html">next case study: agemo <span class="arrow">→</span></a>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-    const sections = document.querySelectorAll('.case-section');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
-    sections.forEach(s => obs.observe(s));
-  </script>
-<script src="../shape-echo.js"></script>
+  <script src="../shape-echo.js"></script>
 </body>
 </html>

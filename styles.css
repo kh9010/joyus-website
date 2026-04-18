@@ -985,6 +985,40 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     gap: 3rem 2.75rem;
 }
 .cs-cluster.cols-3 { grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2rem; }
+.cs-cluster.cols-4 { grid-template-columns: repeat(4, 1fr); gap: 2rem 1.5rem; }
+.cs-cluster.cols-1 { grid-template-columns: 1fr; max-width: 920px; margin: 0 auto; gap: 1.25rem; }
+/* single-image hero with multiple side-notes */
+.cs-fig.hero img { aspect-ratio: 16 / 9; }
+.cs-fig.phone img {
+    aspect-ratio: 9 / 19;
+    object-fit: contain;
+    background: transparent;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    border-radius: 18px;
+    max-width: 220px;
+    margin: 0 auto;
+}
+.cs-fig.contain img { object-fit: contain; background: transparent; }
+.cs-fig .cs-note + .cs-note { margin-top: -0.4rem; }
+/* small label between bridges, used for stage groupings */
+.cs-stage-label {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ink-soft);
+    margin: 2.5rem 0 0.4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+.cs-stage-label::before {
+    content: "";
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--pink);
+}
 
 .cs-fig {
     margin: 0;
