@@ -1173,3 +1173,215 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     .nav .nav-links { gap: 1rem; }
     .nav .nav-links a:not(.nav-cta) { display: none; }
 }
+
+/* ===== JOY LAYER for case studies =====
+   Warm background + scattered colored dots + Caveat asides +
+   memphis-style hover shadows. Borrows the home page's vocabulary
+   so project pages feel like part of the same studio. */
+
+:root { --yellow: #F2C94A; }
+
+body.work-page { background: #FAF7F2; color: var(--ink); }
+
+/* Cover wears the warm tone too */
+.work-page .cs-cover { background: #FAF7F2; }
+.work-page .cs-cover-meta {
+    background: linear-gradient(180deg, #FAF7F2 0%, #fff 95%);
+    position: relative;
+    overflow: hidden;
+}
+/* eyebrow gets a yellow dot prefix, like home */
+.work-page .cs-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--ink-soft);
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+.work-page .cs-eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+}
+/* two friendly dots in the cover meta panel */
+.work-page .cs-cover-meta::before,
+.work-page .cs-cover-meta::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+.work-page .cs-cover-meta::before {
+    width: 16px; height: 16px;
+    background: var(--cyan);
+    top: 14%; right: 11%;
+}
+.work-page .cs-cover-meta::after {
+    width: 70px; height: 70px;
+    background: var(--pink);
+    bottom: -20px; right: -28px;
+    opacity: 0.9;
+}
+.work-page .cs-cover-meta > * { position: relative; z-index: 1; }
+
+/* slide alternation flips: warm = default, white = alt */
+.work-page .cs-slide {
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+.work-page .cs-slide.alt {
+    background: #fff;
+    border-top: 1px solid rgba(44,53,68,0.06);
+    border-bottom: 1px solid rgba(44,53,68,0.06);
+}
+
+/* scattered decorative dots — drop a .cs-dots block inside .cs-slide */
+.cs-dots {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+.cs-dots span {
+    position: absolute;
+    border-radius: 50%;
+    display: block;
+}
+.cs-dots .pink { background: var(--pink); }
+.cs-dots .cyan { background: var(--cyan); }
+.cs-dots .yellow { background: var(--yellow); }
+.work-page .cs-slide-inner { position: relative; z-index: 1; }
+
+/* hand-written eyebrow above each slide's tab strip */
+.cs-slide-eyebrow {
+    font-family: var(--font-script);
+    font-size: clamp(1.3rem, 1.8vw, 1.55rem);
+    font-weight: 600;
+    color: var(--pink);
+    margin: 0 0 1.1rem;
+    display: inline-block;
+    transform: rotate(-1.5deg);
+    line-height: 1;
+}
+.cs-slide.alt .cs-slide-eyebrow { color: var(--cyan); }
+
+/* image tilt + memphis hover shadow */
+.work-page .cs-fig img {
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.35s ease;
+}
+.work-page .cs-fig:nth-child(4n+1) img { transform: rotate(-0.8deg); }
+.work-page .cs-fig:nth-child(4n+2) img { transform: rotate(1deg); }
+.work-page .cs-fig:nth-child(4n+3) img { transform: rotate(0.6deg); }
+.work-page .cs-fig:nth-child(4n+4) img { transform: rotate(-1.2deg); }
+.work-page .cs-fig:nth-child(4n+1):hover img {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--pink), 0 1px 3px rgba(0,0,0,0.06);
+}
+.work-page .cs-fig:nth-child(4n+2):hover img {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--cyan), 0 1px 3px rgba(0,0,0,0.06);
+}
+.work-page .cs-fig:nth-child(4n+3):hover img {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--yellow), 0 1px 3px rgba(0,0,0,0.06);
+}
+.work-page .cs-fig:nth-child(4n+4):hover img {
+    transform: rotate(0deg) translate(-3px, -3px);
+    box-shadow: 7px 7px 0 var(--pink), 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* transitional bridge between slides — handwritten "now this part…" */
+.cs-bridge {
+    text-align: center;
+    font-family: var(--font-script);
+    font-size: clamp(1.3rem, 1.8vw, 1.55rem);
+    color: var(--ink-soft);
+    padding: 2.75rem 1.5rem 0;
+    background: transparent;
+    font-weight: 500;
+}
+.cs-bridge::before {
+    content: "↓";
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    color: var(--pink);
+    margin: 0 auto 0.65rem;
+    transform: translateY(-2px);
+}
+.cs-bridge em { font-style: normal; color: var(--pink); }
+
+/* closing flourish (replaces .cs-foot-nav on joyful pages) */
+.cs-closing {
+    padding: clamp(4rem, 8vh, 6rem) var(--x) clamp(3rem, 5vh, 4rem);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--ink);
+    margin-top: 3rem;
+}
+.cs-closing-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Space Grotesk', sans-serif;
+}
+.cs-closing-label::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+}
+.cs-closing h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--ink);
+    max-width: 720px;
+    margin: 0 auto;
+}
+.cs-closing h3 em { font-style: normal; color: var(--pink); }
+.cs-closing h3 a {
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px;
+    color: var(--pink);
+    text-decoration: none;
+}
+.cs-closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.cs-closing .cs-closing-hint {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--ink-fade);
+    margin-top: 1.25rem;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.04em;
+}
+.cs-closing .cs-next {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 2rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+}
+.cs-closing .cs-next:hover { color: var(--pink); }
+.cs-closing .cs-next .arrow { transition: transform 0.25s; }
+.cs-closing .cs-next:hover .arrow { transform: translateX(4px); }
