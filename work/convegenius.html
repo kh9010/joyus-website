@@ -3,323 +3,252 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="How Joyus Studio helped ConveGenius with product strategy and design for their AI-powered education platform.">
-  <meta property="og:title" content="ConveGenius — Joyus Studio">
-  <meta property="og:description" content="How Joyus Studio helped ConveGenius with product strategy and design for their AI-powered education platform.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/convegenius.jpg">
+  <meta name="description" content="User research, gamification and behavioral design for ConveGenius — an Indian education-technology platform. By Joyus Studio.">
+  <meta property="og:title" content="convegenius — Joyus Studio">
+  <meta property="og:description" content="Building a rewards system to deepen student engagement on a 100,000-MAU education platform.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/convegenius/logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/convegenius.html">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/convegenius.html">
-  <title>ConveGenius — Joyus Studio</title>
+  <title>convegenius — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <style>
-    .case-hero {
-      padding: 7rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-      text-align: center;
-    }
-    .case-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      margin-bottom: 0.75rem;
-      color: #111;
-    }
-    .case-subtitle {
-      font-size: 1.15rem;
-      color: #555;
-      max-width: 680px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-    .case-meta {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .meta-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-    }
-    .meta-value {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .case-highlight {
-      background: #1a1a1a;
-      color: white;
-      padding: 4rem 2rem;
-    }
-    .case-highlight-content {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
-      text-align: center;
-    }
-    .highlight-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.8rem;
-      color: white;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      max-width: 140px;
-      line-height: 1.4;
-    }
-    .case-image-full {
-      width: 100%;
-      max-height: 520px;
-      overflow: hidden;
-      border-bottom: 1px solid #eee;
-    }
-    .case-image-full img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .case-section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .case-section.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .case-section.alt {
-      background: var(--warm-gray, #F5F3F0);
-      max-width: 100%;
-      padding: 4rem 2rem;
-    }
-    .case-section.alt .section-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .case-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      margin-bottom: 1.25rem;
-      color: #111;
-    }
-    .case-section p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.1rem;
-    }
-    .case-section p:last-child { margin-bottom: 0; }
-    .case-nav-bar {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e8e6e4;
-    }
-    .case-nav-prev, .case-nav-next {
-      font-size: 0.9rem;
-      color: #666;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
-    @media (max-width: 640px) {
-      .case-highlight-content { gap: 2rem; }
-      .stat-number { font-size: 2rem; }
-      .case-meta { gap: 1.5rem; }
-      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=4">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"ConveGenius","description":"How Joyus Studio helped ConveGenius with product strategy and design for their AI-powered education platform.","url":"https://kh9010.github.io/joyus-website/work/convegenius.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"convegenius","description":"Building a rewards system to deepen student engagement on a 100,000-MAU education platform.","url":"https://kh9010.github.io/joyus-website/work/convegenius.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
 </head>
-<body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
+<body class="work-page">
+
+  <nav class="nav">
+    <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio"></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="../services.html">Services</a>
+      <a href="../podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
     </div>
   </nav>
 
-  <section class="case-hero">
-    <h1>ConveGenius</h1>
-    <p class="case-subtitle">Gamification strategy for 100K monthly active students</p>
-    <div class="case-meta">
-      <div class="meta-item">
-        <span class="meta-label">Client</span>
-        <span class="meta-value">ConveGenius</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Location</span>
-        <span class="meta-value">India</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Category</span>
-        <span class="meta-value">EdTech</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Services</span>
-        <span class="meta-value">User Research, Gamification, Behavioral Design</span>
-      </div>
+  <header class="cs-cover-narrative">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:14%;right:8%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:62%;left:6%;"></span>
+      <span class="yellow" style="width:80px;height:80px;bottom:-30px;right:-30px;opacity:0.85;"></span>
     </div>
-  </section>
-
-  <section class="case-highlight">
-    <div class="case-highlight-content">
-      <div class="highlight-stat">
-        <span class="stat-number">100K</span>
-        <span class="stat-label">Monthly active students</span>
+    <div class="inner">
+      <p class="name">a case study — convegenius</p>
+      <h1>Gamification for a children's app seems like an obvious solution for engagement. How do you make it into a strategy?</h1>
+      <div class="lede">
+        <p>Our client was ConveGenius — an education-technology company in India delivering value to schools in the private sector and for state governments. With 100,000 monthly active students, they had built a deep product with features across different subjects and verticals.</p>
+        <p>But students treated the app like homework, and only did what was mandatory. The team wanted to engage their students more deeply, and help them find learning to be fun. They came to us with the idea of adding a rewards layer.</p>
+        <p>Working with them, we broke rewards down into achievable segments — and created a structure where rewards and behaviors could change student learning to be more effective within the ConveGenius system.</p>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Gamification</span>
-        <span class="stat-label">Behavior change through play</span>
-      </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Research-driven</span>
-        <span class="stat-label">Insights from real classrooms</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="case-image-full">
-    <img src="../images/work/convegenius.jpg" alt="ConveGenius gamification framework and student engagement design" loading="lazy">
-  </div>
-
-  <section class="case-section fade-in">
-    <h2>The Challenge</h2>
-    <p>ConveGenius reaches 100,000 students monthly across India with AI-powered learning tools. The product worked — students who used it learned. But retention was the problem. Getting students to come back, to build habits, to treat learning as something they wanted rather than something they had to do. That's a behavioral design challenge, not a features challenge.</p>
-  </section>
-
-  <section class="case-section alt">
-    <div class="section-inner">
-      <h2>Our Approach</h2>
-      <p>We started in classrooms. Real ones, in real schools, watching how students actually interacted with learning technology — what caught their attention, what made them lean in, what made them click away. The research revealed a consistent pattern: students responded to progress they could see and show to others. Invisible progress was no progress.</p><p>The gamification framework we built was designed around those insights. Points and badges as typically implemented don't work — they feel arbitrary. We designed achievement structures that tied directly to real learning milestones, social systems that let students share progress with peers (not parents), and streak mechanics calibrated to the actual rhythms of school days. The behavioral design model gave the product team a consistent framework to evaluate future features against.</p>
-    </div>
-  </section>
-
-  <section class="case-section fade-in">
-    <h2>The Outcome</h2>
-    <p>The gamification strategy gave ConveGenius a coherent behavioral model to build against — one grounded in how their specific students actually behaved, not how gamification theory says students should behave. The research findings also surfaced several product improvements beyond gamification that the team hadn't previously identified.</p>
-  </section>
-
-  <section class="related-work" style="padding:2rem 2rem 0;max-width:900px;margin:0 auto;">
-    <h3 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1rem;">You might also like</h3>
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-      <a href="tatsam.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Tatsam →</a>
-      <a href="pratham.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">PrathamUSA →</a>
-      <a href="agemo.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Agemo →</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
-      </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      <div class="meta-bar">
+        <ul class="cs-services">
+          <li>User Research</li>
+          <li>Gamification</li>
+          <li>Motivation &amp; Behavioral Design</li>
         </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+        <div class="cs-meta-row">
+          <span>India</span>
+          <span>300+ employees</span>
+          <span>₹75 Cr revenue</span>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+  </header>
+
+  <!-- Slide 9 — Growth vs Engagement -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
+      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
     </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">first — define what success means</p>
+      <h2 class="cs-slide-headline">Gamification is superficial — retention is a behaviour-change problem.</h2>
+
+      <p class="cs-intro">When designing new features, bringing clarity to success is key to the project's success. We helped the ConveGenius team define success around <strong>two goals</strong> — growth, to drive acquisition of students for under-used features, and engagement, to bring students back into the features they'd previously discovered.</p>
+      <p class="cs-sub">Once success is defined, the question becomes how to measure it. By using the growth-vs-engagement model, we brought a simple split to the data — driving appropriate focus for judging feature success. Without this clarity, features can be judged on "easy" metrics (views, clicks), even when they're designed for bigger contributive purposes.</p>
+
+      <h4 style="font-family:var(--font-sans);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft);margin:2rem 0 1rem;font-weight:500;">Growth vs Engagement activities</h4>
+      <div class="cs-matrix">
+        <div class="cs-matrix-col">
+          <div class="cs-matrix-header">Growth activities</div>
+          <div class="cs-matrix-body">
+            <span class="label">Traits</span>
+            Focused on familiarising the user with the app. First-time usage gives a shiny reward. Catchy and easy to explain. Prompts users to talk to each other outside the product about the activity.
+          </div>
+          <div class="cs-matrix-pill">Ephemeral rewards · social rewards</div>
+        </div>
+        <div class="cs-matrix-col">
+          <div class="cs-matrix-header">Engagement activities</div>
+          <div class="cs-matrix-body">
+            <span class="label">Traits</span>
+            Focused on a singular user's learning growth. The longer you do it, the more rewarding it is. Requires investment, but is designed more catered specifically to user personas.
+          </div>
+          <div class="cs-matrix-pill">Collectibles · long-term achievement</div>
+        </div>
+      </div>
+
+      <div class="cs-cluster cols-2" style="margin-top:1rem;">
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note">rewards for growth can be transient and low-stakes</p>
+        </figure>
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note">rewards for engagement support extended investment with higher stakes &amp; deeper ability to engage (and earn!)</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-bridge">↓ goals set — <em>now how do we hit them?</em></div>
+
+  <!-- Slide 12 — Motivations & rewards -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
+      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
+      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">two axes — motivation × reward</p>
+      <h2 class="cs-slide-headline">With goals established, how do we achieve them?</h2>
+
+      <p class="cs-intro">Building on established theories about <strong>types of motivations</strong> and <strong>types of rewards</strong>, we created lists of possible features to make the rewards system real. The framing makes prioritization easier — the team can weigh the purpose (the type of reward) against the user (the kind of student) when discussing development cost.</p>
+
+      <div class="cs-cluster">
+        <figure class="cs-fig">
+          <img src="../images/work/convegenius/slide12-motivations.webp" alt="Types of motivations" loading="lazy">
+          <p class="cs-note">different types of students will be biased towards different types of rewards — an additional layer to hone the system's efficacy</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/convegenius/slide12-rewards.webp" alt="Types of rewards" loading="lazy">
+          <p class="cs-note">rewards vary based on growth or engagement goals — and will appeal to different kinds of students</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-bridge">↓ where does it <em>actually live in the app?</em></div>
+
+  <!-- Slide 59 — User flow diagram (simplified) -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
+      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
+      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">the flow, end to end</p>
+      <h2 class="cs-slide-headline">With the concept clarified and goals agreed upon, what do you do to take it forward?</h2>
+
+      <p class="cs-intro">Moving from concept toward implementation requires answering <strong>where the system will fit in the app</strong> — both when new features will be interacted with, and how frequently they'll be part of the new user experience.</p>
+
+      <div class="cs-flow-diagram">
+        <p class="cs-flow-axis-label">Entry points</p>
+        <div class="cs-flow-row">
+          <div class="cs-pink-box">User lands on level screen</div>
+          <div class="cs-flow-arrow">→</div>
+          <div class="cs-pink-box">Clicks a point notification</div>
+          <div class="cs-flow-arrow">→</div>
+          <div class="cs-pink-box">Clicks the profile icon</div>
+        </div>
+
+        <p class="cs-flow-axis-label">State checks</p>
+        <div class="cs-flow-row">
+          <div class="cs-pink-box">User has uncashed points</div>
+          <div class="cs-flow-arrow">→</div>
+          <div class="cs-pink-box">Has available activities</div>
+          <div class="cs-flow-arrow">→</div>
+          <div class="cs-pink-box">Clicks on the rewards</div>
+        </div>
+
+        <p class="cs-flow-axis-label">Reward outcomes</p>
+        <div class="cs-flow-row">
+          <div class="cs-pink-box">User levels up</div>
+          <div class="cs-flow-arrow">→</div>
+          <div class="cs-pink-box">Point score increases</div>
+          <div class="cs-flow-arrow">→</div>
+          <div class="cs-pink-box">Gets rewards</div>
+        </div>
+
+        <p class="cs-flow-axis-label">By effort × frequency, the reward types are:</p>
+        <div class="cs-flow-pills">
+          <span class="cs-flow-pill">Ephemeral rewards</span>
+          <span class="cs-flow-pill">Achievements</span>
+          <span class="cs-flow-pill">Long-term</span>
+          <span class="cs-flow-pill">Monetary</span>
+          <span class="cs-flow-pill">Collectibles</span>
+        </div>
+      </div>
+
+      <div class="cs-cluster cols-2" style="margin-top:1rem;">
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note">each type of reward has a target frequency and effort required from the student — successful adoption requires a balance between difficulty and reward</p>
+        </figure>
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note">user-journey mapping, when adding a feature to an existing app, brings clarity on which screens will need to be touched and how the user's paths will change</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-bridge">↓ then — <em>handed off, ready to build</em></div>
+
+  <!-- Slide 69 — Wireframes -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
+      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">wireframes — clean handoff</p>
+      <h2 class="cs-slide-headline">Clean handoff for development</h2>
+
+      <p class="cs-intro">Creating the low-fidelity wireframes — alongside the user-journey flows — is the step that creates the space needed for clarity in <strong>design / dev handoffs</strong>. It happens before the discussion about finer details around implementation (graphic elements, animations, etc.).</p>
+
+      <div class="cs-cluster cols-4">
+        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-1.webp" alt="Wireframe 1" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-2.webp" alt="Wireframe 2" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-3.webp" alt="Wireframe 3" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-4.webp" alt="Wireframe 4" loading="lazy"></figure>
+      </div>
+      <div class="cs-cluster cols-3" style="margin-top:2rem;">
+        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-5.webp" alt="Wireframe 5" loading="lazy"></figure>
+        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-6.webp" alt="Wireframe 6" loading="lazy"></figure>
+        <figure class="cs-fig phone">
+          <img src="../images/work/convegenius/slide69-wireframe-7.webp" alt="Wireframe 7" loading="lazy">
+          <p class="cs-note solid">wireframes, once finalized, are also used to create the high-fidelity mocks that match the UI/UX</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-closing">
+    <span class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
+    </span>
+    <span class="cs-closing-label">your move</span>
+    <h3>Need a <em>strategy, not just a feature</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="klydo.html">next case study: klydo <span class="arrow">→</span></a>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-    const sections = document.querySelectorAll('.case-section');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
-    sections.forEach(s => obs.observe(s));
-  </script>
-<script src="../shape-echo.js"></script>
+  <script src="../shape-echo.js"></script>
 </body>
 </html>

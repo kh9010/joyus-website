@@ -3,319 +3,243 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="How Joyus Studio designed the brand and product experience for Agemo CodeWords, a language learning platform.">
-  <meta property="og:title" content="Agemo / CodeWords — Joyus Studio">
-  <meta property="og:description" content="How Joyus Studio designed the brand and product experience for Agemo CodeWords, a language learning platform.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/agemo.jpg">
+  <meta name="description" content="Designing a new user paradigm for Agemo, a GenAI startup with a new way of coding. By Joyus Studio.">
+  <meta property="og:title" content="agemo — Joyus Studio">
+  <meta property="og:description" content="Research, product strategy and interface design for a GenAI startup with a new way of coding.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/agemo/cover.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/agemo.html">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/agemo.html">
-  <title>Agemo / CodeWords — Joyus Studio</title>
+  <title>agemo — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <style>
-    .case-hero {
-      padding: 7rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-      text-align: center;
-    }
-    .case-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      margin-bottom: 0.75rem;
-      color: #111;
-    }
-    .case-subtitle {
-      font-size: 1.15rem;
-      color: #555;
-      max-width: 680px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-    .case-meta {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .meta-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-    }
-    .meta-value {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .case-highlight {
-      background: #1a1a1a;
-      color: white;
-      padding: 4rem 2rem;
-    }
-    .case-highlight-content {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
-      text-align: center;
-    }
-    .highlight-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.8rem;
-      color: white;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      max-width: 140px;
-      line-height: 1.4;
-    }
-    .case-image-full {
-      width: 100%;
-      max-height: 520px;
-      overflow: hidden;
-      border-bottom: 1px solid #eee;
-    }
-    .case-image-full img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .case-section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .case-section.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .case-section.alt {
-      background: var(--warm-gray, #F5F3F0);
-      max-width: 100%;
-      padding: 4rem 2rem;
-    }
-    .case-section.alt .section-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .case-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      margin-bottom: 1.25rem;
-      color: #111;
-    }
-    .case-section p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.1rem;
-    }
-    .case-section p:last-child { margin-bottom: 0; }
-    .case-nav-bar {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e8e6e4;
-    }
-    .case-nav-prev, .case-nav-next {
-      font-size: 0.9rem;
-      color: #666;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
-    @media (max-width: 640px) {
-      .case-highlight-content { gap: 2rem; }
-      .stat-number { font-size: 2rem; }
-      .case-meta { gap: 1.5rem; }
-      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=4">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"Agemo / CodeWords","description":"How Joyus Studio designed the brand and product experience for Agemo CodeWords, a language learning platform.","url":"https://kh9010.github.io/joyus-website/work/agemo.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"agemo","description":"Research, product strategy and interface design for a GenAI startup with a new way of coding.","url":"https://kh9010.github.io/joyus-website/work/agemo.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
 </head>
-<body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
+<body class="work-page">
+
+  <nav class="nav">
+    <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio"></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="../services.html">Services</a>
+      <a href="../podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
     </div>
   </nav>
 
-  <section class="case-hero">
-    <h1>Agemo / CodeWords</h1>
-    <p class="case-subtitle">Making AI-powered development approachable</p>
-    <div class="case-meta">
-      <div class="meta-item">
-        <span class="meta-label">Client</span>
-        <span class="meta-value">Agemo / CodeWords</span>
+  <header class="cs-cover">
+    <div class="cs-cover-image" style="background-image:url('../images/work/agemo/cover.webp');" role="img" aria-label="Agemo product scene"></div>
+    <div class="cs-cover-meta">
+      <p class="cs-eyebrow">a case study</p>
+      <h1>agemo</h1>
+      <p class="cs-tagline">GenAI startup with a new way of coding requiring an unexpected user paradigm.</p>
+      <ul class="cs-services">
+        <li>Research</li>
+        <li>Product Strategy</li>
+        <li>Interface Design</li>
+      </ul>
+      <div class="cs-meta-row">
+        <span>United Kingdom</span>
+        <span>1–10 employees</span>
+        <span>Pre-Series A</span>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Category</span>
-        <span class="meta-value">Developer Tools</span>
+    </div>
+  </header>
+
+  <!-- Slide 98 — Research: personas -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
+      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">first — who's actually here?</p>
+      <div class="cs-tabs">
+        <span class="name">agemo</span>
+        <span class="tab active">Research</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab">Interface Design</span>
       </div>
-      <div class="meta-item">
-        <span class="meta-label">Services</span>
-        <span class="meta-value">Research, Product Strategy, Interface Design</span>
+
+      <p class="cs-intro">How do you teach people a <strong>new way of creating a tech-based process</strong>? To build and create with a new modality? Depending on who they are and what they are trying to do, the answer will be different. Creating user personas builds the shared understanding between team members needed to design a welcoming onboarding for all types of users.</p>
+
+      <div class="cs-cluster">
+        <figure class="cs-fig note-top">
+          <p class="cs-note">comprehensive capture of the team's understanding of the needs of different types of users</p>
+          <img src="../images/work/agemo/slide98-research-1.webp" alt="Agemo persona overview grid" loading="lazy">
+        </figure>
+        <figure class="cs-fig note-top">
+          <p class="cs-note">zooming in on the traits, reasons and needs of the different personas</p>
+          <img src="../images/work/agemo/slide98-research-2.webp" alt="Agemo persona detail card" loading="lazy">
+        </figure>
       </div>
     </div>
   </section>
 
-  <section class="case-highlight">
-    <div class="case-highlight-content">
-      <div class="highlight-stat">
-        <span class="stat-number">Research</span>
-        <span class="stat-label">Deep user discovery</span>
+  <div class="cs-bridge">now let's <em>redo the entry experience</em></div>
+
+  <!-- Slide 102 — Interface Design: original vs revised -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
+      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
+      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">rebuilding the front door</p>
+      <div class="cs-tabs">
+        <span class="name">agemo</span>
+        <span class="tab">Research</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab active">Interface Design</span>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Strategy</span>
-        <span class="stat-label">Product direction from insights</span>
-      </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Design</span>
-        <span class="stat-label">Interface that meets users where they are</span>
+
+      <p class="cs-intro">Bringing this insight to the onboarding and landing pages meant <strong>redoing the user promise</strong> created early in the user flow — to create space for a person to find inspiration and refine their thinking about their problem before starting.</p>
+      <p class="cs-sub">Refining the pages to support curiosity brings more kinds of people into the experience, even when they may not have an articulated need.</p>
+
+      <div class="cs-cluster">
+        <figure class="cs-fig note-top">
+          <p class="cs-note solid">original version assumed the user was an expert with a focused need</p>
+          <img src="../images/work/agemo/slide102-interface-2.webp" alt="Agemo original landing page" loading="lazy">
+          <p class="cs-note">persistent left-side navigation keeps grounding and context from the first screen</p>
+        </figure>
+        <figure class="cs-fig note-top">
+          <p class="cs-note solid">revised experience supports users with a more exploratory mindset</p>
+          <img src="../images/work/agemo/slide102-interface-1.webp" alt="Agemo revised landing page" loading="lazy">
+          <p class="cs-note">useful functions showcase the breadth and depth of the tool</p>
+          <p class="cs-note">rotating through specific supported workflows gives freshness and product depth</p>
+          <p class="cs-note">low-stakes call to action reduces barriers to enter the product flow</p>
+        </figure>
       </div>
     </div>
   </section>
 
-  <div class="case-image-full">
-    <img src="../images/work/agemo.jpg" alt="Agemo CodeWords interface design and product strategy" loading="lazy">
-  </div>
+  <div class="cs-bridge">↓ then deeper into <em>the toolset</em></div>
 
-  <section class="case-section fade-in">
-    <h2>The Challenge</h2>
-    <p>Agemo was building CodeWords, a tool to bring AI-powered development capabilities to engineers who didn't live at the bleeding edge of AI tooling. The challenge was both product and communication: how do you make a genuinely complex technology feel approachable without dumbing it down? How do you serve developers who are sophisticated but not necessarily AI-native?</p>
-  </section>
-
-  <section class="case-section alt">
-    <div class="section-inner">
-      <h2>Our Approach</h2>
-      <p>We started with research — talking to developers across a range of AI fluency levels to understand where the real friction lived. What we found: the problem wasn't technical capability, it was mental model. Developers didn't struggle with what the tool could do; they struggled with knowing when and why to reach for it. The product needed to be opinionated about its own use cases.</p><p>The product strategy work identified the specific workflows where CodeWords added most value and the moments in developer workflow where those benefits would be most legible. Interface design built on that strategy — creating an experience that surfaced the right capabilities at the right moments, rather than requiring developers to learn a new paradigm before they could get value.</p>
+  <!-- Slide 103 — Interface Design: refinement pages -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
+      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
+      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
     </div>
-  </section>
-
-  <section class="case-section fade-in">
-    <h2>The Outcome</h2>
-    <p>The research and strategy gave the Agemo team a clear view of where their product fit in the developer workflow and how to communicate that clearly. The interface design gave them a foundation to build on — one that prioritized legibility and appropriate timing over feature comprehensiveness. Sometimes the best product is the one that knows when to get out of the way.</p>
-  </section>
-
-  <section class="related-work" style="padding:2rem 2rem 0;max-width:900px;margin:0 auto;">
-    <h3 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1rem;">You might also like</h3>
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-      <a href="xtdb.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">XTDB →</a>
-      <a href="convegenius.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">ConveGenius →</a>
-      <a href="klydo.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Klydo →</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">tools to refine, not just generate</p>
+      <div class="cs-tabs">
+        <span class="name">agemo</span>
+        <span class="tab">Research</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab active">Interface Design</span>
       </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+
+      <p class="cs-intro">The new interface supports refinement of the idea <strong>after the solution is generated</strong>, with users being guided on how to revise by community examples and the AI guide through the chat interface.</p>
+
+      <div class="cs-cluster cols-3">
+        <figure class="cs-fig">
+          <img src="../images/work/agemo/slide103-interface-1.webp" alt="Agemo Architect page" loading="lazy">
+          <p class="cs-note">chat interface coaches users through initial creation, with a UX to support a user in the final refinement</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/agemo/slide103-interface-2.webp" alt="Agemo Explore page" loading="lazy">
+          <p class="cs-note">a browsable library of functions shows the value of the product and gives more starting points for adapting a use case</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/agemo/slide103-interface-3.webp" alt="Agemo landing page" loading="lazy">
+          <p class="cs-note">visual grammar reinforces the refinement-oriented approach while holding values of space, flexibility and play</p>
+        </figure>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+  </section>
+
+  <div class="cs-bridge">↓ but first — <em>why the redo?</em></div>
+
+  <!-- Slide 104 — Research: missing step -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
+      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
     </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">the missing step — refinement</p>
+      <div class="cs-tabs">
+        <span class="name">agemo</span>
+        <span class="tab active">Research</span>
+        <span class="tab">Product Strategy</span>
+        <span class="tab">Interface Design</span>
+      </div>
+
+      <p class="cs-intro">Our research revealed the missing step in Agemo's initial approach — <strong>space for refinement</strong>. Refinement includes both the idea, before starting, and the solution, after feedback. With space for refinement, we add the time needed for an idea to grow from a spark to a potential solution in the new paradigm.</p>
+
+      <div class="cs-cluster cols-1">
+        <figure class="cs-fig hero">
+          <img src="../images/work/agemo/slide104-research-1.webp" alt="Agemo refinement-flow research diagram" loading="lazy">
+          <p class="cs-note">where the team assumed users start</p>
+          <p class="cs-note">where the users actually start</p>
+          <p class="cs-note">product changes required to bring users to the point of creation from curiosity</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-bridge">↓ document the thinking, <em>not just the build</em></div>
+
+  <!-- Slide 105 — Product Strategy: documentation -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="cyan" style="width:18px;height:18px;top:7%;right:7%;"></span>
+      <span class="pink" style="width:14px;height:14px;top:55%;left:9%;"></span>
+      <span class="yellow" style="width:70px;height:70px;bottom:-26px;right:-28px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">writing down what we believe</p>
+      <div class="cs-tabs">
+        <span class="name">agemo</span>
+        <span class="tab">Research</span>
+        <span class="tab active">Product Strategy</span>
+        <span class="tab">Interface Design</span>
+      </div>
+
+      <p class="cs-intro">Often missed in the rush is the need to <strong>document assumptions and hypotheses</strong>. Good decomposition allows for validation and testing before the full investment required to get the product or company live.</p>
+      <p class="cs-sub">Documentation of product discussions in a future-oriented way breaks the cycle of re-working and re-visiting the same tech + user experience when the team is growing and changing composition.</p>
+
+      <div class="cs-cluster cols-1">
+        <figure class="cs-fig hero">
+          <img src="../images/work/agemo/slide105-product-1.webp" alt="Agemo hypothesis-and-assumptions documentation diagram" loading="lazy">
+          <p class="cs-note">highlighting one of the hypotheses and the underpinning assumptions</p>
+          <p class="cs-note">detail of the hypothesis and assumptions guiding the approach and development</p>
+          <p class="cs-note">steps of the model that was constructed to guide the user experience</p>
+          <p class="cs-note">test cases that validate the underpinning assumption</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-closing">
+    <span class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
+    </span>
+    <span class="cs-closing-label">your move</span>
+    <h3>Building <em>a new paradigm</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="xtdb.html">next case study: xtdb <span class="arrow">→</span></a>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-    const sections = document.querySelectorAll('.case-section');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
-    sections.forEach(s => obs.observe(s));
-  </script>
-<script src="../shape-echo.js"></script>
+  <script src="../shape-echo.js"></script>
 </body>
 </html>
