@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Success Series — eight conversations on confoundedness, expectations, achievement, motivation. Part of Thinking on Thinking.">
+  <meta property="og:title" content="The Success Series — Thinking on Thinking — Joyus Studio">
+  <meta property="og:description" content="Eight conversations on success — from the confoundedness of it to building motivation.">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/podcast/success-series.html">
+  <title>The Success Series — Thinking on Thinking — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAF7F2; --ink: #2C3544; --ink-soft: #54606F; --ink-fade: #8892A0;
+      --rule: rgba(44, 53, 68, 0.12);
+      --pink: #E91E7B; --cyan: #4FC4CF; --yellow: #F2C94A;
+      --sans: 'Space Grotesk', system-ui, sans-serif;
+      --hand: 'Caveat', cursive;
+      --x: clamp(1.5rem, 4vw, 3rem);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--ink); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); }
+
+    .series-hero {
+      min-height: 56dvh;
+      padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--rule);
+    }
+    .series-hero .dh1 { width: 280px; height: 280px; top: 12%; right: -10%; opacity: 0.95; }
+    .series-hero .dh2 { width: 42px; height: 42px; bottom: 22%; right: 22%; }
+    .series-hero .dh3 { width: 18px; height: 18px; top: 30%; right: 30%; }
+
+    .series-eyebrow {
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.75rem; position: relative; z-index: 2;
+    }
+    .series-eyebrow::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--pink); }
+    .series-hero h1 {
+      font-weight: 700; font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.95; letter-spacing: -0.035em; color: var(--ink);
+      max-width: 18ch; position: relative; z-index: 2;
+    }
+    .series-hero h1 em { font-style: normal; color: var(--pink); }
+    .series-meta {
+      font-size: 0.85rem; letter-spacing: 0.1em; color: var(--ink-fade);
+      margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--rule);
+      max-width: 52ch; position: relative; z-index: 2;
+    }
+    .series-meta span + span::before { content: " · "; padding: 0 0.15em; }
+    .series-sub {
+      font-size: 1.05rem; line-height: 1.55; color: var(--ink-soft);
+      max-width: 52ch; margin-top: 1rem; position: relative; z-index: 2;
+    }
+
+    .series-body { max-width: 920px; margin: 0 auto; padding: clamp(3rem, 6vh, 5rem) var(--x) 4rem; }
+    .ep-list { list-style: none; padding: 0; margin: 0; }
+    .ep-row {
+      display: grid; grid-template-columns: 4rem 1fr auto;
+      gap: 1rem 1.5rem; align-items: baseline;
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--rule);
+      transition: background 0.15s, padding-left 0.15s;
+    }
+    .ep-row:first-child { border-top: 0; }
+    .ep-row:hover { background: rgba(233, 30, 123, 0.04); padding-left: 0.75rem; }
+    .ep-row .ep-num {
+      font-family: var(--hand);
+      font-size: 1.65rem;
+      font-weight: 600;
+      color: var(--pink);
+      transform: rotate(-3deg);
+      line-height: 1;
+    }
+    .ep-row .ep-title { color: var(--ink); font-weight: 500; font-size: 1.15rem; line-height: 1.35; }
+    .ep-row:hover .ep-title { color: var(--pink); }
+    .ep-row .ep-arrow {
+      font-size: 1.25rem; color: var(--ink-fade);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .ep-row:hover .ep-arrow { color: var(--pink); transform: translateX(4px); }
+    @media (max-width: 640px) {
+      .ep-row { grid-template-columns: 3rem 1fr; }
+      .ep-row .ep-arrow { display: none; }
+    }
+
+    .closing {
+      padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+      position: relative; overflow: hidden;
+      border-top: 2px solid var(--ink); margin-top: 3rem;
+    }
+    .closing-label {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem;
+      display: inline-flex; align-items: center; gap: 0.75rem;
+    }
+    .closing-label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); }
+    .closing h3 { font-weight: 600; font-size: clamp(1.5rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.2; max-width: 720px; }
+    .closing h3 em { font-style: normal; color: var(--pink); }
+    .closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
+  </style>
+</head>
+<body>
+
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #FAF7F2;
+      box-shadow: -10px 0 40px rgba(44, 53, 68, 0.15);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <header class="series-hero">
+    <span class="dot dh1 d-pink"></span>
+    <span class="dot dh2 d-cyan"></span>
+    <span class="dot dh3 d-yellow"></span>
+    <span class="series-eyebrow">a series · season 6</span>
+    <h1>The <em>Success</em> Series</h1>
+    <p class="series-sub">Eight conversations on what success actually means — from the confoundedness of it, through expectations, motivation and achievement, to building the kind of motivation that lasts.</p>
+    <p class="series-meta">
+      <span>8 episodes</span><span>thinking on thinking</span><span>listen in order</span>
+    </p>
+  </header>
+
+  <main class="series-body">
+    <ul class="ep-list">
+      <li><a class="ep-row" href="the-confoundedness-of-success-part-1.html">
+        <span class="ep-num">01</span>
+        <span class="ep-title">The Confoundedness of Success</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+      <li><a class="ep-row" href="expectations-definitions-of-success-part-2.html">
+        <span class="ep-num">02</span>
+        <span class="ep-title">Expectations &amp; Definitions of Success</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+      <li><a class="ep-row" href="after-success-with-pradeep-singh-success-part-3.html">
+        <span class="ep-num">03</span>
+        <span class="ep-title">After Success — with Pradeep Singh</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+      <li><a class="ep-row" href="unraveling-purpose-success-part-4.html">
+        <span class="ep-num">04</span>
+        <span class="ep-title">Unraveling Purpose</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+      <li><a class="ep-row" href="success-through-achieving-vs-authenticity-success-part-5.html">
+        <span class="ep-num">05</span>
+        <span class="ep-title">Success Through Achieving vs Authenticity</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+      <li><a class="ep-row" href="thinking-on-absurdist-successes-and-1000xresist-success-part-7.html">
+        <span class="ep-num">07</span>
+        <span class="ep-title">Absurdist Successes &amp; 1000xResist</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+      <li><a class="ep-row" href="building-the-motivation-for-success-part-8.html">
+        <span class="ep-num">08</span>
+        <span class="ep-title">Building the Motivation for Success</span>
+        <span class="ep-arrow">→</span>
+      </a></li>
+    </ul>
+  </main>
+
+  <section class="closing">
+    <span class="closing-label">your move</span>
+    <h3>Want to talk about success — yours, ours, anyone's? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+  </section>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+</body>
+</html>

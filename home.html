@@ -46,28 +46,25 @@
   .d-cyan   { background: var(--cyan); }
   .d-yellow { background: var(--yellow); }
 
-  /* ============ HERO — sparse stage, dots-led ============ */
+  /* ============ HERO — sparse stage, dots-led ============
+     Eyebrow tucked top-left + tagline tucked bottom-right are absolutely
+     positioned so the input is truly centered in the viewport. */
   .hero {
     min-height: 100vh;
     min-height: 100dvh;
     position: relative;
-    padding: clamp(5rem, 10vh, 8rem) 0 clamp(2.5rem, 5vh, 4rem);
+    padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(2.5rem, 5vh, 4rem);
     width: 100%;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   .hero-inner {
-    max-width: 1400px;
+    max-width: 820px;
     width: 100%;
-    margin: 0 auto;
-    padding: 0 var(--x);
     position: relative;
     z-index: 2;
-    flex: 1;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    gap: 3rem;
   }
   /* Scattered playful dots — fill the negative space the sparse layout opens up */
   .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); top: -10%; right: -10%; opacity: 0.95; }
@@ -80,8 +77,11 @@
   .hero .dh8 { width: 12px; height: 12px; top: 38%; right: 36%; }
   .hero .dh9 { width: 88px; height: 88px; bottom: -20px; left: 18%; opacity: 0.8; }
 
-  /* eyebrow tucks top-left; small + tight */
+  /* eyebrow pinned top-left of the viewport */
   .hero-eyebrow {
+    position: absolute;
+    top: clamp(5.5rem, 10vh, 8rem);
+    left: var(--x);
     font-size: 0.78rem;
     font-weight: 600;
     letter-spacing: 0.2em;
@@ -89,8 +89,7 @@
     color: var(--ink-soft);
     margin: 0;
     display: inline-flex; align-items: center; gap: 0.6rem;
-    align-self: start;
-    justify-self: start;
+    z-index: 3;
   }
   .hero-eyebrow::before {
     content: "";
@@ -100,13 +99,10 @@
   }
 
   /* === V13: Sparse stage. Input is the center of gravity ===
-     Eyebrow top-left, tagline bottom-right, input dead center.
-     Dots fill the air. */
+     Eyebrow + tagline absolute-positioned at corners; this stage is the
+     only thing in the flex centerline. */
   .hero-stage {
-    align-self: center;
-    justify-self: center;
     width: 100%;
-    max-width: 820px;
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -341,8 +337,11 @@
   }
   .sug:hover .sug-dest { color: var(--pink); }
 
-  /* tagline bottom-right, Caveat italic, slight rotation — sized for legibility */
+  /* tagline pinned bottom-right of the viewport */
   .hero-tagline {
+    position: absolute;
+    bottom: clamp(2.5rem, 5vh, 4.5rem);
+    right: var(--x);
     font-family: var(--hand);
     font-weight: 600;
     font-size: clamp(1.7rem, 2.6vw, 2.4rem);
@@ -352,11 +351,8 @@
     max-width: 22ch;
     transform: rotate(-1.5deg);
     display: inline-block;
-    align-self: end;
-    justify-self: end;
     text-align: right;
-    position: relative;
-    z-index: 2;
+    z-index: 3;
   }
   .hero-tagline em {
     font-style: normal;
@@ -424,8 +420,11 @@
     .hero .dh1 { width: 220px; height: 220px; right: -25%; opacity: 0.85; }
     .hero .dh2 { width: 36px; height: 36px; }
     .hero .dh3 { width: 18px; height: 18px; }
-    /* keep tagline visible — push to flow with the input rather than corner */
-    .hero-tagline { transform: rotate(-1deg); margin-top: 1rem; align-self: start; justify-self: start; text-align: left; }
+    /* on mobile, take tagline out of the corner — let it flow under the stage */
+    .hero-tagline { position: static; transform: rotate(-1deg); margin-top: 2rem; text-align: left; }
+    .hero-eyebrow { position: static; margin-bottom: 1.25rem; }
+    .hero { display: block; padding-top: 6rem; }
+    .hero-inner { margin: 0 auto; }
     .hero-eyebrow { font-size: 0.72rem; }
     /* dropdown: drop the absolute positioning so it doesn't get covered by keyboard */
     #intentSuggestions { position: relative; top: auto; margin-top: 1.5rem; }
@@ -510,9 +509,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: rgba(250, 247, 242, 0.97);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
+      background: #FAF7F2;
+      box-shadow: -10px 0 40px rgba(44, 53, 68, 0.15);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 505;

@@ -33,42 +33,7 @@
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
   img { max-width: 100%; display: block; }
 
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem var(--x);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    backdrop-filter: blur(8px);
-  }
-  .nav-logo {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .nav-logo img {
-    height: 32px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
-  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
-  .nav-links a:hover { color: var(--pink); }
-  .nav-cta {
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 2px;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .nav-cta:hover { border-bottom-color: var(--pink); }
-  @media (max-width: 720px) {
-    .nav-links { gap: 1rem; }
-    .nav-links a:not(.nav-cta) { display: none; }
-  }
+  /* nav comes from /_partials/nav.html — synced via scripts/sync-chrome.js */
 
   .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
   .thread-fill {
@@ -640,9 +605,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: rgba(250, 247, 242, 0.97);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
+      background: #FAF7F2;
+      box-shadow: -10px 0 40px rgba(44, 53, 68, 0.15);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 505;
@@ -760,7 +724,7 @@
     </div>
     <div class="series-grid">
 
-      <a class="series-card s-pink" href="podcast/the-confoundedness-of-success-part-1.html">
+      <a class="series-card s-pink" href="podcast/success-series.html">
         <div>
           <span class="series-label">season 6 · 8 parts</span>
           <h3 class="series-title">The Success <em>series</em></h3>
@@ -772,7 +736,7 @@
         </div>
       </a>
 
-      <a class="series-card s-cyan" href="podcast/story-vs-telling-part-1.html">
+      <a class="series-card s-cyan" href="podcast/story-vs-telling-series.html">
         <div>
           <span class="series-label">season 7 · 4 parts</span>
           <h3 class="series-title">Story <em>vs telling</em></h3>
