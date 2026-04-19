@@ -110,6 +110,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
+    position: relative;
   }
   .hero-h1 {
     font-family: var(--sans);
@@ -145,8 +146,13 @@
   }
   .hero-fill #intentInput::placeholder {
     color: var(--ink-fade);
-    font-style: italic;
-    opacity: 0.45;
+    font-style: normal;
+    font-weight: 500;
+    opacity: 0.6;
+  }
+  /* blinking caret behind the placeholder when input is empty + unfocused */
+  .hero-fill #intentInput.typing::placeholder {
+    opacity: 0.85;
   }
   .hero-fill #intentInput:focus { border-bottom-color: var(--pink); }
   .hero-fill .submit {
@@ -272,21 +278,23 @@
     transform: translateY(-3px);
   }
 
-  /* SUGGESTIONS */
+  /* SUGGESTIONS — sits flush under the input, in the hero-stage frame.
+     Lighter than a form dropdown — feels like a list of ideas opening up. */
   #intentSuggestions {
     position: absolute;
-    top: calc(100% + 0.75rem);
+    top: calc(100% + 1.25rem);
     left: 0; right: 0;
-    background: #fff;
-    border: 1.5px solid var(--ink);
-    border-radius: 18px;
-    box-shadow: 4px 4px 0 var(--ink);
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(8px);
+    border: 0;
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(44, 53, 68, 0.10), 0 2px 6px rgba(44, 53, 68, 0.05);
     overflow: hidden;
-    z-index: 10;
+    z-index: 30;
     opacity: 0;
-    transform: translateY(-6px);
+    transform: translateY(-8px);
     pointer-events: none;
-    transition: opacity 0.22s, transform 0.22s;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
   #intentSuggestions.visible {
     opacity: 1;
@@ -297,20 +305,36 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 1rem;
-    padding: 1rem 1.5rem;
-    border-top: 1px solid var(--rule);
+    gap: 1.5rem;
+    padding: 1.05rem 1.75rem;
+    border-top: 1px solid rgba(44, 53, 68, 0.06);
     transition: background 0.15s, color 0.15s;
     cursor: pointer;
     text-decoration: none;
     color: var(--ink);
+    position: relative;
   }
+  .sug::before {
+    content: "";
+    position: absolute;
+    left: 0.85rem;
+    top: 1.45rem;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--pink);
+    transition: transform 0.2s;
+  }
+  .sug:nth-child(2)::before { background: var(--cyan); }
+  .sug:nth-child(3)::before { background: var(--yellow); }
+  .sug:nth-child(4)::before { background: var(--pink); opacity: 0.6; }
+  .sug:nth-child(5)::before { background: var(--cyan); opacity: 0.6; }
   .sug:first-child { border-top: 0; }
   .sug:hover { background: var(--bg); color: var(--pink); }
-  .sug-text { font-size: 0.98rem; }
+  .sug:hover::before { transform: scale(1.4); }
+  .sug-text { font-size: 1rem; padding-left: 1rem; flex: 1; }
   .sug-dest {
     font-family: var(--hand);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     color: var(--ink-fade);
     white-space: nowrap;
   }
@@ -487,14 +511,8 @@
     <div class="hero-stage">
       <h1 class="hero-h1">i need…</h1>
       <form class="hero-fill" onsubmit="event.preventDefault();">
-        <input id="intentInput" type="text" placeholder="something specific" autocomplete="off" aria-label="Tell us what you need" />
+        <input id="intentInput" type="text" placeholder="" autocomplete="off" aria-label="Tell us what you need" />
         <button class="submit" type="submit" aria-label="Submit">→</button>
-      </form>
-    </div>
-
-    <div class="intent-wrap">
-      <form class="intent-box" onsubmit="event.preventDefault();" aria-hidden="true">
-        <input id="intentInputHidden" type="text" tabindex="-1" />
       </form>
 
       <div id="intentSuggestions" role="listbox">
@@ -570,9 +588,55 @@
     const sug = document.getElementById('intentSuggestions');
     input.addEventListener('focus', () => sug.classList.add('visible'));
     input.addEventListener('blur', () => {
-      // delay to allow suggestion clicks to register
       setTimeout(() => sug.classList.remove('visible'), 160);
     });
+
+    // Typewriter placeholder — cycles through prompts character-by-character.
+    // Pauses when the input is focused or has content so we never fight the user.
+    const prompts = [
+      'to tell a better story',
+      'to launch a product from zero',
+      'a brand that feels like me',
+      'to just think with someone',
+      'a conversation worth listening to'
+    ];
+    const TYPE_MS = 65;
+    const DELETE_MS = 28;
+    const HOLD_MS = 1800;
+    const GAP_MS = 350;
+    let pIdx = 0, cIdx = 0, typing = true;
+
+    function tick() {
+      // never overwrite while user is interacting
+      if (document.activeElement === input || input.value) {
+        setTimeout(tick, 600);
+        return;
+      }
+      const word = prompts[pIdx];
+      if (typing) {
+        cIdx++;
+        input.placeholder = word.slice(0, cIdx) + (cIdx < word.length ? '|' : '');
+        if (cIdx >= word.length) {
+          input.placeholder = word;
+          typing = false;
+          setTimeout(tick, HOLD_MS);
+          return;
+        }
+        setTimeout(tick, TYPE_MS);
+      } else {
+        cIdx--;
+        input.placeholder = word.slice(0, cIdx) + (cIdx > 0 ? '|' : '');
+        if (cIdx <= 0) {
+          input.placeholder = '';
+          typing = true;
+          pIdx = (pIdx + 1) % prompts.length;
+          setTimeout(tick, GAP_MS);
+          return;
+        }
+        setTimeout(tick, DELETE_MS);
+      }
+    }
+    setTimeout(tick, 400);
   </script>
 
 </body>
