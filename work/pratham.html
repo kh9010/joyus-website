@@ -3,323 +3,203 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="How Joyus Studio rebuilt the donor journey for PrathamUSA, a $50M nonprofit focused on children's education in India.">
-  <meta property="og:title" content="PrathamUSA — Joyus Studio">
-  <meta property="og:description" content="How Joyus Studio rebuilt the donor journey for PrathamUSA, a $50M nonprofit focused on children's education in India.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/pratham.jpg">
+  <meta name="description" content="Donor research, process creation and information flow design for PrathamUSA. By Joyus Studio.">
+  <meta property="og:title" content="pratham — Joyus Studio">
+  <meta property="og:description" content="Rebuilding the donor journey for PrathamUSA after a catastrophic drop in giving.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/pratham/logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/pratham.html">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/pratham.html">
-  <title>PrathamUSA — Joyus Studio</title>
+  <title>pratham — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
-  <style>
-    .case-hero {
-      padding: 7rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-      text-align: center;
-    }
-    .case-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      margin-bottom: 0.75rem;
-      color: #111;
-    }
-    .case-subtitle {
-      font-size: 1.15rem;
-      color: #555;
-      max-width: 680px;
-      margin: 0 auto 2rem;
-      line-height: 1.6;
-    }
-    .case-meta {
-      display: flex;
-      justify-content: center;
-      gap: 2.5rem;
-      flex-wrap: wrap;
-      margin-top: 1.5rem;
-    }
-    .meta-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .meta-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-    }
-    .meta-value {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #333;
-    }
-    .case-highlight {
-      background: #1a1a1a;
-      color: white;
-      padding: 4rem 2rem;
-    }
-    .case-highlight-content {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: center;
-      gap: 4rem;
-      flex-wrap: wrap;
-      text-align: center;
-    }
-    .highlight-stat {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-    .stat-number {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.8rem;
-      color: white;
-      line-height: 1;
-    }
-    .stat-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      max-width: 140px;
-      line-height: 1.4;
-    }
-    .case-image-full {
-      width: 100%;
-      max-height: 520px;
-      overflow: hidden;
-      border-bottom: 1px solid #eee;
-    }
-    .case-image-full img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      display: block;
-    }
-    .case-section {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      opacity: 1;
-      transform: none;
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .case-section.visible {
-      opacity: 1;
-      transform: none;
-    }
-    .case-section.alt {
-      background: var(--warm-gray, #F5F3F0);
-      max-width: 100%;
-      padding: 4rem 2rem;
-    }
-    .case-section.alt .section-inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .case-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      margin-bottom: 1.25rem;
-      color: #111;
-    }
-    .case-section p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.1rem;
-    }
-    .case-section p:last-child { margin-bottom: 0; }
-    .case-nav-bar {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 3rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #e8e6e4;
-    }
-    .case-nav-prev, .case-nav-next {
-      font-size: 0.9rem;
-      color: #666;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .case-nav-prev:hover, .case-nav-next:hover { color: #111; }
-    @media (max-width: 640px) {
-      .case-highlight-content { gap: 2rem; }
-      .stat-number { font-size: 2rem; }
-      .case-meta { gap: 1.5rem; }
-      .case-nav-bar { flex-direction: column; gap: 1rem; align-items: flex-start; }
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=4">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"PrathamUSA","description":"How Joyus Studio rebuilt the donor journey for PrathamUSA, a $50M nonprofit focused on children's education in India.","url":"https://kh9010.github.io/joyus-website/work/pratham.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"pratham","description":"Rebuilding the donor journey for PrathamUSA after a catastrophic drop in giving.","url":"https://kh9010.github.io/joyus-website/work/pratham.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
 </head>
-<body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
+<body class="work-page">
+
+  <nav class="nav">
+    <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio"></a>
+    <div class="nav-links">
+      <a href="index.html">Work</a>
+      <a href="../services.html">Services</a>
+      <a href="../podcast.html">Podcast</a>
+      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
     </div>
   </nav>
 
-  <section class="case-hero">
-    <h1>PrathamUSA</h1>
-    <p class="case-subtitle">Rebuilding the donor journey for a $50M nonprofit</p>
-    <div class="case-meta">
-      <div class="meta-item">
-        <span class="meta-label">Client</span>
-        <span class="meta-value">PrathamUSA</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Location</span>
-        <span class="meta-value">USA</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Organization Type</span>
-        <span class="meta-value">$50M Nonprofit</span>
-      </div>
-      <div class="meta-item">
-        <span class="meta-label">Services</span>
-        <span class="meta-value">Donor Research, Process Creation, Information Flow</span>
-      </div>
+  <header class="cs-cover-narrative">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:14%;right:8%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:62%;left:6%;"></span>
+      <span class="yellow" style="width:80px;height:80px;bottom:-30px;right:-30px;opacity:0.85;"></span>
     </div>
-  </section>
-
-  <section class="case-highlight">
-    <div class="case-highlight-content">
-      <div class="highlight-stat">
-        <span class="stat-number">$50M</span>
-        <span class="stat-label">Annual fundraising at stake</span>
+    <div class="inner">
+      <img class="logo-inset" src="../images/work/pratham/logo.webp" alt="PrathamUSA">
+      <p class="name">a case study — pratham</p>
+      <h1>How do you find the moments that make your people fall in love — and how do you replicate them when circumstances change?</h1>
+      <div class="lede">
+        <p>Our client was the large nonprofit, PrathamUSA, who saw a catastrophic drop in donations in 2020 and going into 2021 — with fundraising galas eviscerated and many of the $2,000–$10,000 donors with them. These donors were the feeder source of Pratham's super-committed, $10,000+ donors, and a few years without them would hurt the organization for years to come.</p>
+        <p>We engaged with Pratham on this problem to determine what brought donors in at different levels, what caused them to increase their donations, and what could be done to re-create the donor journey in the new post-2020 world.</p>
       </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Redesigned</span>
-        <span class="stat-label">End-to-end donor journey</span>
-      </div>
-      <div class="highlight-stat">
-        <span class="stat-number">Research-led</span>
-        <span class="stat-label">Insights-driven transformation</span>
-      </div>
-    </div>
-  </section>
-
-  <div class="case-image-full">
-    <img src="../images/work/pratham.jpg" alt="PrathamUSA donor journey research and process visualization" loading="lazy">
-  </div>
-
-  <section class="case-section fade-in">
-    <h2>The Challenge</h2>
-    <p>PrathamUSA raises $50M annually to support education access across India. Their donor experience had grown organically over years — meaning it had also grown fragmented, inconsistent, and difficult to navigate. Donors were falling through gaps. Information wasn't flowing where it needed to go. The organization's remarkable impact wasn't being communicated in a way that compelled continued giving.</p>
-  </section>
-
-  <section class="case-section alt">
-    <div class="section-inner">
-      <h2>Our Approach</h2>
-      <p>We began with deep donor research — interviews across segments, from first-time givers to long-term major donors. The insights were clear and painful: donors felt underinformed, sometimes forgotten, often unsure whether their contribution had mattered. They wanted connection to impact, not just receipts and annual reports.</p><p>We designed a new information architecture for the donor journey: what communication happens when, who sends it, what story it tells. We created process documentation that the team could actually use — not 60-page PDF decks, but clear flowcharts, templates, and triggers. The goal was making the invisible visible, so the team could execute consistently at scale.</p>
-    </div>
-  </section>
-
-  <section class="case-section fade-in">
-    <h2>The Outcome</h2>
-    <p>PrathamUSA now has a donor journey that matches the quality of the work they fund. Donors receive communications that connect their gift to real children, real schools, real outcomes. The process changes gave the team clarity on who owns what and when — reducing the operational friction that had been silently eroding relationships for years.</p>
-  </section>
-
-  <section class="related-work" style="padding:2rem 2rem 0;max-width:900px;margin:0 auto;">
-    <h3 style="font-family:'Caveat',cursive;font-size:1.3rem;color:#999;margin-bottom:1rem;">You might also like</h3>
-    <div style="display:flex;gap:1.5rem;flex-wrap:wrap;">
-      <a href="tomboyx.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">TomboyX →</a>
-      <a href="tatsam.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">Tatsam →</a>
-      <a href="convegenius.html" style="color:#111;font-weight:500;text-decoration:none;font-size:0.95rem;">ConveGenius →</a>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
-      </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      <div class="meta-bar">
+        <ul class="cs-services">
+          <li>Donor Research</li>
+          <li>Process Creation</li>
+          <li>Information Flow</li>
         </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+        <div class="cs-meta-row">
+          <span>USA</span>
+          <span>50–100 employees</span>
+          <span>$50M nonprofit</span>
+        </div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+  </header>
+
+  <!-- Slide 6 — Donor journey -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
+      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
+      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
     </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">first — a shared language</p>
+      <h2 class="cs-slide-headline">Creating and visualizing the donor journey</h2>
+
+      <p class="cs-intro">How do you build a shared language? The first challenge was to find a way to communicate about different kinds of donors — outside of Pratham's traditional groupings by annual giving. We captured the <strong>6 stages of the donor journey</strong> as an inward and then outward journey, created through semi-structured interviews with staff and donors and informed by ideas from the marketing post-purchase funnel.</p>
+
+      <div class="cs-cluster">
+        <figure class="cs-fig">
+          <img src="../images/work/pratham/slide6-journey-1.webp" alt="Pratham donor journey model" loading="lazy">
+          <p class="cs-note">validated curiosity brought donors to consider Pratham, while alignment with their goals brought them to form a connection</p>
+        </figure>
+        <figure class="cs-fig">
+          <img src="../images/work/pratham/slide6-journey-2.webp" alt="Pratham donor journey detail" loading="lazy">
+          <p class="cs-note">for connected donors, site visits to schools in India pushed them to deepen their connection — leading to permanent bonds, a stage which included many donors at the $100K+ annual level</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-bridge">↓ then — <em>but why is it broken?</em></div>
+
+  <!-- Slide 7 — Information flowchart (built-in) -->
+  <section class="cs-slide alt">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
+      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
+      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">mapping the breakdown</p>
+      <h2 class="cs-slide-headline">But why is it broken?</h2>
+
+      <p class="cs-intro">Despite the clarity of the donor model, many of the insights were already known to Pratham's leadership. So why was the donor journey breaking? Through donor surveys and conversations, we uncovered <strong>large disparities in how similar situations were handled</strong> across the organization. Visualizing the flow of information made the discrepancies visible — and fixable.</p>
+
+      <div class="cs-flowchart">
+        <div class="cs-flowchart-col">
+          <div class="cs-flowchart-header">Incoming information</div>
+          <div class="cs-flowchart-box">
+            <span class="label">Source:</span>
+            <ul>
+              <li>Donor-specific signals</li>
+              <li>Chapter &amp; city updates</li>
+              <li>PUSA updates</li>
+              <li>Pratham updates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="cs-flowchart-col">
+          <div class="cs-flowchart-header">Transformation &amp; selection of medium</div>
+          <div class="cs-flowchart-box slate">
+            The marketing team transforms the information into a form that can be sent out.
+          </div>
+        </div>
+        <div class="cs-flowchart-col">
+          <div class="cs-flowchart-header">Output to donor</div>
+          <div class="cs-flowchart-box">Donor receives an email</div>
+          <div class="cs-flowchart-box">Donors view a social-media post</div>
+          <div class="cs-flowchart-box">Donors get a call or meeting</div>
+        </div>
+      </div>
+
+      <div class="cs-cluster cols-2" style="margin-top:1rem;">
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note solid">information that reached donors was often filtered by chapter leaders — leading to many variations across chapters</p>
+        </figure>
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note solid">initial understandings failed to account for the dramatic retention differences between sources — calls or visits being far more memorable</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-bridge">↓ then — <em>talk to the people who actually give</em></div>
+
+  <!-- Slide 11 — Survey insight card -->
+  <section class="cs-slide">
+    <div class="cs-dots" aria-hidden="true">
+      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
+      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
+      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
+    </div>
+    <div class="cs-slide-inner">
+      <p class="cs-slide-eyebrow">where insight actually lives</p>
+      <h2 class="cs-slide-headline">Speaking to your users will always generate insights</h2>
+
+      <p class="cs-intro">Pratham had a robust system for talking to high-value donors, but very few ways for those insights to reach leadership. In one example, Pratham had concluded that <strong>long-form publications were of little value</strong> — views were abysmal, the annual report's email open rate was low.</p>
+      <p class="cs-sub">By talking to users, we found that those who <em>did</em> engage with long-form publications were more likely to draw closer to Pratham. The challenge wasn't to cut costs by reducing them — it was to invest in driving more readership in the right donor groups.</p>
+
+      <div class="cs-survey-card">
+        <h3 class="title">What do people take away from engaging with long-form publications?</h3>
+        <ul>
+          <li>People feel more connected to India</li>
+          <li>People like the simplicity of the idea of education (cause and effect); paying it forward for education</li>
+          <li>People like being part of the team that is winning</li>
+          <li>People give because their social circle also does — get social status, find like-minded people</li>
+        </ul>
+        <div class="result">
+          <strong>Survey result</strong>
+          People who value Pratham's long-form publications tend to be higher-value donors.
+        </div>
+      </div>
+
+      <div class="cs-cluster cols-2" style="margin-top:1.5rem;">
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note">touchpoints are not the same — surfacing the impact on the donor allows for accurate conclusions about efficacy, avoiding bias from # of views or clicks</p>
+        </figure>
+        <figure class="cs-fig" style="background:transparent;">
+          <p class="cs-note">insight emerged: higher-value, poorly-scalable experiences were key to forming the highest-value relationships with donors</p>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="cs-closing">
+    <span class="cs-dots" aria-hidden="true">
+      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
+    </span>
+    <span class="cs-closing-label">your move</span>
+    <h3>Need to <em>rebuild a donor journey</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="convegenius.html">next case study: convegenius <span class="arrow">→</span></a>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
   </footer>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-    const sections = document.querySelectorAll('.case-section');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-    }, {threshold: 0.1, rootMargin: '0px 0px -50px 0px'});
-    sections.forEach(s => obs.observe(s));
-  </script>
-<script src="../shape-echo.js"></script>
+  <script src="../shape-echo.js"></script>
 </body>
 </html>
