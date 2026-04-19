@@ -33,43 +33,7 @@
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
   img { max-width: 100%; display: block; }
 
-  /* NAV */
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem var(--x);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    backdrop-filter: blur(8px);
-  }
-  .nav-logo {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .nav-logo img {
-    height: 32px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
-  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
-  .nav-links a:hover { color: var(--pink); }
-  .nav-cta {
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 2px;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .nav-cta:hover { border-bottom-color: var(--pink); }
-  @media (max-width: 720px) {
-    .nav-links { gap: 1rem; }
-    .nav-links a:not(.nav-cta) { display: none; }
-  }
+  /* nav styles come from /_partials/nav.html */
 
   /* progress thread */
   .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; }
@@ -103,18 +67,18 @@
     border-bottom: 1px solid var(--rule);
   }
   .hero-eyebrow {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--ink);
     margin-bottom: 1.5rem;
     display: inline-flex; align-items: center; gap: 0.75rem;
     position: relative; z-index: 2;
   }
   .hero-eyebrow::before {
     content: "";
-    width: 10px; height: 10px;
+    width: 12px; height: 12px;
     border-radius: 50%;
     background: var(--yellow);
   }
@@ -175,14 +139,15 @@
   .p:nth-child(9)  { z-index: 9; }
   .p:nth-child(10) { z-index: 10; }
 
-  /* the actual card — an inset panel on the page (~25% bigger) */
+  /* the actual card — an inset panel on the page */
   .p-panel {
     position: relative;
     width: 100%;
     max-width: 1280px;
+    min-height: 70vh;
     background: #ffffff;
     border-radius: 26px;
-    padding: clamp(3.75rem, 8.5vh, 6.25rem) clamp(2.5rem, 5vw, 5rem);
+    padding: clamp(5rem, 11vh, 8rem) clamp(2.5rem, 5vw, 5rem);
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     gap: clamp(2.5rem, 5.5vw, 4.5rem);
@@ -233,9 +198,57 @@
     top: -8%;
     left: -10%;
   }
+  /* default scatter — 5 different patterns cycle through the 10 cards
+     so no two adjacent cards have the same dot arrangement */
   .p-d2 { width: 22px; height: 22px; top: 78%; left: 42%; }
   .p-d3 { width: 14px; height: 14px; top: 18%; right: 14%; }
   .p-d4 { width: 42px; height: 42px; bottom: 14%; right: 22%; }
+  .p-d5 { width: 30px; height: 30px; top: 8%; left: 38%; }
+  .p-d6 { width: 18px; height: 18px; top: 62%; right: 8%; }
+  .p-d7 { width: 10px; height: 10px; bottom: 24%; left: 32%; }
+
+  /* pattern B — cards 2, 7 */
+  .p:nth-child(5n+2) .p-d1 { top: 4%; right: -6%; left: auto; }
+  .p:nth-child(5n+2) .p-d2 { width: 36px; height: 36px; top: 22%; left: 18%; }
+  .p:nth-child(5n+2) .p-d3 { width: 18px; height: 18px; top: 70%; right: 36%; }
+  .p:nth-child(5n+2) .p-d4 { width: 24px; height: 24px; bottom: 24%; left: 14%; }
+  .p:nth-child(5n+2) .p-d5 { width: 14px; height: 14px; top: 50%; right: 16%; }
+  .p:nth-child(5n+2) .p-d6 { width: 50px; height: 50px; bottom: 10%; right: 8%; }
+  .p:nth-child(5n+2) .p-d7 { width: 12px; height: 12px; top: 12%; left: 56%; }
+
+  /* pattern C — cards 3, 8 */
+  .p:nth-child(5n+3) .p-d1 { bottom: -10%; top: auto; left: -6%; }
+  .p:nth-child(5n+3) .p-d2 { width: 16px; height: 16px; top: 14%; left: 30%; }
+  .p:nth-child(5n+3) .p-d3 { width: 28px; height: 28px; bottom: 28%; right: 18%; }
+  .p:nth-child(5n+3) .p-d4 { width: 12px; height: 12px; top: 64%; left: 22%; }
+  .p:nth-child(5n+3) .p-d5 { width: 40px; height: 40px; top: 28%; right: 8%; }
+  .p:nth-child(5n+3) .p-d6 { width: 20px; height: 20px; top: 84%; left: 56%; }
+  .p:nth-child(5n+3) .p-d7 { width: 14px; height: 14px; top: 6%; right: 38%; }
+
+  /* pattern D — cards 4, 9 */
+  .p:nth-child(5n+4) .p-d1 { top: -10%; right: -10%; left: auto; }
+  .p:nth-child(5n+4) .p-d2 { width: 28px; height: 28px; top: 8%; left: 16%; }
+  .p:nth-child(5n+4) .p-d3 { width: 14px; height: 14px; bottom: 18%; right: 28%; }
+  .p:nth-child(5n+4) .p-d4 { width: 36px; height: 36px; bottom: 8%; left: 26%; }
+  .p:nth-child(5n+4) .p-d5 { width: 18px; height: 18px; top: 48%; right: 6%; }
+  .p:nth-child(5n+4) .p-d6 { width: 12px; height: 12px; top: 72%; right: 42%; }
+  .p:nth-child(5n+4) .p-d7 { width: 22px; height: 22px; top: 28%; left: 48%; }
+
+  /* pattern E — cards 5, 10 */
+  .p:nth-child(5n+5) .p-d1,
+  .p:nth-child(5n) .p-d1 { bottom: -8%; right: -10%; top: auto; left: auto; }
+  .p:nth-child(5n+5) .p-d2,
+  .p:nth-child(5n) .p-d2 { width: 24px; height: 24px; top: 60%; left: 8%; }
+  .p:nth-child(5n+5) .p-d3,
+  .p:nth-child(5n) .p-d3 { width: 18px; height: 18px; top: 14%; left: 44%; }
+  .p:nth-child(5n+5) .p-d4,
+  .p:nth-child(5n) .p-d4 { width: 30px; height: 30px; bottom: 24%; left: 38%; }
+  .p:nth-child(5n+5) .p-d5,
+  .p:nth-child(5n) .p-d5 { width: 12px; height: 12px; top: 36%; right: 22%; }
+  .p:nth-child(5n+5) .p-d6,
+  .p:nth-child(5n) .p-d6 { width: 16px; height: 16px; top: 80%; right: 18%; }
+  .p:nth-child(5n+5) .p-d7,
+  .p:nth-child(5n) .p-d7 { width: 44px; height: 44px; top: 4%; right: 12%; }
 
   /* framed image — stretches to panel height, 4:3 or taller */
   .p-frame {
@@ -244,8 +257,6 @@
     aspect-ratio: 4/3;
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 18px 40px -10px rgba(44, 53, 68, 0.24),
-                0 2px 6px rgba(44, 53, 68, 0.08);
     width: 100%;
     align-self: stretch;
   }
@@ -349,6 +360,9 @@
   .p:nth-child(3n+1) .p-d2      { background: var(--cyan); }
   .p:nth-child(3n+1) .p-d3      { background: var(--yellow); }
   .p:nth-child(3n+1) .p-d4      { background: var(--pink); opacity: 0.5; }
+  .p:nth-child(3n+1) .p-d5      { background: var(--yellow); }
+  .p:nth-child(3n+1) .p-d6      { background: var(--cyan); opacity: 0.6; }
+  .p:nth-child(3n+1) .p-d7      { background: var(--pink); }
   .p:nth-child(3n+1) .p-big-no  { color: var(--pink); }
   .p:nth-child(3n+1) .p-rule    { background: var(--pink); }
   .p:nth-child(3n+1) .p-outcome { color: var(--pink); }
@@ -360,6 +374,9 @@
   .p:nth-child(3n+2) .p-d2      { background: var(--yellow); }
   .p:nth-child(3n+2) .p-d3      { background: var(--pink); }
   .p:nth-child(3n+2) .p-d4      { background: var(--cyan); opacity: 0.5; }
+  .p:nth-child(3n+2) .p-d5      { background: var(--pink); }
+  .p:nth-child(3n+2) .p-d6      { background: var(--yellow); opacity: 0.6; }
+  .p:nth-child(3n+2) .p-d7      { background: var(--cyan); }
   .p:nth-child(3n+2) .p-big-no  { color: var(--cyan); }
   .p:nth-child(3n+2) .p-rule    { background: var(--cyan); }
   .p:nth-child(3n+2) .p-outcome { color: var(--cyan); }
@@ -371,6 +388,9 @@
   .p:nth-child(3n+3) .p-d2      { background: var(--pink); }
   .p:nth-child(3n+3) .p-d3      { background: var(--cyan); }
   .p:nth-child(3n+3) .p-d4      { background: var(--yellow); opacity: 0.55; }
+  .p:nth-child(3n+3) .p-d5      { background: var(--cyan); }
+  .p:nth-child(3n+3) .p-d6      { background: var(--pink); opacity: 0.6; }
+  .p:nth-child(3n+3) .p-d7      { background: var(--yellow); }
   .p:nth-child(3n+3) .p-big-no  { color: #c79a2a; }
   .p:nth-child(3n+3) .p-rule    { background: #c79a2a; }
   .p:nth-child(3n+3) .p-outcome { color: #c79a2a; }
@@ -437,34 +457,85 @@
     position: relative; z-index: 2;
   }
 
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: var(--bg);
-    padding: 1.5rem var(--x) 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
+  /* foot styles come from /_partials/foot.html */
 </style>
 </head>
 <body>
 
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
-  <nav class="nav">
-    <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
-    <div class="nav-links">
-      <a href="index.html">Work</a>
-      <a href="../services.html">Services</a>
-      <a href="../podcast.html">Podcast</a>
-      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
-    </div>
-  </nav>
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+  @media (max-width: 720px) {
+    .nav .nav-links { gap: 1rem; }
+    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <div class="nav-links">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+  })();
+</script>
+<!--END:NAV-->
 
   <!-- =========== HERO =========== -->
   <section class="hero">
@@ -475,7 +546,7 @@
     <span class="hero-eyebrow">the work</span>
     <h1>We think with everyone. <em>We build with a few.</em></h1>
     <p class="hero-meta">
-      <span>Here are those few</span><span>2023 — 2026</span><span>with founders, nonprofits, and people making good things</span>
+      <span>Across 6 countries</span><span>4 industries</span><span>since 2021</span>
     </p>
   </section>
 
@@ -494,16 +565,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/tomboyx.jpg" alt="TomboyX" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">01.</span>
           <h2 class="p-name">TomboyX</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">$5M raised</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Story</span><span>Investor Pitch</span></div>
-          <div class="p-meta"><span>Seattle · $25M ARR apparel</span><span>2025 · 8 wks</span></div>
+          <div class="p-meta"><span>Seattle · $25M ARR apparel</span></div>
           <a class="p-link" href="tomboyx.html">read the story →</a>
         </div>
       </div>
@@ -515,16 +588,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/klydo.jpg" alt="Klydo" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">02.</span>
           <h2 class="p-name">Klydo</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">0 → 150 / day</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Product</span><span>Brand</span><span>GTM</span></div>
-          <div class="p-meta"><span>Bangalore · pre-Series A</span><span>2025 · 10 wks</span></div>
+          <div class="p-meta"><span>Bangalore · pre-Series A</span></div>
           <a class="p-link" href="klydo.html">read the story →</a>
         </div>
       </div>
@@ -536,16 +611,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/convegenius.jpg" alt="ConveGenius" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">03.</span>
           <h2 class="p-name">ConveGenius</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">2× completion</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Research</span><span>Gamification</span><span>Behavior</span></div>
-          <div class="p-meta"><span>India edtech · 100K students</span><span>2025 · 8 wks</span></div>
+          <div class="p-meta"><span>India edtech · 100K students</span></div>
           <a class="p-link" href="convegenius.html">read the story →</a>
         </div>
       </div>
@@ -557,16 +634,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/agemo.jpg" alt="Agemo" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">04.</span>
           <h2 class="p-name">Agemo</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">3.2× session completion</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Research</span><span>Strategy</span><span>Interface</span></div>
-          <div class="p-meta"><span>UK · pre-Series A GenAI</span><span>2025 · 10 wks</span></div>
+          <div class="p-meta"><span>UK · pre-Series A GenAI</span></div>
           <a class="p-link" href="agemo.html">read the story →</a>
         </div>
       </div>
@@ -578,16 +657,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/tatsam.jpg" alt="Tatsam" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">05.</span>
           <h2 class="p-name">Tatsam</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">3× week-1 retention</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Visual System</span><span>Product</span><span>Brand</span></div>
-          <div class="p-meta"><span>Delhi · India seed, mental health</span><span>2024 · 14 wks</span></div>
+          <div class="p-meta"><span>Delhi · India seed, mental health</span></div>
           <a class="p-link" href="tatsam.html">read the story →</a>
         </div>
       </div>
@@ -599,16 +680,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/pratham.jpg" alt="Pratham USA" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">06.</span>
           <h2 class="p-name">Pratham USA</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">6-stage donor journey</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Research</span><span>Process</span><span>Information Flow</span></div>
-          <div class="p-meta"><span>NYC · $50M nonprofit</span><span>2024 · 12 mo</span></div>
+          <div class="p-meta"><span>NYC · $50M nonprofit</span></div>
           <a class="p-link" href="pratham.html">read the story →</a>
         </div>
       </div>
@@ -620,16 +703,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/secret-senses.jpg" alt="Secret Senses" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">07.</span>
           <h2 class="p-name">Secret Senses</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">DTC + 2 retail</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Identity</span><span>Illustration</span><span>Packaging</span></div>
-          <div class="p-meta"><span>India · bootstrapped hair care</span><span>2024 · 6 wks</span></div>
+          <div class="p-meta"><span>India · bootstrapped hair care</span></div>
           <a class="p-link" href="secret-senses.html">read the story →</a>
         </div>
       </div>
@@ -641,16 +726,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/xtdb.jpg" alt="XTDB" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">08.</span>
           <h2 class="p-name">XTDB</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">formerly CRUX</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Re-branding</span><span>Brand Guidelines</span></div>
-          <div class="p-meta"><span>Canada · ~$10M ARR database</span><span>2024 · 8 wks</span></div>
+          <div class="p-meta"><span>Canada · ~$10M ARR database</span></div>
           <a class="p-link" href="xtdb.html">read the story →</a>
         </div>
       </div>
@@ -662,16 +749,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/gliitch.jpg" alt="Gliitch" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">09.</span>
           <h2 class="p-name">Gliitch</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">two-color glitch brand</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Moodboarding</span><span>Branding</span><span>Media</span></div>
-          <div class="p-meta"><span>Hong Kong · bootstrapped</span><span>2024 · 5 wks</span></div>
+          <div class="p-meta"><span>Hong Kong · bootstrapped</span></div>
           <a class="p-link" href="gliitch.html">read the story →</a>
         </div>
       </div>
@@ -683,16 +772,18 @@
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
         <span class="dot p-d4"></span>
+          <span class="dot p-d5"></span>
+          <span class="dot p-d6"></span>
+          <span class="dot p-d7"></span>
         <div class="p-frame">
           <img src="../images/work-covers/rachna-nivas.jpg" alt="Rachna Nivas" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">10.</span>
           <h2 class="p-name">Rachna Nivas</h2>
           <div class="p-rule"></div>
-          <div class="p-outcome">3× inquiries</div>
+          <div class="p-outcome">&lt;placeholder text&gt;</div>
           <div class="p-tags"><span>Identity</span><span>Leverage</span><span>Artifacts</span></div>
-          <div class="p-meta"><span>NYC · solo Kathak practitioner</span><span>2024 · 6 wks</span></div>
+          <div class="p-meta"><span>NYC · solo Kathak practitioner</span></div>
           <a class="p-link" href="rachna-nivas.html">read the story →</a>
         </div>
       </div>
@@ -716,10 +807,35 @@
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
 
-  <footer class="foot">
-    <span>© 2026 · Joyus Studio</span>
-    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-  </footer>
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
 
   <script>
     // Fallback for browsers without CSS scroll-timeline (old Firefox/Safari):

@@ -4,220 +4,302 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Kahran and Divya break down what it means to be successful -- and to have been successful and no longer be so. When do our cultural definitions permeate our fee">
-  <meta property="og:title" content="Expectations &amp; Definitions of Success: Part 2 — Thinking on Thinking">
+  <meta property="og:title" content="Expectations &amp;amp; Definitions of Success: Part 2 — Thinking on Thinking">
   <meta property="og:description" content="Kahran and Divya break down what it means to be successful -- and to have been successful and no longer be so. When do our cultural definitions permeate our fee">
   <meta property="og:type" content="website">
-<meta property="og:url" content="https://kh9010.github.io/joyus-website/podcast/expectations-definitions-of-success-part-2.html">
-<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
-<meta name="twitter:card" content="summary">
-<link rel="canonical" href="https://kh9010.github.io/joyus-website/podcast/expectations-definitions-of-success-part-2.html">
-  <title>Expectations &amp; Definitions of Success: Part 2 — Thinking on Thinking — Joyus Studio</title>
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/podcast/expectations-definitions-of-success-part-2.html">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/podcast-cover.jpg">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/podcast/expectations-definitions-of-success-part-2.html">
+  <title>Expectations &amp;amp; Definitions of Success: Part 2 — Thinking on Thinking — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg: #FAF7F2;
+      --ink: #2C3544;
+      --ink-soft: #54606F;
+      --ink-fade: #8892A0;
+      --rule: rgba(44, 53, 68, 0.12);
+      --pink: #E91E7B;
+      --cyan: #4FC4CF;
+      --yellow: #F2C94A;
+      --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      --hand: 'Caveat', cursive;
+      --x: clamp(1.5rem, 4vw, 3rem);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; transition: color 0.2s; }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); }
+    .d-cyan { background: var(--cyan); }
+    .d-yellow { background: var(--yellow); }
     .ep-hero {
-      padding: 8rem 2rem 3rem;
-      background: var(--warm-gray, #F5F3F0);
+      min-height: 56vh;
+      padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
+      border-bottom: 1px solid var(--rule);
     }
-    .ep-hero .inner {
-      max-width: 700px;
-      margin: 0 auto;
+    .ep-hero .dh1 { width: 280px; height: 280px; top: 12%; right: -4%; }
+    .ep-hero .dh2 { width: 42px; height: 42px; bottom: 22%; right: 22%; }
+    .ep-hero .dh3 { width: 18px; height: 18px; top: 30%; right: 30%; }
+    .ep-hero .dh4 { width: 28px; height: 28px; top: 60%; left: 8%; }
+    .ep-hero-inner { max-width: 880px; margin: 0 auto; width: 100%; position: relative; z-index: 2; }
+    .ep-eyebrow {
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--ink); margin-bottom: 1.5rem;
+      display: inline-flex; align-items: center; gap: 0.75rem;
     }
+    .ep-eyebrow::before { content: ""; width: 12px; height: 12px; border-radius: 50%; background: var(--cyan); }
+    .ep-eyebrow .se { color: var(--pink); font-weight: 700; letter-spacing: 0.15em; margin-left: 0.4rem; }
     .ep-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      color: #111;
-      margin-bottom: 0.75rem;
-      line-height: 1.25;
+      font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.6rem);
+      line-height: 1.05; letter-spacing: -0.025em; color: var(--ink);
+      margin-bottom: 1.5rem;
     }
     .ep-meta {
-      font-size: 0.8rem;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 1rem;
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
+      font-size: 0.85rem; letter-spacing: 0.1em; color: var(--ink-fade);
+      padding-top: 1rem; border-top: 1px solid var(--rule);
+      display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; align-items: baseline;
     }
-    .ep-tags {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-      margin-top: 0.5rem;
-    }
+    .ep-meta span + span::before { content: " · "; color: var(--ink-fade); padding: 0 0.15em; }
+    .ep-tags { display: inline-flex; gap: 0.4rem; margin-left: auto; }
     .ep-tag {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.25rem 0.6rem;
-      border-radius: 3px;
-      background: rgba(233,30,123,0.08);
-      color: #E91E7B;
+      font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+      padding: 0.3rem 0.7rem; border-radius: 999px;
+      background: rgba(233, 30, 123, 0.1); color: var(--pink); font-weight: 500;
     }
-    .ep-content {
-      padding: 3rem 2rem 4rem;
-      max-width: 700px;
-      margin: 0 auto;
+    .ep-player { max-width: 880px; margin: 0 auto; padding: clamp(2rem, 4vh, 3rem) var(--x) 0; }
+    .ep-player iframe {
+      width: 100%; border: 0; border-radius: 12px; background: transparent;
+      box-shadow: 0 6px 28px rgba(44, 53, 68, 0.08);
     }
-    .ep-content p {
-      font-size: 1.05rem;
-      line-height: 1.8;
-      color: #444;
-      margin-bottom: 1rem;
+    .ep-listen {
+      margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 1rem 2rem;
+      align-items: center; font-family: var(--hand); font-size: 1.15rem; color: var(--ink-soft);
     }
-    .ep-listen-links {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #eee;
+    .ep-listen-label::after { content: "↓"; margin-left: 0.4rem; color: var(--pink); font-family: var(--sans); }
+    .ep-listen a {
+      font-family: var(--sans); font-size: 0.95rem; font-weight: 500; color: var(--ink);
+      padding: 0.5rem 1rem; border: 1.5px solid var(--ink); border-radius: 999px;
+      transition: background 0.2s, color 0.2s;
     }
-    .ep-listen-links h3 {
-      font-family: 'Caveat', cursive;
-      font-size: 1.2rem;
-      color: #999;
-      margin-bottom: 0.75rem;
+    .ep-listen a:hover { background: var(--ink); color: #fff; }
+    .ep-body { max-width: 720px; margin: 0 auto; padding: clamp(3rem, 6vh, 5rem) var(--x) clamp(2rem, 4vh, 3rem); }
+    .ep-summary p { font-size: 1.1rem; line-height: 1.75; color: var(--ink); margin-bottom: 1.1rem; }
+    .ep-summary p:last-child { margin-bottom: 0; }
+    .ep-summary a { color: var(--pink); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+    .ep-summary a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+    .ep-quotes { max-width: 880px; margin: 0 auto; padding: clamp(2rem, 4vh, 3rem) var(--x); }
+    .ep-quotes-label {
+      font-family: var(--hand); font-size: 1.4rem; color: var(--pink);
+      margin-bottom: 1.5rem; transform: rotate(-1.5deg); display: inline-block;
     }
-    .ep-listen-links a {
-      display: inline-block;
-      margin-right: 1.5rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-    .ep-nav {
-      padding: 2rem;
-      border-top: 1px solid #eee;
-    }
-    .ep-nav-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: start;
-    }
-    .ep-nav a {
-      color: #111;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    .ep-nav a:hover { color: var(--pink); }
-    .ep-nav-label {
-      display: block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-      margin-bottom: 0.2rem;
-    }
-    .ep-nav-next { text-align: right; max-width: 50%; }
-    .ep-transcript {
-      margin-top: 2rem;
-    }
-    .ep-transcript summary {
-      cursor: pointer;
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      color: #E91E7B;
-      padding: 0.5rem 0;
-      user-select: none;
-    }
-    .ep-transcript summary:hover {
-      opacity: 0.8;
-    }
-    .transcript-content {
-      margin-top: 1rem;
-      max-height: 500px;
-      overflow-y: auto;
-      padding-right: 1rem;
-    }
-    .transcript-content p {
-      font-size: 0.9rem;
-      line-height: 1.7;
-      color: #555;
-      margin-bottom: 1rem;
-    }
-    .ep-quotes {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #eee;
-    }
-    .ep-quotes h3 {
-      font-family: 'Caveat', cursive;
-      font-size: 1.2rem;
-      color: #999;
-      margin-bottom: 1rem;
-    }
+    .ep-quote-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
     .ep-quote {
-      background: var(--warm-gray, #F5F3F0);
-      border-left: 3px solid #E91E7B;
-      padding: 1rem 1.25rem;
-      border-radius: 0 8px 8px 0;
-      margin-bottom: 1rem;
+      background: #fff; border: 1px solid var(--rule); border-left: 3px solid var(--pink);
+      border-radius: 0 10px 10px 0; padding: 1.5rem 1.75rem;
+      font-size: 1.05rem; line-height: 1.45; color: var(--ink);
+      box-shadow: 0 2px 8px rgba(44, 53, 68, 0.04); position: relative;
     }
-    .ep-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.05rem;
-      color: #333;
-      line-height: 1.5;
-      margin-bottom: 0;
-      font-style: italic;
+    .ep-quote::before {
+      content: "\201C"; position: absolute; top: 0.4rem; left: 1rem;
+      font-family: 'Caveat', cursive; font-size: 3rem; color: var(--pink);
+      opacity: 0.18; line-height: 1;
     }
+    .ep-quote p { margin: 0; font-style: italic; padding-left: 0.75rem; }
+    .ep-quote:nth-child(2n) { border-left-color: var(--cyan); }
+    .ep-quote:nth-child(2n)::before { color: var(--cyan); }
+    .ep-quote:nth-child(3n) { border-left-color: var(--yellow); }
+    .ep-quote:nth-child(3n)::before { color: var(--yellow); opacity: 0.45; }
+    .ep-transcript { max-width: 720px; margin: 0 auto; padding: clamp(2rem, 4vh, 3rem) var(--x); }
+    .ep-transcript summary {
+      cursor: pointer; font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-soft);
+      padding: 1rem 0; border-top: 1px solid var(--ink);
+      display: flex; justify-content: space-between; align-items: center;
+      list-style: none; user-select: none;
+    }
+    .ep-transcript summary::-webkit-details-marker { display: none; }
+    .ep-transcript summary::after {
+      content: "+"; font-size: 1.4rem; color: var(--pink);
+      transition: transform 0.25s; font-weight: 400; line-height: 1;
+    }
+    .ep-transcript[open] summary::after { transform: rotate(45deg); }
+    .ep-transcript summary:hover { color: var(--ink); }
+    .ep-transcript-content { max-height: 600px; overflow-y: auto; padding: 1.5rem 0; }
+    .ep-transcript-content p { font-size: 0.95rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1rem; }
+    .ep-nav-bar {
+      max-width: 880px; margin: 0 auto; padding: clamp(2rem, 4vh, 3rem) var(--x);
+      display: flex; justify-content: space-between; gap: 2rem;
+      border-top: 1px solid var(--rule); flex-wrap: wrap;
+    }
+    .ep-nav-bar a { font-family: var(--sans); font-size: 0.95rem; color: var(--ink); max-width: 45%; }
+    .ep-nav-bar a:hover { color: var(--pink); }
+    .ep-nav-bar .label {
+      display: block; font-size: 0.72rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--ink-fade);
+      margin-bottom: 0.3rem; font-weight: 500;
+    }
+    .ep-nav-bar .next { text-align: right; margin-left: auto; }
+    .closing {
+      padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+      position: relative; overflow: hidden;
+      border-top: 2px solid var(--ink); margin-top: 3rem;
+    }
+    .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+    .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+    .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+    .closing-label {
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem;
+      display: inline-flex; align-items: center; gap: 0.75rem; position: relative; z-index: 2;
+    }
+    .closing-label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); }
+    .closing h3 {
+      font-weight: 600; font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+      letter-spacing: -0.02em; line-height: 1.2; max-width: 720px;
+      position: relative; z-index: 2;
+    }
+    .closing h3 em { font-style: normal; color: var(--pink); }
+    .closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
+    .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+    .closing .hint { display: block; font-size: 0.9rem; color: var(--ink-fade); margin-top: 1.25rem; position: relative; z-index: 2; }
   </style>
 </head>
 <body>
-  <nav class="nav-bar">
-    <div class="nav-container">
-      <a href="../home.html" class="logo">
-        <img src="../images/logo.webp" alt="Joyus Studio">
-      </a>
-      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-menu" id="navMenu">
-        <li><a href="../work/index.html">Work</a></li>
-        <li><a href="../comics/index.html">Comics</a></li>
-        <li><a href="../podcast.html" class="active">Podcast</a></li>
-        <li><a href="../services.html">Services</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
 
-  <section class="ep-hero">
-    <div class="inner">
-      <div class="ep-meta">
-        <span>S6E2</span>
-        <span>December 04, 2024</span>
-        <span>45 min</span>
-      </div>
-      <h1>Expectations &amp; Definitions of Success: Part 2</h1>
-      <div class="ep-tags"><span class="ep-tag">creative</span><span class="ep-tag">growth</span></div>
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+  @media (max-width: 720px) {
+    .nav .nav-links { gap: 1rem; }
+    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <div class="nav-links">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <header class="ep-hero">
+    <span class="dot dh1 d-cyan"></span>
+    <span class="dot dh2 d-pink"></span>
+    <span class="dot dh3 d-yellow"></span>
+    <span class="dot dh4 d-yellow"></span>
+    <div class="ep-hero-inner">
+      <span class="ep-eyebrow">thinking on thinking <span class="se">· S6E2</span></span>
+      <h1>Expectations &amp;amp; Definitions of Success: Part 2</h1>
+      <p class="ep-meta">
+        <span>December 04, 2024</span><span>45 min</span>
+        <span class="ep-tags"><span class="ep-tag">creative</span><span class="ep-tag">growth</span></span>
+      </p>
+    </div>
+  </header>
+  <section class="ep-player">
+    <iframe
+      allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+      height="175"
+      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+      src="https://embed.podcasts.apple.com/us/podcast/id1636574012?i=1000679225870&amp;theme=auto"
+      loading="lazy"
+      title="Podcast player">
+    </iframe>
+    <div class="ep-listen">
+      <span class="ep-listen-label">listen elsewhere</span>
+      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Expectations--Definitions-of-Success-Part-2-e2rsgfn" target="_blank" rel="noopener">Spotify →</a>
+      <a href="https://podcasts.apple.com/us/podcast/thinking-on-thinking/id1636574012" target="_blank" rel="noopener">Apple Podcasts →</a>
     </div>
   </section>
 
-  <div class="ep-content">
-    <p>Kahran and Divya break down what it means to be successful -- and to have been successful and no longer be so. When do our cultural definitions permeate our feelings about successful? And when do they preclude achievement in success? What does it mean to have achievement in success? This second episode in the series about success is scintillating, provocative and guaranteed to leave your head scratching. </p>
-    <iframe allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write" frameborder="0" height="175" style="border-radius:12px;margin-top:1.5rem;width:100%;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.podcasts.apple.com/us/podcast/id1636574012?i=1000679225870&theme=auto" loading="lazy"></iframe>
-    
-    <div class="transcript-section">
-        <div class="ep-quotes">
-      <h3>Notable moments</h3>
-      <div class="ep-quote">
-        <p>"When you haven't had a good definition for the outcome you're trying to achieve, it's hard to feel successful. Feeling successful and feeling content are different things."</p>
-      </div>
-      <div class="ep-quote">
-        <p>"The cultural narrative is that you can't be content if you're successful, because contentment will stop you from striving. That's definitely a narrative, but I'm not sure it's true."</p>
-      </div>
+  <article class="ep-body">
+    <div class="ep-summary">
+      <p>Kahran and Divya break down what it means to be successful -- and to have been successful and no longer be so. When do our cultural definitions permeate our feelings about successful? And when do they preclude achievement in success? What does it mean to have achievement in success? This second episode in the series about success is scintillating, provocative and guaranteed to leave your head scratching.</p>
     </div>
-    <details class="ep-transcript">
-        <summary>Read full transcript</summary>
-        <div class="transcript-content">
-          <p>Hi, I'm Divya. Hi, I'm Kahran. And this is... Thinking. I'm thinking.</p>
+  </article>
+  <section class="ep-quotes">
+    <span class="ep-quotes-label">notable moments</span>
+    <div class="ep-quote-grid">
+      <blockquote class="ep-quote"><p>When you haven't had a good definition for the outcome you're trying to achieve, it's hard to feel successful. Feeling successful and feeling content are different things.</p></blockquote>
+      <blockquote class="ep-quote"><p>The cultural narrative is that you can't be content if you're successful, because contentment will stop you from striving. That's definitely a narrative, but I'm not sure it's true.</p></blockquote>
+    </div>
+  </section>
+  <details class="ep-transcript">
+    <summary>Read full transcript</summary>
+    <div class="ep-transcript-content">
+      <p>Hi, I'm Divya. Hi, I'm Kahran. And this is... Thinking. I'm thinking.</p>
       <p>I'm thinking. Welcome to this episode of Thinking on Thinking. Today Kahran and I continue our foray into what is success, what makes people feel successful, what makes us feel successful, and other questions of similar nature. We hope you enjoy.</p>
       <p>The thing I was thinking about was that when you haven't had a good definition for the outcome you're trying to achieve, it's hard to feel successful. Because I think there's a different thing between feeling successful and feeling content. Correct. I qualitatively know that there is a difference, but how do you articulate it?</p>
       <p>So yesterday, as I was mentioning before we started recording, Gorev and I are doing this couple's learning how to do massage. And at the beginning, the person who was instructing, he had us all sit down and remind everyone our names, our pronouns. And he was also asking, how do you feel and maybe just share one feeling that you have</p>
@@ -353,74 +435,58 @@
       <p>it doesn't bring as true to me yet. And maybe that's just how I am today. I think that is why, like, you know, we probably felt like we can dedicate an entire season to this topic. Because it's like endlessly fascinating. Where does it come from? And like, it's super cohesive in our culture. Like, we are such a successful society. We've always been, right? Survival of the pedestrian, whatnot.</p>
       <p>I think we were, we were talking about thinking about going towards the stories we tell ourselves about success. And I feel like that might be really interesting. I think even just dwelling into, like, what stories are the stories of successful people, right? Like, what stories get passed on in that way? And then also, yeah, what are the stories that you tell yourself about what are the best periods that have been really successful for you?</p>
       <p>Thank you for thinking with us. Visit Thinking on Thinking on the Web at joys.studio to get show notes, past episodes and transcripts. Before you go, can you do me one small favor? Go online right now and share the episode with one person who you think would love it. Until next time, bye.</p>
-        </div>
-      </details>
     </div>
-    <div class="ep-listen-links">
-      <h3>Listen on</h3>
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Expectations--Definitions-of-Success-Part-2-e2rsgfn" target="_blank" rel="noopener">Spotify &rarr;</a>
-      <a href="https://podcasts.apple.com/us/podcast/thinking-on-thinking/id1636574012" target="_blank" rel="noopener">Apple Podcasts &rarr;</a>
-    </div>
-  </div>
+  </details>
 
-  <nav class="ep-nav"><div class="ep-nav-inner"><a href="../podcast.html"><span class="ep-nav-label">Back to</span>All Episodes</a><a href="unraveling-purpose-success-part-4.html" class="ep-nav-next"><span class="ep-nav-label">Newer</span>Unraveling Purpose & Success: Part 4 &rarr;</a></div></nav>
+  <nav class="ep-nav-bar" aria-label="Episode navigation">
+    <a href="../podcast.html">
+      <span class="label">Back to</span>
+      All episodes
+    </a>
+    <a class="next" href="unraveling-purpose-success-part-4.html">
+      <span class="label">Newer</span>
+      NewerUnraveling Purpose &amp; Success: Part 4 →
+    </a>
+  </nav>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-brand">
-        <h3>Joyus Studio</h3>
-        <p>A studio that thinks — and makes.</p>
-      </div>
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="../home.html">Home</a></li>
-          <li><a href="../work/index.html">Work</a></li>
-          <li><a href="../comics/index.html">Comics</a></li>
-          <li><a href="../podcast.html">Podcast</a></li>
-          <li><a href="../services.html">Services</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
-        </ul>
-      </nav>
-      <div class="footer-themes">
-        <h4>Themes</h4>
-        <a href="../hub-story.html">Finding Your Story</a>
-        <a href="../hub-building.html">Building Something That Matters</a>
-        <a href="../hub-behavior.html">How People Actually Behave</a>
-        <a href="../hub-play.html">Play as Practice</a>
-        <a href="../hub-games.html">Game Design Thinking</a>
-        <a href="../hub-creative.html">Drawing Outside the Lines</a>
-      </div>
-      <div class="footer-contact">
-        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
-    </div>
-  </footer>
+  <section class="closing">
+    <span class="dot dx1 d-pink"></span>
+    <span class="dot dx2 d-cyan"></span>
+    <span class="dot dx3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h3>Heard something that got you thinking? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
 
-  <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
-    if (hamburger) {
-      hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        hamburger.classList.toggle('active');
-      });
-      document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-          navMenu.classList.remove('active');
-          hamburger.classList.remove('active');
-        });
-      });
-    }
-    const nav = document.querySelector('.nav-bar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 0) nav.classList.add('scrolled');
-      else nav.classList.remove('scrolled');
-    });
-  </script>
-  <script src="../shape-echo.js"></script>
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
 </body>
 </html>
