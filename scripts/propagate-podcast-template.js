@@ -1,17 +1,187 @@
-<!DOCTYPE html>
+#!/usr/bin/env node
+// Walks /podcast/, reads each old-template episode page, extracts the
+// content (title, S/E, date, duration, tags, description, embed iframe,
+// notable quotes, transcript paragraphs, listen links, prev/next nav),
+// and rewrites it using the new podcast template (mirrors episode 503,
+// which we hand-designed as the canonical preview).
+//
+// Skips: archive.html, and 503 itself (already in the new template).
+//
+// Run after editing the template inside this script.
+
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '..');
+const PODCAST_DIR = path.join(ROOT, 'podcast');
+const TEMPLATE_FILE = '503-building-and-selling-a-food-business-with-smiqql-s-dina-holzapfel.html';
+
+// ---------- helpers ----------
+function htmlEscape(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+function attrEscape(s) {
+  return htmlEscape(s);
+}
+
+// ---------- extractors ----------
+function extractTitle(html) {
+  const m = html.match(/<title>([^<]+)<\/title>/);
+  if (!m) return '';
+  return m[1]
+    .replace(/\s*[—-]\s*Thinking on Thinking.*$/i, '')
+    .replace(/\s*[—-]\s*Joyus Studio.*$/i, '')
+    .trim();
+}
+function extractMeta(html) {
+  const m = html.match(/<div class="ep-meta">([\s\S]*?)<\/div>/);
+  if (!m) return { se: '', date: '', dur: '' };
+  const spans = [...m[1].matchAll(/<span>([^<]+)<\/span>/g)].map(s => s[1].trim());
+  // Heuristic: SnEn pattern, then date (contains comma or year), then dur (contains 'min')
+  let se = '', date = '', dur = '';
+  for (const s of spans) {
+    if (/^S\d+E\d+/i.test(s) && !se) { se = s; }
+    else if (/min/i.test(s) && !dur) { dur = s; }
+    else if (!date) { date = s; }
+  }
+  return { se, date, dur };
+}
+function extractTags(html) {
+  const m = html.match(/<div class="ep-tags">([\s\S]*?)<\/div>/);
+  if (!m) return [];
+  return [...m[1].matchAll(/<span class="ep-tag">([^<]+)<\/span>/g)].map(s => s[1].trim());
+}
+function extractDescriptionParas(html) {
+  // ep-content > <p>...</p> ... before iframe or transcript-section
+  const ec = html.match(/<div class="ep-content">([\s\S]*?)(?:<iframe|<div class="transcript-section">|<details)/);
+  if (!ec) return [];
+  return [...ec[1].matchAll(/<p>([\s\S]*?)<\/p>/g)]
+    .map(p => p[1].trim())
+    .filter(p => p && p !== '<br>' && p.replace(/<[^>]+>/g, '').trim());
+}
+function extractDescriptionMeta(html) {
+  const m = html.match(/<meta[^>]+property="og:description"[^>]+content="([^"]+)"/);
+  return m ? m[1] : '';
+}
+function extractIframe(html) {
+  // The whole iframe tag
+  const m = html.match(/<iframe[\s\S]*?<\/iframe>/);
+  return m ? m[0] : '';
+}
+function extractIframeSrc(html) {
+  const m = html.match(/<iframe[^>]*src="([^"]+)"/);
+  return m ? m[1] : '';
+}
+function extractQuotes(html) {
+  return [...html.matchAll(/<div class="ep-quote">\s*<p>([\s\S]*?)<\/p>\s*<\/div>/g)]
+    .map(q => q[1].trim().replace(/^["“”]|["“”]$/g, ''));
+}
+function extractTranscriptParas(html) {
+  const m = html.match(/<div class="transcript-content">([\s\S]*?)<\/div>\s*<\/details>/);
+  if (!m) return [];
+  return [...m[1].matchAll(/<p>([\s\S]*?)<\/p>/g)]
+    .map(p => p[1].trim())
+    .filter(p => p && p.replace(/<[^>]+>/g, '').trim());
+}
+function extractListenLinks(html) {
+  const links = {};
+  // Spotify (older Spotify-for-creators URL OR open.spotify.com)
+  const sp = html.match(/href="([^"]*(?:spotify\.com|spotifycreators-web\.app|podcasters\.spotify\.com)[^"]*)"/i);
+  if (sp) links.spotify = sp[1];
+  const ap = html.match(/href="([^"]*podcasts\.apple\.com[^"]*)"/i);
+  if (ap) links.apple = ap[1];
+  return links;
+}
+function extractNext(html) {
+  // <a href="..." class="ep-nav-next">...</a>
+  const m = html.match(/<a href="([^"]+)"[^>]*class="ep-nav-next"[^>]*>([\s\S]*?)<\/a>/);
+  if (!m) return null;
+  const text = m[2].replace(/<[^>]+>/g, '').replace(/&rarr;|→/g, '').trim();
+  return { href: m[1], label: text };
+}
+
+// ---------- template ----------
+function buildPage(d) {
+  const title = htmlEscape(d.title);
+  const og = htmlEscape(d.descMeta || d.title);
+  const url = `https://kh9010.github.io/joyus-website/podcast/${d.filename}`;
+  const seBlock = d.se ? ` <span class="se">· ${htmlEscape(d.se)}</span>` : '';
+  const tagsHtml = d.tags.length
+    ? `<span class="ep-tags">${d.tags.map(t => `<span class="ep-tag">${htmlEscape(t)}</span>`).join('')}</span>`
+    : '';
+  const metaSpans = [d.date, d.dur].filter(Boolean).map(s => `<span>${htmlEscape(s)}</span>`).join('');
+
+  const descHtml = d.descParas.length
+    ? d.descParas.map(p => `      <p>${p}</p>`).join('\n')
+    : '      <p>—</p>';
+
+  // Player block: prefer the original iframe (carries the apple-podcasts embed), fallback to nothing
+  const playerHtml = d.iframeSrc
+    ? `    <iframe
+      allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+      height="175"
+      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+      src="${attrEscape(d.iframeSrc)}"
+      loading="lazy"
+      title="Podcast player">
+    </iframe>`
+    : '';
+
+  const listenHtml = (d.listen.spotify || d.listen.apple)
+    ? `    <div class="ep-listen">
+      <span class="ep-listen-label">listen elsewhere</span>
+      ${d.listen.spotify ? `<a href="${attrEscape(d.listen.spotify)}" target="_blank" rel="noopener">Spotify →</a>` : ''}
+      ${d.listen.apple ? `<a href="${attrEscape(d.listen.apple)}" target="_blank" rel="noopener">Apple Podcasts →</a>` : ''}
+    </div>`
+    : '';
+
+  const playerSection = (playerHtml || listenHtml)
+    ? `\n  <section class="ep-player">\n${playerHtml}\n${listenHtml}\n  </section>`
+    : '';
+
+  const quotesHtml = d.quotes.length
+    ? `\n  <section class="ep-quotes">
+    <span class="ep-quotes-label">notable moments</span>
+    <div class="ep-quote-grid">
+${d.quotes.map(q => `      <blockquote class="ep-quote"><p>${q}</p></blockquote>`).join('\n')}
+    </div>
+  </section>`
+    : '';
+
+  const transcriptHtml = d.transcriptParas.length
+    ? `\n  <details class="ep-transcript">
+    <summary>Read full transcript</summary>
+    <div class="ep-transcript-content">
+${d.transcriptParas.map(p => `      <p>${p}</p>`).join('\n')}
+    </div>
+  </details>`
+    : '';
+
+  const nextHtml = d.next
+    ? `<a class="next" href="${attrEscape(d.next.href)}">
+      <span class="label">Newer</span>
+      ${htmlEscape(d.next.label)} →
+    </a>`
+    : '';
+
+  return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="We have loved publishing the first season of Thinking on Thinking. We will be back in Jan 2023 with Season 2, where we will dive deeper in ideas around motivati">
-  <meta property="og:title" content="Season One Wrapped! — Thinking on Thinking">
-  <meta property="og:description" content="We have loved publishing the first season of Thinking on Thinking. We will be back in Jan 2023 with Season 2, where we will dive deeper in ideas around motivati">
+  <meta name="description" content="${og}">
+  <meta property="og:title" content="${title} — Thinking on Thinking">
+  <meta property="og:description" content="${og}">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/podcast/season-one-wrapped.html">
+  <meta property="og:url" content="${url}">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/podcast-cover.jpg">
   <meta name="twitter:card" content="summary">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/podcast/season-one-wrapped.html">
-  <title>Season One Wrapped! — Thinking on Thinking — Joyus Studio</title>
+  <link rel="canonical" href="${url}">
+  <title>${title} — Thinking on Thinking — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -115,7 +285,7 @@
       box-shadow: 0 2px 8px rgba(44, 53, 68, 0.04); position: relative;
     }
     .ep-quote::before {
-      content: "\201C"; position: absolute; top: 0.4rem; left: 1rem;
+      content: "\\201C"; position: absolute; top: 0.4rem; left: 1rem;
       font-family: 'Caveat', cursive; font-size: 3rem; color: var(--pink);
       opacity: 0.18; line-height: 1;
     }
@@ -182,76 +352,6 @@
 <body>
 
 <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../") -->
-<style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  }
-  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
-  .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-links {
-    display: flex; gap: 1.75rem; align-items: center;
-    list-style: none; padding: 0; margin: 0;
-  }
-  .nav .nav-links a {
-    font-size: 0.92rem;
-    color: #54606F;
-    text-decoration: none;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .nav .nav-links a:hover { color: #E91E7B; }
-  .nav .nav-links a.active {
-    color: #2C3544;
-    font-weight: 500;
-    border-bottom-color: #E91E7B;
-  }
-  .nav .nav-cta { color: #2C3544; font-weight: 500; }
-  .nav .nav-cta:hover { color: #E91E7B; }
-  @media (max-width: 720px) {
-    .nav .nav-links { gap: 1rem; }
-    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
-  }
-</style>
-<nav class="nav">
-  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
-  <div class="nav-links">
-    <a href="../work/" data-nav="work">Work</a>
-    <a href="../services.html" data-nav="services">Services</a>
-    <a href="../podcast.html" data-nav="podcast">Podcast</a>
-    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
-  </div>
-</nav>
-<script>
-  (function(){
-    var path = window.location.pathname;
-    var active = null;
-    if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services\.html/.test(path)) active = 'services';
-    else if (/podcast/.test(path)) active = 'podcast';
-    if (active) {
-      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
-      }
-    }
-  })();
-</script>
 <!--END:NAV-->
 
   <header class="ep-hero">
@@ -260,58 +360,27 @@
     <span class="dot dh3 d-yellow"></span>
     <span class="dot dh4 d-yellow"></span>
     <div class="ep-hero-inner">
-      <span class="ep-eyebrow">thinking on thinking <span class="se">· S1E11</span></span>
-      <h1>Season One Wrapped!</h1>
+      <span class="ep-eyebrow">thinking on thinking${seBlock}</span>
+      <h1>${title}</h1>
       <p class="ep-meta">
-        <span>December 24, 2022</span><span>0 min</span>
-        <span class="ep-tags"><span class="ep-tag">behavior</span></span>
+        ${metaSpans}
+        ${tagsHtml}
       </p>
     </div>
-  </header>
-  <section class="ep-player">
-    <iframe
-      allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-      height="175"
-      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-      src="https://open.spotify.com/embed/episode/2orXCesxgZpFSEQUwEJh6M?utm_source=generator&amp;theme=0"
-      loading="lazy"
-      title="Podcast player">
-    </iframe>
-    <div class="ep-listen">
-      <span class="ep-listen-label">listen elsewhere</span>
-      <a href="https://podcasters.spotify.com/pod/show/joyus-studio/episodes/Season-One-Wrapped-e1sllnc" target="_blank" rel="noopener">Spotify →</a>
-      <a href="https://podcasts.apple.com/us/podcast/thinking-on-thinking/id1636574012" target="_blank" rel="noopener">Apple Podcasts →</a>
-    </div>
-  </section>
+  </header>${playerSection}
 
   <article class="ep-body">
     <div class="ep-summary">
-      <p>—</p>
+${descHtml}
     </div>
-  </article>
-  <section class="ep-quotes">
-    <span class="ep-quotes-label">notable moments</span>
-    <div class="ep-quote-grid">
-      <blockquote class="ep-quote"><p>The best thing about doing a season is looking back and realizing your thinking has changed in ways you couldn't have predicted when you started.</p></blockquote>
-    </div>
-  </section>
-  <details class="ep-transcript">
-    <summary>Read full transcript</summary>
-    <div class="ep-transcript-content">
-      <p>Hi, I am Divya and thank you for listening to the first season of Thinking on Thinking. Kahran and I had a great time exploring so many different things, aspects of what motivates us, how we make decisions, our relationship with success and failure and factors that influence our behaviour in work and personal life. We will be back soon with the second season of the podcast where we want to dive deeper</p>
-      <p>into behaviour change and motivation and bring on guests to talk about things that they have been thinking about. So, I look forward to seeing you in our second season.</p>
-    </div>
-  </details>
+  </article>${quotesHtml}${transcriptHtml}
 
   <nav class="ep-nav-bar" aria-label="Episode navigation">
     <a href="../podcast.html">
       <span class="label">Back to</span>
       All episodes
     </a>
-    <a class="next" href="thinking-on-designing-for-the-end.html">
-      <span class="label">Newer</span>
-      NewerThinking on designing for the End →
-    </a>
+    ${nextHtml}
   </nav>
 
   <section class="closing">
@@ -324,34 +393,45 @@
   </section>
 
 <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
-<style>
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: #FAF7F2;
-    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    font-size: 0.78rem;
-    color: #8892A0;
-    letter-spacing: 0.05em;
-  }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
-</style>
-<footer class="foot">
-  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-</footer>
 <!--END:FOOT-->
 
 </body>
 </html>
+`;
+}
+
+// ---------- main ----------
+const files = fs.readdirSync(PODCAST_DIR)
+  .filter(f => f.endsWith('.html') && f !== 'archive.html' && f !== TEMPLATE_FILE);
+
+let success = 0, skipped = 0, errors = [];
+for (const f of files) {
+  try {
+    const filepath = path.join(PODCAST_DIR, f);
+    const orig = fs.readFileSync(filepath, 'utf8');
+    const data = {
+      filename: f,
+      title: extractTitle(orig),
+      descMeta: extractDescriptionMeta(orig),
+      descParas: extractDescriptionParas(orig),
+      iframeSrc: extractIframeSrc(orig),
+      quotes: extractQuotes(orig),
+      transcriptParas: extractTranscriptParas(orig),
+      listen: extractListenLinks(orig),
+      next: extractNext(orig),
+      tags: extractTags(orig),
+      ...extractMeta(orig),
+    };
+    if (!data.title) { skipped++; continue; }
+    const html = buildPage(data);
+    fs.writeFileSync(filepath, html);
+    success++;
+  } catch (e) {
+    errors.push(`${f}: ${e.message}`);
+  }
+}
+console.log(`rebuilt ${success}, skipped ${skipped}, errors ${errors.length}`);
+if (errors.length) {
+  console.log('\nErrors:');
+  for (const e of errors) console.log('  ' + e);
+}

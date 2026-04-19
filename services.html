@@ -31,51 +31,7 @@
   }
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
 
-  /* ============ NAV ============ */
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem var(--x);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    backdrop-filter: blur(8px);
-  }
-  .nav-logo {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .nav-logo img {
-    height: 32px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
-  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
-  .nav-links a:hover { color: var(--pink); }
-  .nav-cta {
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 2px;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .nav-cta:hover { border-bottom-color: var(--pink); }
-  @media (max-width: 720px) {
-    .nav-links { gap: 1rem; }
-    .nav-links a:not(.nav-cta) { display: none; }
-  }
-  .nav-ch {
-    font-size: 0.82rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: var(--ink-soft);
-    font-variant-numeric: tabular-nums;
-  }
-  .nav-ch span { color: var(--ink); }
+  /* nav styles come from /_partials/nav.html */
 
   /* progress thread */
   .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
@@ -103,13 +59,39 @@
 
   /* ============ HERO ============ */
   .hero {
-    min-height: 100vh;
+    min-height: 58vh;
     padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
     position: relative;
     overflow: hidden;
+    border-bottom: 1px solid rgba(44, 53, 68, 0.12);
+  }
+  .hero-meta {
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-fade);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(44, 53, 68, 0.12);
+    max-width: 52ch;
+    position: relative; z-index: 2;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .hero-meta span + span::before {
+    content: " → ";
+    color: var(--pink);
+    padding: 0 0.4em;
+  }
+  .hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin-top: 1rem;
+    position: relative; z-index: 2;
   }
   .hero-eyebrow {
     font-size: 0.85rem;
@@ -404,15 +386,53 @@
     font-size: 1.15rem;
   }
 
-  /* Per-section duration colors — pulls the section accent */
-  .v-1 .svc-dur, .v-1 .explain { color: var(--pink); }
-  .v-2 .svc-dur, .v-2 .svc-roman li::before, .v-2 .explain { color: var(--cyan); }
-  .v-3 .svc-dur, .v-3 .explain { color: var(--yellow); }
-  .v-3 .svc-flow .svc-dur { color: var(--ink); font-weight: 600; }
-  .v-3 .explain { color: var(--ink-soft); }
-  .v-4 .svc-dur, .v-4 .explain { color: var(--ink); }
-  .v-5 .svc-dur, .v-5 .explain { color: var(--pink); }
-  .v-6 .svc-dur, .v-6 .explain { color: var(--cyan); }
+  /* ============ Verb section colors — each verb is its own bold field ============ */
+  .v-1 { background: var(--pink); }
+  .v-2 { background: var(--ink); }
+  .v-3 { background: var(--cyan); }
+  .v-4 { background: var(--yellow); }
+  .v-5 { background: var(--pink); }
+  .v-6 { background: var(--cyan); }
+
+  /* Sections with dark / saturated bg use light text */
+  .v-1, .v-2, .v-5 {
+    --on-bg: #fff;
+    --on-bg-soft: rgba(255, 255, 255, 0.78);
+    --on-bg-fade: rgba(255, 255, 255, 0.55);
+    --on-bg-line: rgba(255, 255, 255, 0.22);
+    --on-bg-accent: var(--yellow);
+  }
+  /* Sections with light bg use ink text. Accent is yellow except on the
+     yellow section itself, where ink does the contrast work — pink+cyan
+     was vibrating, so pink is off the table for the cyan sections. */
+  .v-3, .v-6 {
+    --on-bg: var(--ink);
+    --on-bg-soft: rgba(44, 53, 68, 0.78);
+    --on-bg-fade: rgba(44, 53, 68, 0.55);
+    --on-bg-line: rgba(44, 53, 68, 0.18);
+    --on-bg-accent: var(--yellow);
+  }
+  .v-4 {
+    --on-bg: var(--ink);
+    --on-bg-soft: rgba(44, 53, 68, 0.78);
+    --on-bg-fade: rgba(44, 53, 68, 0.55);
+    --on-bg-line: rgba(44, 53, 68, 0.18);
+    --on-bg-accent: var(--ink);
+  }
+  /* dots fade so they don't fight the bg */
+  .verb .dot { opacity: 0.4; }
+
+  .verb .verb-word          { color: var(--on-bg); }
+  .verb .verb-word::after   { color: var(--on-bg-accent); }
+  .verb .manifesto          { color: var(--on-bg); }
+  .verb .manifesto em       { color: var(--on-bg-accent); }
+  .verb .explain            { color: var(--on-bg-soft); border-left-color: var(--on-bg-line); }
+  .verb .explain em         { color: var(--on-bg); }
+  .verb .verb-label         { color: var(--on-bg-fade); }
+  .verb .verb-label .dot-mark { background: var(--on-bg-accent) !important; }
+  .verb .services .svc-name { color: var(--on-bg); }
+  .verb .svc-stack li       { border-top-color: var(--on-bg-line); }
+  .verb .svc-dur            { color: var(--on-bg-soft); }
 
   /* ============ Per-section dot accents (kept) ============ */
   .v-1 .dot-a1 { width: 380px; height: 380px; top: 4%; right: -8%; }
@@ -541,16 +561,7 @@
     position: relative; z-index: 2;
   }
 
-  .foot {
-    padding: 1.5rem var(--x) 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
+  /* foot styles come from /_partials/foot.html */
 </style>
 </head>
 <body>
@@ -637,8 +648,12 @@
     <span class="dot dot-h3 d-cyan"></span>
     <span class="dot dot-h4 d-pink"></span>
 
-    <span class="hero-eyebrow">the studio</span>
+    <span class="hero-eyebrow">services</span>
     <h1 class="hero-title">What we do, <em>when you ask</em></h1>
+    <p class="hero-meta">
+      <span>Diagnose</span><span>Research</span><span>Shape</span><span>Evolve</span>
+    </p>
+    <p class="hero-sub">Six things we do — built around a four-step way of thinking through every project.</p>
   </section>
 
   <!-- =========== 01 ADVISE =========== -->

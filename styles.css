@@ -857,7 +857,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 }
 .cs-cover-image {
     background-size: cover;
-    background-position: center;
+    background-position: left center;
     background-color: #e7e5e1;
 }
 .cs-cover-meta {
@@ -1443,84 +1443,9 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     --x: clamp(1.5rem, 4vw, 3rem);
 }
 
-.nav {
-    padding: 1.25rem var(--x);
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    background: transparent;
-    position: static;
-    box-shadow: none;
-    border: 0;
-}
-.nav .nav-logo {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-    padding: 0;
-    background: none;
-    border-radius: 0;
-}
-.nav .nav-logo::after { display: none; }
-.nav .nav-logo img { height: 32px; width: auto; display: block; }
-.nav .nav-links {
-    display: flex;
-    gap: 1.75rem;
-    align-items: center;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: static;
-    flex-direction: row;
-    height: auto;
-    background: none;
-    width: auto;
-}
-.nav .nav-links a {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-weight: 400;
-    padding: 0;
-}
-.nav .nav-links a::after { display: none; }
-.nav .nav-links a:hover { color: var(--pink); }
-.nav .nav-cta {
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 2px;
-    color: var(--ink);
-    font-weight: 500;
-}
-.nav .nav-cta:hover { border-bottom-color: var(--pink); color: var(--ink); }
-
-.foot {
-    padding: 1.5rem var(--x) 2rem;
-    max-width: 1400px;
-    margin: 4rem auto 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-    flex-wrap: wrap;
-    gap: 1rem;
-    background: transparent;
-    border-top: 1px solid var(--rule);
-}
-.foot a { color: var(--ink-fade); text-decoration: none; }
-.foot a:hover { color: var(--pink); }
-
-@media (max-width: 720px) {
-    .nav .nav-links { gap: 1rem; }
-    .nav .nav-links a:not(.nav-cta) { display: none; }
-}
+/* .nav and .foot live in /_partials/ — synced via scripts/sync-chrome.js
+   so every page wears the exact same chrome. Don't redeclare those
+   selectors here. */
 
 /* ===== JOY LAYER for case studies =====
    Warm background + scattered colored dots + Caveat asides +
