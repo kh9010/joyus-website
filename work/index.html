@@ -103,18 +103,18 @@
     border-bottom: 1px solid var(--rule);
   }
   .hero-eyebrow {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--ink-soft);
+    color: var(--ink);
     margin-bottom: 1.5rem;
     display: inline-flex; align-items: center; gap: 0.75rem;
     position: relative; z-index: 2;
   }
   .hero-eyebrow::before {
     content: "";
-    width: 10px; height: 10px;
+    width: 12px; height: 12px;
     border-radius: 50%;
     background: var(--yellow);
   }
@@ -244,8 +244,6 @@
     aspect-ratio: 4/3;
     border-radius: 14px;
     overflow: hidden;
-    box-shadow: 0 18px 40px -10px rgba(44, 53, 68, 0.24),
-                0 2px 6px rgba(44, 53, 68, 0.08);
     width: 100%;
     align-self: stretch;
   }
@@ -456,15 +454,78 @@
 
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
-  <nav class="nav">
-    <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
-    <div class="nav-links">
-      <a href="index.html">Work</a>
-      <a href="../services.html">Services</a>
-      <a href="../podcast.html">Podcast</a>
-      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
-    </div>
-  </nav>
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+  @media (max-width: 720px) {
+    .nav .nav-links { gap: 1rem; }
+    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <div class="nav-links">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+  })();
+</script>
+<!--END:NAV-->
 
   <!-- =========== HERO =========== -->
   <section class="hero">
@@ -475,7 +536,7 @@
     <span class="hero-eyebrow">the work</span>
     <h1>We think with everyone. <em>We build with a few.</em></h1>
     <p class="hero-meta">
-      <span>Here are those few</span><span>2023 — 2026</span><span>with founders, nonprofits, and people making good things</span>
+      <span>Ten projects, end to end</span><span>since 2021</span><span>with founders, nonprofits, and people making good things</span>
     </p>
   </section>
 
@@ -498,12 +559,11 @@
           <img src="../images/work-covers/tomboyx.jpg" alt="TomboyX" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">01.</span>
           <h2 class="p-name">TomboyX</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">$5M raised</div>
           <div class="p-tags"><span>Story</span><span>Investor Pitch</span></div>
-          <div class="p-meta"><span>Seattle · $25M ARR apparel</span><span>2025 · 8 wks</span></div>
+          <div class="p-meta"><span>Seattle · $25M ARR apparel</span></div>
           <a class="p-link" href="tomboyx.html">read the story →</a>
         </div>
       </div>
@@ -519,12 +579,11 @@
           <img src="../images/work-covers/klydo.jpg" alt="Klydo" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">02.</span>
           <h2 class="p-name">Klydo</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">0 → 150 / day</div>
           <div class="p-tags"><span>Product</span><span>Brand</span><span>GTM</span></div>
-          <div class="p-meta"><span>Bangalore · pre-Series A</span><span>2025 · 10 wks</span></div>
+          <div class="p-meta"><span>Bangalore · pre-Series A</span></div>
           <a class="p-link" href="klydo.html">read the story →</a>
         </div>
       </div>
@@ -540,12 +599,11 @@
           <img src="../images/work-covers/convegenius.jpg" alt="ConveGenius" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">03.</span>
           <h2 class="p-name">ConveGenius</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">2× completion</div>
           <div class="p-tags"><span>Research</span><span>Gamification</span><span>Behavior</span></div>
-          <div class="p-meta"><span>India edtech · 100K students</span><span>2025 · 8 wks</span></div>
+          <div class="p-meta"><span>India edtech · 100K students</span></div>
           <a class="p-link" href="convegenius.html">read the story →</a>
         </div>
       </div>
@@ -561,12 +619,11 @@
           <img src="../images/work-covers/agemo.jpg" alt="Agemo" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">04.</span>
           <h2 class="p-name">Agemo</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">3.2× session completion</div>
           <div class="p-tags"><span>Research</span><span>Strategy</span><span>Interface</span></div>
-          <div class="p-meta"><span>UK · pre-Series A GenAI</span><span>2025 · 10 wks</span></div>
+          <div class="p-meta"><span>UK · pre-Series A GenAI</span></div>
           <a class="p-link" href="agemo.html">read the story →</a>
         </div>
       </div>
@@ -582,12 +639,11 @@
           <img src="../images/work-covers/tatsam.jpg" alt="Tatsam" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">05.</span>
           <h2 class="p-name">Tatsam</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">3× week-1 retention</div>
           <div class="p-tags"><span>Visual System</span><span>Product</span><span>Brand</span></div>
-          <div class="p-meta"><span>Delhi · India seed, mental health</span><span>2024 · 14 wks</span></div>
+          <div class="p-meta"><span>Delhi · India seed, mental health</span></div>
           <a class="p-link" href="tatsam.html">read the story →</a>
         </div>
       </div>
@@ -603,12 +659,11 @@
           <img src="../images/work-covers/pratham.jpg" alt="Pratham USA" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">06.</span>
           <h2 class="p-name">Pratham USA</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">6-stage donor journey</div>
           <div class="p-tags"><span>Research</span><span>Process</span><span>Information Flow</span></div>
-          <div class="p-meta"><span>NYC · $50M nonprofit</span><span>2024 · 12 mo</span></div>
+          <div class="p-meta"><span>NYC · $50M nonprofit</span></div>
           <a class="p-link" href="pratham.html">read the story →</a>
         </div>
       </div>
@@ -624,12 +679,11 @@
           <img src="../images/work-covers/secret-senses.jpg" alt="Secret Senses" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">07.</span>
           <h2 class="p-name">Secret Senses</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">DTC + 2 retail</div>
           <div class="p-tags"><span>Identity</span><span>Illustration</span><span>Packaging</span></div>
-          <div class="p-meta"><span>India · bootstrapped hair care</span><span>2024 · 6 wks</span></div>
+          <div class="p-meta"><span>India · bootstrapped hair care</span></div>
           <a class="p-link" href="secret-senses.html">read the story →</a>
         </div>
       </div>
@@ -645,12 +699,11 @@
           <img src="../images/work-covers/xtdb.jpg" alt="XTDB" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">08.</span>
           <h2 class="p-name">XTDB</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">formerly CRUX</div>
           <div class="p-tags"><span>Re-branding</span><span>Brand Guidelines</span></div>
-          <div class="p-meta"><span>Canada · ~$10M ARR database</span><span>2024 · 8 wks</span></div>
+          <div class="p-meta"><span>Canada · ~$10M ARR database</span></div>
           <a class="p-link" href="xtdb.html">read the story →</a>
         </div>
       </div>
@@ -666,12 +719,11 @@
           <img src="../images/work-covers/gliitch.jpg" alt="Gliitch" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">09.</span>
           <h2 class="p-name">Gliitch</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">two-color glitch brand</div>
           <div class="p-tags"><span>Moodboarding</span><span>Branding</span><span>Media</span></div>
-          <div class="p-meta"><span>Hong Kong · bootstrapped</span><span>2024 · 5 wks</span></div>
+          <div class="p-meta"><span>Hong Kong · bootstrapped</span></div>
           <a class="p-link" href="gliitch.html">read the story →</a>
         </div>
       </div>
@@ -687,12 +739,11 @@
           <img src="../images/work-covers/rachna-nivas.jpg" alt="Rachna Nivas" />
         </div>
         <div class="p-text">
-          <span class="p-big-no">10.</span>
           <h2 class="p-name">Rachna Nivas</h2>
           <div class="p-rule"></div>
           <div class="p-outcome">3× inquiries</div>
           <div class="p-tags"><span>Identity</span><span>Leverage</span><span>Artifacts</span></div>
-          <div class="p-meta"><span>NYC · solo Kathak practitioner</span><span>2024 · 6 wks</span></div>
+          <div class="p-meta"><span>NYC · solo Kathak practitioner</span></div>
           <a class="p-link" href="rachna-nivas.html">read the story →</a>
         </div>
       </div>
@@ -716,10 +767,35 @@
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
 
-  <footer class="foot">
-    <span>© 2026 · Joyus Studio</span>
-    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-  </footer>
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
 
   <script>
     // Fallback for browsers without CSS scroll-timeline (old Firefox/Safari):
