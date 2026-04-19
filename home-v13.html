@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  /* nav and foot styles come from /_partials/ — synced via scripts/sync-chrome.js */
+
+  /* DOTS */
+  .dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .d-pink   { background: var(--pink); }
+  .d-cyan   { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
+
+  /* ============ HERO — sparse stage, dots-led ============ */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    padding: clamp(5rem, 10vh, 8rem) 0 clamp(2.5rem, 5vh, 4rem);
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-inner {
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--x);
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 2rem;
+  }
+  /* Scattered playful dots — fill the negative space the sparse layout opens up */
+  .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); top: -10%; right: -10%; opacity: 0.95; }
+  .hero .dh2 { width: 64px; height: 64px; top: 20%; right: 22%; }
+  .hero .dh3 { width: 28px; height: 28px; top: 14%; left: 28%; }
+  .hero .dh4 { width: 140px; height: 140px; bottom: 8%; right: 12%; }
+  .hero .dh5 { width: 38px; height: 38px; bottom: 22%; left: 14%; }
+  .hero .dh6 { width: 18px; height: 18px; top: 56%; left: 4%; }
+  .hero .dh7 { width: 22px; height: 22px; top: 64%; right: 6%; }
+  .hero .dh8 { width: 12px; height: 12px; top: 38%; right: 36%; }
+  .hero .dh9 { width: 88px; height: 88px; bottom: -20px; left: 18%; opacity: 0.8; }
+
+  /* eyebrow tucks top-left; small + tight */
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    align-self: start;
+    justify-self: start;
+  }
+  .hero-eyebrow::before {
+    content: "";
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+
+  /* === V13: Sparse stage. Input is the center of gravity ===
+     Eyebrow top-left, tagline bottom-right, input dead center.
+     Dots fill the air. */
+  .hero-stage {
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    max-width: 820px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .hero-h1 {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+    line-height: 1;
+    letter-spacing: -0.005em;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0;
+    text-align: left;
+  }
+  .hero-fill {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4em;
+  }
+  .hero-fill #intentInput {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(2.6rem, 6.5vw, 5.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    color: var(--pink);
+    background: transparent;
+    border: 0;
+    border-bottom: 6px solid var(--ink);
+    outline: none;
+    padding: 0 0.15em 0.1em;
+    transition: border-color 0.25s;
+  }
+  .hero-fill #intentInput::placeholder {
+    color: var(--ink-fade);
+    font-style: italic;
+    opacity: 0.45;
+  }
+  .hero-fill #intentInput:focus { border-bottom-color: var(--pink); }
+  .hero-fill .submit {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    color: var(--ink-fade);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s, transform 0.25s;
+    font-family: var(--sans);
+    font-weight: 500;
+    flex-shrink: 0;
+    align-self: center;
+  }
+  .hero-fill .submit:hover { color: var(--pink); transform: translateX(4px); }
+  .intent-wrap > .intent-box { display: none; }
+
+  /* INTENT BOX — the signature pill */
+  .intent-wrap {
+    max-width: 680px;
+    position: relative;
+    z-index: 20;
+    margin-bottom: 2rem;
+  }
+  .intent-annotation {
+    position: absolute;
+    bottom: calc(100% + 0.25rem);
+    left: 2rem;
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--pink);
+    transform: rotate(-2deg);
+    line-height: 1.1;
+    pointer-events: none;
+  }
+  .intent-annotation::after {
+    content: "↓";
+    display: inline-block;
+    margin-left: 0.4rem;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--pink);
+    transform: translateY(4px);
+  }
+
+  .intent-box {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    box-shadow: 6px 6px 0 var(--pink);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    padding: 0.35rem 0.45rem 0.35rem 1.5rem;
+    position: relative;
+  }
+  .intent-box::before {
+    content: "›";
+    color: var(--ink-fade);
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+    line-height: 1;
+    transform: translateY(-1px);
+    transition: color 0.25s;
+  }
+  .intent-box:focus-within {
+    box-shadow: 6px 6px 0 var(--cyan);
+    transform: translate(-1px, -1px);
+  }
+  .intent-box:focus-within::before { color: var(--pink); }
+  #intentInput {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    padding: 1rem 0.5rem 1rem 0;
+    font-family: var(--sans);
+    font-size: 1.15rem;
+    color: var(--ink);
+    outline: none;
+    letter-spacing: -0.005em;
+    min-width: 0;
+  }
+  #intentInput::placeholder { color: #a9a49b; font-style: italic; }
+  .intent-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: var(--bg);
+    font-size: 1.1rem;
+    color: var(--ink);
+    flex-shrink: 0;
+    border: 0;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    font-family: inherit;
+  }
+  .intent-box:focus-within .intent-arrow {
+    background: var(--pink);
+    color: #fff;
+    transform: translateX(3px);
+  }
+
+  .intent-hint {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    margin-top: 0.85rem;
+    margin-left: 1rem;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+  .intent-hint::before {
+    content: "";
+    display: inline-block;
+    width: 22px; height: 10px;
+    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 10'><path d='M1 5 Q 8 0 14 5 T 21 5' stroke='%23E91E7B' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>") no-repeat center / contain;
+    transform: translateY(-3px);
+  }
+
+  /* SUGGESTIONS */
+  #intentSuggestions {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1.5px solid var(--ink);
+    border-radius: 18px;
+    box-shadow: 4px 4px 0 var(--ink);
+    overflow: hidden;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.22s, transform 0.22s;
+  }
+  #intentSuggestions.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .sug {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--rule);
+    transition: background 0.15s, color 0.15s;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .sug:first-child { border-top: 0; }
+  .sug:hover { background: var(--bg); color: var(--pink); }
+  .sug-text { font-size: 0.98rem; }
+  .sug-dest {
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink-fade);
+    white-space: nowrap;
+  }
+  .sug:hover .sug-dest { color: var(--pink); }
+
+  /* tagline bottom-right, Caveat italic, slight rotation */
+  .hero-tagline {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: clamp(1.25rem, 1.8vw, 1.65rem);
+    color: var(--ink);
+    margin: 0;
+    max-width: 24ch;
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    align-self: end;
+    justify-self: end;
+    text-align: right;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-tagline em {
+    font-style: normal;
+    color: var(--pink);
+  }
+
+  /* ============ CLOSING ============ */
+  .closing {
+    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--ink);
+  }
+  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+  .closing-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--yellow);
+  }
+  .closing h3 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+    max-width: 720px;
+    position: relative; z-index: 2;
+  }
+  .closing h3 em { font-style: normal; color: var(--pink); }
+  .closing h3 a {
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px;
+    color: var(--pink);
+  }
+  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .closing .hint {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--ink-fade);
+    position: relative; z-index: 2;
+  }
+
+  /* foot comes from /_partials/foot.html */
+
+  @media (max-width: 720px) {
+    .hero-h1 { font-size: clamp(3.5rem, 16vw, 6rem); }
+    .intent-annotation { font-size: 1.2rem; left: 1rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+  @media (max-width: 720px) {
+    .nav .nav-links { gap: 1rem; }
+    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="home.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <div class="nav-links">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <!-- =========== HERO — the intent moment =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-pink"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-cyan"></span>
+    <span class="dot dh4 d-cyan"></span>
+    <span class="dot dh5 d-yellow"></span>
+    <span class="dot dh6 d-pink"></span>
+    <span class="dot dh7 d-pink"></span>
+    <span class="dot dh8 d-yellow"></span>
+    <span class="dot dh9 d-cyan"></span>
+
+   <div class="hero-inner">
+    <span class="hero-eyebrow">advisory · design studio · est. 2021</span>
+
+    <div class="hero-stage">
+      <h1 class="hero-h1">i need…</h1>
+      <form class="hero-fill" onsubmit="event.preventDefault();">
+        <input id="intentInput" type="text" placeholder="something specific" autocomplete="off" aria-label="Tell us what you need" />
+        <button class="submit" type="submit" aria-label="Submit">→</button>
+      </form>
+    </div>
+
+    <div class="intent-wrap">
+      <form class="intent-box" onsubmit="event.preventDefault();" aria-hidden="true">
+        <input id="intentInputHidden" type="text" tabindex="-1" />
+      </form>
+
+      <div id="intentSuggestions" role="listbox">
+        <a class="sug" href="work/">
+          <span class="sug-text">help with a pitch deck</span>
+          <span class="sug-dest">→ TomboyX</span>
+        </a>
+        <a class="sug" href="work/">
+          <span class="sug-text">to launch a product from zero</span>
+          <span class="sug-dest">→ Klydo</span>
+        </a>
+        <a class="sug" href="work/">
+          <span class="sug-text">a brand that feels like me</span>
+          <span class="sug-dest">→ Tatsam</span>
+        </a>
+        <a class="sug" href="services.html">
+          <span class="sug-text">to just think with someone</span>
+          <span class="sug-dest">→ advisory</span>
+        </a>
+        <a class="sug" href="podcast.html">
+          <span class="sug-text">a conversation worth listening to</span>
+          <span class="sug-dest">→ the podcast</span>
+        </a>
+      </div>
+    </div>
+
+    <p class="hero-tagline">we think with everyone. <em>we build with a few.</em></p>
+   </div>
+  </section>
+
+  <!-- =========== CLOSING =========== -->
+  <section class="closing">
+    <span class="dot dx1 d-pink"></span>
+    <span class="dot dx2 d-cyan"></span>
+    <span class="dot dx3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h3>Don't know what you need? <em><a href="mailto:hello@joyus.studio">Be our friends anyway.</a></em></h3>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    const input = document.getElementById('intentInput');
+    const sug = document.getElementById('intentSuggestions');
+    input.addEventListener('focus', () => sug.classList.add('visible'));
+    input.addEventListener('blur', () => {
+      // delay to allow suggestion clicks to register
+      setTimeout(() => sug.classList.remove('visible'), 160);
+    });
+  </script>
+
+</body>
+</html>
