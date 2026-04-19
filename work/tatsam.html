@@ -89,6 +89,11 @@
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
 
   @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
     .nav-toggle { display: inline-flex; }
     .nav .nav-links {
       position: fixed;
@@ -99,9 +104,9 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: rgba(250, 247, 242, 0.97);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 505;
@@ -453,6 +458,5 @@
 </footer>
 <!--END:FOOT-->
 
-  <script src="../shape-echo.js"></script>
 </body>
 </html>

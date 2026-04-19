@@ -17,8 +17,17 @@ const PODCAST_DIR = path.join(ROOT, 'podcast');
 const TEMPLATE_FILE = '503-building-and-selling-a-food-business-with-smiqql-s-dina-holzapfel.html';
 
 // ---------- helpers ----------
-function htmlEscape(s) {
+function htmlDecode(s) {
+  // decode common entities so we don't double-encode when re-emitting
   return String(s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+function htmlEscape(s) {
+  return htmlDecode(String(s))
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')

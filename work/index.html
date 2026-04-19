@@ -206,49 +206,30 @@
   .p-d5 { width: 30px; height: 30px; top: 8%; left: 38%; }
   .p-d6 { width: 18px; height: 18px; top: 62%; right: 8%; }
   .p-d7 { width: 10px; height: 10px; bottom: 24%; left: 32%; }
+  .p-d8 { width: 8px; height: 8px; top: 48%; left: 24%; }
+  .p-d9 { width: 14px; height: 14px; bottom: 38%; right: 38%; }
+  /* hide most small dots — the original 8-dot scatter looks cluttered on
+     the wide desktop cards. Keep d2/d3/d4 only, in safe corner zones that
+     don't crowd the image. d5–d14 stay hidden on desktop; the mobile
+     media query below brings back d10–d14 for vertical cards. */
+  .p-d5, .p-d6, .p-d7, .p-d8, .p-d9,
+  .p-d10, .p-d11, .p-d12, .p-d13, .p-d14 { display: none; }
+  /* override the noisy default scatter with three clean accent dots */
+  .p-d2 { width: 14px; height: 14px; top: 8%;  right: 6%;  left: auto;  bottom: auto; z-index: 3; }
+  .p-d3 { width: 8px;  height: 8px;  top: 22%; right: 18%; left: auto;  bottom: auto; z-index: 3; }
+  .p-d4 { width: 18px; height: 18px; bottom: 10%; right: 4%; top: auto; left: auto;  z-index: 3; }
+  /* tiny per-card variation so adjacent cards don't repeat exactly */
+  .p:nth-child(2n) .p-d2 { top: 12%; right: 14%; }
+  .p:nth-child(2n) .p-d3 { top: 30%; right: 8%; }
+  .p:nth-child(2n) .p-d4 { bottom: 16%; right: 10%; }
 
-  /* pattern B — cards 2, 7 */
+  /* pattern variants only adjust the big background shape (.p-d1) per card,
+     so each card's colored cap sits on a different corner */
   .p:nth-child(5n+2) .p-d1 { top: 4%; right: -6%; left: auto; }
-  .p:nth-child(5n+2) .p-d2 { width: 36px; height: 36px; top: 22%; left: 18%; }
-  .p:nth-child(5n+2) .p-d3 { width: 18px; height: 18px; top: 70%; right: 36%; }
-  .p:nth-child(5n+2) .p-d4 { width: 24px; height: 24px; bottom: 24%; left: 14%; }
-  .p:nth-child(5n+2) .p-d5 { width: 14px; height: 14px; top: 50%; right: 16%; }
-  .p:nth-child(5n+2) .p-d6 { width: 50px; height: 50px; bottom: 10%; right: 8%; }
-  .p:nth-child(5n+2) .p-d7 { width: 12px; height: 12px; top: 12%; left: 56%; }
-
-  /* pattern C — cards 3, 8 */
   .p:nth-child(5n+3) .p-d1 { bottom: -10%; top: auto; left: -6%; }
-  .p:nth-child(5n+3) .p-d2 { width: 16px; height: 16px; top: 14%; left: 30%; }
-  .p:nth-child(5n+3) .p-d3 { width: 28px; height: 28px; bottom: 28%; right: 18%; }
-  .p:nth-child(5n+3) .p-d4 { width: 12px; height: 12px; top: 64%; left: 22%; }
-  .p:nth-child(5n+3) .p-d5 { width: 40px; height: 40px; top: 28%; right: 8%; }
-  .p:nth-child(5n+3) .p-d6 { width: 20px; height: 20px; top: 84%; left: 56%; }
-  .p:nth-child(5n+3) .p-d7 { width: 14px; height: 14px; top: 6%; right: 38%; }
-
-  /* pattern D — cards 4, 9 */
   .p:nth-child(5n+4) .p-d1 { top: -10%; right: -10%; left: auto; }
-  .p:nth-child(5n+4) .p-d2 { width: 28px; height: 28px; top: 8%; left: 16%; }
-  .p:nth-child(5n+4) .p-d3 { width: 14px; height: 14px; bottom: 18%; right: 28%; }
-  .p:nth-child(5n+4) .p-d4 { width: 36px; height: 36px; bottom: 8%; left: 26%; }
-  .p:nth-child(5n+4) .p-d5 { width: 18px; height: 18px; top: 48%; right: 6%; }
-  .p:nth-child(5n+4) .p-d6 { width: 12px; height: 12px; top: 72%; right: 42%; }
-  .p:nth-child(5n+4) .p-d7 { width: 22px; height: 22px; top: 28%; left: 48%; }
-
-  /* pattern E — cards 5, 10 */
   .p:nth-child(5n+5) .p-d1,
   .p:nth-child(5n) .p-d1 { bottom: -8%; right: -10%; top: auto; left: auto; }
-  .p:nth-child(5n+5) .p-d2,
-  .p:nth-child(5n) .p-d2 { width: 24px; height: 24px; top: 60%; left: 8%; }
-  .p:nth-child(5n+5) .p-d3,
-  .p:nth-child(5n) .p-d3 { width: 18px; height: 18px; top: 14%; left: 44%; }
-  .p:nth-child(5n+5) .p-d4,
-  .p:nth-child(5n) .p-d4 { width: 30px; height: 30px; bottom: 24%; left: 38%; }
-  .p:nth-child(5n+5) .p-d5,
-  .p:nth-child(5n) .p-d5 { width: 12px; height: 12px; top: 36%; right: 22%; }
-  .p:nth-child(5n+5) .p-d6,
-  .p:nth-child(5n) .p-d6 { width: 16px; height: 16px; top: 80%; right: 18%; }
-  .p:nth-child(5n+5) .p-d7,
-  .p:nth-child(5n) .p-d7 { width: 44px; height: 44px; top: 4%; right: 12%; }
 
   /* framed image — stretches to panel height, 4:3 or taller */
   .p-frame {
@@ -336,7 +317,7 @@
     color: var(--ink-fade);
     padding: 0 0.15em;
   }
-  /* bold pill link — full brand color, always pops above the big dot */
+  /* bold pill link — full brand color (cycle handles the bg) */
   .p-link {
     display: inline-flex;
     align-items: center;
@@ -348,12 +329,9 @@
     letter-spacing: 0.02em;
     color: #fff;
     background: var(--ink);
-    border: 2px solid var(--ink);
     align-self: flex-start;
     transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.25s;
     box-shadow: 0 7px 0 var(--ink);
-    position: relative;
-    z-index: 5;
   }
   .p-link:hover { transform: translateY(-2px); box-shadow: 0 9px 0 var(--ink); }
 
@@ -366,6 +344,13 @@
   .p:nth-child(3n+1) .p-d5      { background: var(--yellow); }
   .p:nth-child(3n+1) .p-d6      { background: var(--cyan); opacity: 0.6; }
   .p:nth-child(3n+1) .p-d7      { background: var(--pink); }
+  .p:nth-child(3n+1) .p-d8      { background: var(--cyan); }
+  .p:nth-child(3n+1) .p-d9      { background: var(--yellow); }
+  .p:nth-child(3n+1) .p-d10     { background: var(--cyan); opacity: 0.7; }
+  .p:nth-child(3n+1) .p-d11     { background: var(--pink); }
+  .p:nth-child(3n+1) .p-d12     { background: var(--yellow); opacity: 0.55; }
+  .p:nth-child(3n+1) .p-d13     { background: var(--pink); opacity: 0.7; }
+  .p:nth-child(3n+1) .p-d14     { background: var(--cyan); }
   .p:nth-child(3n+1) .p-big-no  { color: var(--pink); }
   .p:nth-child(3n+1) .p-rule    { background: var(--pink); }
   .p:nth-child(3n+1) .p-outcome { color: var(--pink); }
@@ -380,6 +365,13 @@
   .p:nth-child(3n+2) .p-d5      { background: var(--pink); }
   .p:nth-child(3n+2) .p-d6      { background: var(--yellow); opacity: 0.6; }
   .p:nth-child(3n+2) .p-d7      { background: var(--cyan); }
+  .p:nth-child(3n+2) .p-d8      { background: var(--yellow); }
+  .p:nth-child(3n+2) .p-d9      { background: var(--pink); }
+  .p:nth-child(3n+2) .p-d10     { background: var(--yellow); opacity: 0.7; }
+  .p:nth-child(3n+2) .p-d11     { background: var(--cyan); }
+  .p:nth-child(3n+2) .p-d12     { background: var(--pink); opacity: 0.55; }
+  .p:nth-child(3n+2) .p-d13     { background: var(--cyan); opacity: 0.7; }
+  .p:nth-child(3n+2) .p-d14     { background: var(--yellow); }
   .p:nth-child(3n+2) .p-big-no  { color: var(--cyan); }
   .p:nth-child(3n+2) .p-rule    { background: var(--cyan); }
   .p:nth-child(3n+2) .p-outcome { color: var(--cyan); }
@@ -394,21 +386,30 @@
   .p:nth-child(3n+3) .p-d5      { background: var(--cyan); }
   .p:nth-child(3n+3) .p-d6      { background: var(--pink); opacity: 0.6; }
   .p:nth-child(3n+3) .p-d7      { background: var(--yellow); }
+  .p:nth-child(3n+3) .p-d8      { background: var(--pink); }
+  .p:nth-child(3n+3) .p-d9      { background: var(--cyan); }
+  .p:nth-child(3n+3) .p-d10     { background: var(--pink); opacity: 0.7; }
+  .p:nth-child(3n+3) .p-d11     { background: var(--yellow); }
+  .p:nth-child(3n+3) .p-d12     { background: var(--cyan); opacity: 0.55; }
+  .p:nth-child(3n+3) .p-d13     { background: var(--yellow); opacity: 0.7; }
+  .p:nth-child(3n+3) .p-d14     { background: var(--pink); }
   .p:nth-child(3n+3) .p-big-no  { color: #c79a2a; }
   .p:nth-child(3n+3) .p-rule    { background: #c79a2a; }
   .p:nth-child(3n+3) .p-outcome { color: #c79a2a; }
   .p:nth-child(3n+3) .p-link    { background: var(--yellow); color: var(--ink); box-shadow: 0 7px 0 #a37d20; }
   .p:nth-child(3n+3) .p-link:hover { box-shadow: 0 9px 0 #a37d20; }
 
-  /* Override: button stays ink across all cycles so it's always legible
-     against the big colored dot that may sit underneath. */
-  .p-link {
-    background: var(--ink) !important;
-    color: #fff !important;
-    box-shadow: 0 7px 0 #1a212c !important;
-    border-color: var(--ink) !important;
+  /* Stretched click target: .p-link's ::after expands to fill .p-panel
+     (its nearest positioned ancestor). Keep .p-link itself static so
+     the ::after escapes to the panel. */
+  .p-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
   }
-  .p-link:hover { box-shadow: 0 9px 0 #1a212c !important; }
+  .p-panel { cursor: pointer; }
+  .p-panel:focus-within { outline: 2px solid var(--pink); outline-offset: 4px; }
 
   @media (max-width: 880px) {
     .p-panel {
@@ -423,9 +424,27 @@
     .p-text { order: 2; max-width: 100%; }
     /* drop sticky-stack on mobile — 10×100vh of pinned scroll is unusable on phones */
     .p { position: relative; min-height: auto; padding: 1rem; }
-    /* mobile: keep only .p-d1 (the big shape) — everything else is noise */
-    .p-d2, .p-d3, .p-d4, .p-d5, .p-d6, .p-d7 { display: none; }
     .p-d1 { width: 40vw; height: 40vw; top: -6%; left: -10%; opacity: 0.7; }
+    /* hide the desktop accent dots on mobile — they're sized/placed for
+       the horizontal layout. Mobile gets its own set (d10–d14) below. */
+    .p-d2, .p-d3, .p-d4 { display: none; }
+    /* on mobile (vertical cards), bring back a small set of dots scattered
+       around the card edges and below the image, where they read clearly */
+    .p-d10, .p-d11, .p-d12, .p-d13, .p-d14 {
+      display: block !important;
+      z-index: 3;
+    }
+    .p-d10 { width: 14px; height: 14px; top: 4%;  right: 6%;  left: auto; }
+    .p-d11 { width: 8px;  height: 8px;  top: 32%; right: 4%;  left: auto; }
+    .p-d12 { width: 18px; height: 18px; bottom: 8%;  right: 8%;  top: auto; left: auto; }
+    .p-d13 { width: 10px; height: 10px; bottom: 22%; left: 6%;  top: auto; right: auto; }
+    .p-d14 { width: 6px;  height: 6px;  top: 58%; left: 10%; right: auto; }
+    /* per-card variation so adjacent cards don't repeat */
+    .p:nth-child(2n) .p-d10 { top: 6%;  right: 14%; }
+    .p:nth-child(2n) .p-d11 { top: 28%; left: 8%; right: auto; }
+    .p:nth-child(2n) .p-d12 { bottom: 12%; left: 12%; right: auto; }
+    .p:nth-child(2n) .p-d13 { bottom: 30%; right: 10%; left: auto; }
+    .p:nth-child(2n) .p-d14 { top: 62%; right: 18%; left: auto; }
     /* shrink Caveat decoration so it doesn't outweigh the brand name */
     .p-outcome { font-size: 1.5rem; transform: none; margin-bottom: 1.25rem; }
     .p-name { font-size: clamp(2.2rem, 8vw, 3.5rem); }
@@ -433,19 +452,6 @@
     .case-foot-nav, .p-link { box-shadow: 0 4px 0 var(--ink); }
   }
   .hero { min-height: 58dvh; }
-  /* === Full-card click target ===
-     .p-panel is position:relative; .p-link's ::after pseudo, with
-     position:absolute and inset:0, expands to cover .p-panel (the
-     nearest positioned ancestor). Cursor on the panel reinforces it. */
-  .p-panel { cursor: pointer; }
-  .p-panel:focus-within { outline: 2px solid var(--pink); outline-offset: 4px; }
-  .p-link::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
   /* ============ CLOSING ============ */
   .closing {
     position: relative;
@@ -567,6 +573,11 @@
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
 
   @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
     .nav-toggle { display: inline-flex; }
     .nav .nav-links {
       position: fixed;
@@ -577,9 +588,9 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: rgba(250, 247, 242, 0.97);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 505;
@@ -680,6 +691,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/tomboyx.jpg" alt="TomboyX" />
         </div>
@@ -703,6 +721,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/klydo.jpg" alt="Klydo" />
         </div>
@@ -726,6 +751,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/convegenius.jpg" alt="ConveGenius" />
         </div>
@@ -749,6 +781,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/agemo.jpg" alt="Agemo" />
         </div>
@@ -772,6 +811,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/tatsam.jpg" alt="Tatsam" />
         </div>
@@ -795,6 +841,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/pratham.jpg" alt="Pratham USA" />
         </div>
@@ -818,6 +871,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/secret-senses.jpg" alt="Secret Senses" />
         </div>
@@ -841,6 +901,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/xtdb.jpg" alt="XTDB" />
         </div>
@@ -864,6 +931,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/gliitch.jpg" alt="Gliitch" />
         </div>
@@ -887,6 +961,13 @@
           <span class="dot p-d5"></span>
           <span class="dot p-d6"></span>
           <span class="dot p-d7"></span>
+          <span class="dot p-d8"></span>
+          <span class="dot p-d9"></span>
+          <span class="dot p-d10"></span>
+          <span class="dot p-d11"></span>
+          <span class="dot p-d12"></span>
+          <span class="dot p-d13"></span>
+          <span class="dot p-d14"></span>
         <div class="p-frame">
           <img src="../images/work-covers/rachna-nivas.jpg" alt="Rachna Nivas" />
         </div>
@@ -966,6 +1047,18 @@
       }, { threshold: [0, 0.5, 0.8, 0.9, 0.98] });
       cards.forEach(c => obs.observe(c));
     }
+
+    // Make the entire panel clickable — fallback in case the stretched-link
+    // ::after gets blocked by overlapping stacking contexts (.p-frame, .p-text).
+    document.querySelectorAll('.p-panel').forEach(panel => {
+      const link = panel.querySelector('.p-link');
+      if (!link) return;
+      panel.addEventListener('click', (e) => {
+        // Don't double-trigger when clicking the link itself or any inner anchor/button.
+        if (e.target.closest('a, button')) return;
+        window.location.href = link.href;
+      });
+    });
 
     // Progress bar
     window.addEventListener('scroll', () => {

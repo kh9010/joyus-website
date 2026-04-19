@@ -11,16 +11,24 @@ const ROOT = path.resolve(__dirname, '..');
 const PODCAST_DIR = path.join(ROOT, 'podcast');
 const OUT = path.join(PODCAST_DIR, 'archive.html');
 
+function htmlDecode(s) {
+  return String(s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
 function parse(html, filename) {
   // Title: <title>NN — Episode title — Thinking on Thinking — Joyus Studio</title>
   // OR: <title>Episode title — Thinking on Thinking — Joyus Studio</title>
   const titleMatch = html.match(/<title>([^<]+)<\/title>/);
   let raw = titleMatch ? titleMatch[1] : filename;
   // strip trailing " — Thinking on Thinking — Joyus Studio" or " — Joyus Studio"
-  let title = raw
+  let title = htmlDecode(raw
     .replace(/\s*[—-]\s*Thinking on Thinking.*$/i, '')
     .replace(/\s*[—-]\s*Joyus Studio.*$/i, '')
-    .trim();
+    .trim());
 
   // Try to pull season/episode from "S7E13" pattern in body (set on backlog page);
   // here we approximate from filename or fall back to ''.
@@ -39,7 +47,10 @@ function parse(html, filename) {
   return { title, se, date, dur, filename };
 }
 
-const files = fs.readdirSync(PODCAST_DIR).filter(f => f.endsWith('.html') && f !== 'archive.html');
+// exclude archive + series listing pages (they aren't episodes)
+const files = fs.readdirSync(PODCAST_DIR).filter(f =>
+  f.endsWith('.html') && f !== 'archive.html' && !f.endsWith('-series.html')
+);
 const eps = files.map(f => {
   const html = fs.readFileSync(path.join(PODCAST_DIR, f), 'utf8');
   return parse(html, f);
