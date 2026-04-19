@@ -6,6 +6,7 @@
     z-index: 20;
     background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -20,6 +21,9 @@
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>

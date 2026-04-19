@@ -149,7 +149,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .nav-menu li a:hover::after, .nav-menu li a.active::after { width: 100%; }
 .nav-links a.active, .nav-menu a.active, .nav-menu li a.active { color: var(--pink); }
 
-.nav-toggle, .hamburger {
+/* legacy .hamburger only — the new .nav-toggle is in /_partials/nav.html */
+.hamburger {
     display: none;
     background: none;
     border: none;
@@ -157,15 +158,15 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     padding: 0.5rem;
     z-index: 101;
 }
-.nav-toggle span, .hamburger span {
+.hamburger span {
     display: block; width: 24px; height: 2px;
     background: var(--black); margin: 5px 0;
     transition: all 0.3s;
 }
 
 @media (max-width: 768px) {
-    .nav-toggle, .hamburger { display: block; }
-    .nav-links, .nav-menu {
+    .hamburger { display: block; }
+    .nav-menu {
         position: fixed;
         top: 0; right: -100%;
         width: 70%; height: 100vh;
@@ -176,8 +177,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
         box-shadow: -5px 0 20px rgba(0,0,0,0.1);
         transition: right 0.3s;
     }
-    .nav-links.open, .nav-menu.open, .nav-links.active, .nav-menu.active { right: 0; }
-    .nav-links a, .nav-menu a { font-size: 1.1rem; }
+    .nav-menu.open, .nav-menu.active { right: 0; }
+    .nav-menu a { font-size: 1.1rem; }
     .nav-others-ticker { display: none !important; }
     .nav-shape { margin-left: 0.3rem; width: 24px !important; height: 24px !important; }
     .mobile-others-ticker { display: block !important; }
@@ -955,6 +956,8 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 0.78rem;
+    cursor: default; /* labels, not buttons */
+    user-select: none;
 }
 .cs-tabs .tab.active { color: var(--black); }
 .cs-tabs .tab.active::after {
@@ -1658,3 +1661,33 @@ body.work-page { background: #FAF7F2; color: var(--ink); }
 .cs-closing .cs-next:hover { color: var(--pink); }
 .cs-closing .cs-next .arrow { transition: transform 0.25s; }
 .cs-closing .cs-next:hover .arrow { transform: translateX(4px); }
+
+/* ===== MOBILE GUARDS — touch devices, reduced motion, contrast ===== */
+
+/* On touch devices, hover-only affordances become permanent rest states
+   so the brand language doesn't disappear. */
+@media (hover: none) and (pointer: coarse) {
+    /* case study figures: replace hover-rotate-and-shadow with static memphis offset */
+    .work-page .cs-fig img {
+        transform: rotate(0deg) !important;
+        box-shadow: 5px 5px 0 var(--pink), 0 1px 3px rgba(0,0,0,0.05) !important;
+    }
+    .work-page .cs-fig:nth-child(4n+2) img { box-shadow: 5px 5px 0 var(--cyan), 0 1px 3px rgba(0,0,0,0.05) !important; }
+    .work-page .cs-fig:nth-child(4n+3) img { box-shadow: 5px 5px 0 var(--yellow), 0 1px 3px rgba(0,0,0,0.05) !important; }
+    .work-page .cs-fig:nth-child(4n+4) img { box-shadow: 5px 5px 0 var(--pink), 0 1px 3px rgba(0,0,0,0.05) !important; }
+
+    /* generic: cancel hover transforms on touch */
+    a:hover, button:hover { transform: none !important; }
+}
+
+/* Respect users who want less motion */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    /* kill the card-pile rotation entirely */
+    .p-panel { transform: none !important; animation: none !important; }
+}

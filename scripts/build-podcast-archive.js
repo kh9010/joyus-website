@@ -11,16 +11,24 @@ const ROOT = path.resolve(__dirname, '..');
 const PODCAST_DIR = path.join(ROOT, 'podcast');
 const OUT = path.join(PODCAST_DIR, 'archive.html');
 
+function htmlDecode(s) {
+  return String(s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
 function parse(html, filename) {
   // Title: <title>NN — Episode title — Thinking on Thinking — Joyus Studio</title>
   // OR: <title>Episode title — Thinking on Thinking — Joyus Studio</title>
   const titleMatch = html.match(/<title>([^<]+)<\/title>/);
   let raw = titleMatch ? titleMatch[1] : filename;
   // strip trailing " — Thinking on Thinking — Joyus Studio" or " — Joyus Studio"
-  let title = raw
+  let title = htmlDecode(raw
     .replace(/\s*[—-]\s*Thinking on Thinking.*$/i, '')
     .replace(/\s*[—-]\s*Joyus Studio.*$/i, '')
-    .trim();
+    .trim());
 
   // Try to pull season/episode from "S7E13" pattern in body (set on backlog page);
   // here we approximate from filename or fall back to ''.
@@ -39,7 +47,10 @@ function parse(html, filename) {
   return { title, se, date, dur, filename };
 }
 
-const files = fs.readdirSync(PODCAST_DIR).filter(f => f.endsWith('.html') && f !== 'archive.html');
+// exclude archive + series listing pages (they aren't episodes)
+const files = fs.readdirSync(PODCAST_DIR).filter(f =>
+  f.endsWith('.html') && f !== 'archive.html' && !f.endsWith('-series.html')
+);
 const eps = files.map(f => {
   const html = fs.readFileSync(path.join(PODCAST_DIR, f), 'utf8');
   return parse(html, f);
@@ -168,12 +179,51 @@ const html = `<!DOCTYPE html>
     }
     .hero-meta span + span::before { content: " · "; padding: 0 0.15em; }
 
+    /* Sticky season jump-bar — lets users skip across 82 episodes
+       on mobile without endless scrolling. */
+    .season-jump {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 247, 242, 0.94);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      padding: 0.85rem clamp(1rem, 4vw, 2rem);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      align-items: center;
+    }
+    .season-jump::-webkit-scrollbar { display: none; }
+    .season-jump-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-fade);
+      margin-right: 0.5rem;
+      white-space: nowrap;
+    }
+    .season-jump a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--rule);
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .season-jump a:hover { color: var(--pink); border-color: var(--pink); }
+
     .archive-body {
       max-width: 920px;
       margin: 0 auto;
-      padding: clamp(3rem, 6vh, 5rem) var(--x) 4rem;
+      padding: clamp(2rem, 4vh, 3rem) var(--x) 4rem;
     }
-    .season-block { margin-bottom: 4rem; }
+    .season-block { margin-bottom: 4rem; scroll-margin-top: 4.5rem; }
     .season-head {
       display: flex;
       align-items: baseline;
@@ -225,8 +275,10 @@ const html = `<!DOCTYPE html>
     .ep-row .ep-side span + span::before { content: " · "; }
 
     @media (max-width: 640px) {
-      .ep-row { grid-template-columns: 4rem 1fr; }
+      .ep-row { grid-template-columns: 3rem 1fr; }
       .ep-row .ep-side { grid-column: 2; text-align: left; }
+      .season-block { margin-bottom: 2.5rem; scroll-margin-top: 5rem; }
+      .archive-hero { min-height: auto; padding-bottom: 2.5rem; }
     }
   </style>
 </head>
@@ -246,11 +298,19 @@ const html = `<!DOCTYPE html>
     </p>
   </header>
 
+  <nav class="season-jump" aria-label="Jump to season">
+    <span class="season-jump-label">Jump to</span>
+${seasonOrder.map(s => {
+  const label = s === 'misc' ? 'Other' : `S${s}`;
+  return `    <a href="#season-${s}">${label}</a>`;
+}).join('\n')}
+  </nav>
+
   <main class="archive-body">
 ${seasonOrder.map(s => {
   const list = seasons.get(s);
   const heading = s === 'misc' ? 'From the shelf' : `Season ${s}`;
-  return `    <section class="season-block">
+  return `    <section class="season-block" id="season-${s}">
       <header class="season-head">
         <h2 class="season-name">${heading}</h2>
         <span class="season-count">${list.length} episodes</span>

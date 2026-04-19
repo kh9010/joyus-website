@@ -33,42 +33,7 @@
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
   img { max-width: 100%; display: block; }
 
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem var(--x);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    backdrop-filter: blur(8px);
-  }
-  .nav-logo {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-  }
-  .nav-logo img {
-    height: 32px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-links { display: flex; gap: 1.75rem; align-items: center; }
-  .nav-links a { font-size: 0.92rem; color: var(--ink-soft); }
-  .nav-links a:hover { color: var(--pink); }
-  .nav-cta {
-    border-bottom: 1.5px solid var(--ink);
-    padding-bottom: 2px;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .nav-cta:hover { border-bottom-color: var(--pink); }
-  @media (max-width: 720px) {
-    .nav-links { gap: 1rem; }
-    .nav-links a:not(.nav-cta) { display: none; }
-  }
+  /* nav comes from /_partials/nav.html — synced via scripts/sync-chrome.js */
 
   .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
   .thread-fill {
@@ -151,9 +116,13 @@
     color: var(--ink-fade);
     padding: 0 0.15em;
   }
-  .hero .dh1 { width: 280px; height: 280px; top: 8%; right: -3%; }
+  .hero .dh1 { width: 280px; height: 280px; top: 8%; right: -10%; }
   .hero .dh2 { width: 46px; height: 46px; bottom: 20%; right: 22%; }
   .hero .dh3 { width: 20px; height: 20px; top: 30%; right: 34%; }
+  @media (max-width: 720px) {
+    .hero .dh1 { width: 180px; height: 180px; right: -25%; opacity: 0.85; }
+    .hero .dh2, .hero .dh3 { display: none; }
+  }
 
   /* ============ FEATURED EPISODE (with Spotify embed) ============ */
   .featured {
@@ -561,15 +530,157 @@
 
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
-  <nav class="nav">
-    <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
-    <div class="nav-links">
-      <a href="work/">Work</a>
-      <a href="services.html">Services</a>
-      <a href="podcast.html">Podcast</a>
-      <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
-    </div>
-  </nav>
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="home.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
 
   <!-- =========== HERO =========== -->
   <section class="hero">
@@ -619,7 +730,7 @@
     </div>
     <div class="series-grid">
 
-      <a class="series-card s-pink" href="#">
+      <a class="series-card s-pink" href="podcast/success-series.html">
         <div>
           <span class="series-label">season 6 · 8 parts</span>
           <h3 class="series-title">The Success <em>series</em></h3>
@@ -627,11 +738,11 @@
         <div>
           <div class="series-count">8 conversations</div>
           <div class="series-dur">from the confoundedness of success to building motivation</div>
-          <span class="series-more">open the series →</span>
+          <span class="series-more">start with part 1 →</span>
         </div>
       </a>
 
-      <a class="series-card s-cyan" href="#">
+      <a class="series-card s-cyan" href="podcast/story-vs-telling-series.html">
         <div>
           <span class="series-label">season 7 · 4 parts</span>
           <h3 class="series-title">Story <em>vs telling</em></h3>
@@ -639,11 +750,11 @@
         <div>
           <div class="series-count">4 conversations</div>
           <div class="series-dur">Kahran &amp; Divya on what makes a story land</div>
-          <span class="series-more">open the series →</span>
+          <span class="series-more">start with part 1 →</span>
         </div>
       </a>
 
-      <a class="series-card s-yellow" href="#">
+      <a class="series-card s-yellow" href="podcast/founder-interviews.html">
         <div>
           <span class="series-label">thinking on thinking</span>
           <h3 class="series-title">Founder <em>interviews</em></h3>
@@ -762,10 +873,39 @@
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
 
-  <footer class="foot">
-    <span>© 2026 · Joyus Studio</span>
-    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
-  </footer>
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
 
   <script>
     window.addEventListener('scroll', () => {

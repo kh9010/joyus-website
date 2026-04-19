@@ -17,8 +17,17 @@ const PODCAST_DIR = path.join(ROOT, 'podcast');
 const TEMPLATE_FILE = '503-building-and-selling-a-food-business-with-smiqql-s-dina-holzapfel.html';
 
 // ---------- helpers ----------
-function htmlEscape(s) {
+function htmlDecode(s) {
+  // decode common entities so we don't double-encode when re-emitting
   return String(s)
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+function htmlEscape(s) {
+  return htmlDecode(String(s))
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
@@ -309,7 +318,7 @@ ${d.transcriptParas.map(p => `      <p>${p}</p>`).join('\n')}
     }
     .ep-transcript[open] summary::after { transform: rotate(45deg); }
     .ep-transcript summary:hover { color: var(--ink); }
-    .ep-transcript-content { max-height: 600px; overflow-y: auto; padding: 1.5rem 0; }
+    .ep-transcript-content { max-height: 600px; overflow-y: auto; padding: 1.5rem 0; -webkit-overflow-scrolling: touch; }
     .ep-transcript-content p { font-size: 0.95rem; line-height: 1.75; color: var(--ink-soft); margin-bottom: 1rem; }
     .ep-nav-bar {
       max-width: 880px; margin: 0 auto; padding: clamp(2rem, 4vh, 3rem) var(--x);
@@ -347,6 +356,19 @@ ${d.transcriptParas.map(p => `      <p>${p}</p>`).join('\n')}
     .closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
     .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
     .closing .hint { display: block; font-size: 0.9rem; color: var(--ink-fade); margin-top: 1.25rem; position: relative; z-index: 2; }
+    /* Mobile fixes */
+    @media (max-width: 720px) {
+      .ep-hero { min-height: auto; padding-bottom: 2.5rem; }
+      .ep-hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+      .ep-meta .ep-tags { margin-left: 0; }
+      .ep-quote::before { opacity: 0.3; }
+      .ep-transcript-content { max-height: none; overflow-y: visible; }
+      .ep-nav-bar { flex-direction: column; gap: 1.25rem; }
+      .ep-nav-bar a { max-width: 100%; }
+      .ep-nav-bar .next { text-align: left; margin-left: 0; }
+      .ep-listen a { padding: 0.7rem 1.1rem; }
+      .closing .dx1, .closing .dx2 { display: none; }
+    }
   </style>
 </head>
 <body>

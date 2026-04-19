@@ -175,7 +175,7 @@
   }
   .verb-label {
     position: absolute;
-    top: clamp(3rem, 6vh, 4.5rem);
+    top: clamp(5.5rem, 9vh, 7rem); /* clear the fixed nav */
     font-size: 0.78rem;
     font-weight: 500;
     letter-spacing: 0.22em;
@@ -402,15 +402,14 @@
     --on-bg-line: rgba(255, 255, 255, 0.22);
     --on-bg-accent: var(--yellow);
   }
-  /* Sections with light bg use ink text. Accent is yellow except on the
-     yellow section itself, where ink does the contrast work — pink+cyan
-     was vibrating, so pink is off the table for the cyan sections. */
+  /* Sections with light bg use ink text. Cyan sections use ink as accent
+     too — yellow-on-cyan failed WCAG (~1.4:1), and pink-on-cyan vibrates. */
   .v-3, .v-6 {
     --on-bg: var(--ink);
     --on-bg-soft: rgba(44, 53, 68, 0.78);
     --on-bg-fade: rgba(44, 53, 68, 0.55);
     --on-bg-line: rgba(44, 53, 68, 0.18);
-    --on-bg-accent: var(--yellow);
+    --on-bg-accent: var(--ink);
   }
   .v-4 {
     --on-bg: var(--ink);
@@ -460,53 +459,73 @@
   .v-6 .dot-f3 { width: 18px; height: 18px; bottom: 18%; right: 30%; }
 
   /* ============ Unified verb stage — ping-pong layouts ============
-     The advise (V-1) layout is the base. Even-numbered verbs mirror
-     to give a left/right beat as you scroll. */
+     2 explicit rows. Row 1 holds the big WORD and the MANIFESTO so they
+     read as the headline pair. Row 2 holds EXPLAIN + SERVICES side by
+     side. Generous row-gap keeps them from kissing. */
   .verb-stage {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 2rem 2.5rem;
+    grid-template-rows: auto auto;
+    column-gap: 2.5rem;
+    row-gap: 2.5rem;
+    align-items: start;
   }
-  .verb-stage .verb-word { font-size: clamp(6rem, 16vw, 13rem); }
+  .verb-stage .verb-word { font-size: clamp(4.5rem, 12vw, 9.5rem); }
 
-  /* layout-l: word + explain on the left, manifesto + services on the right */
-  .verb-stage.layout-l .verb-word { grid-column: 1 / 9; }
-  .verb-stage.layout-l .manifesto { grid-column: 9 / 13; align-self: end; padding-bottom: 1rem; }
-  .verb-stage.layout-l .explain   { grid-column: 1 / 7; margin-top: 2rem; }
-  .verb-stage.layout-l .services  { grid-column: 7 / 13; margin-top: 2rem; }
+  /* layout-l: word top-left, manifesto top-right (aligned to bottom of the
+     big word so the caption hangs near the baseline), explain bottom-left,
+     services bottom-right */
+  .verb-stage.layout-l .verb-word { grid-column: 1 / 8; grid-row: 1; }
+  .verb-stage.layout-l .manifesto { grid-column: 8 / 13; grid-row: 1; align-self: end; padding-bottom: 0.5rem; }
+  .verb-stage.layout-l .explain   { grid-column: 1 / 7; grid-row: 2; }
+  .verb-stage.layout-l .services  { grid-column: 8 / 13; grid-row: 2; }
 
-  /* layout-r: mirrored — word on the right, services on the left */
+  /* layout-r: mirrored */
   .verb-stage.layout-r .verb-word {
-    grid-column: 5 / 13;
-    text-align: right;
-    justify-self: end;
+    grid-column: 6 / 13; grid-row: 1;
+    text-align: right; justify-self: end;
   }
   .verb-stage.layout-r .manifesto {
-    grid-column: 1 / 5;
-    align-self: end;
-    padding-bottom: 1rem;
+    grid-column: 1 / 6; grid-row: 1;
+    align-self: end; padding-bottom: 0.5rem;
   }
-  .verb-stage.layout-r .explain   { grid-column: 7 / 13; margin-top: 2rem; }
-  .verb-stage.layout-r .services  { grid-column: 1 / 7; margin-top: 2rem; }
+  .verb-stage.layout-r .explain   { grid-column: 8 / 13; grid-row: 2; }
+  .verb-stage.layout-r .services  { grid-column: 1 / 6; grid-row: 2; }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 880px) {
-    .verb .dot { opacity: 0.5; }
-    [class^="v-"] [class$="-stage"] { grid-template-columns: 1fr; }
-    [class^="v-"] .verb-word,
-    [class^="v-"] .manifesto,
-    [class^="v-"] .explain,
-    [class^="v-"] .services {
+    /* Drop the 100vh per-verb so 6 sections don't = 6 swipes */
+    .verb { min-height: auto; padding: 4rem var(--x) 4rem; }
+    /* push verb-label below the fixed nav */
+    .verb-label { top: 5.5rem; }
+    .verb .dot { opacity: 0.4; }
+    /* hide the biggest decoration dot per section on mobile to declutter */
+    .v-1 .dot-a1, .v-2 .dot-b1, .v-3 .dot-c1,
+    .v-4 .dot-d1, .v-5 .dot-e1, .v-6 .dot-f1 { display: none; }
+    .verb-stage { grid-template-columns: 1fr !important; }
+    .verb-stage .verb-word,
+    .verb-stage .manifesto,
+    .verb-stage .explain,
+    .verb-stage .services {
       grid-column: 1 !important;
       justify-self: start !important;
       text-align: left !important;
       transform: none !important;
       margin-top: 1.5rem !important;
+      max-width: none !important;
     }
-    [class^="v-"] .verb-word { font-size: clamp(4rem, 16vw, 7rem) !important; }
-    .svc-grid { grid-template-columns: 1fr !important; }
+    /* restore reading order: word → manifesto → explain → services */
+    .verb-stage .verb-word { order: 1; }
+    .verb-stage .manifesto { order: 2; }
+    .verb-stage .explain   { order: 3; }
+    .verb-stage .services  { order: 4; }
+    .verb-stage { display: flex; flex-direction: column; }
+    .verb-stage .verb-word { font-size: clamp(3.5rem, 14vw, 6rem) !important; }
     .manifesto, .explain { max-width: none !important; }
+    .hero { min-height: auto; padding-bottom: 3rem; }
   }
+  /* iOS Safari URL-bar safe height */
+  .hero { min-height: 58dvh; }
 
   /* ============ CLOSING ============ */
   .closing {
@@ -577,15 +596,17 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 500;
     background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   }
-  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
   .nav .nav-links {
     display: flex; gap: 1.75rem; align-items: center;
@@ -608,14 +629,67 @@
   }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
   @media (max-width: 720px) {
-    .nav .nav-links { gap: 1rem; }
-    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="home.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
-  <div class="nav-links">
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
     <a href="work/" data-nav="work">Work</a>
     <a href="services.html" data-nav="services">Services</a>
     <a href="podcast.html" data-nav="podcast">Podcast</a>
@@ -636,6 +710,30 @@
           links[i].classList.add('active');
         }
       }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
     }
   })();
 </script>
@@ -795,6 +893,7 @@
     z-index: 20;
     background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -809,6 +908,9 @@
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>

@@ -179,6 +179,18 @@ We talk this week on ">
     .closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
     .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
     .closing .hint { display: block; font-size: 0.9rem; color: var(--ink-fade); margin-top: 1.25rem; position: relative; z-index: 2; }
+      @media (max-width: 720px) {
+      .ep-hero { min-height: auto; padding-bottom: 2.5rem; }
+      .ep-hero h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+      .ep-meta .ep-tags { margin-left: 0; }
+      .ep-quote::before { opacity: 0.3; }
+      .ep-transcript-content { max-height: none; overflow-y: visible; }
+      .ep-nav-bar { flex-direction: column; gap: 1.25rem; }
+      .ep-nav-bar a { max-width: 100%; }
+      .ep-nav-bar .next { text-align: left; margin-left: 0; }
+      .ep-listen a { padding: 0.7rem 1.1rem; }
+      .closing .dx1, .closing .dx2 { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -192,15 +204,17 @@ We talk this week on ">
     position: fixed;
     top: 0; left: 0; right: 0;
     padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 500;
     background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   }
-  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
   .nav .nav-links {
     display: flex; gap: 1.75rem; align-items: center;
@@ -223,14 +237,67 @@ We talk this week on ">
   }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
   @media (max-width: 720px) {
-    .nav .nav-links { gap: 1rem; }
-    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
-  <div class="nav-links">
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
@@ -251,6 +318,30 @@ We talk this week on ">
           links[i].classList.add('active');
         }
       }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
     }
   })();
 </script>
@@ -456,6 +547,7 @@ We talk this week on ">
     z-index: 20;
     background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -470,6 +562,9 @@ We talk this week on ">
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
