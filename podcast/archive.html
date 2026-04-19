@@ -94,12 +94,51 @@
     }
     .hero-meta span + span::before { content: " · "; padding: 0 0.15em; }
 
+    /* Sticky season jump-bar — lets users skip across 82 episodes
+       on mobile without endless scrolling. */
+    .season-jump {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(250, 247, 242, 0.94);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      padding: 0.85rem clamp(1rem, 4vw, 2rem);
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      align-items: center;
+    }
+    .season-jump::-webkit-scrollbar { display: none; }
+    .season-jump-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-fade);
+      margin-right: 0.5rem;
+      white-space: nowrap;
+    }
+    .season-jump a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid var(--rule);
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+    .season-jump a:hover { color: var(--pink); border-color: var(--pink); }
+
     .archive-body {
       max-width: 920px;
       margin: 0 auto;
-      padding: clamp(3rem, 6vh, 5rem) var(--x) 4rem;
+      padding: clamp(2rem, 4vh, 3rem) var(--x) 4rem;
     }
-    .season-block { margin-bottom: 4rem; }
+    .season-block { margin-bottom: 4rem; scroll-margin-top: 4.5rem; }
     .season-head {
       display: flex;
       align-items: baseline;
@@ -151,8 +190,10 @@
     .ep-row .ep-side span + span::before { content: " · "; }
 
     @media (max-width: 640px) {
-      .ep-row { grid-template-columns: 4rem 1fr; }
+      .ep-row { grid-template-columns: 3rem 1fr; }
       .ep-row .ep-side { grid-column: 2; text-align: left; }
+      .season-block { margin-bottom: 2.5rem; scroll-margin-top: 5rem; }
+      .archive-hero { min-height: auto; padding-bottom: 2.5rem; }
     }
   </style>
 </head>
@@ -167,15 +208,17 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 500;
     background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   }
-  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
   .nav .nav-links {
     display: flex; gap: 1.75rem; align-items: center;
@@ -198,14 +241,62 @@
   }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
   @media (max-width: 720px) {
-    .nav .nav-links { gap: 1rem; }
-    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: rgba(250, 247, 242, 0.97);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
-  <div class="nav-links">
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
@@ -227,6 +318,30 @@
         }
       }
     }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
   })();
 </script>
 <!--END:NAV-->
@@ -242,8 +357,20 @@
     </p>
   </header>
 
+  <nav class="season-jump" aria-label="Jump to season">
+    <span class="season-jump-label">Jump to</span>
+    <a href="#season-7">S7</a>
+    <a href="#season-6">S6</a>
+    <a href="#season-5">S5</a>
+    <a href="#season-4">S4</a>
+    <a href="#season-3">S3</a>
+    <a href="#season-2">S2</a>
+    <a href="#season-1">S1</a>
+    <a href="#season-misc">Other</a>
+  </nav>
+
   <main class="archive-body">
-    <section class="season-block">
+    <section class="season-block" id="season-7">
       <header class="season-head">
         <h2 class="season-name">Season 7</h2>
         <span class="season-count">12 episodes</span>
@@ -271,7 +398,7 @@
         </a></li>
         <li><a class="ep-row" href="preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
           <span class="ep-se">S7E10</span>
-          <span class="ep-title">Preeti Suri: Tips for Women Founders and Balancing Health &amp;amp; Work</span>
+          <span class="ep-title">Preeti Suri: Tips for Women Founders and Balancing Health &amp;amp;amp; Work</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="story-vs-telling-part-2.html">
@@ -311,7 +438,7 @@
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-6">
       <header class="season-head">
         <h2 class="season-name">Season 6</h2>
         <span class="season-count">7 episodes</span>
@@ -339,12 +466,12 @@
         </a></li>
         <li><a class="ep-row" href="unraveling-purpose-success-part-4.html">
           <span class="ep-se">S6E4</span>
-          <span class="ep-title">Unraveling Purpose &amp;amp; Success: Part 4</span>
+          <span class="ep-title">Unraveling Purpose &amp;amp;amp; Success: Part 4</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="expectations-definitions-of-success-part-2.html">
           <span class="ep-se">S6E2</span>
-          <span class="ep-title">Expectations &amp;amp; Definitions of Success: Part 2</span>
+          <span class="ep-title">Expectations &amp;amp;amp; Definitions of Success: Part 2</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="the-confoundedness-of-success-part-1.html">
@@ -354,7 +481,7 @@
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-5">
       <header class="season-head">
         <h2 class="season-name">Season 5</h2>
         <span class="season-count">13 episodes</span>
@@ -362,42 +489,42 @@
       <ul class="ep-list">
         <li><a class="ep-row" href="building-genai-for-visual-storytelling-with-divya-dashtoon-co-founder-soumyadeep.html">
           <span class="ep-se">S5E13</span>
-          <span class="ep-title">Building GenAI for Visual Storytelling with Divya &amp;amp; Dashtoon Co-Founder, Soumyadeep Mukerjee</span>
+          <span class="ep-title">Building GenAI for Visual Storytelling with Divya &amp;amp;amp; Dashtoon Co-Founder, Soumyadeep Mukerjee</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="how-to-make-hard-things-easier-with-kahran-divya.html">
           <span class="ep-se">S5E12</span>
-          <span class="ep-title">How to Make Hard Things Easier with Kahran &amp;amp; Divya</span>
+          <span class="ep-title">How to Make Hard Things Easier with Kahran &amp;amp;amp; Divya</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
           <span class="ep-se">S5E11</span>
-          <span class="ep-title">Satisfaction with Success with Kahran &amp;amp; Alva10's co-founder, Lena Chaihorsky</span>
+          <span class="ep-title">Satisfaction with Success with Kahran &amp;amp;amp; Alva10's co-founder, Lena Chaihorsky</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="trust-vs-confidence-in-yourself-your-skills-your-environment.html">
           <span class="ep-se">S5E10</span>
-          <span class="ep-title">Trust vs Confidence, in yourself, your skills &amp;amp; your environment</span>
+          <span class="ep-title">Trust vs Confidence, in yourself, your skills &amp;amp;amp; your environment</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="caravaning-across-africa-with-divya-artists-shikhant-and-shivi.html">
           <span class="ep-se">S5E9</span>
-          <span class="ep-title">Caravaning across Africa with Divya &amp;amp; artists Shikhant and Shivi</span>
+          <span class="ep-title">Caravaning across Africa with Divya &amp;amp;amp; artists Shikhant and Shivi</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="how-to-find-fair-compensation-with-kahran-divya.html">
           <span class="ep-se">S5E8</span>
-          <span class="ep-title">How to Find Fair Compensation with Kahran &amp;amp; Divya</span>
+          <span class="ep-title">How to Find Fair Compensation with Kahran &amp;amp;amp; Divya</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="navigating-changing-dynamics-relationships-with-kahran-and-prem-andrew-co-founde.html">
           <span class="ep-se">S5E7</span>
-          <span class="ep-title">Navigating Changing Dynamics &amp;amp; Relationships with Kahran and Prem &amp;amp; Andrew, co-founders of Humanly</span>
+          <span class="ep-title">Navigating Changing Dynamics &amp;amp;amp; Relationships with Kahran and Prem &amp;amp;amp; Andrew, co-founders of Humanly</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="authenticity-grace-trust-in-work-and-with-yourself.html">
           <span class="ep-se">S5E6</span>
-          <span class="ep-title">Authenticity, Grace &amp;amp; Trust, in Work and with Yourself</span>
+          <span class="ep-title">Authenticity, Grace &amp;amp;amp; Trust, in Work and with Yourself</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="505-building-healthcare-in-india-with-rockethealth-s-abhineet-and-ritika.html">
@@ -417,17 +544,17 @@
         </a></li>
         <li><a class="ep-row" href="kahran-divya-on-continuing-projects.html">
           <span class="ep-se">S5E2</span>
-          <span class="ep-title">Kahran &amp;amp; Divya on Continuing Projects</span>
+          <span class="ep-title">Kahran &amp;amp;amp; Divya on Continuing Projects</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="being-co-travel-influencers-with-divya-the-searats.html">
           <span class="ep-se">S5E1</span>
-          <span class="ep-title">Being Co-Travel Influencers with Divya &amp;amp; the Searats</span>
+          <span class="ep-title">Being Co-Travel Influencers with Divya &amp;amp;amp; the Searats</span>
           <span class="ep-side"></span>
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-4">
       <header class="season-head">
         <h2 class="season-name">Season 4</h2>
         <span class="season-count">12 episodes</span>
@@ -435,7 +562,7 @@
       <ul class="ep-list">
         <li><a class="ep-row" href="creating-game-design-with-kahran-divya.html">
           <span class="ep-se">S4E12</span>
-          <span class="ep-title">Creating &amp;amp; Game Design with Kahran &amp;amp; Divya</span>
+          <span class="ep-title">Creating &amp;amp;amp; Game Design with Kahran &amp;amp;amp; Divya</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="anurati-srivastva-on-games-and-game-design-with-divya.html">
@@ -445,12 +572,12 @@
         </a></li>
         <li><a class="ep-row" href="katieann-vogel-on-unblocking-yourself-finding-fulfillment-creating-art-with-kahr.html">
           <span class="ep-se">S4E10</span>
-          <span class="ep-title">Katieann Vogel on Unblocking Yourself, Finding Fulfillment &amp;amp; Creating Art with Kahran</span>
+          <span class="ep-title">Katieann Vogel on Unblocking Yourself, Finding Fulfillment &amp;amp;amp; Creating Art with Kahran</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="kahran-divya-on-the-learnings-from-meghana-srinivas-samhita-arni.html">
           <span class="ep-se">S4E9</span>
-          <span class="ep-title">Kahran &amp;amp; Divya on the Learnings from Meghana Srinivas &amp;amp; Samhita Arni</span>
+          <span class="ep-title">Kahran &amp;amp;amp; Divya on the Learnings from Meghana Srinivas &amp;amp;amp; Samhita Arni</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="meghana-srinivas-on-rituals-feeling-safe-and-finding-your-tribe.html">
@@ -465,37 +592,37 @@
         </a></li>
         <li><a class="ep-row" href="thinking-on-the-careers-identity-of-fran-dunaway-and-aditi-dimri.html">
           <span class="ep-se">S4E6</span>
-          <span class="ep-title">Thinking on the Careers &amp;amp; Identity of Fran Dunaway and Aditi Dimri</span>
+          <span class="ep-title">Thinking on the Careers &amp;amp;amp; Identity of Fran Dunaway and Aditi Dimri</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-finding-your-path-making-a-startup-walking-away-from-academia-with-a.html">
           <span class="ep-se">S4E5</span>
-          <span class="ep-title">Thinking on Finding your Path, Making a Startup &amp;amp; Walking Away from Academia with Aditi Dimri</span>
+          <span class="ep-title">Thinking on Finding your Path, Making a Startup &amp;amp;amp; Walking Away from Academia with Aditi Dimri</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-careers-work-with-fran-dunaway.html">
           <span class="ep-se">S4E4</span>
-          <span class="ep-title">Thinking on Careers &amp;amp; Work with Fran Dunaway</span>
+          <span class="ep-title">Thinking on Careers &amp;amp;amp; Work with Fran Dunaway</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-manasi-k-computational-mama.html">
           <span class="ep-se">S4E3</span>
-          <span class="ep-title">Thinking on Manasi K &amp;amp; Computational Mama</span>
+          <span class="ep-title">Thinking on Manasi K &amp;amp;amp; Computational Mama</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-coding-creativity-culture-with-computational-mama.html">
           <span class="ep-se">S4E2</span>
-          <span class="ep-title">Thinking on Coding, Creativity &amp;amp; Culture with Computational Mama</span>
+          <span class="ep-title">Thinking on Coding, Creativity &amp;amp;amp; Culture with Computational Mama</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-patriotism-law-life-with-manasi-k.html">
           <span class="ep-se">S4E1</span>
-          <span class="ep-title">Thinking on Patriotism, Law &amp;amp; Life with Manasi K</span>
+          <span class="ep-title">Thinking on Patriotism, Law &amp;amp;amp; Life with Manasi K</span>
           <span class="ep-side"></span>
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-3">
       <header class="season-head">
         <h2 class="season-name">Season 3</h2>
         <span class="season-count">12 episodes</span>
@@ -513,7 +640,7 @@
         </a></li>
         <li><a class="ep-row" href="thinking-on-how-llms-genai-have-changed-our-thinking.html">
           <span class="ep-se">S3E9</span>
-          <span class="ep-title">Thinking on How LLMs (&amp;amp; GenAI!) have Changed Our Thinking</span>
+          <span class="ep-title">Thinking on How LLMs (&amp;amp;amp; GenAI!) have Changed Our Thinking</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-the-creative-process.html">
@@ -548,7 +675,7 @@
         </a></li>
         <li><a class="ep-row" href="thinking-on-serendipity-making-life-work-for-you.html">
           <span class="ep-se">S3E3</span>
-          <span class="ep-title">Thinking on Serendipity &amp;amp; Making Life Work For You</span>
+          <span class="ep-title">Thinking on Serendipity &amp;amp;amp; Making Life Work For You</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-ethics-and-affording-your-morals.html">
@@ -563,7 +690,7 @@
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-2">
       <header class="season-head">
         <h2 class="season-name">Season 2</h2>
         <span class="season-count">11 episodes</span>
@@ -606,7 +733,7 @@
         </a></li>
         <li><a class="ep-row" href="thinking-on-loyalty-customer-experiences.html">
           <span class="ep-se">S2E4</span>
-          <span class="ep-title">Thinking on Loyalty &amp;amp; Customer Experiences</span>
+          <span class="ep-title">Thinking on Loyalty &amp;amp;amp; Customer Experiences</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-caring-and-being-invested.html">
@@ -626,7 +753,7 @@
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-1">
       <header class="season-head">
         <h2 class="season-name">Season 1</h2>
         <span class="season-count">11 episodes</span>
@@ -654,7 +781,7 @@
         </a></li>
         <li><a class="ep-row" href="thinking-on-confidence-feelings-of-success-failure-and-achievement.html">
           <span class="ep-se">S1E7</span>
-          <span class="ep-title">Thinking on Confidence &amp;amp; Feelings of Success, Failure and Achievement</span>
+          <span class="ep-title">Thinking on Confidence &amp;amp;amp; Feelings of Success, Failure and Achievement</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-learning-to-change-our-thoughts.html">
@@ -664,32 +791,32 @@
         </a></li>
         <li><a class="ep-row" href="thinking-on-pain-emotional-signaling-learning-and-brain-pathways.html">
           <span class="ep-se">S1E5</span>
-          <span class="ep-title">Thinking on Pain &amp;amp; Emotional Signaling, Learning and Brain Pathways</span>
+          <span class="ep-title">Thinking on Pain &amp;amp;amp; Emotional Signaling, Learning and Brain Pathways</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-podcasts-how-we-listen.html">
           <span class="ep-se">S1E4</span>
-          <span class="ep-title">Thinking on Podcasts &amp;amp; How We Listen</span>
+          <span class="ep-title">Thinking on Podcasts &amp;amp;amp; How We Listen</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html">
           <span class="ep-se">S1E3</span>
-          <span class="ep-title">Thinking on Cognitive vs Emotional Experiences &amp;amp; Models for Failure</span>
+          <span class="ep-title">Thinking on Cognitive vs Emotional Experiences &amp;amp;amp; Models for Failure</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-signaling-being-in-group.html">
           <span class="ep-se">S1E2</span>
-          <span class="ep-title">Thinking on Signaling &amp;amp; Being In-Group</span>
+          <span class="ep-title">Thinking on Signaling &amp;amp;amp; Being In-Group</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="thinking-on-success-models-for-building-success.html">
           <span class="ep-se">S1E1</span>
-          <span class="ep-title">Thinking on Success &amp;amp; Models for Building Success</span>
+          <span class="ep-title">Thinking on Success &amp;amp;amp; Models for Building Success</span>
           <span class="ep-side"></span>
         </a></li>
       </ul>
     </section>
-    <section class="season-block">
+    <section class="season-block" id="season-misc">
       <header class="season-head">
         <h2 class="season-name">From the shelf</h2>
         <span class="season-count">4 episodes</span>
@@ -697,7 +824,7 @@
       <ul class="ep-list">
         <li><a class="ep-row" href="revisiting-402-careers-creativity-with-computational-mama.html">
           <span class="ep-se">—</span>
-          <span class="ep-title">Revisiting 402 — Careers &amp;amp; Creativity with Computational_Mama</span>
+          <span class="ep-title">Revisiting 402 — Careers &amp;amp;amp; Creativity with Computational_Mama</span>
           <span class="ep-side"></span>
         </a></li>
         <li><a class="ep-row" href="revisiting-episode-29-thinking-on-llms-and-genai.html">
@@ -728,6 +855,7 @@
     z-index: 20;
     background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -742,6 +870,9 @@
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>

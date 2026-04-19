@@ -336,7 +336,7 @@
     color: var(--ink-fade);
     padding: 0 0.15em;
   }
-  /* bold pill link — full brand color */
+  /* bold pill link — full brand color, always pops above the big dot */
   .p-link {
     display: inline-flex;
     align-items: center;
@@ -348,9 +348,12 @@
     letter-spacing: 0.02em;
     color: #fff;
     background: var(--ink);
+    border: 2px solid var(--ink);
     align-self: flex-start;
     transition: transform 0.25s cubic-bezier(0.2,0.8,0.2,1), box-shadow 0.25s;
     box-shadow: 0 7px 0 var(--ink);
+    position: relative;
+    z-index: 5;
   }
   .p-link:hover { transform: translateY(-2px); box-shadow: 0 9px 0 var(--ink); }
 
@@ -397,15 +400,50 @@
   .p:nth-child(3n+3) .p-link    { background: var(--yellow); color: var(--ink); box-shadow: 0 7px 0 #a37d20; }
   .p:nth-child(3n+3) .p-link:hover { box-shadow: 0 9px 0 #a37d20; }
 
+  /* Override: button stays ink across all cycles so it's always legible
+     against the big colored dot that may sit underneath. */
+  .p-link {
+    background: var(--ink) !important;
+    color: #fff !important;
+    box-shadow: 0 7px 0 #1a212c !important;
+    border-color: var(--ink) !important;
+  }
+  .p-link:hover { box-shadow: 0 9px 0 #1a212c !important; }
+
   @media (max-width: 880px) {
     .p-panel {
       grid-template-columns: 1fr;
       gap: 2rem;
-      padding: 2rem 1.5rem;
+      padding: 2.5rem 1.5rem;
+      min-height: auto;
+      transform: rotate(0deg) !important; /* kill tilt on mobile — clips against viewport */
+      animation: none !important; /* and the scroll-timeline rotation */
     }
     .p-frame { justify-self: start; max-width: 100%; }
     .p-text { order: 2; max-width: 100%; }
-    .p-d1 { width: 70vw; height: 70vw; }
+    /* drop sticky-stack on mobile — 10×100vh of pinned scroll is unusable on phones */
+    .p { position: relative; min-height: auto; padding: 1rem; }
+    /* mobile: keep only .p-d1 (the big shape) — everything else is noise */
+    .p-d2, .p-d3, .p-d4, .p-d5, .p-d6, .p-d7 { display: none; }
+    .p-d1 { width: 40vw; height: 40vw; top: -6%; left: -10%; opacity: 0.7; }
+    /* shrink Caveat decoration so it doesn't outweigh the brand name */
+    .p-outcome { font-size: 1.5rem; transform: none; margin-bottom: 1.25rem; }
+    .p-name { font-size: clamp(2.2rem, 8vw, 3.5rem); }
+    /* stack the foot-nav vertically */
+    .case-foot-nav, .p-link { box-shadow: 0 4px 0 var(--ink); }
+  }
+  .hero { min-height: 58dvh; }
+  /* === Full-card click target ===
+     .p-panel is position:relative; .p-link's ::after pseudo, with
+     position:absolute and inset:0, expands to cover .p-panel (the
+     nearest positioned ancestor). Cursor on the panel reinforces it. */
+  .p-panel { cursor: pointer; }
+  .p-panel:focus-within { outline: 2px solid var(--pink); outline-offset: 4px; }
+  .p-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   /* ============ CLOSING ============ */
@@ -473,15 +511,17 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 500;
     background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
   }
-  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
   .nav .nav-links {
     display: flex; gap: 1.75rem; align-items: center;
@@ -504,14 +544,62 @@
   }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
   @media (max-width: 720px) {
-    .nav .nav-links { gap: 1rem; }
-    .nav .nav-links a:not(.nav-cta):not(.active) { display: none; }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: rgba(250, 247, 242, 0.97);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
-  <div class="nav-links">
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
@@ -532,6 +620,30 @@
           links[i].classList.add('active');
         }
       }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
     }
   })();
 </script>
@@ -816,6 +928,7 @@
     z-index: 20;
     background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
     margin: 0 auto;
     width: 100%;
@@ -830,6 +943,9 @@
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
