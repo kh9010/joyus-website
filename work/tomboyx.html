@@ -183,9 +183,10 @@
       <h1>tomboyx</h1>
       <p class="cs-tagline">Beloved underwear company in need of a refreshed story to raise a re-capitalization in a down round.</p>
       <ul class="cs-services">
-        <li>Story</li>
-        <li>Investor Pitch</li>
+        <li>Three decks</li>
+        <li>Three audiences</li>
       </ul>
+      <!-- KAHRAN-REVIEW: cover meta — verify "$25M annual revenue" is still accurate / publishable -->
       <div class="cs-meta-row">
         <span>United States</span>
         <span>10–20 employees</span>
@@ -194,154 +195,314 @@
     </div>
   </header>
 
-  <!-- Slide 97 — Story tab -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
-      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">where we started — the believers</p>
-      <div class="cs-tabs">
-        <span class="name">tomboyx</span>
-        <span class="tab active">Story</span>
-        <span class="tab">Investor Pitch</span>
-      </div>
-
-      <p class="cs-intro">For tomboyx's early investors — the first audience solicited for new funds in the down round — the story built on their existing feelings about tomboyx. <strong>Framing of the story mattered here as much as the facts</strong>, as these were investors who came in because they personally cared about the company and what it meant to them and their world.</p>
-
-      <div class="cs-cluster">
-        <figure class="cs-fig note-top">
-          <p class="cs-note solid">clear, simple language and visuals appropriately support the intense words and strong brand ethos</p>
-          <img src="../images/work/tomboyx/story-5.webp" alt="tomboyx story slide showing values-led messaging" loading="lazy">
-        </figure>
-        <figure class="cs-fig note-top">
-          <p class="cs-note">market forces have driven tomboyx to the breaking point — not past leadership or decisions that early investors may contextualize differently</p>
-          <img src="../images/work/tomboyx/story-6.webp" alt="tomboyx story slide framing the market context" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/story-7.webp" alt="tomboyx story slide showing diverse silhouettes" loading="lazy">
-          <p class="cs-note">reinforces the lived truth of the brand — tomboyx supports XXS–XXXXXL with diverse silhouettes</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/story-8.webp" alt="tomboyx story slide reflecting brand values" loading="lazy">
-          <p class="cs-note">a reminder to investors of the values of the company — implicitly saying, "we are your people"</p>
-        </figure>
-      </div>
-    </div>
+  <!-- KAHRAN-REVIEW: sub-hero copy — using Option C per PM preference; Kahran to confirm final wording -->
+  <section class="tx-sub-hero">
+    <p>Three audiences, three angles, same Tomboy. Here's how we told it for operators, for values investors, and for syndicates.</p>
+    <p class="tx-kicker">pick an audience →</p>
   </section>
 
-  <div class="cs-bridge">now the pitch — <em>three audiences, three angles</em></div>
+  <!-- No-JS fallback: visible by default, hidden when JS boots -->
+  <p class="tx-toggle-fallback">Three audience framings below — enable JavaScript for the toggle.</p>
 
-  <!-- Slide 99 — Investor Pitch tab (values-driven investors) -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
-      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
-      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
+  <!-- Sticky audience toggle -->
+  <!-- Sentinel for IntersectionObserver sticky detection — sits just above the toggle in DOM flow -->
+  <div class="tx-toggle-sentinel" aria-hidden="true"></div>
+  <div class="tx-toggle"
+       role="tablist"
+       aria-label="Re-frame the case study by audience">
+    <div class="tx-toggle-inner">
+      <button class="tx-tab"
+              role="tab"
+              data-audience="operator"
+              aria-selected="true"
+              tabindex="0"
+              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-vs">
+        Operator
+      </button>
+      <button class="tx-tab"
+              role="tab"
+              data-audience="values"
+              aria-selected="false"
+              tabindex="-1"
+              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-vs">
+        Values Investor
+      </button>
+      <button class="tx-tab"
+              role="tab"
+              data-audience="syndicate"
+              aria-selected="false"
+              tabindex="-1"
+              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-vs">
+        Syndicate
+      </button>
     </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">for the values folks</p>
-      <div class="cs-tabs">
-        <span class="name">tomboyx</span>
-        <span class="tab">Story</span>
-        <span class="tab active">Investor Pitch</span>
+  </div>
+
+  <main class="tx-main">
+
+    <!-- ═══════════════════════════════════════════════
+         BEAT 01 — The first slide.
+    ════════════════════════════════════════════════ -->
+    <section class="tx-beat" id="beat-opener" aria-labelledby="beat-opener-h">
+      <header class="tx-beat-head">
+        <p class="tx-beat-eyebrow">beat 01 — how we opened</p>
+        <h3 class="tx-beat-subject" id="beat-opener-h">The first slide.</h3>
+      </header>
+
+      <div class="tx-stage"
+           role="tabpanel"
+           id="tx-stage-opener"
+           aria-live="polite"
+           tabindex="0">
+
+        <!-- OPERATOR variant — active by default -->
+        <!-- KAHRAN-REVIEW: beat-1, operator, pull-quote pending — replace [METRIC] values once Kahran verifies real numbers -->
+        <article class="tx-variant" data-audience="operator" data-active="true">
+          <p class="tx-variant-lens">for the operator</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Led with unit economics on slide one. Operators decide in 90 seconds whether the math is real — we gave them the math first, narrative second.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <blockquote>"[METRIC] revenue, [METRIC] gross margin, [METRIC] ROAS."</blockquote>
+            <figcaption>opening line — operator deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- VALUES INVESTOR variant -->
+        <!-- KAHRAN-REVIEW: beat-1, values investor, pull-quote pending — placeholder copy from existing cs-note -->
+        <article class="tx-variant" data-audience="values" hidden>
+          <p class="tx-variant-lens">for the values investor</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Led with the community — who buys tomboyx, who shows up at events, who writes in. Values investors want proof their people are here.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <blockquote>"A brand built for every body that's been told it's the wrong one."</blockquote>
+            <figcaption>opening line — values-investor deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- SYNDICATE variant -->
+        <!-- KAHRAN-REVIEW: beat-1, syndicate, pull-quote pending — placeholder copy from existing cs-note -->
+        <article class="tx-variant" data-audience="syndicate" hidden>
+          <p class="tx-variant-lens">for the syndicate</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Led with the founder on camera, one slide, no bullets. Syndicates package stories for LPs — the LPs need to remember one thing.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <blockquote>"Fran made tomboyx because she couldn't find herself in a store."</blockquote>
+            <figcaption>opening line — syndicate deck</figcaption>
+          </figure>
+        </article>
+
       </div>
+    </section>
 
-      <p class="cs-intro">Values-driven investors — like those interested in investing in women-owned companies that serve diverse bodies — care about the market opportunity but also want to understand they are with <strong>"their" people</strong>.</p>
-      <p class="cs-sub">Imagery nods to the female gaze in a deliberate repudiation of male-gaze focused marketing.</p>
+    <!-- ═══════════════════════════════════════════════
+         BEAT 02 — How we framed the market.
+    ════════════════════════════════════════════════ -->
+    <section class="tx-beat" id="beat-market" aria-labelledby="beat-market-h">
+      <header class="tx-beat-head">
+        <p class="tx-beat-eyebrow">beat 02 — how we talked market</p>
+        <h3 class="tx-beat-subject" id="beat-market-h">How we framed the market.</h3>
+      </header>
 
-      <div class="cs-cluster cols-3">
-        <figure class="cs-fig note-top">
-          <p class="cs-note solid">language calls to investors' values, with a framing around the lack of traditional VC funding for women and queer founders</p>
-          <img src="../images/work/tomboyx/pitch-9.webp" alt="tomboyx values-driven pitch slide" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/pitch-10.webp" alt="tomboyx pitch slide showing community funding" loading="lazy">
-          <p class="cs-note">drives home the messaging — funded by people, not big VCs</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/pitch-11.webp" alt="tomboyx pitch slide showing diverse customer base" loading="lazy">
-          <p class="cs-note">highlights the diversity of tomboyx — appeals to minority groups across generations and gender identities</p>
-        </figure>
+      <div class="tx-stage"
+           role="tabpanel"
+           id="tx-stage-market"
+           aria-live="polite"
+           tabindex="0">
+
+        <!-- OPERATOR variant -->
+        <!-- KAHRAN-REVIEW: beat-2, operator, pull-quote pending — derived from angels-12 note "highlighting strong metrics in a way accessible for investors unfamiliar with the underwear sector" -->
+        <article class="tx-variant" data-audience="operator" data-active="true">
+          <p class="tx-variant-lens">for the operator</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Highlighted strong metrics in a way accessible for investors unfamiliar with the underwear sector. Market forces drove tomboyx to the breaking point — not leadership decisions that early investors might contextualize differently.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-2, operator, pull-quote pending — angels-12 image (uncertain provenance) replaced with text card; filename: angels-12.webp -->
+            <blockquote>"The market broke the cap table. The brand is intact."</blockquote>
+            <figcaption>market framing — operator deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- VALUES INVESTOR variant -->
+        <!-- KAHRAN-REVIEW: beat-2, values investor, pull-quote pending — derived from pitch-9 note "language calls to investors' values, with a framing around the lack of traditional VC funding for women and queer founders" -->
+        <article class="tx-variant" data-audience="values" hidden>
+          <p class="tx-variant-lens">for the values investor</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Language called to investors' values, framing the lack of traditional VC funding for women and queer founders as the market opportunity — not the problem.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-2, values investor, pull-quote pending — pitch-9 image (b: likely Tomboy original) removed per spec §7.2; filename: pitch-9.webp -->
+            <blockquote>"Funded by people, not big VCs — and the market is finally catching up."</blockquote>
+            <figcaption>market framing — values-investor deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- SYNDICATE variant -->
+        <!-- KAHRAN-REVIEW: beat-2, syndicate, pull-quote pending — derived from syndicate-15 note "language captures the exceptional metrics while keeping warmth at the forefront" -->
+        <article class="tx-variant" data-audience="syndicate" hidden>
+          <p class="tx-variant-lens">for the syndicate</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Quantified market growth and the outcomes of LGBTQ consumer shifts. Language captured the exceptional metrics while keeping warmth at the forefront — syndicates need to re-tell this to their LPs.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-2, syndicate, pull-quote pending — syndicate-15 image (uncertain provenance) replaced with text card; filename: syndicate-15.webp -->
+            <blockquote>"The LGBTQ consumer has $[METRIC]T in spending power and nowhere near enough brands built for them."</blockquote>
+            <figcaption>market framing — syndicate deck</figcaption>
+          </figure>
+        </article>
+
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="cs-bridge">↓ then for <em>the operator-angels</em></div>
+    <!-- ═══════════════════════════════════════════════
+         BEAT 03 — How we brought in the team.
+    ════════════════════════════════════════════════ -->
+    <section class="tx-beat" id="beat-team" aria-labelledby="beat-team-h">
+      <header class="tx-beat-head">
+        <p class="tx-beat-eyebrow">beat 03 — how we brought in the team</p>
+        <h3 class="tx-beat-subject" id="beat-team-h">How we brought in the team.</h3>
+      </header>
 
-  <!-- Slide 100 — Investor Pitch tab (angels & operator-angels) -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
-      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">for the operator-angels</p>
-      <div class="cs-tabs">
-        <span class="name">tomboyx</span>
-        <span class="tab">Story</span>
-        <span class="tab active">Investor Pitch</span>
+      <div class="tx-stage"
+           role="tabpanel"
+           id="tx-stage-team"
+           aria-live="polite"
+           tabindex="0">
+
+        <!-- OPERATOR variant -->
+        <!-- KAHRAN-REVIEW: beat-3, operator, pull-quote pending — derived from angels-14 note "guiding investors through typical questions with a mix of data and narrative" -->
+        <article class="tx-variant" data-audience="operator" data-active="true">
+          <p class="tx-variant-lens">for the operator</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Guided investors through typical diligence questions with a mix of data and narrative. Operators want to know who runs the business — the deck put the team on slide three, not slide fifteen.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-3, operator, pull-quote pending — angels-14 image (uncertain provenance) replaced with text card; filename: angels-14.webp -->
+            <blockquote>"Meet the people keeping this brand alive while everyone else in the category consolidates."</blockquote>
+            <figcaption>team framing — operator deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- VALUES INVESTOR variant -->
+        <!-- KAHRAN-REVIEW: beat-3, values investor, pull-quote pending — derived from story-7 note "reinforces the lived truth of the brand — tomboyx supports XXS–XXXXXL with diverse silhouettes" -->
+        <article class="tx-variant" data-audience="values" hidden>
+          <p class="tx-variant-lens">for the values investor</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Reinforced the lived truth of the brand — tomboyx supports XXS–XXXXXL, with diverse silhouettes reflected in every team and product decision.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-3, values investor, pull-quote pending — story-7 image (b: Tomboy original) removed per spec §7.2; filename: story-7.webp -->
+            <blockquote>"The team looks like the customer — that's not accidental."</blockquote>
+            <figcaption>team framing — values-investor deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- SYNDICATE variant -->
+        <!-- KAHRAN-REVIEW: beat-3, syndicate, pull-quote pending — derived from syndicate-17 note "layout and minimal focus on the past draws attention to the team, versus individual players" -->
+        <article class="tx-variant" data-audience="syndicate" hidden>
+          <p class="tx-variant-lens">for the syndicate</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Layout drew minimal attention to individual histories — focus stayed on the team as a unit. Syndicates pitch to LPs who'll hear the story second-hand; the team slide has to survive the re-telling.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-3, syndicate, pull-quote pending — syndicate-17 image (uncertain provenance) replaced with text card; filename: syndicate-17.webp -->
+            <blockquote>"Not who they were. What they built together."</blockquote>
+            <figcaption>team framing — syndicate deck</figcaption>
+          </figure>
+        </article>
+
       </div>
+    </section>
 
-      <p class="cs-intro">Some angels &amp; super-angels want to <strong>get in deep</strong> — especially those who have been operators of companies. The narrative in this deck needs to bring the data to life, in a detailed way that guides the investors across the story with multiple slides into company and market metrics.</p>
-      <p class="cs-sub">A revised version of the deck for angels and operator-angels — focused on the numbers in the business.</p>
+    <!-- ═══════════════════════════════════════════════
+         BEAT 04 — The Victoria's Secret beat.
+         (Divya's name — KAHRAN-REVIEW: H3 copy. Consider: "Not a Victoria's Secret brand." or similar.)
+    ════════════════════════════════════════════════ -->
+    <section class="tx-beat" id="beat-vs" aria-labelledby="beat-vs-h">
+      <header class="tx-beat-head">
+        <p class="tx-beat-eyebrow">beat 04 — the repudiation</p>
+        <h3 class="tx-beat-subject" id="beat-vs-h">The Victoria's Secret beat.</h3>
+      </header>
 
-      <div class="cs-cluster cols-3">
-        <figure class="cs-fig note-top">
-          <p class="cs-note solid">highlighting strong metrics in a way accessible for investors unfamiliar with the underwear sector</p>
-          <img src="../images/work/tomboyx/angels-12.webp" alt="tomboyx angels deck slide one" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/angels-13.webp" alt="tomboyx angels deck slide two" loading="lazy">
-          <p class="cs-note">quantify market growth and the outcomes of LGBTQ consumer shifts</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/angels-14.webp" alt="tomboyx angels deck slide three" loading="lazy">
-          <p class="cs-note">guiding investors through typical questions with a mix of data and narrative</p>
-        </figure>
+      <div class="tx-stage"
+           role="tabpanel"
+           id="tx-stage-vs"
+           aria-live="polite"
+           tabindex="0">
+
+        <!-- OPERATOR variant -->
+        <!-- KAHRAN-REVIEW: beat-4, operator, pull-quote pending — derived from story-5 note "clear, simple language and visuals appropriately support the intense words and strong brand ethos" -->
+        <article class="tx-variant" data-audience="operator" data-active="true">
+          <p class="tx-variant-lens">for the operator</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Clear, simple language and visuals supported the intense brand ethos. For operators, the point was market positioning: tomboyx isn't trying to beat Victoria's Secret. It owns the market Victoria's Secret abandoned.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-4, operator, pull-quote pending — story-5 image (b: Tomboy original) removed per spec §7.2; filename: story-5.webp -->
+            <blockquote>"Not a Victoria's Secret brand. Intentionally."</blockquote>
+            <figcaption>positioning — operator deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- VALUES INVESTOR variant -->
+        <!-- KAHRAN-REVIEW: beat-4, values investor, pull-quote pending — derived from pitch-11 note "highlights the diversity of tomboyx — appeals to minority groups across generations and gender identities" -->
+        <article class="tx-variant" data-audience="values" hidden>
+          <p class="tx-variant-lens">for the values investor</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Imagery nodded to the female gaze in a deliberate repudiation of male-gaze focused marketing. For values investors, "not Victoria's Secret" isn't a market gap — it's a moral position.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-4, values investor, pull-quote pending — pitch-11 image (b: Tomboy original) removed per spec §7.2; filename: pitch-11.webp -->
+            <blockquote>"Every body Victoria's Secret told was wrong — that's the tomboyx customer."</blockquote>
+            <figcaption>positioning — values-investor deck</figcaption>
+          </figure>
+        </article>
+
+        <!-- SYNDICATE variant -->
+        <!-- KAHRAN-REVIEW: beat-4, syndicate, pull-quote pending — derived from syndicate-16 note "showcasing recent wedding and graduation invites the company has received from fans" -->
+        <article class="tx-variant" data-audience="syndicate" hidden>
+          <p class="tx-variant-lens">for the syndicate</p>
+          <div class="tx-note-card">
+            <p class="tx-note">
+              Showcased recent wedding and graduation invitations from fans — artifacts of the emotional resonance investors find with the deck. Syndicates need a story their LPs can repeat at dinner; this was it.
+            </p>
+          </div>
+          <figure class="tx-support pull-quote">
+            <!-- KAHRAN-REVIEW: beat-4, syndicate, pull-quote pending — syndicate-16 image (uncertain provenance) replaced with text card; filename: syndicate-16.webp -->
+            <blockquote>"Fans send tomboyx their wedding invites. That's the moat."</blockquote>
+            <figcaption>positioning — syndicate deck</figcaption>
+          </figure>
+        </article>
+
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="cs-bridge">↓ and for <em>the syndicates pulling LPs together</em></div>
-
-  <!-- Slide 101 — Investor Pitch tab (syndicates / LPs) -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
-      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">for the syndicates</p>
-      <div class="cs-tabs">
-        <span class="name">tomboyx</span>
-        <span class="tab">Story</span>
-        <span class="tab active">Investor Pitch</span>
-      </div>
-
-      <p class="cs-intro">For syndicates with diverse groups of limited partners (LPs), a focus on <strong>the exceptional elements that make tomboyx special</strong> — including bringing key leadership to be part of the pitch — dramatically increased the emotional connection with investors, getting the company past screening rounds and in front of decision makers.</p>
-      <p class="cs-sub">Colors, language, size and style of imagery all contribute to the emotional resonance investors find with the deck.</p>
-
-      <div class="cs-cluster cols-3">
-        <figure class="cs-fig note-top">
-          <p class="cs-note solid">showcasing recent wedding and graduation invites the company has received from fans</p>
-          <img src="../images/work/tomboyx/syndicate-16.webp" alt="tomboyx syndicate deck slide showing fan invites" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/syndicate-15.webp" alt="tomboyx syndicate deck slide on metrics" loading="lazy">
-          <p class="cs-note">language captures the exceptional metrics while keeping warmth at the forefront</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/tomboyx/syndicate-17.webp" alt="tomboyx syndicate deck slide on team" loading="lazy">
-          <p class="cs-note">layout and minimal focus on the past draws attention to the team, versus individual players</p>
-        </figure>
-      </div>
-    </div>
-  </section>
+  </main>
 
   <section class="cs-closing">
     <span class="cs-dots" aria-hidden="true">
@@ -388,6 +549,120 @@
   <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
+
+  <script>
+    (function () {
+      const AUDIENCES = ['operator', 'values', 'syndicate'];
+      const tabs = Array.from(document.querySelectorAll('.tx-tab'));
+      const stages = Array.from(document.querySelectorAll('.tx-stage'));
+      const toggle = document.querySelector('.tx-toggle');
+      const sentinel = document.querySelector('.tx-toggle-sentinel');
+      const fallback = document.querySelector('.tx-toggle-fallback');
+      const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (fallback) fallback.style.display = 'none';
+      document.body.setAttribute('data-tx-ready', '1');
+
+      function resolveAudience() {
+        const params = new URLSearchParams(window.location.search);
+        const qAud = params.get('audience');
+        if (qAud && AUDIENCES.includes(qAud)) {
+          history.replaceState(null, '', '#' + qAud);
+          return qAud;
+        }
+        const hash = window.location.hash.replace('#', '');
+        if (hash.startsWith('beat-')) return 'operator';
+        if (AUDIENCES.includes(hash)) return hash;
+        return 'operator';
+      }
+
+      function updateTabindex(audience) {
+        tabs.forEach(t => {
+          t.setAttribute('tabindex', t.dataset.audience === audience ? '0' : '-1');
+        });
+      }
+
+      function applyAudience(audience, skipHistory) {
+        tabs.forEach(t => {
+          t.setAttribute('aria-selected', t.dataset.audience === audience ? 'true' : 'false');
+        });
+        stages.forEach(stage => {
+          Array.from(stage.querySelectorAll('.tx-variant')).forEach(v => {
+            const isTarget = v.dataset.audience === audience;
+            if (isTarget) {
+              v.removeAttribute('hidden');
+              v.setAttribute('data-active', 'true');
+            } else {
+              v.setAttribute('hidden', '');
+              v.removeAttribute('data-active');
+            }
+          });
+        });
+        updateTabindex(audience);
+        if (!skipHistory) {
+          history.replaceState(null, '', '#' + audience);
+        }
+        const activeTab = tabs.find(t => t.dataset.audience === audience);
+        if (activeTab) {
+          activeTab.scrollIntoView({ inline: 'center', block: 'nearest', behavior: motionOK ? 'smooth' : 'auto' });
+        }
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          if (tab.getAttribute('aria-selected') === 'true') return;
+          applyAudience(tab.dataset.audience);
+        });
+      });
+
+      toggle.addEventListener('keydown', e => {
+        const currentIdx = tabs.findIndex(t => t === document.activeElement);
+        if (currentIdx === -1) return;
+
+        let next = -1;
+        if (e.key === 'ArrowRight') next = (currentIdx + 1) % tabs.length;
+        else if (e.key === 'ArrowLeft') next = (currentIdx - 1 + tabs.length) % tabs.length;
+        else if (e.key === 'Home') next = 0;
+        else if (e.key === 'End') next = tabs.length - 1;
+        else if (e.key === ' ' || e.key === 'Enter') {
+          applyAudience(tabs[currentIdx].dataset.audience);
+          e.preventDefault();
+          return;
+        }
+
+        if (next >= 0) {
+          e.preventDefault();
+          tabs[next].focus();
+          applyAudience(tabs[next].dataset.audience);
+        }
+      });
+
+      document.addEventListener('keydown', e => {
+        if (document.activeElement && document.activeElement.matches('input, textarea, [contenteditable]')) return;
+        if (e.key === '1') applyAudience('operator');
+        else if (e.key === '2') applyAudience('values');
+        else if (e.key === '3') applyAudience('syndicate');
+      });
+
+      if (sentinel && 'IntersectionObserver' in window) {
+        const obs = new IntersectionObserver(
+          ([entry]) => { toggle.classList.toggle('is-stuck', !entry.isIntersecting); },
+          { threshold: 0 }
+        );
+        obs.observe(sentinel);
+      }
+
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (AUDIENCES.includes(hash)) applyAudience(hash, true);
+      });
+
+      applyAudience(resolveAudience(), true);
+
+    })();
+  </script>
+
+  <script src="../shape-echo.js"></script>
 
 </body>
 </html>
