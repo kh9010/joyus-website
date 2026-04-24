@@ -18,9 +18,436 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=4">
+  <!-- Preload first, pivot, final spin frames -->
+  <link rel="preload" as="image" href="../images/work/xtdb/slide87-brand-1.webp">
+  <link rel="preload" as="image" href="../images/work/xtdb/slide85-rebranding-5.webp">
+  <link rel="preload" as="image" href="../images/work/xtdb/slide87-brand-2.webp">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CreativeWork","name":"xtdb","description":"Re-branding and brand guidelines for a technology database with a unique time-focused solution.","url":"https://kh9010.github.io/joyus-website/work/xtdb.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
+<style>
+/* ── xt-stage: scroll-parallax spin section ─────────────────────────── */
+
+.xt-stage {
+  position: relative;
+  min-height: 400vh;
+  display: flex;
+  align-items: flex-start;
+  background: #fff;
+}
+
+/* JS adds data-mode="interactive" once it boots;
+   without it, fall through to contact-sheet+flow stacked display */
+.xt-stage:not([data-mode]) .xt-stage-sticky,
+.xt-stage:not([data-mode]) .xt-stage-flow { display: none; }
+.xt-stage:not([data-mode]) .xt-contact-sheet { display: grid; }
+.xt-stage:not([data-mode]) { min-height: auto; padding: 4rem 0; }
+
+.xt-stage[data-mode="interactive"] .xt-contact-sheet { display: none; }
+.xt-stage[data-mode="interactive"] .xt-replay { display: none; }
+
+.xt-stage[data-mode="fallback"] .xt-stage-sticky,
+.xt-stage[data-mode="fallback"] .xt-stage-flow { display: none; }
+.xt-stage[data-mode="fallback"] .xt-contact-sheet { display: grid; }
+.xt-stage[data-mode="fallback"] { min-height: auto; padding: 4rem 0; }
+
+/* Hidden preload container — images load but don't paint */
+.xt-preload {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.xt-preload img { display: block; width: 1px; height: 1px; }
+
+/* ── Sticky left column (45%) ─────────────────── */
+.xt-stage-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 45%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 2.5rem 2rem 3rem;
+  box-sizing: border-box;
+}
+/* dvh for iOS URL bar — overrides 100vh when supported */
+@supports (height: 100dvh) {
+  .xt-stage-sticky { height: 100dvh; }
+}
+
+/* ── Logo stage ─────────────────── */
+.xt-stage-logo {
+  --rot: 0deg;
+  --t: 0;
+  position: relative;
+  width: 520px;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  transform: rotate(var(--rot));
+  transform-origin: 50% 50%;
+  will-change: transform, filter;
+  transition: none;
+}
+
+@supports not (aspect-ratio: 1/1) {
+  .xt-stage-logo { height: 520px; }
+}
+
+.xt-stage-logo[data-locked="true"] {
+  animation: xt-landed 280ms cubic-bezier(.2,.8,.2,1) 1;
+}
+
+@keyframes xt-landed {
+  0%   { transform: rotate(0deg) scale(1.00); }
+  60%  { transform: rotate(0deg) scale(1.03); }
+  100% { transform: rotate(0deg) scale(1.00); }
+}
+
+/* Loading pulse while frames are loading */
+.xt-stage-logo[data-loading="true"]::after {
+  content: '';
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pink, #E91E7B);
+  animation: xt-pulse 1s ease-in-out infinite;
+}
+
+@keyframes xt-pulse {
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) scale(0.8); }
+  50%       { opacity: 1;   transform: translateX(-50%) scale(1.2); }
+}
+
+/* ── Frame images (stacked absolutely) ─────────────────── */
+.xt-frame {
+  --op: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: var(--op);
+}
+
+/* Show CRUX as initial paint before JS runs */
+.xt-frame[data-frame="0"] { --op: 1; }
+
+/* ── Scroll hint bar ─────────────────── */
+.xt-stage-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: #8892A0;
+  text-transform: uppercase;
+  user-select: none;
+  width: 100%;
+  max-width: 520px;
+}
+
+.xt-stage-hint-from,
+.xt-stage-hint-to {
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.xt-stage-hint-bar {
+  flex: 1;
+  height: 2px;
+  background: #E8E4DC;
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.xt-stage-hint-fill {
+  display: block;
+  height: 100%;
+  width: calc(var(--t, 0) * 100%);
+  background: var(--pink, #E91E7B);
+  border-radius: 1px;
+  transition: none;
+}
+
+/* ── Scrolling narrative column (right, 55%) ─────────────────── */
+.xt-stage-flow {
+  width: 55%;
+  padding: 6rem 3rem 6rem 2.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Beat articles ─────────────────── */
+.xt-beat {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 0;
+  max-width: 560px;
+}
+
+.xt-beat-eyebrow {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pink, #E91E7B);
+  margin: 0 0 0.75rem;
+}
+
+.xt-beat-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: #111214;
+  margin: 0 0 1.25rem;
+  font-weight: 400;
+}
+
+.xt-beat-body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #2C3544;
+  margin: 0;
+}
+
+/* ── Contact sheet (reduced-motion + mobile fallback) ─────────────────── */
+.xt-contact-sheet {
+  display: none; /* shown by CSS when needed */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  padding: 4rem clamp(1.5rem, 4vw, 3rem);
+  max-width: 860px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.xt-cs-cell {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.xt-cs-cell img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: contain;
+  background: #F5F3F0;
+  border-radius: 6px;
+  display: block;
+}
+
+.xt-cs-cell figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.xt-cs-label {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8892A0;
+  flex-shrink: 0;
+}
+
+.xt-cs-word {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1rem;
+  color: #111214;
+}
+
+/* old / new bookend chips */
+.xt-cs-cell[data-stage="old"] .xt-cs-label,
+.xt-cs-cell[data-stage="new"] .xt-cs-label {
+  color: var(--pink, #E91E7B);
+}
+
+/* ── Mobile spin stage ─────────────────── */
+.xt-mobile-spin {
+  display: none;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(var(--rot, 0deg));
+  transform-origin: 50% 50%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.xt-mobile-spin img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: var(--op, 0);
+}
+
+.xt-mobile-spin img:first-child { --op: 1; }
+
+/* Mobile spin wrapper cell */
+.xt-cs-cell--spin-host {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── Replay button ─────────────────── */
+.xt-replay {
+  display: none; /* shown on mobile */
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem auto 0;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  background: transparent;
+  border: 1.5px solid #2C3544;
+  border-radius: 100px;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #2C3544;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.xt-replay:hover { color: var(--pink, #E91E7B); border-color: var(--pink, #E91E7B); }
+.xt-replay.spinning { opacity: 0.5; cursor: not-allowed; }
+
+.xt-replay svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  fill: currentColor;
+}
+
+/* ── Coda strip ─────────────────── */
+.xt-coda {
+  padding: 5rem clamp(1.5rem, 5vw, 4rem);
+  background: #F5F3F0;
+}
+
+.xt-coda-eyebrow {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--pink, #E91E7B);
+  margin: 0 0 0.75rem;
+}
+
+.xt-coda-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 2rem;
+  font-weight: 400;
+  color: #111214;
+  margin: 0 0 0.75rem;
+  line-height: 1.25;
+}
+
+.xt-coda-body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  color: #2C3544;
+  max-width: 560px;
+  line-height: 1.65;
+  margin: 0 0 2.5rem;
+}
+
+.xt-coda-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.xt-coda-strip figure {
+  margin: 0;
+}
+
+.xt-coda-strip figure img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  background: #fff;
+}
+
+/* ── Responsive ─────────────────── */
+@media (max-width: 1199px) {
+  .xt-stage-sticky { width: 42%; padding: 2rem 2rem 2rem 2.5rem; }
+  .xt-stage-logo { width: 420px; }
+  .xt-stage-flow { width: 58%; padding: 5rem 2.5rem 5rem 2rem; }
+  .xt-beat { max-width: 500px; }
+  .xt-beat-title { font-size: 1.9rem; }
+}
+
+@media (max-width: 899px) {
+  .xt-coda-strip { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  /* Mobile: drop sticky columns entirely */
+  .xt-stage[data-mode="interactive"] .xt-stage-sticky,
+  .xt-stage[data-mode="interactive"] .xt-stage-flow { display: none !important; }
+  .xt-stage[data-mode="interactive"] .xt-contact-sheet { display: grid !important; }
+  .xt-stage[data-mode="interactive"] .xt-replay { display: flex !important; }
+  .xt-stage[data-mode="interactive"] { min-height: auto !important; padding: 4rem 0; }
+
+  .xt-stage { min-height: auto; padding: 3rem 0; }
+  .xt-contact-sheet { display: grid; padding: 3rem 1.25rem; }
+  .xt-replay { display: flex; }
+  .xt-beat-title { font-size: 1.6rem; }
+  .xt-beat-body { font-size: 0.95rem; }
+  .xt-coda { padding: 3rem 1.25rem; }
+  .xt-coda-title { font-size: 1.6rem; }
+  .xt-coda-strip { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+@media (max-width: 375px) {
+  .xt-contact-sheet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    padding: 2rem 1rem;
+  }
+  .xt-cs-cell img { min-height: 120px; }
+  .xt-beat-title { font-size: 1.4rem; }
+  .xt-beat-body { font-size: 0.9rem; }
+}
+
+/* ── Reduced-motion ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .xt-stage-sticky,
+  .xt-stage-flow { display: none !important; }
+  .xt-contact-sheet { display: grid !important; }
+  .xt-stage { min-height: auto !important; padding: 4rem 0; }
+  .xt-stage-logo[data-locked="true"] { animation: none; }
+  @keyframes xt-pulse { 0%, 100%, 50% { opacity: 0.3; transform: translateX(-50%) scale(1); } }
+}
+</style>
 </head>
 <body class="work-page">
 
@@ -194,167 +621,147 @@
     </div>
   </header>
 
-  <!-- Slide 84 — Rebranding: concepts -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
-      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
+  <!-- ── Scroll-parallax stage ─────────────────────── -->
+  <section class="xt-stage"
+           data-xt-stage
+           aria-label="XTDB rebrand evolution">
+
+    <!-- Hidden preload images — same 10 src URLs as .xt-frame below;
+         browser deduplicates the requests -->
+    <div class="xt-preload" aria-hidden="true">
+      <img src="../images/work/xtdb/slide87-brand-1.webp" alt="">
+      <img src="../images/work/xtdb/slide84-rebranding-4.webp" alt="">
+      <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="">
+      <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="">
+      <img src="../images/work/xtdb/slide85-rebranding-5.webp" alt="">
+      <img src="../images/work/xtdb/slide85-rebranding-7.webp" alt="">
+      <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="">
+      <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="">
+      <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="">
+      <img src="../images/work/xtdb/slide87-brand-2.webp" alt="">
     </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">concepts that capture remembering</p>
-      <div class="cs-tabs">
-        <span class="name">xtdb</span>
-        <span class="tab active">Re-branding</span>
-        <span class="tab">Brand guidelines</span>
+
+    <!-- Sticky-logo column (left, 45%) -->
+    <div class="xt-stage-sticky">
+      <div class="xt-stage-logo"
+           role="img"
+           aria-label="XTDB logo evolving from CRUX wordmark to final cube"
+           data-loading="true">
+        <img class="xt-frame" data-frame="0" src="../images/work/xtdb/slide87-brand-1.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="1" src="../images/work/xtdb/slide84-rebranding-4.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="2" src="../images/work/xtdb/slide84-rebranding-7.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="3" src="../images/work/xtdb/slide84-rebranding-3.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="4" src="../images/work/xtdb/slide85-rebranding-5.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="5" src="../images/work/xtdb/slide85-rebranding-7.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="6" src="../images/work/xtdb/slide85-rebranding-4.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="7" src="../images/work/xtdb/slide85-rebranding-2.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="8" src="../images/work/xtdb/slide85-rebranding-3.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="9" src="../images/work/xtdb/slide87-brand-2.webp" alt="" aria-hidden="true">
       </div>
-
-      <p class="cs-intro">These early concepts came out of generative work to capture <strong>feelings of remembering</strong> — and particularly those facets around permanence and predictable reliability. Concepts needed to feel inspiring, while looking for a humanizing touch was desirable and differentiating.</p>
-      <p class="cs-sub">The compass for the visual exploration: <em>human-made · inspiring · reliability · spatial persistence · temporal persistence · memory</em>.</p>
-
-      <div class="cs-cluster cols-3">
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-4.webp" alt="XTDB concept — tree rings" loading="lazy">
-          <p class="cs-note">the tree rings record history</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-2.webp" alt="XTDB concept — elephants" loading="lazy">
-          <p class="cs-note">elephants never forget — playful, joyful</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="XTDB concept — origami" loading="lazy">
-          <p class="cs-note">origami — mathematical, human-made, inspiring</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-5.webp" alt="XTDB concept — neural web" loading="lazy">
-          <p class="cs-note">a web of neurons / galactic clusters — awe-inspiring, interconnected information</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-1.webp" alt="XTDB concept — server stacks" loading="lazy">
-          <p class="cs-note">server stacks — technological, advanced, database, storage</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-6.webp" alt="XTDB concept — black holes" loading="lazy">
-          <p class="cs-note">black holes — no information can escape</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="XTDB concept — wormholes" loading="lazy">
-          <p class="cs-note">wormholes — awe-inspiring, connected across time and space</p>
-        </figure>
+      <div class="xt-stage-hint" aria-hidden="true">
+        <span class="xt-stage-hint-from">CRUX</span>
+        <span class="xt-stage-hint-bar"><span class="xt-stage-hint-fill"></span></span>
+        <span class="xt-stage-hint-to">XTDB</span>
       </div>
     </div>
+
+    <!-- Scrolling narrative column (right, 55%) -->
+    <div class="xt-stage-flow">
+
+      <article class="xt-beat" data-beat="0" data-frame-start="0" data-frame-end="0">
+        <p class="xt-beat-eyebrow">where they came from</p>
+        <h2 class="xt-beat-title">CRUX, with an arrow through the X.</h2>
+        <p class="xt-beat-body">XTDB was called CRUX — a JUXT-owned bi-temporal SQL and Datalog database. The name changed. The logo hadn't yet. CRUX's mark: a serif wordmark, a yellow-and-black arrow through the X, bold, 2010s-era tech confidence. It didn't say anything about time, memory, or the thing that made the database genuinely different.</p>
+      </article>
+
+      <article class="xt-beat" data-beat="1" data-frame-start="1" data-frame-end="3">
+        <p class="xt-beat-eyebrow">concepts that capture remembering</p>
+        <h2 class="xt-beat-title">Tree rings, wormholes, folds.</h2>
+        <p class="xt-beat-body">The brief we gave ourselves: the mark should feel <em>human-made · inspiring · reliable · spatially and temporally persistent</em>. We sketched tree rings (a stump records its own history), wormholes (time-connected, awe-inspiring), and origami folds (mathematical, human-made, inherently three-dimensional). These are the raw frames — early concepts before anything was committed. Origami was the one that kept pulling us back.</p>
+      </article>
+
+      <article class="xt-beat" data-beat="2" data-frame-start="4" data-frame-end="4">
+        <p class="xt-beat-eyebrow">the pivot</p>
+        <h2 class="xt-beat-title">Origami.</h2>
+        <p class="xt-beat-body">Origami is mathematical and human-made at the same time. A fold preserves — the paper remembers every crease. That's the database in a metaphor. We moved to mint-paper origami forms to test the shape language: star shuriken, mountain tent, layered planes. Origami refines.</p>
+      </article>
+
+      <article class="xt-beat" data-beat="3" data-frame-start="5" data-frame-end="8">
+        <p class="xt-beat-eyebrow">the refinement</p>
+        <h2 class="xt-beat-title">Small folds give the sense of folds.</h2>
+        <p class="xt-beat-body">Once we had the cube, the work became about making it honest. Subtle shading for a three-dimensional feel. A colored X in an hourglass fashion — the X from XTDB, the hourglass from time. The mark retains color, and a hero element in X, from the parent company JUXT. We ran through four near-final cube iterations: pencil construction lines, iso with one orange face, hex with multiple facets, then clean shading. Each one tighter.</p>
+      </article>
+
+      <article class="xt-beat" data-beat="4" data-frame-start="9" data-frame-end="9">
+        <p class="xt-beat-eyebrow">where they landed</p>
+        <h2 class="xt-beat-title">A mark that remembers.</h2>
+        <p class="xt-beat-body">The final XTDB cube: an origami fold, a depth shadow, an orange X that still reads JUXT. It moved from CRUX's blunt confidence to something quieter and more specific. The same database, now with a mark that tells the truth about it — and then it had to travel.</p>
+      </article>
+
+    </div>
+
+    <!-- Reduced-motion + mobile contact sheet (always in DOM; CSS governs visibility) -->
+    <div class="xt-contact-sheet" aria-label="10 iteration frames, old to new">
+      <figure class="xt-cs-cell" data-stage="old">
+        <img src="../images/work/xtdb/slide87-brand-1.webp" alt="CRUX wordmark, the pre-rebrand logo" loading="lazy">
+        <figcaption><span class="xt-cs-label">old</span><span class="xt-cs-word">CRUX</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="concept">
+        <img src="../images/work/xtdb/slide84-rebranding-4.webp" alt="Concept sketch: tree rings" loading="lazy">
+        <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">rings</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="concept">
+        <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="Concept sketch: wormholes" loading="lazy">
+        <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">wormhole</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="picked">
+        <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="Concept sketch: origami paper folds" loading="lazy">
+        <figcaption><span class="xt-cs-label">picked</span><span class="xt-cs-word">origami</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="paper">
+        <img src="../images/work/xtdb/slide85-rebranding-5.webp" alt="Origami forms in mint paper" loading="lazy">
+        <figcaption><span class="xt-cs-label">paper</span><span class="xt-cs-word">paper</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="refine">
+        <img src="../images/work/xtdb/slide85-rebranding-7.webp" alt="Pencil sketch showing cube construction" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">cube</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="refine">
+        <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="Isometric cube with one orange face" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">iso</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="refine">
+        <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="Hexagonal cube with multiple orange faces" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">hex</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="refine">
+        <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="Refined cube, near-final iteration" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">near-final</span></figcaption>
+      </figure>
+      <!-- Mobile spin overlay lives in first cell; injected by JS at runtime -->
+      <figure class="xt-cs-cell" data-stage="new">
+        <img src="../images/work/xtdb/slide87-brand-2.webp" alt="Final XTDB origami cube" loading="lazy">
+        <figcaption><span class="xt-cs-label">new</span><span class="xt-cs-word">XTDB</span></figcaption>
+      </figure>
+    </div>
+
+    <!-- Mobile replay button (only shown ≤720px) -->
+    <button class="xt-replay" type="button" aria-label="Replay the logo spin" hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5V2L7 6l5 4V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg>
+      <span>tap to replay spin</span>
+    </button>
+
   </section>
 
-  <div class="cs-bridge">↓ pick one — and <em>shape it</em></div>
-
-  <!-- Slide 85 — Rebranding: origami refinement -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
-      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
-      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">the origami refines</p>
-      <div class="cs-tabs">
-        <span class="name">xtdb</span>
-        <span class="tab active">Re-branding</span>
-        <span class="tab">Brand guidelines</span>
-      </div>
-
-      <p class="cs-intro">Once the origami shape had been selected, the refinements added <strong>depth and a sense of humanity</strong> — while maintaining recognizability through similarity with the branding and colors of JUXT, the parent company.</p>
-
-      <div class="cs-cluster cols-1">
-        <figure class="cs-fig hero">
-          <img src="../images/work/xtdb/slide85-rebranding-1.webp" alt="XTDB refined origami logo" loading="lazy">
-          <p class="cs-note">small folds give the sense of folds</p>
-          <p class="cs-note">subtle shading for a three-dimensional feel to the logo</p>
-          <p class="cs-note">colored X in an hourglass fashion</p>
-          <p class="cs-note">retains color, and a hero element in X, from the parent company</p>
-        </figure>
-      </div>
-
-      <div class="cs-cluster cols-4" style="margin-top:2.5rem;">
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="Logo iteration" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="Logo iteration" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="Logo iteration" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide85-rebranding-6.webp" alt="Logo iteration" loading="lazy">
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ make it travel — <em>guidelines for every surface</em></div>
-
-  <!-- Slide 86 — Brand guidelines: logo variants -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
-      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">guidelines so it travels</p>
-      <div class="cs-tabs">
-        <span class="name">xtdb</span>
-        <span class="tab">Re-branding</span>
-        <span class="tab active">Brand guidelines</span>
-      </div>
-
-      <p class="cs-intro">How does branding create consistency? By <strong>taking on the considerations required for edge cases</strong>, the branding gains a sense of completeness.</p>
-      <p class="cs-sub">For XTDB, an established brand, the new logo had to support existing artifacts — both print and digital.</p>
-
-      <div class="cs-cluster cols-3">
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide86-brand-1.webp" alt="XTDB logo variants set 1" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide86-brand-2.webp" alt="XTDB logo variants set 2" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide86-brand-3.webp" alt="XTDB logo variants set 3" loading="lazy">
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ where we started, <em>where we landed</em></div>
-
-  <!-- Slide 87 — Brand guidelines: old vs new -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
-      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">old → new</p>
-      <div class="cs-tabs">
-        <span class="name">xtdb</span>
-        <span class="tab">Re-branding</span>
-        <span class="tab active">Brand guidelines</span>
-      </div>
-
-      <p class="cs-intro">After choosing the new name XTDB, they needed refreshed visual branding — incorporating <strong>temporal ideas</strong> while maintaining the feelings of flexibility, creativity and openness that the database's previous branding embodied.</p>
-      <p class="cs-sub">XTDB, formerly known as CRUX, a JUXT-owned company, is a general-purpose bi-temporal SQL & Datalog database.</p>
-
-      <div class="cs-cluster">
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide87-brand-1.webp" alt="XTDB old logo" loading="lazy">
-          <p class="cs-note">old logo</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/xtdb/slide87-brand-2.webp" alt="XTDB new origami logo" loading="lazy">
-          <p class="cs-note solid">the new origami mark — humanizing, mathematical, time-aware</p>
-        </figure>
-      </div>
+  <!-- ── Brand guidelines coda ─────────────────────── -->
+  <section class="xt-coda" aria-label="Brand guidelines">
+    <p class="xt-coda-eyebrow">once it locks, it has to travel</p>
+    <h3 class="xt-coda-title">Guidelines for every surface.</h3>
+    <p class="xt-coda-body">Print, digital, small, inverted, greyscale, sticker. Each variant earns its keep.</p>
+    <div class="xt-coda-strip">
+      <figure><img src="../images/work/xtdb/slide86-brand-1.webp" alt="XTDB logo variants — basic, no-shading, sticker" loading="lazy"></figure>
+      <figure><img src="../images/work/xtdb/slide86-brand-2.webp" alt="XTDB horizontal-layout variants" loading="lazy"></figure>
+      <figure><img src="../images/work/xtdb/slide86-brand-3.webp" alt="XTDB greyscale, small, logotype-only variants" loading="lazy"></figure>
     </div>
   </section>
 
@@ -404,5 +811,379 @@
 </footer>
 <!--END:FOOT-->
 
+<script>
+(function() {
+
+  const FRAME_PEAKS = [0.04, 0.14, 0.20, 0.28, 0.44, 0.56, 0.64, 0.72, 0.82, 0.96];
+  const THRESHOLD_LOW  = 40;
+  const THRESHOLD_HIGH = 400;
+  const MAX_BLUR       = 5;
+
+  const stageEl  = document.querySelector('[data-xt-stage]');
+  const logoEl   = stageEl.querySelector('.xt-stage-logo');
+  const frameEls = Array.from(logoEl.querySelectorAll('.xt-frame'));
+  const hintFill = stageEl.querySelector('.xt-stage-hint-fill');
+  const replayBtn = stageEl.querySelector('.xt-replay');
+
+  const reducedMQL = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  function easeInOutCubic(x) {
+    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  }
+
+  function framePair(t) {
+    for (let i = 0; i < FRAME_PEAKS.length - 1; i++) {
+      if (t >= FRAME_PEAKS[i] && t <= FRAME_PEAKS[i + 1]) {
+        const local = (t - FRAME_PEAKS[i]) / (FRAME_PEAKS[i + 1] - FRAME_PEAKS[i]);
+        return { a: i, b: i + 1, mix: local };
+      }
+    }
+    if (t < FRAME_PEAKS[0]) return { a: 0, b: 0, mix: 0 };
+    return { a: 9, b: 9, mix: 1 };
+  }
+
+  function velocityToBlur(vel) {
+    const norm = Math.max(0, Math.min(1, (vel - THRESHOLD_LOW) / (THRESHOLD_HIGH - THRESHOLD_LOW)));
+    return norm * MAX_BLUR;
+  }
+
+  function computeT() {
+    const rect   = stageEl.getBoundingClientRect();
+    const stageH = rect.height;
+    const vh     = window.innerHeight;
+    const scrolled = -rect.top;
+    const span   = stageH - vh;
+    const raw    = scrolled / span;
+    return Math.max(0, Math.min(1, raw));
+  }
+
+  /* ── Perf guard for blur on mid-tier Android ─────────────────────
+   * If DPR < 1.5 or an rAF frame timing test detects <45fps during init,
+   * disable blur entirely (keeps crossfade + rotate, drops filter).
+   * This avoids GPU compositing overhead on lower-end devices. */
+  let blurEnabled = true;
+  if (window.devicePixelRatio < 1.5) {
+    blurEnabled = false;
+  } else {
+    /* One-shot frame timing test — measures two consecutive rAF frames */
+    let fpsCheckDone = false;
+    let fpsT0 = null;
+    function checkFps(ts) {
+      if (fpsCheckDone) return;
+      if (fpsT0 === null) { fpsT0 = ts; requestAnimationFrame(checkFps); return; }
+      const frameDuration = ts - fpsT0;
+      /* >22ms between frames → below ~45fps */
+      if (frameDuration > 22) blurEnabled = false;
+      fpsCheckDone = true;
+    }
+    requestAnimationFrame(checkFps);
+  }
+
+  /* ── Reduced-motion / mobile early exit ─────────────────────────── */
+  const isMobile = () => window.innerWidth <= 720;
+
+  if (reducedMQL.matches) {
+    stageEl.dataset.mode = 'reduced';
+    return;
+  }
+
+  if (isMobile()) {
+    setupMobileFallback();
+    return;
+  }
+
+  /* ── Full desktop interactive mode ─────────────────────────────── */
+  stageEl.dataset.mode = 'interactive';
+
+  /* Preload gate */
+  let preloadComplete = false;
+  const preloadTimeout = setTimeout(function() {
+    preloadComplete = true;
+    logoEl.removeAttribute('data-loading');
+  }, 5000);
+
+  /* Mark broken frames so we can skip them */
+  frameEls.forEach(function(img) {
+    img.addEventListener('error', function() {
+      img.dataset.missing = 'true';
+    });
+  });
+
+  /* ── rAF loop state ─────────────────────────────────────────────── */
+  let scheduled = false;
+  const last = { t: -1, locked: false };
+  const rotHistory = [];
+
+  /* Snap state for PM override #2:
+   * When t first crosses 0.985, compute nearest 360*N to current rotation,
+   * animate to that value in 120ms ease-out, THEN lock.
+   * This prevents a visible jump from ~1790° back to 0°. */
+  let snapTriggered = false;
+  let snapStartRot  = 0;
+  let snapTargetRot = 0;
+  let snapStartTs   = null;
+  const SNAP_DURATION = 120;
+
+  function applyFrameOpacities(t) {
+    const { a, b, mix } = framePair(t);
+    for (let i = 0; i < 10; i++) {
+      let op = 0;
+      if (i === a) op = 1 - mix;
+      if (i === b) op = mix;
+      if (a === b && i === a) op = 1;
+      /* Skip missing frames — advance to neighbour */
+      if (frameEls[i] && frameEls[i].dataset.missing) op = 0;
+      if (frameEls[i]) frameEls[i].style.setProperty('--op', op);
+    }
+  }
+
+  function applyBlur(blur) {
+    if (!blurEnabled || blur < 0.3) {
+      logoEl.style.removeProperty('filter');
+    } else {
+      logoEl.style.filter = 'blur(' + blur + 'px)';
+    }
+  }
+
+  function tick(ts) {
+    scheduled = false;
+
+    /* Preload gate: check every frame until all 10 images are ready */
+    if (!preloadComplete) {
+      const allReady = frameEls.every(function(img) {
+        return img.complete && img.naturalWidth > 0;
+      });
+      if (allReady) {
+        preloadComplete = true;
+        clearTimeout(preloadTimeout);
+        logoEl.removeAttribute('data-loading');
+      }
+    }
+
+    const t = computeT();
+
+    /* Rotation snap handling (PM override #2):
+     * At t >= 0.985 we need to land on an upright-facing orientation.
+     * 1800 * easeInOutCubic(0.985) ≈ 1794°. Naively snapping to 0° would
+     * visually jump 1794°. Instead: on first crossing 0.985, find the
+     * nearest multiple of 360° to the current rotation and animate to it
+     * over 120ms ease-out, then lock. */
+    if (!snapTriggered && t >= 0.985) {
+      snapTriggered = true;
+      const currentRot = 1800 * easeInOutCubic(Math.min(t, 0.985));
+      const nearestFull = Math.round(currentRot / 360) * 360;
+      snapStartRot  = currentRot;
+      snapTargetRot = nearestFull;
+      snapStartTs   = ts;
+    }
+
+    /* If we've scrolled back below 0.985, reset the snap so it can retrigger */
+    if (snapTriggered && t < 0.95) {
+      snapTriggered = false;
+      snapStartTs   = null;
+    }
+
+    let rot;
+    let locked = false;
+
+    if (snapTriggered && snapStartTs !== null) {
+      const elapsed = ts - snapStartTs;
+      if (elapsed >= SNAP_DURATION) {
+        rot    = snapTargetRot;
+        locked = (t >= 1.0);
+      } else {
+        /* ease-out snap */
+        const k = elapsed / SNAP_DURATION;
+        const eased = 1 - Math.pow(1 - k, 2);
+        rot    = snapStartRot + (snapTargetRot - snapStartRot) * eased;
+        locked = false;
+      }
+    } else if (t >= 1.0) {
+      rot    = 0;
+      locked = true;
+    } else {
+      rot = 1800 * easeInOutCubic(t);
+    }
+
+    /* Velocity / blur */
+    rotHistory.push({ ts: ts, rot: rot });
+    while (rotHistory.length && ts - rotHistory[0].ts > 100) rotHistory.shift();
+    const velRot = Math.abs(rot - (rotHistory[0] ? rotHistory[0].rot : rot));
+    const blur   = locked ? 0 : velocityToBlur(velRot);
+
+    /* While preload pending: hold frame 0, no rotation */
+    const effectiveRot   = preloadComplete ? rot   : 0;
+    const effectiveT     = preloadComplete ? t     : 0;
+    const effectiveLocked = preloadComplete ? locked : false;
+
+    /* Apply */
+    logoEl.style.setProperty('--rot', effectiveRot + 'deg');
+    logoEl.style.setProperty('--t', effectiveT);
+    if (hintFill) hintFill.style.setProperty('--t', effectiveT);
+    applyBlur(preloadComplete ? blur : 0);
+    applyFrameOpacities(effectiveT);
+
+    /* Lock chrome */
+    if (effectiveLocked !== last.locked) {
+      logoEl.toggleAttribute('data-locked', effectiveLocked);
+    }
+
+    last.t      = t;
+    last.locked = effectiveLocked;
+
+    /* Keep ticking during snap animation */
+    if (snapTriggered && snapStartTs !== null) {
+      const elapsed = ts - snapStartTs;
+      if (elapsed < SNAP_DURATION) {
+        requestAnimationFrame(tick);
+      }
+    }
+  }
+
+  function onScroll() {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(tick);
+  }
+
+  /* IntersectionObserver gates the scroll listener to save CPU off-screen */
+  let observerActive = false;
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !observerActive) {
+        observerActive = true;
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+        onScroll();
+      } else if (!entry.isIntersecting && observerActive) {
+        observerActive = false;
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+      }
+    });
+  }, { rootMargin: '200px 0px 200px 0px' });
+
+  observer.observe(stageEl);
+
+  /* Live reduced-motion listener — reload on toggle (rare event, simpler than swapping DOM) */
+  reducedMQL.addEventListener('change', function() { location.reload(); });
+
+  /* Resize to mobile — switch to mobile layout without reload */
+  window.addEventListener('resize', function() {
+    if (isMobile() && stageEl.dataset.mode === 'interactive') {
+      stageEl.dataset.mode = 'fallback';
+      observer.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      showMobileControls();
+    }
+  }, { passive: true });
+
+  /* ── Mobile fallback setup ──────────────────────────────────────── */
+  function showMobileControls() {
+    if (replayBtn) {
+      replayBtn.hidden = false;
+      replayBtn.style.display = 'flex';
+    }
+  }
+
+  function setupMobileFallback() {
+    stageEl.dataset.mode = 'fallback';
+    showMobileControls();
+    setupMobileSpin();
+  }
+
+  function setupMobileSpin() {
+    if (!replayBtn) return;
+
+    /* Build a mini spin stage overlaid on the first contact-sheet cell */
+    const firstCell = stageEl.querySelector('.xt-cs-cell');
+    if (!firstCell) return;
+    firstCell.classList.add('xt-cs-cell--spin-host');
+    firstCell.style.position = 'relative';
+
+    const spinStage = document.createElement('div');
+    spinStage.className = 'xt-mobile-spin';
+    spinStage.setAttribute('aria-hidden', 'true');
+    spinStage.style.display = 'none';
+
+    const spinSrcs = [
+      '../images/work/xtdb/slide87-brand-1.webp',
+      '../images/work/xtdb/slide84-rebranding-4.webp',
+      '../images/work/xtdb/slide84-rebranding-7.webp',
+      '../images/work/xtdb/slide84-rebranding-3.webp',
+      '../images/work/xtdb/slide85-rebranding-5.webp',
+      '../images/work/xtdb/slide85-rebranding-7.webp',
+      '../images/work/xtdb/slide85-rebranding-4.webp',
+      '../images/work/xtdb/slide85-rebranding-2.webp',
+      '../images/work/xtdb/slide85-rebranding-3.webp',
+      '../images/work/xtdb/slide87-brand-2.webp',
+    ];
+
+    spinSrcs.forEach(function(src, i) {
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = '';
+      img.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:' + (i === 0 ? '1' : '0') + ';';
+      spinStage.appendChild(img);
+    });
+
+    firstCell.appendChild(spinStage);
+
+    const spinImgs = Array.from(spinStage.children);
+
+    replayBtn.addEventListener('click', function() {
+      if (replayBtn.disabled) return;
+
+      replayBtn.disabled = true;
+      replayBtn.setAttribute('aria-busy', 'true');
+      replayBtn.classList.add('spinning');
+
+      /* Reset spin stage */
+      spinStage.style.setProperty('--rot', '0deg');
+      spinImgs.forEach(function(img, i) {
+        img.style.opacity = i === 0 ? '1' : '0';
+      });
+      spinStage.style.display = 'block';
+
+      const DURATION = 2000;
+      const start = performance.now();
+
+      function step(now) {
+        const k = Math.min(1, (now - start) / DURATION);
+        const rot = 1080 * easeInOutCubic(k);
+        const { a, b, mix } = framePair(k);
+
+        spinStage.style.transform = 'rotate(' + rot + 'deg)';
+
+        for (let i = 0; i < 10; i++) {
+          let op = 0;
+          if (i === a) op = 1 - mix;
+          if (i === b) op = mix;
+          if (a === b && i === a) op = 1;
+          if (spinImgs[i]) spinImgs[i].style.opacity = op;
+        }
+
+        if (k < 1) {
+          requestAnimationFrame(step);
+        } else {
+          spinStage.style.transform = 'rotate(0deg)';
+          spinImgs.forEach(function(img, i) {
+            img.style.opacity = i === 9 ? '1' : '0';
+          });
+          replayBtn.classList.remove('spinning');
+          replayBtn.removeAttribute('aria-busy');
+          replayBtn.disabled = false;
+        }
+      }
+
+      requestAnimationFrame(step);
+    });
+  }
+
+})();
+</script>
+
+<script src="../shape-echo.js"></script>
 </body>
 </html>

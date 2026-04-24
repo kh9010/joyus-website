@@ -195,10 +195,32 @@
     </div>
   </header>
 
-  <!-- KAHRAN-REVIEW: sub-hero copy — using Option C per PM preference; Kahran to confirm final wording -->
   <section class="tx-sub-hero">
     <p>Three audiences, three angles, same Tomboy. Here's how we told it for operators, for values investors, and for syndicates.</p>
     <p class="tx-kicker">pick an audience →</p>
+  </section>
+
+  <section class="tx-deck-strip" aria-label="The decks we built for TomboyX">
+    <p class="tx-deck-strip-kicker">what we built ↓</p>
+    <div class="tx-deck-strip-inner">
+      <figure class="tx-deck-thumb">
+        <img src="../images/work/tomboyx/story-5.webp" alt="Believers deck: a values-first framing for early investors" loading="lazy" decoding="async">
+        <figcaption>the believers deck</figcaption>
+      </figure>
+      <figure class="tx-deck-thumb">
+        <img src="../images/work/tomboyx/pitch-10.webp" alt="Values-investor deck: funded by people, not big VCs" loading="lazy" decoding="async">
+        <figcaption>the values-investor deck</figcaption>
+      </figure>
+      <figure class="tx-deck-thumb">
+        <img src="../images/work/tomboyx/story-6.webp" alt="Market framing: why the cap table broke, not the brand" loading="lazy" decoding="async">
+        <figcaption>the operator-angel deck</figcaption>
+      </figure>
+      <figure class="tx-deck-thumb">
+        <img src="../images/work/tomboyx/story-8.webp" alt="Closing slide from the believers deck: the portrait that ends the pitch" loading="lazy" decoding="async">
+        <figcaption>the close</figcaption>
+      </figure>
+    </div>
+    <p class="tx-deck-strip-note">Three decks. Three audiences. Same Tomboy. Flip between them below.</p>
   </section>
 
   <!-- No-JS fallback: visible by default, hidden when JS boots -->
@@ -216,7 +238,7 @@
               data-audience="operator"
               aria-selected="true"
               tabindex="0"
-              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-vs">
+              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-close">
         Operator
       </button>
       <button class="tx-tab"
@@ -224,7 +246,7 @@
               data-audience="values"
               aria-selected="false"
               tabindex="-1"
-              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-vs">
+              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-close">
         Values Investor
       </button>
       <button class="tx-tab"
@@ -232,7 +254,7 @@
               data-audience="syndicate"
               aria-selected="false"
               tabindex="-1"
-              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-vs">
+              aria-controls="tx-stage-opener tx-stage-market tx-stage-team tx-stage-close">
         Syndicate
       </button>
     </div>
@@ -256,47 +278,47 @@
            tabindex="0">
 
         <!-- OPERATOR variant — active by default -->
-        <!-- KAHRAN-REVIEW: beat-1, operator, pull-quote pending — replace [METRIC] values once Kahran verifies real numbers -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Led with unit economics on slide one. Operators decide in 90 seconds whether the math is real — we gave them the math first, narrative second.
+              Opened with metrics framed so an investor new to the underwear sector could read them. The deck's first move was proof the math is sound.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <blockquote>"[METRIC] revenue, [METRIC] gross margin, [METRIC] ROAS."</blockquote>
-            <figcaption>opening line — operator deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/angels-13.webp" alt="Operator deck opening slide: unit economics framed for angel investors" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · operator angels</figcaption>
+            <blockquote class="tx-support-quote">Operators want the math to be real before they care who built it.</blockquote>
           </figure>
         </article>
 
         <!-- VALUES INVESTOR variant -->
-        <!-- KAHRAN-REVIEW: beat-1, values investor, pull-quote pending — placeholder copy from existing cs-note -->
         <article class="tx-variant" data-audience="values" hidden>
           <p class="tx-variant-lens">for the values investor</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Led with the community — who buys tomboyx, who shows up at events, who writes in. Values investors want proof their people are here.
+              Opened on the funding story, not the cap table. The first frame argued that traditional VC has underfunded women and queer founders — and that's the opportunity, not the problem.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <blockquote>"A brand built for every body that's been told it's the wrong one."</blockquote>
-            <figcaption>opening line — values-investor deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/pitch-10.webp" alt="Values-investor deck opening: funded by people, not big VCs" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · values investors</figcaption>
+            <blockquote class="tx-support-quote">Funded by people, not big VCs. The market is finally catching up.</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- KAHRAN-REVIEW: beat-1, syndicate, pull-quote pending — placeholder copy from existing cs-note -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Led with the founder on camera, one slide, no bullets. Syndicates package stories for LPs — the LPs need to remember one thing.
+              Opened warm. Exceptional metrics were there, but the language led with the people and the feeling — so the LPs hearing this second-hand would remember it.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <blockquote>"Fran made tomboyx because she couldn't find herself in a store."</blockquote>
-            <figcaption>opening line — syndicate deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/story-5.webp" alt="Believers deck: warm opening that leads with the community, not the metrics" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · believers</figcaption>
+            <blockquote class="tx-support-quote">Syndicates tell the story again. The opening has to survive the re-telling.</blockquote>
           </figure>
         </article>
 
@@ -319,50 +341,47 @@
            tabindex="0">
 
         <!-- OPERATOR variant -->
-        <!-- KAHRAN-REVIEW: beat-2, operator, pull-quote pending — derived from angels-12 note "highlighting strong metrics in a way accessible for investors unfamiliar with the underwear sector" -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Highlighted strong metrics in a way accessible for investors unfamiliar with the underwear sector. Market forces drove tomboyx to the breaking point — not leadership decisions that early investors might contextualize differently.
+              Quantified market growth and the outcomes of LGBTQ consumer shifts. Framed the breakdown as market forces, not leadership decisions — because early operators will contextualize decisions differently than new angels.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-2, operator, pull-quote pending — angels-12 image (uncertain provenance) replaced with text card; filename: angels-12.webp -->
-            <blockquote>"The market broke the cap table. The brand is intact."</blockquote>
-            <figcaption>market framing — operator deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/angels-12.webp" alt="Operator deck market slide: strong metrics framed for investors unfamiliar with the underwear sector" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · operator angels</figcaption>
+            <blockquote class="tx-support-quote">The market broke the cap table. The brand is intact.</blockquote>
           </figure>
         </article>
 
         <!-- VALUES INVESTOR variant -->
-        <!-- KAHRAN-REVIEW: beat-2, values investor, pull-quote pending — derived from pitch-9 note "language calls to investors' values, with a framing around the lack of traditional VC funding for women and queer founders" -->
         <article class="tx-variant" data-audience="values" hidden>
           <p class="tx-variant-lens">for the values investor</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Language called to investors' values, framing the lack of traditional VC funding for women and queer founders as the market opportunity — not the problem.
+              Spoke to the lack of traditional VC funding for women and queer founders — framed as the opening, not the wound. The market is the undercapitalized majority, and Tomboy is already in it.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-2, values investor, pull-quote pending — pitch-9 image (b: likely Tomboy original) removed per spec §7.2; filename: pitch-9.webp -->
-            <blockquote>"Funded by people, not big VCs — and the market is finally catching up."</blockquote>
-            <figcaption>market framing — values-investor deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/pitch-9.webp" alt="Values-investor deck market slide: language calls to investor values around underfunded queer and women founders" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · values investors</figcaption>
+            <blockquote class="tx-support-quote">Every customer told she was wrong somewhere else is the market here.</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- KAHRAN-REVIEW: beat-2, syndicate, pull-quote pending — derived from syndicate-15 note "language captures the exceptional metrics while keeping warmth at the forefront" -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Quantified market growth and the outcomes of LGBTQ consumer shifts. Language captured the exceptional metrics while keeping warmth at the forefront — syndicates need to re-tell this to their LPs.
+              Exceptional metrics, warm language. Syndicates needed numbers their LPs would believe and a tone they'd repeat. No chart without a sentence next to it.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-2, syndicate, pull-quote pending — syndicate-15 image (uncertain provenance) replaced with text card; filename: syndicate-15.webp -->
-            <blockquote>"The LGBTQ consumer has $[METRIC]T in spending power and nowhere near enough brands built for them."</blockquote>
-            <figcaption>market framing — syndicate deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/syndicate-15.webp" alt="Syndicate deck market slide: exceptional metrics with warmth at the forefront" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · syndicates</figcaption>
+            <blockquote class="tx-support-quote">Numbers the LPs will quote. Warmth they'll feel while quoting them.</blockquote>
           </figure>
         </article>
 
@@ -385,50 +404,47 @@
            tabindex="0">
 
         <!-- OPERATOR variant -->
-        <!-- KAHRAN-REVIEW: beat-3, operator, pull-quote pending — derived from angels-14 note "guiding investors through typical questions with a mix of data and narrative" -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Guided investors through typical diligence questions with a mix of data and narrative. Operators want to know who runs the business — the deck put the team on slide three, not slide fifteen.
+              Guided angels through typical diligence questions with a mix of data and narrative. Team slide came early — operators want to know who's running it before they ask anything else.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-3, operator, pull-quote pending — angels-14 image (uncertain provenance) replaced with text card; filename: angels-14.webp -->
-            <blockquote>"Meet the people keeping this brand alive while everyone else in the category consolidates."</blockquote>
-            <figcaption>team framing — operator deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/angels-14.webp" alt="Operator deck team slide: mix of data and narrative guides angels through diligence questions" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · operator angels</figcaption>
+            <blockquote class="tx-support-quote">Meet the people keeping the category's most-loved brand in market.</blockquote>
           </figure>
         </article>
 
         <!-- VALUES INVESTOR variant -->
-        <!-- KAHRAN-REVIEW: beat-3, values investor, pull-quote pending — derived from story-7 note "reinforces the lived truth of the brand — tomboyx supports XXS–XXXXXL with diverse silhouettes" -->
         <article class="tx-variant" data-audience="values" hidden>
           <p class="tx-variant-lens">for the values investor</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Reinforced the lived truth of the brand — tomboyx supports XXS–XXXXXL, with diverse silhouettes reflected in every team and product decision.
+              Reinforced the lived truth of the brand — Tomboy supports XXS–XXXXXL, and the team looks like the customer. Not accidentally.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-3, values investor, pull-quote pending — story-7 image (b: Tomboy original) removed per spec §7.2; filename: story-7.webp -->
-            <blockquote>"The team looks like the customer — that's not accidental."</blockquote>
-            <figcaption>team framing — values-investor deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/story-7.webp" alt="Believers deck team slide: diverse silhouettes reflect that the team looks like the customer" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · believers</figcaption>
+            <blockquote class="tx-support-quote">The team looks like the customer. That's not accidental.</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- KAHRAN-REVIEW: beat-3, syndicate, pull-quote pending — derived from syndicate-17 note "layout and minimal focus on the past draws attention to the team, versus individual players" -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Layout drew minimal attention to individual histories — focus stayed on the team as a unit. Syndicates pitch to LPs who'll hear the story second-hand; the team slide has to survive the re-telling.
+              Layout drew attention to the team as a unit, not individual histories. Syndicates pitch second-hand — the slide had to survive the re-telling without naming the wrong person.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-3, syndicate, pull-quote pending — syndicate-17 image (uncertain provenance) replaced with text card; filename: syndicate-17.webp -->
-            <blockquote>"Not who they were. What they built together."</blockquote>
-            <figcaption>team framing — syndicate deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/syndicate-17.webp" alt="Syndicate deck team slide: minimal focus on individual pasts, attention on the team as a whole" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · syndicates</figcaption>
+            <blockquote class="tx-support-quote">Not who they were before. What they've built together.</blockquote>
           </figure>
         </article>
 
@@ -436,66 +452,62 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════
-         BEAT 04 — The Victoria's Secret beat.
-         (Divya's name — KAHRAN-REVIEW: H3 copy. Consider: "Not a Victoria's Secret brand." or similar.)
+         BEAT 04 — How each deck closed.
     ════════════════════════════════════════════════ -->
-    <section class="tx-beat" id="beat-vs" aria-labelledby="beat-vs-h">
+    <section class="tx-beat" id="beat-close" aria-labelledby="beat-close-h">
       <header class="tx-beat-head">
-        <p class="tx-beat-eyebrow">beat 04 — the repudiation</p>
-        <h3 class="tx-beat-subject" id="beat-vs-h">The Victoria's Secret beat.</h3>
+        <p class="tx-beat-eyebrow">beat 04 — how we closed</p>
+        <h3 class="tx-beat-subject" id="beat-close-h">How each deck closed.</h3>
       </header>
 
       <div class="tx-stage"
            role="tabpanel"
-           id="tx-stage-vs"
+           id="tx-stage-close"
            aria-live="polite"
            tabindex="0">
 
         <!-- OPERATOR variant -->
-        <!-- KAHRAN-REVIEW: beat-4, operator, pull-quote pending — derived from story-5 note "clear, simple language and visuals appropriately support the intense words and strong brand ethos" -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Clear, simple language and visuals supported the intense brand ethos. For operators, the point was market positioning: tomboyx isn't trying to beat Victoria's Secret. It owns the market Victoria's Secret abandoned.
+              Closed with a data tour that pre-empted the diligence questions angels were about to ask. Detailed enough to answer; short enough to forward.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-4, operator, pull-quote pending — story-5 image (b: Tomboy original) removed per spec §7.2; filename: story-5.webp -->
-            <blockquote>"Not a Victoria's Secret brand. Intentionally."</blockquote>
-            <figcaption>positioning — operator deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/angels-14.webp" alt="Operator deck closing section: data tour pre-empts diligence questions so angels can move to yes" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · operator angels</figcaption>
+            <blockquote class="tx-support-quote">Answered the questions before they were asked.</blockquote>
           </figure>
         </article>
 
         <!-- VALUES INVESTOR variant -->
-        <!-- KAHRAN-REVIEW: beat-4, values investor, pull-quote pending — derived from pitch-11 note "highlights the diversity of tomboyx — appeals to minority groups across generations and gender identities" -->
         <article class="tx-variant" data-audience="values" hidden>
           <p class="tx-variant-lens">for the values investor</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Imagery nodded to the female gaze in a deliberate repudiation of male-gaze focused marketing. For values investors, "not Victoria's Secret" isn't a market gap — it's a moral position.
+              Closed on the customer community. Imagery nodded to the female gaze — a deliberate repudiation of male-gaze-focused marketing. The close wasn't a number. It was a portrait. Every body Victoria's Secret called wrong — that's the Tomboy customer.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-4, values investor, pull-quote pending — pitch-11 image (b: Tomboy original) removed per spec §7.2; filename: pitch-11.webp -->
-            <blockquote>"Every body Victoria's Secret told was wrong — that's the tomboyx customer."</blockquote>
-            <figcaption>positioning — values-investor deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/pitch-11.webp" alt="Values-investor deck closing: diversity of tomboyx appeals to minority groups across generations and gender identities" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · values investors</figcaption>
+            <blockquote class="tx-support-quote">Every body Victoria's Secret called wrong — that's the Tomboy customer.</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- KAHRAN-REVIEW: beat-4, syndicate, pull-quote pending — derived from syndicate-16 note "showcasing recent wedding and graduation invites the company has received from fans" -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Showcased recent wedding and graduation invitations from fans — artifacts of the emotional resonance investors find with the deck. Syndicates need a story their LPs can repeat at dinner; this was it.
+              Closed with fan artifacts — wedding and graduation invitations the company has received from customers. The moat isn't in the P&amp;L. It's in the mailbox.
             </p>
           </div>
-          <figure class="tx-support pull-quote">
-            <!-- KAHRAN-REVIEW: beat-4, syndicate, pull-quote pending — syndicate-16 image (uncertain provenance) replaced with text card; filename: syndicate-16.webp -->
-            <blockquote>"Fans send tomboyx their wedding invites. That's the moat."</blockquote>
-            <figcaption>positioning — syndicate deck</figcaption>
+          <figure class="tx-support with-image">
+            <img src="../images/work/tomboyx/syndicate-16.webp" alt="Syndicate deck closing: fan wedding and graduation invites showcase the emotional moat" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · syndicates</figcaption>
+            <blockquote class="tx-support-quote">Fans send Tomboy their wedding invites. That's the moat.</blockquote>
           </figure>
         </article>
 
