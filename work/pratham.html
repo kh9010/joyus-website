@@ -21,6 +21,412 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CreativeWork","name":"pratham","description":"Rebuilding the donor journey for PrathamUSA after a catastrophic drop in giving.","url":"https://kh9010.github.io/joyus-website/work/pratham.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
+
+<style>
+/* ─── Pratham rings — all .pr-* styles ─────────────────────────────────── */
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Section wrapper ── */
+.pr-rings-section {
+  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.pr-rings-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  min-width: 320px;
+}
+
+/* ── SVG ── */
+.pr-rings-svg {
+  width: 100%;
+  max-width: 600px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  display: block;
+  margin: 0 auto;
+}
+
+/* ── Rings ── */
+.pr-ring {
+  cursor: pointer;
+  pointer-events: stroke;
+  transition: stroke 160ms ease, fill 160ms ease, stroke-width 180ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 180ms ease, filter 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.pr-ring:focus { outline: none; }
+
+.pr-ring-group[data-ring-id="aware"] .pr-ring:hover       { stroke: #F2B705; }
+.pr-ring-group[data-ring-id="casual"] .pr-ring:hover      { stroke: #F2B705; }
+.pr-ring-group[data-ring-id="connected"] .pr-ring:hover   { stroke: #E8A500; }
+.pr-ring-group[data-ring-id="deepened"] .pr-ring:hover    { stroke: #D79400; }
+.pr-ring-group[data-ring-id="permanent"] .pr-ring:hover   { stroke: #B87800; }
+
+.pr-ring.is-active {
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
+}
+
+.pr-ring-group[data-ring-id="aware"] .pr-ring.is-active       { stroke: #F2B705; stroke-width: 48; }
+.pr-ring-group[data-ring-id="casual"] .pr-ring.is-active      { stroke: #F2B705; stroke-width: 44; }
+.pr-ring-group[data-ring-id="connected"] .pr-ring.is-active   { stroke: #E8A500; stroke-width: 40; }
+.pr-ring-group[data-ring-id="deepened"] .pr-ring.is-active    { stroke: #D79400; stroke-width: 36; }
+.pr-ring-group[data-ring-id="permanent"] .pr-ring.is-active   { stroke: #B87800; stroke-width: 32; }
+
+.pr-ring.is-dimmed {
+  opacity: 0.35;
+}
+.pr-ring.is-dimmed:hover {
+  opacity: 0.6;
+}
+
+/* ── Labels ── */
+.pr-label text {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  fill: #3a3228;
+}
+.pr-label line {
+  stroke: #b8a88a;
+  stroke-width: 1;
+}
+.pr-label circle {
+  fill: #b8a88a;
+}
+.pr-label.is-dimmed { opacity: 0.35; }
+
+/* ── Focus halo ── */
+.pr-ring-focus {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 0;
+  pointer-events: none;
+  transition: stroke 160ms ease, stroke-width 160ms ease;
+}
+.pr-ring-group.is-focused .pr-ring-focus {
+  stroke: #E91E7B;
+  stroke-opacity: 0.55;
+}
+.pr-ring-group[data-ring-id="aware"].is-focused .pr-ring-focus    { stroke-width: 52; }
+.pr-ring-group[data-ring-id="casual"].is-focused .pr-ring-focus   { stroke-width: 48; }
+.pr-ring-group[data-ring-id="connected"].is-focused .pr-ring-focus { stroke-width: 44; }
+.pr-ring-group[data-ring-id="deepened"].is-focused .pr-ring-focus  { stroke-width: 40; }
+.pr-ring-group[data-ring-id="permanent"].is-focused .pr-ring-focus { stroke-width: 36; }
+
+/* ── Avatar ── */
+.pr-avatar {
+  cursor: pointer;
+}
+.pr-avatar:focus { outline: none; }
+.pr-avatar-hit { pointer-events: all; cursor: pointer; }
+.pr-avatar-caption {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  fill: #1F1A14;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+/* ── Ring-order numerals (01–05 at 12 o'clock of each ring) ── */
+.pr-ring-numerals text {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  fill: #FBECB3;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+.pr-ring-numerals g[data-ring-id] {
+  transition: opacity 180ms ease;
+}
+
+/* ── Tooltip ── */
+.pr-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #1F1A14;
+  color: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.35;
+  padding: 0.35rem 0.65rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+  z-index: 600;
+}
+.pr-tooltip.is-visible {
+  opacity: 1;
+}
+
+/* ── Legend (desktop side-rail + mobile stack) ── */
+.pr-legend {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.pr-legend li {
+  margin: 0;
+}
+.pr-legend button {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(31,26,20,0.08);
+  padding: 0.7rem 0.25rem;
+  cursor: pointer;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-align: left;
+  color: #1F1A14;
+  transition: background 120ms ease;
+}
+.pr-legend button:hover { background: rgba(232,165,0,0.07); }
+.pr-legend button.is-active { font-weight: 600; }
+.pr-legend button.is-dimmed { opacity: 0.45; }
+
+.pr-legend-swatch {
+  flex-shrink: 0;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+}
+.pr-legend-name {
+  font-weight: 500;
+}
+.pr-legend-tagline {
+  color: #7a6a52;
+  font-size: 0.83rem;
+}
+
+/* ── Panel ── */
+.pr-panel {
+  max-width: 720px;
+  margin: 3rem auto 0;
+  padding: 1.5rem;
+  background: #fff;
+  border: 1px solid rgba(31,26,20,0.08);
+  border-radius: 12px;
+  transition: box-shadow 220ms ease;
+}
+.pr-panel.is-populated {
+  box-shadow: 0 8px 28px rgba(31,26,20,0.06);
+}
+
+.pr-panel-header { display: none; position: relative; margin-bottom: 1.25rem; }
+.pr-panel.is-populated .pr-panel-header { display: block; }
+.pr-panel.is-populated .pr-panel-prompt { display: none; }
+
+.pr-panel-eyebrow {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #b8a88a;
+  margin: 0 0 0.35rem;
+}
+.pr-panel-title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 1.55rem;
+  color: #1F1A14;
+  margin: 0 0 0.25rem;
+  padding-right: 2.5rem;
+}
+.pr-panel-tagline {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: #5a4e3e;
+  margin: 0;
+  font-style: italic;
+}
+.pr-panel-close {
+  position: absolute;
+  top: 0; right: 0;
+  background: none;
+  border: none;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  color: #7a6a52;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 120ms ease, color 120ms ease;
+  line-height: 1;
+}
+.pr-panel-close:hover { background: rgba(31,26,20,0.06); color: #1F1A14; }
+.pr-panel-close:focus-visible { outline: 2px solid #E91E7B; outline-offset: 2px; }
+
+.pr-panel-prompt {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  color: #9a8a72;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ── Panel body fade ── */
+.pr-panel-fade { opacity: 1; transition: opacity 180ms ease-out; }
+.pr-panel-fade.is-swapping { opacity: 0; transition: opacity 120ms ease-in; }
+
+/* ── Block anatomy ── */
+.pr-block-eyebrow {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7a6a52;
+  margin: 0 0 0.5rem;
+}
+
+.pr-block-meaning,
+.pr-block-ba,
+.pr-block-who,
+.pr-block-rec {
+  margin-bottom: 1.75rem;
+}
+.pr-block-meaning p:not(.pr-block-eyebrow),
+.pr-block-who p:not(.pr-block-eyebrow) {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #2e2820;
+  margin: 0;
+}
+.pr-block-who ul {
+  margin: 0.6rem 0 0;
+  padding-left: 1.3rem;
+}
+.pr-block-who ul li {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #3a3228;
+  margin-bottom: 0.2rem;
+}
+
+/* before/after grid */
+.pr-ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 0.5rem;
+}
+.pr-ba-label {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #9a8a72;
+  margin: 0 0 0.5rem;
+}
+.pr-ba-col p {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: #3a3228;
+  margin: 0;
+}
+.pr-ba-fig {
+  margin: 0.75rem 0 0;
+  padding: 0;
+  max-width: 340px;
+}
+.pr-ba-fig img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+.pr-ba-fig figcaption {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: #7a6a52;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* recommendation block */
+.pr-block-rec p:not(.pr-block-eyebrow) {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.97rem;
+  line-height: 1.7;
+  color: #2e2820;
+  margin: 0;
+  border-left: 3px solid #E91E7B;
+  background: #F5F3F0;
+  padding: 1rem 1.25rem;
+  border-radius: 4px;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .pr-tooltip,
+  .pr-ring,
+  .pr-ring-focus,
+  .pr-panel,
+  .pr-panel-fade,
+  .pr-panel-fade.is-swapping {
+    transition: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* ── Tablet ≤960px — stack SVG and legend ── */
+@media (max-width: 960px) {
+  .pr-rings-stage {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
+}
+
+/* ── Mobile ≤720px ── */
+@media (max-width: 720px) {
+  .pr-rings-svg {
+    width: min(92vw, 420px);
+    max-width: min(92vw, 420px);
+  }
+  .pr-tooltip { display: none !important; }
+  .pr-panel { padding: 1rem; }
+  .pr-ba-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .pr-panel-title { font-size: 1.25rem; }
+}
+
+@media (max-width: 520px) {
+  .pr-panel { padding: 0.75rem; }
+  .pr-block-meaning p:not(.pr-block-eyebrow),
+  .pr-ba-col p,
+  .pr-block-who ul li,
+  .pr-block-rec p:not(.pr-block-eyebrow) {
+    font-size: 0.93rem;
+  }
+}
+
+.pr-rings-stage { min-width: 320px; }
+</style>
 </head>
 <body class="work-page">
 
@@ -205,124 +611,209 @@
     </div>
   </header>
 
-  <!-- Slide 6 — Donor journey -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
-      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">first — a shared language</p>
-      <h2 class="cs-slide-headline">Creating and visualizing the donor journey</h2>
+  <div class="cs-bridge">&#8595; <em>inside one picture</em></div>
 
-      <p class="cs-intro">How do you build a shared language? The first challenge was to find a way to communicate about different kinds of donors — outside of Pratham's traditional groupings by annual giving. We captured the <strong>6 stages of the donor journey</strong> as an inward and then outward journey, created through semi-structured interviews with staff and donors and informed by ideas from the marketing post-purchase funnel.</p>
+  <!-- Rings section -->
+  <section class="pr-rings-section" aria-label="Donor journey rings">
 
-      <div class="cs-cluster">
-        <figure class="cs-fig">
-          <img src="../images/work/pratham/slide6-journey-1.webp" alt="Pratham donor journey model" loading="lazy">
-          <p class="cs-note">validated curiosity brought donors to consider Pratham, while alignment with their goals brought them to form a connection</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/pratham/slide6-journey-2.webp" alt="Pratham donor journey detail" loading="lazy">
-          <p class="cs-note">for connected donors, site visits to schools in India pushed them to deepen their connection — leading to permanent bonds, a stage which included many donors at the $100K+ annual level</p>
-        </figure>
+    <nav class="sr-only" aria-label="Donor journey rings">
+      <a href="#pr-ring-aware">Aware (outermost)</a>
+      <a href="#pr-ring-casual">Casual Connection</a>
+      <a href="#pr-ring-connected">Connected</a>
+      <a href="#pr-ring-deepened">Deepened Connection</a>
+      <a href="#pr-ring-permanent">Permanent Bond (innermost)</a>
+      <a href="#pr-ring-center">Donor at the center</a>
+    </nav>
+
+    <div class="pr-rings-stage">
+
+      <svg viewBox="0 0 600 600"
+           class="pr-rings-svg"
+           role="img"
+           aria-labelledby="pr-rings-title pr-rings-desc">
+        <title id="pr-rings-title">Pratham donor journey: five rings of connection</title>
+        <desc id="pr-rings-desc">A smiling donor avatar at the center, surrounded by five concentric rings. From the outer edge inward: Aware, Casual Connection, Connected, Deepened Connection, Permanent Bond. Each ring is a button; activating it reveals a deep-dive panel below the diagram.</desc>
+
+        <g class="pr-rings" role="presentation">
+
+          <!-- Ring 5: Aware (outermost). r=270, stroke-width=44. -->
+          <g id="pr-ring-aware" class="pr-ring-group" data-ring-id="aware">
+            <circle class="pr-ring-focus" cx="300" cy="300" r="270" />
+            <circle class="pr-ring" data-ring-id="aware"
+                    cx="300" cy="300" r="270"
+                    fill="none" stroke="#FBECB3" stroke-width="44"
+                    tabindex="0" role="button" aria-pressed="false"
+                    aria-controls="pr-panel-body"
+                    aria-label="Aware. They've heard of Pratham, that's it. Ring 1 of 5 from the outer edge." />
+          </g>
+
+          <!-- Ring 4: Casual Connection. r=215, stroke-width=40. -->
+          <g id="pr-ring-casual" class="pr-ring-group" data-ring-id="casual">
+            <circle class="pr-ring-focus" cx="300" cy="300" r="215" />
+            <circle class="pr-ring" data-ring-id="casual"
+                    cx="300" cy="300" r="215"
+                    fill="none" stroke="#F9DE85" stroke-width="40"
+                    tabindex="0" role="button" aria-pressed="false"
+                    aria-controls="pr-panel-body"
+                    aria-label="Casual Connection. Curious enough to show up. Ring 2 of 5." />
+          </g>
+
+          <!-- Ring 3: Connected. r=165, stroke-width=36. -->
+          <g id="pr-ring-connected" class="pr-ring-group" data-ring-id="connected">
+            <circle class="pr-ring-focus" cx="300" cy="300" r="165" />
+            <circle class="pr-ring" data-ring-id="connected"
+                    cx="300" cy="300" r="165"
+                    fill="none" stroke="#F7CE55" stroke-width="36"
+                    tabindex="0" role="button" aria-pressed="false"
+                    aria-controls="pr-panel-body"
+                    aria-label="Connected. Pratham is their nonprofit now. Ring 3 of 5." />
+          </g>
+
+          <!-- Ring 2: Deepened Connection. r=120, stroke-width=32. -->
+          <g id="pr-ring-deepened" class="pr-ring-group" data-ring-id="deepened">
+            <circle class="pr-ring-focus" cx="300" cy="300" r="120" />
+            <circle class="pr-ring" data-ring-id="deepened"
+                    cx="300" cy="300" r="120"
+                    fill="none" stroke="#F2B705" stroke-width="32"
+                    tabindex="0" role="button" aria-pressed="false"
+                    aria-controls="pr-panel-body"
+                    aria-label="Deepened Connection. They've seen the schools, they know names. Ring 4 of 5." />
+          </g>
+
+          <!-- Ring 1: Permanent Bond (innermost). r=78, stroke-width=28. -->
+          <g id="pr-ring-permanent" class="pr-ring-group" data-ring-id="permanent">
+            <circle class="pr-ring-focus" cx="300" cy="300" r="78" />
+            <circle class="pr-ring" data-ring-id="permanent"
+                    cx="300" cy="300" r="78"
+                    fill="none" stroke="#E8A500" stroke-width="28"
+                    tabindex="0" role="button" aria-pressed="false"
+                    aria-controls="pr-panel-body"
+                    aria-label="Permanent Bond. Pratham is in their life, for good. Ring 5 of 5, closest to the center." />
+          </g>
+
+          <!-- Center avatar -->
+          <g id="pr-ring-center" class="pr-avatar"
+             tabindex="0" role="button" aria-pressed="false"
+             aria-controls="pr-panel-body"
+             aria-label="Pratham donor, at the center. Activate for an introduction to the rings.">
+            <!-- easel body -->
+            <path d="M280 282 L320 282 L324 318 L276 318 Z"
+                  fill="#F7CE55" stroke="#1F1A14" stroke-width="2"
+                  stroke-linejoin="round" />
+            <!-- smile -->
+            <path d="M288 298 Q300 308 312 298"
+                  fill="none" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
+            <!-- eyes -->
+            <circle cx="292" cy="292" r="1.4" fill="#1F1A14" />
+            <circle cx="308" cy="292" r="1.4" fill="#1F1A14" />
+            <!-- easel top pegs -->
+            <line x1="282" y1="282" x2="282" y2="276" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
+            <line x1="318" y1="282" x2="318" y2="276" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
+            <!-- legs -->
+            <line x1="282" y1="318" x2="276" y2="332" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
+            <line x1="300" y1="318" x2="300" y2="334" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
+            <line x1="318" y1="318" x2="324" y2="332" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
+            <!-- cross-bar -->
+            <line x1="280" y1="325" x2="320" y2="325" stroke="#1F1A14" stroke-width="1.5" />
+            <!-- "the donor" caption under the easel -->
+            <text x="300" y="356" text-anchor="middle" class="pr-avatar-caption">the donor</text>
+            <!-- click target -->
+            <circle class="pr-avatar-hit" cx="300" cy="300" r="40" fill="transparent" />
+          </g>
+
+          <!-- Ring-order numerals at 12 o'clock on each ring. Outer = 01, inner = 05.
+               Deeper ring = higher stage of connection. Reinforces the thesis that
+               distance-from-center = depth-of-relationship. -->
+          <g class="pr-ring-numerals" aria-hidden="true">
+            <g data-ring-id="aware">
+              <circle cx="300" cy="30" r="13" fill="#1F1A14" />
+              <text x="300" y="34" text-anchor="middle">01</text>
+            </g>
+            <g data-ring-id="casual">
+              <circle cx="300" cy="85" r="12" fill="#1F1A14" />
+              <text x="300" y="89" text-anchor="middle">02</text>
+            </g>
+            <g data-ring-id="connected">
+              <circle cx="300" cy="135" r="11" fill="#1F1A14" />
+              <text x="300" y="138" text-anchor="middle">03</text>
+            </g>
+            <g data-ring-id="deepened">
+              <circle cx="300" cy="180" r="10" fill="#1F1A14" />
+              <text x="300" y="183" text-anchor="middle">04</text>
+            </g>
+            <g data-ring-id="permanent">
+              <circle cx="300" cy="222" r="10" fill="#1F1A14" />
+              <text x="300" y="225" text-anchor="middle">05</text>
+            </g>
+          </g>
+
+        </g>
+      </svg>
+
+      <!-- Mobile legend -->
+      <ol class="pr-legend" aria-label="Donor journey rings">
+        <li>
+          <button type="button" data-legend-id="aware" aria-pressed="false">
+            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#FBECB3" /></svg>
+            <span class="pr-legend-name">Aware</span>
+            <span class="pr-legend-tagline">They've heard of Pratham. That's it.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-legend-id="casual" aria-pressed="false">
+            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F9DE85" /></svg>
+            <span class="pr-legend-name">Casual Connection</span>
+            <span class="pr-legend-tagline">Curious enough to show up.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-legend-id="connected" aria-pressed="false">
+            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F7CE55" /></svg>
+            <span class="pr-legend-name">Connected</span>
+            <span class="pr-legend-tagline">Pratham is their nonprofit now.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-legend-id="deepened" aria-pressed="false">
+            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F2B705" /></svg>
+            <span class="pr-legend-name">Deepened Connection</span>
+            <span class="pr-legend-tagline">They've seen the schools. They know names.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-legend-id="permanent" aria-pressed="false">
+            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#E8A500" /></svg>
+            <span class="pr-legend-name">Permanent Bond</span>
+            <span class="pr-legend-tagline">Pratham is in their life, for good.</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-legend-id="center" aria-pressed="false">
+            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F7CE55" stroke="#1F1A14" stroke-width="1.5" /></svg>
+            <span class="pr-legend-name">The donor</span>
+            <span class="pr-legend-tagline">Why Joyus rebuilt the dashboard around this human.</span>
+          </button>
+        </li>
+      </ol>
+
+    </div><!-- /.pr-rings-stage -->
+
+    <!-- Deep-dive panel -->
+    <div class="pr-panel" role="region" aria-label="Ring deep dive">
+      <div class="pr-panel-header">
+        <button type="button" class="pr-panel-close" aria-label="Clear selection" hidden>&#215;</button>
+        <p class="pr-panel-eyebrow">Deep dive</p>
+        <h2 class="pr-panel-title"></h2>
+        <p class="pr-panel-tagline"></p>
+      </div>
+      <div class="pr-panel-body" id="pr-panel-body" aria-live="polite" aria-atomic="true">
+        <p class="pr-panel-prompt">Click a ring to look inside.</p>
       </div>
     </div>
-  </section>
 
-  <div class="cs-bridge">↓ then — <em>but why is it broken?</em></div>
+    <!-- Tooltip (desktop only) -->
+    <div class="pr-tooltip" role="tooltip" aria-hidden="true"></div>
 
-  <!-- Slide 7 — Information flowchart (built-in) -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
-      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
-      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">mapping the breakdown</p>
-      <h2 class="cs-slide-headline">But why is it broken?</h2>
-
-      <p class="cs-intro">Despite the clarity of the donor model, many of the insights were already known to Pratham's leadership. So why was the donor journey breaking? Through donor surveys and conversations, we uncovered <strong>large disparities in how similar situations were handled</strong> across the organization. Visualizing the flow of information made the discrepancies visible — and fixable.</p>
-
-      <div class="cs-flowchart">
-        <div class="cs-flowchart-col">
-          <div class="cs-flowchart-header">Incoming information</div>
-          <div class="cs-flowchart-box">
-            <span class="label">Source:</span>
-            <ul>
-              <li>Donor-specific signals</li>
-              <li>Chapter &amp; city updates</li>
-              <li>PUSA updates</li>
-              <li>Pratham updates</li>
-            </ul>
-          </div>
-        </div>
-        <div class="cs-flowchart-col">
-          <div class="cs-flowchart-header">Transformation &amp; selection of medium</div>
-          <div class="cs-flowchart-box slate">
-            The marketing team transforms the information into a form that can be sent out.
-          </div>
-        </div>
-        <div class="cs-flowchart-col">
-          <div class="cs-flowchart-header">Output to donor</div>
-          <div class="cs-flowchart-box">Donor receives an email</div>
-          <div class="cs-flowchart-box">Donors view a social-media post</div>
-          <div class="cs-flowchart-box">Donors get a call or meeting</div>
-        </div>
-      </div>
-
-      <div class="cs-cluster cols-2" style="margin-top:1rem;">
-        <figure class="cs-fig" style="background:transparent;">
-          <p class="cs-note solid">information that reached donors was often filtered by chapter leaders — leading to many variations across chapters</p>
-        </figure>
-        <figure class="cs-fig" style="background:transparent;">
-          <p class="cs-note solid">initial understandings failed to account for the dramatic retention differences between sources — calls or visits being far more memorable</p>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ then — <em>talk to the people who actually give</em></div>
-
-  <!-- Slide 11 — Survey insight card -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
-      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">where insight actually lives</p>
-      <h2 class="cs-slide-headline">Speaking to your users will always generate insights</h2>
-
-      <p class="cs-intro">Pratham had a robust system for talking to high-value donors, but very few ways for those insights to reach leadership. In one example, Pratham had concluded that <strong>long-form publications were of little value</strong> — views were abysmal, the annual report's email open rate was low.</p>
-      <p class="cs-sub">By talking to users, we found that those who <em>did</em> engage with long-form publications were more likely to draw closer to Pratham. The challenge wasn't to cut costs by reducing them — it was to invest in driving more readership in the right donor groups.</p>
-
-      <div class="cs-survey-card">
-        <h3 class="title">What do people take away from engaging with long-form publications?</h3>
-        <ul>
-          <li>People feel more connected to India</li>
-          <li>People like the simplicity of the idea of education (cause and effect); paying it forward for education</li>
-          <li>People like being part of the team that is winning</li>
-          <li>People give because their social circle also does — get social status, find like-minded people</li>
-        </ul>
-        <div class="result">
-          <strong>Survey result</strong>
-          People who value Pratham's long-form publications tend to be higher-value donors.
-        </div>
-      </div>
-
-      <div class="cs-cluster cols-2" style="margin-top:1.5rem;">
-        <figure class="cs-fig" style="background:transparent;">
-          <p class="cs-note">touchpoints are not the same — surfacing the impact on the donor allows for accurate conclusions about efficacy, avoiding bias from # of views or clicks</p>
-        </figure>
-        <figure class="cs-fig" style="background:transparent;">
-          <p class="cs-note">insight emerged: higher-value, poorly-scalable experiences were key to forming the highest-value relationships with donors</p>
-        </figure>
-      </div>
-    </div>
   </section>
 
   <section class="cs-closing">
@@ -334,7 +825,7 @@
     <span class="cs-closing-label">your move</span>
     <h3>Need to <em>rebuild a donor journey</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
     <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
-    <a class="cs-next" href="convegenius.html">next case study: convegenius <span class="arrow">→</span></a>
+    <a class="cs-next" href="convegenius.html">next case study: convegenius <span class="arrow">&#8594;</span></a>
   </section>
 
   <!--BEGIN:FOOT-->
@@ -366,10 +857,510 @@
   }
 </style>
 <footer class="foot">
-  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <span>&#169; 2026 &middot; Joyus Studio &middot; Kahran Singh &amp; Divya Tak</span>
   <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
+
+<script>
+(function() {
+
+  const RINGS = [
+    {
+      id: "aware",
+      label: "Aware",
+      radius: 270,
+      strokeWidth: 44,
+      fill: "#FBECB3",
+      hoverFill: "#F2B705",
+      tabOrder: 1,
+      shortTagline: "They've heard of Pratham. That's it.",
+      deepDive: {
+        meaning: "Someone has registered that Pratham exists — a friend mentioned it, they saw a social post, they came across a gala flyer. They couldn't tell you what Pratham does in any detail. They have no relationship yet, just a label in their head.",
+        before: "Pratham's national board saw \"list size\" — total people in the CRM, total newsletter subscribers, total Instagram followers. A growing number meant the top of the funnel was healthy.",
+        after: "Board could see which awareness sources were producing people who moved to the next ring within 12 months — and which were producing names that never moved at all. Gala invite lists did well. Paid social did not.",
+        whoIntro: "",
+        whoList: [
+          "Newsletter subscribers who never open.",
+          "Social-media followers with no other touchpoint.",
+          "Friends-of-donors who attended one event and left.",
+          "People who came in through a gala raffle."
+        ],
+        recommendation: "Stop reporting list size as a headline metric. Track progression rate — how many people in Ring 5 move to Ring 4 within 12 months — and report that instead. Reframe awareness-tier spending as \"what's the next-ring yield on this channel.\""
+      }
+    },
+    {
+      id: "casual",
+      label: "Casual Connection",
+      radius: 215,
+      strokeWidth: 40,
+      fill: "#F9DE85",
+      hoverFill: "#F2B705",
+      tabOrder: 2,
+      shortTagline: "Curious enough to show up.",
+      deepDive: {
+        meaning: "This donor has taken one deliberate action. They attended a gala, donated a small amount after a friend's ask, signed up to volunteer at an event. They know one specific thing about Pratham — probably the education mission, probably the India connection — and they're evaluating whether to go further. They are making small bets and watching what comes back.",
+        before: "Pratham's national board saw a \"new donor\" count and an average first-gift amount. Chapter leaders knew these people mostly by name-at-the-table. Beyond that, invisible.",
+        after: "Board could see who attended which event, what follow-up they got, and which chapter filtered the follow-up. This is where the broken-telephone problem showed up sharpest — the same new-donor list, three chapters, three materially different experiences of the org. Boston sent a warm handwritten card and a site-visit invite. NYC sent a generic tax-receipt email. Bay Area sent a renewal ask three weeks later. Same stage, same organization, three versions of Pratham.",
+        whoIntro: "",
+        whoList: [
+          "First-time gala attendees.",
+          "Small online donors from a friend's fundraiser.",
+          "People who showed up to a volunteer event once.",
+          "New donors acquired through a chapter's employer-matching drive."
+        ],
+        recommendation: "A shared 30-day post-event protocol, visible to HQ. Chapter leaders keep tonal autonomy, but the existence and cadence of follow-up gets standardized so no new donor falls into a chapter-level dead zone."
+      }
+    },
+    {
+      id: "connected",
+      label: "Connected",
+      radius: 165,
+      strokeWidth: 36,
+      fill: "#F7CE55",
+      hoverFill: "#E8A500",
+      tabOrder: 3,
+      shortTagline: "Pratham is their nonprofit now.",
+      deepDive: {
+        meaning: "This donor has internalized Pratham as theirs. They give regularly, not because they're asked, but because it's now part of how they think of themselves. They open the newsletter. They forward the annual report. They ask the chapter leader thoughtful questions. They have started to explain Pratham to their own friends in their own words.",
+        before: "Pratham's national board saw \"renewal rate\" and \"average annual gift.\" These donors looked like steady mid-tier revenue — reliable, not urgent, not a focus. The mid-tier was precisely where the 2020 collapse hurt most, but pre-engagement there was no stage-aware read on it; they were a dollar bucket.",
+        after: "Board could see the signals that distinguish a Connected donor who will deepen from one who will drift. Attendance patterns, correspondence depth, whether they had seen Pratham's India work firsthand. The mid-tier stopped being \"people who gave $2K-$10K\" and started being \"people in the stage right before Permanent Bond, if we don't lose them.\"",
+        whoIntro: "",
+        whoList: [
+          "Multi-year recurring donors.",
+          "Gala table hosts who come back each year.",
+          "Volunteers who've shown up more than twice.",
+          "Lapsed major donors from 2019 who are still on the list.",
+          "Chapter board members early in their tenure."
+        ],
+        recommendation: "Get every Connected donor to a site visit in India within 24 months. This is the ring where site visits demonstrably move people inward toward Deepened Connection and eventually Permanent Bond — and it's the ring where the information-flow breakdown was costing Pratham the most donors."
+      }
+    },
+    {
+      id: "deepened",
+      label: "Deepened Connection",
+      radius: 120,
+      strokeWidth: 32,
+      fill: "#F2B705",
+      hoverFill: "#D79400",
+      tabOrder: 4,
+      shortTagline: "They've seen the schools. They know names.",
+      deepDive: {
+        meaning: "Something unscalable happened. They visited a Pratham school in India, spent a day with a program leader, or had a long dinner with Rukmini Banerji. The abstraction became specific. They can name a village, a teacher, a program. They give at higher levels now, but that's a side effect — the ring is defined by the moment when Pratham stopped being a cause and became people they know.",
+        before: "Pratham's national board saw \"major donors\" — a dollar-defined bucket that mixed people who'd been to the ground with people who wrote checks from afar. The two groups had almost nothing in common as donors, but they were reported identically.",
+        after: "Board could separate site-visit alumni from check-writers-who-haven't-been. The first group retains at near-100% and grows their giving. The second group retains unpredictably. Treating them differently required knowing they were different — and the old dashboard did not know.",
+        whoIntro: "",
+        whoList: [
+          "Site-visit alumni.",
+          "Event hosts who've hosted multiple times.",
+          "Donors who have met Rukmini or senior India leadership in person.",
+          "Long-tenured chapter board members.",
+          "People who have brought their family into Pratham."
+        ],
+        recommendation: "Protect the unscalable experiences. There was internal pressure to reduce site-visit frequency on cost grounds. The recommendation was to do the opposite — invest in making these visits more frequent and more accessible to Ring 3 donors, because the ROI isn't the visit cost, it's the next 20 years of that donor's giving."
+      }
+    },
+    {
+      id: "permanent",
+      label: "Permanent Bond",
+      radius: 78,
+      strokeWidth: 28,
+      fill: "#E8A500",
+      hoverFill: "#B87800",
+      tabOrder: 5,
+      shortTagline: "Pratham is in their life, for good.",
+      deepDive: {
+        meaning: "Pratham has become part of how this donor thinks about their own life — their philanthropy, their identity, their annual rhythm. They will give for the rest of their lives. They recruit other donors without being asked. They show up not because they're invited but because they would feel strange not showing up. Many — but not all — are giving at the highest levels. A few are giving less than that, and they're no less in this ring for it.",
+        before: "Pratham's national board saw a \"top donors\" list sorted by annual gift size. The list reinforced the idea that dollar amount and depth-of-relationship were the same thing. Sometimes they are. Often they aren't. This is where the old Excel pie chart misled most directly — it labeled some of Pratham's deepest relationships as \"mid-tier\" because the annual number wasn't the biggest in the room.",
+        beforeFigure: {
+          src: "../images/work/pratham/slide11-card-bg.webp",
+          alt: "Pratham's pre-engagement donor-grouping pie chart with three dollar-based slices.",
+          caption: "Pratham's pre-engagement donor dashboard. Three dollar buckets — over $5,000, $1,000-$5,000, $100-$1,000. This was the chart Joyus's work replaced. The rings you're looking at now are what took its place."
+        },
+        after: "Board could see relational permanence as a distinct signal from current year's gift. A lapsed site-visit alum with a multi-decade history was no longer invisible just because last year's check was smaller. A board member who showed up to everything was legible as Permanent Bond even in a quiet giving year.",
+        whoIntro: "",
+        whoList: [
+          "Site-visit alumni with 10+ year histories.",
+          "Founding-era chapter board members.",
+          "Donors who bring their adult children into Pratham.",
+          "Long-form-publication readers — the survey insight: this audience skewed disproportionately into this ring.",
+          "Multi-decade recurring givers regardless of annual amount."
+        ],
+        recommendation: "Re-rank this ring independently of annual gift size. Track depth signals — site visits, multi-year retention, publication engagement, inter-chapter referrals, family-level involvement — and report them alongside dollars. Then ask the uncomfortable question the old dashboard was built to avoid: which of our \"top 50 donors by dollars\" are actually in this ring, and which are just having a good year?"
+      }
+    }
+  ];
+
+  const CENTER = {
+    id: "center",
+    label: "The person at the center",
+    shortTagline: "Why Joyus rebuilt the dashboard around this human.",
+    deepDive: {
+      meaning: "Pratham's donors come in at different levels, stay for different reasons, and fall in love at different speeds. Before this engagement, the org grouped them by annual gift size. After, by where they stood in this diagram.\n\nClick any ring to read who lives there, what Pratham could see about them before and after, and the one process change that moved them inward."
+    }
+  };
+
+  const ALL_ITEMS = RINGS.slice().sort(function(a, b) { return a.tabOrder - b.tabOrder; }).concat([CENTER]);
+
+  let activeRingId = null;
+  let swapTimeout = null;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function isReduced() { return prefersReduced.matches; }
+
+  function escapeHTML(str) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function buildPanelHTML(data, ringId) {
+    const dd = data.deepDive;
+    const meaningParas = dd.meaning.split("\n\n").map(function(p) {
+      return "<p>" + escapeHTML(p) + "</p>";
+    }).join("");
+
+    let html = "<div class=\"pr-panel-fade\">";
+    html += "<h3 class=\"sr-only\">" + escapeHTML(data.label) + " — deep dive</h3>";
+
+    html += "<section class=\"pr-block-meaning\">";
+    html += "<p class=\"pr-block-eyebrow\">What this stage means</p>";
+    html += meaningParas;
+    html += "</section>";
+
+    if (ringId !== "center") {
+      html += "<section class=\"pr-block-ba\">";
+      html += "<p class=\"pr-block-eyebrow\">What Pratham's national board could see — before vs. after</p>";
+      html += "<div class=\"pr-ba-grid\">";
+
+      html += "<div class=\"pr-ba-col\">";
+      html += "<h4 class=\"pr-ba-label\">Before</h4>";
+      html += "<p>" + escapeHTML(dd.before) + "</p>";
+      if (dd.beforeFigure) {
+        const fig = dd.beforeFigure;
+        html += "<figure class=\"pr-ba-fig\">";
+        html += "<img src=\"" + escapeHTML(fig.src) + "\" alt=\"" + escapeHTML(fig.alt) + "\" loading=\"lazy\" onerror=\"this.parentElement.style.display='none'\">";
+        html += "<figcaption>" + escapeHTML(fig.caption) + "</figcaption>";
+        html += "</figure>";
+      }
+      html += "</div>";
+
+      html += "<div class=\"pr-ba-col\">";
+      html += "<h4 class=\"pr-ba-label\">After</h4>";
+      html += "<p>" + escapeHTML(dd.after) + "</p>";
+      html += "</div>";
+
+      html += "</div></section>";
+
+      html += "<section class=\"pr-block-who\">";
+      html += "<p class=\"pr-block-eyebrow\">Who lives in this ring</p>";
+      if (dd.whoIntro) html += "<p>" + escapeHTML(dd.whoIntro) + "</p>";
+      html += "<ul>";
+      dd.whoList.forEach(function(item) {
+        html += "<li>" + escapeHTML(item) + "</li>";
+      });
+      html += "</ul></section>";
+
+      html += "<section class=\"pr-block-rec\">";
+      html += "<p class=\"pr-block-eyebrow\">What Joyus recommended</p>";
+      html += "<p>" + escapeHTML(dd.recommendation) + "</p>";
+      html += "</section>";
+    }
+
+    html += "</div>";
+    return html;
+  }
+
+  function renderPanel(ringId) {
+    const panel = document.querySelector(".pr-panel");
+    const body = document.getElementById("pr-panel-body");
+    const titleEl = panel.querySelector(".pr-panel-title");
+    const taglineEl = panel.querySelector(".pr-panel-tagline");
+    const closeBtn = panel.querySelector(".pr-panel-close");
+
+    if (ringId === null) {
+      panel.classList.remove("is-populated");
+      body.innerHTML = "<p class=\"pr-panel-prompt\">Click a ring to look inside.</p>";
+      titleEl.textContent = "";
+      taglineEl.textContent = "";
+      closeBtn.hidden = true;
+      return;
+    }
+
+    const data = ringId === "center" ? CENTER : RINGS.find(function(r) { return r.id === ringId; });
+    const html = buildPanelHTML(data, ringId);
+
+    titleEl.textContent = data.label;
+    taglineEl.textContent = data.shortTagline;
+    closeBtn.hidden = false;
+
+    const existingFade = body.querySelector(".pr-panel-fade");
+
+    if (existingFade && !isReduced()) {
+      clearTimeout(swapTimeout);
+      existingFade.classList.add("is-swapping");
+      swapTimeout = setTimeout(function() {
+        body.innerHTML = html;
+        panel.classList.add("is-populated");
+        const newFade = body.querySelector(".pr-panel-fade");
+        if (newFade) {
+          newFade.classList.add("is-swapping");
+          requestAnimationFrame(function() {
+            requestAnimationFrame(function() {
+              newFade.classList.remove("is-swapping");
+            });
+          });
+        }
+        scrollPanelIntoView(body);
+      }, 120);
+    } else {
+      clearTimeout(swapTimeout);
+      body.innerHTML = html;
+      panel.classList.add("is-populated");
+      scrollPanelIntoView(body);
+    }
+  }
+
+  function scrollPanelIntoView(body) {
+    const rect = body.getBoundingClientRect();
+    if (rect.top < 80 || rect.top > window.innerHeight - 200) {
+      body.scrollIntoView({
+        behavior: isReduced() ? "auto" : "smooth",
+        block: "nearest"
+      });
+    }
+  }
+
+  function renderRings(newId) {
+    const rings = document.querySelectorAll(".pr-ring");
+    const labels = document.querySelectorAll(".pr-label");
+    const legendBtns = document.querySelectorAll(".pr-legend button");
+
+    rings.forEach(function(ring) {
+      const rid = ring.getAttribute("data-ring-id");
+      ring.classList.remove("is-active", "is-dimmed");
+      ring.setAttribute("aria-pressed", "false");
+      if (newId !== null) {
+        if (rid === newId) {
+          ring.classList.add("is-active");
+          ring.setAttribute("aria-pressed", "true");
+        } else {
+          ring.classList.add("is-dimmed");
+        }
+      }
+    });
+
+    labels.forEach(function(label) {
+      const rid = label.getAttribute("data-ring-id");
+      label.classList.remove("is-dimmed");
+      if (newId !== null && rid !== newId) {
+        label.classList.add("is-dimmed");
+      }
+    });
+
+    legendBtns.forEach(function(btn) {
+      const rid = btn.getAttribute("data-legend-id");
+      btn.classList.remove("is-active", "is-dimmed");
+      btn.setAttribute("aria-pressed", "false");
+      if (newId !== null) {
+        if (rid === newId) {
+          btn.classList.add("is-active");
+          btn.setAttribute("aria-pressed", "true");
+        } else {
+          btn.classList.add("is-dimmed");
+        }
+      }
+    });
+
+    const avatar = document.getElementById("pr-ring-center");
+    if (avatar) {
+      avatar.setAttribute("aria-pressed", newId === "center" ? "true" : "false");
+    }
+  }
+
+  function setActive(ringId) {
+    if (activeRingId === ringId) {
+      activeRingId = null;
+    } else {
+      activeRingId = ringId;
+    }
+    renderRings(activeRingId);
+    renderPanel(activeRingId);
+  }
+
+  function clearActive(returnFocusId) {
+    activeRingId = null;
+    renderRings(null);
+    renderPanel(null);
+    if (returnFocusId) {
+      const el = document.querySelector("[data-ring-id=\"" + returnFocusId + "\"].pr-ring") ||
+                 document.getElementById("pr-ring-center");
+      if (el) el.focus();
+    }
+  }
+
+  function getOrderedFocusables() {
+    const items = [];
+    ALL_ITEMS.forEach(function(item) {
+      if (item.id === "center") {
+        const el = document.getElementById("pr-ring-center");
+        if (el) items.push({ id: "center", el: el });
+      } else {
+        const el = document.querySelector(".pr-ring[data-ring-id=\"" + item.id + "\"]");
+        if (el) items.push({ id: item.id, el: el });
+      }
+    });
+    return items;
+  }
+
+  function getFocusedRingId() {
+    const focused = document.activeElement;
+    if (!focused) return null;
+    const ringId = focused.getAttribute("data-ring-id");
+    if (ringId) return ringId;
+    if (focused.id === "pr-ring-center") return "center";
+    return null;
+  }
+
+  function moveFocus(direction) {
+    const focusables = getOrderedFocusables();
+    const currentId = getFocusedRingId();
+    if (!currentId) return;
+    const idx = focusables.findIndex(function(f) { return f.id === currentId; });
+    if (idx === -1) return;
+
+    let nextIdx;
+    if (direction === "inward") {
+      nextIdx = idx < focusables.length - 1 ? idx + 1 : 0;
+    } else {
+      nextIdx = idx > 0 ? idx - 1 : focusables.length - 1;
+    }
+    focusables[nextIdx].el.focus();
+  }
+
+  // Wire ring clicks
+  document.querySelectorAll(".pr-ring").forEach(function(ring) {
+    ring.addEventListener("click", function() {
+      setActive(ring.getAttribute("data-ring-id"));
+    });
+
+    ring.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        setActive(ring.getAttribute("data-ring-id"));
+      }
+      if (e.key === "ArrowRight" || e.key === "ArrowUp") {
+        e.preventDefault();
+        moveFocus("inward");
+      }
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+        e.preventDefault();
+        moveFocus("outward");
+      }
+    });
+
+    ring.addEventListener("focus", function() {
+      const group = ring.closest(".pr-ring-group");
+      if (group) group.classList.add("is-focused");
+    });
+    ring.addEventListener("blur", function() {
+      const group = ring.closest(".pr-ring-group");
+      if (group) group.classList.remove("is-focused");
+    });
+  });
+
+  // Wire avatar
+  const avatarEl = document.getElementById("pr-ring-center");
+  if (avatarEl) {
+    avatarEl.addEventListener("click", function() { setActive("center"); });
+    avatarEl.addEventListener("keydown", function(e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        setActive("center");
+      }
+      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
+        e.preventDefault();
+        moveFocus("outward");
+      }
+    });
+    avatarEl.addEventListener("focus", function() { avatarEl.classList.add("is-focused"); });
+    avatarEl.addEventListener("blur", function() { avatarEl.classList.remove("is-focused"); });
+  }
+
+  // Wire close button
+  const closeBtn = document.querySelector(".pr-panel-close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function() {
+      const prevId = activeRingId;
+      clearActive(prevId);
+    });
+  }
+
+  // Wire legend buttons
+  document.querySelectorAll(".pr-legend button").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      setActive(btn.getAttribute("data-legend-id"));
+    });
+  });
+
+  // Global Esc
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && activeRingId !== null) {
+      const prevId = activeRingId;
+      clearActive(prevId);
+    }
+  });
+
+  // Tooltip
+  const tooltip = document.querySelector(".pr-tooltip");
+  let tooltipHideTimer = null;
+
+  document.querySelectorAll(".pr-ring").forEach(function(ring) {
+    ring.addEventListener("mouseenter", function(e) {
+      if (!tooltip) return;
+      const data = RINGS.find(function(r) { return r.id === ring.getAttribute("data-ring-id"); });
+      if (!data) return;
+      clearTimeout(tooltipHideTimer);
+      tooltip.textContent = data.shortTagline;
+      tooltip.style.display = "block";
+      tooltip.style.left = (e.clientX + 14) + "px";
+      tooltip.style.top = (e.clientY + 14) + "px";
+      requestAnimationFrame(function() { tooltip.classList.add("is-visible"); });
+    });
+
+    ring.addEventListener("mousemove", function(e) {
+      if (!tooltip) return;
+      tooltip.style.left = (e.clientX + 14) + "px";
+      tooltip.style.top = (e.clientY + 14) + "px";
+    });
+
+    ring.addEventListener("mouseleave", function() {
+      if (!tooltip) return;
+      tooltip.classList.remove("is-visible");
+      tooltipHideTimer = setTimeout(function() { tooltip.style.display = "none"; }, 120);
+    });
+  });
+
+})();
+</script>
+
+<script src="../shape-echo.js"></script>
+
+<!-- Firebase / GA -->
+<script>
+  (function() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6';
+    document.head.appendChild(s);
+  })();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K7PDLTYWF6');
+</script>
 
 </body>
 </html>

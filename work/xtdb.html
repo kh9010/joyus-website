@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=4">
-  <!-- Preload first, pivot, final spin frames -->
+  <!-- Preload first (CRUX), pivot (paper), final (XTDB) spin frames -->
   <link rel="preload" as="image" href="../images/work/xtdb/slide87-brand-1.webp">
   <link rel="preload" as="image" href="../images/work/xtdb/slide85-rebranding-5.webp">
   <link rel="preload" as="image" href="../images/work/xtdb/slide87-brand-2.webp">
@@ -30,7 +30,7 @@
 
 .xt-stage {
   position: relative;
-  min-height: 400vh;
+  min-height: 450vh;
   display: flex;
   align-items: flex-start;
   background: #fff;
@@ -232,10 +232,10 @@
 /* ── Contact sheet (reduced-motion + mobile fallback) ─────────────────── */
 .xt-contact-sheet {
   display: none; /* shown by CSS when needed */
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   padding: 4rem clamp(1.5rem, 4vw, 3rem);
-  max-width: 860px;
+  max-width: 1100px;
   margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
@@ -347,7 +347,7 @@
 
 /* ── Coda strip ─────────────────── */
 .xt-coda {
-  padding: 5rem clamp(1.5rem, 5vw, 4rem);
+  padding: 5rem clamp(1.5rem, 5vw, 4rem) 4rem;
   background: #F5F3F0;
 }
 
@@ -396,6 +396,40 @@
   background: #fff;
 }
 
+/* ── Coda alphabet sub-card ─────────────────── */
+.xt-coda-also {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  max-width: 560px;
+}
+
+.xt-coda-also figure {
+  margin: 0;
+}
+
+.xt-coda-also figure img {
+  width: 100%;
+  display: block;
+  border-radius: 6px;
+  background: #fff;
+  opacity: 0.85;
+}
+
+.xt-coda-also-caption {
+  grid-column: 1 / -1;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.88rem;
+  color: #8892A0;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .xt-coda-also { max-width: 100%; }
+}
+
 /* ── Responsive ─────────────────── */
 @media (max-width: 1199px) {
   .xt-stage-sticky { width: 42%; padding: 2rem 2rem 2rem 2.5rem; }
@@ -418,7 +452,7 @@
   .xt-stage[data-mode="interactive"] { min-height: auto !important; padding: 4rem 0; }
 
   .xt-stage { min-height: auto; padding: 3rem 0; }
-  .xt-contact-sheet { display: grid; padding: 3rem 1.25rem; }
+  .xt-contact-sheet { display: grid; grid-template-columns: repeat(2, 1fr); padding: 3rem 1.25rem; }
   .xt-replay { display: flex; }
   .xt-beat-title { font-size: 1.6rem; }
   .xt-beat-body { font-size: 0.95rem; }
@@ -626,19 +660,22 @@
            data-xt-stage
            aria-label="XTDB rebrand evolution">
 
-    <!-- Hidden preload images — same 10 src URLs as .xt-frame below;
+    <!-- Hidden preload images — same 13 src URLs as .xt-frame below;
          browser deduplicates the requests -->
     <div class="xt-preload" aria-hidden="true">
-      <img src="../images/work/xtdb/slide87-brand-1.webp" alt="">
-      <img src="../images/work/xtdb/slide84-rebranding-4.webp" alt="">
-      <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="">
-      <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="">
-      <img src="../images/work/xtdb/slide85-rebranding-5.webp" alt="">
-      <img src="../images/work/xtdb/slide85-rebranding-7.webp" alt="">
-      <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="">
-      <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="">
-      <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="">
-      <img src="../images/work/xtdb/slide87-brand-2.webp" alt="">
+      <img src="../images/work/xtdb/slide87-brand-1.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide84-rebranding-4.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide84-rebranding-6.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide84-rebranding-1.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide84-rebranding-5.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-5.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-6.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide87-brand-2.webp" alt="" loading="eager">
     </div>
 
     <!-- Sticky-logo column (left, 45%) -->
@@ -649,14 +686,17 @@
            data-loading="true">
         <img class="xt-frame" data-frame="0" src="../images/work/xtdb/slide87-brand-1.webp" alt="" aria-hidden="true">
         <img class="xt-frame" data-frame="1" src="../images/work/xtdb/slide84-rebranding-4.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="2" src="../images/work/xtdb/slide84-rebranding-7.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="3" src="../images/work/xtdb/slide84-rebranding-3.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="4" src="../images/work/xtdb/slide85-rebranding-5.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="5" src="../images/work/xtdb/slide85-rebranding-7.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="6" src="../images/work/xtdb/slide85-rebranding-4.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="7" src="../images/work/xtdb/slide85-rebranding-2.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="8" src="../images/work/xtdb/slide85-rebranding-3.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="9" src="../images/work/xtdb/slide87-brand-2.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="2" src="../images/work/xtdb/slide84-rebranding-6.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="3" src="../images/work/xtdb/slide84-rebranding-1.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="4" src="../images/work/xtdb/slide84-rebranding-5.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="5" src="../images/work/xtdb/slide84-rebranding-3.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="6" src="../images/work/xtdb/slide84-rebranding-7.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="7" src="../images/work/xtdb/slide85-rebranding-5.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="8" src="../images/work/xtdb/slide85-rebranding-4.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="9" src="../images/work/xtdb/slide85-rebranding-2.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="10" src="../images/work/xtdb/slide85-rebranding-6.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="11" src="../images/work/xtdb/slide85-rebranding-3.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="12" src="../images/work/xtdb/slide87-brand-2.webp" alt="" aria-hidden="true">
       </div>
       <div class="xt-stage-hint" aria-hidden="true">
         <span class="xt-stage-hint-from">CRUX</span>
@@ -674,25 +714,25 @@
         <p class="xt-beat-body">XTDB was called CRUX — a JUXT-owned bi-temporal SQL and Datalog database. The name changed. The logo hadn't yet. CRUX's mark: a serif wordmark, a yellow-and-black arrow through the X, bold, 2010s-era tech confidence. It didn't say anything about time, memory, or the thing that made the database genuinely different.</p>
       </article>
 
-      <article class="xt-beat" data-beat="1" data-frame-start="1" data-frame-end="3">
+      <article class="xt-beat" data-beat="1" data-frame-start="1" data-frame-end="6">
         <p class="xt-beat-eyebrow">concepts that capture remembering</p>
         <h2 class="xt-beat-title">Tree rings, wormholes, folds.</h2>
-        <p class="xt-beat-body">The brief we gave ourselves: the mark should feel <em>human-made · inspiring · reliable · spatially and temporally persistent</em>. We sketched tree rings (a stump records its own history), wormholes (time-connected, awe-inspiring), and origami folds (mathematical, human-made, inherently three-dimensional). These are the raw frames — early concepts before anything was committed. Origami was the one that kept pulling us back.</p>
+        <p class="xt-beat-body">The brief we gave ourselves: the mark should feel <em>human-made · inspiring · reliable · spatially and temporally persistent</em>. We sketched five threads. Time as organic growth — a stump cut to show the years. Time as physics — a black hole curving space into itself, saturn-rings warping gravity. Time as geometry — hyperboloid wormholes, connected and stretched. Time as a net — nodes and edges, events that happened together. Time as paper — something that folds, holds the fold, and unfolds later as something new. Five starts. We kept following the one where the metaphor felt close enough to a database that an engineer would recognize it: a thing built of folds.</p>
       </article>
 
-      <article class="xt-beat" data-beat="2" data-frame-start="4" data-frame-end="4">
+      <article class="xt-beat" data-beat="2" data-frame-start="7" data-frame-end="7">
         <p class="xt-beat-eyebrow">the pivot</p>
         <h2 class="xt-beat-title">Origami.</h2>
         <p class="xt-beat-body">Origami is mathematical and human-made at the same time. A fold preserves — the paper remembers every crease. That's the database in a metaphor. We moved to mint-paper origami forms to test the shape language: star shuriken, mountain tent, layered planes. Origami refines.</p>
       </article>
 
-      <article class="xt-beat" data-beat="3" data-frame-start="5" data-frame-end="8">
+      <article class="xt-beat" data-beat="3" data-frame-start="8" data-frame-end="11">
         <p class="xt-beat-eyebrow">the refinement</p>
         <h2 class="xt-beat-title">Small folds give the sense of folds.</h2>
         <p class="xt-beat-body">Once we had the cube, the work became about making it honest. Subtle shading for a three-dimensional feel. A colored X in an hourglass fashion — the X from XTDB, the hourglass from time. The mark retains color, and a hero element in X, from the parent company JUXT. We ran through four near-final cube iterations: pencil construction lines, iso with one orange face, hex with multiple facets, then clean shading. Each one tighter.</p>
       </article>
 
-      <article class="xt-beat" data-beat="4" data-frame-start="9" data-frame-end="9">
+      <article class="xt-beat" data-beat="4" data-frame-start="12" data-frame-end="12">
         <p class="xt-beat-eyebrow">where they landed</p>
         <h2 class="xt-beat-title">A mark that remembers.</h2>
         <p class="xt-beat-body">The final XTDB cube: an origami fold, a depth shadow, an orange X that still reads JUXT. It moved from CRUX's blunt confidence to something quieter and more specific. The same database, now with a mark that tells the truth about it — and then it had to travel.</p>
@@ -701,7 +741,8 @@
     </div>
 
     <!-- Reduced-motion + mobile contact sheet (always in DOM; CSS governs visibility) -->
-    <div class="xt-contact-sheet" aria-label="10 iteration frames, old to new">
+    <div class="xt-contact-sheet" aria-label="13 iteration frames, old to new">
+      <!-- Mobile spin overlay lives in first cell; injected by JS at runtime -->
       <figure class="xt-cs-cell" data-stage="old">
         <img src="../images/work/xtdb/slide87-brand-1.webp" alt="CRUX wordmark, the pre-rebrand logo" loading="lazy">
         <figcaption><span class="xt-cs-label">old</span><span class="xt-cs-word">CRUX</span></figcaption>
@@ -711,34 +752,45 @@
         <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">rings</span></figcaption>
       </figure>
       <figure class="xt-cs-cell" data-stage="concept">
-        <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="Concept sketch: wormholes" loading="lazy">
+        <img src="../images/work/xtdb/slide84-rebranding-6.webp" alt="Concept sketch: gravity wells and saturn-rings" loading="lazy">
+        <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">gravity</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="concept">
+        <img src="../images/work/xtdb/slide84-rebranding-1.webp" alt="Concept sketch: wormholes and hyperboloids" loading="lazy">
         <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">wormhole</span></figcaption>
       </figure>
-      <figure class="xt-cs-cell" data-stage="picked">
-        <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="Concept sketch: origami paper folds" loading="lazy">
-        <figcaption><span class="xt-cs-label">picked</span><span class="xt-cs-word">origami</span></figcaption>
+      <figure class="xt-cs-cell" data-stage="concept">
+        <img src="../images/work/xtdb/slide84-rebranding-5.webp" alt="Concept sketch: neural webs and constellations" loading="lazy">
+        <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">web</span></figcaption>
       </figure>
-      <figure class="xt-cs-cell" data-stage="paper">
-        <img src="../images/work/xtdb/slide85-rebranding-5.webp" alt="Origami forms in mint paper" loading="lazy">
-        <figcaption><span class="xt-cs-label">paper</span><span class="xt-cs-word">paper</span></figcaption>
+      <figure class="xt-cs-cell" data-stage="concept">
+        <img src="../images/work/xtdb/slide84-rebranding-3.webp" alt="Concept sketch: box and folding-stack forms" loading="lazy">
+        <figcaption><span class="xt-cs-label">concept</span><span class="xt-cs-word">box</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="bridge">
+        <img src="../images/work/xtdb/slide84-rebranding-7.webp" alt="Pencil construction: square, X, three iso-cube derivations" loading="lazy">
+        <figcaption><span class="xt-cs-label">bridge</span><span class="xt-cs-word">grid</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="pivot">
+        <img src="../images/work/xtdb/slide85-rebranding-5.webp" alt="Mint origami star and tent forms" loading="lazy">
+        <figcaption><span class="xt-cs-label">pivot</span><span class="xt-cs-word">paper</span></figcaption>
       </figure>
       <figure class="xt-cs-cell" data-stage="refine">
-        <img src="../images/work/xtdb/slide85-rebranding-7.webp" alt="Pencil sketch showing cube construction" loading="lazy">
-        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">cube</span></figcaption>
+        <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="Heavy black XTdb lowercase, blocky cube" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">heavy</span></figcaption>
       </figure>
       <figure class="xt-cs-cell" data-stage="refine">
-        <img src="../images/work/xtdb/slide85-rebranding-4.webp" alt="Isometric cube with one orange face" loading="lazy">
-        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">iso</span></figcaption>
-      </figure>
-      <figure class="xt-cs-cell" data-stage="refine">
-        <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="Hexagonal cube with multiple orange faces" loading="lazy">
+        <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="Hexagonal cube with one orange triangle face" loading="lazy">
         <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">hex</span></figcaption>
       </figure>
       <figure class="xt-cs-cell" data-stage="refine">
-        <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="Refined cube, near-final iteration" loading="lazy">
-        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">near-final</span></figcaption>
+        <img src="../images/work/xtdb/slide85-rebranding-6.webp" alt="Orange-segmented cube, xtdb lowercase, multi-face coloring" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">orange</span></figcaption>
       </figure>
-      <!-- Mobile spin overlay lives in first cell; injected by JS at runtime -->
+      <figure class="xt-cs-cell" data-stage="refine">
+        <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="Iso cube with one large orange face, clean lineart" loading="lazy">
+        <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">iso</span></figcaption>
+      </figure>
       <figure class="xt-cs-cell" data-stage="new">
         <img src="../images/work/xtdb/slide87-brand-2.webp" alt="Final XTDB origami cube" loading="lazy">
         <figcaption><span class="xt-cs-label">new</span><span class="xt-cs-word">XTDB</span></figcaption>
@@ -762,6 +814,11 @@
       <figure><img src="../images/work/xtdb/slide86-brand-1.webp" alt="XTDB logo variants — basic, no-shading, sticker" loading="lazy"></figure>
       <figure><img src="../images/work/xtdb/slide86-brand-2.webp" alt="XTDB horizontal-layout variants" loading="lazy"></figure>
       <figure><img src="../images/work/xtdb/slide86-brand-3.webp" alt="XTDB greyscale, small, logotype-only variants" loading="lazy"></figure>
+    </div>
+    <div class="xt-coda-also">
+      <figure><img src="../images/work/xtdb/slide85-rebranding-8.webp" alt="Alphabet-as-origami: striped X in purple and orange" loading="lazy"></figure>
+      <figure><img src="../images/work/xtdb/slide85-rebranding-9.webp" alt="Alphabet-as-origami: striped T in purple and orange" loading="lazy"></figure>
+      <p class="xt-coda-also-caption">We also explored an alphabet-as-origami system -- stripes instead of facets. It didn't lead to the cube, but it's part of the trail.</p>
     </div>
   </section>
 
@@ -814,7 +871,7 @@
 <script>
 (function() {
 
-  const FRAME_PEAKS = [0.04, 0.14, 0.20, 0.28, 0.44, 0.56, 0.64, 0.72, 0.82, 0.96];
+  const FRAME_PEAKS = [0.04, 0.11, 0.17, 0.22, 0.27, 0.32, 0.40, 0.54, 0.62, 0.70, 0.77, 0.84, 0.96];
   const THRESHOLD_LOW  = 40;
   const THRESHOLD_HIGH = 400;
   const MAX_BLUR       = 5;
@@ -839,7 +896,7 @@
       }
     }
     if (t < FRAME_PEAKS[0]) return { a: 0, b: 0, mix: 0 };
-    return { a: 9, b: 9, mix: 1 };
+    return { a: 12, b: 12, mix: 1 };
   }
 
   function velocityToBlur(vel) {
@@ -926,7 +983,7 @@
 
   function applyFrameOpacities(t) {
     const { a, b, mix } = framePair(t);
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 13; i++) {
       let op = 0;
       if (i === a) op = 1 - mix;
       if (i === b) op = mix;
@@ -948,7 +1005,7 @@
   function tick(ts) {
     scheduled = false;
 
-    /* Preload gate: check every frame until all 10 images are ready */
+    /* Preload gate: check every frame until all 13 images are ready */
     if (!preloadComplete) {
       const allReady = frameEls.every(function(img) {
         return img.complete && img.naturalWidth > 0;
@@ -970,7 +1027,7 @@
      * over 120ms ease-out, then lock. */
     if (!snapTriggered && t >= 0.985) {
       snapTriggered = true;
-      const currentRot = 1800 * easeInOutCubic(Math.min(t, 0.985));
+      const currentRot = 1980 * easeInOutCubic(Math.min(t, 0.985));
       const nearestFull = Math.round(currentRot / 360) * 360;
       snapStartRot  = currentRot;
       snapTargetRot = nearestFull;
@@ -1002,7 +1059,7 @@
       rot    = 0;
       locked = true;
     } else {
-      rot = 1800 * easeInOutCubic(t);
+      rot = 1980 * easeInOutCubic(t);
     }
 
     /* Velocity / blur */
@@ -1110,12 +1167,15 @@
     const spinSrcs = [
       '../images/work/xtdb/slide87-brand-1.webp',
       '../images/work/xtdb/slide84-rebranding-4.webp',
-      '../images/work/xtdb/slide84-rebranding-7.webp',
+      '../images/work/xtdb/slide84-rebranding-6.webp',
+      '../images/work/xtdb/slide84-rebranding-1.webp',
+      '../images/work/xtdb/slide84-rebranding-5.webp',
       '../images/work/xtdb/slide84-rebranding-3.webp',
+      '../images/work/xtdb/slide84-rebranding-7.webp',
       '../images/work/xtdb/slide85-rebranding-5.webp',
-      '../images/work/xtdb/slide85-rebranding-7.webp',
       '../images/work/xtdb/slide85-rebranding-4.webp',
       '../images/work/xtdb/slide85-rebranding-2.webp',
+      '../images/work/xtdb/slide85-rebranding-6.webp',
       '../images/work/xtdb/slide85-rebranding-3.webp',
       '../images/work/xtdb/slide87-brand-2.webp',
     ];
@@ -1146,17 +1206,17 @@
       });
       spinStage.style.display = 'block';
 
-      const DURATION = 2000;
+      const DURATION = 2400;
       const start = performance.now();
 
       function step(now) {
         const k = Math.min(1, (now - start) / DURATION);
-        const rot = 1080 * easeInOutCubic(k);
+        const rot = 1320 * easeInOutCubic(k);
         const { a, b, mix } = framePair(k);
 
         spinStage.style.transform = 'rotate(' + rot + 'deg)';
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 13; i++) {
           let op = 0;
           if (i === a) op = 1 - mix;
           if (i === b) op = mix;
@@ -1169,7 +1229,7 @@
         } else {
           spinStage.style.transform = 'rotate(0deg)';
           spinImgs.forEach(function(img, i) {
-            img.style.opacity = i === 9 ? '1' : '0';
+            img.style.opacity = i === 12 ? '1' : '0';
           });
           replayBtn.classList.remove('spinning');
           replayBtn.removeAttribute('aria-busy');
