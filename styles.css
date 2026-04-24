@@ -3049,7 +3049,8 @@ body:not([data-tx-ready]) .tx-variant {
 }
 
 /* ===================================================
-   SECRET SENSES — r3 growth sequence (.ss-*)
+   SECRET SENSES — r4 expansion sequence (.ss-*)
+   Replaces r3 block entirely. Palette coda below unchanged.
    =================================================== */
 
 .ss-intro { max-width: 720px; margin: 4rem auto 2rem; padding: 0 1.5rem; }
@@ -3059,23 +3060,26 @@ body:not([data-tx-ready]) .tx-variant {
 
 .ss-sr-nav { position: absolute; left: -9999px; }
 .ss-sr-nav:focus-within { position: static; left: auto; padding: 0.5rem 1rem; background: var(--warm-gray); }
+.ss-sr-nav a { margin-right: 1rem; color: var(--pink); }
 
 .ss-growth {
   position: relative;
   height: 500vh;
   background: var(--warm-gray);
 }
-@media (max-width: 720px) {
-  .ss-growth { height: 300vh; display: flex; flex-direction: column; }
-}
+@media (max-width: 1199px) and (min-width: 800px) { .ss-growth { height: 500vh; } }
+@media (max-width: 799px) and (min-width: 720px)  { .ss-growth { height: 400vh; } }
+@media (max-width: 719px)                          { .ss-growth { height: 300vh; } }
 
 .ss-stage-pin {
   position: sticky; top: 0;
   height: 100svh;
   overflow: hidden;
   isolation: isolate;
+  background: var(--warm-gray);
 }
 
+/* z=5 — family flatlay ground (Stage 3 only) */
 .ss-family-bg {
   position: absolute; inset: 0;
   z-index: 5;
@@ -3084,61 +3088,96 @@ body:not([data-tx-ready]) .tx-variant {
   will-change: opacity;
 }
 
-.ss-notebook {
-  position: absolute; inset: 0;
-  z-index: 10;
-  background-image: url('../images/work/secret-senses/slide90-illustrations-3.webp');
-  background-repeat: no-repeat;
-  background-color: #eee7d5;
-  background-size: 1250%;
-  background-position: var(--seed-cx, 72%) var(--seed-cy, 36%);
-  will-change: background-size, background-position, opacity;
-}
-
-.ss-s-mark {
+/* z=20 — pattern field */
+.ss-pattern-field {
   position: absolute;
-  top: 30%; right: 8%;
-  width: 22%; height: auto;
-  z-index: 25;
-  opacity: 0;
+  left: -6%; top: -6%;
+  width: 112%; height: 112%;
+  z-index: 20;
   pointer-events: none;
   will-change: opacity;
 }
 
-.ss-lift {
-  position: absolute; inset: 0;
-  z-index: 20;
-  opacity: 0;
-  will-change: opacity;
-}
-.ss-flower {
+/* Each tile authored by JS with --tier, --gx, --gy, --jx, --jy */
+.ss-tile {
   position: absolute;
-  left: var(--cx); top: var(--cy);
-  width: var(--box); height: var(--box);
-  transform: translate(-50%, -50%);
+  left: calc((var(--gx) + 0.5) / 8 * 100% - var(--tile-size) / 2 + var(--jx));
+  top:  calc((var(--gy) + 0.5) / 8 * 100% - var(--tile-size) / 2 + var(--jy));
+  width:  var(--tile-size);
+  height: var(--tile-size);
   background-image: url('../images/work/secret-senses/slide90-illustrations-3.webp');
   background-repeat: no-repeat;
-  will-change: transform, opacity;
-  z-index: 35;
+  background-size: var(--seed-zoom, 909%);
+  background-position: var(--seed-x, 72.3%) var(--seed-y, 31.8%);
+  opacity: 0;
+  transform: rotate(0deg) scale(0.6);
+  transform-origin: center center;
+  filter: hue-rotate(0deg);
+}
+.ss-tile.is-blooming { will-change: transform, opacity, filter; }
+
+/* 5x5 mobile grid */
+@media (max-width: 719px) {
+  .ss-tile {
+    left: calc((var(--gx) + 0.5) / 5 * 100% - var(--tile-size) / 2 + var(--jx));
+    top:  calc((var(--gy) + 0.5) / 5 * 100% - var(--tile-size) / 2 + var(--jy));
+  }
 }
 
-.ss-label-real {
+:root {
+  --tile-size: 14vmin;
+}
+@media (max-width: 719px) { :root { --tile-size: 20vmin; } }
+
+/* z=21 — pattern-dim veil with bottle-label window */
+.ss-pattern-veil {
+  position: absolute; inset: 0;
+  z-index: 21;
+  background: var(--warm-gray);
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><rect x='42' y='32' width='16' height='36' fill='black'/></svg>");
+  mask-size: 100% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='white'/><rect x='42' y='32' width='16' height='36' fill='black'/></svg>");
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+/* z=30 — bottle stage */
+.ss-bottle-stage {
+  position: absolute; inset: 0;
+  z-index: 30;
+  pointer-events: none;
+}
+
+/* z=31 — white silhouette */
+.ss-bottle-silhouette {
   position: absolute;
   left: 50%; top: 50%;
-  width: 48%; height: auto;
-  max-height: 78%;
-  transform: translate(-50%, -50%) scale(1);
-  z-index: 30;
+  transform: translate(-50%, -50%);
+  height: 72%;
+  width: auto;
+  opacity: 0;
+  will-change: opacity;
+  filter: drop-shadow(0 12px 40px rgba(0,0,0,0.08));
+  z-index: 31;
+}
+
+/* z=32 — real packaging */
+.ss-real-packaging { position: absolute; inset: 0; z-index: 32; }
+.ss-bottle {
+  position: absolute;
+  width: auto; height: auto;
   opacity: 0;
   will-change: transform, opacity;
 }
+.ss-bottle--center { left: 50%; top: 50%; max-height: 72%; transform: translate(-50%, -50%); }
+.ss-bottle--left   { left: 22%; top: 50%; max-height: 58%; transform: translate(-50%, -50%); }
+.ss-bottle--right  { left: 78%; top: 50%; max-height: 58%; transform: translate(-50%, -50%); }
 
-.ss-bottles { position: absolute; inset: 0; z-index: 40; pointer-events: none; }
-.ss-bottle { position: absolute; width: auto; height: auto; max-height: 72%; opacity: 0; will-change: transform, opacity; }
-.ss-bottle--center { left: 50%; top: 50%; transform: translate(-50%, -50%) scale(1); max-height: 72%; }
-.ss-bottle--left   { left: 20%; top: 50%; transform: translate(-50%, -50%) scale(1); max-height: 58%; }
-.ss-bottle--right  { left: 80%; top: 50%; transform: translate(-50%, -50%) scale(1); max-height: 58%; }
-
+/* z=50 — chrome */
 .ss-progress-bar {
   position: absolute; top: 0; left: 0; right: 0;
   height: 3px;
@@ -3160,38 +3199,42 @@ body:not([data-tx-ready]) .tx-variant {
   font-family: 'DM Sans', sans-serif; font-size: 1.05rem;
   color: var(--black);
 }
-.ss-caption-rail p {
-  margin: 0;
-  transition: opacity 180ms ease;
-}
+.ss-caption-rail p { margin: 0; transition: opacity 180ms ease; }
 .ss-caption-rail.is-fading p { opacity: 0; }
+@media (max-width: 720px) { .ss-caption-rail { position: static; order: -1; margin: 1rem auto; } }
 
-@media (max-width: 720px) {
-  .ss-caption-rail { position: static; order: -1; margin: 1rem auto; }
-}
-
+/* Anchor targets */
 .ss-anchor { position: absolute; left: 0; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
+/* Static fallback */
 .ss-static { display: none; max-width: 720px; margin: 2rem auto; padding: 0 1.5rem; }
-.ss-static figure { margin: 0 0 3rem; }
-.ss-static img { width: 100%; height: auto; display: block; border-radius: 4px; }
-.ss-static figcaption { font-family: 'Caveat', cursive; color: var(--pink); margin-top: 0.5rem; font-size: 1.2rem; }
+.ss-static-frame { margin: 0 0 2rem; }
+.ss-static-seed {
+  width: 100%; aspect-ratio: 1;
+  background-image: url('../images/work/secret-senses/slide90-illustrations-3.webp');
+  background-repeat: no-repeat;
+  background-size: var(--seed-zoom, 909%);
+  background-position: var(--seed-x, 72.3%) var(--seed-y, 31.8%);
+  border-radius: 4px;
+}
+.ss-static-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+.ss-static-grid .ss-static-seed { aspect-ratio: 1; }
+.ss-static-bottles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; align-items: end; }
+.ss-static-bottles img { width: 100%; height: auto; }
+.ss-static figcaption { font-family: 'Caveat', cursive; color: var(--pink); margin-top: 0.5rem; font-size: 1.2rem; text-align: center; }
+.ss-static-connector { font-family: 'DM Sans', sans-serif; color: var(--black); opacity: 0.55; text-align: center; margin: 1.5rem auto; max-width: 420px; }
 
 .ss-growth.no-js .ss-stage-pin,
 .ss-growth.reduced .ss-stage-pin { display: none; }
-.ss-growth.no-js { height: auto; }
+.ss-growth.no-js  { height: auto; }
 .ss-growth.reduced { height: auto; }
-.ss-growth.no-js .ss-static,
+.ss-growth.no-js  .ss-static,
 .ss-growth.reduced .ss-static { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   .ss-growth { height: auto; }
   .ss-stage-pin { display: none; }
   .ss-static { display: block; }
-}
-
-@media (max-width: 720px) {
-  .ss-flower:nth-child(n+7) { display: none; }
 }
 
 
