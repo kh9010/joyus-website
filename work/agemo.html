@@ -46,11 +46,14 @@
   .ag-rail-h,.ag-rail-v{position:absolute;background:var(--ag-pink-soft);opacity:0;transition:opacity 400ms ease-out;pointer-events:auto;cursor:pointer;z-index:3}
   .ag-stage.is-ready .ag-rail-h,.ag-stage.is-ready .ag-rail-v{opacity:1}
   .ag-stage[data-view="back"] .ag-rail-v,.ag-stage[data-view="fwd"] .ag-rail-h{opacity:0}
-  .ag-rail-h{height:12px;background:transparent}
-  .ag-rail-h::after{content:'';display:block;position:absolute;top:5px;left:0;right:0;height:2px;background:var(--ag-pink-soft);pointer-events:none}
-  .ag-rail-v{width:12px;background:transparent}
-  .ag-rail-v::before{content:'';display:block;position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--ag-pink-soft);pointer-events:none}
-  .ag-rail-label{position:absolute;font-family:var(--font-script,'Caveat',cursive);font-size:.875rem;color:var(--ag-ink-dim);white-space:nowrap;pointer-events:none}
+  .ag-rail-h{height:14px;background:transparent}
+  .ag-rail-h::after{content:'';display:block;position:absolute;top:5px;left:0;right:0;height:4px;background:var(--ag-pink);border-radius:2px;pointer-events:none;transition:background 160ms ease,transform 160ms ease}
+  .ag-rail-h:hover::after,.ag-rail-h:focus-visible::after{background:var(--ag-pink);transform:scaleY(1.4)}
+  .ag-rail-v{width:14px;background:transparent}
+  .ag-rail-v::before{content:'';display:block;position:absolute;left:5px;top:0;bottom:0;width:4px;background:var(--ag-pink);border-radius:2px;pointer-events:none;transition:background 160ms ease,transform 160ms ease}
+  .ag-rail-v:hover::before,.ag-rail-v:focus-visible::before{transform:scaleX(1.4)}
+  .ag-rail-label{position:absolute;font-family:var(--font-script,'Caveat',cursive);font-size:.95rem;color:var(--ag-pink);white-space:nowrap;cursor:pointer;padding:.25rem .375rem;border-radius:3px;transition:color 160ms ease,background 160ms ease}
+  .ag-rail-label:hover,.ag-rail-label:focus-visible{color:var(--ag-ink);background:rgba(217,89,124,.08)}
   .ag-breadcrumb{position:fixed;top:5rem;left:1.5rem;z-index:200;font-family:var(--font-script,'Caveat',cursive);font-size:1.125rem;color:var(--ag-pink);background:none;border:none;cursor:pointer;padding:.25rem .5rem;border-radius:4px;display:none;transition:transform 100ms ease}
   .ag-breadcrumb:hover{text-decoration:underline}
   .ag-breadcrumb:active{transform:scale(.96)}
@@ -297,8 +300,8 @@
       <!-- T-rails (positioned by JS after frame measures) -->
       <div class="ag-rail-h" role="button" tabindex="0" aria-label="Navigate to the 20 drafts that got us here"></div>
       <div class="ag-rail-v" role="button" tabindex="0" aria-label="Navigate to the 5 Architect passes"></div>
-      <div class="ag-rail-label ag-rail-label-h"></div>
-      <div class="ag-rail-label ag-rail-label-v"></div>
+      <div class="ag-rail-label ag-rail-label-h" role="button" tabindex="0"></div>
+      <div class="ag-rail-label ag-rail-label-v" role="button" tabindex="0"></div>
 
       <!-- Back-axis scrub (visible when data-view="back") -->
       <div class="ag-back-scrub" role="group" aria-label="Draft scrubber, 17 steps back from frame 18">
@@ -819,10 +822,17 @@
   }
 
   function bindRailClicks() {
-    railH.addEventListener('click', function() { goTo({ type: 'back', frame: 17 }); });
-    railH.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { goTo({ type: 'back', frame: 17 }); e.preventDefault(); } });
-    railV.addEventListener('click', function() { goTo({ type: 'fwd', pass: 1 }); });
-    railV.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { goTo({ type: 'fwd', pass: 1 }); e.preventDefault(); } });
+    var goBack = function() { goTo({ type: 'back', frame: 17 }); };
+    var goFwd  = function() { goTo({ type: 'fwd', pass: 1 }); };
+    var keyAct = function(fn) { return function(e) { if (e.key === 'Enter' || e.key === ' ') { fn(); e.preventDefault(); } }; };
+    [railH, railLabelH].forEach(function(el) {
+      el.addEventListener('click', goBack);
+      el.addEventListener('keydown', keyAct(goBack));
+    });
+    [railV, railLabelV].forEach(function(el) {
+      el.addEventListener('click', goFwd);
+      el.addEventListener('keydown', keyAct(goFwd));
+    });
   }
 
   function bindCrumb() {
