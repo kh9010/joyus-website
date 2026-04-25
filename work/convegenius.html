@@ -18,6 +18,66 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=4">
+  <style>
+    /* ─── R4-07: ConveGenius term tooltips ─── */
+    .cg-term {
+      display: inline;
+      background: none;
+      border: none;
+      padding: 0;
+      font: inherit;
+      color: inherit;
+      cursor: help;
+      border-bottom: 1.5px dashed currentColor;
+      opacity: 0.8;
+      position: relative;
+      line-height: inherit;
+    }
+    .cg-term:hover,
+    .cg-term:focus-visible {
+      opacity: 1;
+    }
+    .cg-term:focus-visible {
+      outline: 2px solid #E91E7B;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+    .cg-tip {
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 400;
+      background: #EDE8DF;
+      color: #111214;
+      border: 1px solid rgba(17,18,20,0.18);
+      border-radius: 4px;
+      padding: 0.5rem 0.75rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8125rem;
+      line-height: 1.5;
+      max-width: 260px;
+      width: max-content;
+      box-shadow: 0 4px 12px rgba(17,18,20,0.10);
+      white-space: normal;
+      pointer-events: none;
+    }
+    .cg-tip[hidden] { display: none; }
+    .cg-tip.is-below {
+      bottom: auto;
+      top: calc(100% + 8px);
+    }
+    @media (pointer: coarse) {
+      .cg-term {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .cg-tip { left: 0; transform: none; max-width: 90vw; }
+    }
+  </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CreativeWork","name":"convegenius","description":"Building a rewards system to deepen student engagement on a 100,000-MAU education platform.","url":"https://kh9010.github.io/joyus-website/work/convegenius.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
@@ -228,22 +288,22 @@
       <h4 style="font-family:var(--font-sans);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft);margin:2rem 0 1rem;font-weight:500;">Growth vs Engagement activities</h4>
       <div class="cs-matrix">
         <div class="cs-matrix-col">
-          <div class="cs-matrix-header">Growth activities</div>
+          <div class="cs-matrix-header"><button type="button" class="cg-term" aria-describedby="cg-tip-1" aria-expanded="false">Growth activities</button><div id="cg-tip-1" role="tooltip" class="cg-tip" hidden>Activities designed to bring new users into the app or expose existing users to features they haven't tried — broadly targeted, with relatively low execution cost.</div></div>
           <!-- KAHRAN-REVIEW: trimmed ~25%, cut "catchy and easy to explain" filler -->
           <div class="cs-matrix-body">
             <span class="label">Traits</span>
             Familiarise the user with the app. First-time usage gives a shiny reward. Prompts students to talk about it outside the product.
           </div>
-          <div class="cs-matrix-pill">Ephemeral rewards · social rewards</div>
+          <div class="cs-matrix-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-3" aria-expanded="false">Ephemeral rewards</button><div id="cg-tip-3" role="tooltip" class="cg-tip" hidden>Transient, low-stakes rewards (e.g. a sticker or badge visible on a profile for a limited time) that surface the product socially and prompt word-of-mouth rather than building long-term habits.</div> · social rewards</div>
         </div>
         <div class="cs-matrix-col">
-          <div class="cs-matrix-header">Engagement activities</div>
+          <div class="cs-matrix-header"><button type="button" class="cg-term" aria-describedby="cg-tip-2" aria-expanded="false">Engagement activities</button><div id="cg-tip-2" role="tooltip" class="cg-tip" hidden>Activities aimed at deepening the habits of users who are already active — targeted to specific student personas, higher investment to execute well, longer payoff window.</div></div>
           <!-- KAHRAN-REVIEW: trimmed ~20%, fixed "more catered specifically" redundancy -->
           <div class="cs-matrix-body">
             <span class="label">Traits</span>
             Focused on one student's learning arc. The longer you do it, the more rewarding it gets. Requires investment, and is tuned to specific personas.
           </div>
-          <div class="cs-matrix-pill">Collectibles · long-term achievement</div>
+          <div class="cs-matrix-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-5" aria-expanded="false">Collectibles</button><div id="cg-tip-5" role="tooltip" class="cg-tip" hidden>Persistent, accumulating items — badges, avatars, status symbols — that students display in the app. Unlike ephemeral rewards, collectibles stay and function as social signals within the community.</div> · <button type="button" class="cg-term" aria-describedby="cg-tip-6" aria-expanded="false">long-term achievement</button><div id="cg-tip-6" role="tooltip" class="cg-tip" hidden>Rewards tied to sustained effort over time — Expert Mentor Status, workshop access, title progression — that signal the system respects the user's long-term investment.</div></div>
         </div>
       </div>
 
@@ -337,11 +397,11 @@
 
         <p class="cs-flow-axis-label">By effort × frequency, the reward types are:</p>
         <div class="cs-flow-pills">
-          <span class="cs-flow-pill">Ephemeral rewards</span>
+          <span class="cs-flow-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-3" aria-expanded="false">Ephemeral rewards</button></span>
           <span class="cs-flow-pill">Achievements</span>
-          <span class="cs-flow-pill">Long-term</span>
+          <span class="cs-flow-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-6" aria-expanded="false">Long-term</button></span>
           <span class="cs-flow-pill">Monetary</span>
-          <span class="cs-flow-pill">Collectibles</span>
+          <span class="cs-flow-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-5" aria-expanded="false">Collectibles</button></span>
         </div>
       </div>
 
@@ -437,6 +497,78 @@
   <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
+
+  <noscript><p style="text-align:center;font-size:0.8rem;color:#8892A0;padding:0.5rem;">For term definitions, enable JavaScript.</p></noscript>
+  <script>
+  (function() {
+    'use strict';
+    const terms = document.querySelectorAll('.cg-term');
+    if (!terms.length) return;
+
+    let active = null;
+    let hoverTimer = null;
+
+    function show(btn) {
+      hide();
+      const tip = document.getElementById(btn.getAttribute('aria-describedby'));
+      if (!tip) return;
+      tip.removeAttribute('hidden');
+      btn.setAttribute('aria-expanded', 'true');
+      const btnRect = btn.getBoundingClientRect();
+      if (btnRect.top < 120) {
+        tip.classList.add('is-below');
+      } else {
+        tip.classList.remove('is-below');
+      }
+      active = { btn, tip };
+    }
+
+    function hide() {
+      if (active) {
+        active.tip.setAttribute('hidden', '');
+        active.btn.setAttribute('aria-expanded', 'false');
+        active = null;
+      }
+      clearTimeout(hoverTimer);
+    }
+
+    terms.forEach(function(btn) {
+      btn.addEventListener('mouseenter', function() {
+        clearTimeout(hoverTimer);
+        hoverTimer = setTimeout(function() { show(btn); }, 200);
+      });
+      btn.addEventListener('mouseleave', function() {
+        clearTimeout(hoverTimer);
+        hide();
+      });
+      btn.addEventListener('click', function() {
+        if (active && active.btn === btn) {
+          hide();
+        } else {
+          show(btn);
+        }
+      });
+      btn.addEventListener('blur', function() {
+        clearTimeout(hoverTimer);
+        hide();
+      });
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && active) {
+        const prevBtn = active.btn;
+        hide();
+        prevBtn.focus();
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (active && !active.btn.contains(e.target) && !active.tip.contains(e.target)) {
+        hide();
+      }
+    }, true);
+  })();
+  </script>
 
 </body>
 </html>
