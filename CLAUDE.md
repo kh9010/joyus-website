@@ -135,6 +135,50 @@ All Firestore writes are best-effort (try/catch, silent on failure). The UI neve
 - `.claude/scheduled_tasks.lock` — runtime artifact, ignore.
 - `notion-pass1-storytelling.md` + `notion-site-review.csv` — in-progress editorial review tracking (Week 1 of April 2026). Read these if the user asks about the "site review" or "pass 1/2/3" — they encode the current content-review workflow.
 
+## Agent team (joyus-*)
+
+Project-local agent configs live in `.claude/agents/`:
+- `joyus-pm.md` — owns backlog, writes acceptance criteria, gates handoffs (sonnet)
+- `joyus-architect.md` — interaction + technical specs; sole Figma API consumer (sonnet)
+- `joyus-dev.md` — implements against spec; up to 3 parallel (haiku for mechanical, sonnet for interaction-heavy)
+- `joyus-tester-manual.md` — walks pages, breakpoints, a11y (haiku)
+- `joyus-tester-auto.md` — lightweight static contract scripts (haiku)
+
+The session uses `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (set in `.claude/settings.local.json`) so these agents can be launched by `subagent_type` directly. **Default to the lightest model that fits the task** — sonnet for synthesis/design/architecture, haiku for mechanical edits + test execution. Don't put everyone on opus.
+
+When orchestrating, run agents in parallel only on non-conflicting files (each case study is independent; `styles.css` is the one shared file — devs should prefer page-local `<style>` blocks for new families to avoid concurrent-edit merges).
+
+`git push origin main` is permitted by `.claude/settings.local.json` (no PR review). Each fix → its own commit + push so releases stay reviewable.
+
+## R4 case-study rebuild — current state
+
+The April 2026 R4 pass shipped 12 releases to main rebuilding the `work/*.html` case studies. Backlog + specs + test plans live in `.site-rebuild/` (gitignored — local only). If the dir is missing on a fresh clone, regenerate via the PM agent.
+
+**As of 2026-04-25 (Kahran's verbal assessment after browser walkthrough):**
+
+| Page | Status | Notes |
+|---|---|---|
+| klydo | ✅ good | r3 + R4-05 timing fix landed |
+| pratham | ✅ good | R4-04 scroll-margin landed (UX architect proposed deeper fix, optional) |
+| tatsam | ✅ good | R4-03 tightening + R4-09 disclosure accordion landed |
+| xtdb | ✅ good | R4-08 alphabet folded into parallax |
+| convegenius | ⚠️ okay | R4-07 hover/tap term tooltips landed (6 terms) |
+| gliitch | ⚠️ okay | R4-11 sticky tab-nav landed (note filename has 2 i's) |
+| **agemo** | ❌ still broken | R4-02 + R4-02-followup shipped (rail hit areas + visibility) but Kahran reports "play button still not loading." Root cause likely deeper than the rail-geometry fix — needs runtime debugging when browser access is available |
+| **secret-senses** | ❌ still broken | R4-01 (double-rAF + ResizeObserver guard) shipped but section is "blank" in browser. Initial 404s on `cover.webp` + `slide90-illustrations-3.webp` were CDN-propagation cache (now 200) — but underlying rendering issue may still exist after hard-reload |
+| **rachna-nivas** | ❌ "really weird, needs more ideas" | R4-10: 3 directions spec'd at `.site-rebuild/specs/r4-10-rachna-nivas.md`. **Blocks on Kahran's pick** — UX architect recommended Direction B but no shipping until confirmed |
+| **tomboyx** | ❌ "weird" | R4-06 attribution-only partial shipped (`pitch-9.webp` figcaption). Slide-to-narrative mapping still wrong in 2 places: (a) Beat 03 Operator needs an `operator-issues.webp` exported from `Birthing tomboyx anew_ Apr _25.pptx` slide 15 (the four-problem issues+solutions slide), (b) Beat 01 Syndicate `story-5.webp` is the wrong slide (shows brand manifesto, not the queer-owned/women-founded "All up in our undies" opener) — needs replacement export from the syndicate deck |
+
+**Lesson learned for the team:** the R4 dev agents' static-analysis "high confidence" fixes for the two P0 bugs (secret-senses, agemo) were insufficient — both still broken in browser. Static reading of HTML/JS/CSS can confirm a fix is structurally plausible but cannot confirm the timing/race/geometry actually resolves. **Don't trust "high confidence" from static reasoning on browser-runtime bugs.** Either get a browser involved, or have the test-lead spec a reproducible runtime contract before declaring a fix done.
+
+**Open assets locally (parent of repo):**
+- `../drive-download-20260424T131135Z-3-001/*.pptx` — 6 TomboyX source decks
+- `../2024-02-23-Convegenius-Gamification System.docx` — convegenius gamification doc
+- `Joyus - work deck-mar26.pdf` (in repo root, uncommitted) — Figma export, canonical narrative for tomboyx remap
+- `../Joyus_ Investor Workshops II.pdf` — additional context
+
+**Don't ship without browser-verified fix:** secret-senses + agemo. Investigate root cause via console output Kahran can paste, not via guesswork.
+
 ## Gotchas
 
 - **Do not add GA tag `G-H63H3KD6WQ`** anywhere. That's Kahran's personal site. Joyus uses `G-K7PDLTYWF6`.
