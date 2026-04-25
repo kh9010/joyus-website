@@ -3487,6 +3487,61 @@ body:not([data-tx-ready]) .tx-variant {
   margin-right: 0.15rem;
 }
 
+/* Disclosure accordion — R4-09 */
+.ts-coda-item { display: block; }
+.ts-coda-trigger {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #E0DDD8;
+  padding: 0.75rem 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'DM Sans', system-ui, sans-serif;
+}
+.ts-coda-trigger:hover .ts-coda-label { color: var(--pink, #E91E7B); }
+.ts-coda-trigger:focus-visible { outline: 2px solid var(--pink, #E91E7B); outline-offset: 2px; }
+.ts-coda-trigger .ts-coda-label {
+  font-family: 'DM Serif Display', serif;
+  font-style: italic;
+  color: #4a7a78;
+  margin-right: 0.15rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.ts-coda-desc { color: #2C3544; font-size: 1rem; line-height: 1.65; }
+.ts-coda-arrow {
+  margin-left: auto;
+  flex-shrink: 0;
+  display: inline-block;
+  transition: transform 200ms ease;
+  color: #8892A0;
+  font-size: 0.9rem;
+}
+.ts-coda-trigger[aria-expanded="true"] .ts-coda-arrow {
+  transform: rotate(180deg);
+}
+.ts-coda-panel { overflow: hidden; }
+.ts-coda-fig {
+  margin: 1rem 0 1.5rem;
+  max-width: 320px;
+}
+.ts-coda-fig img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+@media (max-width: 720px) {
+  .ts-coda-fig { max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ts-coda-arrow { transition: none; }
+}
+
 /* Animation — only under .js-enabled */
 .js-enabled .ts-moment {
   opacity: 0;
