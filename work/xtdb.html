@@ -394,41 +394,11 @@
   display: block;
   border-radius: 6px;
   background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
 }
 
-/* ── Coda alphabet sub-card ─────────────────── */
-.xt-coda-also {
-  margin-top: 3rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  max-width: 560px;
-}
-
-.xt-coda-also figure {
-  margin: 0;
-}
-
-.xt-coda-also figure img {
-  width: 100%;
-  display: block;
-  border-radius: 6px;
-  background: #fff;
-  opacity: 0.85;
-}
-
-.xt-coda-also-caption {
-  grid-column: 1 / -1;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.88rem;
-  color: #8892A0;
-  line-height: 1.55;
-  margin: 0;
-}
-
-@media (max-width: 720px) {
-  .xt-coda-also { max-width: 100%; }
-}
+/* .xt-coda-also and .xt-coda-also-caption removed R4-08:
+   alphabet images moved into parallax spin sequence (frames 12–13). */
 
 /* ── Responsive ─────────────────── */
 @media (max-width: 1199px) {
@@ -675,6 +645,8 @@
       <img src="../images/work/xtdb/slide85-rebranding-2.webp" alt="" loading="eager">
       <img src="../images/work/xtdb/slide85-rebranding-6.webp" alt="" loading="eager">
       <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-8.webp" alt="" loading="eager">
+      <img src="../images/work/xtdb/slide85-rebranding-9.webp" alt="" loading="eager">
       <img src="../images/work/xtdb/slide87-brand-2.webp" alt="" loading="eager">
     </div>
 
@@ -696,7 +668,9 @@
         <img class="xt-frame" data-frame="9" src="../images/work/xtdb/slide85-rebranding-2.webp" alt="" aria-hidden="true">
         <img class="xt-frame" data-frame="10" src="../images/work/xtdb/slide85-rebranding-6.webp" alt="" aria-hidden="true">
         <img class="xt-frame" data-frame="11" src="../images/work/xtdb/slide85-rebranding-3.webp" alt="" aria-hidden="true">
-        <img class="xt-frame" data-frame="12" src="../images/work/xtdb/slide87-brand-2.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="12" src="../images/work/xtdb/slide85-rebranding-8.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="13" src="../images/work/xtdb/slide85-rebranding-9.webp" alt="" aria-hidden="true">
+        <img class="xt-frame" data-frame="14" src="../images/work/xtdb/slide87-brand-2.webp" alt="" aria-hidden="true">
       </div>
       <div class="xt-stage-hint" aria-hidden="true">
         <span class="xt-stage-hint-from">CRUX</span>
@@ -732,7 +706,13 @@
         <p class="xt-beat-body">Once we had the cube, the work became about making it honest. Subtle shading for a three-dimensional feel. A colored X in an hourglass fashion — the X from XTDB, the hourglass from time. The mark retains color, and a hero element in X, from the parent company JUXT. We ran through four near-final cube iterations: pencil construction lines, iso with one orange face, hex with multiple facets, then clean shading. Each one tighter.</p>
       </article>
 
-      <article class="xt-beat" data-beat="4" data-frame-start="12" data-frame-end="12">
+      <article class="xt-beat" data-beat="4" data-frame-start="12" data-frame-end="13">
+        <p class="xt-beat-eyebrow">a road not taken</p>
+        <h2 class="xt-beat-title">We also tried an alphabet.</h2>
+        <p class="xt-beat-body">Stripes instead of facets. Each letter of the XTDB alphabet built from the same origami logic — but using flat color bands rather than three-dimensional planes. It didn't lead to the cube. The cube was the right call. But the alphabet is part of the trail.</p>
+      </article>
+
+      <article class="xt-beat" data-beat="5" data-frame-start="14" data-frame-end="14">
         <p class="xt-beat-eyebrow">where they landed</p>
         <h2 class="xt-beat-title">A mark that remembers.</h2>
         <p class="xt-beat-body">The final XTDB cube: an origami fold, a depth shadow, an orange X that still reads JUXT. It moved from CRUX's blunt confidence to something quieter and more specific. The same database, now with a mark that tells the truth about it — and then it had to travel.</p>
@@ -741,7 +721,7 @@
     </div>
 
     <!-- Reduced-motion + mobile contact sheet (always in DOM; CSS governs visibility) -->
-    <div class="xt-contact-sheet" aria-label="13 iteration frames, old to new">
+    <div class="xt-contact-sheet" aria-label="15 iteration frames, old to new">
       <!-- Mobile spin overlay lives in first cell; injected by JS at runtime -->
       <figure class="xt-cs-cell" data-stage="old">
         <img src="../images/work/xtdb/slide87-brand-1.webp" alt="CRUX wordmark, the pre-rebrand logo" loading="lazy">
@@ -791,6 +771,14 @@
         <img src="../images/work/xtdb/slide85-rebranding-3.webp" alt="Iso cube with one large orange face, clean lineart" loading="lazy">
         <figcaption><span class="xt-cs-label">refine</span><span class="xt-cs-word">iso</span></figcaption>
       </figure>
+      <figure class="xt-cs-cell" data-stage="explore">
+        <img src="../images/work/xtdb/slide85-rebranding-8.webp" alt="Alphabet-as-origami: striped X in purple and orange" loading="lazy">
+        <figcaption><span class="xt-cs-label">explore</span><span class="xt-cs-word">alpha-X</span></figcaption>
+      </figure>
+      <figure class="xt-cs-cell" data-stage="explore">
+        <img src="../images/work/xtdb/slide85-rebranding-9.webp" alt="Alphabet-as-origami: striped T in purple and orange" loading="lazy">
+        <figcaption><span class="xt-cs-label">explore</span><span class="xt-cs-word">alpha-T</span></figcaption>
+      </figure>
       <figure class="xt-cs-cell" data-stage="new">
         <img src="../images/work/xtdb/slide87-brand-2.webp" alt="Final XTDB origami cube" loading="lazy">
         <figcaption><span class="xt-cs-label">new</span><span class="xt-cs-word">XTDB</span></figcaption>
@@ -809,16 +797,11 @@
   <section class="xt-coda" aria-label="Brand guidelines">
     <p class="xt-coda-eyebrow">once it locks, it has to travel</p>
     <h3 class="xt-coda-title">Guidelines for every surface.</h3>
-    <p class="xt-coda-body">Print, digital, small, inverted, greyscale, sticker. Each variant earns its keep.</p>
+    <p class="xt-coda-body">Print, digital, small, inverted, greyscale, sticker. Each variant earns its keep. <!-- KAHRAN-SIGNOFF: copy line pending -->These travel as screenshots. That's the point.<!-- /KAHRAN-SIGNOFF --></p>
     <div class="xt-coda-strip">
       <figure><img src="../images/work/xtdb/slide86-brand-1.webp" alt="XTDB logo variants — basic, no-shading, sticker" loading="lazy"></figure>
       <figure><img src="../images/work/xtdb/slide86-brand-2.webp" alt="XTDB horizontal-layout variants" loading="lazy"></figure>
       <figure><img src="../images/work/xtdb/slide86-brand-3.webp" alt="XTDB greyscale, small, logotype-only variants" loading="lazy"></figure>
-    </div>
-    <div class="xt-coda-also">
-      <figure><img src="../images/work/xtdb/slide85-rebranding-8.webp" alt="Alphabet-as-origami: striped X in purple and orange" loading="lazy"></figure>
-      <figure><img src="../images/work/xtdb/slide85-rebranding-9.webp" alt="Alphabet-as-origami: striped T in purple and orange" loading="lazy"></figure>
-      <p class="xt-coda-also-caption">We also explored an alphabet-as-origami system -- stripes instead of facets. It didn't lead to the cube, but it's part of the trail.</p>
     </div>
   </section>
 
@@ -871,7 +854,23 @@
 <script>
 (function() {
 
-  const FRAME_PEAKS = [0.04, 0.11, 0.17, 0.22, 0.27, 0.32, 0.40, 0.54, 0.62, 0.70, 0.77, 0.84, 0.96];
+  const FRAME_PEAKS = [
+    0.04,  // frame 0  — CRUX (old)
+    0.10,  // frame 1  — concepts start
+    0.16,  // frame 2
+    0.21,  // frame 3
+    0.26,  // frame 4
+    0.31,  // frame 5
+    0.37,  // frame 6  — concepts end
+    0.50,  // frame 7  — pivot (origami)
+    0.58,  // frame 8  — refinement start
+    0.65,  // frame 9
+    0.71,  // frame 10
+    0.77,  // frame 11 — refinement end
+    0.83,  // frame 12 — alphabet X (NEW)
+    0.89,  // frame 13 — alphabet T (NEW)
+    0.96,  // frame 14 — final XTDB
+  ];
   const THRESHOLD_LOW  = 40;
   const THRESHOLD_HIGH = 400;
   const MAX_BLUR       = 5;
@@ -896,7 +895,7 @@
       }
     }
     if (t < FRAME_PEAKS[0]) return { a: 0, b: 0, mix: 0 };
-    return { a: 12, b: 12, mix: 1 };
+    return { a: 14, b: 14, mix: 1 };
   }
 
   function velocityToBlur(vel) {
@@ -983,7 +982,7 @@
 
   function applyFrameOpacities(t) {
     const { a, b, mix } = framePair(t);
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < 15; i++) {
       let op = 0;
       if (i === a) op = 1 - mix;
       if (i === b) op = mix;
@@ -1177,6 +1176,8 @@
       '../images/work/xtdb/slide85-rebranding-2.webp',
       '../images/work/xtdb/slide85-rebranding-6.webp',
       '../images/work/xtdb/slide85-rebranding-3.webp',
+      '../images/work/xtdb/slide85-rebranding-8.webp',
+      '../images/work/xtdb/slide85-rebranding-9.webp',
       '../images/work/xtdb/slide87-brand-2.webp',
     ];
 
