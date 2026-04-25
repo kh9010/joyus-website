@@ -46,8 +46,10 @@
   .ag-rail-h,.ag-rail-v{position:absolute;background:var(--ag-pink-soft);opacity:0;transition:opacity 400ms ease-out;pointer-events:auto;cursor:pointer;z-index:3}
   .ag-stage.is-ready .ag-rail-h,.ag-stage.is-ready .ag-rail-v{opacity:1}
   .ag-stage[data-view="back"] .ag-rail-v,.ag-stage[data-view="fwd"] .ag-rail-h{opacity:0}
-  .ag-rail-h{height:1px}
-  .ag-rail-v{width:1px}
+  .ag-rail-h{height:12px;background:transparent}
+  .ag-rail-h::after{content:'';display:block;position:absolute;top:5px;left:0;right:0;height:2px;background:var(--ag-pink-soft);pointer-events:none}
+  .ag-rail-v{width:12px;background:transparent}
+  .ag-rail-v::before{content:'';display:block;position:absolute;left:5px;top:0;bottom:0;width:2px;background:var(--ag-pink-soft);pointer-events:none}
   .ag-rail-label{position:absolute;font-family:var(--font-script,'Caveat',cursive);font-size:.875rem;color:var(--ag-ink-dim);white-space:nowrap;pointer-events:none}
   .ag-breadcrumb{position:fixed;top:5rem;left:1.5rem;z-index:200;font-family:var(--font-script,'Caveat',cursive);font-size:1.125rem;color:var(--ag-pink);background:none;border:none;cursor:pointer;padding:.25rem .5rem;border-radius:4px;display:none;transition:transform 100ms ease}
   .ag-breadcrumb:hover{text-decoration:underline}
@@ -550,10 +552,18 @@
   bindOutsideClick();
   bindRailClicks();
   bindFrameResize();
+  // ResizeObserver absent: position rails via resize event instead
+  if (!window.ResizeObserver) {
+    positionRails();
+    window.addEventListener('resize', positionRails);
+  }
 
-  // 800ms after load: fade in T-rails
+  // 800ms after load: fade in T-rails; re-measure after layout settles
   window.addEventListener('load', function() {
-    setTimeout(function() { stage.classList.add('is-ready'); }, 800);
+    setTimeout(function() {
+      stage.classList.add('is-ready');
+      positionRails();
+    }, 800);
   });
 
   // ===== TRANSITION FUNCTIONS =====
@@ -910,18 +920,18 @@
     // horizontal rail: runs from left edge of stage to left edge of frame
     var railHLeft  = 0;
     var railHWidth = rect.left - stageRect.left;
-    var railHTop   = rect.top  - stageRect.top + rect.height / 2;
+    var railHTop   = rect.top  - stageRect.top + rect.height / 2 - 5;
     railH.style.left   = railHLeft + 'px';
-    railH.style.width  = Math.max(0, railHWidth) + 'px';
+    railH.style.width  = Math.max(48, railHWidth) + 'px';
     railH.style.top    = railHTop + 'px';
 
     // vertical rail: runs from bottom of frame to bottom of stage
-    var railVLeft   = rect.left  - stageRect.left + rect.width / 2;
+    var railVLeft   = rect.left  - stageRect.left + rect.width / 2 - 5;
     var railVTop    = rect.top   - stageRect.top  + rect.height;
     var railVHeight = stageRect.height - railVTop;
     railV.style.left   = railVLeft + 'px';
     railV.style.top    = railVTop  + 'px';
-    railV.style.height = Math.max(0, railVHeight) + 'px';
+    railV.style.height = Math.max(48, railVHeight) + 'px';
 
     // Rail labels
     railLabelH.textContent = 'the 20 drafts that got us here';
