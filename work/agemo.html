@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Designing a new user paradigm for Agemo, a GenAI startup with a new way of coding. By Joyus Studio.">
+  <meta name="description" content="Designing a new user paradigm for Agemo, a GenAI startup. Twenty-six drafts, ten that mattered, and one screen we drew more than a landing page.">
   <meta property="og:title" content="agemo — Joyus Studio">
-  <meta property="og:description" content="Research, product strategy and interface design for a GenAI startup with a new way of coding.">
+  <meta property="og:description" content="Designing a new user paradigm for a GenAI startup. A critique in ten stickies — twenty drafts got us here, five Architect passes came out of it.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/agemo/cover.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/agemo.html">
@@ -19,15 +19,110 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css?v=4">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"agemo","description":"Research, product strategy and interface design for a GenAI startup with a new way of coding.","url":"https://kh9010.github.io/joyus-website/work/agemo.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"agemo","description":"Designing a new user paradigm for Agemo, a GenAI startup. A critique in ten stickies — twenty drafts got us here, five Architect passes came out of it.","url":"https://kh9010.github.io/joyus-website/work/agemo.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
+<style>
+  body.work-page.agemo{--ag-paper:#F5F3F0;--ag-paper-2:#EDE8DF;--ag-ink:#111214;--ag-ink-dim:rgba(17,18,20,.55);--ag-ink-faint:rgba(17,18,20,.18);--ag-pink:#E91E7B;--ag-pink-soft:rgba(233,30,123,.35);--ag-pink-ghost:rgba(233,30,123,.12);background:var(--ag-paper);color:var(--ag-ink)}
+  .ag-hinge{position:relative;min-height:100vh;background:var(--ag-paper);display:flex;flex-direction:column;align-items:center;overflow:hidden}
+  .ag-hinge-header{width:100%;max-width:1400px;padding:6rem 2rem 1.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;box-sizing:border-box}
+  .ag-eyebrow{font-family:var(--font-script,'Caveat',cursive);font-size:1.375rem;color:var(--ag-pink);margin:0;line-height:1.2}
+  .ag-thesis{font-family:var(--font-serif,'DM Serif Display',serif);font-size:2rem;font-weight:400;color:var(--ag-ink);margin:0;max-width:640px;line-height:1.2;letter-spacing:-.01em}
+  .ag-subthesis{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:1rem;font-style:italic;color:var(--ag-ink);opacity:.6;margin:.25rem 0 0}
+  .ag-stage{position:relative;width:100%;max-width:1400px;padding:0 2rem 2rem;box-sizing:border-box;flex:1;display:flex;flex-direction:column}
+  .ag-frame-wrap{position:relative;width:100%;aspect-ratio:1800/1169;background:var(--ag-paper-2);border-radius:2px;box-shadow:0 18px 40px rgba(17,18,20,.08);transform:rotate(.4deg);overflow:hidden;flex-shrink:0;transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 240ms linear}
+  .ag-stage[data-view="fwd"] .ag-frame-wrap{transform:rotate(.4deg) translateY(-24%);opacity:.25}
+  .ag-frame,.ag-frame--back{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center;display:block}
+  .ag-frame--back{opacity:0;transition:opacity 120ms linear;z-index:2}
+  .ag-frame--back.is-active{opacity:1}
+  .ag-stickies{position:absolute;inset:0;z-index:5;pointer-events:none}
+  .ag-sticky{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);background:transparent;border:none;cursor:pointer;pointer-events:auto;border-radius:2px;padding:0;animation:ag-pulse 2.4s ease-in-out infinite alternate;transition:transform 150ms ease,box-shadow 150ms ease}
+  .ag-sticky:hover,.ag-sticky:focus-visible{background:var(--ag-pink-ghost);transform:translateY(-3px);box-shadow:0 6px 16px rgba(233,30,123,.18);animation:none;outline:2px solid var(--ag-pink);outline-offset:2px}
+  .ag-sticky:active{transform:scale(.96)}
+  .ag-sticky::after{content:attr(data-arrow);position:absolute;right:-1.2rem;top:50%;transform:translateY(-50%);font-size:.875rem;color:var(--ag-pink);opacity:0;transition:opacity 150ms ease;pointer-events:none}
+  .ag-sticky[data-dir="back"]::after{right:auto;left:-1.2rem}
+  .ag-sticky[data-dir="down"]::after{right:auto;left:50%;top:auto;bottom:-1.2rem;transform:translateX(-50%)}
+  .ag-sticky:hover::after,.ag-sticky:focus-visible::after{opacity:1}
+  @keyframes ag-pulse{from{background:transparent}to{background:rgba(233,30,123,.06)}}
+  .ag-rail-h,.ag-rail-v{position:absolute;background:var(--ag-pink-soft);opacity:0;transition:opacity 400ms ease-out;pointer-events:auto;cursor:pointer;z-index:3}
+  .ag-stage.is-ready .ag-rail-h,.ag-stage.is-ready .ag-rail-v{opacity:1}
+  .ag-stage[data-view="back"] .ag-rail-v,.ag-stage[data-view="fwd"] .ag-rail-h{opacity:0}
+  .ag-rail-h{height:1px}
+  .ag-rail-v{width:1px}
+  .ag-rail-label{position:absolute;font-family:var(--font-script,'Caveat',cursive);font-size:.875rem;color:var(--ag-ink-dim);white-space:nowrap;pointer-events:none}
+  .ag-breadcrumb{position:fixed;top:5rem;left:1.5rem;z-index:200;font-family:var(--font-script,'Caveat',cursive);font-size:1.125rem;color:var(--ag-pink);background:none;border:none;cursor:pointer;padding:.25rem .5rem;border-radius:4px;display:none;transition:transform 100ms ease}
+  .ag-breadcrumb:hover{text-decoration:underline}
+  .ag-breadcrumb:active{transform:scale(.96)}
+  .ag-breadcrumb:focus-visible{outline:2px solid var(--ag-pink);outline-offset:2px}
+  .ag-stage[data-view="back"]~.ag-breadcrumb,.ag-stage[data-view="fwd"]~.ag-breadcrumb{display:block}
+  .ag-arrival{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%) translateY(6px);max-width:420px;background:var(--ag-paper-2);border:1px solid var(--ag-pink-soft);border-radius:4px;padding:.6rem 1rem;font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.9375rem;font-weight:500;color:var(--ag-pink);text-align:center;opacity:0;transition:opacity 200ms ease,transform 200ms ease;pointer-events:none;z-index:10}
+  .ag-arrival.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
+  .ag-back-scrub{display:none;flex-direction:column;gap:.75rem;padding:1.25rem 0 0}
+  .ag-stage[data-view="back"] .ag-back-scrub{display:flex}
+  .ag-back-scrub-label{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;font-weight:500;color:var(--ag-ink-dim)}
+  .ag-back-ticks{position:relative;height:36px;display:flex;align-items:center}
+  .ag-back-rail-line{position:absolute;inset:auto 0;top:50%;transform:translateY(-50%);height:2px;background:var(--ag-ink-faint);border-radius:1px;pointer-events:none}
+  .ag-back-tick{position:absolute;top:50%;transform:translate(-50%,-50%);width:3px;height:8px;background:var(--ag-ink-faint);border:none;padding:0;cursor:pointer;border-radius:1px;transition:height .15s,background .15s}
+  .ag-back-tick:hover,.ag-back-tick:focus-visible{background:var(--ag-pink);height:14px;outline:2px solid var(--ag-pink);outline-offset:2px}
+  .ag-back-tick[aria-current="true"]{background:var(--ag-pink);height:20px;width:3px}
+  .ag-back-caption{min-height:4rem}
+  .ag-back-caption-headline{font-family:var(--font-serif,'DM Serif Display',serif);font-size:1.25rem;font-weight:400;color:var(--ag-ink);margin:0 0 .25rem;display:none}
+  .ag-back-caption-prose{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.875rem;color:var(--ag-ink-dim);line-height:1.55;margin:0;display:none}
+  .ag-back-caption-slot{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;color:var(--ag-ink-faint);display:block}
+  .ag-fwd-view{display:none;position:absolute;inset:0;z-index:20;background:var(--ag-paper);padding:1rem 2rem 2rem;box-sizing:border-box;flex-direction:row;gap:2rem;align-items:flex-start;transform:translateY(28%);opacity:0;transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 240ms linear}
+  .ag-stage[data-view="fwd"] .ag-fwd-view{display:flex;transform:translateY(0);opacity:1}
+  .ag-fwd-img-wrap{flex:1;position:relative;aspect-ratio:1800/1169;background:var(--ag-paper-2);border-radius:2px;box-shadow:0 18px 40px rgba(17,18,20,.08);overflow:hidden;min-width:0}
+  .ag-fwd-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
+  .ag-fwd-pins{position:absolute;inset:0;pointer-events:none;z-index:5}
+  .ag-pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto}
+  .ag-pin-dot{width:16px;height:16px;border-radius:50%;background:var(--ag-pink);opacity:.4;color:transparent;font:600 .6875rem/16px 'DM Sans',sans-serif;text-align:center;border:none;cursor:help;transition:width .2s,height .2s,opacity .2s,color .2s}
+  .ag-pin:hover .ag-pin-dot,.ag-pin:focus-within .ag-pin-dot{width:24px;height:24px;line-height:24px;opacity:1;color:#fff}
+  .ag-pin-dot:focus-visible{outline:2px solid var(--ag-pink);outline-offset:2px}
+  .ag-pin-tip{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:var(--ag-paper-2);color:var(--ag-ink);border:1px solid var(--ag-ink-faint);padding:.4rem .65rem;border-radius:4px;font:.8125rem/1.4 'DM Sans',sans-serif;max-width:260px;width:max-content;opacity:0;transition:opacity .2s;pointer-events:none;box-shadow:0 4px 12px rgba(17,18,20,.1);z-index:1;white-space:normal}
+  .ag-pin:hover .ag-pin-tip,.ag-pin:focus-within .ag-pin-tip{opacity:1}
+  .ag-pin[data-side="above"] .ag-pin-tip{top:auto;bottom:28px}
+  .ag-fwd-prose{width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:.75rem;padding-top:.5rem}
+  .ag-fwd-prose-name{font-family:var(--font-serif,'DM Serif Display',serif);font-size:1.5rem;font-weight:400;color:var(--ag-ink);margin:0;line-height:1.2}
+  .ag-fwd-prose-sub{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;font-style:italic;color:var(--ag-ink-dim);margin:0}
+  .ag-fwd-prose-body{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.9375rem;color:var(--ag-ink);line-height:1.6;margin:0}
+  .ag-fwd-rail{display:none;position:absolute;right:.75rem;top:50%;transform:translateY(-50%);flex-direction:column;gap:.75rem;z-index:30;align-items:center}
+  .ag-stage[data-view="fwd"] .ag-fwd-rail{display:flex}
+  .ag-fwd-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ag-pink);background:transparent;cursor:pointer;padding:0;transition:background .15s,width .15s,height .15s}
+  .ag-fwd-dot[aria-current="true"]{background:var(--ag-pink);width:10px;height:10px}
+  .ag-fwd-dot:focus-visible{outline:2px solid var(--ag-pink);outline-offset:3px}
+  .ag-coda{background:var(--ag-paper);padding:5rem 2rem 4rem;text-align:left}
+  .ag-coda-inner{max-width:720px;margin:0 auto}
+  .ag-coda-eyebrow{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ag-ink-dim);margin:0 0 1rem}
+  .ag-coda h3{font-family:var(--font-serif,'DM Serif Display',serif);font-size:clamp(1.5rem,3vw,1.75rem);font-weight:400;line-height:1.2;margin:0 0 1.5rem;color:var(--ag-ink)}
+  .ag-coda p{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:1rem;color:#333;line-height:1.65;margin:0 0 .75rem}
+  .ag-coda-final{font-family:var(--font-serif,'DM Serif Display',serif);font-size:1.375rem;font-style:italic;color:var(--ag-ink);margin-top:2rem;display:block;border-left:3px solid transparent;padding-left:1rem;transition:border-color .15s}
+  .ag-coda--flash .ag-coda-final{border-left-color:var(--ag-pink)}
+  @media(prefers-reduced-motion:reduce){
+    .ag-sticky,.ag-sticky:hover,.ag-sticky:active{animation:none;transform:none}
+    .ag-stage.is-ready .ag-rail-h,.ag-stage.is-ready .ag-rail-v{opacity:1;transition:none}
+    .ag-frame--back,.ag-back-scrub,.ag-fwd-view,.ag-frame-wrap,.ag-arrival,.ag-coda-final,.ag-fwd-img{transition:none}
+    *{animation-duration:0ms!important}
+  }
+  @media(max-width:720px){
+    .ag-hinge-header{padding:5rem 1.25rem 1rem}
+    .ag-thesis{font-size:1.5rem}
+    .ag-stage{padding:0 1.25rem 1.5rem}
+    .ag-frame-wrap{transform:none}
+    .ag-stage[data-view="fwd"] .ag-frame-wrap{transform:translateY(-24%)}
+    .ag-rail-h,.ag-rail-v{display:none}
+    .ag-fwd-view{flex-direction:column;padding:1rem 1.25rem 1.5rem}
+    .ag-fwd-prose{width:100%}
+    .ag-fwd-rail{right:.5rem}
+    .ag-breadcrumb{top:auto;bottom:1.5rem;left:auto;right:1.5rem;width:48px;height:48px;border-radius:50%;background:var(--ag-pink);color:#fff;display:none;align-items:center;justify-content:center;font-size:1.25rem}
+    .ag-stage[data-view="back"]~.ag-breadcrumb,.ag-stage[data-view="fwd"]~.ag-breadcrumb{display:flex}
+    .ag-arrival{max-width:60vw;bottom:5rem}
+    .ag-sticky{min-width:44px;min-height:44px}
+  }
+  @media(max-width:480px){.ag-fwd-prose-name{font-size:1.25rem}.ag-fwd-prose-body{font-size:.875rem}}
+</style>
 </head>
-<body class="work-page">
+<body class="work-page agemo">
 
   <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../") -->
 <style>
   .nav {
     position: fixed;
@@ -66,8 +161,6 @@
   }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
-
-  /* Hamburger button — hidden on desktop */
   .nav-toggle {
     display: none;
     width: 44px; height: 44px;
@@ -87,36 +180,22 @@
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-
   @media (max-width: 720px) {
-    .nav {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(250, 247, 242, 0.95);
-    }
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
     .nav-toggle { display: inline-flex; }
     .nav .nav-links {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
       padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
+      flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem;
+      background: #ffffff; border-left: 4px solid #2C3544;
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 505;
     }
     .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: #2C3544;
-    }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: #2C3544; }
     .nav .nav-links a.active { border-bottom-color: #E91E7B; }
     .nav .nav-cta { font-size: 1.6rem; }
   }
@@ -143,12 +222,9 @@
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
+        if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active');
       }
     }
-    // hamburger toggle
     var toggle = document.querySelector('.nav-toggle');
     var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
@@ -163,11 +239,7 @@
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         document.body.style.overflow = open ? 'hidden' : '';
       });
-      // close on link tap
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', close);
-      });
-      // close on escape
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && menu.classList.contains('open')) close();
       });
@@ -179,9 +251,9 @@
   <header class="cs-cover">
     <div class="cs-cover-image" style="background-image:url('../images/work/agemo/cover.webp');" role="img" aria-label="Agemo product scene"></div>
     <div class="cs-cover-meta">
-      <p class="cs-eyebrow">a case study</p>
+      <p class="cs-eyebrow">a case study in iteration</p>
       <h1>agemo</h1>
-      <p class="cs-tagline">GenAI startup with a new way of coding requiring an unexpected user paradigm.</p>
+      <p class="cs-tagline">A GenAI startup with a new way of coding — and no user mental model for it yet. So we drew, and drew, and drew.</p>
       <ul class="cs-services">
         <li>Research</li>
         <li>Product Strategy</li>
@@ -195,173 +267,85 @@
     </div>
   </header>
 
-  <!-- Slide 98 — Research: personas -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
-      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
+  <!-- ===== Hinge — the crit ===== -->
+  <section class="ag-hinge">
+    <div class="ag-hinge-header">
+      <p class="ag-eyebrow">the crit</p>
+      <h2 class="ag-thesis">we were losing patience with ourselves.</h2>
+      <p class="ag-subthesis">every pixel is a hypothesis.</p>
     </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">first — who's actually here?</p>
-      <div class="cs-tabs">
-        <span class="name">agemo</span>
-        <span class="tab active">Research</span>
-        <span class="tab">Product Strategy</span>
-        <span class="tab">Interface Design</span>
+
+    <div class="ag-stage" data-view="crit" data-frame="18" data-pass="1">
+
+      <!-- Frame wrap: frame 18 hero + backward-axis image buffer -->
+      <div class="ag-frame-wrap">
+        <img class="ag-frame" src="../images/work/agemo/timeline/18.webp"
+          alt="Draft frame 18 — ten pink stickies overlaid on the Agemo Create-a-Tool screen"
+          width="1800" height="1169">
+        <img class="ag-frame--back" src="../images/work/agemo/timeline/18.webp"
+          alt="" aria-hidden="true" width="1800" height="1169">
+
+        <!-- Sticky hot-zones — positions are % of the rendered frame bbox -->
+        <!-- KAHRAN-REVIEW: sticky positions need browser tuning against 18.webp at 1440px wide -->
+        <div class="ag-stickies" aria-hidden="false">
+          <!-- Stickies injected by JS buildStickies() -->
+        </div>
       </div>
 
-      <p class="cs-intro">How do you teach people a <strong>new way of creating a tech-based process</strong>? To build and create with a new modality? Depending on who they are and what they are trying to do, the answer will be different. Creating user personas builds the shared understanding between team members needed to design a welcoming onboarding for all types of users.</p>
+      <!-- T-rails (positioned by JS after frame measures) -->
+      <div class="ag-rail-h" role="button" tabindex="0" aria-label="Navigate to the 20 drafts that got us here"></div>
+      <div class="ag-rail-v" role="button" tabindex="0" aria-label="Navigate to the 5 Architect passes"></div>
+      <div class="ag-rail-label ag-rail-label-h"></div>
+      <div class="ag-rail-label ag-rail-label-v"></div>
 
-      <div class="cs-cluster">
-        <figure class="cs-fig note-top">
-          <p class="cs-note">comprehensive capture of the team's understanding of the needs of different types of users</p>
-          <img src="../images/work/agemo/slide98-research-1.webp" alt="Agemo persona overview grid" loading="lazy">
-        </figure>
-        <figure class="cs-fig note-top">
-          <p class="cs-note">zooming in on the traits, reasons and needs of the different personas</p>
-          <img src="../images/work/agemo/slide98-research-2.webp" alt="Agemo persona detail card" loading="lazy">
-        </figure>
+      <!-- Back-axis scrub (visible when data-view="back") -->
+      <div class="ag-back-scrub" role="group" aria-label="Draft scrubber, 17 steps back from frame 18">
+        <div class="ag-back-scrub-label">← the 20 drafts that got us here</div>
+        <div class="ag-back-ticks">
+          <div class="ag-back-rail-line" aria-hidden="true"></div>
+          <!-- Tick buttons injected by JS buildScrub() -->
+        </div>
+        <div class="ag-back-caption" aria-live="polite">
+          <p class="ag-back-caption-headline"></p>
+          <p class="ag-back-caption-prose"></p>
+          <span class="ag-back-caption-slot"></span>
+        </div>
       </div>
+
+      <!-- Forward-axis view (visible when data-view="fwd") -->
+      <div class="ag-fwd-view">
+        <div class="ag-fwd-img-wrap">
+          <img class="ag-fwd-img" src="" alt="" width="1800" height="1169">
+          <div class="ag-fwd-pins"></div>
+        </div>
+        <div class="ag-fwd-prose">
+          <p class="ag-fwd-prose-name"></p>
+          <p class="ag-fwd-prose-sub"></p>
+          <p class="ag-fwd-prose-body"></p>
+        </div>
+      </div>
+
+      <!-- Forward rail — 5 dots on right edge (visible when data-view="fwd") -->
+      <div class="ag-fwd-rail" role="group" aria-label="Architect passes, 5 steps">
+        <!-- Dots injected by JS buildFwdRail() -->
+      </div>
+
+      <!-- Arrival caption -->
+      <div class="ag-arrival" role="status" aria-live="polite" aria-atomic="true"></div>
     </div>
+
+    <!-- Breadcrumb — fixed, outside stage, inside hinge -->
+    <button class="ag-breadcrumb" type="button" aria-label="Back to the crit">↖ the crit</button>
   </section>
 
-  <div class="cs-bridge">now let's <em>redo the entry experience</em></div>
-
-  <!-- Slide 102 — Interface Design: original vs revised -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
-      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
-      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">rebuilding the front door</p>
-      <div class="cs-tabs">
-        <span class="name">agemo</span>
-        <span class="tab">Research</span>
-        <span class="tab">Product Strategy</span>
-        <span class="tab active">Interface Design</span>
-      </div>
-
-      <p class="cs-intro">Bringing this insight to the onboarding and landing pages meant <strong>redoing the user promise</strong> created early in the user flow — to create space for a person to find inspiration and refine their thinking about their problem before starting.</p>
-      <p class="cs-sub">Refining the pages to support curiosity brings more kinds of people into the experience, even when they may not have an articulated need.</p>
-
-      <div class="cs-cluster">
-        <figure class="cs-fig note-top">
-          <p class="cs-note solid">original version assumed the user was an expert with a focused need</p>
-          <img src="../images/work/agemo/slide102-interface-2.webp" alt="Agemo original landing page" loading="lazy">
-          <p class="cs-note">persistent left-side navigation keeps grounding and context from the first screen</p>
-        </figure>
-        <figure class="cs-fig note-top">
-          <p class="cs-note solid">revised experience supports users with a more exploratory mindset</p>
-          <img src="../images/work/agemo/slide102-interface-1.webp" alt="Agemo revised landing page" loading="lazy">
-          <p class="cs-note">useful functions showcase the breadth and depth of the tool</p>
-          <p class="cs-note">rotating through specific supported workflows gives freshness and product depth</p>
-          <p class="cs-note">low-stakes call to action reduces barriers to enter the product flow</p>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ then deeper into <em>the toolset</em></div>
-
-  <!-- Slide 103 — Interface Design: refinement pages -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
-      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">tools to refine, not just generate</p>
-      <div class="cs-tabs">
-        <span class="name">agemo</span>
-        <span class="tab">Research</span>
-        <span class="tab">Product Strategy</span>
-        <span class="tab active">Interface Design</span>
-      </div>
-
-      <p class="cs-intro">The new interface supports refinement of the idea <strong>after the solution is generated</strong>, with users being guided on how to revise by community examples and the AI guide through the chat interface.</p>
-
-      <div class="cs-cluster cols-3">
-        <figure class="cs-fig">
-          <img src="../images/work/agemo/slide103-interface-1.webp" alt="Agemo Architect page" loading="lazy">
-          <p class="cs-note">chat interface coaches users through initial creation, with a UX to support a user in the final refinement</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/agemo/slide103-interface-2.webp" alt="Agemo Explore page" loading="lazy">
-          <p class="cs-note">a browsable library of functions shows the value of the product and gives more starting points for adapting a use case</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/agemo/slide103-interface-3.webp" alt="Agemo landing page" loading="lazy">
-          <p class="cs-note">visual grammar reinforces the refinement-oriented approach while holding values of space, flexibility and play</p>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ but first — <em>why the redo?</em></div>
-
-  <!-- Slide 104 — Research: missing step -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
-      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">the missing step — refinement</p>
-      <div class="cs-tabs">
-        <span class="name">agemo</span>
-        <span class="tab active">Research</span>
-        <span class="tab">Product Strategy</span>
-        <span class="tab">Interface Design</span>
-      </div>
-
-      <p class="cs-intro">Our research revealed the missing step in Agemo's initial approach — <strong>space for refinement</strong>. Refinement includes both the idea, before starting, and the solution, after feedback. With space for refinement, we add the time needed for an idea to grow from a spark to a potential solution in the new paradigm.</p>
-
-      <div class="cs-cluster cols-1">
-        <figure class="cs-fig hero">
-          <img src="../images/work/agemo/slide104-research-1.webp" alt="Agemo refinement-flow research diagram" loading="lazy">
-          <p class="cs-note">where the team assumed users start</p>
-          <p class="cs-note">where the users actually start</p>
-          <p class="cs-note">product changes required to bring users to the point of creation from curiosity</p>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ document the thinking, <em>not just the build</em></div>
-
-  <!-- Slide 105 — Product Strategy: documentation -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:18px;height:18px;top:7%;right:7%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:55%;left:9%;"></span>
-      <span class="yellow" style="width:70px;height:70px;bottom:-26px;right:-28px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">writing down what we believe</p>
-      <div class="cs-tabs">
-        <span class="name">agemo</span>
-        <span class="tab">Research</span>
-        <span class="tab active">Product Strategy</span>
-        <span class="tab">Interface Design</span>
-      </div>
-
-      <p class="cs-intro">Often missed in the rush is the need to <strong>document assumptions and hypotheses</strong>. Good decomposition allows for validation and testing before the full investment required to get the product or company live.</p>
-      <p class="cs-sub">Documentation of product discussions in a future-oriented way breaks the cycle of re-working and re-visiting the same tech + user experience when the team is growing and changing composition.</p>
-
-      <div class="cs-cluster cols-1">
-        <figure class="cs-fig hero">
-          <img src="../images/work/agemo/slide105-product-1.webp" alt="Agemo hypothesis-and-assumptions documentation diagram" loading="lazy">
-          <p class="cs-note">highlighting one of the hypotheses and the underpinning assumptions</p>
-          <p class="cs-note">detail of the hypothesis and assumptions guiding the approach and development</p>
-          <p class="cs-note">steps of the model that was constructed to guide the user experience</p>
-          <p class="cs-note">test cases that validate the underpinning assumption</p>
-        </figure>
-      </div>
+  <!-- ===== Coda ===== -->
+  <section class="ag-coda">
+    <div class="ag-coda-inner">
+      <p class="ag-coda-eyebrow">what it taught us</p>
+      <h3>Teaching a paradigm is a stack problem. Each layer makes one more piece of the system visible — and no single layer can carry it alone.</h3>
+      <p>The landing page couldn't explain CodeWords. The form couldn't either. The pink-crit pass on frame 18 told us why: we were trying to cram a multi-actor process into a single-actor surface. Once we let the Architect room have three AI roles out in the open — planning, writing, testing, each visible at its own moment — the product made sense in ten seconds instead of ten minutes.</p>
+      <p>That's the job when your product is a new noun. Not a brand pass, not a landing page, not even the one hero screen every designer wants to ship. It's a stack of disclosures — each layer making one more piece of the system visible, and no single layer carrying the weight alone.</p>
+      <em class="ag-coda-final">The crit wasn't feedback. It was the diagnosis.</em>
     </div>
   </section>
 
@@ -378,32 +362,19 @@
   </section>
 
   <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
 <style>
   .foot {
-    position: relative;
-    z-index: 20;
-    background: #FAF7F2;
+    position: relative; z-index: 20; background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
+    max-width: 1400px; margin: 0 auto; width: 100%;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    font-size: 0.78rem;
-    color: #8892A0;
-    letter-spacing: 0.05em;
+    font-size: 0.78rem; color: #8892A0; letter-spacing: 0.05em;
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
-  @media (max-width: 480px) {
-    .foot { justify-content: flex-start; }
-  }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
@@ -411,5 +382,560 @@
 </footer>
 <!--END:FOOT-->
 
+<script>
+(function() {
+  'use strict';
+
+  // ===== DATA =====
+  var FRAMES = [
+    { slot: '01', kind: 'beat', chapter: 'landing' },
+    { slot: '02', kind: 'keyframe', chapter: 'landing',
+      headline: '"Generate Code from Words."',
+      prose: 'Same landing, new nav item — Explore. We\'ve split the audience before they\'ve signed up: the people who want to make something, and the people who need to see one first. A small tab, a big concession.' },
+    { slot: '03', kind: 'beat', chapter: 'landing' },
+    { slot: '04', kind: 'keyframe', chapter: 'landing',
+      headline: '"Any tool you can imagine."',
+      prose: 'The last landing swing. We took the CTA out of the hero entirely, led with the category chips and the example grid, and put the "or, start with a prompt" moment below the fold. Landing is done. Onto the hard part.' },
+    { slot: '05', kind: 'keyframe', chapter: 'create',
+      headline: '"Create A New Tool."',
+      prose: 'First real pass at the form. Two decisions deep: "Function" became "Tool" because Tool sounded less scary, and we wrote ourselves a pink sticky to say the black Build-It CTA looked like it was already active. We argued with that one sticky for the next twelve frames.' },
+    { slot: '06', kind: 'beat', chapter: 'create' },
+    { slot: '07', kind: 'beat', chapter: 'create' },
+    { slot: '08', kind: 'beat', chapter: 'create' },
+    { slot: '09', kind: 'beat', chapter: 'create' },
+    { slot: '10', kind: 'keyframe', chapter: 'create',
+      headline: 'The prompt-enhancement flow.',
+      prose: 'A yellow card appears: "SUGGESTED PROMPT — the problem statement is nonsensical, try this instead." The product quietly teaching you how to write for an AI. This is the feature that made CodeWords feel like a teacher, not a form — and the first real sign the form alone couldn\'t carry the paradigm.' },
+    { slot: '11', kind: 'keyframe', chapter: 'create',
+      headline: 'Integrations, exposed.',
+      prose: 'Mandatory AI roles up top, additional functions below, feasibility check, credit cost on the Build button. The screen got denser. The old pink sticky is still there, unaddressed. We were pattern-matching to power-user product instead of rethinking the frame.' },
+    { slot: '12', kind: 'beat', chapter: 'create' },
+    { slot: '13', kind: 'beat', chapter: 'create' },
+    { slot: '14', kind: 'beat', chapter: 'create' },
+    { slot: '15', kind: 'beat', chapter: 'create' },
+    { slot: '16', kind: 'keyframe', chapter: 'create',
+      headline: 'The step sidebar arrives.',
+      prose: 'Seven vertical steps down the left edge — DESCRIBE, ENHANCE, INTEGRATION, CREATE, OUTLINE, BUILD, DEPLOY. The first time the product stops being a form and starts being a journey. The numbered list is the designer quietly admitting the main column can\'t carry the paradigm alone.' },
+    { slot: '17', kind: 'beat', chapter: 'create' },
+    { slot: '18', kind: 'keyframe', chapter: 'create', isCrit: true,
+      headline: 'The crit that broke the chapter open.',
+      prose: 'Ten pink stickies, written directly on the canvas. "Add a progress bar?" "Replace create a function with something." "Example file needs explanation." The stickies aren\'t feedback from someone else — they\'re us, losing patience with ourselves. Each one is a symptom. The diagnosis, when we lined them up, was that no amount of form-polish teaches a paradigm. The form was the wrong surface.' },
+    { slot: '19', kind: 'keyframe', chapter: 'build',
+      headline: 'Outline → Build → Deploy.',
+      prose: 'A different screen entirely, drawn the afternoon after the crit. Three pink stickies still flagging noise ("bring prominence", "Remove", "Remove generating") but the pipeline underneath is new: Input → Step → Step → Output, horizontal. The teaching band from frame 16 has climbed out of the margin and become the product.' },
+    { slot: '20', kind: 'keyframe', chapter: 'build',
+      headline: 'The right-drawer code inspector.',
+      prose: 'We tried pulling the generated code out into a side panel — function name, description, Python body, outputs table. It worked, but it broke the reading line. The Architect ultimately rejects this pattern (see the Layers section). Here\'s the evidence we considered it.' },
+    { slot: '21', kind: 'beat', chapter: 'architect' },
+    { slot: '22', kind: 'beat', chapter: 'architect' },
+    { slot: '23', kind: 'beat', chapter: 'architect' },
+    { slot: '24', kind: 'beat', chapter: 'architect' },
+    { slot: '25', kind: 'beat', chapter: 'architect' },
+    { slot: '26', kind: 'beat', chapter: 'architect' }
+  ];
+
+  var ARCHITECT = [
+    { v: 1, src: '../images/work/agemo/timeline/21.webp',
+      name: 'v1 · the first full flow',
+      sub: 'sidebar + pipeline, no behaviour yet',
+      prose: 'The first version where the Architect had all its organs in one room. Stepper on the left with seven labelled steps. A horizontal Input → Step → Step → Output pipeline across the middle. No state, no status, no thinking. This was the skeleton — proving to ourselves that the thing could be drawn at all, before we figured out how it should behave.',
+      pins: [
+        { x: 4,  y: 50, label: 'The stepper — seven steps laid out. Every subsequent layer lights it up differently.' },
+        { x: 50, y: 48, label: 'The pipeline. The three AI roles (Architect → Developer → QA) will live here. v1 doesn\'t say so yet.' },
+        { x: 88, y: 48, label: 'Output column — symmetric with Input on purpose. Functions take things in, return things out.' }
+      ] },
+    { v: 2, src: '../images/work/agemo/timeline/22.webp',
+      name: 'v2 · the stepper comes alive',
+      sub: 'active state + integrations pill + thinking',
+      prose: 'v2 lit the stepper up. Step 1 green, step 2 green, step 3 in-progress. This was when we stopped treating the Architect as a static diagram and started treating it as a running process. We also added the integrations-as-a-pill row up top — a compressed way to answer "what can this function reach?" without blowing up the canvas.',
+      pins: [
+        { x: 4,  y: 37, label: 'Active-state treatment: green check, not black fill. Fixed the exact problem that got stickied on frame 05.' },
+        { x: 50, y: 13, label: '"12 selected · 14 available" — the whole integrations panel compressed into a two-number summary.' },
+        { x: 16, y: 92, label: '"Thinking… 3 steps." First version of what will become the log. The AI starts narrating itself.' }
+      ] },
+    { v: 3, src: '../images/work/agemo/timeline/24.webp',
+      name: 'v3 · the function reveals itself',
+      sub: 'generated code, inlined on the step',
+      prose: 'v3 gave the middle step a name and cracked it open. A function-name header on the "Another Step" card, and below it a code preview — actual Python, with the Architect\'s planning comments preserved. This was the frame where we committed to showing the generated code inside the Architect, not hiding it behind a tab. If the paradigm was going to teach itself, the code had to be visible without leaving the room.',
+      pins: [
+        { x: 46, y: 52, label: '"Function name goes here" — a named step is a step you can trust.' },
+        { x: 50, y: 66, label: 'Python inline, monospace, planning comments preserved. The Architect is showing its reasoning.' },
+        { x: 60, y: 50, label: 'The → between steps got thicker here. Small but load-bearing — readers kept missing the flow in v2.' }
+      ] },
+    { v: 4, src: '../images/work/agemo/timeline/26.webp',
+      name: 'v4 · integrations, exposed',
+      sub: 'mandatory vs. additional, attributed',
+      prose: 'v4 blew the integrations pill back open into a full panel — "Mandatory" tier on top (GPT Based AI × 3), "Additional Functions & Models" below (Image2vid, PNG converter, etc.) with "via replicate / via CodeWords" attribution under each. This was the pass where we stopped pretending the Architect was a black box. If the function was going to call Replicate under the hood, say so.',
+      pins: [
+        { x: 30, y: 14, label: '"Mandatory" section header. Split always-present integrations from picked-based-on-your-prompt.' },
+        { x: 68, y: 33, label: '"via replicate" / "via CodeWords" labels. Hiding these would have felt like a trick. Users don\'t mind complexity; they mind surprise.' },
+        { x: 70, y: 26, label: '"Add Another" — the user can add an integration the Architect didn\'t pick. Respecting the user\'s judgement over trusting the AI completely.' }
+      ] },
+    { v: 5, src: '../images/work/agemo/timeline/25.webp',
+      name: 'v5 · the reasoning trace',
+      sub: 'thinking history, append-only',
+      prose: 'v5 was the final pass. The integrations panel collapsed back to a summary row (we\'d proved it existed in v4; v5 trusts the user to open it only when they care). The Thinking log at the bottom got room to breathe. The Architect stopped diagramming the process and started narrating it — plan by plan, in chronological order, with no deletions.',
+      pins: [
+        { x: 52, y: 70, label: 'Scrollable thinking log. Each entry is one step\'s plan. Append-only — the Architect never deletes its own reasoning.' },
+        { x: 4,  y: 50, label: 'Stepper final state: steps 1–3 green, 4–7 greyed. The user can see where they are without reading.' }
+      ] }
+  ];
+
+  // STICKIES — index 0 = sticky 1.
+  // Positions are architect-estimated % of rendered frame bbox.
+  // KAHRAN-REVIEW: sticky positions need browser tuning against 18.webp at 1440px wide.
+  var STICKIES = [
+    { text: 'Add a progress bar?',                      x: 12, y: 14, w: 14, h:  7, target: { type: 'fwd', pass: 2 },  dir: 'fwd',  arrow: '→' },
+    { text: 'Add subheading',                           x: 72, y: 14, w: 16, h:  7, target: { type: 'fwd', pass: 3 },  dir: 'fwd',  arrow: '→' },
+    // KAHRAN-REVIEW: sticky 3 — architect maps to pass 3 (first pass where "Create a Function" header got renamed).
+    // PM brief said "frame 19". Shipping pass 3 per architect spec; change target to {type:'back',frame:19} if you prefer.
+    { text: 'Replace create a function with something', x:  6, y: 34, w: 20, h:  9, target: { type: 'fwd', pass: 3 },  dir: 'fwd',  arrow: '→' },
+    { text: 'Example file (needs explanation)',         x: 10, y: 56, w: 20, h:  9, target: { type: 'fwd', pass: 5 },  dir: 'fwd',  arrow: '→' },
+    { text: 'Add the prompt check and enhance',         x:  8, y: 72, w: 20, h:  9, target: { type: 'back', frame: 10 }, dir: 'back', arrow: '←' },
+    { text: 'Add icon hover over text',                 x: 74, y: 40, w: 18, h:  8, target: { type: 'fwd', pass: 4 },  dir: 'fwd',  arrow: '→' },
+    { text: 'Add icon states',                         x: 74, y: 52, w: 16, h:  7, target: { type: 'fwd', pass: 2 },  dir: 'fwd',  arrow: '→' },
+    { text: 'reposition integrations',                 x: 70, y: 66, w: 20, h:  8, target: { type: 'fwd', pass: 4 },  dir: 'fwd',  arrow: '→' },
+    { text: 'For later, icon design change needed',    x: 40, y: 82, w: 20, h:  8, target: { type: 'coda' },           dir: 'down', arrow: '↓' },
+    // KAHRAN-REVIEW: sticky 10 — architect maps forward to pass 1 (PM brief said "backward").
+    // Shipping fwd/pass-1 per architect spec; change to {type:'back',frame:N} if you prefer backward.
+    { text: 'Icon positions',                          x: 64, y: 86, w: 14, h:  7, target: { type: 'fwd', pass: 1 },  dir: 'fwd',  arrow: '→' }
+  ];
+
+  // ===== STATE =====
+  var state = { view: 'crit', frame: 18, pass: 1, lastSticky: null };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ===== DOM =====
+  var stage    = document.querySelector('.ag-stage');
+  var frameWrap  = stage.querySelector('.ag-frame-wrap');
+  var frameImg   = stage.querySelector('.ag-frame');
+  var frameBuf   = stage.querySelector('.ag-frame--back');
+  var stickiesEl = stage.querySelector('.ag-stickies');
+  var scrub      = stage.querySelector('.ag-back-scrub');
+  var backTicks  = stage.querySelector('.ag-back-ticks');
+  var capHead    = stage.querySelector('.ag-back-caption-headline');
+  var capProse   = stage.querySelector('.ag-back-caption-prose');
+  var capSlot    = stage.querySelector('.ag-back-caption-slot');
+  var fwdRail    = stage.querySelector('.ag-fwd-rail');
+  var fwdView    = stage.querySelector('.ag-fwd-view');
+  var fwdImg     = stage.querySelector('.ag-fwd-img');
+  var fwdPins    = stage.querySelector('.ag-fwd-pins');
+  var fwdName    = stage.querySelector('.ag-fwd-prose-name');
+  var fwdSub     = stage.querySelector('.ag-fwd-prose-sub');
+  var fwdBody    = stage.querySelector('.ag-fwd-prose-body');
+  var crumb      = document.querySelector('.ag-breadcrumb');
+  var arrival    = stage.querySelector('.ag-arrival');
+  var coda       = document.querySelector('.ag-coda');
+  var railH      = stage.querySelector('.ag-rail-h');
+  var railV      = stage.querySelector('.ag-rail-v');
+  var railLabelH = stage.querySelector('.ag-rail-label-h');
+  var railLabelV = stage.querySelector('.ag-rail-label-v');
+
+  // Backward-axis frames: 01..17 only (drafts before the crit).
+  // Frame 18 is the crit (the hinge). Frames 19-20 accessible via stickies.
+  var BACK_FRAMES = FRAMES.filter(function(f) { return parseInt(f.slot, 10) <= 17; });
+
+  // ===== BUILD =====
+  buildStickies();
+  buildScrub();
+  buildFwdRail();
+  preloadFrames();
+
+  // ===== BIND =====
+  bindStickyClicks();
+  bindScrubClicks();
+  bindFwdRailClicks();
+  bindKeyboard();
+  bindCrumb();
+  bindOutsideClick();
+  bindRailClicks();
+  bindFrameResize();
+
+  // 800ms after load: fade in T-rails
+  window.addEventListener('load', function() {
+    setTimeout(function() { stage.classList.add('is-ready'); }, 800);
+  });
+
+  // ===== TRANSITION FUNCTIONS =====
+  function goTo(target) {
+    if (target.type === 'crit')  return enterCrit();
+    if (target.type === 'back')  return enterBack(target.frame);
+    if (target.type === 'fwd')   return enterFwd(target.pass);
+    if (target.type === 'coda')  return flashCoda();
+  }
+
+  function setState(partial) {
+    Object.assign(state, partial);
+    stage.dataset.view  = state.view;
+    stage.dataset.frame = state.frame;
+    stage.dataset.pass  = state.pass;
+  }
+
+  function enterCrit() {
+    if (state.view === 'crit') return;
+    crossfade(frameBuf, '../images/work/agemo/timeline/18.webp', 120, function() {});
+    setState({ view: 'crit', frame: 18 });
+    dismissArrival();
+  }
+
+  function enterBack(n) {
+    var slot = String(n).padStart(2, '0');
+    crossfade(frameBuf, '../images/work/agemo/timeline/' + slot + '.webp', 120, function() {});
+    setState({ view: 'back', frame: n });
+    updateScrub(n);
+    updateBackCaption(n);
+  }
+
+  function enterFwd(v) {
+    setState({ view: 'fwd', pass: v });
+    renderFwdPass(v);
+    updateFwdRail(v);
+  }
+
+  function flashCoda() {
+    if (coda) {
+      coda.classList.add('ag-coda--flash');
+      coda.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+      setTimeout(function() { coda.classList.remove('ag-coda--flash'); }, 1600);
+    }
+  }
+
+  // ===== CROSS-FADE =====
+  function crossfade(bufEl, newSrc, ms, cb) {
+    bufEl.src = newSrc;
+    if (reduced) {
+      // instant swap
+      frameImg.src = newSrc;
+      bufEl.classList.remove('is-active');
+      if (cb) cb();
+      return;
+    }
+    bufEl.classList.add('is-active');
+    setTimeout(function() {
+      frameImg.src = newSrc;
+      bufEl.classList.remove('is-active');
+      if (cb) cb();
+    }, ms);
+  }
+
+  // ===== FORWARD PASS RENDER =====
+  function renderFwdPass(v) {
+    var rec = ARCHITECT[v - 1];
+    if (!rec) return;
+    fwdImg.src = rec.src;
+    fwdImg.alt = 'Architect pass ' + v + ': ' + rec.name + ' — ' + rec.sub;
+    fwdName.textContent = rec.name;
+    fwdSub.textContent  = rec.sub;
+    fwdBody.textContent = rec.prose;
+    renderPins(rec);
+  }
+
+  function renderPins(rec) {
+    fwdPins.innerHTML = '';
+    if (!rec || !rec.pins) return;
+    rec.pins.forEach(function(p, i) {
+      var wrap = document.createElement('div');
+      wrap.className = 'ag-pin';
+      wrap.style.left = p.x + '%';
+      wrap.style.top  = p.y + '%';
+      if (p.y > 65) wrap.setAttribute('data-side', 'above');
+
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'ag-pin-dot';
+      dot.textContent = String(i + 1);
+      dot.setAttribute('aria-label', 'Pin ' + (i + 1) + ': ' + p.label);
+
+      var tip = document.createElement('div');
+      tip.className = 'ag-pin-tip';
+      tip.setAttribute('role', 'tooltip');
+      tip.textContent = p.label;
+
+      wrap.appendChild(dot);
+      wrap.appendChild(tip);
+      fwdPins.appendChild(wrap);
+    });
+  }
+
+  // ===== SCRUB =====
+  function updateScrub(activeFrame) {
+    var ticks = backTicks.querySelectorAll('.ag-back-tick');
+    ticks.forEach(function(t) {
+      var f = parseInt(t.dataset.frame, 10);
+      t.setAttribute('aria-current', f === activeFrame ? 'true' : 'false');
+    });
+  }
+
+  function updateBackCaption(frameNum) {
+    var rec = null;
+    for (var i = 0; i < FRAMES.length; i++) {
+      if (parseInt(FRAMES[i].slot, 10) === frameNum) { rec = FRAMES[i]; break; }
+    }
+    if (rec && rec.kind === 'keyframe') {
+      capHead.textContent  = rec.headline || '';
+      capProse.textContent = rec.prose    || '';
+      capHead.style.display  = rec.headline ? 'block' : 'none';
+      capProse.style.display = rec.prose    ? 'block' : 'none';
+      capSlot.textContent    = '';
+    } else {
+      capHead.style.display  = 'none';
+      capProse.style.display = 'none';
+      capSlot.textContent    = 'frame ' + String(frameNum).padStart(2, '0');
+    }
+  }
+
+  function updateFwdRail(activePass) {
+    var dots = fwdRail.querySelectorAll('.ag-fwd-dot');
+    dots.forEach(function(d) {
+      var p = parseInt(d.dataset.pass, 10);
+      d.setAttribute('aria-current', p === activePass ? 'true' : 'false');
+    });
+  }
+
+  // ===== ARRIVAL CAPTION =====
+  var arrivalTimer = null;
+  function emitArrival(stickyNum, target) {
+    var s = STICKIES[stickyNum - 1];
+    if (!s) return;
+    var dest = '';
+    if (target.type === 'back')  dest = 'frame ' + String(target.frame).padStart(2, '0');
+    if (target.type === 'fwd')   dest = 'Architect pass v' + target.pass;
+    if (target.type === 'coda')  dest = 'the coda';
+    arrival.textContent = 'sticky ' + stickyNum + ' · "' + s.text + '" → ' + dest;
+    arrival.classList.add('is-visible');
+    clearTimeout(arrivalTimer);
+    arrivalTimer = setTimeout(dismissArrival, 4000);
+  }
+  function dismissArrival() {
+    arrival.classList.remove('is-visible');
+    clearTimeout(arrivalTimer);
+  }
+
+  // ===== BUILD FUNCTIONS =====
+  function buildStickies() {
+    STICKIES.forEach(function(s, i) {
+      var num = i + 1;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ag-sticky';
+      btn.setAttribute('data-sticky-id', String(num));
+      btn.setAttribute('data-dir', s.dir);
+      btn.setAttribute('data-arrow', s.arrow);
+      btn.style.setProperty('--x', s.x + '%');
+      btn.style.setProperty('--y', s.y + '%');
+      btn.style.setProperty('--w', s.w + '%');
+      btn.style.setProperty('--h', s.h + '%');
+      var dest = '';
+      if (s.target.type === 'back') dest = 'answered on frame ' + String(s.target.frame).padStart(2, '0');
+      if (s.target.type === 'fwd')  dest = 'answered on Architect pass v' + s.target.pass;
+      if (s.target.type === 'coda') dest = 'see the coda';
+      btn.setAttribute('aria-label', 'Sticky ' + num + ': ' + s.text + ' — ' + dest);
+      stickiesEl.appendChild(btn);
+    });
+  }
+
+  function buildScrub() {
+    var N = BACK_FRAMES.length;
+    BACK_FRAMES.forEach(function(f, i) {
+      var frameNum = parseInt(f.slot, 10);
+      // tick 17 is rightmost (most recent), tick 01 is leftmost (earliest)
+      // left% = (N-1-i) / (N-1) gives us reverse order
+      var pct = N > 1 ? ((N - 1 - i) / (N - 1)) * 100 : 0;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'ag-back-tick';
+      btn.style.left = pct + '%';
+      btn.dataset.frame = String(frameNum);
+      btn.setAttribute('aria-current', 'false');
+      var label = f.kind === 'keyframe' && f.headline ? f.headline : 'frame ' + f.slot;
+      btn.setAttribute('aria-label', 'Frame ' + f.slot + (f.kind === 'keyframe' && f.headline ? ', ' + f.headline : ', beat'));
+      backTicks.appendChild(btn);
+    });
+  }
+
+  function buildFwdRail() {
+    ARCHITECT.forEach(function(rec) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'ag-fwd-dot';
+      dot.dataset.pass = String(rec.v);
+      dot.setAttribute('aria-current', 'false');
+      dot.setAttribute('aria-label', 'Pass ' + rec.v + ': ' + rec.name);
+      fwdRail.appendChild(dot);
+    });
+  }
+
+  function preloadFrames() {
+    FRAMES.forEach(function(f) {
+      var img = new Image();
+      img.src = '../images/work/agemo/timeline/' + f.slot + '.webp';
+    });
+    ARCHITECT.forEach(function(rec) {
+      var img = new Image();
+      img.src = rec.src;
+    });
+  }
+
+  // ===== BIND EVENTS =====
+  function bindStickyClicks() {
+    stickiesEl.addEventListener('click', function(e) {
+      var btn = e.target.closest('.ag-sticky');
+      if (!btn) return;
+      var num = parseInt(btn.dataset.stickyId, 10);
+      var s = STICKIES[num - 1];
+      if (!s) return;
+      state.lastSticky = num;
+      emitArrival(num, s.target);
+      goTo(s.target);
+    });
+  }
+
+  function bindScrubClicks() {
+    backTicks.addEventListener('click', function(e) {
+      var btn = e.target.closest('.ag-back-tick');
+      if (!btn) return;
+      var n = parseInt(btn.dataset.frame, 10);
+      goTo({ type: 'back', frame: n });
+    });
+  }
+
+  function bindFwdRailClicks() {
+    fwdRail.addEventListener('click', function(e) {
+      var dot = e.target.closest('.ag-fwd-dot');
+      if (!dot) return;
+      var v = parseInt(dot.dataset.pass, 10);
+      goTo({ type: 'fwd', pass: v });
+    });
+  }
+
+  function bindRailClicks() {
+    railH.addEventListener('click', function() { goTo({ type: 'back', frame: 17 }); });
+    railH.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { goTo({ type: 'back', frame: 17 }); e.preventDefault(); } });
+    railV.addEventListener('click', function() { goTo({ type: 'fwd', pass: 1 }); });
+    railV.addEventListener('keydown', function(e) { if (e.key === 'Enter' || e.key === ' ') { goTo({ type: 'fwd', pass: 1 }); e.preventDefault(); } });
+  }
+
+  function bindCrumb() {
+    crumb.addEventListener('click', function() { goTo({ type: 'crit' }); });
+  }
+
+  function bindOutsideClick() {
+    document.addEventListener('click', function(e) {
+      if (state.view === 'crit') return;
+      if (stage.contains(e.target)) return;
+      goTo({ type: 'crit' });
+    });
+  }
+
+  function bindKeyboard() {
+    document.addEventListener('keydown', function(e) {
+      var tag = document.activeElement ? document.activeElement.tagName : '';
+      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+
+      if (e.key === 'Escape') {
+        goTo({ type: 'crit' });
+        return;
+      }
+
+      // Number keys for stickies (only from crit view)
+      if (state.view === 'crit') {
+        var num = 0;
+        if (e.key >= '1' && e.key <= '9') num = parseInt(e.key, 10);
+        if (e.key === '0') num = 10;
+        if (num >= 1 && num <= 10) {
+          var s = STICKIES[num - 1];
+          state.lastSticky = num;
+          emitArrival(num, s.target);
+          goTo(s.target);
+          return;
+        }
+      }
+
+      if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        if (state.view === 'crit') {
+          goTo({ type: 'back', frame: 17 });
+        } else if (state.view === 'back') {
+          var prev = Math.max(1, state.frame - 1);
+          goTo({ type: 'back', frame: prev });
+        }
+      }
+
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        if (state.view === 'back') {
+          if (state.frame >= 17) {
+            goTo({ type: 'crit' });
+          } else {
+            goTo({ type: 'back', frame: state.frame + 1 });
+          }
+        }
+      }
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (state.view === 'crit') {
+          goTo({ type: 'fwd', pass: 1 });
+        } else if (state.view === 'fwd') {
+          var next = Math.min(5, state.pass + 1);
+          if (next !== state.pass) goTo({ type: 'fwd', pass: next });
+        }
+      }
+
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (state.view === 'fwd') {
+          if (state.pass <= 1) {
+            goTo({ type: 'crit' });
+          } else {
+            goTo({ type: 'fwd', pass: state.pass - 1 });
+          }
+        }
+      }
+    });
+  }
+
+  // ===== RESIZE OBSERVER — position rails + stickies wrapper =====
+  function bindFrameResize() {
+    if (!window.ResizeObserver) return;
+    var ro = new ResizeObserver(function() { positionRails(); });
+    ro.observe(frameWrap);
+    positionRails();
+  }
+
+  function positionRails() {
+    var rect = frameWrap.getBoundingClientRect();
+    var stageRect = stage.getBoundingClientRect();
+
+    // horizontal rail: runs from left edge of stage to left edge of frame
+    var railHLeft  = 0;
+    var railHWidth = rect.left - stageRect.left;
+    var railHTop   = rect.top  - stageRect.top + rect.height / 2;
+    railH.style.left   = railHLeft + 'px';
+    railH.style.width  = Math.max(0, railHWidth) + 'px';
+    railH.style.top    = railHTop + 'px';
+
+    // vertical rail: runs from bottom of frame to bottom of stage
+    var railVLeft   = rect.left  - stageRect.left + rect.width / 2;
+    var railVTop    = rect.top   - stageRect.top  + rect.height;
+    var railVHeight = stageRect.height - railVTop;
+    railV.style.left   = railVLeft + 'px';
+    railV.style.top    = railVTop  + 'px';
+    railV.style.height = Math.max(0, railVHeight) + 'px';
+
+    // Rail labels
+    railLabelH.textContent = 'the 20 drafts that got us here';
+    railLabelH.style.left  = Math.max(4, railHLeft + 8) + 'px';
+    railLabelH.style.top   = (railHTop + 8) + 'px';
+
+    railLabelV.textContent = 'the 5 Architect passes';
+    railLabelV.style.left  = (railVLeft + 8) + 'px';
+    railLabelV.style.top   = (railVTop  + 8) + 'px';
+  }
+
+})();
+</script>
+
+<script src="../shape-echo.js"></script>
 </body>
 </html>

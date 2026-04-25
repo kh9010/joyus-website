@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Identity, leverage and brand-book design for Rachna Nivas, a NYC-based Kathak choreographer and educator. By Joyus Studio.">
+  <meta name="description" content="A year of voice work for a NYC Kathak artist. The brand book was what we made at the end.">
   <meta property="og:title" content="rachna nivas — Joyus Studio">
-  <meta property="og:description" content="Helping a classical dancer stand out — without abandoning the legacy of a 5,000-year-old art form.">
+  <meta property="og:description" content="A year of voice work for a NYC Kathak artist. The brand book was what we made at the end.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/rachna-nivas/slide73-brand-1.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/rachna-nivas.html">
@@ -17,17 +17,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=4">
+  <link rel="stylesheet" href="../styles.css?v=5">
+  <noscript><style>
+    .rn-obscured { opacity: 1 !important; filter: none !important; color: #111214 !important; }
+    .rn-spread { opacity: 1 !important; transform: none !important; }
+  </style></noscript>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"rachna nivas","description":"Helping a classical dancer stand out — without abandoning the legacy of a 5,000-year-old art form.","url":"https://kh9010.github.io/joyus-website/work/rachna-nivas.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+{"@context":"https://schema.org","@type":"CreativeWork","name":"rachna nivas","description":"A year of voice work for a NYC Kathak artist. The brand book was what we made at the end.","url":"https://kh9010.github.io/joyus-website/work/rachna-nivas.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
 </script>
 </head>
-<body class="work-page">
+<body class="work-page rn-page">
 
   <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../") -->
 <style>
   .nav {
     position: fixed;
@@ -67,7 +68,6 @@
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
 
-  /* Hamburger button — hidden on desktop */
   .nav-toggle {
     display: none;
     width: 44px; height: 44px;
@@ -148,7 +148,6 @@
         }
       }
     }
-    // hamburger toggle
     var toggle = document.querySelector('.nav-toggle');
     var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
@@ -163,11 +162,9 @@
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         document.body.style.overflow = open ? 'hidden' : '';
       });
-      // close on link tap
       menu.querySelectorAll('a').forEach(function(a) {
         a.addEventListener('click', close);
       });
-      // close on escape
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && menu.classList.contains('open')) close();
       });
@@ -176,143 +173,159 @@
 </script>
 <!--END:NAV-->
 
-  <header class="cs-cover-narrative">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:14%;right:8%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:62%;left:6%;"></span>
-      <span class="yellow" style="width:80px;height:80px;bottom:-30px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="inner">
-      <p class="name">a case study — rachna nivas</p>
-      <h1>Standing out as a classical dancer.</h1>
-      <div class="lede">
-        <p>Rachna Nivas, a NYC-based artist, choreographer and classical dancer, came to us looking to create space for more dynamism in her profile — as an educator, activist, and preserver of the classical tradition and dance form of Kathak. Rachna wanted to own her own distinct identity, while remaining true to the legacy of the 5,000-year-old art form.</p>
-        <p>Joyus worked with Rachna to create an identity that was true to her — and to build a process to keep it feeling fresh without occupying her time and energy.</p>
-      </div>
-      <div class="meta-bar">
+  <!-- Hero -->
+  <header class="rn-hero">
+    <div class="rn-hero-inner">
+      <p class="rn-eyebrow">a case study &mdash; rachna nivas</p>
+      <h1 class="rn-hero-title">A year of finding who she was.<br>Three weeks of writing it down.</h1>
+      <p class="rn-hero-dek">Rachna Nivas came to us mid-fellowship season with her voice obscured by the 5000-year tradition she embodied. We spent a year with her finding the voice. The brand book was what we made at the end.</p>
+      <div class="rn-meta-bar">
         <ul class="cs-services">
-          <li>Identity Finding</li>
-          <li>Leverage Building</li>
-          <li>Artifacts Creation</li>
+          <li>Identity</li><li>Leverage</li><li>Artifacts</li>
         </ul>
         <div class="cs-meta-row">
-          <span>USA</span>
-          <span>Sole practitioner</span>
-          <span>Building a new brand</span>
+          <span>USA</span><span>Sole practitioner</span><span>New brand</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Slide 71 — Leverage what you're good at -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
-      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">first — find what only she can do</p>
-      <h2 class="cs-slide-headline">When you are already good, leverage what you are good at.</h2>
+  <!-- Chapter 1 — arrival -->
+  <section class="rn-chapter rn-chapter--1" aria-labelledby="rn-ch1-head">
+    <div class="rn-chapter-inner">
+      <p class="rn-eyebrow rn-eyebrow--red">arrival</p>
+      <h2 id="rn-ch1-head" class="rn-chapter-head">A voice getting obscured.</h2>
+      <p class="rn-body">Rachna is a NYC-based Kathak artist, choreographer, educator, and activist. She came to us when she was applying for fellowships and residencies, and her voice kept getting lost &mdash; not in the writing, but under the weight of the 5000-year tradition she was carrying. The applications read like homages to the form. We read her website and her drafts and found the same thing every time: a case being made for why Kathak belonged in the room, with Rachna somewhere behind it.</p>
 
-      <p class="cs-intro">Rachna engaged with Joyus when she needed a new way of talking about herself, as she applied for new fellowships and residencies. After analyzing her website and applications, we realized her voice was getting <strong>obscured — lost in the weight of the tradition</strong> she embodied.</p>
-      <p class="cs-sub">From years as an activist, in the classroom, and excelling in a storytelling art form, Rachna has a rare ability to carry an audience with her. She didn't need help writing better copy — she needed help bringing the skills she had honed in person to the written form.</p>
+      <blockquote class="rn-obscured">
+        &ldquo;Her voice was getting obscured, lost in the weight of the tradition she embodied.&rdquo;
+      </blockquote>
 
-      <div class="cs-cluster">
-        <figure class="cs-fig">
-          <span class="cs-before-label">from</span>
-          <img src="../images/work/rachna-nivas/slide71-from.webp" alt="Rachna's writing — before" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <span class="cs-after-label">to</span>
-          <img src="../images/work/rachna-nivas/slide71-to.webp" alt="Rachna's writing — after" loading="lazy">
-          <p class="cs-note">working with her to uncover her motivations, we helped Rachna show <em>why</em> she belonged — instead of making a case for it</p>
-        </figure>
-      </div>
+      <figure class="rn-inline-fig">
+        <img src="../images/work/rachna-nivas/slide71-from.webp"
+             alt="Dense bio paragraph from Rachna Nivas's earlier artist profile &mdash; conventional third-person form, heavy with descriptors and tradition-first framing."
+             width="1400" height="340" loading="lazy">
+        <figcaption>the application voice, before.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <div class="cs-bridge">↓ then — <em>break the rules, on purpose</em></div>
+  <!-- Chapter 2 — the year of work -->
+  <section class="rn-chapter rn-chapter--2" aria-labelledby="rn-ch2-head">
+    <div class="rn-chapter-inner">
+      <p class="rn-eyebrow rn-eyebrow--red">the year of work</p>
+      <h2 id="rn-ch2-head" class="rn-chapter-head">Show why you belong.<br>Don&rsquo;t make the case for it.</h2>
+      <p class="rn-body">The work wasn&rsquo;t copywriting. Rachna is already a storyteller &mdash; years on stage, years in the classroom, years as an activist. She can carry a room. What she needed was help bringing the skills she&rsquo;d honed in person to the written form &mdash; so the writing sounded like her, not like a footnote to her tradition.</p>
 
-  <!-- Slide 72 — Authenticity -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
-      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
-      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">following the strong signal — not the loudest one</p>
-      <h2 class="cs-slide-headline">Authenticity lets you break the rules.</h2>
+      <figure class="rn-inline-fig rn-inline-fig--right">
+        <img src="../images/work/rachna-nivas/slide72-before.webp"
+             alt="Instagram post from @rachnanivas &mdash; a 2024 year-in-review reel with a long caption written in Rachna's earlier voice."
+             width="1400" height="1700" loading="lazy">
+        <figcaption>what she was writing when she arrived.</figcaption>
+      </figure>
 
-      <p class="cs-intro">Rachna, like many dependent on reputation, constantly finds herself bombarded with helpful tips on how to grow her reach. While most would encourage her to make frequent, short, digestible videos — especially given the lack of audience familiarity with her art form — we encouraged her to <strong>follow what felt authentic</strong>.</p>
-      <p class="cs-sub">These authenticity-forward posts, despite breaking the rules around optimal length or simplifying for the audience, have delivered for Rachna — many times more social engagements, and, perhaps more crucially, a rising presence in the New York City arts scene.</p>
+      <p class="rn-body">For most of a year we worked with her on that. Uncovering her motivations. Asking her to stop explaining Kathak and start speaking from inside it. Helping her show why she belonged, instead of making a case for it.</p>
 
-      <div class="cs-cluster">
-        <figure class="cs-fig">
-          <span class="cs-before-label">before</span>
-          <img src="../images/work/rachna-nivas/slide72-before.webp" alt="Rachna social post — before" loading="lazy">
-          <p class="cs-note">a virtuous loop: more authenticity led to more meaningful contacts — which has led to more meaningful collaborations</p>
-        </figure>
-        <figure class="cs-fig">
-          <span class="cs-after-label">after</span>
-          <img src="../images/work/rachna-nivas/slide72-after.webp" alt="Rachna social post — after" loading="lazy">
-          <p class="cs-note">Rachna leans into her strong base of knowledge — educating her followers about her practice, while keeping a tight frame, owning the visuals and the written form</p>
-        </figure>
-      </div>
+      <p class="rn-body">As her voice clarified, something else surfaced: she needed her own identity, separate from the guru sisters she&rsquo;d built her early career with.</p>
     </div>
   </section>
 
-  <div class="cs-bridge">↓ then — <em>own the identity, even when it grows</em></div>
-
-  <!-- Slide 73 — Brand book -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
-      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
+  <!-- Chapter 3 — the artifact -->
+  <section class="rn-chapter rn-chapter--3" aria-labelledby="rn-ch3-head">
+    <div class="rn-chapter-inner">
+      <p class="rn-eyebrow rn-eyebrow--red">the artifact</p>
+      <h2 id="rn-ch3-head" class="rn-chapter-head">Three weeks to write down a year.</h2>
+      <p class="rn-body">The brand book came at the end. Three weeks of work after almost a year of conversations. What we put in it wasn&rsquo;t new &mdash; it was what we&rsquo;d already found, set down in a form her team could use without her in the room.</p>
+      <p class="rn-aside">three weeks, at the end of the year.</p>
     </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">a brand guide that travels</p>
-      <h2 class="cs-slide-headline">Create the identity and own it — even when it grows big.</h2>
 
-      <p class="cs-intro">As we worked with Rachna, she realized she needed her own brand identity. Working with her guru sisters had launched her career — but now she needed an identity of her own. We translated this into a <strong>visual guide and brand book</strong>, enabling Rachna as she finalized her decision to build a new brand for her teaching persona and school.</p>
+    <div class="rn-spreads">
+      <figure class="rn-spread" style="--rn-delay: 0ms">
+        <img src="../images/work/rachna-nivas/slide73-brand-1.webp"
+             alt='brand book spread &mdash; "Who is Rachna," first-person declaration on red'
+             width="1400" height="788" loading="lazy">
+        <figcaption class="rn-spread-caption">the voice, on a page.</figcaption>
+      </figure>
+      <figure class="rn-spread" style="--rn-delay: 120ms">
+        <img src="../images/work/rachna-nivas/slide73-brand-3.webp"
+             alt='brand book spread &mdash; "Body and Physicality," rules for how the body is written and framed'
+             width="1400" height="788" loading="lazy">
+        <figcaption class="rn-spread-caption">how to speak about what the body does.</figcaption>
+      </figure>
+      <figure class="rn-spread" style="--rn-delay: 240ms">
+        <img src="../images/work/rachna-nivas/slide73-brand-2.webp"
+             alt='brand book spread &mdash; "Beliefs," four core principles of the practice'
+             width="1400" height="788" loading="lazy">
+        <figcaption class="rn-spread-caption">four lines to stop having the same conversation twice.</figcaption>
+      </figure>
+    </div>
 
-      <div class="cs-cluster cols-2">
-        <figure class="cs-fig">
-          <img src="../images/work/rachna-nivas/slide73-brand-1.webp" alt="Rachna brand book — page 1" loading="lazy">
-          <p class="cs-note solid">the brand guide brings together the characteristics of Rachna's voice, imagery and style of content — for her team, including videographers, editors and other collaborators</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/rachna-nivas/slide73-brand-2.webp" alt="Rachna brand book — page 2" loading="lazy">
-          <p class="cs-note">clarity about her values lets Rachna explain to collaborators what to emphasize</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/rachna-nivas/slide73-brand-3.webp" alt="Rachna brand book — page 3" loading="lazy">
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/rachna-nivas/slide73-brand-4.webp" alt="Rachna brand book — page 4" loading="lazy">
-          <p class="cs-note">simple rules let Rachna hand the work off to assistants or contractors for her social media</p>
-        </figure>
-      </div>
+    <div class="rn-chapter-inner">
+      <p class="rn-body">A voice guide. Four beliefs. Rules for how to speak about the body. A visual guide for videographers and editors. The book isn&rsquo;t the engagement. The book is what the engagement produced.</p>
     </div>
   </section>
 
+  <!-- Chapter 4 — breaking the rules -->
+  <section class="rn-chapter rn-chapter--4" aria-labelledby="rn-ch4-head">
+    <div class="rn-chapter-inner">
+      <p class="rn-eyebrow rn-eyebrow--red">breaking the rules</p>
+      <h2 id="rn-ch4-head" class="rn-chapter-head">Authenticity beat the algorithm.</h2>
+
+      <p class="rn-body">Once the voice was there, the next pressure came from the usual place: make short videos, simplify for people who don&rsquo;t know the form, post more often, feed the algorithm.</p>
+
+      <p class="rn-body">We told her to ignore all of it. Lean into what she already knew. Keep a tight frame through the video. Let the audience work a little. Own the written form.</p>
+
+      <dl class="rn-callout" aria-label="Conventional advice versus what Joyus advised Rachna">
+        <div class="rn-callout-col rn-callout-col--conventional">
+          <dt>the advice everyone gives</dt>
+          <dd>
+            <ul>
+              <li>Short, digestible videos.</li>
+              <li>Simplify the form.</li>
+              <li>Feed the algorithm.</li>
+            </ul>
+          </dd>
+        </div>
+        <div class="rn-callout-col rn-callout-col--joyus">
+          <dt>what we told Rachna</dt>
+          <dd>
+            <ul>
+              <li>Lean into your knowledge.</li>
+              <li>Keep a tight frame.</li>
+              <li>Own the written form.</li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+
+      <p class="rn-body">The long-form, knowledge-forward posts pulled many times the engagement of the short ones. More importantly, a rising presence in the NYC arts scene &mdash; and a loop we&rsquo;d been hoping for: authenticity bringing in more meaningful contacts, which brought in more meaningful collaborations, which sharpened the voice further.</p>
+    </div>
+
+    <div class="rn-evidence">
+      <figure class="rn-evidence-fig">
+        <img src="../images/work/rachna-nivas/slide71-to.webp"
+             alt="Instagram post from @rachnanivas &mdash; 2024 year in review, long-form caption on performance highlights."
+             width="1400" height="1700" loading="lazy">
+        <figcaption>a long-form post from late 2024.</figcaption>
+      </figure>
+      <figure class="rn-evidence-fig">
+        <img src="../images/work/rachna-nivas/slide72-after.webp"
+             alt="Instagram post from @rachnanivas &mdash; Inside Riyaz Series, long-form caption on authenticity versus digital spectacle."
+             width="1400" height="1700" loading="lazy">
+        <figcaption>the Inside Riyaz series &mdash; her practice room, her frame.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Closing — shared -->
   <section class="cs-closing">
-    <span class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
-      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
-    </span>
     <span class="cs-closing-label">your move</span>
-    <h3>Need to <em>own your identity</em>, in a tradition that's bigger than you? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
-    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
-    <a class="cs-next" href="index.html">all case studies <span class="arrow">→</span></a>
+    <h3>Need to sound more like yourself in writing? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio &middot; we read everything</span>
+    <a class="cs-next" href="index.html">all case studies <span class="arrow">&rarr;</span></a>
   </section>
 
   <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
 <style>
   .foot {
     position: relative;
@@ -339,10 +352,46 @@
   }
 </style>
 <footer class="foot">
-  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <span>&copy; 2026 &middot; Joyus Studio &middot; Kahran Singh &amp; Divya Tak</span>
   <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
 
+  <script>
+    (function () {
+      var supportsIO = 'IntersectionObserver' in window;
+      if (!supportsIO) {
+        document.querySelectorAll('.rn-obscured').forEach(function (el) { el.classList.add('revealed'); });
+        document.querySelectorAll('.rn-spread').forEach(function (el) { el.classList.add('visible'); });
+        return;
+      }
+      var obscured = document.querySelector('.rn-obscured');
+      if (obscured) {
+        var io1 = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('revealed');
+              io1.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.4 });
+        io1.observe(obscured);
+      }
+      var spreads = document.querySelectorAll('.rn-spread');
+      if (spreads.length) {
+        var io2 = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('visible');
+              io2.unobserve(e.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        spreads.forEach(function (el) { io2.observe(el); });
+      }
+    })();
+  </script>
+
+  <script src="../shape-echo.js"></script>
 </body>
 </html>
