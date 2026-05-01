@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work · Editorial Index arrangement · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111214;
+    --paper: #F7F4EE;
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --green: #5BBD72;
+    --amber: #D4A843;
+    --orange: #E8734A;
+    --line: rgba(17,18,20,0.14);
+    --font: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --script: 'Caveat', cursive;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 2rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.75; }
+  .top a { opacity: 0.55; transition: opacity 0.2s; }
+  .top a:hover { opacity: 1; }
+  .top .logo { font-family: var(--script); font-size: 1.3rem; letter-spacing: 0; text-transform: none; opacity: 1; color: var(--pink); font-weight: 700; }
+
+  .frame { max-width: 1080px; margin: 0 auto; padding: 4rem 3rem 6rem; }
+
+  .masthead { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 1.5rem; border-bottom: 2px solid var(--ink); margin-bottom: 0.8rem; }
+  .masthead h1 { font-size: clamp(2.5rem, 6vw, 5.5rem); font-weight: 500; letter-spacing: -0.03em; line-height: 0.95; }
+  .masthead h1 em { font-family: var(--script); font-style: normal; color: var(--pink); }
+  .masthead .meta { text-align: right; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; line-height: 1.7; }
+
+  .colophon { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.4rem; padding: 1rem 0 3rem; border-bottom: 1px solid var(--line); margin-bottom: 2.5rem; font-size: 0.85rem; opacity: 0.7; line-height: 1.55; }
+  .colophon strong { display: block; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.55; margin-bottom: 0.4rem; font-weight: 600; }
+
+  .row {
+    display: grid;
+    grid-template-columns: 4rem 1fr 14rem;
+    align-items: baseline;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--line);
+    transition: background 0.3s, padding 0.4s;
+    cursor: pointer;
+    position: relative;
+  }
+  .row:hover { background: rgba(17,18,20,0.02); }
+  .row .num { font-size: 0.85rem; opacity: 0.45; font-variant-numeric: tabular-nums; }
+  .row .title { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 500; letter-spacing: -0.01em; transition: transform 0.4s, color 0.3s; }
+  .row .year { text-align: right; font-size: 0.85rem; opacity: 0.55; font-variant-numeric: tabular-nums; }
+  .row:hover .title { transform: translateX(8px); }
+
+  .row[data-accent="pink"]:hover .title { color: var(--pink); }
+  .row[data-accent="cyan"]:hover .title { color: var(--cyan); }
+  .row[data-accent="amber"]:hover .title { color: var(--amber); }
+  .row[data-accent="orange"]:hover .title { color: var(--orange); }
+  .row[data-accent="green"]:hover .title { color: var(--green); }
+
+  .verts {
+    grid-column: 2 / 3;
+    margin-top: 0.4rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    font-size: 0.85rem;
+    opacity: 0.55;
+  }
+  .verts span { position: relative; }
+  .verts span:not(:last-child)::after { content: '·'; position: absolute; right: -0.7rem; opacity: 0.5; }
+
+  .expand {
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+  .row.open .expand { max-height: 600px; }
+  .expand-inner {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: 0;
+    padding: 1.5rem 0 0.5rem;
+  }
+  .expand-inner .gap { }
+  .expand-inner .body { padding-right: 14rem; }
+  .expand-inner .body .reframe { font-size: 1.05rem; line-height: 1.6; max-width: 56ch; opacity: 0.85; }
+  .expand-inner .body .reframe em { font-family: var(--script); font-style: normal; }
+  .expand-inner .body .threads {
+    margin-top: 1.4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem 2rem;
+    max-width: 56ch;
+    font-size: 0.88rem;
+  }
+  .expand-inner .body .thread { display: flex; gap: 0.7rem; opacity: 0.8; }
+  .expand-inner .body .thread b { font-weight: 600; min-width: 7ch; opacity: 0.6; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; padding-top: 0.15rem; }
+  .expand-inner .body .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
+  }
+
+  .row .indicator {
+    position: absolute;
+    right: 0;
+    top: 1.6rem;
+    width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s;
+    opacity: 0.4;
+  }
+  .row .indicator::before { content: ''; width: 12px; height: 1.5px; background: currentColor; }
+  .row .indicator::after { content: ''; width: 1.5px; height: 12px; background: currentColor; position: absolute; transition: opacity 0.3s; }
+  .row.open .indicator { transform: rotate(45deg); opacity: 1; }
+  .row.open .indicator::after { opacity: 0; }
+
+  .footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 720px) {
+    .frame { padding: 2rem 1.2rem 4rem; }
+    .row { grid-template-columns: 2.5rem 1fr 5rem; padding: 1.2rem 0; }
+    .row .indicator { display: none; }
+    .colophon { grid-template-columns: 1fr; gap: 1rem; }
+    .expand-inner { grid-template-columns: 2.5rem 1fr; }
+    .expand-inner .body { padding-right: 0; }
+    .expand-inner .body .threads { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <a href="./work-arrangements.html">← arrangements</a>
+    <a class="logo" href="./index.html">joyus</a>
+    <span>03 / Editorial Index</span>
+  </div>
+
+  <main class="frame">
+
+    <div class="masthead">
+      <h1>The <em>work</em>, indexed.</h1>
+      <div class="meta">Vol. 01 · 2026<br>Ten case studies<br>Twenty-one threads</div>
+    </div>
+
+    <div class="colophon">
+      <div><strong>How to read</strong>Ten projects, listed most recent first. Underneath each, the disciplines we actually did inside it. Click a row to open its short reframing.</div>
+      <div><strong>Disciplines, total</strong>Brand · Identity · Product · Interface · Research · Strategy · Story · Narrative · Pitch · Naming · Voice · Editorial · Web · Packaging · Content systems · Gamification</div>
+      <div><strong>What's not here</strong>Confidential briefs and client work that's still in flight. Ask us about Joyus Comics, our games, and the podcast — those have their own indexes.</div>
+    </div>
+
+    <article class="row" data-accent="pink">
+      <span class="num">01</span>
+      <div>
+        <h2 class="title">Klydo</h2>
+        <div class="verts"><span>Brand identity</span><span>App interface</span><span>Illustration system</span><span>Packaging</span></div>
+      </div>
+      <span class="year">2026</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A consumer brand that needed to feel like a <em>character</em>, not a category. Identity, app, illustration, and packaging all built off one expressive system.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Identity, naming, voice</div>
+          <div class="thread"><b>Product</b>Onboarding, key flows</div>
+          <div class="thread"><b>Visual</b>Illustration kit</div>
+          <div class="thread"><b>Tangible</b>Packaging system</div>
+        </div>
+        <a href="./work/klydo.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="orange">
+      <span class="num">02</span>
+      <div>
+        <h2 class="title">TomboyX</h2>
+        <div class="verts"><span>Brand strategy</span><span>Narrative</span><span>Pitch system</span></div>
+      </div>
+      <span class="year">2025</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">An underwear company in a category fight. We rebuilt the <em>story</em> — not the logo — and gave them a pitch system that travelled across investor, retail, and operator decks.</p>
+        <div class="threads">
+          <div class="thread"><b>Strategy</b>Category positioning</div>
+          <div class="thread"><b>Narrative</b>The "All up in our undies" line</div>
+          <div class="thread"><b>System</b>Pitch deck architecture</div>
+        </div>
+        <a href="./work/tomboyx.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="amber">
+      <span class="num">03</span>
+      <div>
+        <h2 class="title">Rachna Nivas</h2>
+        <div class="verts"><span>Brand identity</span><span>Editorial system</span><span>Web</span></div>
+      </div>
+      <span class="year">2025</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A classical artist's portfolio that had to hold <em>archival weight</em> and <em>living practice</em> in the same breath. Identity, editorial system, and a web home built around how she actually thinks.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Identity for a person</div>
+          <div class="thread"><b>Editorial</b>Repertoire system</div>
+          <div class="thread"><b>Web</b>Portfolio + writing</div>
+        </div>
+        <a href="./work/rachna-nivas.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="cyan">
+      <span class="num">04</span>
+      <div>
+        <h2 class="title">Agemo</h2>
+        <div class="verts"><span>Research</span><span>Hypothesis design</span><span>Naming</span><span>Interface</span></div>
+      </div>
+      <span class="year">2024</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A coding-agent product where the unknown was <em>users</em>, not technology. We ran 12 user interviews, generated 8 product hypotheses, named the thing, and shipped interface drafts of the architect.</p>
+        <div class="threads">
+          <div class="thread"><b>Research</b>12 interviews, synthesis</div>
+          <div class="thread"><b>Strategy</b>8 hypotheses + 26 drafts</div>
+          <div class="thread"><b>Naming</b>50+ candidates → "Agemo"</div>
+          <div class="thread"><b>Interface</b>Architect, run, landing</div>
+        </div>
+        <a href="./work/agemo.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="green">
+      <span class="num">05</span>
+      <div>
+        <h2 class="title">ConveGenius</h2>
+        <div class="verts"><span>Research</span><span>Gamification system</span><span>Content</span></div>
+      </div>
+      <span class="year">2024</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">An ed-tech platform reaching tens of millions of low-resource learners. We designed a <em>gamification system</em> that respected the way kids actually play — not the way edtech assumes they will.</p>
+        <div class="threads">
+          <div class="thread"><b>Research</b>Field + behavior modelling</div>
+          <div class="thread"><b>System</b>Reward + progression mechanics</div>
+          <div class="thread"><b>Content</b>Tonal range across grades</div>
+        </div>
+        <a href="./work/convegenius.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="pink">
+      <span class="num">06</span>
+      <div>
+        <h2 class="title">Pratham USA</h2>
+        <div class="verts"><span>Brand</span><span>Web</span><span>Content system</span></div>
+      </div>
+      <span class="year">2024</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">The US affiliate of one of India's largest education non-profits. We rebuilt how their <em>donor story</em> reads — from one-off events to an ongoing content rhythm.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Sub-brand articulation</div>
+          <div class="thread"><b>Web</b>Donor + program site</div>
+          <div class="thread"><b>System</b>Editorial cadence</div>
+        </div>
+        <a href="./work/pratham.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="pink">
+      <span class="num">07</span>
+      <div>
+        <h2 class="title">Tatsam</h2>
+        <div class="verts"><span>Brand</span><span>Voice &amp; tone</span><span>Product UX</span><span>Content</span></div>
+      </div>
+      <span class="year">2024</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A mental-health platform where <em>tone</em> is the product. We worked across brand, voice, product UX, and the content engine that keeps the practice alive between sessions.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Identity + system</div>
+          <div class="thread"><b>Voice</b>Therapist-grade tone</div>
+          <div class="thread"><b>Product</b>Session + journal flows</div>
+          <div class="thread"><b>Content</b>Library + cadence</div>
+        </div>
+        <a href="./work/tatsam.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="amber">
+      <span class="num">08</span>
+      <div>
+        <h2 class="title">XTDB</h2>
+        <div class="verts"><span>Brand identity</span><span>Content</span><span>Web</span></div>
+      </div>
+      <span class="year">2023</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A bitemporal database for engineers who <em>read documentation</em> before they buy. We built an identity that respected their literacy and a content layer that did the actual selling.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Identity, alphabet</div>
+          <div class="thread"><b>Content</b>Docs-as-marketing</div>
+          <div class="thread"><b>Web</b>Architecture</div>
+        </div>
+        <a href="./work/xtdb.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="cyan">
+      <span class="num">09</span>
+      <div>
+        <h2 class="title">Gliitch</h2>
+        <div class="verts"><span>Brand</span><span>Identity system</span><span>Web</span></div>
+      </div>
+      <span class="year">2023</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A creative-tech studio whose identity needed to <em>break</em> a little, on purpose. Modular system across web and motion that never sits still.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Identity + position</div>
+          <div class="thread"><b>System</b>Modular kit</div>
+          <div class="thread"><b>Web</b>Showcase site</div>
+        </div>
+        <a href="./work/gliitch.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <article class="row" data-accent="orange">
+      <span class="num">10</span>
+      <div>
+        <h2 class="title">Secret Senses</h2>
+        <div class="verts"><span>Brand</span><span>Identity</span><span>Packaging</span></div>
+      </div>
+      <span class="year">2023</span>
+      <span class="indicator"></span>
+      <div class="expand"><div class="expand-inner"><span class="gap"></span><div class="body">
+        <p class="reframe">A sensory product line that needed to feel <em>discovered</em>, not displayed. Identity and packaging built around the moment of first encounter.</p>
+        <div class="threads">
+          <div class="thread"><b>Brand</b>Identity</div>
+          <div class="thread"><b>Visual</b>Mark + system</div>
+          <div class="thread"><b>Tangible</b>Packaging</div>
+        </div>
+        <a href="./work/secret-senses.html" class="cta">Read the case →</a>
+      </div></div></div>
+    </article>
+
+    <div class="footer">
+      <span>End of index</span>
+      <span>Joyus Studio · 2026</span>
+    </div>
+
+  </main>
+
+<script>
+  document.querySelectorAll('.row').forEach(row => {
+    row.addEventListener('click', (e) => {
+      // don't toggle if clicking the inner CTA link
+      if (e.target.closest('.cta')) return;
+      row.classList.toggle('open');
+    });
+  });
+</script>
+</body>
+</html>

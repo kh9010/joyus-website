@@ -217,6 +217,7 @@
   </button>
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
+    <a href="../work-new.html" data-nav="work-new">Work <sup style="font-size:0.62em;color:#E91E7B;font-weight:600;letter-spacing:0.05em;margin-left:2px;">NEW</sup></a>
     <a href="../services.html" data-nav="services">Services</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
     <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
@@ -226,7 +227,8 @@
   (function(){
     var path = window.location.pathname;
     var active = null;
-    if (/\/work(\/|$)/.test(path)) active = 'work';
+    if (/work-new\.html/.test(path)) active = 'work-new';
+    else if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/podcast/.test(path)) active = 'podcast';
     if (active) {

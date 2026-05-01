@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work · Constellation arrangement · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111214;
+    --paper: #F7F4EE;
+    --paper-2: #EFEAE0;
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --green: #5BBD72;
+    --amber: #D4A843;
+    --orange: #E8734A;
+    --purple: #8B6FB8;
+    --line: rgba(17,18,20,0.12);
+    --font: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --script: 'Caveat', cursive;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 2rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.75; }
+  .top a { opacity: 0.55; transition: opacity 0.2s; }
+  .top a:hover { opacity: 1; }
+  .top .logo { font-family: var(--script); font-size: 1.3rem; letter-spacing: 0; text-transform: none; opacity: 1; color: var(--pink); font-weight: 700; }
+  header.intro { padding: 2.5rem 2rem 1.5rem; max-width: 1300px; margin: 0 auto; }
+  header.intro h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; max-width: 22ch; }
+  header.intro h1 em { font-family: var(--script); font-style: normal; color: var(--pink); }
+  header.intro p { margin-top: 1rem; opacity: 0.65; max-width: 60ch; line-height: 1.55; font-size: 1rem; }
+
+  .stage-wrap { max-width: 1300px; margin: 1rem auto 5rem; padding: 0 2rem; }
+  .stage {
+    position: relative;
+    height: 720px;
+    border: 1px dashed rgba(17,18,20,0.16);
+    border-radius: 28px;
+    background:
+      radial-gradient(circle at 22% 30%, rgba(233,30,123,0.05), transparent 45%),
+      radial-gradient(circle at 78% 65%, rgba(79,196,207,0.06), transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(212,168,67,0.04), transparent 60%);
+    overflow: hidden;
+  }
+  .axis-label { position: absolute; font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.4; pointer-events: none; }
+  .axis-label.tl { top: 1.4rem; left: 1.6rem; }
+  .axis-label.tr { top: 1.4rem; right: 1.6rem; }
+  .axis-label.bl { bottom: 1.4rem; left: 1.6rem; }
+  .axis-label.br { bottom: 1.4rem; right: 1.6rem; }
+  .axis-line { position: absolute; background: rgba(17,18,20,0.06); pointer-events: none; }
+  .axis-line.h { top: 50%; left: 8%; right: 8%; height: 1px; }
+  .axis-line.v { left: 50%; top: 8%; bottom: 8%; width: 1px; }
+
+  .node {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    z-index: 2;
+  }
+  .node .dot {
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--ink);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s;
+    position: relative;
+    z-index: 3;
+  }
+  .node[data-color="pink"] .dot { background: var(--pink); }
+  .node[data-color="cyan"] .dot { background: var(--cyan); }
+  .node[data-color="green"] .dot { background: var(--green); }
+  .node[data-color="amber"] .dot { background: var(--amber); }
+  .node[data-color="orange"] .dot { background: var(--orange); }
+  .node[data-color="purple"] .dot { background: var(--purple); }
+  .node .name {
+    position: absolute;
+    top: 22px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.82rem;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0.55;
+    transition: opacity 0.3s, font-size 0.3s;
+    pointer-events: none;
+  }
+  .node:hover .dot, .node.active .dot { transform: scale(2.4); }
+  .node:hover .name, .node.active .name { opacity: 1; font-size: 0.95rem; font-weight: 600; }
+
+  .petals {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    pointer-events: none;
+  }
+  .petal {
+    position: absolute;
+    transform: translate(-50%, -50%) scale(0);
+    transform-origin: center;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(6px);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 0.32rem 0.7rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+  }
+  .node:hover .petal, .node.active .petal { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  .node:hover .petal:nth-child(1), .node.active .petal:nth-child(1) { transition-delay: 0.05s; }
+  .node:hover .petal:nth-child(2), .node.active .petal:nth-child(2) { transition-delay: 0.1s; }
+  .node:hover .petal:nth-child(3), .node.active .petal:nth-child(3) { transition-delay: 0.15s; }
+  .node:hover .petal:nth-child(4), .node.active .petal:nth-child(4) { transition-delay: 0.2s; }
+  .node:hover .petal:nth-child(5), .node.active .petal:nth-child(5) { transition-delay: 0.25s; }
+
+  .legend {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    font-size: 0.78rem;
+    opacity: 0.6;
+    padding: 0 0.5rem;
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.5rem; }
+  .legend-item .swatch { width: 10px; height: 10px; border-radius: 50%; }
+
+  .tip {
+    position: fixed;
+    top: 50%; right: 2rem;
+    transform: translateY(-50%);
+    font-family: var(--script);
+    font-size: 1.3rem;
+    color: var(--ink);
+    opacity: 0.4;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    max-width: 14ch;
+    line-height: 1.2;
+  }
+  .tip.hide { opacity: 0; }
+
+  /* drift animation for unhovered dots */
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(2px, -3px); }
+  }
+  .node .dot { animation: drift 6s ease-in-out infinite; }
+  .node:nth-child(2n) .dot { animation-duration: 7.5s; animation-delay: -1s; }
+  .node:nth-child(3n) .dot { animation-duration: 8s; animation-delay: -2.5s; }
+  .node:nth-child(5n) .dot { animation-duration: 9s; animation-delay: -3s; }
+  .node:hover .dot, .node.active .dot { animation: none; }
+
+  @media (max-width: 900px) {
+    .stage { height: 560px; }
+    .node .name { font-size: 0.7rem; }
+    .tip { display: none; }
+  }
+  @media (max-width: 600px) {
+    .stage { height: 480px; }
+    header.intro h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <a href="./work-arrangements.html">← arrangements</a>
+    <a class="logo" href="./index.html">joyus</a>
+    <span>01 / Constellation</span>
+  </div>
+
+  <header class="intro">
+    <h1>Where the work <em>sits</em>.</h1>
+    <p>A field, not a grid. Horizontal: how research-led ↔ how build-led. Vertical: how intimate the audience ↔ how expansive. Hover any project to see the disciplines inside it.</p>
+  </header>
+
+  <div class="stage-wrap">
+    <div class="stage" id="stage">
+      <span class="axis-label tl">Research / Strategy</span>
+      <span class="axis-label tr">Build / Ship</span>
+      <span class="axis-label bl">Intimate audience ↑</span>
+      <span class="axis-label br">Expansive audience ↓</span>
+      <div class="axis-line h"></div>
+      <div class="axis-line v"></div>
+
+      <a class="node" data-color="pink"   style="left: 78%; top: 78%;" href="./work/klydo.html">
+        <span class="dot"></span>
+        <span class="name">Klydo</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -56px;">brand identity</span>
+          <span class="petal" style="left: 80px;    top: -28px;">app interface</span>
+          <span class="petal" style="left: 80px;    top: 28px;">illustration system</span>
+          <span class="petal" style="left: 0px;     top: 56px;">packaging</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="orange" style="left: 30%; top: 70%;" href="./work/tomboyx.html">
+        <span class="dot"></span>
+        <span class="name">TomboyX</span>
+        <div class="petals">
+          <span class="petal" style="left: -90px;   top: -30px;">brand strategy</span>
+          <span class="petal" style="left: -30px;   top: -56px;">narrative</span>
+          <span class="petal" style="left: 60px;    top: -42px;">pitch system</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="amber"  style="left: 70%; top: 32%;" href="./work/rachna-nivas.html">
+        <span class="dot"></span>
+        <span class="name">Rachna Nivas</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -50px;">brand identity</span>
+          <span class="petal" style="left: 80px;    top: -10px;">editorial system</span>
+          <span class="petal" style="left: 30px;    top: 45px;">web</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="cyan"   style="left: 22%; top: 22%;" href="./work/agemo.html">
+        <span class="dot"></span>
+        <span class="name">Agemo</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -54px;">research</span>
+          <span class="petal" style="left: 95px;    top: -28px;">hypothesis design</span>
+          <span class="petal" style="left: 88px;    top: 24px;">naming</span>
+          <span class="petal" style="left: 10px;    top: 56px;">interface</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="green"  style="left: 50%; top: 80%;" href="./work/convegenius.html">
+        <span class="dot"></span>
+        <span class="name">ConveGenius</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -50px;">research</span>
+          <span class="petal" style="left: 95px;    top: -10px;">gamification system</span>
+          <span class="petal" style="left: -90px;   top: -10px;">content</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="purple" style="left: 60%; top: 62%;" href="./work/pratham.html">
+        <span class="dot"></span>
+        <span class="name">Pratham USA</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -50px;">brand</span>
+          <span class="petal" style="left: 80px;    top: -10px;">web</span>
+          <span class="petal" style="left: 50px;    top: 42px;">content system</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="pink"   style="left: 65%; top: 50%;" href="./work/tatsam.html">
+        <span class="dot"></span>
+        <span class="name">Tatsam</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -56px;">brand</span>
+          <span class="petal" style="left: 90px;    top: -28px;">voice & tone</span>
+          <span class="petal" style="left: 90px;    top: 28px;">product UX</span>
+          <span class="petal" style="left: 0px;     top: 56px;">content</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="amber"  style="left: 82%; top: 18%;" href="./work/xtdb.html">
+        <span class="dot"></span>
+        <span class="name">XTDB</span>
+        <div class="petals">
+          <span class="petal" style="left: -90px;   top: -28px;">brand identity</span>
+          <span class="petal" style="left: -90px;   top: 28px;">content</span>
+          <span class="petal" style="left: -10px;   top: 50px;">web</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="cyan"   style="left: 40%; top: 28%;" href="./work/gliitch.html">
+        <span class="dot"></span>
+        <span class="name">Gliitch</span>
+        <div class="petals">
+          <span class="petal" style="left: 0px;     top: -50px;">brand</span>
+          <span class="petal" style="left: 88px;    top: -10px;">identity system</span>
+          <span class="petal" style="left: 0px;     top: 50px;">web</span>
+        </div>
+      </a>
+
+      <a class="node" data-color="orange" style="left: 50%; top: 18%;" href="./work/secret-senses.html">
+        <span class="dot"></span>
+        <span class="name">Secret Senses</span>
+        <div class="petals">
+          <span class="petal" style="left: -88px;   top: 0px;">brand</span>
+          <span class="petal" style="left: 0px;     top: 50px;">identity</span>
+          <span class="petal" style="left: 88px;    top: 0px;">packaging</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background: var(--pink);"></span>Brand & identity work</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--cyan);"></span>Research-led work</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--green);"></span>Gamification / behavior</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--amber);"></span>Editorial / content systems</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--orange);"></span>Story / narrative</div>
+      <div class="legend-item"><span class="swatch" style="background: var(--purple);"></span>Mission / institution</div>
+    </div>
+  </div>
+
+  <p class="tip" id="tip">try hovering →</p>
+
+<script>
+  const stage = document.getElementById('stage');
+  const tip = document.getElementById('tip');
+  let firstHover = true;
+  stage.addEventListener('mouseenter', () => {
+    if (firstHover) { tip.classList.add('hide'); firstHover = false; }
+  }, { once: true });
+
+  // tap-to-activate for touch
+  document.querySelectorAll('.node').forEach(n => {
+    n.addEventListener('click', (e) => {
+      if (matchMedia('(hover: none)').matches) {
+        if (!n.classList.contains('active')) {
+          e.preventDefault();
+          document.querySelectorAll('.node.active').forEach(o => o.classList.remove('active'));
+          n.classList.add('active');
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

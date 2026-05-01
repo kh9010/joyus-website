@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work · Tape Bands arrangement · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #111214;
+    --paper: #F7F4EE;
+    --paper-2: #EFEAE0;
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --green: #5BBD72;
+    --amber: #D4A843;
+    --orange: #E8734A;
+    --line: rgba(17,18,20,0.12);
+    --font: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --script: 'Caveat', cursive;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font); background: var(--paper); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 1.4rem 2rem; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.75; }
+  .top a { opacity: 0.55; transition: opacity 0.2s; }
+  .top a:hover { opacity: 1; }
+  .top .logo { font-family: var(--script); font-size: 1.3rem; letter-spacing: 0; text-transform: none; opacity: 1; color: var(--pink); font-weight: 700; }
+
+  header.intro { padding: 2.5rem 2rem 2rem; max-width: 1300px; margin: 0 auto; }
+  header.intro h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 500; letter-spacing: -0.02em; line-height: 1.05; max-width: 24ch; }
+  header.intro h1 em { font-family: var(--script); font-style: normal; color: var(--pink); }
+  header.intro p { margin-top: 1rem; opacity: 0.65; max-width: 60ch; line-height: 1.55; font-size: 1rem; }
+
+  .tape-stack { padding: 2rem 0 5rem; }
+  .band {
+    position: relative;
+    margin: 1.6rem 0;
+    overflow: hidden;
+    padding: 1.2rem 0;
+  }
+  .band-label {
+    position: absolute;
+    top: 0; left: 2rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 600;
+    z-index: 5;
+    background: var(--paper);
+    padding-right: 1rem;
+  }
+  .band-label .count {
+    opacity: 0.4;
+    font-weight: 400;
+    margin-left: 0.4rem;
+  }
+
+  .marquee {
+    display: flex;
+    width: max-content;
+    gap: 1.4rem;
+    will-change: transform;
+    margin-top: 1.6rem;
+  }
+  .marquee.right { animation: scroll-right 60s linear infinite; }
+  .marquee.left  { animation: scroll-left 75s linear infinite; }
+  .marquee.right-fast { animation: scroll-right 45s linear infinite; }
+  .marquee.left-slow  { animation: scroll-left 90s linear infinite; }
+  .marquee.right-mid { animation: scroll-right 55s linear infinite; }
+
+  .band:hover .marquee { animation-play-state: paused; }
+
+  @keyframes scroll-right {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .chip {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 0.9rem 1.4rem 0.9rem 0.9rem;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  .chip:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(17,18,20,0.1); }
+  .chip .thumb {
+    width: 56px; height: 56px;
+    border-radius: 10px;
+    background: var(--paper-2);
+    background-size: cover;
+    background-position: center;
+    flex-shrink: 0;
+  }
+  .chip .meta { display: flex; flex-direction: column; gap: 0.15rem; }
+  .chip .meta b { font-weight: 600; font-size: 1rem; letter-spacing: -0.01em; }
+  .chip .meta span { font-size: 0.78rem; opacity: 0.6; }
+
+  .band[data-color="pink"]   .band-label { color: var(--pink); }
+  .band[data-color="cyan"]   .band-label { color: var(--cyan); }
+  .band[data-color="amber"]  .band-label { color: var(--amber); }
+  .band[data-color="orange"] .band-label { color: var(--orange); }
+  .band[data-color="green"]  .band-label { color: var(--green); }
+
+  .band[data-color="pink"]   { background: linear-gradient(180deg, transparent 30%, rgba(233,30,123,0.04) 100%); }
+  .band[data-color="cyan"]   { background: linear-gradient(180deg, transparent 30%, rgba(79,196,207,0.04) 100%); }
+  .band[data-color="amber"]  { background: linear-gradient(180deg, transparent 30%, rgba(212,168,67,0.04) 100%); }
+  .band[data-color="orange"] { background: linear-gradient(180deg, transparent 30%, rgba(232,115,74,0.04) 100%); }
+  .band[data-color="green"]  { background: linear-gradient(180deg, transparent 30%, rgba(91,189,114,0.04) 100%); }
+
+  .band-divider {
+    border: none;
+    border-top: 1px dashed rgba(17,18,20,0.1);
+    margin: 0;
+  }
+
+  .footer-note {
+    text-align: center;
+    margin: 4rem 2rem 2rem;
+    font-size: 0.85rem;
+    opacity: 0.55;
+    font-family: var(--script);
+    font-size: 1.15rem;
+  }
+
+  @media (max-width: 720px) {
+    .band-label { font-size: 0.7rem; left: 1rem; }
+    .chip .thumb { width: 44px; height: 44px; }
+    .marquee { gap: 0.8rem; }
+    header.intro { padding: 1.5rem 1rem 1rem; }
+    header.intro h1 { font-size: 1.7rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <a href="./work-arrangements.html">← arrangements</a>
+    <a class="logo" href="./index.html">joyus</a>
+    <span>02 / Tape Bands</span>
+  </div>
+
+  <header class="intro">
+    <h1>Five disciplines, <em>always moving</em>.</h1>
+    <p>Each band is one thing we do. A project shows up in every band it touches — so Tatsam appears 4 times, Klydo appears 3 times. Hover any band to slow it down. The page itself is the breadth.</p>
+  </header>
+
+  <div class="tape-stack">
+
+    <div class="band" data-color="pink">
+      <span class="band-label">Brand &amp; Identity <span class="count">— 7 projects</span></span>
+      <div class="marquee right">
+        <a class="chip" href="./work/klydo.html"><span class="thumb" style="background-image: url('./images/work/klydo.jpg');"></span><span class="meta"><b>Klydo</b><span>brand identity</span></span></a>
+        <a class="chip" href="./work/tomboyx.html"><span class="thumb" style="background-image: url('./images/work/tomboyx.jpg');"></span><span class="meta"><b>TomboyX</b><span>brand strategy</span></span></a>
+        <a class="chip" href="./work/rachna-nivas.html"><span class="thumb" style="background-image: url('./images/work/rachna-nivas.jpg');"></span><span class="meta"><b>Rachna Nivas</b><span>identity system</span></span></a>
+        <a class="chip" href="./work/pratham.html"><span class="thumb" style="background-image: url('./images/work/pratham.jpg');"></span><span class="meta"><b>Pratham USA</b><span>brand</span></span></a>
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>brand</span></span></a>
+        <a class="chip" href="./work/xtdb.html"><span class="thumb" style="background-image: url('./images/work/xtdb.jpg');"></span><span class="meta"><b>XTDB</b><span>identity</span></span></a>
+        <a class="chip" href="./work/gliitch.html"><span class="thumb" style="background-image: url('./images/work/gliitch.jpg');"></span><span class="meta"><b>Gliitch</b><span>identity system</span></span></a>
+        <a class="chip" href="./work/secret-senses.html"><span class="thumb" style="background-image: url('./images/work/secret-senses.jpg');"></span><span class="meta"><b>Secret Senses</b><span>brand</span></span></a>
+        <!-- duplicate for seamless loop -->
+        <a class="chip" href="./work/klydo.html"><span class="thumb" style="background-image: url('./images/work/klydo.jpg');"></span><span class="meta"><b>Klydo</b><span>brand identity</span></span></a>
+        <a class="chip" href="./work/tomboyx.html"><span class="thumb" style="background-image: url('./images/work/tomboyx.jpg');"></span><span class="meta"><b>TomboyX</b><span>brand strategy</span></span></a>
+        <a class="chip" href="./work/rachna-nivas.html"><span class="thumb" style="background-image: url('./images/work/rachna-nivas.jpg');"></span><span class="meta"><b>Rachna Nivas</b><span>identity system</span></span></a>
+        <a class="chip" href="./work/pratham.html"><span class="thumb" style="background-image: url('./images/work/pratham.jpg');"></span><span class="meta"><b>Pratham USA</b><span>brand</span></span></a>
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>brand</span></span></a>
+        <a class="chip" href="./work/xtdb.html"><span class="thumb" style="background-image: url('./images/work/xtdb.jpg');"></span><span class="meta"><b>XTDB</b><span>identity</span></span></a>
+        <a class="chip" href="./work/gliitch.html"><span class="thumb" style="background-image: url('./images/work/gliitch.jpg');"></span><span class="meta"><b>Gliitch</b><span>identity system</span></span></a>
+        <a class="chip" href="./work/secret-senses.html"><span class="thumb" style="background-image: url('./images/work/secret-senses.jpg');"></span><span class="meta"><b>Secret Senses</b><span>brand</span></span></a>
+      </div>
+    </div>
+    <hr class="band-divider">
+
+    <div class="band" data-color="cyan">
+      <span class="band-label">Product &amp; Interface <span class="count">— 4 projects</span></span>
+      <div class="marquee left-slow">
+        <a class="chip" href="./work/klydo.html"><span class="thumb" style="background-image: url('./images/work/klydo.jpg');"></span><span class="meta"><b>Klydo</b><span>app interface</span></span></a>
+        <a class="chip" href="./work/agemo.html"><span class="thumb" style="background-image: url('./images/work/agemo.jpg');"></span><span class="meta"><b>Agemo</b><span>interface</span></span></a>
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>product UX</span></span></a>
+        <a class="chip" href="./work/convegenius.html"><span class="thumb" style="background-image: url('./images/work/convegenius.jpg');"></span><span class="meta"><b>ConveGenius</b><span>gamification system</span></span></a>
+        <!-- dup -->
+        <a class="chip" href="./work/klydo.html"><span class="thumb" style="background-image: url('./images/work/klydo.jpg');"></span><span class="meta"><b>Klydo</b><span>app interface</span></span></a>
+        <a class="chip" href="./work/agemo.html"><span class="thumb" style="background-image: url('./images/work/agemo.jpg');"></span><span class="meta"><b>Agemo</b><span>interface</span></span></a>
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>product UX</span></span></a>
+        <a class="chip" href="./work/convegenius.html"><span class="thumb" style="background-image: url('./images/work/convegenius.jpg');"></span><span class="meta"><b>ConveGenius</b><span>gamification system</span></span></a>
+      </div>
+    </div>
+    <hr class="band-divider">
+
+    <div class="band" data-color="amber">
+      <span class="band-label">Research &amp; Strategy <span class="count">— 3 projects</span></span>
+      <div class="marquee right-fast">
+        <a class="chip" href="./work/agemo.html"><span class="thumb" style="background-image: url('./images/work/agemo.jpg');"></span><span class="meta"><b>Agemo</b><span>UXR + hypothesis design</span></span></a>
+        <a class="chip" href="./work/convegenius.html"><span class="thumb" style="background-image: url('./images/work/convegenius.jpg');"></span><span class="meta"><b>ConveGenius</b><span>research</span></span></a>
+        <a class="chip" href="./work/tomboyx.html"><span class="thumb" style="background-image: url('./images/work/tomboyx.jpg');"></span><span class="meta"><b>TomboyX</b><span>category strategy</span></span></a>
+        <!-- dup -->
+        <a class="chip" href="./work/agemo.html"><span class="thumb" style="background-image: url('./images/work/agemo.jpg');"></span><span class="meta"><b>Agemo</b><span>UXR + hypothesis design</span></span></a>
+        <a class="chip" href="./work/convegenius.html"><span class="thumb" style="background-image: url('./images/work/convegenius.jpg');"></span><span class="meta"><b>ConveGenius</b><span>research</span></span></a>
+        <a class="chip" href="./work/tomboyx.html"><span class="thumb" style="background-image: url('./images/work/tomboyx.jpg');"></span><span class="meta"><b>TomboyX</b><span>category strategy</span></span></a>
+      </div>
+    </div>
+    <hr class="band-divider">
+
+    <div class="band" data-color="orange">
+      <span class="band-label">Story &amp; Narrative <span class="count">— 5 projects</span></span>
+      <div class="marquee left">
+        <a class="chip" href="./work/tomboyx.html"><span class="thumb" style="background-image: url('./images/work/tomboyx.jpg');"></span><span class="meta"><b>TomboyX</b><span>narrative + pitch</span></span></a>
+        <a class="chip" href="./work/agemo.html"><span class="thumb" style="background-image: url('./images/work/agemo.jpg');"></span><span class="meta"><b>Agemo</b><span>naming + tagline</span></span></a>
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>voice &amp; tone</span></span></a>
+        <a class="chip" href="./work/rachna-nivas.html"><span class="thumb" style="background-image: url('./images/work/rachna-nivas.jpg');"></span><span class="meta"><b>Rachna Nivas</b><span>editorial</span></span></a>
+        <a class="chip" href="./work/xtdb.html"><span class="thumb" style="background-image: url('./images/work/xtdb.jpg');"></span><span class="meta"><b>XTDB</b><span>content</span></span></a>
+        <!-- dup -->
+        <a class="chip" href="./work/tomboyx.html"><span class="thumb" style="background-image: url('./images/work/tomboyx.jpg');"></span><span class="meta"><b>TomboyX</b><span>narrative + pitch</span></span></a>
+        <a class="chip" href="./work/agemo.html"><span class="thumb" style="background-image: url('./images/work/agemo.jpg');"></span><span class="meta"><b>Agemo</b><span>naming + tagline</span></span></a>
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>voice &amp; tone</span></span></a>
+        <a class="chip" href="./work/rachna-nivas.html"><span class="thumb" style="background-image: url('./images/work/rachna-nivas.jpg');"></span><span class="meta"><b>Rachna Nivas</b><span>editorial</span></span></a>
+        <a class="chip" href="./work/xtdb.html"><span class="thumb" style="background-image: url('./images/work/xtdb.jpg');"></span><span class="meta"><b>XTDB</b><span>content</span></span></a>
+      </div>
+    </div>
+    <hr class="band-divider">
+
+    <div class="band" data-color="green">
+      <span class="band-label">Growth &amp; Distribution <span class="count">— 4 projects</span></span>
+      <div class="marquee right-mid">
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>content engine</span></span></a>
+        <a class="chip" href="./work/pratham.html"><span class="thumb" style="background-image: url('./images/work/pratham.jpg');"></span><span class="meta"><b>Pratham USA</b><span>content system</span></span></a>
+        <a class="chip" href="./work/xtdb.html"><span class="thumb" style="background-image: url('./images/work/xtdb.jpg');"></span><span class="meta"><b>XTDB</b><span>web</span></span></a>
+        <a class="chip" href="./work/klydo.html"><span class="thumb" style="background-image: url('./images/work/klydo.jpg');"></span><span class="meta"><b>Klydo</b><span>packaging</span></span></a>
+        <!-- dup -->
+        <a class="chip" href="./work/tatsam.html"><span class="thumb" style="background-image: url('./images/work/tatsam.jpg');"></span><span class="meta"><b>Tatsam</b><span>content engine</span></span></a>
+        <a class="chip" href="./work/pratham.html"><span class="thumb" style="background-image: url('./images/work/pratham.jpg');"></span><span class="meta"><b>Pratham USA</b><span>content system</span></span></a>
+        <a class="chip" href="./work/xtdb.html"><span class="thumb" style="background-image: url('./images/work/xtdb.jpg');"></span><span class="meta"><b>XTDB</b><span>web</span></span></a>
+        <a class="chip" href="./work/klydo.html"><span class="thumb" style="background-image: url('./images/work/klydo.jpg');"></span><span class="meta"><b>Klydo</b><span>packaging</span></span></a>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="footer-note">hover any band to slow it down →</p>
+</body>
+</html>

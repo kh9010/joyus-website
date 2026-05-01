@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Work — arrangement samples · Joyus Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #14110D;
+    --paper: #F4EFE4;
+    --paper-2: #E9E1D0;
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --green: #5BBD72;
+    --amber: #D4A843;
+    --orange: #E8734A;
+    --line: rgba(20,17,13,0.16);
+    --font: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+  body { background: var(--paper); color: var(--ink); line-height: 1.4; -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+  .back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.55;
+    margin-bottom: 3rem;
+    font-weight: 500;
+  }
+  .back:hover { opacity: 1; }
+  .kicker {
+    font-size: 0.7rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--pink);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+  .kicker::before { content: ''; width: 24px; height: 1.5px; background: var(--pink); display: inline-block; }
+  h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 500;
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    max-width: 22ch;
+    text-transform: lowercase;
+  }
+  h1 b { font-weight: 700; color: var(--pink); }
+  .lede { font-size: 1.05rem; opacity: 0.7; max-width: 56ch; margin-top: 1.4rem; line-height: 1.6; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; margin-top: 3.5rem; }
+  .card {
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.5);
+    border-radius: 22px;
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    display: flex; flex-direction: column;
+    min-height: 360px;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(20,17,13,0.08); background: #fff; }
+  .num {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    opacity: 0.55;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .num .star { color: var(--pink); margin-left: 0.4rem; font-size: 0.8rem; }
+  .ttl {
+    font-size: 1.7rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    letter-spacing: -0.025em;
+  }
+  .desc { margin-top: 0.9rem; font-size: 0.92rem; opacity: 0.7; line-height: 1.55; }
+  .desc a {
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 1px;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.7rem;
+  }
+  .preview { flex: 1; margin-top: 1.5rem; border-radius: 14px; overflow: hidden; position: relative; min-height: 140px; }
+
+  .pv-1 { background: radial-gradient(circle at 30% 40%, rgba(233,30,123,0.12), transparent 50%), radial-gradient(circle at 70% 60%, rgba(79,196,207,0.12), transparent 50%); }
+  .pv-1::before, .pv-1::after, .pv-1 i { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--ink); }
+  .pv-1::before { top: 30%; left: 25%; background: var(--pink); }
+  .pv-1::after { top: 60%; left: 70%; background: var(--cyan); }
+  .pv-1 i { display: block; }
+  .pv-1 i:nth-child(1) { top: 20%; left: 60%; background: var(--green); width: 6px; height: 6px; }
+  .pv-1 i:nth-child(2) { top: 75%; left: 20%; background: var(--amber); width: 6px; height: 6px; }
+  .pv-1 i:nth-child(3) { top: 45%; left: 50%; width: 5px; height: 5px; opacity: 0.6; }
+  .pv-1 i:nth-child(4) { top: 35%; left: 80%; background: var(--orange); width: 6px; height: 6px; }
+
+  .pv-2 { background: var(--paper-2); display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 0 1rem; }
+  .pv-2 div { height: 18px; background: var(--ink); border-radius: 9px; opacity: 0.85; }
+  .pv-2 div:nth-child(1) { width: 130%; background: var(--pink); transform: translateX(-10%); }
+  .pv-2 div:nth-child(2) { width: 110%; background: var(--ink); transform: translateX(5%); }
+  .pv-2 div:nth-child(3) { width: 140%; background: var(--cyan); transform: translateX(-15%); }
+  .pv-2 div:nth-child(4) { width: 100%; background: var(--amber); transform: translateX(8%); }
+
+  .pv-3 { background: #fff; padding: 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .pv-3 .row { display: flex; align-items: baseline; gap: 0.7rem; border-bottom: 1px solid var(--line); padding-bottom: 0.45rem; }
+  .pv-3 .row:last-child { border-bottom: none; }
+  .pv-3 .row b { font-size: 1.05rem; font-weight: 600; flex: 1; }
+  .pv-3 .row span { font-size: 0.66rem; opacity: 0.5; letter-spacing: 0.1em; }
+  .pv-3 .row em { font-style: normal; font-size: 0.66rem; opacity: 0.55; letter-spacing: 0.06em; }
+
+  .meta {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.2rem;
+    font-size: 0.66rem;
+    opacity: 0.5;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .meta span::before { content: '·'; margin-right: 0.6rem; opacity: 0.5; }
+  .meta span:first-child::before { display: none; }
+
+  .footer {
+    margin-top: 5rem;
+    font-size: 0.85rem;
+    opacity: 0.55;
+    max-width: 56ch;
+    line-height: 1.6;
+  }
+  .footer b { font-weight: 700; color: var(--pink); }
+
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 2.5rem 1.2rem 4rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="./index.html">← joyus</a>
+    <span class="kicker">work page · arrangement samples</span>
+    <h1>three ways the <b>work</b> page could feel.</h1>
+    <p class="lede">Same problem each time: how to show that we work across many disciplines (research, brand, product, story, growth) — across many projects, each holding multiple verticals — without flattening into another agency grid.</p>
+
+    <div class="grid">
+      <a class="card" href="./work-arr-2-tape-v2.html">
+        <span class="num">Arrangement 02 · v2 <span class="star">★ pick</span></span>
+        <div class="ttl">tape bands</div>
+        <p class="desc">Five bands, one per discipline, each scrolling at its own speed. A project lands in every band it touches — Tatsam appears 4 times, Klydo 4. Cards are mixed: covers, type-only manifestos, dark quote cards, counters. Studio-voice interludes between bands. Per-band tinted washes. Breadth becomes a designed surface.
+        <br><a href="./work-arr-2-tape.html">see v1 for comparison</a></p>
+        <div class="preview pv-2"><div></div><div></div><div></div><div></div></div>
+        <div class="meta"><span>kinetic</span><span>composed</span><span>most movement</span></div>
+      </a>
+
+      <a class="card" href="./work-arr-1-constellation-v2.html">
+        <span class="num">Arrangement 01 · v2</span>
+        <div class="ttl">constellation</div>
+        <p class="desc">Image-thumbnail nodes sized by ambition, dropped into a research↔build × intimate↔expansive field. Marginalia sits in the negative space. Dashed lines connect projects that share a discipline (revealed on hover). A "field notes" strip below pulls it together.
+        <br><a href="./work-arr-1-constellation.html">see v1 for comparison</a></p>
+        <div class="preview pv-1"><i></i><i></i><i></i><i></i></div>
+        <div class="meta"><span>spatial</span><span>map-like</span><span>contemplative</span></div>
+      </a>
+
+      <a class="card" href="./work-arr-3-index.html">
+        <span class="num">Arrangement 03</span>
+        <div class="ttl">editorial index</div>
+        <p class="desc">A typographic table of contents. Big project names, year, and the disciplines each held listed underneath. Click any row to expand a short reframing in place. Quietest of the three — confident, restrained, lets the work breathe.</p>
+        <div class="preview pv-3">
+          <div class="row"><b>Klydo</b><em>brand · app · illustration</em><span>2026</span></div>
+          <div class="row"><b>TomboyX</b><em>strategy · narrative · pitch</em><span>2025</span></div>
+          <div class="row"><b>Tatsam</b><em>brand · voice · product</em><span>2024</span></div>
+          <div class="row"><b>Agemo</b><em>research · interface · naming</em><span>2024</span></div>
+        </div>
+        <div class="meta"><span>typographic</span><span>quiet</span><span>print energy</span></div>
+      </a>
+    </div>
+
+    <p class="footer"><b>Tape Bands</b> is the front-runner. Constellation can sit on top of the work index page as a hero header above the bands. Editorial Index is the fallback if we ever want a quieter version. The tiles arrangement got cut.</p>
+  </div>
+</body>
+</html>
