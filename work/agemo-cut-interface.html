@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Codewords — interface cut · Joyus Studio</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --orange: #E8734A;
+    --green: #5BBD72;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  /* prototype tag */
+  .proto-tag {
+    position: fixed;
+    top: 1.25rem; right: 1.25rem;
+    z-index: 600;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--cyan);
+    background: var(--paper);
+    border: 1.5px solid var(--cyan);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    transform: rotate(2deg);
+  }
+
+  /* ============ HERO — slot machine ============ */
+  .hero {
+    min-height: 100vh; min-height: 100dvh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(79, 196, 207, 0.08) 0%, transparent 60%);
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before {
+    content: "○ ";
+    color: var(--cyan);
+    margin-right: 0.4rem;
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(2rem, 5.5vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin-bottom: 1.5rem;
+  }
+  .slot-stage {
+    margin: 2.5rem auto;
+    max-width: 28ch;
+    min-height: 7em;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .slot {
+    color: var(--pink);
+    font-style: italic;
+    transition: opacity 220ms ease, transform 220ms ease;
+    display: inline-block;
+    min-width: 4em;
+  }
+  .slot.flip { opacity: 0; transform: translateY(-6px); }
+  .slot-counter {
+    margin-top: 1.5rem;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--cyan);
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  .hero-scroll {
+    margin-top: 3rem;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    transform: rotate(-2deg);
+    display: inline-block;
+    opacity: 0.85;
+  }
+
+  /* ============ ARCHITECT BIG REVEAL ============ */
+  .architect-section {
+    padding: 6rem var(--x);
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+  .architect-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .architect-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--cyan);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .architect-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #fff;
+    margin-bottom: 3rem;
+    max-width: 22ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .architect-title em { font-style: italic; color: var(--cyan); }
+
+  .architect-frame {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 40px 80px -30px rgba(0, 0, 0, 0.5),
+      0 12px 28px -8px rgba(0, 0, 0, 0.3);
+    background: var(--paper);
+    /* parallax handled via JS */
+    will-change: transform;
+  }
+  .architect-frame img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* auto-cycling annotation strip below the screen */
+  .architect-anno {
+    margin-top: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 2rem 2.25rem;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: 7rem;
+    position: relative;
+  }
+  .anno-line {
+    position: absolute;
+    inset: 2rem 2.25rem;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 500ms ease, transform 500ms ease;
+    text-align: left;
+  }
+  .anno-line.is-active { opacity: 1; transform: translateY(0); }
+  .anno-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 0.5rem;
+  }
+  .anno-body {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: #fff;
+  }
+  .anno-progress {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+  }
+  .anno-progress span {
+    width: 28px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .anno-progress span.is-active::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--cyan);
+    transform-origin: left center;
+    animation: progressBar 4s linear forwards;
+  }
+  @keyframes progressBar {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* ============ THREE SURFACES — scroll-snap ============ */
+  .surfaces-section {
+    background: var(--bg);
+    padding: 6rem 0 8rem;
+  }
+  .surfaces-head {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--x) 3rem;
+  }
+  .surfaces-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--pink);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .surfaces-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.025em;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+    max-width: 22ch;
+  }
+  .surfaces-title em { color: var(--cyan); font-style: italic; }
+  .surfaces-deck {
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 38rem;
+    line-height: 1.5;
+  }
+  .surfaces-strip {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 0 var(--x);
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .surface {
+    flex: 0 0 min(700px, 88vw);
+    scroll-snap-align: center;
+  }
+  .surface-frame {
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow:
+      0 30px 60px -28px rgba(44, 53, 68, 0.22),
+      0 6px 14px -4px rgba(44, 53, 68, 0.06);
+    aspect-ratio: 16/10;
+  }
+  .surface-frame img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+  .surface-meta {
+    margin-top: 1.25rem;
+    padding: 0 0.5rem;
+  }
+  .surface-tag {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    color: var(--pink);
+    margin-bottom: 0.25rem;
+    display: inline-block;
+    transform: rotate(-1deg);
+  }
+  .surface-name {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.35rem;
+  }
+  .surface-cap {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .surfaces-hint {
+    font-family: var(--hand);
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 2rem;
+    transform: rotate(-1deg);
+    display: block;
+  }
+
+  /* ============ FINAL TAGLINE ============ */
+  .final {
+    padding: 8rem var(--x);
+    background: var(--pink);
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final::before, .final::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .final::before {
+    width: 320px; height: 320px;
+    top: -10%; left: -8%;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .final::after {
+    width: 220px; height: 220px;
+    bottom: -8%; right: 6%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .final-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+    position: relative; z-index: 2;
+  }
+  .final-line {
+    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: #fff;
+    max-width: 14ch;
+    margin: 0 auto;
+    position: relative; z-index: 2;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 800ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .final.in .final-line { opacity: 1; transform: translateY(0); }
+  .final-foot {
+    margin-top: 3rem;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.85);
+    position: relative; z-index: 2;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  /* ============ CTA STRIP ============ */
+  .ctas {
+    padding: 6rem var(--x);
+    background: var(--paper);
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .ctas h2 {
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform 0.25s, box-shadow 0.25s;
+    font-size: 1rem;
+  }
+  .cta-primary {
+    background: var(--pink);
+    color: #fff;
+    box-shadow: 0 6px 0 #9a1453;
+  }
+  .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+  .cta-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid rgba(44, 53, 68, 0.3);
+  }
+  .cta-ghost:hover { border-color: var(--ink); }
+
+  /* ============ REVEAL ============ */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="proto-tag" href="agemo.html">interface cut · v1</a>
+
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+<!-- ============ HERO — slot machine ============ -->
+<section class="hero">
+  <span class="hero-eyebrow">Codewords · interface cut</span>
+  <h1>The interface had to teach itself before it could be useful.</h1>
+
+  <div class="slot-stage">
+    <span class="slot" id="slot-verb">Build</span>
+    a <span class="slot" id="slot-noun">function</span><br/>
+    in minutes,<br/>
+    <span class="slot" id="slot-tag">with words you know.</span>
+  </div>
+  <span class="slot-counter">↑ candidate <span id="slot-count">1</span> of 50+</span>
+
+  <span class="hero-scroll">↓ this is what landed</span>
+</section>
+
+<!-- ============ ARCHITECT BIG REVEAL ============ -->
+<section class="architect-section">
+  <div class="architect-inner">
+    <span class="architect-eyebrow">the centerpiece</span>
+    <h2 class="architect-title">The Architect — where the eight bets <em>converged</em>.</h2>
+
+    <div class="architect-frame" id="arch-frame">
+      <img src="../images/work/agemo/lens-product/architect-page.png" alt="Codewords Architect interface" />
+    </div>
+
+    <div class="architect-anno" id="anno">
+      <div class="anno-line is-active">
+        <span class="anno-tag">H5 · Defer to the human</span>
+        <p class="anno-body">The AI proposes the spec. The user accepts, edits, or asks for more. Confirmation required at every step — never assumed.</p>
+      </div>
+      <div class="anno-line">
+        <span class="anno-tag">H6 · Draft state matters</span>
+        <p class="anno-body">The spec lives as an editable draft, not a frozen brief. Refinement is the primary action, not the exception.</p>
+      </div>
+      <div class="anno-line">
+        <span class="anno-tag">H4 · Completeness over Simplicity</span>
+        <p class="anno-body">Detailed parameters, architect chat, and the spec link — all available at once. Density is intentional.</p>
+      </div>
+      <div class="anno-line">
+        <span class="anno-tag">H8 · Users want it done</span>
+        <p class="anno-body">Generate is one click away even when the spec is rough. The output unlocks the conversation about how to refine it.</p>
+      </div>
+    </div>
+
+    <div class="anno-progress" id="anno-progress">
+      <span class="is-active"></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THREE SURFACES ============ -->
+<section class="surfaces-section">
+  <div class="surfaces-head reveal">
+    <span class="surfaces-eyebrow">three surfaces, one logic</span>
+    <h2 class="surfaces-title">Landing. Architect. Run. <em>Same grammar throughout.</em></h2>
+    <p class="surfaces-deck">Every screen earns its density. Every interaction respects the user's emotional state. The architect chat is the soul; landing and run are the front door and the proof.</p>
+  </div>
+
+  <div class="surfaces-strip">
+    <div class="surface">
+      <div class="surface-frame"><img src="../images/work/agemo/lens-product/landing-page.png" alt="Landing page" /></div>
+      <div class="surface-meta">
+        <span class="surface-tag">the front door</span>
+        <h3 class="surface-name">Landing</h3>
+        <p class="surface-cap">The public face. Every word tested against "would an engineer trust this?"</p>
+      </div>
+    </div>
+    <div class="surface">
+      <div class="surface-frame"><img src="../images/work/agemo/lens-product/architect-page.png" alt="Architect" /></div>
+      <div class="surface-meta">
+        <span class="surface-tag">the soul</span>
+        <h3 class="surface-name">Architect</h3>
+        <p class="surface-cap">A conversational spec editor. The AI proposes; the user disposes. The interface is the onboarding.</p>
+      </div>
+    </div>
+    <div class="surface">
+      <div class="surface-frame"><img src="../images/work/agemo/lens-product/run-function-page.png" alt="Run / Function page" /></div>
+      <div class="surface-meta">
+        <span class="surface-tag">the proof</span>
+        <h3 class="surface-name">Run</h3>
+        <p class="surface-cap">A generated function, running. Inputs, outputs, logs — the whole runtime made legible.</p>
+      </div>
+    </div>
+  </div>
+
+  <span class="surfaces-hint">← drag to scan →</span>
+</section>
+
+<!-- ============ FINAL TAGLINE ============ -->
+<section class="final reveal">
+  <div class="final-eyebrow">final pick</div>
+  <h2 class="final-line">"Write code with words."</h2>
+  <span class="final-foot">— after 50+ candidates, the room landed here.</span>
+</section>
+
+<!-- ============ CTAs ============ -->
+<section class="ctas">
+  <h2>Want to see how we got here?</h2>
+  <div class="cta-row">
+    <a class="cta cta-primary" href="agemo.html">see the full case study →</a>
+    <a class="cta cta-ghost" href="agemo-cut-research.html">jump to the research cut →</a>
+  </div>
+</section>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+<script>
+// ============ slot machine — bracket-grammar tagline ============
+const VERBS = ['Build', 'Remix', 'Integrate'];
+const NOUNS = ['function', 'tool', 'pipeline', 'generator', 'backend workflow', 'AI-powered app', 'productivity helper'];
+const TAGS = [
+  'with words you know.',
+  'with the new way to code.',
+  'without a team of engineers.',
+  'and bring your words to life.',
+  'reducing your dependencies.',
+  'the platform to bring words to code.'
+];
+const sv = document.getElementById('slot-verb');
+const sn = document.getElementById('slot-noun');
+const st = document.getElementById('slot-tag');
+const sc = document.getElementById('slot-count');
+let scN = 1;
+function flipSlot() {
+  [sv, sn, st].forEach(el => el.classList.add('flip'));
+  setTimeout(() => {
+    sv.textContent = VERBS[Math.floor(Math.random() * VERBS.length)];
+    sn.textContent = NOUNS[Math.floor(Math.random() * NOUNS.length)];
+    st.textContent = TAGS[Math.floor(Math.random() * TAGS.length)];
+    [sv, sn, st].forEach(el => el.classList.remove('flip'));
+    scN++;
+    sc.textContent = scN;
+  }, 240);
+}
+setInterval(flipSlot, 2400);
+
+// ============ architect parallax (subtle) ============
+const archFrame = document.getElementById('arch-frame');
+window.addEventListener('scroll', () => {
+  const rect = archFrame.getBoundingClientRect();
+  const vh = window.innerHeight;
+  // y offset = how far through viewport the frame is
+  const offset = (rect.top + rect.height / 2 - vh / 2) / vh;
+  // limit parallax to small range
+  archFrame.style.transform = `translateY(${offset * -22}px)`;
+}, { passive: true });
+
+// ============ architect annotation auto-cycle ============
+const annoLines = Array.from(document.querySelectorAll('#anno .anno-line'));
+const annoProg = Array.from(document.querySelectorAll('#anno-progress span'));
+let annoN = 0;
+let annoStarted = false;
+const annoIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !annoStarted) {
+      annoStarted = true;
+      setInterval(() => {
+        annoLines[annoN].classList.remove('is-active');
+        annoProg[annoN].classList.remove('is-active');
+        annoN = (annoN + 1) % annoLines.length;
+        annoLines[annoN].classList.add('is-active');
+        annoProg[annoN].classList.add('is-active');
+      }, 4000);
+    }
+  });
+}, { threshold: 0.3 });
+annoIo.observe(document.getElementById('anno'));
+
+// ============ reveal ============
+const revealIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealIo.unobserve(e.target); }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.reveal').forEach(el => revealIo.observe(el));
+</script>
+</body>
+</html>
