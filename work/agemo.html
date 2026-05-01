@@ -1,133 +1,927 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Designing a new user paradigm for Agemo, a GenAI startup. Twenty-six drafts, ten that mattered, and one screen we drew more than a landing page.">
-  <meta property="og:title" content="agemo — Joyus Studio">
-  <meta property="og:description" content="Designing a new user paradigm for a GenAI startup. A critique in ten stickies — twenty drafts got us here, five Architect passes came out of it.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/agemo/cover.webp">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/agemo.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/agemo.html">
-  <title>agemo — Joyus Studio</title>
-  <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=4">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"agemo","description":"Designing a new user paradigm for Agemo, a GenAI startup. A critique in ten stickies — twenty drafts got us here, five Architect passes came out of it.","url":"https://kh9010.github.io/joyus-website/work/agemo.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
-</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Agemo / Codewords — Joyus Studio</title>
+<meta name="description" content="A GenAI startup with no precedent. Eight hypotheses, drawn 26 times. The full case study — research, design, and what shipped — by Joyus Studio." />
+<meta property="og:title" content="Agemo / Codewords — Joyus Studio" />
+<meta property="og:description" content="A GenAI startup with no precedent. Eight hypotheses, designed to be falsifiable. How we drew the interface that taught itself before it could be useful." />
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/agemo/cover.webp" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/work/agemo.html" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/work/agemo.html" />
+<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
-  body.work-page.agemo{--ag-paper:#F5F3F0;--ag-paper-2:#EDE8DF;--ag-ink:#111214;--ag-ink-dim:rgba(17,18,20,.55);--ag-ink-faint:rgba(17,18,20,.18);--ag-pink:#E91E7B;--ag-pink-soft:rgba(233,30,123,.35);--ag-pink-ghost:rgba(233,30,123,.12);background:var(--ag-paper);color:var(--ag-ink)}
-  .ag-hinge{position:relative;min-height:100vh;background:var(--ag-paper);display:flex;flex-direction:column;align-items:center;overflow:hidden}
-  .ag-hinge-header{width:100%;max-width:1400px;padding:6rem 2rem 1.5rem;display:flex;flex-direction:column;align-items:flex-start;gap:.5rem;box-sizing:border-box}
-  .ag-eyebrow{font-family:var(--font-script,'Caveat',cursive);font-size:1.375rem;color:var(--ag-pink);margin:0;line-height:1.2}
-  .ag-thesis{font-family:var(--font-serif,'DM Serif Display',serif);font-size:2rem;font-weight:400;color:var(--ag-ink);margin:0;max-width:640px;line-height:1.2;letter-spacing:-.01em}
-  .ag-subthesis{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:1rem;font-style:italic;color:var(--ag-ink);opacity:.6;margin:.25rem 0 0}
-  .ag-stage{position:relative;width:100%;max-width:1400px;padding:0 2rem 2rem;box-sizing:border-box;flex:1;display:flex;flex-direction:column}
-  .ag-frame-wrap{position:relative;width:100%;aspect-ratio:1800/1169;background:var(--ag-paper-2);border-radius:2px;box-shadow:0 18px 40px rgba(17,18,20,.08);transform:rotate(.4deg);overflow:hidden;flex-shrink:0;transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 240ms linear}
-  .ag-stage[data-view="fwd"] .ag-frame-wrap{transform:rotate(.4deg) translateY(-24%);opacity:.25}
-  .ag-frame,.ag-frame--back{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:top center;display:block}
-  .ag-frame--back{opacity:0;transition:opacity 120ms linear;z-index:2}
-  .ag-frame--back.is-active{opacity:1}
-  .ag-stickies{position:absolute;inset:0;z-index:5;pointer-events:none}
-  .ag-sticky{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);background:transparent;border:none;cursor:pointer;pointer-events:auto;border-radius:2px;padding:0;animation:ag-pulse 2.4s ease-in-out infinite alternate;transition:transform 150ms ease,box-shadow 150ms ease}
-  .ag-sticky:hover,.ag-sticky:focus-visible{background:var(--ag-pink-ghost);transform:translateY(-3px);box-shadow:0 6px 16px rgba(233,30,123,.18);animation:none;outline:2px solid var(--ag-pink);outline-offset:2px}
-  .ag-sticky:active{transform:scale(.96)}
-  .ag-sticky::after{content:attr(data-arrow);position:absolute;right:-1.2rem;top:50%;transform:translateY(-50%);font-size:.875rem;color:var(--ag-pink);opacity:0;transition:opacity 150ms ease;pointer-events:none}
-  .ag-sticky[data-dir="back"]::after{right:auto;left:-1.2rem}
-  .ag-sticky[data-dir="down"]::after{right:auto;left:50%;top:auto;bottom:-1.2rem;transform:translateX(-50%)}
-  .ag-sticky:hover::after,.ag-sticky:focus-visible::after{opacity:1}
-  @keyframes ag-pulse{from{background:transparent}to{background:rgba(233,30,123,.06)}}
-  .ag-rail-h,.ag-rail-v{position:absolute;background:var(--ag-pink-soft);opacity:0;transition:opacity 400ms ease-out;pointer-events:auto;cursor:pointer;z-index:3}
-  .ag-stage.is-ready .ag-rail-h,.ag-stage.is-ready .ag-rail-v{opacity:1}
-  .ag-stage[data-view="back"] .ag-rail-v,.ag-stage[data-view="fwd"] .ag-rail-h{opacity:0}
-  .ag-rail-h{height:14px;background:transparent}
-  .ag-rail-h::after{content:'';display:block;position:absolute;top:5px;left:0;right:0;height:4px;background:var(--ag-pink);border-radius:2px;pointer-events:none;transition:background 160ms ease,transform 160ms ease}
-  .ag-rail-h:hover::after,.ag-rail-h:focus-visible::after{background:var(--ag-pink);transform:scaleY(1.4)}
-  .ag-rail-v{width:14px;background:transparent}
-  .ag-rail-v::before{content:'';display:block;position:absolute;left:5px;top:0;bottom:0;width:4px;background:var(--ag-pink);border-radius:2px;pointer-events:none;transition:background 160ms ease,transform 160ms ease}
-  .ag-rail-v:hover::before,.ag-rail-v:focus-visible::before{transform:scaleX(1.4)}
-  .ag-rail-label{position:absolute;font-family:var(--font-script,'Caveat',cursive);font-size:.95rem;color:var(--ag-pink);white-space:nowrap;cursor:pointer;padding:.25rem .375rem;border-radius:3px;transition:color 160ms ease,background 160ms ease}
-  .ag-rail-label:hover,.ag-rail-label:focus-visible{color:var(--ag-ink);background:rgba(217,89,124,.08)}
-  .ag-breadcrumb{position:fixed;top:5rem;left:1.5rem;z-index:200;font-family:var(--font-script,'Caveat',cursive);font-size:1.125rem;color:var(--ag-pink);background:none;border:none;cursor:pointer;padding:.25rem .5rem;border-radius:4px;display:none;transition:transform 100ms ease}
-  .ag-breadcrumb:hover{text-decoration:underline}
-  .ag-breadcrumb:active{transform:scale(.96)}
-  .ag-breadcrumb:focus-visible{outline:2px solid var(--ag-pink);outline-offset:2px}
-  .ag-stage[data-view="back"]~.ag-breadcrumb,.ag-stage[data-view="fwd"]~.ag-breadcrumb{display:block}
-  .ag-arrival{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%) translateY(6px);max-width:420px;background:var(--ag-paper-2);border:1px solid var(--ag-pink-soft);border-radius:4px;padding:.6rem 1rem;font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.9375rem;font-weight:500;color:var(--ag-pink);text-align:center;opacity:0;transition:opacity 200ms ease,transform 200ms ease;pointer-events:none;z-index:10}
-  .ag-arrival.is-visible{opacity:1;transform:translateX(-50%) translateY(0)}
-  .ag-back-scrub{display:none;flex-direction:column;gap:.75rem;padding:1.25rem 0 0}
-  .ag-stage[data-view="back"] .ag-back-scrub{display:flex}
-  .ag-back-scrub-label{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;font-weight:500;color:var(--ag-ink-dim)}
-  .ag-back-ticks{position:relative;height:36px;display:flex;align-items:center}
-  .ag-back-rail-line{position:absolute;inset:auto 0;top:50%;transform:translateY(-50%);height:2px;background:var(--ag-ink-faint);border-radius:1px;pointer-events:none}
-  .ag-back-tick{position:absolute;top:50%;transform:translate(-50%,-50%);width:3px;height:8px;background:var(--ag-ink-faint);border:none;padding:0;cursor:pointer;border-radius:1px;transition:height .15s,background .15s}
-  .ag-back-tick:hover,.ag-back-tick:focus-visible{background:var(--ag-pink);height:14px;outline:2px solid var(--ag-pink);outline-offset:2px}
-  .ag-back-tick[aria-current="true"]{background:var(--ag-pink);height:20px;width:3px}
-  .ag-back-caption{min-height:4rem}
-  .ag-back-caption-headline{font-family:var(--font-serif,'DM Serif Display',serif);font-size:1.25rem;font-weight:400;color:var(--ag-ink);margin:0 0 .25rem;display:none}
-  .ag-back-caption-prose{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.875rem;color:var(--ag-ink-dim);line-height:1.55;margin:0;display:none}
-  .ag-back-caption-slot{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;color:var(--ag-ink-faint);display:block}
-  .ag-fwd-view{display:none;position:absolute;inset:0;z-index:20;background:var(--ag-paper);padding:1rem 2rem 2rem;box-sizing:border-box;flex-direction:row;gap:2rem;align-items:flex-start;transform:translateY(28%);opacity:0;transition:transform 240ms cubic-bezier(.2,.8,.2,1),opacity 240ms linear}
-  .ag-stage[data-view="fwd"] .ag-fwd-view{display:flex;transform:translateY(0);opacity:1}
-  .ag-fwd-img-wrap{flex:1;position:relative;aspect-ratio:1800/1169;background:var(--ag-paper-2);border-radius:2px;box-shadow:0 18px 40px rgba(17,18,20,.08);overflow:hidden;min-width:0}
-  .ag-fwd-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block}
-  .ag-fwd-pins{position:absolute;inset:0;pointer-events:none;z-index:5}
-  .ag-pin{position:absolute;transform:translate(-50%,-50%);pointer-events:auto}
-  .ag-pin-dot{width:16px;height:16px;border-radius:50%;background:var(--ag-pink);opacity:.4;color:transparent;font:600 .6875rem/16px 'DM Sans',sans-serif;text-align:center;border:none;cursor:help;transition:width .2s,height .2s,opacity .2s,color .2s}
-  .ag-pin:hover .ag-pin-dot,.ag-pin:focus-within .ag-pin-dot{width:24px;height:24px;line-height:24px;opacity:1;color:#fff}
-  .ag-pin-dot:focus-visible{outline:2px solid var(--ag-pink);outline-offset:2px}
-  .ag-pin-tip{position:absolute;top:28px;left:50%;transform:translateX(-50%);background:var(--ag-paper-2);color:var(--ag-ink);border:1px solid var(--ag-ink-faint);padding:.4rem .65rem;border-radius:4px;font:.8125rem/1.4 'DM Sans',sans-serif;max-width:260px;width:max-content;opacity:0;transition:opacity .2s;pointer-events:none;box-shadow:0 4px 12px rgba(17,18,20,.1);z-index:1;white-space:normal}
-  .ag-pin:hover .ag-pin-tip,.ag-pin:focus-within .ag-pin-tip{opacity:1}
-  .ag-pin[data-side="above"] .ag-pin-tip{top:auto;bottom:28px}
-  .ag-fwd-prose{width:340px;flex-shrink:0;display:flex;flex-direction:column;gap:.75rem;padding-top:.5rem}
-  .ag-fwd-prose-name{font-family:var(--font-serif,'DM Serif Display',serif);font-size:1.5rem;font-weight:400;color:var(--ag-ink);margin:0;line-height:1.2}
-  .ag-fwd-prose-sub{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;font-style:italic;color:var(--ag-ink-dim);margin:0}
-  .ag-fwd-prose-body{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.9375rem;color:var(--ag-ink);line-height:1.6;margin:0}
-  .ag-fwd-rail{display:none;position:absolute;right:.75rem;top:50%;transform:translateY(-50%);flex-direction:column;gap:.75rem;z-index:30;align-items:center}
-  .ag-stage[data-view="fwd"] .ag-fwd-rail{display:flex}
-  .ag-fwd-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--ag-pink);background:transparent;cursor:pointer;padding:0;transition:background .15s,width .15s,height .15s}
-  .ag-fwd-dot[aria-current="true"]{background:var(--ag-pink);width:10px;height:10px}
-  .ag-fwd-dot:focus-visible{outline:2px solid var(--ag-pink);outline-offset:3px}
-  .ag-coda{background:var(--ag-paper);padding:5rem 2rem 4rem;text-align:left}
-  .ag-coda-inner{max-width:720px;margin:0 auto}
-  .ag-coda-eyebrow{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:.8125rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--ag-ink-dim);margin:0 0 1rem}
-  .ag-coda h3{font-family:var(--font-serif,'DM Serif Display',serif);font-size:clamp(1.5rem,3vw,1.75rem);font-weight:400;line-height:1.2;margin:0 0 1.5rem;color:var(--ag-ink)}
-  .ag-coda p{font-family:var(--font-sans,'DM Sans',sans-serif);font-size:1rem;color:#333;line-height:1.65;margin:0 0 .75rem}
-  .ag-coda-final{font-family:var(--font-serif,'DM Serif Display',serif);font-size:1.375rem;font-style:italic;color:var(--ag-ink);margin-top:2rem;display:block;border-left:3px solid transparent;padding-left:1rem;transition:border-color .15s}
-  .ag-coda--flash .ag-coda-final{border-left-color:var(--ag-pink)}
-  @media(prefers-reduced-motion:reduce){
-    .ag-sticky,.ag-sticky:hover,.ag-sticky:active{animation:none;transform:none}
-    .ag-stage.is-ready .ag-rail-h,.ag-stage.is-ready .ag-rail-v{opacity:1;transition:none}
-    .ag-frame--back,.ag-back-scrub,.ag-fwd-view,.ag-frame-wrap,.ag-arrival,.ag-coda-final,.ag-fwd-img{transition:none}
-    *{animation-duration:0ms!important}
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --orange: #E8734A;
+    --green: #5BBD72;
+    --purple: #A78BFA;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
   }
-  @media(max-width:720px){
-    .ag-hinge-header{padding:5rem 1.25rem 1rem}
-    .ag-thesis{font-size:1.5rem}
-    .ag-stage{padding:0 1.25rem 1.5rem}
-    .ag-frame-wrap{transform:none}
-    .ag-stage[data-view="fwd"] .ag-frame-wrap{transform:translateY(-24%)}
-    .ag-rail-h,.ag-rail-v{display:none}
-    .ag-fwd-view{flex-direction:column;padding:1rem 1.25rem 1.5rem}
-    .ag-fwd-prose{width:100%}
-    .ag-fwd-rail{right:.5rem}
-    .ag-breadcrumb{top:auto;bottom:1.5rem;left:auto;right:1.5rem;width:48px;height:48px;border-radius:50%;background:var(--ag-pink);color:#fff;display:none;align-items:center;justify-content:center;font-size:1.25rem}
-    .ag-stage[data-view="back"]~.ag-breadcrumb,.ag-stage[data-view="fwd"]~.ag-breadcrumb{display:flex}
-    .ag-arrival{max-width:60vw;bottom:5rem}
-    .ag-sticky{min-width:44px;min-height:44px}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
   }
-  @media(max-width:480px){.ag-fwd-prose-name{font-size:1.25rem}.ag-fwd-prose-body{font-size:.875rem}}
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  /* floating cuts switcher — small pill cluster, top-right, under the nav */
+  .cuts-switch {
+    position: fixed;
+    top: 5.5rem; right: 1.25rem;
+    z-index: 480;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.55rem 0.4rem 0.85rem;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    font-family: var(--sans);
+  }
+  .cuts-switch-label {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-right: 0.25rem;
+  }
+  .cuts-switch-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--bg);
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .cuts-switch-btn:hover { background: var(--pink); color: #fff; }
+  @media (max-width: 720px) {
+    .cuts-switch {
+      top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
+      box-shadow: 0 -8px 20px -8px rgba(44, 53, 68, 0.18), 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    }
+    .cuts-switch-label { display: none; }
+  }
+
+  /* scroll progress thread */
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.1s linear;
+  }
+
+  /* ============ INTERSECTION REVEAL ============ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal.delay-1 { transition-delay: 100ms; }
+  .reveal.delay-2 { transition-delay: 220ms; }
+  .reveal.delay-3 { transition-delay: 340ms; }
+  .reveal.delay-4 { transition-delay: 460ms; }
+  .reveal.delay-5 { transition-delay: 580ms; }
+
+  /* ============ HERO ============ */
+  .hero {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: clamp(7rem, 14vh, 11rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner { max-width: 1280px; width: 100%; margin: 0 auto; position: relative; z-index: 2; }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pink);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 123, 0.5); }
+    50%      { box-shadow: 0 0 0 12px rgba(233, 30, 123, 0); }
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 16ch;
+    margin-bottom: 2rem;
+  }
+  .hero h1 .accent { color: var(--pink); display: inline-block; }
+  .hero h1 .num {
+    font-family: var(--hand);
+    color: var(--pink);
+    font-size: 1.1em;
+    line-height: 0.85;
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-right: 0.1em;
+  }
+  .hero-deck {
+    font-size: clamp(1.15rem, 1.8vw, 1.45rem);
+    color: var(--ink);
+    max-width: 48rem;
+    line-height: 1.4;
+    margin-bottom: 2.5rem;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .hero-meta span { display: inline-flex; align-items: baseline; gap: 0.4rem; }
+  .hero-meta strong { color: var(--ink); font-weight: 700; letter-spacing: -0.01em; text-transform: none; font-size: 1rem; }
+
+  /* hero dots — drift in */
+  .hero-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0;
+    animation: dotDrift 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+  @keyframes dotDrift {
+    from { opacity: 0; transform: translate(var(--from-x, -40px), var(--from-y, 40px)) scale(0.7); }
+    to   { opacity: var(--final-opacity, 1); transform: translate(0, 0) scale(1); }
+  }
+  .hd1 { width: 280px; height: 280px; top: 8%;  right: -4%;  background: var(--cyan); opacity: 0.85; --final-opacity: 0.85; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
+  .hd2 { width: 56px;  height: 56px;  bottom: 22%; right: 28%; background: var(--pink); --from-y: 30px; animation-delay: 400ms; }
+  .hd3 { width: 22px;  height: 22px;  top: 26%; left: 38%; background: var(--yellow); animation-delay: 600ms; }
+  .hd4 { width: 110px; height: 110px; bottom: 12%; left: 6%;  background: var(--pink); opacity: 0.75; --final-opacity: 0.75; --from-x: -60px; animation-delay: 300ms; }
+  .hd5 { width: 14px;  height: 14px;  top: 60%; left: 24%; background: var(--cyan); animation-delay: 500ms; }
+  .hd6 { width: 32px;  height: 32px;  top: 16%; left: 12%; background: var(--yellow); animation-delay: 700ms; }
+
+  /* ============ SECTION SHELL ============ */
+  .sec {
+    padding: clamp(4rem, 10vh, 8rem) var(--x);
+    position: relative;
+  }
+  .sec-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .sec-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--pink);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .sec-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 4.6vw, 3.6rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    max-width: 22ch;
+  }
+  .sec-title em { font-style: italic; color: var(--pink); }
+  .sec-deck {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    color: var(--ink-soft);
+    max-width: 38rem;
+    line-height: 1.5;
+    margin-bottom: 3rem;
+  }
+  .sec-source {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-top: 2rem;
+  }
+  .sec-source::before {
+    content: "↳ "; color: var(--pink);
+  }
+
+  /* ============ SECTION 2 — BRIEF / BEHAVIOR CHANGE ============ */
+  .brief {
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .brief-headline {
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    max-width: 24ch;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+  }
+  .brief-headline .strike {
+    position: relative;
+    display: inline-block;
+  }
+  .brief-headline .strike::after {
+    content: "";
+    position: absolute;
+    left: -4%; right: -4%;
+    top: 56%;
+    height: 6px;
+    background: var(--pink);
+    border-radius: 3px;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: 700ms;
+  }
+  .reveal.in .brief-headline .strike::after { transform: scaleX(1); }
+  .brief-headline .replace {
+    color: var(--pink);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 600ms ease, transform 600ms ease;
+    transition-delay: 1500ms;
+    display: inline-block;
+  }
+  .reveal.in .brief-headline .replace { opacity: 1; transform: translateY(0); }
+  .brief-body {
+    max-width: 38rem;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ============ SECTION 3 — PERSONA SPECTRUM ============ */
+  .personas-wrap {
+    margin-top: 2rem;
+    padding: 3rem 0;
+    position: relative;
+  }
+  .personas-axis {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ink), transparent);
+    margin: 0 5%;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: 200ms;
+  }
+  .reveal.in .personas-axis { transform: scaleX(1); }
+  .personas-axis-label-l, .personas-axis-label-r {
+    position: absolute;
+    top: 1.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .personas-axis-label-l { left: 0; }
+  .personas-axis-label-r { right: 0; }
+  .personas-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    justify-content: center;
+    margin-top: 4rem;
+  }
+  .persona-chip {
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--rule);
+    background: var(--paper);
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: chipIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: var(--cd, 0ms);
+    cursor: default;
+    transition: border-color 200ms, color 200ms, background 200ms, transform 200ms;
+  }
+  .reveal.in .persona-chip { animation-play-state: running; }
+  .persona-chip:not(.in-view) { animation-play-state: paused; }
+  @keyframes chipIn { to { opacity: 1; transform: translateY(0); } }
+  .persona-chip.builder { border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.08); }
+  .persona-chip.consumer { border-color: rgba(233, 30, 123, 0.4); background: rgba(233, 30, 123, 0.08); }
+  .persona-chip.role { border-color: rgba(79, 196, 207, 0.4); background: rgba(79, 196, 207, 0.08); }
+  .persona-chip:hover { transform: translateY(-2px); border-color: var(--ink); }
+  .persona-legend {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .persona-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
+  .persona-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ============ SECTION 4 — VERBATIM USER VOICE ============ */
+  .voice-section { background: var(--ink); color: #fff; }
+  .voice-section .sec-eyebrow { color: var(--cyan); }
+  .voice-section .sec-title { color: #fff; }
+  .voice-section .sec-deck { color: rgba(255, 255, 255, 0.7); }
+  .voice-section .sec-source { color: rgba(255, 255, 255, 0.45); }
+  .voice-section .sec-source::before { color: var(--cyan); }
+
+  .voice-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  .voice-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 1.75rem 1.5rem 1.5rem;
+    position: relative;
+    transition: background 300ms ease, transform 300ms ease, border-color 300ms ease;
+  }
+  .voice-card:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: var(--cyan);
+    transform: translateY(-3px);
+  }
+  .voice-card .qmark {
+    position: absolute;
+    top: -0.6rem; left: 1rem;
+    font-family: serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--cyan);
+    opacity: 0.6;
+  }
+  .voice-card blockquote {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: #fff;
+    margin: 0 0 1.25rem;
+    position: relative;
+    z-index: 1;
+  }
+  .voice-card cite {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.65);
+    display: block;
+    border-top: 1px dashed rgba(255, 255, 255, 0.15);
+    padding-top: 0.85rem;
+  }
+  .voice-card cite strong { color: #fff; font-weight: 600; }
+
+  /* ============ SECTION 5 — SYNTHESIS PULL ============ */
+  .synthesis {
+    background: var(--bg);
+    text-align: center;
+  }
+  .synthesis .sec-inner { max-width: 920px; }
+  .synthesis-quote {
+    font-weight: 500;
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+  }
+  .synthesis-quote mark {
+    background: linear-gradient(180deg, transparent 60%, rgba(233, 30, 123, 0.25) 60%);
+    color: inherit;
+    padding: 0 0.1em;
+  }
+  .synthesis-attrib {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+  }
+
+  /* ============ SECTION 6 — HYPOTHESES ============ */
+  .hyp-section .sec-title em { color: var(--pink); }
+  .hyp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 720px) { .hyp-grid { grid-template-columns: 1fr; } }
+  .hyp-card {
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: border-color 200ms, transform 200ms, box-shadow 200ms, background 200ms;
+    text-align: left;
+    width: 100%;
+    font-family: var(--sans);
+    color: var(--ink);
+  }
+  .hyp-card:hover { border-color: var(--pink); transform: translateY(-2px); box-shadow: 0 16px 28px -16px rgba(44,53,68,0.18); }
+  .hyp-card:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+  .hyp-card[aria-expanded="true"] { border-color: var(--pink); background: rgba(233, 30, 123, 0.05); }
+  .hyp-num {
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 0.85;
+    color: var(--pink);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .hyp-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.5rem;
+  }
+  .hyp-belief {
+    font-size: 0.96rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .hyp-prompt {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9a1453;
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .hyp-prompt::after { content: "↓"; transition: transform 200ms; }
+  .hyp-card[aria-expanded="true"] .hyp-prompt::after { transform: rotate(180deg); }
+  .hyp-test {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(44, 53, 68, 0.18);
+    display: none;
+  }
+  .hyp-card[aria-expanded="true"] .hyp-test { display: block; }
+  .hyp-test-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #9a1453;
+    margin-bottom: 0.5rem;
+  }
+  .hyp-test ul { list-style: none; padding: 0; margin: 0; }
+  .hyp-test li { padding: 0.4rem 0; font-size: 0.9rem; line-height: 1.45; }
+  .hyp-test li::before { content: "→ "; color: var(--pink); font-weight: 700; }
+
+  /* ============ SECTION 7 — JOURNEY (animated SVG line) ============ */
+  .journey { background: var(--paper); }
+  .journey-svg-wrap {
+    position: relative;
+    margin: 3rem 0 4rem;
+  }
+  .journey-svg {
+    display: block;
+    width: 100%;
+    height: 80px;
+    overflow: visible;
+  }
+  .journey-path {
+    fill: none;
+    stroke: var(--pink);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 1500;
+    stroke-dashoffset: 1500;
+    transition: stroke-dashoffset 2200ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 200ms;
+  }
+  .reveal.in .journey-path { stroke-dashoffset: 0; }
+  .journey-stops {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: -3rem;
+  }
+  @media (max-width: 720px) { .journey-stops { grid-template-columns: 1fr; gap: 1rem; margin-top: 1rem; } }
+  .journey-stop {
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 600ms ease, transform 600ms ease, border-color 200ms;
+  }
+  .reveal.in .journey-stop:nth-child(1) { transition-delay: 1400ms; opacity: 1; transform: translateY(0); }
+  .reveal.in .journey-stop:nth-child(2) { transition-delay: 1800ms; opacity: 1; transform: translateY(0); }
+  .reveal.in .journey-stop:nth-child(3) { transition-delay: 2200ms; opacity: 1; transform: translateY(0); }
+  .journey-stop-pin {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--pink);
+    color: #fff;
+    border: 4px solid var(--paper);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 14px rgba(233, 30, 123, 0.4);
+  }
+  .journey-stop-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.5rem;
+  }
+  .journey-stop-q {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .journey-stop-quotes p {
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: var(--ink);
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed rgba(44, 53, 68, 0.1);
+  }
+  .journey-stop-quotes p:last-child { border-bottom: 0; }
+  .journey-stop-quotes p::before { content: "“"; color: var(--pink); font-weight: 700; }
+  .journey-stop-quotes p::after { content: "”"; color: var(--pink); font-weight: 700; }
+  .journey-callout {
+    background: var(--bg);
+    border-left: 4px solid var(--pink);
+    padding: 1.25rem 1.5rem;
+    border-radius: 8px;
+    font-style: italic;
+    color: var(--ink);
+    max-width: 38rem;
+    margin: 3rem auto 0;
+    font-size: 1.05rem;
+  }
+
+  /* ============ SECTION 8 — TAGLINE MORPH ============ */
+  .tagline { background: var(--ink); color: #fff; min-height: 70vh; display: flex; align-items: center; }
+  .tagline .sec-eyebrow { color: var(--yellow); }
+  .tagline .sec-title { color: #fff; }
+  .tagline .sec-deck { color: rgba(255, 255, 255, 0.6); }
+  .tagline-stage {
+    margin-top: 3rem;
+    text-align: center;
+    min-height: 8em;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tagline-line {
+    font-weight: 600;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: #fff;
+    max-width: 22ch;
+  }
+  .tagline-bracket {
+    color: var(--yellow);
+    font-style: italic;
+    transition: opacity 200ms ease;
+    display: inline-block;
+    min-width: 4em;
+  }
+  .tagline-counter {
+    margin-top: 2rem;
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--cyan);
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  .tagline-final-card {
+    margin: 4rem auto 0;
+    background: var(--pink);
+    border-radius: 18px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    max-width: 520px;
+    transform: scale(0.94);
+    opacity: 0;
+    transition: transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 700ms ease;
+    transition-delay: 300ms;
+  }
+  .reveal.in .tagline-final-card { transform: scale(1); opacity: 1; }
+  .tagline-final-mark {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+  }
+  .tagline-final {
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: #fff;
+    line-height: 1.15;
+  }
+
+  /* ============ SECTION 9 — INFO FLOW ============ */
+  .infoflow { background: var(--paper); }
+  .flow-svg {
+    display: block;
+    width: 100%;
+    max-width: 1100px;
+    margin: 3rem auto;
+    height: auto;
+  }
+  .flow-node {
+    fill: var(--paper);
+    stroke: var(--ink);
+    stroke-width: 2;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .reveal.in .flow-node { opacity: 1; }
+  .flow-node.entry { fill: var(--pink); stroke: var(--pink); }
+  .flow-node.success { fill: var(--green); stroke: var(--green); }
+  .flow-node.failure { fill: var(--orange); stroke: var(--orange); }
+  .flow-line {
+    stroke: var(--ink-soft);
+    stroke-width: 2;
+    fill: none;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    transition: stroke-dashoffset 1200ms ease;
+  }
+  .reveal.in .flow-line { stroke-dashoffset: 0; }
+  .flow-text {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    fill: var(--ink);
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .reveal.in .flow-text { opacity: 1; }
+  .flow-text.on-pink { fill: #fff; }
+  .flow-stagger-1 { transition-delay: 300ms; }
+  .flow-stagger-2 { transition-delay: 600ms; }
+  .flow-stagger-3 { transition-delay: 900ms; }
+  .flow-stagger-4 { transition-delay: 1200ms; }
+  .flow-stagger-5 { transition-delay: 1500ms; }
+  .flow-stagger-6 { transition-delay: 1800ms; }
+  .flow-stagger-7 { transition-delay: 2100ms; }
+  .flow-stagger-8 { transition-delay: 2400ms; }
+  .flow-stagger-9 { transition-delay: 2700ms; }
+
+  /* ============ SECTION 10 — ANNOTATED ARCHITECT ============ */
+  .annotated { background: var(--bg); }
+  .annotated-wrap {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 50px -28px rgba(44, 53, 68, 0.22),
+      0 6px 14px -4px rgba(44, 53, 68, 0.08);
+    margin: 3rem 0 1rem;
+  }
+  .annotated-wrap img { width: 100%; height: auto; display: block; }
+  .hotspot {
+    position: absolute;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--pink);
+    color: #fff;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 14px rgba(233, 30, 123, 0.5);
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    transition: transform 200ms ease;
+    animation: hotspotPulse 2.4s ease-in-out infinite;
+  }
+  .hotspot:hover { transform: translate(-50%, -50%) scale(1.2); }
+  @keyframes hotspotPulse {
+    0%, 100% { box-shadow: 0 4px 14px rgba(233, 30, 123, 0.5), 0 0 0 0 rgba(233, 30, 123, 0.4); }
+    50%      { box-shadow: 0 4px 14px rgba(233, 30, 123, 0.5), 0 0 0 16px rgba(233, 30, 123, 0); }
+  }
+  .hotspot-tip {
+    position: absolute;
+    bottom: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: #fff;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    width: 240px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    z-index: 6;
+  }
+  .hotspot-tip strong {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.25rem;
+  }
+  .hotspot:hover + .hotspot-tip,
+  .hotspot.is-open + .hotspot-tip { opacity: 1; pointer-events: auto; }
+
+  /* ============ SECTION 11 — WHAT LANDED ============ */
+  .landed { background: var(--paper); }
+  .landed-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  @media (max-width: 720px) { .landed-grid { grid-template-columns: 1fr; } }
+  .landed-card {
+    padding: 1.75rem;
+    border-radius: 14px;
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    transition: transform 240ms ease, border-color 240ms ease;
+  }
+  .landed-card:hover { transform: translateY(-3px); border-color: var(--pink); }
+  .landed-num {
+    font-family: var(--hand);
+    font-size: 2.2rem;
+    color: var(--pink);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.25rem;
+  }
+  .landed-h {
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.015em;
+  }
+  .landed-b { font-size: 0.96rem; line-height: 1.5; color: var(--ink-soft); }
+
+  /* ============ SECTION 12 — TAKEAWAYS ============ */
+  .takeaways {
+    background: var(--ink);
+    color: #fff;
+    text-align: left;
+  }
+  .takeaways .sec-eyebrow { color: var(--yellow); }
+  .takeaways .sec-title { color: #fff; }
+  .takeaway-list {
+    margin-top: 2.5rem;
+    list-style: none;
+    padding: 0;
+    max-width: 60ch;
+  }
+  .takeaway-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.5rem 0;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+    position: relative;
+    padding-left: 2.5rem;
+  }
+  .takeaway-list li::before {
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    left: 0;
+    top: 1.5rem;
+    font-family: var(--hand);
+    font-size: 1.6rem;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .takeaway-list { counter-reset: li; }
+  .takeaways-cta {
+    margin-top: 4rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    background: var(--pink);
+    color: #fff;
+    transition: transform 0.25s, box-shadow 0.25s;
+    box-shadow: 0 6px 0 #9a1453;
+  }
+  .takeaways-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+
+  /* ============ SOURCES FOOTER ============ */
+  .sources { background: var(--bg); padding: 3rem var(--x); border-top: 1px solid var(--rule); }
+  .sources-inner { max-width: 1280px; margin: 0 auto; }
+  .sources h4 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1rem;
+  }
+  .sources ul { list-style: none; padding: 0; }
+  .sources li { font-size: 0.85rem; color: var(--ink-soft); padding: 0.25rem 0; }
+  .sources li strong { color: var(--ink); font-weight: 600; }
+
+  /* ============ REDUCED MOTION ============ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .journey-path { stroke-dashoffset: 0; }
+    .flow-line { stroke-dashoffset: 0; }
+  }
 </style>
 </head>
-<body class="work-page agemo">
+<body>
 
-  <!--BEGIN:NAV-->
+<!-- floating cuts switcher — quick jump to the short-form research / interface cuts -->
+<div class="cuts-switch">
+  <span class="cuts-switch-label">prefer the short version?</span>
+  <a href="agemo-cut-research.html" class="cuts-switch-btn">research cut</a>
+  <a href="agemo-cut-interface.html" class="cuts-switch-btn">interface cut</a>
+</div>
+<div class="thread"><div class="thread-fill" id="thread"></div></div>
+
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
 <style>
   .nav {
     position: fixed;
@@ -166,6 +960,8 @@
   }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
   .nav-toggle {
     display: none;
     width: 44px; height: 44px;
@@ -185,28 +981,42 @@
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
   @media (max-width: 720px) {
-    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
     .nav-toggle { display: inline-flex; }
     .nav .nav-links {
-      position: fixed; inset: 0;
+      position: fixed;
+      inset: 0;
       padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
       padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem;
-      background: #ffffff; border-left: 4px solid #2C3544;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
       z-index: 505;
     }
     .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: #2C3544; }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
     .nav .nav-links a.active { border-bottom-color: #E91E7B; }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -227,9 +1037,12 @@
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active');
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
       }
     }
+    // hamburger toggle
     var toggle = document.querySelector('.nav-toggle');
     var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
@@ -244,7 +1057,11 @@
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         document.body.style.overflow = open ? 'hidden' : '';
       });
-      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && menu.classList.contains('open')) close();
       });
@@ -253,133 +1070,528 @@
 </script>
 <!--END:NAV-->
 
-  <header class="cs-cover">
-    <div class="cs-cover-image" style="background-image:url('../images/work/agemo/cover.webp');" role="img" aria-label="Agemo product scene"></div>
-    <div class="cs-cover-meta">
-      <p class="cs-eyebrow">a case study in iteration</p>
-      <h1>agemo</h1>
-      <p class="cs-tagline">A GenAI startup with a new way of coding — and no user mental model for it yet. So we drew, and drew, and drew.</p>
-      <ul class="cs-services">
-        <li>Research</li>
-        <li>Product Strategy</li>
-        <li>Interface Design</li>
-      </ul>
-      <div class="cs-meta-row">
-        <span>United Kingdom</span>
-        <span>1–10 employees</span>
-        <span>Pre-Series A</span>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <span class="hero-dot hd1"></span>
+  <span class="hero-dot hd2"></span>
+  <span class="hero-dot hd3"></span>
+  <span class="hero-dot hd4"></span>
+  <span class="hero-dot hd5"></span>
+  <span class="hero-dot hd6"></span>
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Codewords by Agemo · Case study</span>
+    <h1>
+      <span class="num">8</span> bets,<br/>
+      drawn <span class="accent">26 times</span>.
+    </h1>
+    <p class="hero-deck">A GenAI startup that lets people build software by describing what they want, in plain words. Codewords had no precedent — and no shared mental model with users. We worked with the team to design a product that could prove or disprove eight beliefs about how users would behave, in the wild.</p>
+    <div class="hero-meta">
+      <span><strong>Agemo × Joyus</strong></span>
+      <span>Discipline: <strong>Research, Strategy, Interface</strong></span>
+      <span>Year: <strong>2024–2026</strong></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 2 — BRIEF ============ -->
+<section class="sec brief">
+  <div class="sec-inner reveal">
+    <h2 class="brief-headline">
+      The product was <span class="strike">new</span>. The behavior <span class="replace">wasn't.</span>
+    </h2>
+    <p class="brief-body">Codewords is not a new behavior — it's a new way of completing one. People already Google for code, ask ChatGPT for snippets, hire contractors for one-off scripts. The question wasn't <em>"will people want this?"</em> It was <em>"how do we get them to switch?"</em></p>
+    <p class="sec-source" style="text-align:center; margin-top: 2rem;">Hypothesis 1 · Product Design Hypotheses (CW), slide 2</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 3 — PERSONA SPECTRUM ============ -->
+<section class="sec">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">who is this for?</span>
+    <h2 class="sec-title">Twelve user types, on a single <em>proficiency axis</em>.</h2>
+    <p class="sec-deck">The team mapped users along a spectrum — from people who'd never write a line of code (Tool Consumers) to people who'd build pipelines of pipelines (Tool Chainers). Hypothesis 4 (Completeness over Simplicity) was a deliberate choice: design for the right edge of the spectrum, even at the cost of casual users.</p>
+
+    <div class="personas-wrap">
+      <div class="personas-axis"></div>
+      <span class="personas-axis-label-l">Tool Consumer</span>
+      <span class="personas-axis-label-r">Tool Chainer →</span>
+
+      <div class="personas-row" id="personas-row">
+        <span class="persona-chip role"   style="--cd: 100ms;">Deployer</span>
+        <span class="persona-chip role"   style="--cd: 200ms;">Automator</span>
+        <span class="persona-chip role"   style="--cd: 300ms;">Niche tooling builder</span>
+        <span class="persona-chip role"   style="--cd: 400ms;">Prototyper</span>
+        <span class="persona-chip builder" style="--cd: 500ms;">Expert / tech consultant</span>
+        <span class="persona-chip builder" style="--cd: 600ms;">Founder / Designer / PM</span>
+        <span class="persona-chip builder" style="--cd: 700ms;">Indie hacker / microsaas</span>
+        <span class="persona-chip builder" style="--cd: 800ms;">Tinkerer</span>
+        <span class="persona-chip builder" style="--cd: 900ms;">Generalist</span>
+        <span class="persona-chip builder" style="--cd: 1000ms;">Management consultant</span>
+        <span class="persona-chip builder" style="--cd: 1100ms;">Data scientist</span>
+        <span class="persona-chip builder" style="--cd: 1200ms;">Front-end engineer</span>
+        <span class="persona-chip builder" style="--cd: 1300ms;">Back-end engineer</span>
+        <span class="persona-chip consumer" style="--cd: 1400ms;">PMs &amp; designers (consumer)</span>
+        <span class="persona-chip consumer" style="--cd: 1500ms;">ML engineers (consumer)</span>
+      </div>
+
+      <div class="persona-legend">
+        <span><i class="dot" style="background:rgba(79,196,207,0.6)"></i> Role</span>
+        <span><i class="dot" style="background:rgba(167,139,250,0.6)"></i> Builder</span>
+        <span><i class="dot" style="background:rgba(233,30,123,0.6)"></i> Consumer</span>
       </div>
     </div>
-  </header>
+    <p class="sec-source">User personas board, file <code>EyAac9Qg6NIBeT2ZJFFkCP</code> · section <code>2029:630</code></p>
+  </div>
+</section>
 
-  <!-- ===== Hinge — the crit ===== -->
-  <section class="ag-hinge">
-    <div class="ag-hinge-header">
-      <p class="ag-eyebrow">the crit</p>
-      <h2 class="ag-thesis">we were losing patience with ourselves.</h2>
-      <p class="ag-subthesis">every pixel is a hypothesis.</p>
+<!-- ============ SECTION 4 — VERBATIM USER VOICE ============ -->
+<section class="sec voice-section">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">what real users said</span>
+    <h2 class="sec-title">The interviews said the same thing, <em>in different words</em>.</h2>
+    <p class="sec-deck">Eleven user-research conversations. The same theme, repeated by everyone from a founding engineer at Swiftkey to a Series A fintech PM: the product was powerful but didn't tell you what it could do, what to try, or why to trust it.</p>
+
+    <div class="voice-grid">
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>If you weren't here to walk me through it, I would have dropped off already.</blockquote>
+        <cite><strong>Amanda Pun</strong> — Staff PM, Series A fintech</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>I'm taking it at face value so my expectations are super high. You need to make sure you don't disappoint me if you don't set expectations from the get go.</blockquote>
+        <cite><strong>Jon Reynolds</strong> — co-founder, Swiftkey</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>What I find a bit problematic is that it's very open-ended. It obviously cannot do everything. But I'm not sure what I can try, what I cannot try. If I try something and I'm unlucky then I'll give up.</blockquote>
+        <cite><strong>Pier</strong> — Software engineer, Google</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>The prompt helper is genius.</blockquote>
+        <cite><strong>Marie Brayer</strong> — Semi-technical VC</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>I did not modify the new prompt because I was scared to break anything.</blockquote>
+        <cite><strong>Lucas</strong> — Technical founder</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>I spent a long time trying to understand if I can add an integration.</blockquote>
+        <cite><strong>Lucas</strong> — Technical founder</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>The main goal is to get things done — we'll worry about the quality later.</blockquote>
+        <cite><strong>Keshvi R.</strong> — Head of Product, Balderton</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>I didn't know what to do tbh, so I was just checking out the changelogs.</blockquote>
+        <cite><strong>Adnann</strong> — Designer</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>The information is too subtle. It took me some time to notice the Outline / Build / Deploy and the spinning wheel.</blockquote>
+        <cite><strong>Jon Reynolds</strong> — co-founder, Swiftkey</cite>
+      </article>
+      <article class="voice-card"><span class="qmark">"</span>
+        <blockquote>For the first time today, I did use CW and it saved me 30 minutes in my day.</blockquote>
+        <cite>Anonymous user</cite>
+      </article>
+    </div>
+    <p class="sec-source">UXR Analysis 2024-07-19 · file <code>EyAac9Qg6NIBeT2ZJFFkCP</code> · section <code>1:2</code></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 5 — SYNTHESIS PULL ============ -->
+<section class="sec synthesis">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">our synthesis</span>
+    <p class="synthesis-quote">
+      "Most of the feedback is early in the user journey. The lack of <mark>onboarding, guidance, information and positioning</mark> across the overall product is a huge handicap damaging UX. The recurring themes revolve around <mark>usability ('what can I do?')</mark> and <mark>guidance ('what should I do?')</mark>. The tool seems powerful but it is lacking the <mark>integration into the user's workflow</mark>."
+    </p>
+    <p class="synthesis-attrib">— Joyus synthesis sticky, captured directly on the UXR Analysis board.</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 6 — HYPOTHESES ============ -->
+<section class="sec hyp-section">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">eight bets</span>
+    <h2 class="sec-title">Each belief, designed to be <em>falsifiable</em>.</h2>
+    <p class="sec-deck">From the synthesis, the team formalized eight hypotheses — each with a measurable test. This document became the spine of every design decision. Click any card to see how they would have known they were wrong.</p>
+
+    <div class="hyp-grid">
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H1</span>
+        <h3 class="hyp-title">Codewords requires a behavior change</h3>
+        <p class="hyp-belief">We are introducing a new way of completing an existing behavior — not a new behavior. Users already Google for code; this changes how, not what.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>If users abandon to check Google partway → low intent, low trust</li>
+            <li>Cross-function usage signals branching curiosity</li>
+            <li>Without cross-usage, 30-day retention will be very low</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H2</span>
+        <h3 class="hyp-title">There is a journey to adoption</h3>
+        <p class="hyp-belief">New users will not be ready to create from a blank prompt at first. Mindsets follow a Curiosity → Aspirational → Problem-solving arc.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>Track visit number to first creation</li>
+            <li>Measure where creation happens (Remix? Home? Function page?)</li>
+            <li>Expect a longer adoption cycle before users habitually start blank</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H3</span>
+        <h3 class="hyp-title">Intent &gt; Curiosity</h3>
+        <p class="hyp-belief">Favor people with a goal to complete; secondarily support browsers. Codewords is a mastery-oriented product.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>Time spent per session (mastery products grow this over time)</li>
+            <li>Complexity of functions built — % moving to multi-block graphs</li>
+            <li>Are casual users converting or churning?</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H4</span>
+        <h3 class="hyp-title">Completeness over Simplicity</h3>
+        <p class="hyp-belief">Favor enabling power users over simplifying for casual ones. Detailed specs and architect access are worth the information density.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>Are users finding the spec / architect / FAQ?</li>
+            <li>When same-result options differ in detail, do users pick the more complete one?</li>
+            <li>Path after FAQ / spec — do they leave or dig deeper?</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H5</span>
+        <h3 class="hyp-title">Defer to the human</h3>
+        <p class="hyp-belief">The user knows how to solve their problem. The AI is a tool in their toolset, not a director.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>What % accept AI-suggested prompts directly?</li>
+            <li>Does that % grow or shrink over a user's lifecycle?</li>
+            <li>Are they remixing prompts, starting over, or moving on satisfied?</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H6</span>
+        <h3 class="hyp-title">Draft state matters</h3>
+        <p class="hyp-belief">Ideas rarely arrive fully formed. The drafting process needs space for feedback and refinement.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>Are users making more than one version of a function?</li>
+            <li>Are they refining prompts before generation?</li>
+            <li>Is average run-count per non-error function &gt; 1?</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H7</span>
+        <h3 class="hyp-title">Remixing is the new creating</h3>
+        <p class="hyp-belief">Most new things are adapted from existing solutions. AI products are blurring the line between creating and generating.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>When do users remix vs. start blank? (1st visit vs 10th?)</li>
+            <li>When do they remix from their own past prompts?</li>
+            <li>Success rate of remixed prompts vs. fresh ones</li>
+          </ul>
+        </div>
+      </button>
+      <button type="button" class="hyp-card" aria-expanded="false">
+        <span class="hyp-num">H8</span>
+        <h3 class="hyp-title">Users want it done</h3>
+        <p class="hyp-belief">Optimize for giving users something they can use, over getting into the details of how it gets done.</p>
+        <span class="hyp-prompt">how would we know we were wrong</span>
+        <div class="hyp-test">
+          <div class="hyp-test-label">Test criteria, in their words</div>
+          <ul>
+            <li>Are users frustrated when they can't intervene mid-generation?</li>
+            <li>Is the generated function usable in the way it was created?</li>
+            <li>When given customization controls, do they use them?</li>
+          </ul>
+        </div>
+      </button>
+    </div>
+    <p class="sec-source">Product Design Hypotheses (CW), slides 2–9 · authored by the Agemo team, structured by Joyus</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 7 — JOURNEY OF ADOPTION ============ -->
+<section class="sec journey">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">hypothesis 2, made tangible</span>
+    <h2 class="sec-title">The adoption journey, anchored to <em>verbatim user voice</em>.</h2>
+    <p class="sec-deck">The team's diagnosis of the existing product: users went straight from "Learn capabilities" to "Create" — skipping the trust-building middle. The redesign needed to give users somewhere to <em>be</em> while they figured out whether to invest. Three states. Each one with the actual quotes the team had captured from interviews.</p>
+
+    <div class="journey-svg-wrap">
+      <svg class="journey-svg" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
+        <path class="journey-path" d="M 60 40 C 300 40, 300 70, 600 40 S 900 10, 1140 40" />
+        <circle cx="60"   cy="40" r="8" fill="#E91E7B" />
+        <circle cx="600"  cy="40" r="8" fill="#E91E7B" />
+        <circle cx="1140" cy="40" r="8" fill="#E91E7B" />
+      </svg>
     </div>
 
-    <div class="ag-stage" data-view="crit" data-frame="18" data-pass="1">
-
-      <!-- Frame wrap: frame 18 hero + backward-axis image buffer -->
-      <div class="ag-frame-wrap">
-        <img class="ag-frame" src="../images/work/agemo/timeline/18.webp"
-          alt="Draft frame 18 — ten pink stickies overlaid on the Agemo Create-a-Tool screen"
-          width="1800" height="1169">
-        <img class="ag-frame--back" src="../images/work/agemo/timeline/18.webp"
-          alt="" aria-hidden="true" width="1800" height="1169">
-
-        <!-- Sticky hot-zones — positions are % of the rendered frame bbox -->
-        <!-- KAHRAN-REVIEW: sticky positions need browser tuning against 18.webp at 1440px wide -->
-        <div class="ag-stickies" aria-hidden="false">
-          <!-- Stickies injected by JS buildStickies() -->
+    <div class="journey-stops">
+      <div class="journey-stop">
+        <div class="journey-stop-pin">1</div>
+        <div class="journey-stop-name">Curiosity</div>
+        <p class="journey-stop-q">Low intent — <em>"What does this do?"</em></p>
+        <div class="journey-stop-quotes">
+          <p>How do I ...</p>
+          <p>Can I use a tool to let me ...</p>
+          <p>Can I find something similar to help me with the problem I have now</p>
         </div>
       </div>
-
-      <!-- T-rails (positioned by JS after frame measures) -->
-      <div class="ag-rail-h" role="button" tabindex="0" aria-label="Navigate to the 20 drafts that got us here"></div>
-      <div class="ag-rail-v" role="button" tabindex="0" aria-label="Navigate to the 5 Architect passes"></div>
-      <div class="ag-rail-label ag-rail-label-h" role="button" tabindex="0"></div>
-      <div class="ag-rail-label ag-rail-label-v" role="button" tabindex="0"></div>
-
-      <!-- Back-axis scrub (visible when data-view="back") -->
-      <div class="ag-back-scrub" role="group" aria-label="Draft scrubber, 17 steps back from frame 18">
-        <div class="ag-back-scrub-label">← the 20 drafts that got us here</div>
-        <div class="ag-back-ticks">
-          <div class="ag-back-rail-line" aria-hidden="true"></div>
-          <!-- Tick buttons injected by JS buildScrub() -->
-        </div>
-        <div class="ag-back-caption" aria-live="polite">
-          <p class="ag-back-caption-headline"></p>
-          <p class="ag-back-caption-prose"></p>
-          <span class="ag-back-caption-slot"></span>
+      <div class="journey-stop">
+        <div class="journey-stop-pin">2</div>
+        <div class="journey-stop-name">Aspirational</div>
+        <p class="journey-stop-q">Hope for a solution — <em>"When and how can this do something for me?"</em></p>
+        <div class="journey-stop-quotes">
+          <p>Can I try this for something simple ...</p>
+          <p>Can I trust this to be consistent for ...</p>
+          <p>It's cool this can do ...</p>
+          <p>Could this integrate or replace my existing ...</p>
         </div>
       </div>
-
-      <!-- Forward-axis view (visible when data-view="fwd") -->
-      <div class="ag-fwd-view">
-        <div class="ag-fwd-img-wrap">
-          <img class="ag-fwd-img" src="" alt="" width="1800" height="1169">
-          <div class="ag-fwd-pins"></div>
-        </div>
-        <div class="ag-fwd-prose">
-          <p class="ag-fwd-prose-name"></p>
-          <p class="ag-fwd-prose-sub"></p>
-          <p class="ag-fwd-prose-body"></p>
+      <div class="journey-stop">
+        <div class="journey-stop-pin">3</div>
+        <div class="journey-stop-name">Problem-solving</div>
+        <p class="journey-stop-q">High intent — <em>"What of my problems can be consistently solved?"</em></p>
+        <div class="journey-stop-quotes">
+          <p>How can this fit into my workflow for ...</p>
+          <p>How can I modernize this existing workflow with ...</p>
+          <p>How can I make this function into something I can integrate in ...</p>
         </div>
       </div>
-
-      <!-- Forward rail — 5 dots on right edge (visible when data-view="fwd") -->
-      <div class="ag-fwd-rail" role="group" aria-label="Architect passes, 5 steps">
-        <!-- Dots injected by JS buildFwdRail() -->
-      </div>
-
-      <!-- Arrival caption -->
-      <div class="ag-arrival" role="status" aria-live="polite" aria-atomic="true"></div>
     </div>
 
-    <!-- Breadcrumb — fixed, outside stage, inside hinge -->
-    <button class="ag-breadcrumb" type="button" aria-label="Back to the crit">↖ the crit</button>
-  </section>
+    <p class="journey-callout">"Today journey largely skips over middle, goes from 'learn capabilities' to 'create.' Trust built with user needed this journey to happen." <em>— annotation directly on the journey board.</em></p>
+    <p class="sec-source">User journey board, file <code>Xj0WdCc2uhzzLYg8juoKzu</code> · section <code>339:1613</code></p>
+  </div>
+</section>
 
-  <!-- ===== Coda ===== -->
-  <section class="ag-coda">
-    <div class="ag-coda-inner">
-      <p class="ag-coda-eyebrow">what it taught us</p>
-      <h3>Teaching a paradigm is a stack problem. Each layer makes one more piece of the system visible — and no single layer can carry it alone.</h3>
-      <p>The landing page couldn't explain CodeWords. The form couldn't either. The pink-crit pass on frame 18 told us why: we were trying to cram a multi-actor process into a single-actor surface. Once we let the Architect room have three AI roles out in the open — planning, writing, testing, each visible at its own moment — the product made sense in ten seconds instead of ten minutes.</p>
-      <p>That's the job when your product is a new noun. Not a brand pass, not a landing page, not even the one hero screen every designer wants to ship. It's a stack of disclosures — each layer making one more piece of the system visible, and no single layer carrying the weight alone.</p>
-      <em class="ag-coda-final">The crit wasn't feedback. It was the diagnosis.</em>
+<!-- ============ SECTION 8 — TAGLINE MORPH ============ -->
+<section class="sec tagline">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">naming + positioning</span>
+    <h2 class="sec-title">The tagline went through <em>50+ permutations</em> before it stopped moving.</h2>
+    <p class="sec-deck">Late in the process, the team built a bracket-grammar template — a way to vary the verb, the object, and the punchline independently. The slot machine below is the actual generator from "Thinking fifth." Each refresh = a real candidate the team considered.</p>
+
+    <div class="tagline-stage">
+      <p class="tagline-line" id="tagline-line">
+        <span class="tagline-bracket" id="tg-verb">Build</span>
+        a
+        <span class="tagline-bracket" id="tg-noun">function</span>
+        in minutes without a team of engineers.
+        <br/><br/>
+        <span class="tagline-bracket" id="tg-tag">The new way to code.</span>
+      </p>
     </div>
-  </section>
+    <span class="tagline-counter">↑ candidate <span id="tg-count">1</span></span>
 
-  <section class="cs-closing">
-    <span class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
-      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
-    </span>
-    <span class="cs-closing-label">your move</span>
-    <h3>Building <em>a new paradigm</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
-    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
-    <a class="cs-next" href="xtdb.html">next case study: xtdb <span class="arrow">→</span></a>
-  </section>
+    <div class="tagline-final-card">
+      <div class="tagline-final-mark">final pick</div>
+      <div class="tagline-final">"Write code with words."</div>
+    </div>
 
-  <!--BEGIN:FOOT-->
+    <p class="sec-source" style="color: rgba(255,255,255,0.45); margin-top: 3rem;">User journey board, "Thinking fifth" section <code>250:1318</code> · the bracket grammar lives at the bottom of the iteration page</p>
+  </div>
+</section>
+
+<!-- ============ SECTION 9 — INFO FLOW ============ -->
+<section class="sec infoflow">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">the build flow, mapped</span>
+    <h2 class="sec-title">Every fail-state, planned <em>before</em> it became a bug.</h2>
+    <p class="sec-deck">Drawn before any production code shipped. Each green node is a success path; each orange node is a fail-state that needed graceful handling. The flow watches as it draws — that's how the whole team checks "did we miss anything?" in a single glance.</p>
+
+    <svg class="flow-svg" viewBox="0 0 1100 420" aria-label="Information flow diagram for building a new function">
+      <!-- Lines first (so they're behind nodes) -->
+      <line class="flow-line flow-stagger-2" x1="160" y1="60"  x2="280" y2="60" />
+      <line class="flow-line flow-stagger-3" x1="400" y1="60"  x2="520" y2="60" />
+      <line class="flow-line flow-stagger-4" x1="640" y1="60"  x2="760" y2="60" />
+      <line class="flow-line flow-stagger-5" x1="820" y1="80"  x2="820" y2="160" />
+      <line class="flow-line flow-stagger-6" x1="820" y1="200" x2="820" y2="280" />
+      <line class="flow-line flow-stagger-7" x1="800" y1="300" x2="650" y2="300" />
+      <line class="flow-line flow-stagger-7" x1="840" y1="300" x2="990" y2="300" />
+      <line class="flow-line flow-stagger-8" x1="650" y1="320" x2="650" y2="380" />
+      <line class="flow-line flow-stagger-8" x1="990" y1="320" x2="990" y2="380" />
+
+      <!-- Nodes -->
+      <g>
+        <rect class="flow-node entry"  x="40"   y="40" width="120" height="40" rx="8" />
+        <text class="flow-text on-pink" x="100"  y="64" text-anchor="middle">Codewords user</text>
+      </g>
+      <g class="flow-stagger-1">
+        <rect class="flow-node" x="280" y="40" width="120" height="40" rx="8" />
+        <text class="flow-text" x="340" y="64" text-anchor="middle">Pick template / Blank</text>
+      </g>
+      <g class="flow-stagger-2">
+        <rect class="flow-node" x="520" y="40" width="120" height="40" rx="8" />
+        <text class="flow-text" x="580" y="64" text-anchor="middle">Write prompt</text>
+      </g>
+      <g class="flow-stagger-3">
+        <rect class="flow-node" x="760" y="40" width="120" height="40" rx="8" />
+        <text class="flow-text" x="820" y="64" text-anchor="middle">Add integrations</text>
+      </g>
+      <g class="flow-stagger-4">
+        <rect class="flow-node" x="760" y="160" width="120" height="40" rx="8" />
+        <text class="flow-text" x="820" y="184" text-anchor="middle">Check &amp; enhance</text>
+      </g>
+      <g class="flow-stagger-5">
+        <rect class="flow-node" x="760" y="280" width="120" height="40" rx="8" />
+        <text class="flow-text" x="820" y="304" text-anchor="middle">Function builds</text>
+      </g>
+      <g class="flow-stagger-6">
+        <rect class="flow-node failure" x="590" y="280" width="120" height="40" rx="8" />
+        <text class="flow-text on-pink" x="650" y="304" text-anchor="middle">Not possible</text>
+      </g>
+      <g class="flow-stagger-6">
+        <rect class="flow-node success" x="930" y="280" width="120" height="40" rx="8" />
+        <text class="flow-text on-pink" x="990" y="304" text-anchor="middle">UI populated</text>
+      </g>
+      <g class="flow-stagger-7">
+        <rect class="flow-node failure" x="590" y="380" width="120" height="32" rx="8" />
+        <text class="flow-text on-pink" x="650" y="400" text-anchor="middle">End — try again</text>
+      </g>
+      <g class="flow-stagger-7">
+        <rect class="flow-node success" x="930" y="380" width="120" height="32" rx="8" />
+        <text class="flow-text on-pink" x="990" y="400" text-anchor="middle">Run + feedback</text>
+      </g>
+    </svg>
+
+    <p class="sec-source">Information Flow Diagram · file <code>EyAac9Qg6NIBeT2ZJFFkCP</code> · section <code>41:183</code></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 10 — ANNOTATED ARCHITECT ============ -->
+<section class="sec annotated">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">what shipped</span>
+    <h2 class="sec-title">The Architect screen, where every interaction <em>traces back</em> to a hypothesis.</h2>
+    <p class="sec-deck">This is the screen the eight hypotheses converged on. Hover any marker to see which research belief that interaction implements. Defer to the human (H5). Draft state matters (H6). Completeness over Simplicity (H4). Users want it done (H8).</p>
+
+    <div class="annotated-wrap">
+      <img src="../images/work/agemo/lens-product/architect-page.png" alt="Codewords Architect interface" />
+      <button class="hotspot" style="left:28%; top:32%;" aria-label="H5 · Defer to the human">5</button>
+      <div class="hotspot-tip" style="left:28%; top:32%;"><strong>H5 · Defer to the human</strong>The AI proposes a spec; the user accepts, edits, or asks for more. Confirmation is required at every step — never assumed.</div>
+      <button class="hotspot" style="left:65%; top:28%;" aria-label="H6 · Draft state matters">6</button>
+      <div class="hotspot-tip" style="left:65%; top:28%;"><strong>H6 · Draft state matters</strong>The spec lives in the editor as a draft you can iterate on, not a frozen brief. Refinement is the primary action, not an exception.</div>
+      <button class="hotspot" style="left:50%; top:62%;" aria-label="H4 · Completeness over Simplicity">4</button>
+      <div class="hotspot-tip" style="left:50%; top:62%;"><strong>H4 · Completeness over Simplicity</strong>Detailed parameter visibility, architect chat, and the spec link are all available at once. Density is intentional — the audience is power users.</div>
+      <button class="hotspot" style="left:80%; top:78%;" aria-label="H8 · Users want it done">8</button>
+      <div class="hotspot-tip" style="left:80%; top:78%;"><strong>H8 · Users want it done</strong>The Generate action lives where it would be expected — output is one click away even when the spec is still rough.</div>
+    </div>
+    <p class="sec-source">Architect Page · file <code>ynLRqWGUe34UvqdzpzxeY1</code> · frame <code>175:1791</code></p>
+  </div>
+</section>
+
+<!-- ============ SECTION 11 — WHAT LANDED ============ -->
+<section class="sec landed">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">what landed</span>
+    <h2 class="sec-title">From a Google search to a <em>conversation</em>.</h2>
+    <p class="sec-deck">Three signature interactions — each one is an answer to a specific user complaint from the interviews above.</p>
+
+    <div class="landed-grid">
+      <div class="landed-card">
+        <span class="landed-num">→</span>
+        <h3 class="landed-h">A conversational Architect</h3>
+        <p class="landed-b">Replaces "blank page paralysis" with a chat. Answers Lucas's "I was scared to break anything" by making proposed changes explicit and reversible.</p>
+      </div>
+      <div class="landed-card">
+        <span class="landed-num">→</span>
+        <h3 class="landed-h">Spec as a first-class draft</h3>
+        <p class="landed-b">The function spec is editable, not just visible. Implements H6 (Draft state matters) and answers Pier's "I'm not sure what I can try."</p>
+      </div>
+      <div class="landed-card">
+        <span class="landed-num">→</span>
+        <h3 class="landed-h">Explore + Remix as way-stations</h3>
+        <p class="landed-b">Builds the trust-building middle the journey was missing. Answers Adnann's "I didn't know what to do, so I was just checking out the changelogs."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SECTION 12 — TAKEAWAYS ============ -->
+<section class="sec takeaways">
+  <div class="sec-inner reveal">
+    <span class="sec-eyebrow">what mattered</span>
+    <h2 class="sec-title">What we learned, that you can take into <em>any</em> product.</h2>
+    <ol class="takeaway-list">
+      <li>Write down what you believe before you draw — and write down how you'd know you were wrong. Hypothesis docs aren't research busy-work; they're the only thing that prevents post-hoc rationalization.</li>
+      <li>For new paradigms, the interface IS the onboarding. Every ChatGPT comparison, every tooltip miss, every "I didn't know what to do" comes back to this.</li>
+      <li>Density vs. simplicity is a positioning choice, not a usability one. If your audience is power users, designing for casual ones loses both.</li>
+      <li>Drafts are the work, not the prelude. Build editable state into your primary surface, not into a separate "edit" mode.</li>
+      <li>When users have no model, give them somewhere to be while they build one. Explore and Remix beat empty home pages.</li>
+    </ol>
+    <div style="margin-top: 4rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+      <a class="takeaways-cta" href="agemo-cut-research.html">see the research cut →</a>
+      <a class="takeaways-cta" href="agemo-cut-interface.html" style="background: var(--cyan); color: var(--ink); box-shadow: 0 6px 0 #2d8b93;">see the interface cut →</a>
+    </div>
+    <p style="margin-top: 2rem; font-family: var(--hand); font-size: 1.2rem; color: rgba(255,255,255,0.6); transform: rotate(-1deg); display: inline-block;">two takes on the same project, in 30 seconds each</p>
+  </div>
+</section>
+
+<!-- ============ SOURCES ============ -->
+<section class="sources">
+  <div class="sources-inner">
+    <h4>Sources — every claim on this page traces back to one of these</h4>
+    <ul>
+      <li><strong>Product Design Hypotheses (CW)</strong> — PowerPoint by the Agemo team, 9 slides. The 8 hypotheses are quoted verbatim from slides 2–9.</li>
+      <li><strong>CodeWords UX board</strong> (Figma file <code>EyAac9Qg6NIBeT2ZJFFkCP</code>) — User personas, UXR Analysis with verbatim user quotes, Information Flow Diagram, Scope of Work, Inspirations.</li>
+      <li><strong>User journey board</strong> (Figma file <code>Xj0WdCc2uhzzLYg8juoKzu</code>) — Section 1 canonical journey, six "Thinking" iterations of the homepage, the bracket-grammar tagline workshop.</li>
+      <li><strong>Untitled brainstorm board</strong> (Figma file <code>RZQpGa4uWtZjHpse7GrbiC</code>) — 14+ name candidates explored before "Codewords."</li>
+      <li><strong>UI design Codewords</strong> (Figma file <code>ynLRqWGUe34UvqdzpzxeY1</code>) — production frames including Landing, Architect, Function, Run, Explore pages.</li>
+    </ul>
+  </div>
+</section>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
 <style>
   .foot {
-    position: relative; z-index: 20; background: #FAF7F2;
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px; margin: 0 auto; width: 100%;
-    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
     font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    font-size: 0.78rem; color: #8892A0; letter-spacing: 0.05em;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
   }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
-  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
@@ -388,574 +1600,92 @@
 <!--END:FOOT-->
 
 <script>
-(function() {
-  'use strict';
+// ============ scroll thread ============
+const thread = document.getElementById('thread');
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  thread.style.width = (window.scrollY / total) * 100 + '%';
+}, { passive: true });
 
-  // ===== DATA =====
-  var FRAMES = [
-    { slot: '01', kind: 'beat', chapter: 'landing' },
-    { slot: '02', kind: 'keyframe', chapter: 'landing',
-      headline: '"Generate Code from Words."',
-      prose: 'Same landing, new nav item — Explore. We\'ve split the audience before they\'ve signed up: the people who want to make something, and the people who need to see one first. A small tab, a big concession.' },
-    { slot: '03', kind: 'beat', chapter: 'landing' },
-    { slot: '04', kind: 'keyframe', chapter: 'landing',
-      headline: '"Any tool you can imagine."',
-      prose: 'The last landing swing. We took the CTA out of the hero entirely, led with the category chips and the example grid, and put the "or, start with a prompt" moment below the fold. Landing is done. Onto the hard part.' },
-    { slot: '05', kind: 'keyframe', chapter: 'create',
-      headline: '"Create A New Tool."',
-      prose: 'First real pass at the form. Two decisions deep: "Function" became "Tool" because Tool sounded less scary, and we wrote ourselves a pink sticky to say the black Build-It CTA looked like it was already active. We argued with that one sticky for the next twelve frames.' },
-    { slot: '06', kind: 'beat', chapter: 'create' },
-    { slot: '07', kind: 'beat', chapter: 'create' },
-    { slot: '08', kind: 'beat', chapter: 'create' },
-    { slot: '09', kind: 'beat', chapter: 'create' },
-    { slot: '10', kind: 'keyframe', chapter: 'create',
-      headline: 'The prompt-enhancement flow.',
-      prose: 'A yellow card appears: "SUGGESTED PROMPT — the problem statement is nonsensical, try this instead." The product quietly teaching you how to write for an AI. This is the feature that made CodeWords feel like a teacher, not a form — and the first real sign the form alone couldn\'t carry the paradigm.' },
-    { slot: '11', kind: 'keyframe', chapter: 'create',
-      headline: 'Integrations, exposed.',
-      prose: 'Mandatory AI roles up top, additional functions below, feasibility check, credit cost on the Build button. The screen got denser. The old pink sticky is still there, unaddressed. We were pattern-matching to power-user product instead of rethinking the frame.' },
-    { slot: '12', kind: 'beat', chapter: 'create' },
-    { slot: '13', kind: 'beat', chapter: 'create' },
-    { slot: '14', kind: 'beat', chapter: 'create' },
-    { slot: '15', kind: 'beat', chapter: 'create' },
-    { slot: '16', kind: 'keyframe', chapter: 'create',
-      headline: 'The step sidebar arrives.',
-      prose: 'Seven vertical steps down the left edge — DESCRIBE, ENHANCE, INTEGRATION, CREATE, OUTLINE, BUILD, DEPLOY. The first time the product stops being a form and starts being a journey. The numbered list is the designer quietly admitting the main column can\'t carry the paradigm alone.' },
-    { slot: '17', kind: 'beat', chapter: 'create' },
-    { slot: '18', kind: 'keyframe', chapter: 'create', isCrit: true,
-      headline: 'The crit that broke the chapter open.',
-      prose: 'Ten pink stickies, written directly on the canvas. "Add a progress bar?" "Replace create a function with something." "Example file needs explanation." The stickies aren\'t feedback from someone else — they\'re us, losing patience with ourselves. Each one is a symptom. The diagnosis, when we lined them up, was that no amount of form-polish teaches a paradigm. The form was the wrong surface.' },
-    { slot: '19', kind: 'keyframe', chapter: 'build',
-      headline: 'Outline → Build → Deploy.',
-      prose: 'A different screen entirely, drawn the afternoon after the crit. Three pink stickies still flagging noise ("bring prominence", "Remove", "Remove generating") but the pipeline underneath is new: Input → Step → Step → Output, horizontal. The teaching band from frame 16 has climbed out of the margin and become the product.' },
-    { slot: '20', kind: 'keyframe', chapter: 'build',
-      headline: 'The right-drawer code inspector.',
-      prose: 'We tried pulling the generated code out into a side panel — function name, description, Python body, outputs table. It worked, but it broke the reading line. The Architect ultimately rejects this pattern (see the Layers section). Here\'s the evidence we considered it.' },
-    { slot: '21', kind: 'beat', chapter: 'architect' },
-    { slot: '22', kind: 'beat', chapter: 'architect' },
-    { slot: '23', kind: 'beat', chapter: 'architect' },
-    { slot: '24', kind: 'beat', chapter: 'architect' },
-    { slot: '25', kind: 'beat', chapter: 'architect' },
-    { slot: '26', kind: 'beat', chapter: 'architect' }
-  ];
-
-  var ARCHITECT = [
-    { v: 1, src: '../images/work/agemo/timeline/21.webp',
-      name: 'v1 · the first full flow',
-      sub: 'sidebar + pipeline, no behaviour yet',
-      prose: 'The first version where the Architect had all its organs in one room. Stepper on the left with seven labelled steps. A horizontal Input → Step → Step → Output pipeline across the middle. No state, no status, no thinking. This was the skeleton — proving to ourselves that the thing could be drawn at all, before we figured out how it should behave.',
-      pins: [
-        { x: 4,  y: 50, label: 'The stepper — seven steps laid out. Every subsequent layer lights it up differently.' },
-        { x: 50, y: 48, label: 'The pipeline. The three AI roles (Architect → Developer → QA) will live here. v1 doesn\'t say so yet.' },
-        { x: 88, y: 48, label: 'Output column — symmetric with Input on purpose. Functions take things in, return things out.' }
-      ] },
-    { v: 2, src: '../images/work/agemo/timeline/22.webp',
-      name: 'v2 · the stepper comes alive',
-      sub: 'active state + integrations pill + thinking',
-      prose: 'v2 lit the stepper up. Step 1 green, step 2 green, step 3 in-progress. This was when we stopped treating the Architect as a static diagram and started treating it as a running process. We also added the integrations-as-a-pill row up top — a compressed way to answer "what can this function reach?" without blowing up the canvas.',
-      pins: [
-        { x: 4,  y: 37, label: 'Active-state treatment: green check, not black fill. Fixed the exact problem that got stickied on frame 05.' },
-        { x: 50, y: 13, label: '"12 selected · 14 available" — the whole integrations panel compressed into a two-number summary.' },
-        { x: 16, y: 92, label: '"Thinking… 3 steps." First version of what will become the log. The AI starts narrating itself.' }
-      ] },
-    { v: 3, src: '../images/work/agemo/timeline/24.webp',
-      name: 'v3 · the function reveals itself',
-      sub: 'generated code, inlined on the step',
-      prose: 'v3 gave the middle step a name and cracked it open. A function-name header on the "Another Step" card, and below it a code preview — actual Python, with the Architect\'s planning comments preserved. This was the frame where we committed to showing the generated code inside the Architect, not hiding it behind a tab. If the paradigm was going to teach itself, the code had to be visible without leaving the room.',
-      pins: [
-        { x: 46, y: 52, label: '"Function name goes here" — a named step is a step you can trust.' },
-        { x: 50, y: 66, label: 'Python inline, monospace, planning comments preserved. The Architect is showing its reasoning.' },
-        { x: 60, y: 50, label: 'The → between steps got thicker here. Small but load-bearing — readers kept missing the flow in v2.' }
-      ] },
-    { v: 4, src: '../images/work/agemo/timeline/26.webp',
-      name: 'v4 · integrations, exposed',
-      sub: 'mandatory vs. additional, attributed',
-      prose: 'v4 blew the integrations pill back open into a full panel — "Mandatory" tier on top (GPT Based AI × 3), "Additional Functions & Models" below (Image2vid, PNG converter, etc.) with "via replicate / via CodeWords" attribution under each. This was the pass where we stopped pretending the Architect was a black box. If the function was going to call Replicate under the hood, say so.',
-      pins: [
-        { x: 30, y: 14, label: '"Mandatory" section header. Split always-present integrations from picked-based-on-your-prompt.' },
-        { x: 68, y: 33, label: '"via replicate" / "via CodeWords" labels. Hiding these would have felt like a trick. Users don\'t mind complexity; they mind surprise.' },
-        { x: 70, y: 26, label: '"Add Another" — the user can add an integration the Architect didn\'t pick. Respecting the user\'s judgement over trusting the AI completely.' }
-      ] },
-    { v: 5, src: '../images/work/agemo/timeline/25.webp',
-      name: 'v5 · the reasoning trace',
-      sub: 'thinking history, append-only',
-      prose: 'v5 was the final pass. The integrations panel collapsed back to a summary row (we\'d proved it existed in v4; v5 trusts the user to open it only when they care). The Thinking log at the bottom got room to breathe. The Architect stopped diagramming the process and started narrating it — plan by plan, in chronological order, with no deletions.',
-      pins: [
-        { x: 52, y: 70, label: 'Scrollable thinking log. Each entry is one step\'s plan. Append-only — the Architect never deletes its own reasoning.' },
-        { x: 4,  y: 50, label: 'Stepper final state: steps 1–3 green, 4–7 greyed. The user can see where they are without reading.' }
-      ] }
-  ];
-
-  // STICKIES — index 0 = sticky 1.
-  // Positions are architect-estimated % of rendered frame bbox.
-  // KAHRAN-REVIEW: sticky positions need browser tuning against 18.webp at 1440px wide.
-  var STICKIES = [
-    { text: 'Add a progress bar?',                      x: 12, y: 14, w: 14, h:  7, target: { type: 'fwd', pass: 2 },  dir: 'fwd',  arrow: '→' },
-    { text: 'Add subheading',                           x: 72, y: 14, w: 16, h:  7, target: { type: 'fwd', pass: 3 },  dir: 'fwd',  arrow: '→' },
-    // KAHRAN-REVIEW: sticky 3 — architect maps to pass 3 (first pass where "Create a Function" header got renamed).
-    // PM brief said "frame 19". Shipping pass 3 per architect spec; change target to {type:'back',frame:19} if you prefer.
-    { text: 'Replace create a function with something', x:  6, y: 34, w: 20, h:  9, target: { type: 'fwd', pass: 3 },  dir: 'fwd',  arrow: '→' },
-    { text: 'Example file (needs explanation)',         x: 10, y: 56, w: 20, h:  9, target: { type: 'fwd', pass: 5 },  dir: 'fwd',  arrow: '→' },
-    { text: 'Add the prompt check and enhance',         x:  8, y: 72, w: 20, h:  9, target: { type: 'back', frame: 10 }, dir: 'back', arrow: '←' },
-    { text: 'Add icon hover over text',                 x: 74, y: 40, w: 18, h:  8, target: { type: 'fwd', pass: 4 },  dir: 'fwd',  arrow: '→' },
-    { text: 'Add icon states',                         x: 74, y: 52, w: 16, h:  7, target: { type: 'fwd', pass: 2 },  dir: 'fwd',  arrow: '→' },
-    { text: 'reposition integrations',                 x: 70, y: 66, w: 20, h:  8, target: { type: 'fwd', pass: 4 },  dir: 'fwd',  arrow: '→' },
-    { text: 'For later, icon design change needed',    x: 40, y: 82, w: 20, h:  8, target: { type: 'coda' },           dir: 'down', arrow: '↓' },
-    // KAHRAN-REVIEW: sticky 10 — architect maps forward to pass 1 (PM brief said "backward").
-    // Shipping fwd/pass-1 per architect spec; change to {type:'back',frame:N} if you prefer backward.
-    { text: 'Icon positions',                          x: 64, y: 86, w: 14, h:  7, target: { type: 'fwd', pass: 1 },  dir: 'fwd',  arrow: '→' }
-  ];
-
-  // ===== STATE =====
-  var state = { view: 'crit', frame: 18, pass: 1, lastSticky: null };
-  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ===== DOM =====
-  var stage    = document.querySelector('.ag-stage');
-  var frameWrap  = stage.querySelector('.ag-frame-wrap');
-  var frameImg   = stage.querySelector('.ag-frame');
-  var frameBuf   = stage.querySelector('.ag-frame--back');
-  var stickiesEl = stage.querySelector('.ag-stickies');
-  var scrub      = stage.querySelector('.ag-back-scrub');
-  var backTicks  = stage.querySelector('.ag-back-ticks');
-  var capHead    = stage.querySelector('.ag-back-caption-headline');
-  var capProse   = stage.querySelector('.ag-back-caption-prose');
-  var capSlot    = stage.querySelector('.ag-back-caption-slot');
-  var fwdRail    = stage.querySelector('.ag-fwd-rail');
-  var fwdView    = stage.querySelector('.ag-fwd-view');
-  var fwdImg     = stage.querySelector('.ag-fwd-img');
-  var fwdPins    = stage.querySelector('.ag-fwd-pins');
-  var fwdName    = stage.querySelector('.ag-fwd-prose-name');
-  var fwdSub     = stage.querySelector('.ag-fwd-prose-sub');
-  var fwdBody    = stage.querySelector('.ag-fwd-prose-body');
-  var crumb      = document.querySelector('.ag-breadcrumb');
-  var arrival    = stage.querySelector('.ag-arrival');
-  var coda       = document.querySelector('.ag-coda');
-  var railH      = stage.querySelector('.ag-rail-h');
-  var railV      = stage.querySelector('.ag-rail-v');
-  var railLabelH = stage.querySelector('.ag-rail-label-h');
-  var railLabelV = stage.querySelector('.ag-rail-label-v');
-
-  // Backward-axis frames: 01..17 only (drafts before the crit).
-  // Frame 18 is the crit (the hinge). Frames 19-20 accessible via stickies.
-  var BACK_FRAMES = FRAMES.filter(function(f) { return parseInt(f.slot, 10) <= 17; });
-
-  // ===== BUILD =====
-  buildStickies();
-  buildScrub();
-  buildFwdRail();
-  preloadFrames();
-
-  // ===== BIND =====
-  bindStickyClicks();
-  bindScrubClicks();
-  bindFwdRailClicks();
-  bindKeyboard();
-  bindCrumb();
-  bindOutsideClick();
-  bindRailClicks();
-  bindFrameResize();
-  // ResizeObserver absent: position rails via resize event instead
-  if (!window.ResizeObserver) {
-    positionRails();
-    window.addEventListener('resize', positionRails);
-  }
-
-  // 800ms after load: fade in T-rails; re-measure after layout settles
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      stage.classList.add('is-ready');
-      positionRails();
-    }, 800);
+// ============ reveal on scroll ============
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
   });
+}, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // ===== TRANSITION FUNCTIONS =====
-  function goTo(target) {
-    if (target.type === 'crit')  return enterCrit();
-    if (target.type === 'back')  return enterBack(target.frame);
-    if (target.type === 'fwd')   return enterFwd(target.pass);
-    if (target.type === 'coda')  return flashCoda();
-  }
+// ============ hypothesis cards ============
+document.querySelectorAll('.hyp-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const open = card.getAttribute('aria-expanded') === 'true';
+    card.setAttribute('aria-expanded', open ? 'false' : 'true');
+  });
+});
 
-  function setState(partial) {
-    Object.assign(state, partial);
-    stage.dataset.view  = state.view;
-    stage.dataset.frame = state.frame;
-    stage.dataset.pass  = state.pass;
-  }
+// ============ hotspots ============
+document.querySelectorAll('.hotspot').forEach(spot => {
+  spot.addEventListener('click', e => {
+    e.stopPropagation();
+    const wasOpen = spot.classList.contains('is-open');
+    document.querySelectorAll('.hotspot.is-open').forEach(s => s.classList.remove('is-open'));
+    if (!wasOpen) spot.classList.add('is-open');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.hotspot.is-open').forEach(s => s.classList.remove('is-open'));
+});
 
-  function enterCrit() {
-    if (state.view === 'crit') return;
-    crossfade(frameBuf, '../images/work/agemo/timeline/18.webp', 120, function() {});
-    setState({ view: 'crit', frame: 18 });
-    dismissArrival();
-  }
+// ============ tagline slot machine ============
+// Real candidate options pulled from "Thinking fifth" bracket grammar
+const VERBS = ['Build', 'Remix', 'Integrate'];
+const NOUNS = ['function', 'tool', 'pipeline', 'generator', 'backend workflow', 'AI-powered app', 'productivity helper'];
+const TAGS = [
+  'The new way to code.',
+  'Software from AI.',
+  'Software of the future.',
+  'The new way to build.',
+  'The code to bring your words to life.',
+  'The platform to bring your words to code.',
+  'With words you know.',
+  'Reduce your dependencies.'
+];
+const tgVerb = document.getElementById('tg-verb');
+const tgNoun = document.getElementById('tg-noun');
+const tgTag  = document.getElementById('tg-tag');
+const tgCount = document.getElementById('tg-count');
+let tgN = 1;
+let tgRunning = false;
 
-  function enterBack(n) {
-    var slot = String(n).padStart(2, '0');
-    crossfade(frameBuf, '../images/work/agemo/timeline/' + slot + '.webp', 120, function() {});
-    setState({ view: 'back', frame: n });
-    updateScrub(n);
-    updateBackCaption(n);
-  }
+function morphTagline() {
+  const verb = VERBS[Math.floor(Math.random() * VERBS.length)];
+  const noun = NOUNS[Math.floor(Math.random() * NOUNS.length)];
+  const tag  = TAGS[Math.floor(Math.random() * TAGS.length)];
+  [tgVerb, tgNoun, tgTag].forEach(el => el.style.opacity = '0');
+  setTimeout(() => {
+    tgVerb.textContent = verb;
+    tgNoun.textContent = noun;
+    tgTag.textContent  = tag;
+    [tgVerb, tgNoun, tgTag].forEach(el => el.style.opacity = '1');
+    tgN++;
+    tgCount.textContent = tgN;
+  }, 220);
+}
 
-  function enterFwd(v) {
-    setState({ view: 'fwd', pass: v });
-    renderFwdPass(v);
-    updateFwdRail(v);
-  }
-
-  function flashCoda() {
-    if (coda) {
-      coda.classList.add('ag-coda--flash');
-      coda.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-      setTimeout(function() { coda.classList.remove('ag-coda--flash'); }, 1600);
+// Only start morphing when the tagline section enters view, to save CPU
+const taglineSection = document.querySelector('.tagline');
+const taglineIo = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !tgRunning) {
+      tgRunning = true;
+      setInterval(morphTagline, 2000);
     }
-  }
-
-  // ===== CROSS-FADE =====
-  function crossfade(bufEl, newSrc, ms, cb) {
-    bufEl.src = newSrc;
-    if (reduced) {
-      // instant swap
-      frameImg.src = newSrc;
-      bufEl.classList.remove('is-active');
-      if (cb) cb();
-      return;
-    }
-    bufEl.classList.add('is-active');
-    setTimeout(function() {
-      frameImg.src = newSrc;
-      bufEl.classList.remove('is-active');
-      if (cb) cb();
-    }, ms);
-  }
-
-  // ===== FORWARD PASS RENDER =====
-  function renderFwdPass(v) {
-    var rec = ARCHITECT[v - 1];
-    if (!rec) return;
-    fwdImg.src = rec.src;
-    fwdImg.alt = 'Architect pass ' + v + ': ' + rec.name + ' — ' + rec.sub;
-    fwdName.textContent = rec.name;
-    fwdSub.textContent  = rec.sub;
-    fwdBody.textContent = rec.prose;
-    renderPins(rec);
-  }
-
-  function renderPins(rec) {
-    fwdPins.innerHTML = '';
-    if (!rec || !rec.pins) return;
-    rec.pins.forEach(function(p, i) {
-      var wrap = document.createElement('div');
-      wrap.className = 'ag-pin';
-      wrap.style.left = p.x + '%';
-      wrap.style.top  = p.y + '%';
-      if (p.y > 65) wrap.setAttribute('data-side', 'above');
-
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'ag-pin-dot';
-      dot.textContent = String(i + 1);
-      dot.setAttribute('aria-label', 'Pin ' + (i + 1) + ': ' + p.label);
-
-      var tip = document.createElement('div');
-      tip.className = 'ag-pin-tip';
-      tip.setAttribute('role', 'tooltip');
-      tip.textContent = p.label;
-
-      wrap.appendChild(dot);
-      wrap.appendChild(tip);
-      fwdPins.appendChild(wrap);
-    });
-  }
-
-  // ===== SCRUB =====
-  function updateScrub(activeFrame) {
-    var ticks = backTicks.querySelectorAll('.ag-back-tick');
-    ticks.forEach(function(t) {
-      var f = parseInt(t.dataset.frame, 10);
-      t.setAttribute('aria-current', f === activeFrame ? 'true' : 'false');
-    });
-  }
-
-  function updateBackCaption(frameNum) {
-    var rec = null;
-    for (var i = 0; i < FRAMES.length; i++) {
-      if (parseInt(FRAMES[i].slot, 10) === frameNum) { rec = FRAMES[i]; break; }
-    }
-    if (rec && rec.kind === 'keyframe') {
-      capHead.textContent  = rec.headline || '';
-      capProse.textContent = rec.prose    || '';
-      capHead.style.display  = rec.headline ? 'block' : 'none';
-      capProse.style.display = rec.prose    ? 'block' : 'none';
-      capSlot.textContent    = '';
-    } else {
-      capHead.style.display  = 'none';
-      capProse.style.display = 'none';
-      capSlot.textContent    = 'frame ' + String(frameNum).padStart(2, '0');
-    }
-  }
-
-  function updateFwdRail(activePass) {
-    var dots = fwdRail.querySelectorAll('.ag-fwd-dot');
-    dots.forEach(function(d) {
-      var p = parseInt(d.dataset.pass, 10);
-      d.setAttribute('aria-current', p === activePass ? 'true' : 'false');
-    });
-  }
-
-  // ===== ARRIVAL CAPTION =====
-  var arrivalTimer = null;
-  function emitArrival(stickyNum, target) {
-    var s = STICKIES[stickyNum - 1];
-    if (!s) return;
-    var dest = '';
-    if (target.type === 'back')  dest = 'frame ' + String(target.frame).padStart(2, '0');
-    if (target.type === 'fwd')   dest = 'Architect pass v' + target.pass;
-    if (target.type === 'coda')  dest = 'the coda';
-    arrival.textContent = 'sticky ' + stickyNum + ' · "' + s.text + '" → ' + dest;
-    arrival.classList.add('is-visible');
-    clearTimeout(arrivalTimer);
-    arrivalTimer = setTimeout(dismissArrival, 4000);
-  }
-  function dismissArrival() {
-    arrival.classList.remove('is-visible');
-    clearTimeout(arrivalTimer);
-  }
-
-  // ===== BUILD FUNCTIONS =====
-  function buildStickies() {
-    STICKIES.forEach(function(s, i) {
-      var num = i + 1;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'ag-sticky';
-      btn.setAttribute('data-sticky-id', String(num));
-      btn.setAttribute('data-dir', s.dir);
-      btn.setAttribute('data-arrow', s.arrow);
-      btn.style.setProperty('--x', s.x + '%');
-      btn.style.setProperty('--y', s.y + '%');
-      btn.style.setProperty('--w', s.w + '%');
-      btn.style.setProperty('--h', s.h + '%');
-      var dest = '';
-      if (s.target.type === 'back') dest = 'answered on frame ' + String(s.target.frame).padStart(2, '0');
-      if (s.target.type === 'fwd')  dest = 'answered on Architect pass v' + s.target.pass;
-      if (s.target.type === 'coda') dest = 'see the coda';
-      btn.setAttribute('aria-label', 'Sticky ' + num + ': ' + s.text + ' — ' + dest);
-      stickiesEl.appendChild(btn);
-    });
-  }
-
-  function buildScrub() {
-    var N = BACK_FRAMES.length;
-    BACK_FRAMES.forEach(function(f, i) {
-      var frameNum = parseInt(f.slot, 10);
-      // tick 17 is rightmost (most recent), tick 01 is leftmost (earliest)
-      // left% = (N-1-i) / (N-1) gives us reverse order
-      var pct = N > 1 ? ((N - 1 - i) / (N - 1)) * 100 : 0;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'ag-back-tick';
-      btn.style.left = pct + '%';
-      btn.dataset.frame = String(frameNum);
-      btn.setAttribute('aria-current', 'false');
-      var label = f.kind === 'keyframe' && f.headline ? f.headline : 'frame ' + f.slot;
-      btn.setAttribute('aria-label', 'Frame ' + f.slot + (f.kind === 'keyframe' && f.headline ? ', ' + f.headline : ', beat'));
-      backTicks.appendChild(btn);
-    });
-  }
-
-  function buildFwdRail() {
-    ARCHITECT.forEach(function(rec) {
-      var dot = document.createElement('button');
-      dot.type = 'button';
-      dot.className = 'ag-fwd-dot';
-      dot.dataset.pass = String(rec.v);
-      dot.setAttribute('aria-current', 'false');
-      dot.setAttribute('aria-label', 'Pass ' + rec.v + ': ' + rec.name);
-      fwdRail.appendChild(dot);
-    });
-  }
-
-  function preloadFrames() {
-    FRAMES.forEach(function(f) {
-      var img = new Image();
-      img.src = '../images/work/agemo/timeline/' + f.slot + '.webp';
-    });
-    ARCHITECT.forEach(function(rec) {
-      var img = new Image();
-      img.src = rec.src;
-    });
-  }
-
-  // ===== BIND EVENTS =====
-  function bindStickyClicks() {
-    stickiesEl.addEventListener('click', function(e) {
-      var btn = e.target.closest('.ag-sticky');
-      if (!btn) return;
-      var num = parseInt(btn.dataset.stickyId, 10);
-      var s = STICKIES[num - 1];
-      if (!s) return;
-      state.lastSticky = num;
-      emitArrival(num, s.target);
-      goTo(s.target);
-    });
-  }
-
-  function bindScrubClicks() {
-    backTicks.addEventListener('click', function(e) {
-      var btn = e.target.closest('.ag-back-tick');
-      if (!btn) return;
-      var n = parseInt(btn.dataset.frame, 10);
-      goTo({ type: 'back', frame: n });
-    });
-  }
-
-  function bindFwdRailClicks() {
-    fwdRail.addEventListener('click', function(e) {
-      var dot = e.target.closest('.ag-fwd-dot');
-      if (!dot) return;
-      var v = parseInt(dot.dataset.pass, 10);
-      goTo({ type: 'fwd', pass: v });
-    });
-  }
-
-  function bindRailClicks() {
-    var goBack = function() { goTo({ type: 'back', frame: 17 }); };
-    var goFwd  = function() { goTo({ type: 'fwd', pass: 1 }); };
-    var keyAct = function(fn) { return function(e) { if (e.key === 'Enter' || e.key === ' ') { fn(); e.preventDefault(); } }; };
-    [railH, railLabelH].forEach(function(el) {
-      el.addEventListener('click', goBack);
-      el.addEventListener('keydown', keyAct(goBack));
-    });
-    [railV, railLabelV].forEach(function(el) {
-      el.addEventListener('click', goFwd);
-      el.addEventListener('keydown', keyAct(goFwd));
-    });
-  }
-
-  function bindCrumb() {
-    crumb.addEventListener('click', function() { goTo({ type: 'crit' }); });
-  }
-
-  function bindOutsideClick() {
-    document.addEventListener('click', function(e) {
-      if (state.view === 'crit') return;
-      if (stage.contains(e.target)) return;
-      goTo({ type: 'crit' });
-    });
-  }
-
-  function bindKeyboard() {
-    document.addEventListener('keydown', function(e) {
-      var tag = document.activeElement ? document.activeElement.tagName : '';
-      if (tag === 'INPUT' || tag === 'TEXTAREA') return;
-
-      if (e.key === 'Escape') {
-        goTo({ type: 'crit' });
-        return;
-      }
-
-      // Number keys for stickies (only from crit view)
-      if (state.view === 'crit') {
-        var num = 0;
-        if (e.key >= '1' && e.key <= '9') num = parseInt(e.key, 10);
-        if (e.key === '0') num = 10;
-        if (num >= 1 && num <= 10) {
-          var s = STICKIES[num - 1];
-          state.lastSticky = num;
-          emitArrival(num, s.target);
-          goTo(s.target);
-          return;
-        }
-      }
-
-      if (e.key === 'ArrowLeft') {
-        e.preventDefault();
-        if (state.view === 'crit') {
-          goTo({ type: 'back', frame: 17 });
-        } else if (state.view === 'back') {
-          var prev = Math.max(1, state.frame - 1);
-          goTo({ type: 'back', frame: prev });
-        }
-      }
-
-      if (e.key === 'ArrowRight') {
-        e.preventDefault();
-        if (state.view === 'back') {
-          if (state.frame >= 17) {
-            goTo({ type: 'crit' });
-          } else {
-            goTo({ type: 'back', frame: state.frame + 1 });
-          }
-        }
-      }
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        if (state.view === 'crit') {
-          goTo({ type: 'fwd', pass: 1 });
-        } else if (state.view === 'fwd') {
-          var next = Math.min(5, state.pass + 1);
-          if (next !== state.pass) goTo({ type: 'fwd', pass: next });
-        }
-      }
-
-      if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        if (state.view === 'fwd') {
-          if (state.pass <= 1) {
-            goTo({ type: 'crit' });
-          } else {
-            goTo({ type: 'fwd', pass: state.pass - 1 });
-          }
-        }
-      }
-    });
-  }
-
-  // ===== RESIZE OBSERVER — position rails + stickies wrapper =====
-  function bindFrameResize() {
-    if (!window.ResizeObserver) return;
-    var ro = new ResizeObserver(function() { positionRails(); });
-    ro.observe(frameWrap);
-    positionRails();
-  }
-
-  function positionRails() {
-    var rect = frameWrap.getBoundingClientRect();
-    var stageRect = stage.getBoundingClientRect();
-
-    // horizontal rail: runs from left edge of stage to left edge of frame
-    var railHLeft  = 0;
-    var railHWidth = rect.left - stageRect.left;
-    var railHTop   = rect.top  - stageRect.top + rect.height / 2 - 5;
-    railH.style.left   = railHLeft + 'px';
-    railH.style.width  = Math.max(48, railHWidth) + 'px';
-    railH.style.top    = railHTop + 'px';
-
-    // vertical rail: runs from bottom of frame to bottom of stage
-    var railVLeft   = rect.left  - stageRect.left + rect.width / 2 - 5;
-    var railVTop    = rect.top   - stageRect.top  + rect.height;
-    var railVHeight = stageRect.height - railVTop;
-    railV.style.left   = railVLeft + 'px';
-    railV.style.top    = railVTop  + 'px';
-    railV.style.height = Math.max(48, railVHeight) + 'px';
-
-    // Rail labels
-    railLabelH.textContent = 'the 20 drafts that got us here';
-    railLabelH.style.left  = Math.max(4, railHLeft + 8) + 'px';
-    railLabelH.style.top   = (railHTop + 8) + 'px';
-
-    railLabelV.textContent = 'the 5 Architect passes';
-    railLabelV.style.left  = (railVLeft + 8) + 'px';
-    railLabelV.style.top   = (railVTop  + 8) + 'px';
-  }
-
-})();
+  });
+}, { threshold: 0.25 });
+taglineIo.observe(taglineSection);
 </script>
-
-<script src="../shape-echo.js"></script>
 </body>
 </html>

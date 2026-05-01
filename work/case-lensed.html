@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case study — through your lens · Joyus Studio</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --orange: #E8734A;
+    --green: #5BBD72;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+    --accent: var(--pink);
+    --accent-soft: rgba(233, 30, 123, 0.12);
+    --accent-deep: #9a1453;
+    --accent-on: #fff;
+  }
+  body[data-lens="brand"]    { --accent: var(--pink);   --accent-soft: rgba(233, 30, 123, 0.12); --accent-deep: #9a1453; --accent-on: #fff; }
+  body[data-lens="product"]  { --accent: var(--cyan);   --accent-soft: rgba(79, 196, 207, 0.18); --accent-deep: #2d8b93; --accent-on: var(--ink); }
+  body[data-lens="research"] { --accent: #c79a2a;       --accent-soft: rgba(199, 154, 42, 0.16); --accent-deep: #8a6912; --accent-on: #fff; }
+  body[data-lens="story"]    { --accent: var(--orange); --accent-soft: rgba(232, 115, 74, 0.14); --accent-deep: #b04e2b; --accent-on: #fff; }
+  body[data-lens="growth"]   { --accent: var(--green);  --accent-soft: rgba(91, 189, 114, 0.14); --accent-deep: #347a44; --accent-on: var(--ink); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  .proto-tag {
+    position: fixed;
+    top: 1.25rem; right: 1.25rem;
+    z-index: 600;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--accent);
+    background: var(--paper);
+    border: 1.5px solid var(--accent);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    transform: rotate(2deg);
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    padding: clamp(6rem, 13vh, 9rem) var(--x) clamp(3rem, 6vh, 5rem);
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--bg) 100%);
+  }
+  .hero-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+  .breadcrumb {
+    display: inline-flex;
+    gap: 0.4rem;
+    align-items: center;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.75rem;
+  }
+  .breadcrumb a { color: var(--accent); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .breadcrumb a:hover { color: var(--ink); }
+  .breadcrumb .sep { opacity: 0.4; }
+
+  .lens-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-on);
+    background: var(--accent);
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+  }
+  .lens-chip::before {
+    content: ""; width: 8px; height: 8px;
+    border-radius: 50%; background: currentColor;
+    opacity: 0.6;
+  }
+
+  .case-name-tiny {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 0.5rem;
+  }
+  h1.lens-headline {
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6.4vw, 5.4rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 18ch;
+  }
+  h1.lens-headline em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .lens-deck {
+    font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+    color: var(--ink);
+    max-width: 38rem;
+    line-height: 1.45;
+    margin-bottom: 2rem;
+  }
+  .annot {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--accent);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+
+  /* HERO COVER */
+  .hero-cover {
+    margin: 2.5rem auto 0;
+    max-width: 980px;
+    aspect-ratio: 16/9;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow:
+      0 30px 50px -24px rgba(44, 53, 68, 0.20),
+      0 6px 14px -4px rgba(44, 53, 68, 0.06);
+    position: relative;
+    z-index: 2;
+  }
+  .hero-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* BODY */
+  .body {
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 0 var(--x);
+  }
+  .body p { margin-bottom: 1.25rem; font-size: 1.08rem; color: var(--ink); }
+  .body p strong { color: var(--ink); font-weight: 600; }
+  .pull {
+    border-left: 4px solid var(--accent);
+    padding: 0.5rem 0 0.5rem 1.5rem;
+    margin: 2.5rem 0;
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    line-height: 1.3;
+    font-weight: 500;
+    color: var(--ink);
+    font-style: italic;
+  }
+  .pull::before {
+    content: "“";
+    font-family: serif;
+    font-size: 3rem;
+    line-height: 0;
+    color: var(--accent);
+    margin-right: 0.2rem;
+    vertical-align: -0.4em;
+  }
+  .what-mattered {
+    background: var(--accent-soft);
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin: 2rem 0 2.5rem;
+  }
+  .what-mattered h3 {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.85rem;
+  }
+  .what-mattered ul { list-style: none; padding: 0; margin: 0; }
+  .what-mattered li {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(44, 53, 68, 0.08);
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .what-mattered li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .what-mattered li::before {
+    content: "→ ";
+    color: var(--accent);
+    font-weight: 600;
+    margin-right: 0.4rem;
+  }
+
+  /* CTA STRIP */
+  .cta-strip {
+    max-width: 980px;
+    margin: 0 auto 5rem;
+    padding: 0 var(--x);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.95rem 1.7rem;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .cta-primary {
+    background: var(--accent);
+    color: var(--accent-on);
+    box-shadow: 0 6px 0 var(--accent-deep);
+  }
+  .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--accent-deep); }
+  .cta-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid rgba(44, 53, 68, 0.3);
+  }
+  .cta-ghost:hover { border-color: var(--ink); }
+  .cta-aside {
+    margin-left: auto;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .cta-aside a { color: var(--accent); border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+
+  /* ============ VISUAL BLOCKS — for projects with figma/asset visuals ============ */
+  .visual-section {
+    margin: 4rem auto;
+  }
+  .visual-section.full {
+    max-width: 1400px;
+    padding: 0 var(--x);
+  }
+  .visual-section.body-width {
+    max-width: 980px;
+    padding: 0 var(--x);
+  }
+  .visual-figure {
+    margin: 0;
+    position: relative;
+  }
+  .visual-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    background: var(--paper);
+    box-shadow:
+      0 22px 40px -22px rgba(44, 53, 68, 0.18),
+      0 4px 10px -4px rgba(44, 53, 68, 0.06);
+  }
+  .visual-figure figcaption {
+    margin-top: 0.85rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    max-width: 60ch;
+  }
+  .visual-figure figcaption .annot-inline {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-right: 0.5rem;
+  }
+  /* hero — full-bleed dramatic */
+  .visual-hero img {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    object-position: center top;
+  }
+  /* feature — large landscape, aspect respected */
+  .visual-feature img {
+    object-fit: contain;
+    background: var(--paper);
+  }
+  /* pair — 2-up grid */
+  .visual-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .visual-pair .visual-figure img {
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    object-position: center top;
+  }
+  /* gallery — horizontal scroll strip of artifacts */
+  .visual-gallery {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem var(--x) 1.5rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .visual-gallery .visual-figure {
+    flex: 0 0 320px;
+    scroll-snap-align: start;
+  }
+  .visual-gallery .visual-figure img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  /* big stat — visual anchor */
+  .visual-stat {
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .visual-stat .num {
+    font-weight: 700;
+    font-size: clamp(5rem, 14vw, 11rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    display: block;
+  }
+  .visual-stat .label {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-weight: 600;
+    margin-top: 0.5rem;
+  }
+  /* zoom-on-click for visuals — turns large process artifacts into modal viewers */
+  .visual-figure.zoomable img { cursor: zoom-in; transition: transform 200ms ease; }
+  .visual-figure.zoomable img:hover { transform: scale(1.005); }
+  .zoom-modal {
+    position: fixed; inset: 0; z-index: 700;
+    background: rgba(20, 22, 28, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+  }
+  .zoom-modal.open { display: flex; }
+  .zoom-modal img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  }
+  .zoom-modal-close {
+    position: absolute;
+    top: 1rem; right: 1rem;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 0;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .zoom-modal-close:hover { background: rgba(255,255,255,0.25); }
+
+  @media (max-width: 720px) {
+    .visual-pair { grid-template-columns: 1fr; }
+    .visual-gallery .visual-figure { flex-basis: 240px; }
+    .visual-gallery .visual-figure img { height: 160px; }
+  }
+
+  /* ============ HYPOTHESIS STACK — interactive cards built from the team's real hypothesis doc ============ */
+  .hyp-section { max-width: 1280px; margin: 4rem auto; padding: 0 var(--x); }
+  .hyp-section-head {
+    display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .hyp-section-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--accent);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+  }
+  .hyp-section-title {
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .hyp-meta {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+  }
+
+  .hyp-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 720px) { .hyp-grid { grid-template-columns: 1fr; } }
+
+  .hyp-card {
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem 1.5rem 1.25rem;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    text-align: left;
+    width: 100%;
+    font-family: var(--sans);
+    color: var(--ink);
+  }
+  .hyp-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 16px 28px -16px rgba(44,53,68,0.18); }
+  .hyp-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .hyp-card[aria-expanded="true"] { border-color: var(--accent); background: var(--accent-soft); }
+
+  .hyp-num {
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 0.85;
+    color: var(--accent);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.25rem;
+  }
+  .hyp-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .hyp-belief {
+    font-size: 0.98rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .hyp-prompt {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .hyp-prompt::after {
+    content: "↓";
+    transition: transform 200ms ease;
+  }
+  .hyp-card[aria-expanded="true"] .hyp-prompt::after { transform: rotate(180deg); }
+  .hyp-test {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(44, 53, 68, 0.18);
+    display: none;
+  }
+  .hyp-card[aria-expanded="true"] .hyp-test { display: block; }
+  .hyp-test-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    margin-bottom: 0.5rem;
+  }
+  .hyp-test ul { list-style: none; padding: 0; margin: 0; }
+  .hyp-test li {
+    padding: 0.4rem 0;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--ink);
+  }
+  .hyp-test li::before {
+    content: "→ ";
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .hyp-reflection {
+    margin-top: 0.85rem;
+    padding-top: 0.85rem;
+    border-top: 1px dashed rgba(44, 53, 68, 0.18);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .hyp-reflection::before {
+    content: "Joyus · ";
+    font-style: normal;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    margin-right: 0.4rem;
+  }
+
+  /* ============ NAMING WALL — drifting candidate names with the chosen one framed ============ */
+  .naming-wall {
+    max-width: 1280px;
+    margin: 4rem auto;
+    padding: 3rem var(--x);
+    background: var(--paper);
+    border-radius: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .naming-wall::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, var(--accent-soft) 0%, transparent 60%);
+    z-index: 0;
+  }
+  .naming-grid {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    align-items: center;
+    min-height: 280px;
+  }
+  .naming-chip {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    background: rgba(255, 255, 255, 0.85);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 0.55rem 0.95rem;
+    transform: rotate(var(--rot, 0deg));
+    transition: opacity 600ms ease, transform 400ms ease, color 400ms ease;
+    opacity: 0;
+    animation: namingFade 800ms ease-out forwards;
+    animation-delay: var(--delay, 0ms);
+  }
+  @keyframes namingFade { from { opacity: 0; transform: rotate(var(--rot, 0deg)) translateY(8px); } to { opacity: 0.7; transform: rotate(var(--rot, 0deg)); } }
+
+  .naming-chip.chosen {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+    padding: 0.7rem 1.5rem;
+    transform: rotate(0deg);
+    box-shadow: 0 14px 28px -10px var(--accent-deep);
+    opacity: 1;
+    animation: namingChosen 1200ms cubic-bezier(0.2, 0.8, 0.2, 1) 1.6s both;
+    order: -1;
+    width: 100%;
+    text-align: center;
+    border-radius: 14px;
+    flex-basis: auto;
+    max-width: max-content;
+    margin: 0 auto 1rem;
+  }
+  body[data-lens="product"] .naming-chip.chosen,
+  body[data-lens="growth"] .naming-chip.chosen { color: var(--ink); }
+  @keyframes namingChosen {
+    0%   { opacity: 0; transform: scale(0.6); }
+    60%  { opacity: 1; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+  .naming-caption {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    position: relative;
+    z-index: 1;
+  }
+  .naming-caption strong { color: var(--ink); font-weight: 600; }
+
+  .naming-taglines {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    position: relative;
+    z-index: 1;
+  }
+  .naming-taglines-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-bottom: 0.85rem;
+  }
+  .tagline-cycle {
+    position: relative;
+    min-height: 4.5em;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .tagline-cycle .t {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 700ms ease;
+    font-style: italic;
+  }
+  .tagline-cycle .t.is-active { opacity: 1; position: relative; }
+  .tagline-final-mark {
+    display: inline-block;
+    margin-left: 0.4rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    font-style: normal;
+  }
+  body[data-lens="product"] .tagline-final-mark,
+  body[data-lens="growth"]  .tagline-final-mark { color: var(--ink); }
+
+  /* ============ JOURNEY STACK — 3 expanding columns of user-voice quotes ============ */
+  .journey-stack {
+    max-width: 1280px;
+    margin: 4rem auto;
+    padding: 0 var(--x);
+  }
+  .journey-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: stretch;
+  }
+  @media (max-width: 720px) { .journey-cols { grid-template-columns: 1fr; } }
+
+  .journey-col {
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: border-color 200ms, transform 200ms, background 200ms;
+    text-align: left;
+    width: 100%;
+    font-family: var(--sans);
+    color: var(--ink);
+    position: relative;
+  }
+  .journey-col:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .journey-col[aria-expanded="true"] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .journey-col-num {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .journey-col-name {
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.4rem;
+  }
+  .journey-col-question {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+  }
+  .journey-col-prompt {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .journey-col-prompt::after { content: "↓"; transition: transform 200ms; }
+  .journey-col[aria-expanded="true"] .journey-col-prompt::after { transform: rotate(180deg); }
+
+  .journey-quotes {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed rgba(44, 53, 68, 0.18);
+    display: none;
+  }
+  .journey-col[aria-expanded="true"] .journey-quotes { display: block; }
+  .journey-quote {
+    padding: 0.5rem 0;
+    font-size: 0.94rem;
+    line-height: 1.45;
+    color: var(--ink);
+    border-bottom: 1px dashed rgba(44, 53, 68, 0.08);
+  }
+  .journey-quote:last-child { border-bottom: 0; }
+  .journey-quote::before {
+    content: "“";
+    color: var(--accent);
+    font-weight: 700;
+    margin-right: 0.2rem;
+  }
+  .journey-quote::after {
+    content: "”";
+    color: var(--accent);
+    font-weight: 700;
+    margin-left: 0.2rem;
+  }
+
+  /* ============ ANNOTATED IMAGE — UI screen with hypothesis-tagged hotspots ============ */
+  .annotated-section { max-width: 1280px; margin: 4rem auto; padding: 0 var(--x); position: relative; }
+  .annotated-wrap {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow:
+      0 22px 40px -22px rgba(44, 53, 68, 0.18),
+      0 4px 10px -4px rgba(44, 53, 68, 0.06);
+  }
+  .annotated-wrap img { width: 100%; height: auto; display: block; }
+  .hotspot {
+    position: absolute;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 14px var(--accent-deep);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    transition: transform 200ms ease;
+    animation: hotspotPulse 2.4s ease-in-out infinite;
+  }
+  body[data-lens="product"] .hotspot,
+  body[data-lens="growth"]  .hotspot { color: var(--ink); }
+  .hotspot:hover { transform: translate(-50%, -50%) scale(1.2); }
+  .hotspot:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+  @keyframes hotspotPulse {
+    0%, 100% { box-shadow: 0 4px 14px var(--accent-deep), 0 0 0 0 var(--accent-soft); }
+    50%      { box-shadow: 0 4px 14px var(--accent-deep), 0 0 0 14px transparent; }
+  }
+  .hotspot-tip {
+    position: absolute;
+    bottom: calc(100% + 12px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink);
+    color: #fff;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    width: 240px;
+    box-shadow: 0 10px 22px rgba(0, 0, 0, 0.25);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+    z-index: 6;
+  }
+  .hotspot-tip strong {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .hotspot:hover + .hotspot-tip,
+  .hotspot:focus-visible + .hotspot-tip,
+  .hotspot.is-open + .hotspot-tip { opacity: 1; pointer-events: auto; }
+  .annotated-caption {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  /* SWITCH-LENS strip — at bottom, lets you flip the lens */
+  .switch-lens {
+    max-width: 980px;
+    margin: 0 auto 6rem;
+    padding: 2.5rem var(--x);
+    border-top: 1px solid var(--rule);
+  }
+  .switch-lens-label {
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    transform: rotate(-1deg);
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .switch-lens-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+  .switch-lens-buttons .lens {
+    font-family: var(--sans);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+    min-height: 40px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(44, 53, 68, 0.25);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+  }
+  .switch-lens-buttons .lens:hover { border-color: var(--ink); }
+  .switch-lens-buttons .lens.current {
+    background: var(--accent); color: var(--accent-on); border-color: var(--accent);
+    cursor: default;
+  }
+  .switch-lens-buttons .lens.unavailable {
+    opacity: 0.35; cursor: not-allowed;
+    text-decoration: line-through;
+  }
+
+  /* error / fallback states */
+  .blank-state {
+    max-width: 720px;
+    margin: 8rem auto;
+    padding: 0 var(--x);
+    text-align: center;
+  }
+  .blank-state h2 {
+    font-size: 1.6rem;
+    margin-bottom: 0.85rem;
+    font-weight: 600;
+  }
+  .blank-state p { color: var(--ink-soft); margin-bottom: 1.5rem; }
+
+  @media (max-width: 720px) {
+    .proto-tag { top: 0.85rem; right: 0.85rem; font-size: 0.95rem; }
+    .hero-cover { aspect-ratio: 4/3; }
+    .what-mattered { padding: 1.25rem 1.25rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: 0.01ms !important;
+      animation-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a class="proto-tag" href="../work-lensed.html">prototype · v0</a>
+
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+<main id="content">
+  <!-- rendered by JS — see below -->
+</main>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+<script>
+// ============================================================
+// Same data as work-lensed.html. Kept inline (no module system
+// in this static site) — if you change one, mirror to the other.
+// ============================================================
+const PROJECTS = {
+  'klydo':         { name: 'Klydo',         cover: '../images/work-covers/klydo.jpg',         href: 'klydo.html',
+    deep: { what_mattered_intro: 'A full-stack engagement: brand voice, product flow, and the GTM curve all designed against the same scroll-pace.' },
+    lenses: {
+      brand:   { headline: 'A brand built for the <em>instant-gratification era</em>.',
+                 deck: 'Klydo had to feel native to the way fashion is actually consumed today — fast, fragmented, infinitely scrollable. So the brand had to be a system that could keep up with itself.',
+                 pull: 'A voice you could hear at TikTok scroll-pace — and a visual system flexible enough to keep up.',
+                 mattered: ['Voice that holds shape across 100s of micro-formats', 'Visual system designed for crops, captions, and stitches', 'Type and color that survive being screenshotted'] },
+      product: { headline: 'The product <em>is</em> the funnel.',
+                 deck: 'Most apps treat the funnel as something that happens to the user. We treated it as the architecture of the interface itself — every gesture pushing toward the next decision.',
+                 pull: 'Every gesture is designed to turn browsing into buying without friction or pause.',
+                 mattered: ['Browse-to-cart in two taps, by design not accident', 'Decision points designed to be reversible (lower the stakes, raise the conversion)', 'Onboarding that doubles as the first purchase'] },
+      growth:  { headline: '0 → 150 daily sales <em>by day 90</em>.',
+                 deck: 'A repeatable growth motion that pulled paid, earned, and product mechanics into the same rhythm. The first 90 days were not a launch — they were the proof that the loop closes.',
+                 pull: 'The curve only bends when paid, earned, and product all sync to the same beat.',
+                 mattered: ['First 90 days as the engine, not the ramp', 'Creator pipeline that scales without losing voice', 'Product mechanics designed for share-back loops'] }
+    } },
+  'tomboyx':       { name: 'TomboyX',       cover: '../images/work-covers/tomboyx.jpg',       href: 'tomboyx.html',
+    deep: { what_mattered_intro: 'A re-cap raise in a down round needed a story that operators believed in — not a deck of vanity metrics.' },
+    lenses: {
+      story: { headline: 'Rewriting a beloved brand’s <em>investor story</em>.',
+               deck: 'When the numbers tell a hard story, the narrative has to do real work. We rebuilt the deck around the story the operators were already living — and the believer-community that was already buying it.',
+               pull: 'When the numbers tell a hard story, the narrative has to do real work.',
+               mattered: ['A pitch built from the operators’ own words, not consultant-speak', 'Believer-community as the proof, not the feature', 'Honest framing of the down round, not euphemism'] }
+    } },
+  'rachna-nivas':  { name: 'Rachna Nivas',  cover: '../images/work-covers/rachna-nivas.jpg',  href: 'rachna-nivas.html',
+    deep: { what_mattered_intro: 'Identity work for a soloist whose career runs on artifacts — programs, posters, press kits, the things that travel ahead of her.' },
+    lenses: {
+      brand: { headline: 'The artifacts of a <em>classical career</em>.',
+               deck: 'For a soloist, the brand is not the website — it is the program in someone’s hand at intermission. Identity, leverage, and the materials that travel ahead of you.',
+               pull: 'The brand is not the website — it is the program in someone’s hand.',
+               mattered: ['Identity that holds across festival posters and intimate venues', 'Press materials curators actually want to use', 'A system that scales from a 1-page bio to a 20-page program'] },
+      story: { headline: 'Standing out as a <em>soloist</em>.',
+               deck: 'How a single dancer presents herself at festival scale — without losing the intimacy of the form. Story-as-positioning, not story-as-bio.',
+               pull: 'Festival-scale presence without losing the intimacy of the form.',
+               mattered: ['Bio rewritten to lead with the work, not the resume', 'A through-line that holds across press, programs, and personal site', 'Honest framing of lineage and influence'] }
+    } },
+  'agemo':         { name: 'Agemo',         cover: '../images/work-covers/agemo.jpg',         href: 'agemo.html',
+    deep: { what_mattered_intro: 'Agemo (Codewords) is a GenAI tool that lets people build functional software by describing what they want in plain words. The team came in with a hypothesis doc — eight beliefs about how users would behave, each with a measurable test. Our job was to design a product that could prove or disprove those beliefs in the wild.' },
+    lenses: {
+      research: { headline: 'Eight bets, <em>each designed to be wrong</em>.',
+                  deck: 'Before we drew a single screen, the team wrote down what they believed was true about how users would behave — and how they would know if they were wrong. Eight hypotheses, each with a falsifiable test. That document is the spine of the entire product.',
+                  pull: 'Each belief had a way to be falsified. That is the whole job of a hypothesis.',
+                  mattered: [
+                    'Eight hypotheses, written down before any screen was drawn — each with a measurable test',
+                    'Naming explored across 14+ candidates before "Codewords" stuck — the framing question shaped the product',
+                    'A three-stage adoption journey (Curiosity → Aspirational → Problem-solving) anchored to verbatim user quotes',
+                    'Twelve user types mapped on a proficiency spectrum — from Tool Consumer to Tool Chainer',
+                    'A scope-of-work board that read like a research log, not a Gantt chart'
+                  ],
+                  visuals: [
+                    { type: 'hypothesis-stack',
+                      eyebrow: 'their hypothesis doc, ours to test',
+                      title: 'Eight beliefs the team brought in. Each one designed to be measurable.',
+                      meta: 'Source: Product Design Hypotheses (CW), Agemo × Joyus',
+                      items: [
+                        { num: 1, title: 'Codewords requires a behavior change',
+                          belief: 'We are introducing a new way of completing an existing behavior — not a new behavior. Users already Google for code; this changes how, not what.',
+                          test: ['If users abandon to check Google partway → low intent, low trust', 'Cross-function usage signals branching curiosity', 'Without cross-usage, 30-day retention will be very low'],
+                          reflection: 'The riskiest hypothesis to be wrong about. If false, the whole positioning collapses.' },
+                        { num: 2, title: 'There is a journey to adoption',
+                          belief: 'New users will not be ready to create from a blank prompt at first. Mindsets follow a Curiosity → Aspirational → Problem-solving arc.',
+                          test: ['Track visit number to first creation', 'Measure where creation happens (Remix? Home? Function page?)', 'Expect a longer adoption cycle before users habitually start blank'],
+                          reflection: 'Drove the design of Explore and Remix as deliberate way-stations, not just secondary nav.' },
+                        { num: 3, title: 'Intent > Curiosity',
+                          belief: 'Favor people with a goal to complete; secondarily support browsers. Codewords is a mastery-oriented product.',
+                          test: ['Time spent per session (mastery products grow this over time)', 'Complexity of functions built — % moving to multi-block graphs', 'Are casual users converting or churning?'],
+                          reflection: 'Hard to measure short-term. The team flagged: if mastery isn\'t happening, change the product to make it happen.' },
+                        { num: 4, title: 'Completeness over Simplicity',
+                          belief: 'Favor enabling power users over simplifying for casual ones. Detailed specs and architect access are worth the information density.',
+                          test: ['Are users finding the spec / architect / FAQ?', 'When same-result options differ in detail, do users pick the more complete one?', 'Path after FAQ / spec — do they leave or dig deeper?'],
+                          reflection: 'A confident bet against the design-orthodoxy of "make it simpler". Earned by the user-type research above.' },
+                        { num: 5, title: 'Defer to the human',
+                          belief: 'The user knows how to solve their problem. The AI is a tool in their toolset, not a director.',
+                          test: ['What % accept AI-suggested prompts directly?', 'Does that % grow or shrink over a user\'s lifecycle?', 'Are they remixing prompts, starting over, or moving on satisfied?'],
+                          reflection: 'Shaped every confirmation moment in the Architect — the AI proposes, the human disposes.' },
+                        { num: 6, title: 'Draft state matters',
+                          belief: 'Ideas rarely arrive fully formed. The drafting process needs space for feedback and refinement.',
+                          test: ['Are users making more than one version of a function?', 'Are they refining prompts before generation?', 'Is average run-count per non-error function > 1?'],
+                          reflection: 'Why the spec and the architect both got first-class space in the layout — drafts are the work, not the prelude.' },
+                        { num: 7, title: 'Remixing is the new creating',
+                          belief: 'Most new things are adapted from existing solutions. AI products are blurring the line between creating and generating.',
+                          test: ['When do users remix vs. start blank? (1st visit vs 10th?)', 'When do they remix from their own past prompts?', 'Success rate of remixed prompts vs. fresh ones'],
+                          reflection: 'Hard to test in this iteration. Mostly observed in the wild — but it shaped the prominence of the Explore page.' },
+                        { num: 8, title: 'Users want it done',
+                          belief: 'Optimize for giving users something they can use, over getting into the details of how it gets done.',
+                          test: ['Are users frustrated when they can\'t intervene mid-generation?', 'Is the generated function usable in the way it was created?', 'When given customization controls, do they use them?'],
+                          reflection: 'In some tension with H4 (Completeness). The product holds the tension by making depth available, not demanded.' }
+                      ] },
+
+                    { type: 'naming-wall',
+                      eyebrow: 'before "Codewords"',
+                      title: 'A naming process is a research process. The brief was clear; the framing took 14+ tries.',
+                      candidates: [
+                        'Create software with plain english', 'Decode software', 'decode software development',
+                        'build simply', 'Simply building', 'Simplify building', 'simplify software development',
+                        'simple building. complex outputs', 'the step change in building', 'the step change in development',
+                        'a new kind of software developer', 'decode tool generation', 'decode building tools',
+                        'decode functions', 'Create tech with plain english'
+                      ],
+                      chosen: 'Codewords',
+                      caption: 'The chosen name — <strong>Codewords</strong> — works because it carries both the input ("words") and the output ("code") in a single noun. The earlier candidates either described the act ("decode", "simplify") or the outcome ("step change") but not both.',
+                      taglines: [
+                        'With Codewords, write code without code. Simply explain your needs, and we\'ll create the solution. Including breaking down the problem, creating & deploying the functions needed and giving you a UI to use them.',
+                        'Codewords creates functional tools from just words, including the automated approach to architecture, code generation, testing and deployment.',
+                        'Simply explain your needs, and Codewords creates the solution, including architecture, code generation, testing and deployment. Write code with words.',
+                        'Explain your needs, and we\'ll create the solution. We\'ll break down your problem into function(s), create & deploy it, and give you a place to use it. With Codewords, write Code with Words.'
+                      ],
+                      taglineFinal: 'Write code with words.' },
+
+                    { type: 'journey-stack',
+                      eyebrow: 'hypothesis 2, made tangible',
+                      title: 'The adoption journey, anchored to actual user voice.',
+                      meta: 'Quotes pulled verbatim from the user-journey board',
+                      stages: [
+                        { name: 'Curiosity', intent: 'Low intent for product', question: 'What does this do?',
+                          quotes: ['How do I ...', 'Can I use a tool to let me ...', 'Can I find something similar to help me with the problem I have now'] },
+                        { name: 'Aspirational', intent: 'Hope for a solution', question: 'When and how can this do something for me?',
+                          quotes: ['Can I try this for something simple ...', 'Can I trust this to be consistent for ...', 'Does this work for ...', 'It\'s cool this can do ...', 'I wonder if this could apply for my ...', 'Could this integrate or replace my existing ...'] },
+                        { name: 'Problem-solving', intent: 'High intent', question: 'What of my problems can be consistently solved by this system?',
+                          quotes: ['How can this fit into my workflow for ...', 'How can I modernize this existing workflow with ...', 'How can I make this function into something I can integrate in ...'] }
+                      ] }
+                  ] },
+
+      product:  { headline: 'A paradigm <em>that didn\'t exist yet</em>, designed to teach itself.',
+                  deck: 'Codewords had no precedent and no shared vocabulary with users. The interface itself had to be the onboarding — every action labeled, every state explained. The Architect screen below is where that work concentrates: hover the marked points to see which research hypothesis each interaction implements.',
+                  pull: 'When users have no model, the interface has to be the teacher.',
+                  mattered: [
+                    'A conversational Architect that proposes, never decides — implementing H5 in every confirmation moment',
+                    'Spec + draft state given equal weight in the layout — implementing H6 (drafts are the work, not the prelude)',
+                    'Information density chosen on purpose — implementing H4 (Completeness over Simplicity)',
+                    'Explore and Remix as deliberate way-stations for early-journey users (H2 + H7)',
+                    'A "first 60 seconds" that teaches by doing — onboarding without an onboarding flow'
+                  ],
+                  visuals: [
+                    { type: 'annotated',
+                      src: '../images/work/agemo/lens-product/architect-page.png',
+                      caption: 'The Architect screen. Hover any marker to see which research hypothesis the interaction implements.',
+                      hotspots: [
+                        { x: 28, y: 32, num: 5, label: 'H5 · Defer to the human',
+                          body: 'The AI proposes a spec; the user accepts, edits, or asks for more. Confirmation is required at every step — never assumed.' },
+                        { x: 65, y: 28, num: 6, label: 'H6 · Draft state matters',
+                          body: 'The spec lives in the editor as a draft you can iterate on, not a frozen brief. Refinement is the primary action, not an exception.' },
+                        { x: 50, y: 62, num: 4, label: 'H4 · Completeness over Simplicity',
+                          body: 'Detailed parameter visibility, architect chat, and the spec link are all available at once. Density is intentional — the audience is power users.' },
+                        { x: 80, y: 78, num: 8, label: 'H8 · Users want it done',
+                          body: 'The Generate action lives where it would be expected — output is one click away even when the spec is still rough.' }
+                      ] },
+
+                    { type: 'pair', items: [
+                      { src: '../images/work/agemo/lens-product/landing-page.png',
+                        annot: 'the public face', caption: 'Landing page after iteration ten. Every word tested against "would an engineer trust this?"' },
+                      { src: '../images/work/agemo/lens-product/run-function-page.png',
+                        annot: 'using what was built', caption: 'A generated function, running. Inputs, outputs, logs — the whole runtime made legible.' }
+                    ] }
+                  ] }
+    } },
+  'convegenius':   { name: 'ConveGenius',   cover: '../images/work-covers/convegenius.jpg',   href: 'convegenius.html',
+    deep: { what_mattered_intro: 'A children’s learning app where the obvious answer (gamification) was also the easy trap. The work was making it strategic.' },
+    lenses: {
+      research: { headline: 'What kids do, vs. <em>what kids say</em> they do.',
+                  deck: 'Behavioral research as the spine of the product — not a deck nobody opened twice. We watched, and we re-watched, and we built around what was actually happening on screen.',
+                  pull: 'Behavioral research as the spine — not a deck nobody opened twice.',
+                  mattered: ['Field observation, not just self-report', 'Loops tested against actual fingers, not assumed personas', 'A research log built into the team’s weekly rhythm'] },
+      growth:   { headline: 'Gamification as <em>engagement strategy</em>, not gimmick.',
+                  deck: 'The retention curve you only get from getting the loop right — and knowing which feedback to ignore. Most "fun" features were tested and cut.',
+                  pull: 'Knowing which feedback to ignore is half the work.',
+                  mattered: ['A core loop tight enough to defend against feature creep', 'Reward systems that survive the second week', 'Parent-side telemetry that makes engagement legible'] }
+    } },
+  'pratham':       { name: 'Pratham USA',   cover: '../images/work-covers/pratham.jpg',       href: 'pratham.html',
+    deep: { what_mattered_intro: 'A nonprofit fundraising operation rebuilt around the moments that actually move donors — not the org chart.' },
+    lenses: {
+      research: { headline: 'The moments that make donors <em>fall in love</em>.',
+                  deck: 'Mapping the fundraising funnel as a journey of trust — and replicating those moments when circumstances change. The funnel was not the form. It was the dinner before the form.',
+                  pull: 'The funnel was not the form. It was the dinner before the form.',
+                  mattered: ['Donor journey mapped from first encounter to recurring gift', 'The "moments that mattered" identified from real donor interviews', 'A playbook for replicating those moments across chapters'] }
+    } },
+  'tatsam':        { name: 'Tatsam',        cover: '../images/work-covers/tatsam.jpg',        href: 'tatsam.html',
+    deep: { what_mattered_intro: 'A mental-health app where every type choice, every motion curve, every microcopy line had to do emotional work before it did informational work.' },
+    lenses: {
+      brand:   { headline: 'The visual language of <em>mental calm</em>.',
+                 deck: 'A system that signals safety before you read a word. Type, color, motion, and pacing all doing emotional work — quietly, consistently.',
+                 pull: 'Signal safety before you read a word.',
+                 mattered: ['A type system tuned for low-cognitive-load reading', 'A color palette that does not perform "wellness" — it just feels safe', 'Motion curves that breathe, not bounce'] },
+      product: { headline: 'An app that <em>gives back agency</em>.',
+                 deck: 'Interface decisions that respect the user’s emotional state — and never assume you know how someone feels today. Defaults that defer to the user, not the algorithm.',
+                 pull: 'Defaults that defer to the user, not the algorithm.',
+                 mattered: ['Onboarding that lets you skip without penalty', 'Streaks that pause, not punish', 'Disclosure controls users actually find when they need them'] }
+    } },
+  'xtdb':          { name: 'XTDB',          cover: '../images/work-covers/xtdb.jpg',          href: 'xtdb.html',
+    deep: { what_mattered_intro: 'A temporal database that needed to feel inevitable to engineers — without resorting to engineering-marketing clichés.' },
+    lenses: {
+      brand: { headline: 'An identity for <em>time-shaped data</em>.',
+               deck: 'How to make a temporal database feel inevitable — to engineers who normally distrust marketing. The brand had to be technical without being cold, opinionated without being loud.',
+               pull: 'Technical without being cold. Opinionated without being loud.',
+               mattered: ['Type system designed to feel like a well-written README', 'Color that earns engineer trust (and does not say "synergy")', 'Brand guidelines short enough to actually be followed'] }
+    } },
+  'gliitch':       { name: 'Gliitch',       cover: '../images/work-covers/gliitch.jpg',       href: 'gliitch.html',
+    deep: { what_mattered_intro: 'Hong Kong restaurant tech with attitude — and the brand had to keep up without becoming noise.' },
+    lenses: {
+      brand:  { headline: 'Loud personality, <em>tight system</em>.',
+                deck: 'Brand identity for a Hong Kong restaurant tech provider with attitude — kept legible across menus, dashboards, and merch. Personality that scales is rare. This one had to.',
+                pull: 'Personality that scales is rare. This one had to.',
+                mattered: ['A wordmark that holds across signage and a 16px UI label', 'Voice rules tight enough to onboard a new copywriter in a day', 'Color discipline that lets the personality actually land'] },
+      growth: { headline: 'A brand that doubles as a <em>sales asset</em>.',
+                deck: 'When the moodboard is also the pitch deck — and the pitch deck closes the room. The brand had to be a closer, not a deliverable.',
+                pull: 'The brand had to be a closer, not a deliverable.',
+                mattered: ['Brand assets shipped as sales tools, not after-the-fact marketing', 'A pitch deck system the founders could actually edit themselves', 'Visuals that survive being screen-shared in low-light meetings'] }
+    } },
+  'secret-senses': { name: 'Secret Senses', cover: '../images/work-covers/secret-senses.jpg', href: 'secret-senses.html',
+    deep: { what_mattered_intro: 'A hair-care brand whose ethos lived in the packaging — and so the packaging had to do the talking.' },
+    lenses: {
+      brand: { headline: 'A hair-care ethos in <em>packaging form</em>.',
+               deck: 'Identity, illustration, and packaging — all telling the same quiet story about how a brand wants to be picked up. The shelf is the only marketing channel that matters.',
+               pull: 'The shelf is the only marketing channel that matters.',
+               mattered: ['Illustration system that scales from 1-inch icon to full label', 'Packaging hierarchy that survives the 6-second shelf scan', 'A back-of-pack story worth reading in line at checkout'] }
+    } }
+};
+
+const LENS_NAME = {
+  brand: 'Brand & Identity',
+  product: 'Product & Interface',
+  research: 'Research & Strategy',
+  story: 'Story & Pitch',
+  growth: 'Growth & Distribution'
+};
+
+const params = new URLSearchParams(location.search);
+const projectKey = params.get('project');
+const lensKey    = params.get('lens');
+
+const project = PROJECTS[projectKey];
+const lens    = project && project.lenses[lensKey] ? lensKey : null;
+
+const out = document.getElementById('content');
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+if (!project) {
+  out.innerHTML = `
+    <div class="blank-state">
+      <h2>No project picked.</h2>
+      <p>This page expects a <code>?project=</code> URL parameter. Try one of these:</p>
+      <p>
+        ${Object.keys(PROJECTS).map(k => `<a class="cta cta-ghost" style="margin:.25rem;" href="?project=${k}&lens=${Object.keys(PROJECTS[k].lenses)[0]}">${escapeHtml(PROJECTS[k].name)}</a>`).join('')}
+      </p>
+    </div>`;
+} else if (!lens) {
+  // Project exists but lens isn't valid for it — let user pick.
+  document.body.dataset.lens = Object.keys(project.lenses)[0];
+  out.innerHTML = `
+    <div class="blank-state">
+      <h2>${escapeHtml(project.name)} isn’t framed through that lens.</h2>
+      <p>Pick a lens that applies, or open the case study on its own terms:</p>
+      <p>
+        ${Object.keys(project.lenses).map(l => `<a class="cta cta-primary" style="margin:.25rem;" href="?project=${projectKey}&lens=${l}">${escapeHtml(LENS_NAME[l])}</a>`).join('')}
+        <br/><br/>
+        <a class="cta cta-ghost" href="${project.href}">open as-is →</a>
+      </p>
+    </div>`;
+} else {
+  document.body.dataset.lens = lens;
+  const lensView = project.lenses[lens];
+  document.title = `${project.name} through ${LENS_NAME[lens]} · Joyus Studio`;
+
+  const switchHtml = Object.keys(LENS_NAME).map(l => {
+    const has = !!project.lenses[l];
+    const cls = (l === lens) ? 'lens current' : (has ? 'lens' : 'lens unavailable');
+    if (l === lens || !has) {
+      return `<span class="${cls}" aria-current="${l === lens ? 'true' : 'false'}">${escapeHtml(LENS_NAME[l])}</span>`;
+    }
+    return `<a class="${cls}" href="?project=${projectKey}&lens=${l}">${escapeHtml(LENS_NAME[l])}</a>`;
+  }).join('');
+
+  // ============ visual block rendering ============
+  function renderVisual(v) {
+    if (v.type === 'stat') {
+      return `<section class="visual-section body-width visual-stat">
+        <span class="num">${escapeHtml(v.num)}</span>
+        <span class="label">${escapeHtml(v.label)}</span>
+      </section>`;
+    }
+    if (v.type === 'hero') {
+      return `<section class="visual-section full">
+        <figure class="visual-figure visual-hero zoomable">
+          <img src="${v.src}" alt="${escapeHtml(v.caption || '')}" data-zoom="${v.src}" />
+          <figcaption><span class="annot-inline">${escapeHtml(v.annot || '')}</span>${escapeHtml(v.caption || '')}</figcaption>
+        </figure>
+      </section>`;
+    }
+    if (v.type === 'feature') {
+      return `<section class="visual-section full">
+        <figure class="visual-figure visual-feature zoomable">
+          <img src="${v.src}" alt="${escapeHtml(v.caption || '')}" data-zoom="${v.src}" />
+          <figcaption><span class="annot-inline">${escapeHtml(v.annot || '')}</span>${escapeHtml(v.caption || '')}</figcaption>
+        </figure>
+      </section>`;
+    }
+    if (v.type === 'pair') {
+      return `<section class="visual-section full">
+        <div class="visual-pair">
+          ${v.items.map(it => `
+            <figure class="visual-figure zoomable">
+              <img src="${it.src}" alt="${escapeHtml(it.caption || '')}" data-zoom="${it.src}" />
+              <figcaption><span class="annot-inline">${escapeHtml(it.annot || '')}</span>${escapeHtml(it.caption || '')}</figcaption>
+            </figure>`).join('')}
+        </div>
+      </section>`;
+    }
+    if (v.type === 'gallery') {
+      return `<section class="visual-section">
+        <div class="visual-gallery">
+          ${v.items.map(it => `
+            <figure class="visual-figure zoomable">
+              <img src="${it.src}" alt="${escapeHtml(it.caption || '')}" data-zoom="${it.src}" />
+              <figcaption>${escapeHtml(it.caption || '')}</figcaption>
+            </figure>`).join('')}
+        </div>
+      </section>`;
+    }
+    if (v.type === 'hypothesis-stack') {
+      return `<section class="visual-section hyp-section">
+        <header class="hyp-section-head">
+          <span class="hyp-section-eyebrow">${escapeHtml(v.eyebrow || '')}</span>
+          <h2 class="hyp-section-title">${escapeHtml(v.title || '')}</h2>
+          ${v.meta ? `<span class="hyp-meta">${escapeHtml(v.meta)}</span>` : ''}
+        </header>
+        <div class="hyp-grid" role="list">
+          ${v.items.map((h, i) => `
+            <button type="button" class="hyp-card" role="listitem" aria-expanded="false" data-hyp="${i}">
+              <span class="hyp-num">H${h.num}</span>
+              <h3 class="hyp-title">${escapeHtml(h.title)}</h3>
+              <p class="hyp-belief">${escapeHtml(h.belief)}</p>
+              <span class="hyp-prompt">how would we know we were wrong</span>
+              <div class="hyp-test">
+                <div class="hyp-test-label">Test criteria, in their words</div>
+                <ul>${h.test.map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
+                ${h.reflection ? `<p class="hyp-reflection">${escapeHtml(h.reflection)}</p>` : ''}
+              </div>
+            </button>`).join('')}
+        </div>
+      </section>`;
+    }
+    if (v.type === 'naming-wall') {
+      // Random-but-deterministic rotations / delays based on index — keeps it lively without re-jumping on re-render.
+      const seed = (i) => ((Math.sin((i + 1) * 13.37) + 1) * 0.5);
+      const chips = v.candidates.map((c, i) => {
+        const rot = (seed(i) * 8 - 4).toFixed(1);
+        const delay = Math.floor(seed(i + 7) * 1400);
+        return `<span class="naming-chip" style="--rot:${rot}deg; --delay:${delay}ms;">${escapeHtml(c)}</span>`;
+      }).join('');
+      const taglineHtml = (v.taglines || []).map((t, i, a) => {
+        const isLast = (i === a.length - 1);
+        return `<span class="t" data-i="${i}">${escapeHtml(t)}${isLast && v.taglineFinal ? ` <span class="tagline-final-mark">final pick</span>` : ''}</span>`;
+      }).join('');
+      const finalLine = v.taglineFinal ? `<span class="t" data-i="final"><strong style="color:var(--ink);font-style:normal;">${escapeHtml(v.taglineFinal)}</strong> <span class="tagline-final-mark">final pick</span></span>` : '';
+      return `<section class="visual-section">
+        <div class="naming-wall">
+          <header class="hyp-section-head" style="margin-bottom:2rem;">
+            <span class="hyp-section-eyebrow">${escapeHtml(v.eyebrow || '')}</span>
+            <h2 class="hyp-section-title">${escapeHtml(v.title || '')}</h2>
+          </header>
+          <div class="naming-grid">
+            <span class="naming-chip chosen">${escapeHtml(v.chosen)}</span>
+            ${chips}
+          </div>
+          <p class="naming-caption">${v.caption || ''}</p>
+          ${(v.taglines && v.taglines.length) ? `
+            <div class="naming-taglines" data-tagline-cycle>
+              <div class="naming-taglines-label">Tagline drafts, cycling →</div>
+              <div class="tagline-cycle">${taglineHtml}${finalLine}</div>
+            </div>` : ''}
+        </div>
+      </section>`;
+    }
+    if (v.type === 'journey-stack') {
+      return `<section class="visual-section journey-stack">
+        <header class="hyp-section-head">
+          <span class="hyp-section-eyebrow">${escapeHtml(v.eyebrow || '')}</span>
+          <h2 class="hyp-section-title">${escapeHtml(v.title || '')}</h2>
+          ${v.meta ? `<span class="hyp-meta">${escapeHtml(v.meta)}</span>` : ''}
+        </header>
+        <div class="journey-cols">
+          ${v.stages.map((s, i) => `
+            <button type="button" class="journey-col" aria-expanded="false" data-stage="${i}">
+              <span class="journey-col-num">stage ${i + 1}</span>
+              <h3 class="journey-col-name">${escapeHtml(s.name)}</h3>
+              <p class="journey-col-question">${escapeHtml(s.intent)} — <em>${escapeHtml(s.question)}</em></p>
+              <span class="journey-col-prompt">${s.quotes.length} user quotes</span>
+              <div class="journey-quotes">
+                ${s.quotes.map(q => `<p class="journey-quote">${escapeHtml(q)}</p>`).join('')}
+              </div>
+            </button>`).join('')}
+        </div>
+      </section>`;
+    }
+    if (v.type === 'annotated') {
+      const hot = (v.hotspots || []).map((h, i) => `
+        <button type="button" class="hotspot" style="left:${h.x}%; top:${h.y}%;" aria-label="${escapeHtml(h.label)}" data-spot="${i}">${h.num || (i+1)}</button>
+        <div class="hotspot-tip" data-tip="${i}" style="left:${h.x}%; top:${h.y}%;">
+          <strong>${escapeHtml(h.label)}</strong>
+          ${escapeHtml(h.body)}
+        </div>`).join('');
+      return `<section class="visual-section annotated-section">
+        <div class="annotated-wrap">
+          <img src="${v.src}" alt="${escapeHtml(v.caption || '')}" />
+          ${hot}
+        </div>
+        ${v.caption ? `<p class="annotated-caption">${escapeHtml(v.caption)}</p>` : ''}
+      </section>`;
+    }
+    return '';
+  }
+
+  // Build interleaved body: hero/cover, then visuals[0] if any, then intro+pull,
+  // then any remaining visuals, then what-mattered, then closer.
+  const visuals = lensView.visuals || [];
+  const visualsBeforePull   = visuals.slice(0, 1);
+  const visualsAfterPull    = visuals.slice(1, 3);
+  const visualsAfterMattered = visuals.slice(3);
+
+  out.innerHTML = `
+    <section class="hero">
+      <div class="hero-inner">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../work-lensed.html?lens=${lens}">work · through ${escapeHtml(LENS_NAME[lens].toLowerCase())}</a>
+          <span class="sep">/</span>
+          <span>${escapeHtml(project.name)}</span>
+        </nav>
+        <span class="lens-chip">${escapeHtml(LENS_NAME[lens])} view</span>
+        <p class="case-name-tiny">${escapeHtml(project.name)}</p>
+        <h1 class="lens-headline">${lensView.headline}</h1>
+        <p class="lens-deck">${escapeHtml(lensView.deck)}</p>
+      </div>
+      ${visuals.length === 0 ? `<figure class="hero-cover"><img src="${project.cover}" alt="${escapeHtml(project.name)}" /></figure>` : ''}
+    </section>
+
+    ${visualsBeforePull.map(renderVisual).join('')}
+
+    <article class="body">
+      <span class="annot">what we’re looking at</span>
+      <p>${escapeHtml(project.deep.what_mattered_intro)}</p>
+
+      <p class="pull">${escapeHtml(lensView.pull)}</p>
+    </article>
+
+    ${visualsAfterPull.map(renderVisual).join('')}
+
+    <article class="body">
+      <div class="what-mattered">
+        <h3>What mattered, through this lens</h3>
+        <ul>${lensView.mattered.map(m => `<li>${escapeHtml(m)}</li>`).join('')}</ul>
+      </div>
+    </article>
+
+    ${visualsAfterMattered.map(renderVisual).join('')}
+
+    <article class="body">
+      <p>This is a <em>lens view</em> — a re-framing, not a replacement. The full case study has the artifacts, the process, and the things this lens chose to leave out. If you want the whole picture, open it below.</p>
+    </article>
+
+    <div class="cta-strip">
+      <a class="cta cta-primary" href="${project.href}">read the full case study →</a>
+      <a class="cta cta-ghost" href="../work-lensed.html?lens=${lens}">back to ${escapeHtml(LENS_NAME[lens].toLowerCase())}</a>
+      <span class="cta-aside">or <a href="../work/">browse work as-is →</a></span>
+    </div>
+
+    <section class="switch-lens">
+      <span class="switch-lens-label">try another lens on the same project →</span>
+      <div class="switch-lens-buttons">${switchHtml}</div>
+    </section>
+
+    <div class="zoom-modal" id="zoom-modal" role="dialog" aria-label="Zoomed view">
+      <button class="zoom-modal-close" aria-label="Close">×</button>
+      <img id="zoom-img" src="" alt="" />
+    </div>
+  `;
+
+  // wire up zoom-on-click
+  const modal = document.getElementById('zoom-modal');
+  const modalImg = document.getElementById('zoom-img');
+  document.querySelectorAll('img[data-zoom]').forEach(img => {
+    img.addEventListener('click', () => {
+      modalImg.src = img.dataset.zoom;
+      modalImg.alt = img.alt;
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  function closeModal() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  modal.addEventListener('click', closeModal);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+  });
+
+  // hypothesis cards — toggle expanded state on click
+  document.querySelectorAll('.hyp-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const open = card.getAttribute('aria-expanded') === 'true';
+      card.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
+  });
+
+  // journey columns — only one open at a time, but tap-to-toggle
+  document.querySelectorAll('.journey-col').forEach(col => {
+    col.addEventListener('click', () => {
+      const wasOpen = col.getAttribute('aria-expanded') === 'true';
+      document.querySelectorAll('.journey-col').forEach(c => c.setAttribute('aria-expanded', 'false'));
+      if (!wasOpen) col.setAttribute('aria-expanded', 'true');
+    });
+  });
+
+  // hotspots — click to pin tooltip open (mobile-friendly), click again or outside to close
+  document.querySelectorAll('.hotspot').forEach(spot => {
+    spot.addEventListener('click', e => {
+      e.stopPropagation();
+      const wasOpen = spot.classList.contains('is-open');
+      document.querySelectorAll('.hotspot.is-open').forEach(s => s.classList.remove('is-open'));
+      if (!wasOpen) spot.classList.add('is-open');
+    });
+  });
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.hotspot.is-open').forEach(s => s.classList.remove('is-open'));
+  });
+
+  // tagline cycle — fade through draft taglines, lingering on the final pick
+  const taglineRoot = document.querySelector('[data-tagline-cycle] .tagline-cycle');
+  if (taglineRoot) {
+    const items = Array.from(taglineRoot.querySelectorAll('.t'));
+    if (items.length > 0) {
+      let i = 0;
+      items[0].classList.add('is-active');
+      setInterval(() => {
+        items[i].classList.remove('is-active');
+        i = (i + 1) % items.length;
+        items[i].classList.add('is-active');
+      }, 3400);
+    }
+  }
+}
+</script>
+</body>
+</html>

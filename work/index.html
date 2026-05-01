@@ -96,40 +96,92 @@
   .hero .dh2 { width: 42px; height: 42px; bottom: 20%; right: 18%; }
   .hero .dh3 { width: 18px; height: 18px; top: 30%; right: 28%; }
 
-  /* ============ FILTER STATUS BAR ============ */
-  .p-filter-bar {
-    position: relative;
-    z-index: 15;
-    border-bottom: 1px solid var(--rule);
-    padding: 0 var(--x);
-    height: 0;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    transition: height 160ms ease-out, opacity 160ms ease-out;
-  }
-  body[data-filter] .p-filter-bar {
-    height: 3rem;
-    opacity: 1;
-    pointer-events: auto;
+  /* ============ TOP CATEGORY FILTER BAR (always visible) ============ */
+  .p-cat-bar {
     position: sticky;
-    top: 68px; /* sits just below the nav */
-    background: rgba(250, 247, 242, 0.96);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
+    top: 64px; /* sits just below the fixed nav */
+    z-index: 480;
+    background: rgba(250, 247, 242, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.85rem var(--x);
+  }
+  .p-cat-inner {
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    gap: 0.5rem 0.65rem;
   }
-  #p-status {
-    font-size: 0.82rem;
+  .p-cat-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+  }
+  .p-cat {
+    font-family: var(--sans);
+    font-size: 0.86rem;
     font-weight: 500;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.01em;
+    padding: 0.45rem 0.95rem;
+    min-height: 36px;
+    border-radius: 999px;
+    border: 1.5px solid rgba(44, 53, 68, 0.25);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background 140ms ease, color 140ms ease, border-color 140ms ease, transform 120ms ease;
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .p-cat .p-cat-count {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--ink-fade);
+    transition: color 140ms ease;
+  }
+  .p-cat:hover { border-color: var(--ink); }
+  .p-cat:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  .p-cat[aria-pressed="true"] {
+    background: var(--ink);
+    color: #fff;
+    border-color: var(--ink);
+  }
+  .p-cat[aria-pressed="true"] .p-cat-count { color: rgba(255,255,255,0.65); }
+  .p-cat[data-cat="all"][aria-pressed="true"] {
+    background: var(--pink);
+    border-color: var(--pink);
+  }
+
+  /* status text — appears only when a filter is active */
+  .p-cat-status {
+    font-size: 0.78rem;
+    font-weight: 500;
     color: var(--ink-soft);
+    margin-left: auto;
+    display: none;
   }
-  #p-status strong {
-    color: var(--pink);
-    font-weight: 700;
+  body[data-filter] .p-cat-status { display: inline; }
+  .p-cat-status strong { color: var(--pink); font-weight: 700; }
+
+  @media (max-width: 720px) {
+    .p-cat-bar { padding: 0.7rem 1rem; top: 56px; }
+    .p-cat-label { display: none; }
+    .p-cat { font-size: 0.8rem; padding: 0.4rem 0.75rem; }
+    .p-cat-status { width: 100%; margin-left: 0; margin-top: 0.35rem; }
   }
+
+  /* legacy filter bar removed — top cat bar handles status now */
+  .p-filter-bar { display: none; }
 
   /* sr-only */
   .sr-only {
@@ -681,7 +733,7 @@
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -726,13 +778,10 @@
       menu.querySelectorAll('a').forEach(function(a) {
         a.addEventListener('click', close);
       });
-      // close on escape — capture phase + stopImmediatePropagation so filter Esc handler doesn't also fire
+      // close on escape
       document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu.classList.contains('open')) {
-          e.stopImmediatePropagation();
-          close();
-        }
-      }, true);
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
     }
   })();
 </script>
@@ -749,49 +798,26 @@
     <h1>The work.</h1>
   </section>
 
-  <!-- =========== FILTER STATUS BAR =========== -->
-  <div class="p-filter-bar" role="status" aria-live="off">
-    <span id="p-status"></span>
-    <div id="p-live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
-  </div>
+  <!-- =========== TOP CATEGORY FILTER BAR =========== -->
+  <nav class="p-cat-bar" aria-label="Filter projects by category">
+    <div class="p-cat-inner">
+      <span class="p-cat-label">show</span>
+      <button type="button" class="p-cat" data-cat="all" aria-pressed="true">All <span class="p-cat-count">10</span></button>
+      <button type="button" class="p-cat" data-cat="brand" aria-pressed="false">Brand &amp; Identity <span class="p-cat-count" data-cat-count="brand">6</span></button>
+      <button type="button" class="p-cat" data-cat="product" aria-pressed="false">Product &amp; Interface <span class="p-cat-count" data-cat-count="product">3</span></button>
+      <button type="button" class="p-cat" data-cat="research" aria-pressed="false">Research &amp; Strategy <span class="p-cat-count" data-cat-count="research">3</span></button>
+      <button type="button" class="p-cat" data-cat="story" aria-pressed="false">Story &amp; Pitch <span class="p-cat-count" data-cat-count="story">2</span></button>
+      <button type="button" class="p-cat" data-cat="growth" aria-pressed="false">Growth &amp; Distribution <span class="p-cat-count" data-cat-count="growth">3</span></button>
+      <span class="p-cat-status" id="p-status"></span>
+      <div id="p-live" aria-live="polite" aria-atomic="true" class="sr-only"></div>
+    </div>
+  </nav>
 
-  <!-- =========== STACK OF PROJECTS (most recent first) =========== -->
+  <!-- =========== STACK OF PROJECTS (chronological — most recent first) =========== -->
   <main class="stack" id="stack">
 
     <section class="p" id="p-01">
-      <div class="p-panel" data-chips="story investor-pitch" data-index="1">
-        <span class="dot p-d1"></span>
-        <span class="dot p-d2"></span>
-        <span class="dot p-d3"></span>
-        <span class="dot p-d4"></span>
-        <span class="dot p-d5"></span>
-        <span class="dot p-d6"></span>
-        <span class="dot p-d7"></span>
-        <span class="dot p-d8"></span>
-        <span class="dot p-d9"></span>
-        <span class="dot p-d10"></span>
-        <span class="dot p-d11"></span>
-        <span class="dot p-d12"></span>
-        <span class="dot p-d13"></span>
-        <span class="dot p-d14"></span>
-        <div class="p-frame">
-          <img src="../images/work-covers/tomboyx.jpg" alt="TomboyX" />
-        </div>
-        <div class="p-chips" role="group" aria-label="TomboyX disciplines — filter the stack">
-          <button type="button" class="p-chip" data-chip="story" aria-pressed="false">Story</button>
-          <button type="button" class="p-chip" data-chip="investor-pitch" aria-pressed="false">Investor Pitch</button>
-        </div>
-        <div class="p-text">
-          <h2 class="p-name">TomboyX</h2>
-          <div class="p-rule"></div>
-          <p class="p-tagline">Beloved underwear company in need of a refreshed story to raise a re-capitalization in a down round.</p>
-          <a class="p-link" href="tomboyx.html">read the story →</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="p" id="p-02">
-      <div class="p-panel" data-chips="product brand gtm" data-index="2">
+      <div class="p-panel" data-chips="product brand gtm" data-cats="brand product growth" data-index="1">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -823,8 +849,8 @@
       </div>
     </section>
 
-    <section class="p" id="p-03">
-      <div class="p-panel" data-chips="research gamification behavior" data-index="3">
+    <section class="p" id="p-02">
+      <div class="p-panel" data-chips="story investor-pitch" data-cats="story" data-index="2">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -840,24 +866,56 @@
         <span class="dot p-d13"></span>
         <span class="dot p-d14"></span>
         <div class="p-frame">
-          <img src="../images/work-covers/convegenius.jpg" alt="ConveGenius" />
+          <img src="../images/work-covers/tomboyx.jpg" alt="TomboyX" />
         </div>
-        <div class="p-chips" role="group" aria-label="ConveGenius disciplines — filter the stack">
-          <button type="button" class="p-chip" data-chip="research" aria-pressed="false">Research</button>
-          <button type="button" class="p-chip" data-chip="gamification" aria-pressed="false">Gamification</button>
-          <button type="button" class="p-chip" data-chip="behavior" aria-pressed="false">Behavior</button>
+        <div class="p-chips" role="group" aria-label="TomboyX disciplines — filter the stack">
+          <button type="button" class="p-chip" data-chip="story" aria-pressed="false">Story</button>
+          <button type="button" class="p-chip" data-chip="investor-pitch" aria-pressed="false">Investor Pitch</button>
         </div>
         <div class="p-text">
-          <h2 class="p-name">ConveGenius</h2>
+          <h2 class="p-name">TomboyX</h2>
           <div class="p-rule"></div>
-          <p class="p-tagline">Gamification for a children's app seems like an obvious solution for engagement. How do you make it into a strategy?</p>
-          <a class="p-link" href="convegenius.html">read the story →</a>
+          <p class="p-tagline">Beloved underwear company in need of a refreshed story to raise a re-capitalization in a down round.</p>
+          <a class="p-link" href="tomboyx.html">read the story →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="p" id="p-03">
+      <div class="p-panel" data-chips="identity leverage artifacts" data-cats="brand story" data-index="3">
+        <span class="dot p-d1"></span>
+        <span class="dot p-d2"></span>
+        <span class="dot p-d3"></span>
+        <span class="dot p-d4"></span>
+        <span class="dot p-d5"></span>
+        <span class="dot p-d6"></span>
+        <span class="dot p-d7"></span>
+        <span class="dot p-d8"></span>
+        <span class="dot p-d9"></span>
+        <span class="dot p-d10"></span>
+        <span class="dot p-d11"></span>
+        <span class="dot p-d12"></span>
+        <span class="dot p-d13"></span>
+        <span class="dot p-d14"></span>
+        <div class="p-frame">
+          <img src="../images/work-covers/rachna-nivas.jpg" alt="Rachna Nivas" />
+        </div>
+        <div class="p-chips" role="group" aria-label="Rachna Nivas disciplines — filter the stack">
+          <button type="button" class="p-chip" data-chip="identity" aria-pressed="false">Identity</button>
+          <button type="button" class="p-chip" data-chip="leverage" aria-pressed="false">Leverage</button>
+          <button type="button" class="p-chip" data-chip="artifacts" aria-pressed="false">Artifacts</button>
+        </div>
+        <div class="p-text">
+          <h2 class="p-name">Rachna Nivas</h2>
+          <div class="p-rule"></div>
+          <p class="p-tagline">Standing out as a classical dancer.</p>
+          <a class="p-link" href="rachna-nivas.html">read the story →</a>
         </div>
       </div>
     </section>
 
     <section class="p" id="p-04">
-      <div class="p-panel" data-chips="research strategy interface" data-index="4">
+      <div class="p-panel" data-chips="research strategy interface" data-cats="research product" data-index="4">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -890,7 +948,7 @@
     </section>
 
     <section class="p" id="p-05">
-      <div class="p-panel" data-chips="visual-system product brand" data-index="5">
+      <div class="p-panel" data-chips="research gamification behavior" data-cats="research growth" data-index="5">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -906,24 +964,24 @@
         <span class="dot p-d13"></span>
         <span class="dot p-d14"></span>
         <div class="p-frame">
-          <img src="../images/work-covers/tatsam.jpg" alt="Tatsam" />
+          <img src="../images/work-covers/convegenius.jpg" alt="ConveGenius" />
         </div>
-        <div class="p-chips" role="group" aria-label="Tatsam disciplines — filter the stack">
-          <button type="button" class="p-chip" data-chip="visual-system" aria-pressed="false">Visual System</button>
-          <button type="button" class="p-chip" data-chip="product" aria-pressed="false">Product</button>
-          <button type="button" class="p-chip" data-chip="brand" aria-pressed="false">Brand</button>
+        <div class="p-chips" role="group" aria-label="ConveGenius disciplines — filter the stack">
+          <button type="button" class="p-chip" data-chip="research" aria-pressed="false">Research</button>
+          <button type="button" class="p-chip" data-chip="gamification" aria-pressed="false">Gamification</button>
+          <button type="button" class="p-chip" data-chip="behavior" aria-pressed="false">Behavior</button>
         </div>
         <div class="p-text">
-          <h2 class="p-name">Tatsam</h2>
+          <h2 class="p-name">ConveGenius</h2>
           <div class="p-rule"></div>
-          <p class="p-tagline">A holistic mental health app needing a design to give a sense of calm and agency to users.</p>
-          <a class="p-link" href="tatsam.html">read the story →</a>
+          <p class="p-tagline">Gamification for a children's app seems like an obvious solution for engagement. How do you make it into a strategy?</p>
+          <a class="p-link" href="convegenius.html">read the story →</a>
         </div>
       </div>
     </section>
 
     <section class="p" id="p-06">
-      <div class="p-panel" data-chips="research process information-flow" data-index="6">
+      <div class="p-panel" data-chips="research process information-flow" data-cats="research" data-index="6">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -956,7 +1014,7 @@
     </section>
 
     <section class="p" id="p-07">
-      <div class="p-panel" data-chips="identity illustration packaging" data-index="7">
+      <div class="p-panel" data-chips="visual-system product brand" data-cats="brand product" data-index="7">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -972,24 +1030,24 @@
         <span class="dot p-d13"></span>
         <span class="dot p-d14"></span>
         <div class="p-frame">
-          <img src="../images/work-covers/secret-senses.jpg" alt="Secret Senses" />
+          <img src="../images/work-covers/tatsam.jpg" alt="Tatsam" />
         </div>
-        <div class="p-chips" role="group" aria-label="Secret Senses disciplines — filter the stack">
-          <button type="button" class="p-chip" data-chip="identity" aria-pressed="false">Identity</button>
-          <button type="button" class="p-chip" data-chip="illustration" aria-pressed="false">Illustration</button>
-          <button type="button" class="p-chip" data-chip="packaging" aria-pressed="false">Packaging</button>
+        <div class="p-chips" role="group" aria-label="Tatsam disciplines — filter the stack">
+          <button type="button" class="p-chip" data-chip="visual-system" aria-pressed="false">Visual System</button>
+          <button type="button" class="p-chip" data-chip="product" aria-pressed="false">Product</button>
+          <button type="button" class="p-chip" data-chip="brand" aria-pressed="false">Brand</button>
         </div>
         <div class="p-text">
-          <h2 class="p-name">Secret Senses</h2>
+          <h2 class="p-name">Tatsam</h2>
           <div class="p-rule"></div>
-          <p class="p-tagline">Hair-care brand in search of an ethos for their design and packaging.</p>
-          <a class="p-link" href="secret-senses.html">read the story →</a>
+          <p class="p-tagline">A holistic mental health app needing a design to give a sense of calm and agency to users.</p>
+          <a class="p-link" href="tatsam.html">read the story →</a>
         </div>
       </div>
     </section>
 
     <section class="p" id="p-08">
-      <div class="p-panel" data-chips="re-branding brand-guidelines" data-index="8">
+      <div class="p-panel" data-chips="re-branding brand-guidelines" data-cats="brand" data-index="8">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -1021,7 +1079,7 @@
     </section>
 
     <section class="p" id="p-09">
-      <div class="p-panel" data-chips="moodboarding branding media" data-index="9">
+      <div class="p-panel" data-chips="moodboarding branding media" data-cats="brand growth" data-index="9">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -1054,7 +1112,7 @@
     </section>
 
     <section class="p" id="p-10">
-      <div class="p-panel" data-chips="identity leverage artifacts" data-index="10">
+      <div class="p-panel" data-chips="identity illustration packaging" data-cats="brand" data-index="10">
         <span class="dot p-d1"></span>
         <span class="dot p-d2"></span>
         <span class="dot p-d3"></span>
@@ -1070,18 +1128,18 @@
         <span class="dot p-d13"></span>
         <span class="dot p-d14"></span>
         <div class="p-frame">
-          <img src="../images/work-covers/rachna-nivas.jpg" alt="Rachna Nivas" />
+          <img src="../images/work-covers/secret-senses.jpg" alt="Secret Senses" />
         </div>
-        <div class="p-chips" role="group" aria-label="Rachna Nivas disciplines — filter the stack">
+        <div class="p-chips" role="group" aria-label="Secret Senses disciplines — filter the stack">
           <button type="button" class="p-chip" data-chip="identity" aria-pressed="false">Identity</button>
-          <button type="button" class="p-chip" data-chip="leverage" aria-pressed="false">Leverage</button>
-          <button type="button" class="p-chip" data-chip="artifacts" aria-pressed="false">Artifacts</button>
+          <button type="button" class="p-chip" data-chip="illustration" aria-pressed="false">Illustration</button>
+          <button type="button" class="p-chip" data-chip="packaging" aria-pressed="false">Packaging</button>
         </div>
         <div class="p-text">
-          <h2 class="p-name">Rachna Nivas</h2>
+          <h2 class="p-name">Secret Senses</h2>
           <div class="p-rule"></div>
-          <p class="p-tagline">Standing out as a classical dancer.</p>
-          <a class="p-link" href="rachna-nivas.html">read the story →</a>
+          <p class="p-tagline">Hair-care brand in search of an ethos for their design and packaging.</p>
+          <a class="p-link" href="secret-senses.html">read the story →</a>
         </div>
       </div>
     </section>
@@ -1165,30 +1223,46 @@
     }, { passive: true });
   </script>
 
-  <!-- Chip filter module -->
+  <!-- Filter module — top category bar + per-card discipline chips both drive the same filter -->
   <script>
   (function(){
     const body = document.body;
     const panels = Array.from(document.querySelectorAll('.p-panel'));
     const chips = Array.from(document.querySelectorAll('.p-chip'));
+    const cats = Array.from(document.querySelectorAll('.p-cat'));
     const statusEl = document.getElementById('p-status');
     const liveEl = document.getElementById('p-live');
-    let active = null;
+    const CAT_LABELS = {
+      brand: 'Brand & Identity',
+      product: 'Product & Interface',
+      research: 'Research & Strategy',
+      story: 'Story & Pitch',
+      growth: 'Growth & Distribution'
+    };
+    let active = null;        // tag string or null (= all)
+    let activeKind = null;    // 'cat' | 'chip' | null
     let originIndex = null;
 
-    function apply(label, origin) {
+    // Backfill counts on the category buttons so they reflect actual data.
+    Object.keys(CAT_LABELS).forEach(cat => {
+      const n = panels.filter(p => (p.dataset.cats || '').split(' ').indexOf(cat) > -1).length;
+      const el = document.querySelector('[data-cat-count="' + cat + '"]');
+      if (el) el.textContent = n;
+    });
+
+    function apply(label, kind, origin) {
       active = label;
+      activeKind = kind;
       originIndex = origin;
 
-      if (label) {
-        body.dataset.filter = label;
-      } else {
-        delete body.dataset.filter;
-      }
+      if (label) body.dataset.filter = label;
+      else delete body.dataset.filter;
+
+      const attr = (kind === 'cat') ? 'cats' : 'chips';
 
       let matchCount = 0;
       panels.forEach(p => {
-        const tags = (p.dataset.chips || '').split(' ');
+        const tags = (p.dataset[attr] || '').split(' ');
         const idx = Number(p.dataset.index);
         const d = (origin != null) ? Math.abs(idx - origin) : 0;
         p.style.setProperty('--p-delay', Math.min(d * 18, 108) + 'ms');
@@ -1200,40 +1274,60 @@
         }
       });
 
+      // Reflect pressed state on all controls
       chips.forEach(c => {
-        c.setAttribute('aria-pressed', (label && c.dataset.chip === label) ? 'true' : 'false');
+        c.setAttribute('aria-pressed', (kind === 'chip' && label && c.dataset.chip === label) ? 'true' : 'false');
+      });
+      cats.forEach(c => {
+        const isAll = c.dataset.cat === 'all';
+        const pressed = label
+          ? (kind === 'cat' && c.dataset.cat === label)
+          : isAll;
+        c.setAttribute('aria-pressed', pressed ? 'true' : 'false');
       });
 
       if (label) {
-        const display = label.replace(/-/g, ' ').replace(/\b\w/g, s => s.toUpperCase());
+        const display = (kind === 'cat')
+          ? (CAT_LABELS[label] || label)
+          : label.replace(/-/g, ' ').replace(/\b\w/g, s => s.toUpperCase());
         statusEl.innerHTML = '<strong>' + matchCount + '</strong> of ' + panels.length + ' · ' + display;
         liveEl.textContent = matchCount + ' of ' + panels.length + ' · ' + display + '.';
       } else {
         statusEl.textContent = '';
-        liveEl.textContent = 'Filter cleared. Showing all ' + panels.length + ' projects.';
+        liveEl.textContent = 'Showing all ' + panels.length + ' projects.';
       }
     }
 
+    // Top category buttons
+    cats.forEach(c => {
+      c.addEventListener('click', e => {
+        e.stopPropagation();
+        const cat = c.dataset.cat;
+        if (cat === 'all') { apply(null, null, originIndex); return; }
+        if (activeKind === 'cat' && active === cat) { apply(null, null, originIndex); return; }
+        apply(cat, 'cat', null);
+      });
+    });
+
+    // Per-card discipline chips
     chips.forEach(c => {
       c.addEventListener('click', e => {
         e.stopPropagation();
         const label = c.dataset.chip;
-        if (active === label) {
-          apply(null, originIndex);
+        if (activeKind === 'chip' && active === label) {
+          apply(null, null, originIndex);
           return;
         }
         const panel = c.closest('.p-panel');
-        apply(label, Number(panel.dataset.index));
+        apply(label, 'chip', Number(panel.dataset.index));
       });
     });
 
     document.addEventListener('keydown', e => {
       if (e.key !== 'Escape') return;
-      // Nav escape wins — let the nav handler fire first; it stops propagation
-      // only for its own close action. Check if nav is open before clearing filter.
       const navMenu = document.querySelector('.nav .nav-links');
       if (navMenu && navMenu.classList.contains('open')) return;
-      if (active) apply(null, originIndex);
+      if (active) apply(null, null, originIndex);
     });
   })();
   </script>

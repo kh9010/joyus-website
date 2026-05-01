@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Codewords — research cut · Joyus Studio</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --orange: #E8734A;
+    --green: #5BBD72;
+    --sticky-yellow: #FFF4B5;
+    --sticky-pink: #FFD6E7;
+    --sticky-blue: #C9E8FF;
+    --sticky-green: #D4F0D4;
+    --sticky-purple: #E4CCFF;
+    --sticky-peach: #FFD4B8;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  /* prototype tag */
+  .proto-tag {
+    position: fixed;
+    top: 1.25rem; right: 1.25rem;
+    z-index: 600;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--pink);
+    background: var(--paper);
+    border: 1.5px solid var(--pink);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    transform: rotate(2deg);
+  }
+
+  /* ============ HERO — TICKING COUNTER ============ */
+  .hero {
+    min-height: 100vh; min-height: 100dvh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(233, 30, 123, 0.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(79, 196, 207, 0.08) 0%, transparent 50%);
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+  }
+  .hero-eyebrow::before {
+    content: "○ ";
+    color: var(--pink);
+    margin-right: 0.4rem;
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 18ch;
+    margin-bottom: 3rem;
+  }
+  .hero h1 .accent { color: var(--pink); display: inline-block; }
+
+  /* counter — ticks up on view */
+  .counters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    justify-content: center;
+    margin: 0 auto 2rem;
+  }
+  .counter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 120px;
+  }
+  .counter-num {
+    font-weight: 700;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    line-height: 1;
+    color: var(--pink);
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+  }
+  .counter-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 0.5rem;
+  }
+
+  .hero-scroll {
+    margin-top: 3rem;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--ink-soft);
+    transform: rotate(-2deg);
+    display: inline-block;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 2.2s;
+  }
+  @keyframes fadeInUp { from { opacity: 0; transform: rotate(-2deg) translateY(8px); } to { opacity: 1; transform: rotate(-2deg); } }
+
+  /* ============ STICKY-NOTE WALL ============ */
+  .wall-section {
+    min-height: 100vh;
+    padding: 6rem var(--x);
+    position: relative;
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .wall-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    min-height: 80vh;
+  }
+  .wall-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--pink);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .wall-title {
+    font-weight: 700;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 3rem;
+    max-width: 22ch;
+  }
+  .wall {
+    position: relative;
+    min-height: 60vh;
+  }
+  .sticky {
+    position: absolute;
+    padding: 1rem 1.1rem;
+    border-radius: 4px;
+    box-shadow: 0 6px 14px rgba(44, 53, 68, 0.1), 0 1px 2px rgba(44, 53, 68, 0.06);
+    transform: rotate(var(--rot, 0deg));
+    transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 300ms;
+    cursor: default;
+    animation: stickyFloat 6s ease-in-out infinite;
+    animation-delay: var(--float-delay, 0s);
+    will-change: transform;
+  }
+  .sticky:hover {
+    transform: rotate(var(--rot, 0deg)) translateY(-4px) scale(1.04);
+    z-index: 50;
+    box-shadow: 0 18px 36px rgba(44, 53, 68, 0.18);
+    animation-play-state: paused;
+  }
+  @keyframes stickyFloat {
+    0%, 100% { transform: rotate(var(--rot, 0deg)) translate(0, 0); }
+    50%      { transform: rotate(calc(var(--rot, 0deg) + 0.5deg)) translate(2px, -3px); }
+  }
+  .sticky-q {
+    font-style: italic;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .sticky-attrib {
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    font-style: normal;
+  }
+  .sticky-attrib strong { color: var(--ink); font-weight: 600; }
+
+  /* sticky variants */
+  .sticky.yellow { background: var(--sticky-yellow); }
+  .sticky.pink   { background: var(--sticky-pink); }
+  .sticky.blue   { background: var(--sticky-blue); }
+  .sticky.green  { background: var(--sticky-green); }
+  .sticky.purple { background: var(--sticky-purple); }
+  .sticky.peach  { background: var(--sticky-peach); }
+
+  /* sticky positions — overlapping by design */
+  .s1  { top: 2%;  left: 4%;  width: 220px; --rot: -3deg; --float-delay: 0s; }
+  .s2  { top: 8%;  left: 28%; width: 280px; --rot: 2deg;  --float-delay: 0.6s; }
+  .s3  { top: 14%; right: 10%; width: 240px; --rot: -2deg; --float-delay: 1.2s; }
+  .s4  { top: 28%; left: 14%; width: 260px; --rot: 4deg;  --float-delay: 0.3s; }
+  .s5  { top: 36%; left: 42%; width: 250px; --rot: -3deg; --float-delay: 1.8s; }
+  .s6  { top: 32%; right: 6%;  width: 230px; --rot: 3deg;  --float-delay: 0.9s; }
+  .s7  { top: 52%; left: 6%;  width: 240px; --rot: -1deg; --float-delay: 1.5s; }
+  .s8  { top: 56%; left: 32%; width: 220px; --rot: 5deg;  --float-delay: 2.1s; }
+  .s9  { top: 62%; right: 18%; width: 260px; --rot: -4deg; --float-delay: 0.7s; }
+  .s10 { top: 78%; left: 22%; width: 240px; --rot: 2deg;  --float-delay: 1.1s; }
+
+  @media (max-width: 880px) {
+    .wall { min-height: auto; }
+    .sticky { position: relative; top: auto !important; left: auto !important; right: auto !important; margin: 1rem auto; width: 100% !important; max-width: 360px; display: block; }
+  }
+
+  /* ============ HYPOTHESIS REEL — titles flash through ============ */
+  .reel-section {
+    background: var(--ink);
+    color: #fff;
+    padding: 8rem var(--x);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .reel-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--cyan);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .reel-counter {
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--yellow);
+    margin-top: 1rem;
+  }
+  .reel-stage {
+    margin: 4rem auto;
+    height: clamp(8rem, 16vh, 14rem);
+    position: relative;
+    max-width: 22ch;
+  }
+  .reel-line {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 500ms ease, transform 500ms ease;
+  }
+  .reel-line.is-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reel-line .num {
+    font-family: var(--hand);
+    color: var(--pink);
+    margin-right: 0.5rem;
+    font-size: 0.9em;
+    line-height: 0.85;
+    transform: rotate(-3deg);
+    display: inline-block;
+  }
+  .reel-foot {
+    margin-top: 4rem;
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .reel-foot strong { color: #fff; font-weight: 600; }
+
+  /* ============ SYNTHESIS — big block ============ */
+  .synthesis {
+    padding: 8rem var(--x);
+    background: var(--bg);
+    text-align: center;
+  }
+  .synthesis-inner { max-width: 920px; margin: 0 auto; }
+  .synthesis-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--pink);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .synthesis-quote {
+    font-weight: 500;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+  .synthesis-quote mark {
+    background: linear-gradient(180deg, transparent 60%, rgba(233, 30, 123, 0.3) 60%);
+    color: inherit;
+    padding: 0 0.1em;
+    font-weight: 600;
+  }
+  .synthesis-attrib {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+  }
+
+  /* ============ CTA STRIP ============ */
+  .ctas {
+    padding: 6rem var(--x);
+    background: var(--paper);
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .ctas h2 {
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform 0.25s, box-shadow 0.25s;
+    font-size: 1rem;
+  }
+  .cta-primary {
+    background: var(--pink);
+    color: #fff;
+    box-shadow: 0 6px 0 #9a1453;
+  }
+  .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+  .cta-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid rgba(44, 53, 68, 0.3);
+  }
+  .cta-ghost:hover { border-color: var(--ink); }
+
+  /* ============ REVEAL ============ */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+    .sticky { animation: none; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="proto-tag" href="agemo.html">research cut · v1</a>
+
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/podcast/.test(path)) active = 'podcast';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+<!-- ============ HERO — TICKING COUNTER ============ -->
+<section class="hero">
+  <span class="hero-eyebrow">Codewords · research cut</span>
+  <h1>What we found, before we drew <span class="accent">anything</span>.</h1>
+  <div class="counters" id="counters">
+    <div class="counter">
+      <span class="counter-num" data-target="11">0</span>
+      <span class="counter-label">interviews</span>
+    </div>
+    <div class="counter">
+      <span class="counter-num" data-target="12">0</span>
+      <span class="counter-label">user types</span>
+    </div>
+    <div class="counter">
+      <span class="counter-num" data-target="8">0</span>
+      <span class="counter-label">hypotheses</span>
+    </div>
+    <div class="counter">
+      <span class="counter-num" data-target="6">0</span>
+      <span class="counter-label">homepage drafts</span>
+    </div>
+    <div class="counter">
+      <span class="counter-num" data-target="50" data-suffix="+">0</span>
+      <span class="counter-label">tagline iterations</span>
+    </div>
+  </div>
+  <span class="hero-scroll">↓ scroll into the room</span>
+</section>
+
+<!-- ============ STICKY-NOTE WALL ============ -->
+<section class="wall-section">
+  <div class="wall-grid">
+    <span class="wall-eyebrow">the room, captured</span>
+    <h2 class="wall-title">Real users. Real words. Pulled straight off the board.</h2>
+
+    <div class="wall">
+      <div class="sticky yellow s1">
+        <p class="sticky-q">"If you weren't here to walk me through it, I would have dropped off already."</p>
+        <p class="sticky-attrib"><strong>Amanda Pun</strong> · Series A PM</p>
+      </div>
+      <div class="sticky pink s2">
+        <p class="sticky-q">"What I find a bit problematic is that it's very open-ended. It obviously cannot do everything. But I'm not sure what I can try, what I cannot try."</p>
+        <p class="sticky-attrib"><strong>Pier</strong> · Software engineer, Google</p>
+      </div>
+      <div class="sticky blue s3">
+        <p class="sticky-q">"I'm taking it at face value so my expectations are super high. You need to make sure you don't disappoint me if you don't set expectations from the get go."</p>
+        <p class="sticky-attrib"><strong>Jon Reynolds</strong> · co-founder, Swiftkey</p>
+      </div>
+      <div class="sticky green s4">
+        <p class="sticky-q">"The prompt helper is genius."</p>
+        <p class="sticky-attrib"><strong>Marie Brayer</strong> · semi-technical VC</p>
+      </div>
+      <div class="sticky peach s5">
+        <p class="sticky-q">"I did not modify the new prompt because I was scared to break anything."</p>
+        <p class="sticky-attrib"><strong>Lucas</strong> · technical founder</p>
+      </div>
+      <div class="sticky purple s6">
+        <p class="sticky-q">"I didn't know what to do tbh, so I was just checking out the changelogs."</p>
+        <p class="sticky-attrib"><strong>Adnann</strong> · designer</p>
+      </div>
+      <div class="sticky yellow s7">
+        <p class="sticky-q">"The main goal is to get things done — we'll worry about the quality later."</p>
+        <p class="sticky-attrib"><strong>Keshvi R.</strong> · Head of Product, Balderton</p>
+      </div>
+      <div class="sticky pink s8">
+        <p class="sticky-q">"I tried an example because I don't know what you can do."</p>
+        <p class="sticky-attrib"><strong>Lucas</strong> · technical founder</p>
+      </div>
+      <div class="sticky blue s9">
+        <p class="sticky-q">"Oh I didn't know I could click on this node to see the code. That's pretty cool."</p>
+        <p class="sticky-attrib"><strong>Justin</strong> · product analyst</p>
+      </div>
+      <div class="sticky green s10">
+        <p class="sticky-q">"For the first time today, I did use CW and it saved me 30 minutes in my day."</p>
+        <p class="sticky-attrib">anonymous</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HYPOTHESIS REEL ============ -->
+<section class="reel-section">
+  <span class="reel-eyebrow">eight bets</span>
+  <p style="font-size: 0.92rem; color: rgba(255,255,255,0.6); letter-spacing: 0.08em;">Each one designed to be wrong.</p>
+
+  <div class="reel-stage" id="reel">
+    <div class="reel-line is-active"><span class="num">H1</span> Codewords requires a behavior change.</div>
+    <div class="reel-line"><span class="num">H2</span> There is a journey to adoption.</div>
+    <div class="reel-line"><span class="num">H3</span> Intent &gt; Curiosity.</div>
+    <div class="reel-line"><span class="num">H4</span> Completeness over Simplicity.</div>
+    <div class="reel-line"><span class="num">H5</span> Defer to the human.</div>
+    <div class="reel-line"><span class="num">H6</span> Draft state matters.</div>
+    <div class="reel-line"><span class="num">H7</span> Remixing is the new creating.</div>
+    <div class="reel-line"><span class="num">H8</span> Users want it done.</div>
+  </div>
+
+  <p class="reel-counter">↑ <span id="reel-i">1</span> of 8</p>
+  <p class="reel-foot">From the <strong>Product Design Hypotheses</strong> doc · authored by the Agemo team, structured by Joyus.</p>
+</section>
+
+<!-- ============ SYNTHESIS ============ -->
+<section class="synthesis">
+  <div class="synthesis-inner reveal">
+    <span class="synthesis-eyebrow">our diagnosis</span>
+    <p class="synthesis-quote">
+      "The tool seems powerful but it is lacking the <mark>integration into the user's workflow</mark>. The recurring themes revolve around <mark>usability ('what can I do?')</mark> and <mark>guidance ('what should I do?')</mark>."
+    </p>
+    <p class="synthesis-attrib">— Joyus synthesis sticky, captured directly on the board.</p>
+  </div>
+</section>
+
+<!-- ============ CTAs ============ -->
+<section class="ctas">
+  <h2>Ready for the rest of the room?</h2>
+  <div class="cta-row">
+    <a class="cta cta-primary" href="agemo.html">see the full case study →</a>
+    <a class="cta cta-ghost" href="agemo-cut-interface.html">jump to the interface cut →</a>
+  </div>
+</section>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+<script>
+// ============ counter tick-up on view ============
+const counterIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    counterIo.unobserve(e.target);
+    e.target.querySelectorAll('.counter-num').forEach(el => {
+      const target = parseInt(el.dataset.target, 10);
+      const suffix = el.dataset.suffix || '';
+      const dur = 1400;
+      const start = performance.now();
+      const step = (now) => {
+        const t = Math.min((now - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - t, 3); // easeOutCubic
+        const v = Math.round(target * eased);
+        el.textContent = v + (t === 1 ? suffix : '');
+        if (t < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    });
+  });
+}, { threshold: 0.4 });
+counterIo.observe(document.getElementById('counters'));
+
+// ============ reel — flash through hypotheses ============
+const reel = document.getElementById('reel');
+const reelI = document.getElementById('reel-i');
+const lines = Array.from(reel.querySelectorAll('.reel-line'));
+let reelN = 0;
+let reelStarted = false;
+const reelIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !reelStarted) {
+      reelStarted = true;
+      setInterval(() => {
+        lines[reelN].classList.remove('is-active');
+        reelN = (reelN + 1) % lines.length;
+        lines[reelN].classList.add('is-active');
+        reelI.textContent = reelN + 1;
+      }, 2000);
+    }
+  });
+}, { threshold: 0.4 });
+reelIo.observe(reel);
+
+// ============ reveal ============
+const revealIo = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); revealIo.unobserve(e.target); }
+  });
+}, { threshold: 0.2 });
+document.querySelectorAll('.reveal').forEach(el => revealIo.observe(el));
+</script>
+</body>
+</html>

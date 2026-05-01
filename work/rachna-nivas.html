@@ -29,6 +29,9 @@
 <body class="work-page rn-page">
 
   <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
 <style>
   .nav {
     position: fixed;
@@ -68,6 +71,7 @@
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
 
+  /* Hamburger button — hidden on desktop */
   .nav-toggle {
     display: none;
     width: 44px; height: 44px;
@@ -122,7 +126,7 @@
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="../home.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -148,6 +152,7 @@
         }
       }
     }
+    // hamburger toggle
     var toggle = document.querySelector('.nav-toggle');
     var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
@@ -162,9 +167,11 @@
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         document.body.style.overflow = open ? 'hidden' : '';
       });
+      // close on link tap
       menu.querySelectorAll('a').forEach(function(a) {
         a.addEventListener('click', close);
       });
+      // close on escape
       document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && menu.classList.contains('open')) close();
       });
@@ -326,6 +333,8 @@
   </section>
 
   <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
 <style>
   .foot {
     position: relative;
@@ -352,7 +361,7 @@
   }
 </style>
 <footer class="foot">
-  <span>&copy; 2026 &middot; Joyus Studio &middot; Kahran Singh &amp; Divya Tak</span>
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
   <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
