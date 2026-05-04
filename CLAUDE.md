@@ -150,6 +150,16 @@ When orchestrating, run agents in parallel only on non-conflicting files (each c
 
 `git push origin main` is permitted by `.claude/settings.local.json` (no PR review). Each fix → its own commit + push so releases stay reviewable.
 
+## Klydo cuts — three-version case study
+
+Klydo now has the same multi-cut pattern as Agemo (main + research-cut + interface-cut):
+
+- `work/klydo.html` — **the build cut.** 120-day timeline, 30 artifacts, interactive cork-board scrubber. Shipped, indexed, untouched in this round.
+- `work/klydo-cut-strategy.html` — **the strategy cut.** Editorial pattern, cyan accent. The leadership offsite that surfaced silos as a thesis problem, the floor-and-spike frame, the "discovery + styling" sentence the team landed on, the 90-day plan. Indexed at priority 0.7 in sitemap.xml. Linked from `thesis-workshop.html` as the primary case-study reference.
+- `work/klydo-cut-design.html` — **the design cut.** STUB only. Holds the route. The HTML comment block at the top of the file is the build brief: pull frames from Figma (Klydo brand v2, app build, lifestyle render set, launch day), structure suggested in 9 sections, voice = punchy/declarative/period-stops to match the existing klydo.html captions. When the cut is real: remove the `<meta name="robots" content="noindex">` tag and add to sitemap.xml at priority 0.7. Owner: Divya (use `joyus-architect` agent for Figma API extraction).
+
+The cuts pattern: the main case study tells the comprehensive story; the cuts tell focused, single-angle stories that link to specific surfaces (the thesis workshop links to the strategy cut; future design-system content can link to the design cut). The cuts share visual DNA with the main page but each carries its own accent: build = pink (klydo brand), strategy = cyan, design = TBD by Divya.
+
 ## R4 case-study rebuild — current state
 
 The April 2026 R4 pass shipped 12 releases to main rebuilding the `work/*.html` case studies. Backlog + specs + test plans live in `.site-rebuild/` (gitignored — local only). If the dir is missing on a fresh clone, regenerate via the PM agent.

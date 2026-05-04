@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A case study — when a Series A fashion-commerce startup, eight months and a million orders past launch, found that 'quick commerce for fashion' was a description, not a thesis. The leadership offsite that surfaced silos as a thesis problem, and the work to find the sentence underneath.">
+  <meta property="og:title" content="When 'quick commerce for fashion' stopped being enough · Joyus Studio">
+  <meta property="og:description" content="Eight months in. A description, not a thesis. The offsite that surfaced what was actually broken, and the sentence the team finally landed on.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/klydo-cut-strategy.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/klydo-cut-strategy.html">
+  <title>When 'quick commerce for fashion' stopped being enough · Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"When 'quick commerce for fashion' stopped being enough","description":"How a leadership offsite at a Series A fashion-commerce startup surfaced silos as a thesis problem, and the work to find the sentence underneath the channel.","url":"https://kh9010.github.io/joyus-website/work/klydo-cut-strategy.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+  </script>
+  <style>
+    :root { --hub-accent: #4FC4CF; --warm-gray: #F5F3F0; }
+
+    body { font-family: 'DM Sans', system-ui, -apple-system, sans-serif; color: #2C3544; background: #FAF7F2; margin: 0; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+
+    .editorial-hero {
+      padding: 8rem 2rem 3rem;
+      background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 50%, #FAF7F2 100%);
+    }
+    .editorial-hero-inner { max-width: 720px; margin: 0 auto; }
+    .editorial-eyebrow {
+      display: inline-block;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--hub-accent);
+      transform: rotate(-1deg);
+      margin-bottom: 1rem;
+    }
+    .editorial-eyebrow::before { content: "← "; }
+    .editorial-eyebrow a { color: var(--hub-accent); text-decoration: none; }
+    .editorial-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+      color: #111;
+      line-height: 1.1;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .editorial-lede {
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: #444;
+      border-left: 3px solid var(--hub-accent);
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2.5rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      color: #54606F;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .meta-row span {
+      padding: 0.3rem 0.75rem;
+      border: 1px solid #d8d6d3;
+      border-radius: 999px;
+      background: #fff;
+    }
+
+    .editorial-body { max-width: 700px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #333; margin: 0 0 1.5rem; }
+    .editorial-body > p:first-of-type::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.12em;
+      margin-top: 0.05em;
+      color: var(--hub-accent);
+    }
+    .editorial-body em { color: #111; font-style: italic; }
+    .editorial-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      color: #111;
+      margin: 3rem 0 1rem;
+      letter-spacing: -0.01em;
+    }
+    .editorial-body h2 .h2-num {
+      font-family: 'Caveat', cursive;
+      color: var(--hub-accent);
+      font-size: 0.7em;
+      margin-right: 0.4em;
+      transform: rotate(-3deg);
+      display: inline-block;
+    }
+
+    .pull-quote {
+      margin: 3rem -1rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid #e8e6e4;
+      border-bottom: 1px solid #e8e6e4;
+    }
+    .pull-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1.35;
+      color: #1a1a1a;
+      font-style: italic;
+      margin: 0 auto 0.5rem;
+      max-width: 580px;
+    }
+    .pull-quote cite {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--hub-accent);
+      font-style: normal;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e8e6e4;
+    }
+    .three-col-item h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #111;
+      margin: 0 0 0.5rem;
+    }
+    .three-col-item p { font-size: 0.95rem; line-height: 1.6; color: #555; margin: 0; }
+    .three-col-item .num {
+      font-family: 'Caveat', cursive;
+      font-size: 1.8rem;
+      color: var(--hub-accent);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .inline-card {
+      margin: 2.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      overflow: hidden;
+      background: #fff;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .inline-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .inline-card a { display: block; padding: 1.25rem 1.5rem; text-decoration: none; color: inherit; }
+    .inline-card-type {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .inline-card-title { display: block; font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: #111; line-height: 1.3; }
+
+    .coda {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .coda-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      transform: rotate(-2deg);
+    }
+    .coda h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: #111;
+      margin: 0 0 1.5rem;
+      line-height: 1.2;
+    }
+    .coda p { font-size: 1.05rem; line-height: 1.7; color: #444; max-width: 580px; margin: 0 auto 2rem; }
+    .coda a.cta {
+      display: inline-block;
+      padding: 0.9rem 1.75rem;
+      background: var(--hub-accent);
+      color: #fff;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .coda a.cta:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(79, 196, 207, 0.3); }
+
+    .next-link {
+      display: block;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem;
+      border-top: 1px solid #e8e6e4;
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: var(--hub-accent);
+      text-decoration: none;
+      text-align: center;
+      transition: color 0.2s;
+    }
+    .next-link:hover { color: #2da9b3; }
+
+    @media (max-width: 600px) {
+      .pull-quote { margin: 3rem 0; }
+      .three-col { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body class="work-page">
+
+  <!--BEGIN:NAV-->
+<style>
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: #54606F; text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active { color: #2C3544; font-weight: 500; border-bottom-color: #E91E7B; }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: #2C3544; border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+  @media (max-width: 720px) { .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); } .nav-toggle { display: inline-flex; } .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: #ffffff; border-left: 4px solid #2C3544; box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; } .nav .nav-links.open { transform: translateX(0); } .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: #2C3544; } .nav .nav-links a.active { border-bottom-color: #E91E7B; } .nav .nav-cta { font-size: 1.6rem; } }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){ var path = window.location.pathname; var active = null; if (/\/work(\/|$)/.test(path)) active = 'work'; else if (/services\.html/.test(path)) active = 'services'; else if (/podcast/.test(path)) active = 'podcast'; if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) { links[i].classList.add('active'); } } } var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links'); if (toggle && menu) { var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; }; toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; }); menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); }); document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); }); } })();
+</script>
+<!--END:NAV-->
+
+<main>
+
+<header class="editorial-hero">
+  <div class="editorial-hero-inner">
+    <span class="editorial-eyebrow"><a href="index.html">case study · how we found the sentence underneath the channel</a></span>
+    <h1>When "quick commerce for fashion" stopped being enough.</h1>
+    <p class="editorial-lede">Eight months in, with a million orders through the system and a Series A in the air, the company had a description but not a thesis. The leadership team was working hard in different directions and didn't know it yet. This is what we did over one day to fix that — and the sentence the team finally landed on.</p>
+    <div class="meta-row">
+      <span>Strategy facilitation</span>
+      <span>Leadership offsite</span>
+      <span>Pre Series A</span>
+      <span>Fashion commerce · 2026</span>
+    </div>
+  </div>
+</header>
+
+<article class="editorial-body">
+
+  <p>The first time we worked with this team, the question was whether we could ship a 15-minute fashion app before Diwali. We did. Eight months later, with the launch behind them and a million orders through the system, the questions had changed. The growth team and the product team were describing the same business in different terms. The pitch deck was describing it in a third. Investors were saying <em>okay</em> instead of <em>hell yes</em>. And the leadership team — seven people who'd been in the trenches together for nearly a year — was starting to feel quietly siloed.</p>
+
+  <p>None of that was a strategy problem. It was a thesis problem. The company could describe its channel — quick commerce for fashion — but couldn't yet describe what it actually was, who it was for, or what it was replacing. Without that sentence, every other conversation became a relitigation. Every function was filling the vacuum with its own version. And the silos everyone complained about were the symptom, not the cause.</p>
+
+  <h2><span class="h2-num">01</span> The diagnostic</h2>
+
+  <p>We took the leadership team off-site for a day with two opening exercises. The first was a three-minute round: each person says, in their own words, why they're spending their life on this company. Not their job description. The personal reason. We've run this enough times now to know the pattern — adjacent answers are normal, identical answers are rare, and the gap between what people actually say is where most of the misalignment lives.</p>
+
+  <p>What came out was three distinct articulations. One leader spoke about <em>legacy</em>: quick commerce for fashion is the final platform for fashion in India, and being the team that built it is once-in-a-career. Another spoke about <em>identity</em>: a generational shift was underway, where fashion was moving from commodity to identity, and the company could be the answer to how that generation shopped. A third spoke about <em>fulfillment</em>: about giving someone a moment of magic — the thing they didn't know they wanted, in their hands before the feeling passed. None of these were wrong. None were the same. And until that moment, no one had said any of them out loud to the room.</p>
+
+  <p>The second exercise was sticky-notes, three colors, three questions. <em>What's working that we should protect. What's broken in how we work together. And what's a problem you're holding alone.</em> The third question is the one that does the most work. It's where the silent stuff comes out — the assumption you've been making about what someone else is doing, the worry you haven't named, the thing you've been waiting for someone else to bring up. By the time the wall was full, two themes dominated: silos, and lack of clarity on what we were doing.</p>
+
+  <div class="pull-quote">
+    <p>"If you have to find a reason to say no, you'll always find one. The work is making the reason to say yes louder than the reasons to say no."</p>
+    <cite>From the workshop</cite>
+  </div>
+
+  <h2><span class="h2-num">02</span> Floor and spike</h2>
+
+  <p>Before we got to the thesis, we needed a frame for triaging the work. The CEO had been carrying three problems in his head, and we drew them on the wall in order:</p>
+
+  <div class="three-col">
+    <div class="three-col-item">
+      <span class="num">01</span>
+      <h3>The CPO floor</h3>
+      <p>Get blended cost-per-order below the level where the working-capital flywheel kicks in. Functional. Gives the company longevity.</p>
+    </div>
+    <div class="three-col-item">
+      <span class="num">02</span>
+      <h3>Cost-of-ops legibility</h3>
+      <p>Express the risk model in UX and the P&amp;L so the business model becomes legible to investors who get close but bounce on "I don't understand this number."</p>
+    </div>
+    <div class="three-col-item">
+      <span class="num">03</span>
+      <h3>The thesis spike</h3>
+      <p>The reason to say <em>yes</em>. The story about how shopping is changing — not the description of the channel.</p>
+    </div>
+  </div>
+
+  <p>The first two are reasons not to say no. The third is the reason to say yes. Most of the company's energy had gone into the floor work, which was correct — without a CPO floor, the rest doesn't matter. But the floor alone produces lukewarmness. Investors read the unit economics, nod, ask polite questions, and don't wire money. The spike is what makes them lean in.</p>
+
+  <h2><span class="h2-num">03</span> The sentence</h2>
+
+  <p>We spent the afternoon on the thesis. The team had been describing the company with a channel — <em>quick commerce for fashion</em> — and we kept pushing for what was underneath. <em>For whom, in what moment of their life, replacing what.</em> The exercise took longer than anyone expected. It usually does. The first ten attempts were channel descriptions in different costumes. The eleventh started to feel like a sentence the team could actually say back to each other.</p>
+
+  <p>What landed was a wedge: <em>discovery + styling.</em> The insight was that fashion buying decisions don't form at the moment of purchase — they form earlier, on Instagram, in a moment of consideration. The desire is already shaped before someone opens an app. Inserting at the moment of purchase — which is what every fashion-commerce platform does — is too late. Their bet was to insert at the moment of consideration: bring styling content to where the consideration happens, then ride the social-feed-back into the platform when the desire converts. Quick commerce became the closing move, not the opening one.</p>
+
+  <div class="pull-quote">
+    <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</p>
+    <cite>A founder, halfway through finding the sentence</cite>
+  </div>
+
+  <h2><span class="h2-num">04</span> The 90-day plan</h2>
+
+  <p>We left the room with operating principles, two archetypes, and a 14-day experiment cell. The principles were the part that surprised us most — until we said them out loud, the team had been carrying contradictory versions of them. <em>Small bets before launch. No long-build bets without a fast version first. High bar on signal, not just on intent. Stop measuring every experiment by "did the number go down."</em> Each of these had been violated quietly in the prior quarter. Putting them on paper made the next quarter different in kind, not just degree.</p>
+
+  <p>The archetype work was where the silos closed. "Twenty-five-to-thirty-five, all of Bangalore" had been the customer definition for as long as anyone could remember — broad enough that every team could project its own version of the customer onto it. We narrowed to two, named, with real demographic and behavioral specificity. From that point, selection conversations, content conversations, and product conversations all started landing in the same place.</p>
+
+  <h2><span class="h2-num">05</span> What they walked out with</h2>
+
+  <ul class="outcomes-walk" style="list-style:none;padding:0;margin:0 0 2rem;">
+    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
+      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
+      One sentence: <em>"the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</em>
+    </li>
+    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
+      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
+      Two named archetypes, replacing the "25–35, all of Bangalore" placeholder.
+    </li>
+    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
+      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
+      Five operating principles, written down, signed off by all seven leaders in the room.
+    </li>
+    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
+      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
+      Three Instagram experiments scoped, owned, and live within fourteen days.
+    </li>
+    <li style="padding:0.9rem 0;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
+      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
+      One twelve-page summary doc the CEO has been pulling up in every leadership meeting since.
+    </li>
+  </ul>
+
+  <h2><span class="h2-num">06</span> What shifted</h2>
+
+  <p>Before the offsite, the leadership team was working hard in different directions. After it, they were working hard in the same one. That's the only thing the workshop is meant to do, and it's the thing most strategy days don't actually deliver.</p>
+
+  <p>Two weeks after the offsite, the team had run three Instagram experiments under the new frame, narrowed selection meetings from forty-five minutes to twenty, and stopped relitigating the customer in every leadership conversation. The CEO told us, on a call the following Friday, that the company felt different — not because anything external had changed, but because the team finally agreed on what they were doing. We can't claim that whole shift. Fundraises move, people leave, the world changes. But without the sentence, none of those experiments would have run.</p>
+
+  <div class="inline-card">
+    <a href="../thesis-workshop.html">
+      <span class="inline-card-type">The workshop</span>
+      <span class="inline-card-title">The Thesis Workshop — pricing, structure, and how to know you're ready &rarr;</span>
+    </a>
+  </div>
+
+</article>
+
+<section class="coda">
+  <span class="coda-eyebrow">if this sounds familiar</span>
+  <h2>You probably have the same problem.</h2>
+  <p>Working hard. Pointing in different directions. No one sentence the team can say back to each other. We built the workshop for exactly this. One day, sometimes two.</p>
+  <a class="cta" href="../thesis-workshop.html">See the workshop &rarr;</a>
+</section>
+
+<a class="next-link" href="rachna-nivas.html">next case study: rachna nivas →</a>
+
+</main>
+
+<!--BEGIN:FOOT-->
+<style>
+  .foot { position: relative; z-index: 20; background: #FAF7F2; padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; font-size: 0.78rem; color: #8892A0; letter-spacing: 0.05em; }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+<script src="../shape-echo.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K7PDLTYWF6');
+</script>
+</body>
+</html>
