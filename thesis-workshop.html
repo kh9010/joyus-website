@@ -289,9 +289,128 @@
     @media (max-width: 600px) {
       .pull-quote { margin: 3rem 0; }
     }
+
+    /* ============ MOVEMENT — scroll thread + reveal + drift + pulse ============ */
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
+    .thread-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--hub-accent), #E91E7B, #F2C94A);
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .reveal.delay-1 { transition-delay: 100ms; }
+    .reveal.delay-2 { transition-delay: 220ms; }
+    .reveal.delay-3 { transition-delay: 340ms; }
+    .reveal.delay-4 { transition-delay: 460ms; }
+
+    /* pulse dot before the eyebrow */
+    .editorial-theme {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .editorial-theme::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      animation: pulseDot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.5); }
+      50%      { box-shadow: 0 0 0 12px rgba(79, 196, 207, 0); }
+    }
+
+    /* hero ambient dots — drift in then float */
+    .editorial-hero { position: relative; overflow: hidden; }
+    .editorial-hero-inner { position: relative; z-index: 2; }
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: dotDrift 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatY 9s ease-in-out infinite 2s;
+    }
+    @keyframes dotDrift {
+      from { opacity: 0; transform: translate(var(--from-x, -40px), var(--from-y, 40px)) scale(0.7); }
+      to   { opacity: var(--final-opacity, 0.8); transform: translate(0, 0) scale(1); }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .hd1 { width: 220px; height: 220px; top: 10%;  right: -3%;  background: var(--hub-accent); --final-opacity: 0.18; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
+    .hd2 { width: 48px;  height: 48px;  bottom: 18%; right: 22%; background: #E91E7B; --final-opacity: 0.45; --from-y: 30px; animation-delay: 400ms; }
+    .hd3 { width: 18px;  height: 18px;  top: 30%; left: 8%; background: #F2C94A; --final-opacity: 0.85; animation-delay: 600ms; }
+    .hd4 { width: 12px;  height: 12px;  top: 64%; left: 32%; background: var(--hub-accent); --final-opacity: 0.6; animation-delay: 700ms; }
+
+    /* h2 in the body gets a tiny pulsing pip before it */
+    .editorial-body h2 {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .editorial-body h2::before {
+      content: "";
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.4);
+      animation: pulseDot 2.8s ease-in-out infinite;
+      animation-delay: 1.2s;
+    }
+
+    /* pricing tiers: chip-in with stagger when the strip enters viewport */
+    .pricing-tier {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 240ms;
+    }
+    .pricing-tiers.in .pricing-tier { opacity: 1; transform: translateY(0); }
+    .pricing-tiers.in .pricing-tier:nth-child(1) { transition-delay: 100ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(2) { transition-delay: 240ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(3) { transition-delay: 380ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(4) { transition-delay: 520ms, 0ms, 0ms, 0ms; }
+    .pricing-tier:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--hub-accent);
+    }
+
+    /* outcomes list items: stagger in */
+    .outcomes-list li {
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .outcomes-section.in .outcomes-list li { opacity: 1; transform: translateX(0); }
+    .outcomes-section.in .outcomes-list li:nth-child(1) { transition-delay: 80ms; }
+    .outcomes-section.in .outcomes-list li:nth-child(2) { transition-delay: 200ms; }
+    .outcomes-section.in .outcomes-list li:nth-child(3) { transition-delay: 320ms; }
+    .outcomes-section.in .outcomes-list li:nth-child(4) { transition-delay: 440ms; }
+    .outcomes-section.in .outcomes-list li:nth-child(5) { transition-delay: 560ms; }
+
+    /* inline-card hover: Divya's lift + colored shadow */
+    .inline-card { transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .inline-card:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 var(--hub-accent); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+      .reveal, .pricing-tier, .outcomes-list li { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body>
+
+  <div class="thread"><div class="thread-fill" id="thread"></div></div>
 
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
@@ -319,6 +438,10 @@
   <main id="main-content">
 
   <section class="editorial-hero">
+    <span class="hero-dot hd1" aria-hidden="true"></span>
+    <span class="hero-dot hd2" aria-hidden="true"></span>
+    <span class="hero-dot hd3" aria-hidden="true"></span>
+    <span class="hero-dot hd4" aria-hidden="true"></span>
     <div class="editorial-hero-inner">
       <span class="editorial-theme">Finding the Thesis</span>
       <h1>Most teams don't have a silo problem. They have a thesis problem.</h1>
@@ -332,7 +455,7 @@
 
     <p>When there is no shared answer to <em>what are we, for whom, and why,</em> every function fills the vacuum with its own version. Merch fills it with selection. Marketing with content. Product with features. Ops with cost. Teams drift, each one feels alone, and nobody trusts the others' choices because nobody is choosing against the same brief. You don't fix that with team-building. You fix it by giving everyone the same sentence to point at.</p>
 
-    <div class="pull-quote">
+    <div class="pull-quote reveal">
       <p>"If you have to find a reason to say no, you'll always find one. The work is making the reason to say yes louder than the reasons to say no."</p>
       <cite>From the workshop</cite>
     </div>
@@ -345,7 +468,7 @@
 
     <p>The thesis is one sentence: <em>who is this for, in what moment of their life, replacing what.</em> Most teams arrive describing themselves with a channel — "quick commerce for fashion," "a community for runners," "an AI agent for legal." That's a description. The work is finding the sentence underneath it. It takes longer than people expect. It's almost always worth it.</p>
 
-    <div class="pull-quote">
+    <div class="pull-quote reveal">
       <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</p>
       <cite>A founder, halfway through finding the sentence</cite>
     </div>
@@ -354,14 +477,14 @@
 
     <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration, but because the team finally has the same brief.</p>
 
-    <div class="inline-card">
+    <div class="inline-card reveal">
       <a href="work/klydo-cut-strategy.html">
         <span class="inline-card-type">Case study</span>
         <span class="inline-card-title">When "quick commerce for fashion" stopped being enough &rarr;</span>
       </a>
     </div>
 
-    <div class="inline-card">
+    <div class="inline-card reveal">
       <a href="ai-workshops.html">
         <span class="inline-card-type">Workshops</span>
         <span class="inline-card-title">Thinking with AI — our other workshop, on AI in real workflows &rarr;</span>
@@ -370,7 +493,7 @@
 
   </article>
 
-  <section class="outcomes-section">
+  <section class="outcomes-section reveal">
     <h2>What you walk out with</h2>
     <ul class="outcomes-list">
       <li>One sentence the leadership team can say back to each other — <em>who, in what moment, replacing what</em></li>
@@ -381,7 +504,7 @@
     </ul>
   </section>
 
-  <section class="outcomes-section">
+  <section class="outcomes-section reveal">
     <h2>How to know you're ready</h2>
     <ul class="outcomes-list">
       <li>You've tried to write the company in one sentence twice in the last quarter and the team didn't agree on either version.</li>
@@ -391,7 +514,7 @@
     <p style="margin-top:1.5rem;color:#666;">If two of those land, book the diagnostic. If all three, skip the diagnostic and book the workshop.</p>
   </section>
 
-  <section class="pricing-section">
+  <section class="pricing-section reveal">
     <h2>Pricing</h2>
     <p class="pricing-lede">Four ways to work with us, depending on how much resolution you need. Most teams start with a diagnostic call or the one-day workshop.</p>
     <div class="pricing-tiers">
@@ -428,7 +551,7 @@
     <p class="pricing-tail">After an initial engagement, quarterly retainers ($8K–$12K/quarter) are available — we sit in on one leadership meeting a month and stress-test decisions against the thesis. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
   </section>
 
-  <section class="outcomes-section">
+  <section class="outcomes-section reveal">
     <h2>Who it's for</h2>
     <ul class="outcomes-list">
       <li>Leadership teams past founding-conviction but pre-thesis-market-fit</li>
@@ -439,13 +562,13 @@
     <p style="margin-top:2rem;"><a href="mailto:hello@joyus.studio" style="color:var(--hub-accent);font-weight:600;text-decoration:none;font-size:1.05rem;">Tell us what's not lining up &rarr;</a></p>
   </section>
 
-  <section class="note-section">
+  <section class="note-section reveal">
     <h2>A note on what this isn't</h2>
     <p>It isn't strategy consulting. We don't show up with a framework and a deck and tell you what your business is. The thesis has to come from the room — our job is to make the room work, ask the questions you've been avoiding, and write down what comes out clearly enough that it survives Monday morning.</p>
     <p>It also isn't team-building. There are no trust falls, no values exercises. The exercises we do run are diagnostic, not therapeutic. The team gets closer because the work gets clearer, not the other way around.</p>
   </section>
 
-  <section class="cta-strip">
+  <section class="cta-strip reveal">
     <h2>Tell us what's not lining up.</h2>
     <p>One reply. Two paragraphs. We'll write back within a day with a read on whether a diagnostic call or a workshop is the right move — or neither.</p>
     <a href="mailto:hello@joyus.studio" class="cta-button" aria-label="Email Joyus Studio at hello@joyus.studio">hello@joyus.studio</a>
@@ -504,10 +627,28 @@
       });
     }
     const nav = document.querySelector('.nav-bar');
+
+    // scroll progress thread + nav state
+    const thread = document.getElementById('thread');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 0) nav.classList.add('scrolled');
       else nav.classList.remove('scrolled');
-    });
+      if (thread) {
+        const total = document.body.scrollHeight - window.innerHeight;
+        thread.style.width = (window.scrollY / Math.max(total, 1)) * 100 + '%';
+      }
+    }, { passive: true });
+
+    // reveal-on-scroll
+    const revealIo = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revealIo.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>

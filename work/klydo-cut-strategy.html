@@ -337,9 +337,103 @@
       border: 1.5px solid rgba(44, 53, 68, 0.3);
     }
     .kl-cuts-cta--alt:hover { border-color: #2C3544; }
+
+    /* ============ MOVEMENT — scroll thread + reveal + drift + pulse ============ */
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
+    .thread-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--hub-accent), #E91E7B, #F2C94A);
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* pulse dot before the editorial-eyebrow */
+    .editorial-eyebrow {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.55rem;
+    }
+    .editorial-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      animation: pulseDot 2.4s ease-in-out infinite;
+    }
+    .editorial-eyebrow::after { content: ""; }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.5); }
+      50%      { box-shadow: 0 0 0 12px rgba(79, 196, 207, 0); }
+    }
+
+    /* hero ambient dots */
+    .editorial-hero { position: relative; overflow: hidden; }
+    .editorial-hero-inner { position: relative; z-index: 2; }
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: dotDrift 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatY 9s ease-in-out infinite 2s;
+    }
+    @keyframes dotDrift {
+      from { opacity: 0; transform: translate(var(--from-x, -40px), var(--from-y, 40px)) scale(0.7); }
+      to   { opacity: var(--final-opacity, 0.8); transform: translate(0, 0) scale(1); }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .hd1 { width: 240px; height: 240px; top: 8%;  right: -3%;  background: var(--hub-accent); --final-opacity: 0.18; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
+    .hd2 { width: 50px;  height: 50px;  bottom: 18%; right: 24%; background: #E91E7B; --final-opacity: 0.45; --from-y: 30px; animation-delay: 400ms; }
+    .hd3 { width: 18px;  height: 18px;  top: 32%; left: 8%; background: #F2C94A; --final-opacity: 0.85; animation-delay: 600ms; }
+    .hd4 { width: 14px;  height: 14px;  top: 66%; left: 30%; background: var(--hub-accent); --final-opacity: 0.6; animation-delay: 700ms; }
+
+    /* three-col floor-and-spike: reveal each card with stagger */
+    .three-col-item {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .three-col.in .three-col-item:nth-child(1) { transition-delay: 80ms; }
+    .three-col.in .three-col-item:nth-child(2) { transition-delay: 240ms; }
+    .three-col.in .three-col-item:nth-child(3) { transition-delay: 400ms; }
+    .three-col.in .three-col-item { opacity: 1; transform: translateY(0); }
+
+    /* outcomes-walk list: chip-in stagger */
+    .outcomes-walk li {
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .outcomes-walk.in li { opacity: 1; transform: translateX(0); }
+    .outcomes-walk.in li:nth-child(1) { transition-delay: 80ms; }
+    .outcomes-walk.in li:nth-child(2) { transition-delay: 200ms; }
+    .outcomes-walk.in li:nth-child(3) { transition-delay: 320ms; }
+    .outcomes-walk.in li:nth-child(4) { transition-delay: 440ms; }
+    .outcomes-walk.in li:nth-child(5) { transition-delay: 560ms; }
+
+    /* inline-card hover: lift + colored shadow */
+    .inline-card { transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .inline-card:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 var(--hub-accent); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+      .reveal, .three-col-item, .outcomes-walk li { opacity: 1; transform: none; }
+    }
   </style>
 </head>
 <body class="work-page">
+
+  <div class="thread"><div class="thread-fill" id="thread"></div></div>
 
   <!-- cuts switcher — quick jump to the other klydo cuts -->
   <div class="cuts-switch">
@@ -388,6 +482,10 @@
 <main>
 
 <header class="editorial-hero">
+  <span class="hero-dot hd1" aria-hidden="true"></span>
+  <span class="hero-dot hd2" aria-hidden="true"></span>
+  <span class="hero-dot hd3" aria-hidden="true"></span>
+  <span class="hero-dot hd4" aria-hidden="true"></span>
   <div class="editorial-hero-inner">
     <span class="editorial-eyebrow"><a href="index.html">case study · how we found the sentence underneath the channel</a></span>
     <h1>When "quick commerce for fashion" stopped being enough.</h1>
@@ -415,7 +513,7 @@
 
   <p>The second exercise was sticky-notes, three colors, three questions. <em>What's working that we should protect. What's broken in how we work together. And what's a problem you're holding alone.</em> The third question is the one that does the most work. It's where the silent stuff comes out — the assumption you've been making about what someone else is doing, the worry you haven't named, the thing you've been waiting for someone else to bring up. By the time the wall was full, two themes dominated: silos, and lack of clarity on what we were doing.</p>
 
-  <div class="pull-quote">
+  <div class="pull-quote reveal">
     <p>"If you have to find a reason to say no, you'll always find one. The work is making the reason to say yes louder than the reasons to say no."</p>
     <cite>From the workshop</cite>
   </div>
@@ -450,7 +548,7 @@
 
   <p>What landed was a wedge: <em>discovery + styling.</em> The insight was that fashion buying decisions don't form at the moment of purchase — they form earlier, on Instagram, in a moment of consideration. The desire is already shaped before someone opens an app. Inserting at the moment of purchase — which is what every fashion-commerce platform does — is too late. Their bet was to insert at the moment of consideration: bring styling content to where the consideration happens, then ride the social-feed-back into the platform when the desire converts. Quick commerce became the closing move, not the opening one.</p>
 
-  <div class="pull-quote">
+  <div class="pull-quote reveal">
     <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</p>
     <cite>A founder, halfway through finding the sentence</cite>
   </div>
@@ -501,7 +599,7 @@
 
 </article>
 
-<section class="coda">
+<section class="coda reveal">
   <span class="coda-eyebrow">if this sounds familiar</span>
   <h2>You probably have the same problem.</h2>
   <p>Working hard. Pointing in different directions. No one sentence the team can say back to each other. We built the workshop for exactly this. One day, sometimes two.</p>
@@ -530,6 +628,26 @@
 </footer>
 <!--END:FOOT-->
 
+<script>
+  // scroll progress thread
+  const __thread = document.getElementById('thread');
+  window.addEventListener('scroll', () => {
+    if (!__thread) return;
+    const total = document.body.scrollHeight - window.innerHeight;
+    __thread.style.width = (window.scrollY / Math.max(total, 1)) * 100 + '%';
+  }, { passive: true });
+
+  // reveal-on-scroll
+  const __revealIo = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        __revealIo.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.reveal, .three-col, .outcomes-walk').forEach(el => __revealIo.observe(el));
+</script>
 <script src="../shape-echo.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
 <script>
