@@ -97,7 +97,7 @@
     }
 
     .editorial-hero {
-      padding: 8rem 2rem 3rem;
+      padding: clamp(7rem, 14vh, 10rem) 2rem clamp(4rem, 7vh, 5rem);
       background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 50%, #FAF7F2 100%);
     }
     .editorial-hero-inner { max-width: 760px; margin: 0 auto; }
@@ -111,11 +111,11 @@
     }
     .editorial-hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.4rem, 5.6vw, 3.8rem);
+      font-size: clamp(2.6rem, 7vw, 4.4rem);
       color: #111;
-      line-height: 1.08;
+      line-height: 0.98;
       margin: 0 0 1.5rem;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.02em;
     }
     .editorial-lede {
       font-size: 1.18rem;
@@ -128,22 +128,38 @@
     .meta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 2.5rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.78rem;
-      color: var(--ink-soft);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      gap: 0.6rem;
+      margin-top: 2.25rem;
     }
     .meta-row span {
-      padding: 0.3rem 0.75rem;
-      border: 1px solid #d8d6d3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.95rem;
+      border: 1.5px solid rgba(44, 53, 68, 0.18);
       border-radius: 999px;
       background: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0;
+      text-transform: none;
     }
+    .meta-row span::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dot, var(--ink-soft));
+      flex-shrink: 0;
+    }
+    .meta-row span:nth-child(5n+1) { --dot: var(--pink); }
+    .meta-row span:nth-child(5n+2) { --dot: var(--cyan); }
+    .meta-row span:nth-child(5n+3) { --dot: var(--yellow); }
+    .meta-row span:nth-child(5n+4) { --dot: var(--ink); }
+    .meta-row span:nth-child(5n)   { --dot: var(--pink); }
 
-    .editorial-body { max-width: 740px; margin: 0 auto; padding: 3rem 2rem 2rem; }
+    .editorial-body { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 2rem; }
     .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #333; margin: 0 0 1.5rem; }
     .editorial-body > p:first-of-type::first-letter {
       font-family: 'DM Serif Display', serif;
@@ -157,9 +173,9 @@
     .editorial-body em { color: #111; font-style: italic; }
     .editorial-body h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3.2vw, 2.2rem);
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
       color: #111;
-      margin: 4rem 0 1rem;
+      margin: 3.5rem 0 1rem;
       letter-spacing: -0.01em;
     }
     .editorial-body h2 .h2-num {
@@ -195,33 +211,39 @@
       font-style: normal;
     }
 
+    /* numbers-strip — work-new's .fact.stat treatment: saturated block, oversized white tabular numerals */
     .numbers-strip {
       max-width: 800px;
-      margin: 2rem auto;
-      padding: 2.25rem 2rem;
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #e8e6e4;
+      margin: 2.5rem auto;
+      padding: 2.5rem 2rem;
+      background: var(--pink);
+      border-radius: 14px;
+      border: none;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 1.5rem;
       text-align: center;
+      box-shadow: 0 18px 40px -20px rgba(154, 20, 83, 0.5);
+      transform: rotate(-0.4deg);
     }
     .numbers-strip dt {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.2rem, 4vw, 3rem);
-      color: var(--pink);
-      line-height: 1;
-      margin-bottom: 0.4rem;
+      font-size: clamp(3rem, 6vw, 4.4rem);
+      color: #fff;
+      line-height: 0.92;
+      margin-bottom: 0.5rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.04em;
     }
     .numbers-strip dd {
       margin: 0;
       font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--ink-soft);
+      color: rgba(255, 255, 255, 0.88);
       line-height: 1.4;
+      font-weight: 600;
     }
 
     /* big two-card decision block at the bottom */
@@ -365,9 +387,9 @@
     .numbers-strip::before {
       content: "";
       position: absolute;
-      left: 2rem; right: 2rem; top: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+      left: 2rem; right: 2rem; top: 1.25rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
       transform: scaleX(0);
       transform-origin: left center;
       transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -410,11 +432,71 @@
     .cuts-pair.in .cuts-pair-card.is-design { transition-delay: 100ms; }
     .cuts-pair.in .cuts-pair-card.is-strategy { transition-delay: 240ms; }
 
+    /* pull-quote mark highlight */
+    .pull-quote p mark {
+      background: linear-gradient(180deg, transparent 60%, rgba(233, 30, 123, 0.28) 60%);
+      color: inherit;
+      padding: 0 0.12em;
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      transition: background-size 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 500ms;
+    }
+    .pull-quote.in p mark { background-size: 100% 100%; }
+
+    /* h2 pip-first reveal */
+    .editorial-body h2 {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 500ms ease 200ms, transform 500ms ease 200ms;
+    }
+    .editorial-body h2.in { opacity: 1; transform: translateY(0); }
+    .editorial-body h2::before {
+      transform: scale(0);
+      transform-origin: center;
+      transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      animation: none;
+    }
+    .editorial-body h2.in::before {
+      transform: scale(1);
+      animation: pulseDot 2.8s ease-in-out infinite;
+      animation-delay: 1.2s;
+    }
+    .editorial-body h2 .h2-num {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 400ms ease 350ms, transform 400ms ease 350ms;
+    }
+    .editorial-body h2.in .h2-num { opacity: 1; transform: translateY(0); }
+
+    /* chapter rule line — between numbered chapters, mirrors agemo's personas-axis */
+    .chapter-rule {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(44, 53, 68, 0.4), transparent);
+      max-width: 720px;
+      margin: 4rem auto 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .chapter-rule.in { transform: scaleX(1); }
+
+    /* breathing cuts-switch active pill */
+    .cuts-switch-here {
+      animation: hereBreathe 3.2s ease-in-out infinite;
+    }
+    @keyframes hereBreathe {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 123, 0); }
+      50%      { box-shadow: 0 0 0 6px rgba(233, 30, 123, 0.12); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .cuts-pair-card { opacity: 1; transform: none; }
+      .reveal, .cuts-pair-card, .editorial-body h2, .editorial-body h2 .h2-num { opacity: 1; transform: none; }
       .numbers-strip dt { transform: scale(1); }
-      .numbers-strip::before { transform: scaleX(1); }
+      .numbers-strip::before, .chapter-rule { transform: scaleX(1); }
+      .pull-quote p mark { background-size: 100% 100%; }
     }
   </style>
 </head>
@@ -545,9 +627,11 @@
   <p>By the time the wall filled out — feed exploration, the lifestyle product card, the try-at-home flow, the brand mark, the CAC:LTV model, the Diwali launch screen, the post-launch triage — the company had a real product and the early shape of a real customer. The cork-board timeline lives in the design cut, with each artifact captioned and the decisions we made under it laid out beside it.</p>
 
   <div class="pull-quote reveal">
-    <p>"None of it made the wall stop filling."</p>
+    <p>"None of it made the wall <mark>stop filling</mark>."</p>
     <cite>From the timeline</cite>
   </div>
+
+  <hr class="chapter-rule" aria-hidden="true">
 
   <h2><span class="h2-num">02</span> The shift</h2>
 
@@ -556,9 +640,11 @@
   <p>None of that was a strategy problem. It was a thesis problem. The company could describe its channel — quick commerce for fashion — but couldn't yet describe what it actually was, who it was for, or what it was replacing. We came back for one day and ran the leadership team through the diagnostic, the sticky-notes, the <em>floor and spike</em> frame, the thesis sentence work, and the 90-day plan. The strategy cut tells that story end to end — what was diagnosed, the sentence the team finally landed on, and the experiments that ran in the fourteen days after.</p>
 
   <div class="pull-quote reveal">
-    <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</p>
+    <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
     <cite>A founder, halfway through finding the sentence</cite>
   </div>
+
+  <hr class="chapter-rule" aria-hidden="true">
 
   <h2><span class="h2-num">03</span> What it took</h2>
 
@@ -618,7 +704,7 @@
       }
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.reveal, .numbers-strip, .cuts-pair').forEach(el => __revealIo.observe(el));
+  document.querySelectorAll('.reveal, .numbers-strip, .cuts-pair, .editorial-body h2, .chapter-rule').forEach(el => __revealIo.observe(el));
 
   // counter tick on numbers-strip
   const __numIo = new IntersectionObserver((entries) => {

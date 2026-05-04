@@ -52,10 +52,10 @@
     a { color: inherit; }
 
     .editorial-hero {
-      padding: 8rem 2rem 3rem;
+      padding: clamp(7rem, 14vh, 10rem) 2rem clamp(4rem, 7vh, 5rem);
       background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 50%, #FAF7F2 100%);
     }
-    .editorial-hero-inner { max-width: 720px; margin: 0 auto; }
+    .editorial-hero-inner { max-width: 760px; margin: 0 auto; }
     .editorial-eyebrow {
       display: inline-block;
       font-family: 'Caveat', cursive;
@@ -68,11 +68,11 @@
     .editorial-eyebrow a { color: var(--hub-accent); text-decoration: none; }
     .editorial-hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.2rem, 5.4vw, 3.6rem);
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
       color: #111;
-      line-height: 1.1;
+      line-height: 1.05;
       margin: 0 0 1.5rem;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.015em;
     }
     .editorial-lede {
       font-size: 1.18rem;
@@ -85,22 +85,37 @@
     .meta-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 2.5rem;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.78rem;
-      color: #54606F;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      gap: 0.6rem;
+      margin-top: 2.25rem;
     }
     .meta-row span {
-      padding: 0.3rem 0.75rem;
-      border: 1px solid #d8d6d3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.95rem;
+      border: 1.5px solid rgba(44, 53, 68, 0.18);
       border-radius: 999px;
       background: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #2C3544;
+      letter-spacing: 0;
+      text-transform: none;
     }
+    .meta-row span::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dot, #54606F);
+      flex-shrink: 0;
+    }
+    .meta-row span:nth-child(4n+1) { --dot: var(--hub-accent); }
+    .meta-row span:nth-child(4n+2) { --dot: #E91E7B; }
+    .meta-row span:nth-child(4n+3) { --dot: #F2C94A; }
+    .meta-row span:nth-child(4n)   { --dot: #2C3544; }
 
-    .editorial-body { max-width: 700px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .editorial-body { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 4rem; }
     .editorial-body p { font-size: 1.05rem; line-height: 1.85; color: #333; margin: 0 0 1.5rem; }
     .editorial-body > p:first-of-type::first-letter {
       font-family: 'DM Serif Display', serif;
@@ -114,9 +129,9 @@
     .editorial-body em { color: #111; font-style: italic; }
     .editorial-body h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
       color: #111;
-      margin: 3rem 0 1rem;
+      margin: 3.5rem 0 1rem;
       letter-spacing: -0.01em;
     }
     .editorial-body h2 .h2-num {
@@ -393,7 +408,7 @@
       50%      { transform: translateY(-12px); }
     }
     .hd1 { width: 240px; height: 240px; top: 8%;  right: -3%;  background: var(--hub-accent); --final-opacity: 0.18; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
-    .hd2 { width: 50px;  height: 50px;  bottom: 18%; right: 24%; background: #E91E7B; --final-opacity: 0.45; --from-y: 30px; animation-delay: 400ms; }
+    .hd2 { width: 50px;  height: 50px;  bottom: 18%; right: 24%; background: #F2C94A; --final-opacity: 0.55; --from-y: 30px; animation-delay: 400ms; }
     .hd3 { width: 18px;  height: 18px;  top: 32%; left: 8%; background: #F2C94A; --final-opacity: 0.85; animation-delay: 600ms; }
     .hd4 { width: 14px;  height: 14px;  top: 66%; left: 30%; background: var(--hub-accent); --final-opacity: 0.6; animation-delay: 700ms; }
 
@@ -425,9 +440,62 @@
     .inline-card { transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1); }
     .inline-card:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 var(--hub-accent); }
 
+    /* pull-quote mark highlight */
+    .pull-quote p mark {
+      background: linear-gradient(180deg, transparent 60%, rgba(79, 196, 207, 0.32) 60%);
+      color: inherit;
+      padding: 0 0.12em;
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      transition: background-size 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 500ms;
+    }
+    .pull-quote.in p mark { background-size: 100% 100%; }
+
+    /* h2 pip-first reveal */
+    .editorial-body h2 {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 500ms ease 200ms, transform 500ms ease 200ms;
+    }
+    .editorial-body h2.in { opacity: 1; transform: translateY(0); }
+    .editorial-body h2 .h2-num {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 400ms ease 350ms, transform 400ms ease 350ms;
+    }
+    .editorial-body h2.in .h2-num { opacity: 1; transform: translateY(0); }
+
+    /* chapter rule line — between numbered chapters */
+    .chapter-rule {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(44, 53, 68, 0.4), transparent);
+      max-width: 720px;
+      margin: 4rem auto 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .chapter-rule.in { transform: scaleX(1); }
+
+    /* tabular-nums on outcomes-walk + three-col numerals */
+    .outcomes-walk li, .three-col-item .num { font-variant-numeric: tabular-nums; }
+
+    /* breathing cuts-switch active pill */
+    .cuts-switch-here {
+      animation: hereBreathe 3.2s ease-in-out infinite;
+    }
+    @keyframes hereBreathe {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79, 196, 207, 0); }
+      50%      { box-shadow: 0 0 0 6px rgba(79, 196, 207, 0.14); }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .three-col-item, .outcomes-walk li { opacity: 1; transform: none; }
+      .reveal, .three-col-item, .outcomes-walk li, .editorial-body h2, .editorial-body h2 .h2-num { opacity: 1; transform: none; }
+      .chapter-rule { transform: scaleX(1); }
+      .pull-quote p mark { background-size: 100% 100%; }
     }
   </style>
 </head>
@@ -514,9 +582,11 @@
   <p>The second exercise was sticky-notes, three colors, three questions. <em>What's working that we should protect. What's broken in how we work together. And what's a problem you're holding alone.</em> The third question is the one that does the most work. It's where the silent stuff comes out — the assumption you've been making about what someone else is doing, the worry you haven't named, the thing you've been waiting for someone else to bring up. By the time the wall was full, two themes dominated: silos, and lack of clarity on what we were doing.</p>
 
   <div class="pull-quote reveal">
-    <p>"If you have to find a reason to say no, you'll always find one. The work is making the reason to say yes louder than the reasons to say no."</p>
+    <p>"If you have to find a reason to say no, you'll always find one. The work is <mark>making the reason to say yes</mark> louder than the reasons to say no."</p>
     <cite>From the workshop</cite>
   </div>
+
+  <hr class="chapter-rule" aria-hidden="true">
 
   <h2><span class="h2-num">02</span> Floor and spike</h2>
 
@@ -542,6 +612,8 @@
 
   <p>The first two are reasons not to say no. The third is the reason to say yes. Most of the company's energy had gone into the floor work, which was correct — without a CPO floor, the rest doesn't matter. But the floor alone produces lukewarmness. Investors read the unit economics, nod, ask polite questions, and don't wire money. The spike is what makes them lean in.</p>
 
+  <hr class="chapter-rule" aria-hidden="true">
+
   <h2><span class="h2-num">03</span> The sentence</h2>
 
   <p>We spent the afternoon on the thesis. The team had been describing the company with a channel — <em>quick commerce for fashion</em> — and we kept pushing for what was underneath. <em>For whom, in what moment of their life, replacing what.</em> The exercise took longer than anyone expected. It usually does. The first ten attempts were channel descriptions in different costumes. The eleventh started to feel like a sentence the team could actually say back to each other.</p>
@@ -549,15 +621,19 @@
   <p>What landed was a wedge: <em>discovery + styling.</em> The insight was that fashion buying decisions don't form at the moment of purchase — they form earlier, on Instagram, in a moment of consideration. The desire is already shaped before someone opens an app. Inserting at the moment of purchase — which is what every fashion-commerce platform does — is too late. Their bet was to insert at the moment of consideration: bring styling content to where the consideration happens, then ride the social-feed-back into the platform when the desire converts. Quick commerce became the closing move, not the opening one.</p>
 
   <div class="pull-quote reveal">
-    <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</p>
+    <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
     <cite>A founder, halfway through finding the sentence</cite>
   </div>
+
+  <hr class="chapter-rule" aria-hidden="true">
 
   <h2><span class="h2-num">04</span> The 90-day plan</h2>
 
   <p>We left the room with operating principles, two archetypes, and a 14-day experiment cell. The principles were the part that surprised us most — until we said them out loud, the team had been carrying contradictory versions of them. <em>Small bets before launch. No long-build bets without a fast version first. High bar on signal, not just on intent. Stop measuring every experiment by "did the number go down."</em> Each of these had been violated quietly in the prior quarter. Putting them on paper made the next quarter different in kind, not just degree.</p>
 
   <p>The archetype work was where the silos closed. "Twenty-five-to-thirty-five, all of Bangalore" had been the customer definition for as long as anyone could remember — broad enough that every team could project its own version of the customer onto it. We narrowed to two, named, with real demographic and behavioral specificity. From that point, selection conversations, content conversations, and product conversations all started landing in the same place.</p>
+
+  <hr class="chapter-rule" aria-hidden="true">
 
   <h2><span class="h2-num">05</span> What they walked out with</h2>
 
@@ -583,6 +659,8 @@
       One twelve-page summary doc the CEO has been pulling up in every leadership meeting since.
     </li>
   </ul>
+
+  <hr class="chapter-rule" aria-hidden="true">
 
   <h2><span class="h2-num">06</span> What shifted</h2>
 
@@ -646,7 +724,7 @@
       }
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.reveal, .three-col, .outcomes-walk').forEach(el => __revealIo.observe(el));
+  document.querySelectorAll('.reveal, .three-col, .outcomes-walk, .editorial-body h2, .chapter-rule').forEach(el => __revealIo.observe(el));
 </script>
 <script src="../shape-echo.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
