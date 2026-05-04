@@ -21,6 +21,30 @@
   <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CreativeWork","name":"When 'quick commerce for fashion' stopped being enough","description":"How a leadership offsite at a Series A fashion-commerce startup surfaced silos as a thesis problem, and the work to find the sentence underneath the channel.","url":"https://kh9010.github.io/joyus-website/work/klydo-cut-strategy.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
   </script>
+  <!--
+    ============================================================================
+    KLYDO — STRATEGY CUT (offsite/thesis story)
+    ============================================================================
+    Status: LIVE on staging. Body is anonymized — company referred to as
+    "a Series A fashion-commerce startup." URL slug retains "klydo" but is
+    server-internal and not surfaced in copy.
+
+    Before this is treated as final-final, Divya should do a sweep:
+      - confirm anonymization is at the right level given Kahran's CRO status
+        (Kahran is exiting end of June; after exit, naming Klydo is fine)
+      - the concrete metrics in section 06 ("3 Instagram experiments in 14
+        days", "selection meetings 45 → 20 min") should match real numbers
+        if you have them; if not, soften to qualitative
+      - the founder pull-quote ("the place she goes when she's standing in
+        front of her closet…") was constructed; replace with a real one if
+        you have it
+
+    Cuts pattern (mirrors agemo):
+      - klydo.html               · main synthesis (build + strategy arc)
+      - klydo-cut-design.html    · the build/visual cut (cork-board timeline)
+      - klydo-cut-strategy.html  · this file
+    ============================================================================
+  -->
   <style>
     :root { --hub-accent: #4FC4CF; --warm-gray: #F5F3F0; }
 
@@ -228,9 +252,102 @@
       .pull-quote { margin: 3rem 0; }
       .three-col { padding: 1.5rem; }
     }
+
+    /* cuts-switch pill — top-right, mirrors agemo */
+    .cuts-switch {
+      position: fixed;
+      top: 5.5rem; right: 1.25rem;
+      z-index: 480;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.55rem 0.4rem 0.85rem;
+      background: rgba(255, 255, 255, 0.92);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(44, 53, 68, 0.12);
+      border-radius: 999px;
+      box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .cuts-switch-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: #54606F;
+      margin-right: 0.25rem;
+    }
+    .cuts-switch-here {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #2C3544;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: #DCF6F8;
+    }
+    .cuts-switch-btn {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #2C3544;
+      text-decoration: none;
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      background: #FAF7F2;
+      transition: background 200ms ease, color 200ms ease;
+    }
+    .cuts-switch-btn:hover { background: var(--hub-accent); color: #fff; }
+    @media (max-width: 720px) {
+      .cuts-switch {
+        top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
+        box-shadow: 0 -8px 20px -8px rgba(44, 53, 68, 0.18), 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+      }
+      .cuts-switch-label { display: none; }
+    }
+
+    /* cuts CTA pair — bottom of page, mirrors agemo */
+    .kl-cuts-out {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 4rem clamp(1.5rem, 4vw, 3rem) 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .kl-cuts-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      text-decoration: none;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .kl-cuts-cta--main {
+      background: var(--hub-accent);
+      color: #fff;
+      box-shadow: 0 6px 0 #2d8b93;
+    }
+    .kl-cuts-cta--main:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #2d8b93; }
+    .kl-cuts-cta--alt {
+      background: transparent;
+      color: #2C3544;
+      border: 1.5px solid rgba(44, 53, 68, 0.3);
+    }
+    .kl-cuts-cta--alt:hover { border-color: #2C3544; }
   </style>
 </head>
 <body class="work-page">
+
+  <!-- cuts switcher — quick jump to the other klydo cuts -->
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">three cuts</span>
+    <a href="klydo.html" class="cuts-switch-btn">main</a>
+    <a href="klydo-cut-design.html" class="cuts-switch-btn">design</a>
+    <span class="cuts-switch-here">strategy</span>
+  </div>
 
   <!--BEGIN:NAV-->
 <style>
@@ -390,6 +507,11 @@
   <p>Working hard. Pointing in different directions. No one sentence the team can say back to each other. We built the workshop for exactly this. One day, sometimes two.</p>
   <a class="cta" href="../thesis-workshop.html">See the workshop &rarr;</a>
 </section>
+
+<div class="kl-cuts-out" aria-label="Other klydo cuts">
+  <a class="kl-cuts-cta kl-cuts-cta--main" href="klydo.html">see the full case study →</a>
+  <a class="kl-cuts-cta kl-cuts-cta--alt" href="klydo-cut-design.html">jump to the design cut →</a>
+</div>
 
 <a class="next-link" href="rachna-nivas.html">next case study: rachna nivas →</a>
 
