@@ -152,13 +152,20 @@ When orchestrating, run agents in parallel only on non-conflicting files (each c
 
 ## Klydo cuts — three-version case study
 
-Klydo now has the same multi-cut pattern as Agemo (main + research-cut + interface-cut):
+Klydo follows the same multi-cut pattern as Agemo (main + two cuts):
 
-- `work/klydo.html` — **the build cut.** 120-day timeline, 30 artifacts, interactive cork-board scrubber. Shipped, indexed, untouched in this round.
-- `work/klydo-cut-strategy.html` — **the strategy cut.** Editorial pattern, cyan accent. The leadership offsite that surfaced silos as a thesis problem, the floor-and-spike frame, the "discovery + styling" sentence the team landed on, the 90-day plan. Indexed at priority 0.7 in sitemap.xml. Linked from `thesis-workshop.html` as the primary case-study reference.
-- `work/klydo-cut-design.html` — **the design cut.** STUB only. Holds the route. The HTML comment block at the top of the file is the build brief: pull frames from Figma (Klydo brand v2, app build, lifestyle render set, launch day), structure suggested in 9 sections, voice = punchy/declarative/period-stops to match the existing klydo.html captions. When the cut is real: remove the `<meta name="robots" content="noindex">` tag and add to sitemap.xml at priority 0.7. Owner: Divya (use `joyus-architect` agent for Figma API extraction).
+- `work/klydo.html` — **the main synthesis.** Editorial pattern, pink accent. High-level case study covering both arcs: the 120-day build (chapter 01) and the 8-months-in offsite/thesis chapter (chapter 02). Ends with a two-card decision block linking out to the design and strategy cuts. Pink "main" pill in the cuts-switch.
+- `work/klydo-cut-design.html` — **the design cut.** The original 120-day cork-board timeline (30 artifacts, interactive scrubber, cyan/yellow accents on a pink-led brand). Pink "design" pill in the cuts-switch.
+- `work/klydo-cut-strategy.html` — **the strategy cut.** Cyan accent. The leadership offsite — diagnostic, floor-and-spike frame, the "discovery + styling" sentence, 90-day plan, outcomes panel. Body anonymized (company referred to as *"a Series A fashion-commerce startup"*); URL slug retains "klydo." Cyan "strategy" pill in the cuts-switch. Linked from `thesis-workshop.html` as the primary case-study reference.
 
-The cuts pattern: the main case study tells the comprehensive story; the cuts tell focused, single-angle stories that link to specific surfaces (the thesis workshop links to the strategy cut; future design-system content can link to the design cut). The cuts share visual DNA with the main page but each carries its own accent: build = pink (klydo brand), strategy = cyan, design = TBD by Divya.
+All three cuts are indexed (priority 0.7 in sitemap.xml). They share the agemo-style cross-link pattern: a fixed cuts-switch pill at top-right (becomes a bottom-centered floating bar on mobile) that highlights the current cut and links to the other two; plus a `kl-cuts-out` CTA pair before the closing section pointing back to the main + the sibling cut.
+
+**Note for Divya's Claude (next session): all three klydo files are LIVE on staging. Before they're treated as final-final, please do a Figma sweep on each:**
+- `klydo.html` — confirm hero / section imagery (currently text-only, may want a single big lifestyle render or launch screen at the hero); confirm the key-numbers panel (4 / 30 / 120 / 150) is the right snapshot or wants more recent numbers.
+- `klydo-cut-design.html` — confirm lifestyle render thumbs (`slide75-product-*`, `slide76-hat-*`, `slide111-product-*`, `slide77-launch`) match current Brand v2 in Figma; confirm the 30-artifact list still maps to what we want to show; swap accents if the brand has shifted.
+- `klydo-cut-strategy.html` — confirm anonymization is at the right level given Kahran's CRO status; concrete metrics in the closing ("3 Instagram experiments in 14 days", "selection meetings 45 → 20 min") should match real numbers if you have them.
+
+Each file has its own HTML comment block at the top with the same brief.
 
 ## R4 case-study rebuild — current state
 
