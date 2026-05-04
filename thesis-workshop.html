@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Thesis Workshop from Joyus Studio. A leadership offsite for teams that have product-market signal but haven't yet found thesis-market fit. One day, sometimes two. You leave with a one-sentence answer to who you're for, in what moment, replacing what.">
+  <meta property="og:title" content="The Thesis Workshop — Joyus Studio">
+  <meta property="og:description" content="A leadership offsite for teams that have product-market signal but haven't yet found thesis-market fit. You leave with one sentence the leadership team can say back to each other.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/thesis-workshop.html">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/thesis-workshop.html">
+  <title>The Thesis Workshop — Joyus Studio</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Service","name":"The Thesis Workshop — Joyus Studio","description":"A leadership offsite for teams that have product-market signal but haven't yet found thesis-market fit. One day, sometimes two. Leave with a one-sentence answer to who you're for, in what moment, replacing what — and a 90-day plan to act on it.","provider":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"},"url":"https://kh9010.github.io/joyus-website/thesis-workshop.html","serviceType":"Strategy Workshop"}
+  </script>
+  <style>
+    :root { --hub-accent: #4FC4CF; }
+
+    .editorial-hero {
+      padding: 8rem 2rem 3rem;
+      background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 50%, #fff 100%);
+    }
+    .editorial-hero-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+    .editorial-theme {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--hub-accent);
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .editorial-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: #111;
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+    }
+    .editorial-lede {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      color: #555;
+      border-left: 3px solid var(--hub-accent);
+      padding-left: 1.25rem;
+      margin-bottom: 0;
+    }
+
+    .editorial-body {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+    .editorial-body p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1.5rem;
+    }
+    .editorial-body > p:first-of-type::first-letter {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.12em;
+      margin-top: 0.05em;
+      color: var(--hub-accent);
+    }
+    .editorial-body em {
+      color: #333;
+      font-style: italic;
+    }
+    .editorial-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-top: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .inline-card {
+      margin: 2.5rem 0;
+      border-radius: 8px;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .inline-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    }
+    .inline-card a {
+      display: block;
+      padding: 1.25rem 1.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .inline-card-type {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--hub-accent);
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+    .inline-card-title {
+      display: block;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      line-height: 1.3;
+    }
+
+    .pull-quote {
+      margin: 3rem -2rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+    }
+    .pull-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      line-height: 1.35;
+      color: #222;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pull-quote cite {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent);
+      font-style: normal;
+    }
+
+    .outcomes-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 2rem 3rem;
+    }
+    .outcomes-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 1.5rem;
+    }
+    .outcomes-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .outcomes-list li {
+      padding: 0.9rem 0;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    .outcomes-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.25rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+    }
+    .outcomes-list li:last-child { border-bottom: none; }
+
+    .note-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+      border-top: 1px solid #eee;
+    }
+    .note-section h2 {
+      font-family: 'Caveat', cursive;
+      font-size: 1.2rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+    .note-section p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: #444;
+      margin-bottom: 1rem;
+    }
+
+    .pricing-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 2rem 2rem;
+      border-top: 1px solid #eee;
+    }
+    .pricing-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-section .pricing-lede {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .pricing-tiers {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .pricing-tier {
+      padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .pricing-tier-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-tier-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: #111;
+    }
+    .pricing-tier-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--hub-accent);
+    }
+    .pricing-tier-body {
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: #555;
+      margin: 0;
+    }
+    .pricing-section .pricing-tail {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #777;
+      margin-top: 0.5rem;
+    }
+    .pricing-section .pricing-tail a {
+      color: var(--hub-accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .cta-strip {
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #111;
+      margin-bottom: 0.5rem;
+    }
+    .cta-strip p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: 600px) {
+      .pull-quote { margin: 3rem 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <nav class="nav-bar">
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <img src="images/logo.webp" alt="Joyus Studio">
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="comics/index.html">Comics</a></li>
+        <li><a href="podcast.html">Podcast</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+  <section class="editorial-hero">
+    <div class="editorial-hero-inner">
+      <span class="editorial-theme">Finding the Thesis</span>
+      <h1>Most teams don't have a silo problem. They have a thesis problem.</h1>
+      <p class="editorial-lede">A one-day offsite for leadership teams that have product-market signal but can't yet say, in one sentence, what the company is and who it's for. You leave with that sentence, two or three customer archetypes, and a 90-day plan with named owners. We've run it inside a Series A fashion startup eight months past launch — we're now running it for other teams.</p>
+    </div>
+  </section>
+
+  <article class="editorial-body">
+
+    <p>Here's the pattern we keep seeing. A leadership team books a strategy day because the silos are getting worse. Growth and product describe the same business in different terms. The pitch deck describes it in a third. Someone says the word "alignment" and the room goes quiet because nobody knows what they'd be aligning on. The silos aren't the problem. The missing sentence is.</p>
+
+    <p>When there is no shared answer to <em>what are we, for whom, and why,</em> every function fills the vacuum with its own version. Merch fills it with selection. Marketing with content. Product with features. Ops with cost. Teams drift, each one feels alone, and nobody trusts the others' choices because nobody is choosing against the same brief. You don't fix that with team-building. You fix it by giving everyone the same sentence to point at.</p>
+
+    <div class="pull-quote">
+      <p>"If you have to find a reason to say no, you'll always find one. The work is making the reason to say yes louder than the reasons to say no."</p>
+      <cite>From the workshop</cite>
+    </div>
+
+    <h2>How a day with us runs</h2>
+
+    <p>Three things, in order: a diagnostic, a thesis, and a 90-day plan.</p>
+
+    <p>The diagnostic is two exercises that take an hour and consistently surface what's actually going on. A three-minute round where each leader says why they're spending their life on this company — adjacent answers are normal, identical answers are rare, and the gap between them is where most of the misalignment lives. Then a sticky-notes round: what's working, what's broken in how we work together, and what's a problem you're holding alone. The third question does the most work. It's where the silent stuff comes out.</p>
+
+    <p>The thesis is one sentence: <em>who is this for, in what moment of their life, replacing what.</em> Most teams arrive describing themselves with a channel — "quick commerce for fashion," "a community for runners," "an AI agent for legal." That's a description. The work is finding the sentence underneath it. It takes longer than people expect. It's almost always worth it.</p>
+
+    <div class="pull-quote">
+      <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</p>
+      <cite>A founder, halfway through finding the sentence</cite>
+    </div>
+
+    <p>The 90-day plan is the bridge from the sentence to the work. Two or three customer archetypes you'll win on first. Operating principles for how the team runs experiments — small bets first, fast read on signal, no long-build bets without short-cycle validation. Three to five things to test in the next fourteen days, with named owners and pre-committed win conditions.</p>
+
+    <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration, but because the team finally has the same brief.</p>
+
+    <div class="inline-card">
+      <a href="work/klydo-cut-strategy.html">
+        <span class="inline-card-type">Case study</span>
+        <span class="inline-card-title">When "quick commerce for fashion" stopped being enough &rarr;</span>
+      </a>
+    </div>
+
+    <div class="inline-card">
+      <a href="ai-workshops.html">
+        <span class="inline-card-type">Workshops</span>
+        <span class="inline-card-title">Thinking with AI — our other workshop, on AI in real workflows &rarr;</span>
+      </a>
+    </div>
+
+  </article>
+
+  <section class="outcomes-section">
+    <h2>What you walk out with</h2>
+    <ul class="outcomes-list">
+      <li>One sentence the leadership team can say back to each other — <em>who, in what moment, replacing what</em></li>
+      <li>Two or three customer archetypes you commit to winning on first</li>
+      <li>Operating principles for how you run experiments, written down</li>
+      <li>A 90-day plan with named owners and pre-committed win conditions</li>
+      <li>A written summary of what was decided, so it doesn't quietly get retconned</li>
+    </ul>
+  </section>
+
+  <section class="outcomes-section">
+    <h2>How to know you're ready</h2>
+    <ul class="outcomes-list">
+      <li>You've tried to write the company in one sentence twice in the last quarter and the team didn't agree on either version.</li>
+      <li>Investors say <em>"interesting"</em> but don't move. The deck has been "almost" for two months.</li>
+      <li>You've noticed yourself answering the same internal question — <em>what are we, exactly</em> — three different ways in three different rooms.</li>
+    </ul>
+    <p style="margin-top:1.5rem;color:#666;">If two of those land, book the diagnostic. If all three, skip the diagnostic and book the workshop.</p>
+  </section>
+
+  <section class="pricing-section">
+    <h2>Pricing</h2>
+    <p class="pricing-lede">Four ways to work with us, depending on how much resolution you need. Most teams start with a diagnostic call or the one-day workshop.</p>
+    <div class="pricing-tiers">
+      <div class="pricing-tier">
+        <div class="pricing-tier-head">
+          <span class="pricing-tier-name">Diagnostic call</span>
+          <span class="pricing-tier-price">$2,000 · 90 min</span>
+        </div>
+        <p class="pricing-tier-body">A focused conversation to map what's misaligned and whether the workshop is the right next move — or whether you're solving a different problem. Credited in full toward a workshop if you book within 60 days.</p>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-head">
+          <span class="pricing-tier-name">The Thesis Workshop</span>
+          <span class="pricing-tier-price">$12,000 · one day</span>
+        </div>
+        <p class="pricing-tier-body">Your leadership team in a room with us for a day. We run the diagnostic, find the sentence, and leave you with two or three archetypes, your operating principles in writing, and a 90-day plan with named owners and pre-committed win conditions. Most teams need this once. Some come back before a fundraise.</p>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-head">
+          <span class="pricing-tier-name">Two-day intensive</span>
+          <span class="pricing-tier-price">$25,000 · two days</span>
+        </div>
+        <p class="pricing-tier-body">Two days, same room, deeper. We go further on archetype work, do a real first pass at the investor narrative, and pressure-test the thesis against the company's actual P&amp;L. The right call when you're heading into a fundraise, a pivot, or a re-org and the one-day version won't have time to do all three.</p>
+      </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-head">
+          <span class="pricing-tier-name">Pre-Fundraise Package</span>
+          <span class="pricing-tier-price">$40,000 – $60,000</span>
+        </div>
+        <p class="pricing-tier-body">The two-day workshop, then four weeks of follow-up where we sharpen the deck, the narrative, and the rooms you're walking it into. We sit in on practice pitches, rewrite the slides that aren't landing, and stress-test the answers to the questions that have been getting you "interesting" instead of a term sheet. For founders raising in the next ninety days who can feel the deck isn't earning the meeting it deserves.</p>
+        <p class="pricing-tier-body" style="margin-top:0.75rem;font-size:0.88rem;color:#777;"><em>Includes two days on-site, eight follow-up sessions, two deck revisions, and one mock pitch with written debrief.</em></p>
+      </div>
+    </div>
+    <p class="pricing-tail">After an initial engagement, quarterly retainers ($8K–$12K/quarter) are available — we sit in on one leadership meeting a month and stress-test decisions against the thesis. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
+  </section>
+
+  <section class="outcomes-section">
+    <h2>Who it's for</h2>
+    <ul class="outcomes-list">
+      <li>Leadership teams past founding-conviction but pre-thesis-market-fit</li>
+      <li>Companies working hard but not quite pointing the same direction</li>
+      <li>Founders telling investors a story that lands as <em>okay</em> rather than <em>hell yes</em></li>
+      <li>Teams heading into a fundraise, a pivot, a re-org, or a season of pressure</li>
+    </ul>
+    <p style="margin-top:2rem;"><a href="mailto:hello@joyus.studio" style="color:var(--hub-accent);font-weight:600;text-decoration:none;font-size:1.05rem;">Tell us what's not lining up &rarr;</a></p>
+  </section>
+
+  <section class="note-section">
+    <h2>A note on what this isn't</h2>
+    <p>It isn't strategy consulting. We don't show up with a framework and a deck and tell you what your business is. The thesis has to come from the room — our job is to make the room work, ask the questions you've been avoiding, and write down what comes out clearly enough that it survives Monday morning.</p>
+    <p>It also isn't team-building. There are no trust falls, no values exercises. The exercises we do run are diagnostic, not therapeutic. The team gets closer because the work gets clearer, not the other way around.</p>
+  </section>
+
+  <section class="cta-strip">
+    <h2>Tell us what's not lining up.</h2>
+    <p>One reply. Two paragraphs. We'll write back within a day with a read on whether a diagnostic call or a workshop is the right move — or neither.</p>
+    <a href="mailto:hello@joyus.studio" class="cta-button" aria-label="Email Joyus Studio at hello@joyus.studio">hello@joyus.studio</a>
+  </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <h3>Joyus Studio</h3>
+        <p>A studio that thinks — and makes.</p>
+      </div>
+      <nav class="footer-nav">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="comics/index.html">Comics</a></li>
+          <li><a href="podcast.html">Podcast</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="mailto:hello@joyus.studio">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="footer-themes">
+        <h4>Themes</h4>
+        <a href="hub-story.html">Finding Your Story</a>
+        <a href="hub-building.html">Building Something That Matters</a>
+        <a href="hub-behavior.html">How People Actually Behave</a>
+        <a href="hub-play.html">Play as Practice</a>
+        <a href="hub-games.html">Game Design Thinking</a>
+        <a href="hub-creative.html">Drawing Outside the Lines</a>
+      </div>
+      <div class="footer-contact">
+        <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Joyus Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    if (hamburger) {
+      hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      });
+      document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+          navMenu.classList.remove('active');
+          hamburger.classList.remove('active');
+        });
+      });
+    }
+    const nav = document.querySelector('.nav-bar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 0) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+  </script>
+<script src="shape-echo.js"></script>
+</body>
+</html>

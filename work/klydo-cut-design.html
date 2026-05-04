@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="A case study cut — the visual system, brand, and interface design behind Klydo. Stub: still being built.">
+<meta name="robots" content="noindex" />
+<title>Klydo — design cut · Joyus Studio</title>
+<link rel="icon" href="../favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=DM+Serif+Display&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --serif: 'DM Serif Display', serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  .proto-tag {
+    position: fixed;
+    top: 1.25rem; right: 1.25rem;
+    z-index: 600;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--pink);
+    background: var(--paper);
+    border: 1.5px solid var(--pink);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    transform: rotate(2deg);
+  }
+  .stub {
+    min-height: 100vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .stub-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    color: var(--pink);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-bottom: 1rem;
+  }
+  .stub h1 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .stub p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    max-width: 560px;
+  }
+  .stub-meta {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-top: 2rem;
+  }
+  .stub-back {
+    margin-top: 3rem;
+    padding: 0.75rem 1.5rem;
+    border: 1.5px solid var(--cyan);
+    border-radius: 999px;
+    color: var(--cyan);
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+  }
+  .stub-back:hover { background: var(--cyan); color: #fff; }
+</style>
+</head>
+<body>
+
+<a class="proto-tag" href="klydo.html">design cut · stub</a>
+
+<!--
+  ============================================================================
+  KLYDO — DESIGN CUT — BUILD BRIEF (for Divya's Claude on next pull)
+  ============================================================================
+
+  Status: STUB. Holds the route while the design cut is being built.
+  Owner: Divya — pull this and replace with the real cut.
+
+  Intent:
+    Three case-study cuts of klydo, paralleling agemo's three cuts.
+      - klydo.html               · the build (already exists, 120-day timeline)
+      - klydo-cut-strategy.html  · the thesis (already exists, sibling file)
+      - klydo-cut-design.html    · the design (THIS FILE — needs to be built)
+
+    The design cut is about the VISUAL system — the brand mark, the type +
+    color, the product card, the feed scroll vs grid choice, the Gen-AI
+    lifestyle render approach, the story-mode shopping UI, the launch screen.
+    Where the strategy cut shows what the team figured out, the design cut
+    shows what we made.
+
+  Source material in Figma:
+    Pull from the klydo files in our Figma workspace. Specifically look for:
+      - "Klydo — Brand v2" (logo, type, color, voice card)
+      - "Klydo — App Build" (feed, product card, story-mode, returns flow)
+      - "Klydo — Lifestyle Render Set" (the gen-AI prompt-driven photography)
+      - "Klydo — Launch Day" (the first-screen-first-customer shot)
+    If the file names don't match, search Figma for "klydo" and the architect
+    agent (joyus-architect) can list every relevant file via the Figma API.
+    Use the architect agent to extract frames as webp into
+    images/work/klydo/cut-design/ — keep filenames short and descriptive.
+
+  Suggested structure (ape the agemo-cut-interface.html pattern, but
+  klydo-flavored — pink/cyan accents, lifestyle-photo-heavy, less "interface
+  in a slot machine" and more "a day in the brand"):
+
+    1. Hero — a single hero image (the launch screen, full-bleed) with one
+       sentence: "What Klydo looked like the day it launched."
+    2. The mark — logo evolution over the six weeks after the brand hire
+       quit. Three to five iterations, captioned briefly.
+    3. The system — type + color + voice card. Side-by-side with one product
+       card built from each rule.
+    4. The product card — three variants: the early cutout-on-white version
+       we rejected, the lifestyle-render version that shipped, the
+       lifestyle + price chip version that's running now. Caption each
+       with the design decision and what data made us reach it.
+    5. The feed — story-mode vs grid comparison. Why we went vertical.
+    6. The Gen-AI lifestyle renders — selection of the best 6–8, with a note
+       on the prompt structure that produced them (we did 400 prompts in a
+       week, 60 made it in).
+    7. The launch screen — full-bleed, slow scroll, no chrome.
+    8. The brand v2 update — what we kept, what we cut, what we added.
+       Pink held. Voice tightened. Two fonts dropped.
+    9. Coda — one sentence. Inline cards back to klydo.html and
+       klydo-cut-strategy.html. Next-case-study link.
+
+  Voice (per CLAUDE.md):
+    Klydo voice = punchy, declarative, real, comfortable with friction.
+    Lots of period-stops. Match the existing klydo.html captions:
+      "Pink held. Voice got tighter. Cut two fonts we weren't using."
+      "Same flow. Now with the fraud math baked in."
+      "One screen. Eleven versions. The eleventh shipped."
+
+  Indexing:
+    Currently noindex (this is a stub). When the cut is real and ready,
+    remove the <meta name="robots" content="noindex"> tag and add the page
+    to sitemap.xml at priority 0.7 (sibling priority to klydo.html and
+    klydo-cut-strategy.html).
+
+  Linked from:
+    - thesis-workshop.html (inline-card to klydo-cut-strategy.html — the
+      strategy cut is the workshop's primary case-study link; the design
+      cut is reachable from klydo.html and from work/index.html)
+    - work/index.html (when ready, add a "see also" link from the klydo
+      card pointing to both cuts)
+
+  ============================================================================
+-->
+
+<main class="stub">
+  <span class="stub-eyebrow">coming soon</span>
+  <h1>Klydo — the design cut.</h1>
+  <p>The visual story — brand mark, type and color, the product card, the lifestyle renders, the launch screen. We're still building this one.</p>
+  <p>In the meantime, the build story and the strategy story are both live.</p>
+  <span class="stub-meta">design cut · stub · build in progress</span>
+  <a class="stub-back" href="klydo.html">read the main case study →</a>
+</main>
+
+</body>
+</html>
