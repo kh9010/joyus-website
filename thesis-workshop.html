@@ -595,6 +595,256 @@
     }
     .findings-list em { font-style: italic; color: #111; }
 
+    /* ============ PHASE — three-phase frame for the body ============ */
+    .phase-intro {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(3rem, 6vh, 5rem) 2rem 1rem;
+    }
+    .phase-intro-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.75rem;
+      transform: rotate(-1.5deg);
+    }
+    .phase-intro-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      transform: rotate(1.5deg);
+    }
+    .phase-intro-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+      line-height: 1.35;
+      color: #1a1a1a;
+      margin: 0;
+      letter-spacing: -0.005em;
+    }
+    .phase-intro-text em { font-style: italic; color: var(--hub-accent); }
+
+    .phase {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: clamp(3rem, 6vh, 4.5rem) 2rem;
+      position: relative;
+    }
+    .phase + .phase { padding-top: clamp(2rem, 3vh, 3rem); }
+    .phase-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .phase-num {
+      font-family: 'Caveat', cursive;
+      font-size: clamp(3rem, 5.5vw, 4.6rem);
+      font-weight: 700;
+      color: var(--hub-accent);
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      transform: rotate(-3deg);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .phase-titles {
+      flex: 1;
+      min-width: 60%;
+    }
+    .phase-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--hub-accent);
+      margin-bottom: 0.5rem;
+    }
+    .phase-label::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+    }
+    .phase-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+      color: #111;
+      line-height: 1.05;
+      letter-spacing: -0.015em;
+      margin: 0;
+    }
+    .phase-name em { font-style: italic; color: var(--hub-accent); }
+    .phase-description {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.65;
+      color: #444;
+      max-width: 60ch;
+      margin: 0 0 2rem;
+    }
+    .phase-description em { color: #111; font-style: italic; }
+
+    /* phase-reframe: inline reframe callout inside a phase */
+    .phase-reframe {
+      margin: 1.5rem 0;
+      padding: 1.5rem 1.75rem;
+      background: rgba(79, 196, 207, 0.06);
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 0 12px 12px 0;
+    }
+    .phase-reframe-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--hub-accent);
+      transform: rotate(-1.5deg);
+      margin-bottom: 0.4rem;
+    }
+    .phase-reframe-tag::before { content: "↳ "; }
+    .phase-reframe h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      color: #111;
+      margin: 0 0 0.5rem;
+      line-height: 1.25;
+    }
+    .phase-reframe h3 em { font-style: italic; color: var(--hub-accent); }
+    .phase-reframe p {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.65;
+      color: #333;
+      margin: 0;
+    }
+    .phase-reframe p em { font-style: italic; color: #111; }
+
+    /* magic-moment--inline: same component, but slightly more padding to sit cleanly inside a phase */
+    .magic-moment.magic-moment--inline {
+      margin: 1.5rem 0;
+      max-width: 100%;
+    }
+
+    .phase-close {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1rem 2rem clamp(2rem, 5vh, 4rem);
+    }
+    .phase-close-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.15rem, 2vw, 1.4rem);
+      line-height: 1.5;
+      color: #1a1a1a;
+      margin: 0;
+      font-style: italic;
+    }
+    .phase-close-text strong {
+      font-style: normal;
+      font-weight: 500;
+      color: var(--hub-accent);
+    }
+
+    /* ============ PULL-QUOTE TRIPTYCH — three sentences from three rooms ============ */
+    .pull-triptych {
+      margin: 3rem -1rem;
+      padding: 2rem 1rem;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      display: grid;
+      gap: 1.25rem;
+    }
+    .pull-triptych-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--hub-accent);
+      transform: rotate(-1.5deg);
+      display: inline-block;
+      margin: 0 0 0.5rem 1rem;
+    }
+    .pull-triptych-eyebrow::before { content: "↳ "; }
+    .pull-triptych-item {
+      padding: 1.1rem 1.4rem;
+      background: #fff;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 0 8px 8px 0;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+      box-shadow: 0 4px 12px -8px rgba(44, 53, 68, 0.15);
+    }
+    .pull-triptych-item:hover {
+      transform: rotate(0) translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--hub-accent);
+    }
+    .pull-triptych-item:nth-child(2) { --rot: -0.4deg; }
+    .pull-triptych-item:nth-child(3) { --rot: 0.5deg; }
+    .pull-triptych-item:nth-child(4) { --rot: -0.3deg; }
+    .pull-triptych-item .triptych-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--hub-accent);
+      margin-bottom: 0.4rem;
+    }
+    .pull-triptych-item .triptych-tag::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+    }
+    .pull-triptych-item p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      line-height: 1.4;
+      font-style: italic;
+      color: #1a1a1a;
+      margin: 0 0 0.5rem;
+    }
+    .pull-triptych-item p mark {
+      background: linear-gradient(180deg, transparent 60%, rgba(79, 196, 207, 0.32) 60%);
+      color: inherit;
+      padding: 0 0.12em;
+      background-size: 0% 100%;
+      background-repeat: no-repeat;
+      transition: background-size 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: var(--mark-delay, 500ms);
+    }
+    .pull-triptych.in .pull-triptych-item p mark { background-size: 100% 100%; }
+    .pull-triptych.in .pull-triptych-item:nth-child(2) p mark { transition-delay: 500ms; }
+    .pull-triptych.in .pull-triptych-item:nth-child(3) p mark { transition-delay: 700ms; }
+    .pull-triptych.in .pull-triptych-item:nth-child(4) p mark { transition-delay: 900ms; }
+    .pull-triptych-item cite {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--hub-accent);
+      font-style: normal;
+    }
+    .pull-triptych-item {
+      opacity: 0;
+      transform: translateY(14px) rotate(var(--rot, 0deg));
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .pull-triptych.in .pull-triptych-item { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
+    .pull-triptych.in .pull-triptych-item:nth-child(2) { transition-delay: 100ms; }
+    .pull-triptych.in .pull-triptych-item:nth-child(3) { transition-delay: 240ms; }
+    .pull-triptych.in .pull-triptych-item:nth-child(4) { transition-delay: 380ms; }
+
     /* ============ MAGIC — the part we can't engineer ============ */
     .magic-section {
       background: linear-gradient(135deg, #FAF7F2 0%, var(--warm-gray, #F5F3F0) 60%, #FAF7F2 100%);
@@ -1349,7 +1599,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note, .magic-moment, .artifact-card, .ready-list li { opacity: 1; transform: none; }
+      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note, .magic-moment, .artifact-card, .ready-list li, .pull-triptych-item { opacity: 1; transform: none; }
+      .pull-triptych-item p mark { background-size: 100% 100%; }
       .editorial-hero h1 .h1-a, .editorial-hero h1 .h1-b { opacity: 1; transform: none; }
       .pull-quote p mark { background-size: 100% 100%; }
       .day-map::before { transform: scaleX(1); }
@@ -1399,9 +1650,9 @@
         <span class="h1-a">Most strategy days produce decks.</span>
         <span class="h1-b">Ours produces a sentence.</span>
       </h1>
-      <p class="editorial-subline">One day. <strong>Run inside a Series A startup eight months past launch.</strong> Now running for other teams.</p>
+      <p class="editorial-subline">A leadership offsite for teams with <strong>product-market signal but no thesis-market fit</strong>. We run it as a one-day room, sometimes two — and you leave with the one sentence the rest of the team can say back.</p>
       <div class="meta-row">
-        <span>One day, sometimes two</span>
+        <span>One day · two-day option</span>
         <span>Leadership team only</span>
         <span>Pre-thesis-market-fit</span>
       </div>
@@ -1437,19 +1688,56 @@
       </div>
     </div>
 
+  </article>
+
+  <section class="phase-intro reveal">
+    <span class="phase-intro-eyebrow">the part we can't engineer</span>
+    <p class="phase-intro-text">The methods are below. The thing that makes the room different is something you'll feel between the methods — what we can only watch for. <em>We can't promise it. We've watched it happen every time.</em></p>
+  </section>
+
+  <section class="phase phase-1 reveal">
+    <div class="phase-header">
+      <span class="phase-num">01</span>
+      <div class="phase-titles">
+        <span class="phase-label">9 — 12 · diagnostic</span>
+        <h2 class="phase-name">First, what's <em>actually</em> going on.</h2>
+      </div>
+    </div>
+    <p class="phase-description">Two exercises in the morning. A three-minute round where each leader says, in their own words, why they're spending their life on this company — adjacent answers are normal, identical answers are rare. Then sticky-notes on three colors: <em>what's working, what's broken in how we work together, and what's a problem you're holding alone.</em> The third question is the one that does the most work.</p>
+
     <div class="sticky-mini-wrap">
       <span class="sticky-mini-cap">a slice of what comes off the wall</span>
       <div class="sticky-mini">
         <span class="sticky-mini-note y" style="--rot:-3deg"><span class="tag">protect</span>the small-team trust we still have</span>
         <span class="sticky-mini-note p" style="--rot:2deg"><span class="tag">broken</span>handoffs between functions</span>
-        <span class="sticky-mini-note b" style="--rot:-1deg"><span class="tag">alone</span>am I the only one worried about runway?</span>
+        <span class="sticky-mini-note b" style="--rot:-1deg"><span class="tag">alone</span>am I the only one who thinks the roadmap is the wrong roadmap?</span>
         <span class="sticky-mini-note g" style="--rot:4deg"><span class="tag">protect</span>the shape of the founding decision</span>
         <span class="sticky-mini-note pe" style="--rot:-2deg"><span class="tag">broken</span>meetings that don't actually decide</span>
-        <span class="sticky-mini-note l" style="--rot:3deg"><span class="tag">alone</span>I think we're solving the wrong problem</span>
+        <span class="sticky-mini-note l" style="--rot:3deg"><span class="tag">alone</span>the version of the company in the deck isn't the one we're actually running</span>
       </div>
     </div>
 
-    <p>The thesis is the afternoon's work. Most teams arrive describing themselves with a channel — <em>"quick commerce for fashion," "a community for runners," "an AI agent for legal."</em> Channels are descriptions. The exercise is finding the sentence underneath.</p>
+    <div class="magic-moment magic-moment--inline">
+      <span class="magic-time">11 AM</span>
+      <p>Somebody's voice cracks a little on the third sticky-note question — <em>what's a problem you're holding alone.</em> Then somebody else raises their hand and says, "I have that one too."</p>
+    </div>
+
+    <aside class="phase-reframe">
+      <span class="phase-reframe-tag">a reframe this room almost always surfaces</span>
+      <h3>People form bonds when they <em>give</em>, not when they take.</h3>
+      <p>Most teams measure conversion as <em>did they buy</em> — the narrowest possible definition of a relationship. Real stickiness comes from the moments where a user gives back: a profile, a piece of feedback, a photo, an opinion, ten minutes. The diagnostic almost always surfaces three or four "investment surfaces" the dashboard has been walking past.</p>
+    </aside>
+  </section>
+
+  <section class="phase phase-2 reveal">
+    <div class="phase-header">
+      <span class="phase-num">02</span>
+      <div class="phase-titles">
+        <span class="phase-label">12 — 4 · thesis</span>
+        <h2 class="phase-name">Then, the sentence <em>underneath</em>.</h2>
+      </div>
+    </div>
+    <p class="phase-description">Most teams arrive describing themselves with a channel — <em>"quick commerce for fashion," "a community for runners," "an AI agent for legal."</em> Channels are descriptions. The afternoon's exercise is finding the sentence underneath: <em>who you're for, in what moment of their life, replacing what.</em> It always takes longer than people expect. It's almost always worth it.</p>
 
     <div class="thesis-template" aria-hidden="true">
       <div class="thesis-template-line"><span class="label">For</span> <span class="blank"></span></div>
@@ -1458,70 +1746,75 @@
       <span class="thesis-template-tail">one sentence the team can say back to each other</span>
     </div>
 
-    <div class="pull-quote reveal">
-      <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
-      <cite>A founder, halfway through finding the sentence</cite>
+    <div class="pull-triptych reveal">
+      <span class="pull-triptych-eyebrow">three sentences from three rooms</span>
+      <div class="pull-triptych-item">
+        <span class="triptych-tag">fashion commerce</span>
+        <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
+        <cite>A founder, halfway through finding the sentence</cite>
+      </div>
+      <div class="pull-triptych-item">
+        <span class="triptych-tag">running &amp; fitness</span>
+        <p>"We're not a running app. That's a category. We're <mark>what runners reach for</mark> when their body has changed and the old ways of training stop working."</p>
+        <cite>A founder, the morning after</cite>
+      </div>
+      <div class="pull-triptych-item">
+        <span class="triptych-tag">legal · b2b</span>
+        <p>"We're not a legal-tech tool. That's a market. We're <mark>the firm for founders</mark> the big firms won't take seriously yet."</p>
+        <cite>A managing partner, on a whiteboard</cite>
+      </div>
     </div>
 
-    <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration — because something happens in the room around 3pm that we can't engineer, and the team has the same brief by the time they walk out.</p>
+    <div class="magic-moment magic-moment--inline">
+      <span class="magic-time">3 PM</span>
+      <p>Someone who's been quiet all morning says a sentence the rest of the room immediately recognizes. The team starts finishing each other's thoughts instead of arguing past each other.</p>
+    </div>
 
-    <div class="inline-card reveal">
+    <aside class="phase-reframe">
+      <span class="phase-reframe-tag">a reframe this room almost always surfaces</span>
+      <h3>The thesis is hiding a tension you're not naming.</h3>
+      <p>Most theses sit on top of a contradiction the team hasn't said out loud. The marketing voice goes one way; the operating model goes the other. The customer the founder describes in pitch meetings isn't the one the unit economics actually serve. Teams that name the tension get a real choice. Teams that hide it from themselves keep optimizing both sides into a stalemate.</p>
+    </aside>
+  </section>
+
+  <section class="phase phase-3 reveal">
+    <div class="phase-header">
+      <span class="phase-num">03</span>
+      <div class="phase-titles">
+        <span class="phase-label">4 — 6 · 90-day plan</span>
+        <h2 class="phase-name">Then, the bridge to <em>Monday morning</em>.</h2>
+      </div>
+    </div>
+    <p class="phase-description">Two or three customer archetypes the team commits to first — named, with real demographic and behavioral specificity. Operating principles for how experiments run, in writing. Three to five things to test in the next fourteen days, with named owners and pre-committed win conditions. The plan that turns the sentence into the next ninety days.</p>
+
+    <div class="magic-moment magic-moment--inline">
+      <span class="magic-time">later</span>
+      <p>The person who'd been the difficult voice in every meeting becomes, very quickly, the right voice. The team realizes the question they'd been brushing off was <em>the question.</em></p>
+    </div>
+
+    <aside class="phase-reframe">
+      <span class="phase-reframe-tag">a reframe this room almost always surfaces</span>
+      <h3>Differentiation has two halves.</h3>
+      <p><em>"We're different — we have feature X"</em> is what every product page says; buyers and investors have heard the line two hundred times. Real differentiation has two halves: a customer opens the product and immediately sees something they don't see elsewhere, <em>and</em> they're compelled enough to mention it to a friend. We pressure-test every claimed differentiator against both halves. Most fail the second.</p>
+    </aside>
+  </section>
+
+  <section class="phase-close reveal">
+    <p class="phase-close-text">By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration — because the team finally has the same brief. <strong>We can't promise the room shifts. We've watched it shift every time.</strong></p>
+  </section>
+
+  <section class="inline-cards-block">
+    <div class="inline-card reveal" style="max-width:680px;margin:0 auto 1.5rem;">
       <a href="work/klydo-cut-strategy.html">
         <span class="inline-card-type">Case study</span>
-        <span class="inline-card-title">When "quick commerce for fashion" stopped being enough &rarr;</span>
+        <span class="inline-card-title">How one team found the sentence under their channel &rarr;</span>
       </a>
     </div>
-
-    <div class="inline-card reveal">
+    <div class="inline-card reveal" style="max-width:680px;margin:0 auto;">
       <a href="ai-workshops.html">
         <span class="inline-card-type">Workshops</span>
         <span class="inline-card-title">Thinking with AI — our other workshop, on AI in real workflows &rarr;</span>
       </a>
-    </div>
-
-  </article>
-
-  <section class="magic-section reveal">
-    <div class="magic-inner">
-      <span class="magic-eyebrow">the part we can't engineer</span>
-      <h2 class="magic-title">What actually changes the company is <em>harder to describe</em>.</h2>
-      <p class="magic-intro">We run the diagnostic. We run the thesis exercise. We run the planning round. These are methods, and they work. The thing that makes the room different by the end is something we can only watch for.</p>
-      <div class="magic-moments">
-        <div class="magic-moment">
-          <span class="magic-time">11 AM</span>
-          <p>Somebody's voice cracks a little on the third sticky-note question — <em>what's a problem you're holding alone.</em> Then somebody else raises their hand and says, "I have that one too."</p>
-        </div>
-        <div class="magic-moment">
-          <span class="magic-time">3 PM</span>
-          <p>Someone who's been quiet all morning says a sentence the rest of the room immediately recognizes. The team starts finishing each other's thoughts instead of arguing past each other.</p>
-        </div>
-        <div class="magic-moment">
-          <span class="magic-time">later</span>
-          <p>The person who'd been the difficult voice in every meeting becomes, very quickly, the right voice. The team realizes the question they'd been brushing off was <em>the question.</em></p>
-        </div>
-      </div>
-      <p class="magic-tail">We can't promise this happens. We've watched it happen <strong>every time</strong>.</p>
-    </div>
-  </section>
-
-  <section class="findings reveal">
-    <div class="findings-inner">
-      <span class="findings-eyebrow">what teams keep finding</span>
-      <h2 class="findings-title">Three reframes this room almost always surfaces.</h2>
-      <ol class="findings-list">
-        <li>
-          <h3>People form bonds when they <em>give</em>, not when they take.</h3>
-          <p>Most teams measure conversion as <em>did they buy</em> — the narrowest possible definition of a relationship. Real stickiness comes from the moments where a user gives back: a profile, a piece of feedback, a photo, an opinion, ten minutes. Companies that ask for nothing get nothing. The workshop almost always surfaces three or four "investment surfaces" the dashboard has been walking past.</p>
-        </li>
-        <li>
-          <h3>The thesis is hiding a tension you're not naming.</h3>
-          <p>Most theses sit on top of a contradiction the team hasn't said out loud. The marketing voice goes one way; the operating model goes the other. The customer the founder describes in pitch meetings isn't the one the unit economics actually serve. Teams that name the tension get a real choice in how to resolve it. Teams that hide it from themselves keep optimizing both sides into a stalemate.</p>
-        </li>
-        <li>
-          <h3>Differentiation has two halves.</h3>
-          <p><em>"We're different — we have feature X"</em> is what every product page says; buyers and investors have heard the line two hundred times. Real differentiation has two halves: a customer opens the product and immediately sees something they don't see elsewhere, <em>and</em> they're compelled enough to mention it to a friend. We pressure-test every claimed differentiator against both halves. Most fail the second.</p>
-        </li>
-      </ol>
     </div>
   </section>
 
@@ -1544,11 +1837,12 @@
         <h3 class="artifact-h">Two or three customers you commit to first.</h3>
         <div class="artifact-mock">
           <div class="mock-archetypes">
-            <span class="mock-archetype-chip">Riya · 27 · Bangalore</span>
-            <span class="mock-archetype-chip">Anika · 31 · Mumbai</span>
+            <span class="mock-archetype-chip">Priya · 27 · Bangalore</span>
+            <span class="mock-archetype-chip">Marcus · 41 · Brooklyn</span>
+            <span class="mock-archetype-chip">Sana · 34 · Karachi</span>
           </div>
         </div>
-        <p class="artifact-cap">Named, with real demographic and behavioral specificity. What replaces "25–35, all of Bangalore."</p>
+        <p class="artifact-cap">Named, with real demographic and behavioral specificity. What replaces "25–35, urban metro, high intent."</p>
       </div>
 
       <div class="artifact-card is-principles">
@@ -1642,17 +1936,17 @@
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
-          <span class="pricing-tier-name">The Thesis Workshop</span>
-          <span class="pricing-tier-price">$12,000 · one day</span>
+          <span class="pricing-tier-name">The Thesis Workshop · one day</span>
+          <span class="pricing-tier-price">$12,000</span>
         </div>
         <p class="pricing-tier-body">Your leadership team in a room with us for a day. We run the diagnostic, find the sentence, and leave you with two or three archetypes, your operating principles in writing, and a 90-day plan with named owners and pre-committed win conditions. Most teams need this once. Some come back before a fundraise.</p>
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
-          <span class="pricing-tier-name">Two-day intensive</span>
-          <span class="pricing-tier-price">$25,000 · two days</span>
+          <span class="pricing-tier-name">The Thesis Workshop · two days</span>
+          <span class="pricing-tier-price">$25,000</span>
         </div>
-        <p class="pricing-tier-body">Two days, same room, deeper. We go further on archetype work, do a real first pass at the investor narrative, and pressure-test the thesis against the company's actual P&amp;L. The right call when you're heading into a fundraise, a pivot, or a re-org and the one-day version won't have time to do all three.</p>
+        <p class="pricing-tier-body">The same room, with time to go further. We deepen the archetype work, draft the investor narrative, and pressure-test the thesis against your actual P&amp;L — work the one-day version doesn't have time to do. The right call when you're heading into a fundraise, a pivot, or a re-org.</p>
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
@@ -1746,7 +2040,7 @@
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings, .day-map, .sticky-mini, .magic-section, .artifacts-grid, .ready-list').forEach(el => revealIo.observe(el));
+    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .day-map, .sticky-mini, .artifacts-grid, .ready-list, .pull-triptych, .phase, .phase-intro, .phase-close').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>
