@@ -584,12 +584,253 @@
     }
     .findings-list em { font-style: italic; color: #111; }
 
+    /* ============ VISUAL BLOCKS — day-map, sticky-mini, thesis-template, vs-pair ============ */
+
+    /* day-map: 3-column visual of the day's structure */
+    .day-map {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 2rem 0 2.5rem;
+      position: relative;
+    }
+    .day-map::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 8%; right: 8%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--hub-accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 400ms;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    .day-map.in::before { transform: scaleX(1); }
+    .day-block {
+      padding: 1.5rem 1.25rem;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      background: #fff;
+      position: relative;
+      z-index: 1;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .day-block:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--hub-accent); }
+    .day-block::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -0.55rem;
+      left: 1.25rem;
+      background: var(--hub-accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+    }
+    .day-block-time {
+      display: block;
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      color: var(--hub-accent);
+      margin: 0.4rem 0 0.5rem;
+      transform: rotate(-1.5deg);
+    }
+    .day-block h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #111;
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
+    }
+    .day-block p {
+      font-size: 0.92rem;
+      line-height: 1.5;
+      color: #555;
+      margin: 0;
+    }
+    @media (max-width: 720px) {
+      .day-map { grid-template-columns: 1fr; gap: 0.75rem; }
+      .day-map::before { display: none; }
+    }
+
+    /* sticky-mini: small wall of colored sticky notes — decorative, reinforces the diagnostic */
+    .sticky-mini-wrap {
+      position: relative;
+      margin: 2rem 0 1rem;
+    }
+    .sticky-mini-cap {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--hub-accent);
+      transform: rotate(-2deg);
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .sticky-mini-cap::before { content: "↳ "; }
+    .sticky-mini {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.7rem;
+      padding: 1.25rem;
+      background: var(--warm-gray, #F5F3F0);
+      border-radius: 12px;
+    }
+    .sticky-mini-note {
+      display: block;
+      padding: 0.85rem 0.95rem;
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      color: #2C3544;
+      border-radius: 4px;
+      transform: rotate(var(--rot, 0deg));
+      box-shadow: 0 4px 12px rgba(44, 53, 68, 0.08);
+      line-height: 1.3;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .sticky-mini-note:hover { transform: rotate(0deg) scale(1.04); box-shadow: 0 8px 18px rgba(44,53,68,0.14); z-index: 5; position: relative; }
+    .sticky-mini-note .tag {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(44, 53, 68, 0.55);
+      margin-bottom: 0.25rem;
+    }
+    .sticky-mini-note.y { background: #FFF4B5; }
+    .sticky-mini-note.p { background: #FFD6E7; }
+    .sticky-mini-note.b { background: #C9E8FF; }
+    .sticky-mini-note.g { background: #D4F0D4; }
+    .sticky-mini-note.pe { background: #FFD4B8; }
+    .sticky-mini-note.l { background: #E4CCFF; }
+    @media (max-width: 600px) {
+      .sticky-mini { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* thesis-template: visual mad-libs */
+    .thesis-template {
+      margin: 2.5rem 0 1rem;
+      padding: 2rem 2.25rem;
+      background: linear-gradient(135deg, #fff 0%, var(--warm-gray, #F5F3F0) 100%);
+      border-left: 4px solid var(--hub-accent);
+      border-radius: 0 12px 12px 0;
+      font-family: 'DM Serif Display', serif;
+      position: relative;
+    }
+    .thesis-template-line {
+      font-size: clamp(1.1rem, 2vw, 1.35rem);
+      color: #1a1a1a;
+      line-height: 1.85;
+    }
+    .thesis-template-line .blank {
+      display: inline-block;
+      min-width: 11rem;
+      max-width: 100%;
+      border-bottom: 2px dashed var(--hub-accent);
+      margin: 0 0.2em;
+      height: 1.05em;
+      vertical-align: -0.15em;
+    }
+    .thesis-template-line .label {
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+    }
+    .thesis-template-tail {
+      margin-top: 1.25rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--hub-accent);
+      font-style: normal;
+      transform: rotate(-1deg);
+      display: inline-block;
+    }
+    .thesis-template-tail::before { content: "→ "; }
+
+    /* vs-pair: replacement for note-section prose. Two columns: isn't / is */
+    .vs-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .vs-col {
+      padding: 1.5rem;
+      border-radius: 12px;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+    }
+    .vs-col.vs-is { border-left: 3px solid var(--hub-accent); }
+    .vs-col.vs-isnt { border-left: 3px solid rgba(44, 53, 68, 0.25); }
+    .vs-label {
+      display: inline-block;
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: rgba(44, 53, 68, 0.6);
+      margin-bottom: 0.75rem;
+      transform: rotate(-2deg);
+    }
+    .vs-col.vs-is .vs-label { color: var(--hub-accent); }
+    .vs-col ul { list-style: none; padding: 0; margin: 0; }
+    .vs-col li {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #444;
+      padding: 0.55rem 0 0.55rem 1.1rem;
+      border-bottom: 1px dashed #e8e6e4;
+      position: relative;
+    }
+    .vs-col li:last-child { border-bottom: none; }
+    .vs-col.vs-isnt li::before {
+      content: "✕";
+      position: absolute;
+      left: 0; top: 0.55rem;
+      color: rgba(44, 53, 68, 0.4);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+    .vs-col.vs-is li::before {
+      content: "✓";
+      position: absolute;
+      left: 0; top: 0.55rem;
+      color: var(--hub-accent);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .vs-pair { grid-template-columns: 1fr; gap: 1rem; }
+    }
+
+    /* the visual blocks should reveal smoothly when scrolled into view */
+    .day-block { opacity: 0; transform: translateY(16px); transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .day-map.in .day-block { opacity: 1; transform: translateY(0); }
+    .day-map.in .day-block:nth-child(1) { transition-delay: 100ms; }
+    .day-map.in .day-block:nth-child(2) { transition-delay: 240ms; }
+    .day-map.in .day-block:nth-child(3) { transition-delay: 380ms; }
+    .sticky-mini-note { opacity: 0; transform: translateY(10px) rotate(var(--rot, 0deg)); transition: opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+    .sticky-mini.in .sticky-mini-note { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
+    .sticky-mini.in .sticky-mini-note:nth-child(1) { transition-delay: 60ms; }
+    .sticky-mini.in .sticky-mini-note:nth-child(2) { transition-delay: 160ms; }
+    .sticky-mini.in .sticky-mini-note:nth-child(3) { transition-delay: 260ms; }
+    .sticky-mini.in .sticky-mini-note:nth-child(4) { transition-delay: 360ms; }
+    .sticky-mini.in .sticky-mini-note:nth-child(5) { transition-delay: 460ms; }
+    .sticky-mini.in .sticky-mini-note:nth-child(6) { transition-delay: 560ms; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li { opacity: 1; transform: none; }
+      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note { opacity: 1; transform: none; }
       .editorial-hero h1 .strike::after { transform: scaleX(1); }
       .editorial-hero h1 .replace { opacity: 1; transform: none; }
       .pull-quote p mark { background-size: 100% 100%; }
+      .day-map::before { transform: scaleX(1); }
+      .sticky-mini-note { transform: rotate(var(--rot, 0deg)); }
     }
   </style>
 </head>
@@ -642,9 +883,7 @@
 
   <article class="editorial-body">
 
-    <p>Here's the pattern we keep seeing. A leadership team books a strategy day because the silos are getting worse. Growth and product describe the same business in different terms. The pitch deck describes it in a third. Someone says the word "alignment" and the room goes quiet because nobody knows what they'd be aligning on. The silos aren't the problem. The missing sentence is.</p>
-
-    <p>When there is no shared answer to <em>what are we, for whom, and why,</em> every function fills the vacuum with its own version. Merch fills it with selection. Marketing with content. Product with features. Ops with cost. Teams drift, each one feels alone, and nobody trusts the others' choices because nobody is choosing against the same brief. You don't fix that with team-building. You fix it by giving everyone the same sentence to point at.</p>
+    <p>Here's the pattern. A team books a strategy day because the silos are getting worse — and what they actually need is a thesis. Growth and product describe the same business in different words. The pitch deck describes it in a third. Someone says <em>"alignment"</em> and the room goes quiet because nobody knows what they'd be aligning <em>on</em>. The silos aren't the problem. The missing sentence is.</p>
 
     <div class="pull-quote reveal">
       <p>"If you have to find a reason to say no, you'll always find one. The work is <mark>making the reason to say yes</mark> louder than the reasons to say no."</p>
@@ -653,20 +892,51 @@
 
     <h2>How a day with us runs</h2>
 
-    <p>Three things, in order: a diagnostic, a thesis, and a 90-day plan.</p>
+    <div class="day-map">
+      <div class="day-block" data-step="01">
+        <span class="day-block-time">9 — 12</span>
+        <h3>Diagnostic</h3>
+        <p>Two exercises. A three-minute "why am I here" round, then sticky-notes — green / red / alone. The silent stuff comes out.</p>
+      </div>
+      <div class="day-block" data-step="02">
+        <span class="day-block-time">12 — 4</span>
+        <h3>Thesis</h3>
+        <p>One sentence — <em>who, in what moment, replacing what</em>. Always takes longer than people expect.</p>
+      </div>
+      <div class="day-block" data-step="03">
+        <span class="day-block-time">4 — 6</span>
+        <h3>90-day plan</h3>
+        <p>2–3 archetypes, operating principles in writing, a 14-day experiment cell with named owners.</p>
+      </div>
+    </div>
 
-    <p>The diagnostic is two exercises that take an hour and consistently surface what's actually going on. A three-minute round where each leader says why they're spending their life on this company — adjacent answers are normal, identical answers are rare, and the gap between them is where most of the misalignment lives. Then a sticky-notes round: what's working, what's broken in how we work together, and what's a problem you're holding alone. The third question does the most work. It's where the silent stuff comes out.</p>
+    <div class="sticky-mini-wrap">
+      <span class="sticky-mini-cap">a slice of what comes off the wall</span>
+      <div class="sticky-mini">
+        <span class="sticky-mini-note y" style="--rot:-3deg"><span class="tag">protect</span>the small-team trust we still have</span>
+        <span class="sticky-mini-note p" style="--rot:2deg"><span class="tag">broken</span>handoffs between functions</span>
+        <span class="sticky-mini-note b" style="--rot:-1deg"><span class="tag">alone</span>am I the only one worried about runway?</span>
+        <span class="sticky-mini-note g" style="--rot:4deg"><span class="tag">protect</span>the shape of the founding decision</span>
+        <span class="sticky-mini-note pe" style="--rot:-2deg"><span class="tag">broken</span>meetings that don't actually decide</span>
+        <span class="sticky-mini-note l" style="--rot:3deg"><span class="tag">alone</span>I think we're solving the wrong problem</span>
+      </div>
+    </div>
 
-    <p>The thesis is one sentence: <em>who is this for, in what moment of their life, replacing what.</em> Most teams arrive describing themselves with a channel — "quick commerce for fashion," "a community for runners," "an AI agent for legal." That's a description. The work is finding the sentence underneath it. It takes longer than people expect. It's almost always worth it.</p>
+    <p>The thesis is the afternoon's work. Most teams arrive describing themselves with a channel — <em>"quick commerce for fashion," "a community for runners," "an AI agent for legal."</em> Channels are descriptions. The exercise is finding the sentence underneath.</p>
+
+    <div class="thesis-template" aria-hidden="true">
+      <div class="thesis-template-line"><span class="label">For</span> <span class="blank"></span></div>
+      <div class="thesis-template-line"><span class="label">in the moment of</span> <span class="blank"></span></div>
+      <div class="thesis-template-line"><span class="label">we replace</span> <span class="blank"></span></div>
+      <span class="thesis-template-tail">one sentence the team can say back to each other</span>
+    </div>
 
     <div class="pull-quote reveal">
       <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
       <cite>A founder, halfway through finding the sentence</cite>
     </div>
 
-    <p>The 90-day plan is the bridge from the sentence to the work. Two or three customer archetypes you'll win on first. Operating principles for how the team runs experiments — small bets first, fast read on signal, no long-build bets without short-cycle validation. Three to five things to test in the next fourteen days, with named owners and pre-committed win conditions.</p>
-
-    <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration, but because the team finally has the same brief.</p>
+    <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration — because the team finally has the same brief.</p>
 
     <div class="inline-card reveal">
       <a href="work/klydo-cut-strategy.html">
@@ -775,9 +1045,27 @@
   </section>
 
   <section class="note-section reveal">
-    <h2>A note on what this isn't</h2>
-    <p>It isn't strategy consulting. We don't show up with a framework and a deck and tell you what your business is. The thesis has to come from the room — our job is to make the room work, ask the questions you've been avoiding, and write down what comes out clearly enough that it survives Monday morning.</p>
-    <p>It also isn't team-building. There are no trust falls, no values exercises. The exercises we do run are diagnostic, not therapeutic. The team gets closer because the work gets clearer, not the other way around.</p>
+    <h2>This isn't, and this is</h2>
+    <div class="vs-pair">
+      <div class="vs-col vs-isnt">
+        <span class="vs-label">isn't</span>
+        <ul>
+          <li>Strategy consulting</li>
+          <li>A framework with a deck</li>
+          <li>Team-building or values exercises</li>
+          <li>A workshop where we tell you what your business is</li>
+        </ul>
+      </div>
+      <div class="vs-col vs-is">
+        <span class="vs-label">is</span>
+        <ul>
+          <li>A room that works</li>
+          <li>The questions you've been avoiding</li>
+          <li>One sentence in writing</li>
+          <li>A 90-day plan that survives Monday morning</li>
+        </ul>
+      </div>
+    </div>
   </section>
 
   <section class="cta-strip reveal">
@@ -860,7 +1148,7 @@
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings').forEach(el => revealIo.observe(el));
+    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings, .day-map, .sticky-mini').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>
