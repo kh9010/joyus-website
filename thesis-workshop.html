@@ -650,6 +650,156 @@
     }
     .findings-list em { font-style: italic; color: #111; }
 
+    /* ============ MAGIC — the part we can't engineer ============ */
+    .magic-section {
+      background: linear-gradient(135deg, #FAF7F2 0%, var(--warm-gray, #F5F3F0) 60%, #FAF7F2 100%);
+      padding: clamp(4rem, 9vh, 7rem) 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .magic-section::before,
+    .magic-section::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+    .magic-section::before {
+      width: 240px; height: 240px;
+      background: radial-gradient(circle, rgba(79, 196, 207, 0.18) 0%, transparent 70%);
+      top: -80px; right: -60px;
+    }
+    .magic-section::after {
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(233, 30, 123, 0.14) 0%, transparent 70%);
+      bottom: -50px; left: -40px;
+    }
+    .magic-inner {
+      max-width: 760px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .magic-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.5rem;
+      transform: rotate(-2deg);
+    }
+    .magic-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      transform: rotate(2deg);
+    }
+    .magic-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+      color: #111;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      margin: 0 0 1.25rem;
+      max-width: 22ch;
+    }
+    .magic-title em { font-style: italic; color: var(--hub-accent); }
+    .magic-intro {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      max-width: 56ch;
+      margin: 0 0 2.5rem;
+    }
+    .magic-moments {
+      display: grid;
+      gap: 1.25rem;
+      margin: 0 0 2rem;
+    }
+    .magic-moment {
+      position: relative;
+      padding: 1.5rem 1.75rem 1.5rem 5.5rem;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px -10px rgba(44, 53, 68, 0.18);
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .magic-moment:hover {
+      transform: rotate(0) translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--hub-accent);
+    }
+    .magic-moment:nth-child(1) { --rot: -0.6deg; }
+    .magic-moment:nth-child(2) { --rot: 0.5deg; }
+    .magic-moment:nth-child(3) { --rot: -0.4deg; }
+    .magic-time {
+      position: absolute;
+      left: 1.25rem;
+      top: 1.4rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: var(--hub-accent);
+      font-weight: 700;
+      transform: rotate(-3deg);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+    .magic-time::after {
+      content: "";
+      display: block;
+      width: 28px; height: 2px;
+      background: var(--hub-accent);
+      margin-top: 0.4rem;
+      opacity: 0.4;
+    }
+    .magic-moment p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.08rem;
+      line-height: 1.55;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    .magic-moment p em {
+      font-style: italic;
+      color: var(--hub-accent);
+    }
+    .magic-tail {
+      font-family: 'Caveat', cursive;
+      font-size: 1.45rem;
+      color: #111;
+      line-height: 1.4;
+      margin: 0;
+      transform: rotate(-1deg);
+      display: inline-block;
+    }
+    .magic-tail strong {
+      color: var(--hub-accent);
+      font-weight: 700;
+    }
+
+    /* magic moment stagger */
+    .magic-moment {
+      opacity: 0;
+      transform: translateY(20px) rotate(var(--rot, 0deg));
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .magic-section.in .magic-moment { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
+    .magic-section.in .magic-moment:nth-child(1) { transition-delay: 100ms; }
+    .magic-section.in .magic-moment:nth-child(2) { transition-delay: 280ms; }
+    .magic-section.in .magic-moment:nth-child(3) { transition-delay: 460ms; }
+
+    @media (max-width: 720px) {
+      .magic-moment { padding: 1.25rem 1.25rem 1.25rem 1.25rem; }
+      .magic-time { position: static; display: inline-block; margin-bottom: 0.5rem; }
+      .magic-time::after { display: none; }
+    }
+
     /* ============ VISUAL BLOCKS — day-map, sticky-mini, thesis-template, vs-pair ============ */
 
     /* day-map: 3-column visual of the day's structure */
@@ -891,7 +1041,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note { opacity: 1; transform: none; }
+      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note, .magic-moment { opacity: 1; transform: none; }
       .editorial-hero h1 .strike::after { transform: scaleX(1) skew(-2deg); }
       .editorial-hero h1 .replace { opacity: 1; transform: rotate(-1deg); }
       .editorial-hero h1 .annotation { opacity: 1; transform: rotate(-4deg) translateY(-0.4em); }
@@ -1009,7 +1159,7 @@
       <cite>A founder, halfway through finding the sentence</cite>
     </div>
 
-    <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration — because the team finally has the same brief.</p>
+    <p>By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration — because something happens in the room around 3pm that we can't engineer, and the team has the same brief by the time they walk out.</p>
 
     <div class="inline-card reveal">
       <a href="work/klydo-cut-strategy.html">
@@ -1026,6 +1176,29 @@
     </div>
 
   </article>
+
+  <section class="magic-section reveal">
+    <div class="magic-inner">
+      <span class="magic-eyebrow">the part we can't engineer</span>
+      <h2 class="magic-title">What actually changes the company is <em>harder to describe</em>.</h2>
+      <p class="magic-intro">We run the diagnostic. We run the thesis exercise. We run the planning round. These are methods, and they work. The thing that makes the room different by the end is something we can only watch for.</p>
+      <div class="magic-moments">
+        <div class="magic-moment">
+          <span class="magic-time">11 AM</span>
+          <p>Somebody's voice cracks a little on the third sticky-note question — <em>what's a problem you're holding alone.</em> Then somebody else raises their hand and says, "I have that one too."</p>
+        </div>
+        <div class="magic-moment">
+          <span class="magic-time">3 PM</span>
+          <p>Someone who's been quiet all morning says a sentence the rest of the room immediately recognizes. The team starts finishing each other's thoughts instead of arguing past each other.</p>
+        </div>
+        <div class="magic-moment">
+          <span class="magic-time">later</span>
+          <p>The person who'd been the difficult voice in every meeting becomes, very quickly, the right voice. The team realizes the question they'd been brushing off was <em>the question.</em></p>
+        </div>
+      </div>
+      <p class="magic-tail">We can't promise this happens. We've watched it happen <strong>every time</strong>.</p>
+    </div>
+  </section>
 
   <section class="findings reveal">
     <div class="findings-inner">
@@ -1221,7 +1394,7 @@
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings, .day-map, .sticky-mini').forEach(el => revealIo.observe(el));
+    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings, .day-map, .sticky-mini, .magic-section').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>
