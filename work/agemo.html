@@ -304,94 +304,143 @@
   }
 
   /* ============ SECTION 3 — PERSONA SPECTRUM ============ */
+  /* ============ inline hypothesis tag (used across the page) ============ */
+  .h-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2em;
+    padding: 0.12rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(233, 30, 123, 0.08);
+    border: 1px solid rgba(233, 30, 123, 0.4);
+    color: var(--pink);
+    font-family: var(--sans);
+    font-size: 0.85em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    margin: 0 0.15em;
+    vertical-align: baseline;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+
+  /* ============ SECTION 3 — PERSONA TIERS ============ */
   .personas-wrap {
-    margin-top: 2rem;
-    padding: 0;
+    margin-top: 2.5rem;
     position: relative;
   }
-  .personas-row {
+  .personas-axis-bar {
     position: relative;
-    height: 220px;
-    margin: 4rem 5% 1rem;
-  }
-  .personas-axis {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
     height: 2px;
+    margin: 2.25rem 0 0;
     background: linear-gradient(90deg, transparent, var(--ink), transparent);
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 1200ms cubic-bezier(0.2, 0.8, 0.2, 1);
     transition-delay: 200ms;
   }
-  .reveal.in .personas-axis { transform: scaleX(1); }
-  .personas-axis-label-l, .personas-axis-label-r {
+  .reveal.in .personas-axis-bar { transform: scaleX(1); }
+  .personas-axis-bar::before,
+  .personas-axis-bar::after {
     position: absolute;
-    top: 50%;
-    margin-top: 0.6rem;
+    top: -1.5rem;
+    font-family: var(--sans);
     font-size: 0.72rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-soft);
   }
-  .personas-axis-label-l { left: 0; }
-  .personas-axis-label-r { right: 0; }
-  .persona-chip {
-    position: absolute;
-    left: var(--x, 50%);
-    top: var(--y, 50%);
+  .personas-axis-bar::before { content: "Tool Consumer"; left: 0; }
+  .personas-axis-bar::after  { content: "Tool Chainer →"; right: 0; }
+  .tier-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.85rem;
+    margin: 1.5rem 0 1rem;
+  }
+  .tier {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 1.1rem 0.75rem 1.25rem;
+    border-radius: 14px;
+    background: rgba(44, 53, 68, 0.025);
+    border: 1.5px dashed rgba(44, 53, 68, 0.18);
+    transition: background 250ms, border-color 250ms;
+    position: relative;
+  }
+  .tier.picked {
+    background: rgba(233, 30, 123, 0.05);
+    border-color: rgba(233, 30, 123, 0.4);
+    border-style: solid;
+  }
+  .tier-name {
     font-family: var(--sans);
-    font-size: 0.85rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    text-align: center;
+  }
+  .tier.picked .tier-name { color: var(--pink); }
+  .persona-chip {
+    font-family: var(--sans);
+    font-size: 0.82rem;
     font-weight: 500;
-    padding: 0.5rem 0.95rem;
+    padding: 0.45rem 0.7rem;
     border-radius: 999px;
     border: 1.5px solid var(--rule);
     background: var(--paper);
     color: var(--ink);
-    white-space: nowrap;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
     opacity: 0;
-    transform: translate(-50%, 20px);
-    animation: chipIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    transform: translateY(10px);
+    animation: chipIn 500ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     animation-delay: var(--cd, 0ms);
     cursor: default;
-    transition: border-color 200ms, color 200ms, background 200ms;
+    transition: border-color 200ms;
   }
   .reveal.in .persona-chip { animation-play-state: running; }
   .persona-chip:not(.in-view) { animation-play-state: paused; }
-  @keyframes chipIn { to { opacity: 1; transform: translate(-50%, 0); } }
+  @keyframes chipIn { to { opacity: 1; transform: translateY(0); } }
   .persona-chip.builder { border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.08); }
   .persona-chip.consumer { border-color: rgba(233, 30, 123, 0.4); background: rgba(233, 30, 123, 0.08); }
   .persona-chip.role { border-color: rgba(79, 196, 207, 0.4); background: rgba(79, 196, 207, 0.08); }
-  .persona-chip:hover { border-color: var(--ink); animation-play-state: paused; transform: translate(-50%, -2px); }
+  .persona-chip:hover { border-color: var(--ink); }
+  .personas-pick-callout {
+    margin: 1.75rem 0 0;
+    padding: 1rem 1.25rem;
+    border-left: 3px solid var(--pink);
+    background: rgba(233, 30, 123, 0.04);
+    border-radius: 0 8px 8px 0;
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .personas-pick-callout .h-tag { margin-right: 0.5rem; }
   @media (max-width: 720px) {
-    .personas-row {
-      height: auto;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-      margin: 2rem 1rem;
-    }
-    .personas-axis,
-    .personas-axis-label-l,
-    .personas-axis-label-r { display: none; }
-    .persona-chip {
-      position: static;
-      transform: translateY(20px);
-      animation-name: chipInMobile;
-    }
-    @keyframes chipInMobile { to { opacity: 1; transform: translateY(0); } }
+    .tier-row { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .tier-row { grid-template-columns: 1fr; }
+    .personas-axis-bar { display: none; }
   }
   .persona-legend {
     display: flex;
     gap: 1.5rem;
     justify-content: center;
-    margin-top: 2.5rem;
+    margin-top: 2.25rem;
     font-size: 0.85rem;
     color: var(--ink-soft);
+    flex-wrap: wrap;
   }
   .persona-legend span { display: inline-flex; align-items: center; gap: 0.4rem; }
   .persona-legend .dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -781,6 +830,33 @@
 
   /* ============ SECTION 10 — ANNOTATED ARCHITECT ============ */
   .annotated { background: var(--bg); }
+  .iteration-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.5rem 0 -0.25rem;
+    padding: 0.4rem 0.9rem 0.4rem 0.7rem;
+    background: var(--ink);
+    color: #fff;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .iteration-badge strong {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.6em;
+    height: 1.6em;
+    padding: 0 0.3em;
+    border-radius: 999px;
+    background: var(--pink);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.95em;
+  }
   .annotated-wrap {
     position: relative;
     border-radius: 18px;
@@ -1157,27 +1233,42 @@
   <div class="sec-inner reveal">
     <span class="sec-eyebrow">who Codewords picked first</span>
     <h2 class="sec-title">Twelve user types, on a single <em>proficiency axis</em>.</h2>
-    <p class="sec-deck">The team mapped users along a spectrum — from people who'd never write a line of code (Tool Consumers) to people who'd build pipelines of pipelines (Tool Chainers). Hypothesis 4 (Completeness over Simplicity) was a deliberate choice: design for the right edge of the spectrum, even at the cost of casual users.</p>
+    <p class="sec-deck">The team mapped users along a spectrum — from people who'd never write a line of code (Tool Consumers) to people who'd build pipelines of pipelines (Tool Chainers). Twelve user types, sorted into four tiers by proficiency.</p>
 
-    <div class="personas-wrap">
-      <div class="personas-row" id="personas-row">
-        <div class="personas-axis"></div>
-        <span class="personas-axis-label-l">Tool Consumer</span>
-        <span class="personas-axis-label-r">Tool Chainer →</span>
+    <div class="personas-wrap" id="personas-row">
+      <div class="personas-axis-bar" aria-hidden="true"></div>
 
-        <span class="persona-chip consumer" style="--x: 4%;  --y: 18%; --cd: 100ms;">PMs &amp; designers</span>
-        <span class="persona-chip builder"  style="--x: 12%; --y: 72%; --cd: 200ms;">Founder / Designer / PM</span>
-        <span class="persona-chip builder"  style="--x: 18%; --y: 18%; --cd: 300ms;">Management consultant</span>
-        <span class="persona-chip role"     style="--x: 28%; --y: 72%; --cd: 400ms;">Prototyper</span>
-        <span class="persona-chip builder"  style="--x: 36%; --y: 18%; --cd: 500ms;">Indie hacker / microsaas</span>
-        <span class="persona-chip builder"  style="--x: 46%; --y: 72%; --cd: 600ms;">Expert / tech consultant</span>
-        <span class="persona-chip builder"  style="--x: 56%; --y: 18%; --cd: 700ms;">Data scientist</span>
-        <span class="persona-chip builder"  style="--x: 64%; --y: 72%; --cd: 800ms;">Front-end engineer</span>
-        <span class="persona-chip builder"  style="--x: 76%; --y: 18%; --cd: 900ms;">Back-end engineer</span>
-        <span class="persona-chip role"     style="--x: 82%; --y: 72%; --cd: 1000ms;">Niche tooling builder</span>
-        <span class="persona-chip role"     style="--x: 90%; --y: 18%; --cd: 1100ms;">Automator</span>
-        <span class="persona-chip role"     style="--x: 96%; --y: 72%; --cd: 1200ms;">Deployer</span>
+      <div class="tier-row">
+        <div class="tier">
+          <span class="tier-name">Generalists</span>
+          <span class="persona-chip consumer" style="--cd: 100ms;">PMs &amp; designers</span>
+          <span class="persona-chip builder"  style="--cd: 180ms;">Founder / Designer / PM</span>
+          <span class="persona-chip builder"  style="--cd: 260ms;">Mgmt consultant</span>
+        </div>
+        <div class="tier">
+          <span class="tier-name">Code-aware</span>
+          <span class="persona-chip builder" style="--cd: 360ms;">Indie hacker / microsaas</span>
+          <span class="persona-chip role"    style="--cd: 440ms;">Prototyper</span>
+          <span class="persona-chip builder" style="--cd: 520ms;">Expert / tech consultant</span>
+        </div>
+        <div class="tier picked">
+          <span class="tier-name">Engineers</span>
+          <span class="persona-chip builder" style="--cd: 620ms;">Front-end engineer</span>
+          <span class="persona-chip builder" style="--cd: 700ms;">Back-end engineer</span>
+          <span class="persona-chip builder" style="--cd: 780ms;">Data scientist</span>
+        </div>
+        <div class="tier picked">
+          <span class="tier-name">Pipeline builders</span>
+          <span class="persona-chip role" style="--cd: 880ms;">Niche tooling builder</span>
+          <span class="persona-chip role" style="--cd: 960ms;">Automator</span>
+          <span class="persona-chip role" style="--cd: 1040ms;">Deployer</span>
+        </div>
       </div>
+
+      <p class="personas-pick-callout">
+        <span class="h-tag">H4</span>
+        <strong>Completeness over Simplicity.</strong> Codewords picked the right side — design for engineers and pipeline builders, even at the cost of casual users.
+      </p>
 
       <div class="persona-legend">
         <span><i class="dot" style="background:rgba(79,196,207,0.6)"></i> Role</span>
@@ -1534,8 +1625,10 @@
 <section class="sec annotated">
   <div class="sec-inner reveal">
     <span class="sec-eyebrow">what shipped</span>
-    <h2 class="sec-title">The Architect screen, where every interaction <em>traces back</em> to a hypothesis.</h2>
-    <p class="sec-deck">This is the screen the eight hypotheses converged on. Hover any marker to see which research belief that interaction implements. Defer to the human (H5). Draft state matters (H6). Completeness over Simplicity (H4). Users want it done (H8).</p>
+    <h2 class="sec-title">The Architect screen — <em>iteration 26</em>, where every interaction traces back to a hypothesis.</h2>
+    <p class="sec-deck">Across 26 design rounds the team kept revising this screen until each of the eight hypotheses had landed somewhere on it. This is what shipped. Hover any marker to see which hypothesis that interaction implements — visible here: <span class="h-tag">H5</span> <span class="h-tag">H6</span> <span class="h-tag">H4</span> <span class="h-tag">H8</span>.</p>
+
+    <span class="iteration-badge"><strong>26</strong> of 26 · the version that shipped</span>
 
     <div class="annotated-wrap">
       <img src="../images/work/agemo/lens-product/architect-page.png" alt="Codewords Architect interface" />
@@ -1568,7 +1661,7 @@
       <div class="landed-card">
         <span class="landed-num">→</span>
         <h3 class="landed-h">Spec as a first-class draft</h3>
-        <p class="landed-b">The function spec is editable, not just visible. Implements H6 (Draft state matters) and answers Pier's "I'm not sure what I can try."</p>
+        <p class="landed-b">The function spec is editable, not just visible. Implements <span class="h-tag">H6</span> (Draft state matters) and answers Pier's "I'm not sure what I can try."</p>
       </div>
       <div class="landed-card">
         <span class="landed-num">→</span>
