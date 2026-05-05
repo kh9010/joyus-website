@@ -68,12 +68,26 @@
     .editorial-eyebrow a { color: var(--hub-accent); text-decoration: none; }
     .editorial-hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+      font-size: clamp(2.6rem, 7vw, 4.4rem);
       color: #111;
-      line-height: 1.05;
+      line-height: 0.98;
       margin: 0 0 1.5rem;
-      letter-spacing: -0.015em;
+      letter-spacing: -0.02em;
+      max-width: 16ch;
     }
+    .editorial-hero h1 em {
+      font-style: italic;
+      color: var(--hub-accent);
+    }
+    .editorial-subline {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #555;
+      max-width: 56ch;
+      margin: 1rem 0 0;
+    }
+    .editorial-subline strong { color: #111; font-weight: 500; }
     .editorial-lede {
       font-size: 1.18rem;
       line-height: 1.7;
@@ -482,6 +496,311 @@
     /* tabular-nums on outcomes-walk + three-col numerals */
     .outcomes-walk li, .three-col-item .num { font-variant-numeric: tabular-nums; }
 
+    /* ============ INLINE MAGIC MOMENTS — distributed through the case-study chapters ============ */
+    .moment-inline {
+      position: relative;
+      margin: 1.75rem 0;
+      padding: 1.5rem 1.75rem 1.5rem 5.5rem;
+      background: linear-gradient(135deg, #fff 0%, var(--warm-gray, #F5F3F0) 100%);
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px -10px rgba(44, 53, 68, 0.18);
+      transform: rotate(var(--rot, -0.5deg));
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .moment-inline:hover {
+      transform: rotate(0) translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--hub-accent);
+    }
+    .moment-time {
+      position: absolute;
+      left: 1.25rem;
+      top: 1.4rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.4rem;
+      color: var(--hub-accent);
+      font-weight: 700;
+      transform: rotate(-3deg);
+      line-height: 1;
+      letter-spacing: 0.01em;
+    }
+    .moment-time::after {
+      content: "";
+      display: block;
+      width: 28px; height: 2px;
+      background: var(--hub-accent);
+      margin-top: 0.4rem;
+      opacity: 0.4;
+    }
+    .moment-inline p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    .moment-inline p em { font-style: italic; color: var(--hub-accent); }
+    @media (max-width: 600px) {
+      .moment-inline { padding: 1.25rem; }
+      .moment-time { position: static; display: inline-block; margin-bottom: 0.5rem; }
+      .moment-time::after { display: none; }
+    }
+
+    /* ============ ARTIFACTS GRID — what they walked out with, as visual cards ============ */
+    .artifacts-row {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.25rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .artifact-card {
+      position: relative;
+      padding: 1.5rem 1.4rem 1.4rem;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px -10px rgba(44, 53, 68, 0.18);
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+    }
+    .artifact-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent, var(--hub-accent));
+    }
+    .artifact-card:hover {
+      transform: rotate(0) translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--accent, var(--hub-accent));
+    }
+    .artifact-card.is-sentence    { grid-column: span 6; --accent: var(--hub-accent); --rot: -0.4deg; }
+    .artifact-card.is-archetypes  { grid-column: span 3; --accent: #E91E7B; --rot: 0.5deg; }
+    .artifact-card.is-principles  { grid-column: span 3; --accent: #F2C94A; --rot: -0.6deg; }
+    .artifact-card.is-plan        { grid-column: span 3; --accent: #2C3544; --rot: 0.4deg; }
+    .artifact-card.is-summary     { grid-column: span 3; --accent: #54606F; --rot: -0.3deg; }
+    .artifact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .artifact-tag::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .artifact-h {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #111;
+      margin: 0 0 0.75rem;
+      line-height: 1.3;
+    }
+    .artifact-card.is-sentence .artifact-h { font-size: 1.15rem; max-width: 28ch; }
+    .artifact-mock {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 0.5rem 0;
+      min-height: 80px;
+    }
+    .artifact-cap {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #555;
+      margin: 0.75rem 0 0;
+      border-top: 1px dashed #e8e6e4;
+      padding-top: 0.75rem;
+    }
+    .mock-sentence-text {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+      line-height: 1.4;
+      color: #1a1a1a;
+      max-width: 36ch;
+      padding-left: 1rem;
+      border-left: 3px solid var(--hub-accent);
+    }
+    .mock-arc-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(233, 30, 123, 0.06);
+      border: 1px solid rgba(233, 30, 123, 0.18);
+      border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+      margin-bottom: 0.4rem;
+    }
+    .mock-arc-chip::before {
+      content: "";
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E91E7B, #F2C94A);
+      flex-shrink: 0;
+    }
+    .mock-prin-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      color: #2C3544;
+      margin-bottom: 0.35rem;
+    }
+    .mock-prin-line::before {
+      content: "✓";
+      width: 16px; height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #F2C94A;
+      color: #2C3544;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .mock-plan-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+      width: 100%;
+    }
+    .mock-plan-month {
+      padding: 0.55rem 0.5rem;
+      background: rgba(44, 53, 68, 0.05);
+      border-radius: 6px;
+      text-align: center;
+    }
+    .mock-plan-month-label {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #54606F;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    .mock-plan-dots {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+    }
+    .mock-plan-dots span {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #e8e6e4;
+      border-radius: 1px;
+    }
+    .mock-plan-dots span.on { background: #2C3544; }
+    .mock-summary-stack {
+      width: 100%;
+      max-width: 140px;
+      position: relative;
+      height: 80px;
+    }
+    .mock-summary-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border: 1.5px solid #d8d6d3;
+      border-radius: 4px;
+      padding: 0.55rem 0.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 2px 6px rgba(44, 53, 68, 0.08);
+    }
+    .mock-summary-page:nth-child(1) { transform: rotate(-3deg) translate(-3px, 2px); z-index: 1; }
+    .mock-summary-page:nth-child(2) { transform: rotate(2deg) translate(2px, -1px); z-index: 2; }
+    .mock-summary-page:nth-child(3) { transform: rotate(-1deg); z-index: 3; }
+    .mock-summary-line {
+      width: 100%;
+      height: 2px;
+      background: #e8e6e4;
+      border-radius: 1px;
+    }
+    .mock-summary-line:first-child { width: 60%; background: var(--hub-accent); height: 3px; }
+    /* artifact stagger */
+    .artifact-card {
+      opacity: 0;
+      transform: translateY(20px) rotate(var(--rot, 0deg));
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .artifacts-row.in .artifact-card { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
+    .artifacts-row.in .artifact-card:nth-child(1) { transition-delay: 80ms; }
+    .artifacts-row.in .artifact-card:nth-child(2) { transition-delay: 220ms; }
+    .artifacts-row.in .artifact-card:nth-child(3) { transition-delay: 340ms; }
+    .artifacts-row.in .artifact-card:nth-child(4) { transition-delay: 460ms; }
+    .artifacts-row.in .artifact-card:nth-child(5) { transition-delay: 580ms; }
+    @media (max-width: 720px) {
+      .artifacts-row { grid-template-columns: 1fr; }
+      .artifact-card.is-sentence,
+      .artifact-card.is-archetypes,
+      .artifact-card.is-principles,
+      .artifact-card.is-plan,
+      .artifact-card.is-summary { grid-column: span 1; }
+    }
+
+    /* ============ SHIFT STRIP — small "what shifted" metric row ============ */
+    .shift-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0 2rem;
+      padding: 2rem;
+      background: var(--hub-accent);
+      border-radius: 14px;
+      box-shadow: 0 18px 40px -22px rgba(45, 139, 147, 0.55);
+      transform: rotate(-0.4deg);
+    }
+    .shift-cell { text-align: center; }
+    .shift-cell dt {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: #fff;
+      line-height: 1;
+      margin: 0 0 0.4rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+    }
+    .shift-cell dt em {
+      font-style: italic;
+      font-size: 0.65em;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0;
+    }
+    .shift-cell dd {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
     /* reframes — section 07 specific Klydo insights */
     .reframes {
       margin: 2.5rem 0 1rem;
@@ -539,7 +858,7 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .three-col-item, .outcomes-walk li, .editorial-body h2, .editorial-body h2 .h2-num { opacity: 1; transform: none; }
+      .reveal, .three-col-item, .outcomes-walk li, .editorial-body h2, .editorial-body h2 .h2-num, .artifact-card, .moment-inline { opacity: 1; transform: none; }
       .chapter-rule { transform: scaleX(1); }
       .pull-quote p mark { background-size: 100% 100%; }
     }
@@ -601,9 +920,10 @@
   <span class="hero-dot hd3" aria-hidden="true"></span>
   <span class="hero-dot hd4" aria-hidden="true"></span>
   <div class="editorial-hero-inner">
-    <span class="editorial-eyebrow"><a href="index.html">case study · how we found the sentence underneath the channel</a></span>
-    <h1>When "quick commerce for fashion" stopped being enough.</h1>
-    <p class="editorial-lede">Eight months in, with a million orders through the system and a Series A in the air, the company had a description but not a thesis. The leadership team was working hard in different directions and didn't know it yet. This is what we did over one day to fix that — and the sentence the team finally landed on.</p>
+    <span class="editorial-eyebrow"><a href="index.html">case study · the offsite that worked</a></span>
+    <h1>When the channel stopped being <em>enough</em>.</h1>
+    <p class="editorial-lede">Eight months in. A million orders through the system. A Series A in the air. The company had a description, not a thesis.</p>
+    <p class="editorial-subline">This is what one day in a room fixed — and the sentence the team finally landed on.</p>
     <div class="meta-row">
       <span>Strategy facilitation</span>
       <span>Leadership offsite</span>
@@ -626,6 +946,11 @@
   <p>What came out was three distinct articulations. One leader spoke about <em>legacy</em>: quick commerce for fashion is the final platform for fashion in India, and being the team that built it is once-in-a-career. Another spoke about <em>identity</em>: a generational shift was underway, where fashion was moving from commodity to identity, and the company could be the answer to how that generation shopped. A third spoke about <em>fulfillment</em>: about giving someone a moment of magic — the thing they didn't know they wanted, in their hands before the feeling passed. None of these were wrong. None were the same. And until that moment, no one had said any of them out loud to the room.</p>
 
   <p>The second exercise was sticky-notes, three colors, three questions. <em>What's working that we should protect. What's broken in how we work together. And what's a problem you're holding alone.</em> The third question is the one that does the most work. It's where the silent stuff comes out — the assumption you've been making about what someone else is doing, the worry you haven't named, the thing you've been waiting for someone else to bring up. By the time the wall was full, two themes dominated: silos, and lack of clarity on what we were doing.</p>
+
+  <div class="moment-inline" style="--rot:-0.5deg">
+    <span class="moment-time">11 AM</span>
+    <p>Around eleven, somebody's voice broke a little on the third sticky-note question. Two other people raised their hands — <em>"I have that one too."</em> Three sticky notes turned out to be the same sticky note.</p>
+  </div>
 
   <div class="pull-quote reveal">
     <p>"If you have to find a reason to say no, you'll always find one. The work is <mark>making the reason to say yes</mark> louder than the reasons to say no."</p>
@@ -666,6 +991,11 @@
 
   <p>What landed was a wedge: <em>discovery + styling.</em> The insight was that fashion buying decisions don't form at the moment of purchase — they form earlier, on Instagram, in a moment of consideration. The desire is already shaped before someone opens an app. Inserting at the moment of purchase — which is what every fashion-commerce platform does — is too late. Their bet was to insert at the moment of consideration: bring styling content to where the consideration happens, then ride the social-feed-back into the platform when the desire converts. Quick commerce became the closing move, not the opening one.</p>
 
+  <div class="moment-inline" style="--rot:0.4deg">
+    <span class="moment-time">3 PM</span>
+    <p>Around three, after a dozen attempts that were all just channel descriptions in different costumes, somebody who'd been quiet through lunch said it. The room exhaled before they finished the sentence.</p>
+  </div>
+
   <div class="pull-quote reveal">
     <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
     <cite>A founder, halfway through finding the sentence</cite>
@@ -683,28 +1013,94 @@
 
   <h2><span class="h2-num">05</span> What they walked out with</h2>
 
-  <ul class="outcomes-walk" style="list-style:none;padding:0;margin:0 0 2rem;">
-    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
-      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
-      One sentence: <em>"the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</em>
-    </li>
-    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
-      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
-      Two named archetypes, replacing the "25–35, all of Bangalore" placeholder.
-    </li>
-    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
-      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
-      Five operating principles, written down, signed off by all seven leaders in the room.
-    </li>
-    <li style="padding:0.9rem 0;border-bottom:1px solid #e8e6e4;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
-      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
-      Three Instagram experiments scoped, owned, and live within fourteen days.
-    </li>
-    <li style="padding:0.9rem 0;font-size:1.02rem;line-height:1.7;color:#333;padding-left:1.5rem;position:relative;">
-      <span style="position:absolute;left:0;top:1.25rem;width:6px;height:6px;border-radius:50%;background:var(--hub-accent);"></span>
-      One twelve-page summary doc the CEO has been pulling up in every leadership meeting since.
-    </li>
-  </ul>
+  <div class="artifacts-row">
+
+    <div class="artifact-card is-sentence">
+      <span class="artifact-tag">the sentence</span>
+      <h3 class="artifact-h">One line the leadership team can say back to each other.</h3>
+      <div class="artifact-mock">
+        <div class="mock-sentence-text">"The place she goes when she's standing in front of her closet and feels like she's <em>already wearing it wrong.</em>"</div>
+      </div>
+      <p class="artifact-cap">The eleventh attempt. The first ten were channel descriptions in different costumes.</p>
+    </div>
+
+    <div class="artifact-card is-archetypes">
+      <span class="artifact-tag">the archetypes</span>
+      <h3 class="artifact-h">Two named customers, replacing the placeholder.</h3>
+      <div class="artifact-mock">
+        <div>
+          <span class="mock-arc-chip">Priya · 27 · Bangalore</span>
+          <span class="mock-arc-chip">Anika · 31 · Mumbai</span>
+        </div>
+      </div>
+      <p class="artifact-cap">What replaced "25–35, all of Bangalore." Real demographic and behavioral specificity.</p>
+    </div>
+
+    <div class="artifact-card is-principles">
+      <span class="artifact-tag">the principles</span>
+      <h3 class="artifact-h">Five lines, signed off by all seven leaders.</h3>
+      <div class="artifact-mock">
+        <div style="width:100%">
+          <span class="mock-prin-line">Small bets before launch.</span>
+          <span class="mock-prin-line">Fast read on signal.</span>
+          <span class="mock-prin-line">No long-build bets without a fast version.</span>
+          <span class="mock-prin-line">Define success per surface up front.</span>
+        </div>
+      </div>
+      <p class="artifact-cap">Each one had been violated quietly in the prior quarter. Putting them on paper changed the next.</p>
+    </div>
+
+    <div class="artifact-card is-plan">
+      <span class="artifact-tag">the plan</span>
+      <h3 class="artifact-h">A 90-day plan with named owners.</h3>
+      <div class="artifact-mock">
+        <div class="mock-plan-grid">
+          <div class="mock-plan-month">
+            <span class="mock-plan-month-label">m1</span>
+            <div class="mock-plan-dots"><span></span><span class="on"></span><span></span><span></span><span class="on"></span></div>
+          </div>
+          <div class="mock-plan-month">
+            <span class="mock-plan-month-label">m2</span>
+            <div class="mock-plan-dots"><span></span><span></span><span class="on"></span><span></span><span></span></div>
+          </div>
+          <div class="mock-plan-month">
+            <span class="mock-plan-month-label">m3</span>
+            <div class="mock-plan-dots"><span class="on"></span><span></span><span></span><span class="on"></span><span></span></div>
+          </div>
+        </div>
+      </div>
+      <p class="artifact-cap">Three to five tests in fourteen days, with pre-committed win conditions.</p>
+    </div>
+
+    <div class="artifact-card is-summary">
+      <span class="artifact-tag">the summary</span>
+      <h3 class="artifact-h">A twelve-page doc the CEO keeps pulling up.</h3>
+      <div class="artifact-mock">
+        <div class="mock-summary-stack">
+          <div class="mock-summary-page">
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+          </div>
+          <div class="mock-summary-page">
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+          </div>
+          <div class="mock-summary-page">
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+            <span class="mock-summary-line"></span>
+          </div>
+        </div>
+      </div>
+      <p class="artifact-cap">Pulled up in every leadership meeting since. So the work doesn't get retconned.</p>
+    </div>
+
+  </div>
 
   <hr class="chapter-rule" aria-hidden="true">
 
@@ -712,7 +1108,18 @@
 
   <p>Before the offsite, the leadership team was working hard in different directions. After it, they were working hard in the same one. That's the only thing the workshop is meant to do, and it's the thing most strategy days don't actually deliver.</p>
 
-  <p>Two weeks after the offsite, the team had run three Instagram experiments under the new frame, narrowed selection meetings from forty-five minutes to twenty, and stopped relitigating the customer in every leadership conversation. The CEO told us, on a call the following Friday, that the company felt different — not because anything external had changed, but because the team finally agreed on what they were doing. We can't claim that whole shift. Fundraises move, people leave, the world changes. But without the sentence, none of those experiments would have run.</p>
+  <dl class="shift-strip">
+    <div class="shift-cell"><dt>3</dt><dd>Instagram experiments live in 14 days</dd></div>
+    <div class="shift-cell"><dt>45 <em>→</em> 20</dt><dd>min in selection meetings</dd></div>
+    <div class="shift-cell"><dt>0</dt><dd>customer relitigations the next quarter</dd></div>
+  </dl>
+
+  <p>Two weeks in, the company felt different — not because anything external had changed, but because the team finally agreed on what they were doing. We can't claim that whole shift. Fundraises move, people leave, the world changes. But without the sentence, none of those experiments would have run.</p>
+
+  <div class="moment-inline" style="--rot:-0.6deg">
+    <span class="moment-time">later</span>
+    <p>By evening, a question one of the seven had been asking for months — <em>"what are we to whom and why?"</em> — had stopped sounding like a derailment. It was the question the rest of the team had been avoiding. The voice we'd thought of as difficult had been the right voice all along.</p>
+  </div>
 
   <hr class="chapter-rule" aria-hidden="true">
 
@@ -791,7 +1198,7 @@
       }
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.reveal, .three-col, .outcomes-walk, .editorial-body h2, .chapter-rule, .reframes').forEach(el => __revealIo.observe(el));
+  document.querySelectorAll('.reveal, .three-col, .outcomes-walk, .editorial-body h2, .chapter-rule, .reframes, .moment-inline, .artifacts-row, .shift-strip').forEach(el => __revealIo.observe(el));
 </script>
 <script src="../shape-echo.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
