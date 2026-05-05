@@ -502,9 +502,91 @@
       animation-delay: 1.2s;
     }
 
+    /* findings — "what teams keep finding" section */
+    .findings {
+      background: linear-gradient(to bottom, #fff 0%, var(--warm-gray, #F5F3F0) 100%);
+      padding: clamp(4rem, 8vh, 6rem) 2rem;
+    }
+    .findings-inner { max-width: 720px; margin: 0 auto; }
+    .findings-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.5rem;
+      transform: rotate(-1.5deg);
+    }
+    .findings-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      transform: rotate(1.5deg);
+    }
+    .findings-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+      color: #111;
+      margin: 0 0 2.5rem;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      max-width: 22ch;
+    }
+    .findings-title em { font-style: italic; color: var(--hub-accent); }
+    .findings-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      counter-reset: f;
+      display: grid;
+      gap: 2.25rem;
+    }
+    .findings-list li {
+      counter-increment: f;
+      position: relative;
+      padding-left: 4rem;
+      min-height: 3.5rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .findings.in .findings-list li { opacity: 1; transform: translateY(0); }
+    .findings.in .findings-list li:nth-child(1) { transition-delay: 100ms; }
+    .findings.in .findings-list li:nth-child(2) { transition-delay: 240ms; }
+    .findings.in .findings-list li:nth-child(3) { transition-delay: 380ms; }
+    .findings.in .findings-list li:nth-child(4) { transition-delay: 520ms; }
+    .findings-list li::before {
+      content: counter(f, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: -0.2rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--hub-accent);
+      line-height: 0.9;
+      transform: rotate(-3deg);
+    }
+    .findings-list h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: #111;
+      margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+    .findings-list p {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      margin: 0;
+    }
+    .findings-list em { font-style: italic; color: #111; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2 { opacity: 1; transform: none; }
+      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li { opacity: 1; transform: none; }
       .editorial-hero h1 .strike::after { transform: scaleX(1); }
       .editorial-hero h1 .replace { opacity: 1; transform: none; }
       .pull-quote p mark { background-size: 100% 100%; }
@@ -601,6 +683,27 @@
     </div>
 
   </article>
+
+  <section class="findings reveal">
+    <div class="findings-inner">
+      <span class="findings-eyebrow">what teams keep finding</span>
+      <h2 class="findings-title">Three reframes this room almost always surfaces.</h2>
+      <ol class="findings-list">
+        <li>
+          <h3>People form bonds when they <em>give</em>, not when they take.</h3>
+          <p>Most teams measure conversion as <em>did they buy</em> — the narrowest possible definition of a relationship. Real stickiness comes from the moments where a user gives back: a profile, a piece of feedback, a photo, an opinion, ten minutes. Companies that ask for nothing get nothing. The workshop almost always surfaces three or four "investment surfaces" the dashboard has been walking past.</p>
+        </li>
+        <li>
+          <h3>The thesis is hiding a tension you're not naming.</h3>
+          <p>Most theses sit on top of a contradiction the team hasn't said out loud. The marketing voice goes one way; the operating model goes the other. The customer the founder describes in pitch meetings isn't the one the unit economics actually serve. Teams that name the tension get a real choice in how to resolve it. Teams that hide it from themselves keep optimizing both sides into a stalemate.</p>
+        </li>
+        <li>
+          <h3>Differentiation has two halves.</h3>
+          <p><em>"We're different — we have feature X"</em> is what every product page says; buyers and investors have heard the line two hundred times. Real differentiation has two halves: a customer opens the product and immediately sees something they don't see elsewhere, <em>and</em> they're compelled enough to mention it to a friend. We pressure-test every claimed differentiator against both halves. Most fail the second.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
 
   <section class="outcomes-section reveal">
     <h2>What you walk out with</h2>
@@ -757,7 +860,7 @@
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero').forEach(el => revealIo.observe(el));
+    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>

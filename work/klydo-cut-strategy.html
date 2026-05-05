@@ -482,6 +482,52 @@
     /* tabular-nums on outcomes-walk + three-col numerals */
     .outcomes-walk li, .three-col-item .num { font-variant-numeric: tabular-nums; }
 
+    /* reframes — section 07 specific Klydo insights */
+    .reframes {
+      margin: 2.5rem 0 1rem;
+      counter-reset: rf;
+      display: grid;
+      gap: 2rem;
+    }
+    .reframes-item {
+      counter-increment: rf;
+      position: relative;
+      padding-left: 4rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reframes.in .reframes-item { opacity: 1; transform: translateY(0); }
+    .reframes.in .reframes-item:nth-child(1) { transition-delay: 100ms; }
+    .reframes.in .reframes-item:nth-child(2) { transition-delay: 240ms; }
+    .reframes.in .reframes-item:nth-child(3) { transition-delay: 380ms; }
+    .reframes.in .reframes-item:nth-child(4) { transition-delay: 520ms; }
+    .reframes-item::before {
+      content: counter(rf, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: -0.25rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.3rem;
+      font-weight: 700;
+      color: var(--hub-accent);
+      line-height: 0.9;
+      transform: rotate(-3deg);
+    }
+    .reframes-item h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: #111;
+      margin: 0 0 0.5rem;
+      line-height: 1.3;
+    }
+    .reframes-item p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #333;
+      margin: 0;
+    }
+
     /* breathing cuts-switch active pill */
     .cuts-switch-here {
       animation: hereBreathe 3.2s ease-in-out infinite;
@@ -668,6 +714,27 @@
 
   <p>Two weeks after the offsite, the team had run three Instagram experiments under the new frame, narrowed selection meetings from forty-five minutes to twenty, and stopped relitigating the customer in every leadership conversation. The CEO told us, on a call the following Friday, that the company felt different — not because anything external had changed, but because the team finally agreed on what they were doing. We can't claim that whole shift. Fundraises move, people leave, the world changes. But without the sentence, none of those experiments would have run.</p>
 
+  <hr class="chapter-rule" aria-hidden="true">
+
+  <h2><span class="h2-num">07</span> Three reframes</h2>
+
+  <p>Beyond the thesis sentence and the 90-day plan, three reframes came out of the offsite that the team has been carrying into every leadership meeting since. Each one sounds obvious once it's named. None of them were on paper before that day.</p>
+
+  <ol class="reframes">
+    <li class="reframes-item">
+      <h3>People form bonds when they <em>give</em>, not when they take.</h3>
+      <p>The working definition of conversion was orders — and only orders. The investment principle showed up as a reframe: customers form emotional bonds when they give back, not when they take. The dashboard had no row for the moments that actually drive stickiness — registration, address, fit feedback, friend share, look post. Three or four "investment surfaces" had been walking past the team for months.</p>
+    </li>
+    <li class="reframes-item">
+      <h3>The thesis was hiding a tension we weren't naming.</h3>
+      <p>The marketing voice was speaking to identity — fashion as expression, the generational shift toward dress as self-statement. The unit economics were rewarding the opposite — speed and sameness, basics that ship fast and look similar everywhere. The contradiction had been sitting under every selection meeting unsaid. Naming it gave the team a real choice: lean further into commoditized speed, or commit to the identity bet at a real cost. Discovery + styling lives on the identity side of that line.</p>
+    </li>
+    <li class="reframes-item">
+      <h3>Differentiation has two halves — and most of ours failed the second.</h3>
+      <p>Fifteen-minute delivery, lifestyle product cards, AI-rendered photography, the brand voice — the company had a list of differentiators. They all passed the first half (visible-on-arrival). None passed the second (worth-talking-about). Real differentiation makes the user mention it to a friend; otherwise the feature lives only in the pitch deck. The thesis was chosen partly because it had a chance at both halves.</p>
+    </li>
+  </ol>
+
   <div class="inline-card">
     <a href="../thesis-workshop.html">
       <span class="inline-card-type">The workshop</span>
@@ -724,7 +791,7 @@
       }
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.reveal, .three-col, .outcomes-walk, .editorial-body h2, .chapter-rule').forEach(el => __revealIo.observe(el));
+  document.querySelectorAll('.reveal, .three-col, .outcomes-walk, .editorial-body h2, .chapter-rule, .reframes').forEach(el => __revealIo.observe(el));
 </script>
 <script src="../shape-echo.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
