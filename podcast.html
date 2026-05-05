@@ -225,6 +225,73 @@
   }
   .btn-secondary:hover { color: var(--pink); border-bottom-color: var(--pink); }
 
+  /* ============ QUOTES BAND (rotating pull-quotes) ============ */
+  .quotes-band {
+    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+  }
+  .quotes-band .section-head h2::before { background: var(--pink); }
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+  .quote-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.25rem 1.75rem 1.6rem;
+    min-height: 240px;
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--pink);
+    border-radius: 0 10px 10px 0;
+    text-decoration: none;
+    color: var(--ink);
+    position: relative;
+    transition: opacity 500ms ease, border-color 200ms, transform 200ms;
+    box-shadow: 0 2px 8px rgba(44, 53, 68, 0.04);
+  }
+  .quote-cell::before {
+    content: "\201C";
+    position: absolute; top: 0.4rem; left: 1rem;
+    font-family: var(--hand);
+    font-size: 3rem; color: var(--pink);
+    opacity: 0.18; line-height: 1;
+    pointer-events: none;
+  }
+  .quote-cell.fading { opacity: 0; }
+  .quote-cell:hover { transform: translateY(-2px); }
+  .quote-cell .q {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink);
+    margin: 0 0 1.25rem;
+    flex-grow: 1;
+  }
+  .quote-cell .attr {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    letter-spacing: 0.04em;
+    transition: color 200ms;
+  }
+  .quote-cell:hover .attr { color: var(--pink); }
+  @media (max-width: 900px) {
+    .quotes-grid { grid-template-columns: 1fr 1fr; }
+    .quote-cell:nth-child(3) { grid-column: span 2; min-height: auto; }
+  }
+  @media (max-width: 600px) {
+    .quotes-grid { grid-template-columns: 1fr; }
+    .quote-cell:nth-child(3) { grid-column: auto; }
+    .quote-cell { min-height: 200px; }
+  }
+
   /* ============ SERIES (listen in order) ============ */
   .series {
     padding: clamp(3rem, 7vh, 5rem) var(--x);
@@ -692,9 +759,9 @@
 
     <span class="hero-eyebrow">the podcast</span>
     <h1>Thinking on <em>Thinking.</em></h1>
-    <p class="hero-sub">A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey.</p>
+    <p class="hero-sub">Founder interviews, friend conversations, two-person riffs. Always an idea worth pulling apart.</p>
     <p class="hero-meta">
-      <span>Hosted by Divya Tak &amp; Kahran Singh</span><span>82 episodes</span><span>since 2023</span>
+      <span>Hosted by Divya Tak &amp; Kahran Singh</span><span>82 episodes · 7 seasons · ~55 hours</span><span>since 2023</span>
     </p>
   </section>
 
@@ -706,7 +773,7 @@
     <h2 class="featured-title">Alternatives to Capitalism.</h2>
     <span class="featured-guest">with Nomaan X</span>
     <p class="featured-excerpt">
-      Kahran and Nomaan discuss values &amp; capitalism, public and private sectors, and higher education and scientific advancement <em>from the perspective of society.</em> Open, deeply interesting conversations on how to engage with the community, how to build a different kind of society.
+      Capitalism is the topic on the tin. The actual question — <em>what kind of society we want to be.</em> Kahran and Nomaan on values, public vs. private, education, and scientific advancement, from the perspective of society.
     </p>
 
     <div class="player-wrap">
@@ -724,11 +791,24 @@
     </div>
   </section>
 
+  <!-- =========== QUOTES BAND (rotating) =========== -->
+  <section class="quotes-band">
+    <div class="section-head">
+      <h2>lines that stuck</h2>
+      <span class="aside">straight from the tape</span>
+    </div>
+    <div class="quotes-grid" id="quotes-grid">
+      <a class="quote-cell" data-pool="0" href="#"><p class="q"></p><span class="attr"></span></a>
+      <a class="quote-cell" data-pool="1" href="#"><p class="q"></p><span class="attr"></span></a>
+      <a class="quote-cell" data-pool="2" href="#"><p class="q"></p><span class="attr"></span></a>
+    </div>
+  </section>
+
   <!-- =========== LISTEN IN ORDER (real series) =========== -->
   <section class="series">
     <div class="section-head">
       <h2>listen in order</h2>
-      <span class="aside">multi-part threads</span>
+      <span class="aside">ideas that needed more than one episode</span>
     </div>
     <div class="series-grid">
 
@@ -774,8 +854,8 @@
   <!-- =========== BACKLOG (real episodes) =========== -->
   <section class="backlog">
     <div class="section-head">
-      <h2>backlog</h2>
-      <span class="aside">older / from the shelf</span>
+      <h2>recent</h2>
+      <span class="aside">what we've been pulling apart</span>
     </div>
     <ul class="bk-list">
 
@@ -914,6 +994,65 @@
       const total = document.body.scrollHeight - window.innerHeight;
       document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
     }, { passive: true });
+
+    // ===== rotating pull-quotes =====
+    (function(){
+      const POOL = [
+        [
+          { q: "Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent.", attr: "Thinking on Kindness vs Niceness", href: "podcast/thinking-on-kindness-vs-niceness.html" },
+          { q: "There's a difference between being interested in something and being invested in it. One is about curiosity; the other is about whether you're willing to do something about it.", attr: "Thinking on Caring and Being Invested", href: "podcast/thinking-on-caring-and-being-invested.html" },
+          { q: "We have a very Silicon Valley definition of what connection and loneliness look like. But loneliness looks very different for different people.", attr: "Accepted Truths, Defaults & How We Got Here", href: "podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html" }
+        ],
+        [
+          { q: "Satisfaction and success are not the same pursuit. You can feel deeply satisfied without any external marker of success, and wildly successful without any satisfaction.", attr: "Satisfaction with Success — with Lena Chaihorsky", href: "podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html" },
+          { q: "There's a certain degree of tedium in being courageous that I find exhausting. But in making daring decisions, there's a degree of excitement and surprising positive feedback.", attr: "Thinking on Courage vs Daring", href: "podcast/thinking-on-courage-vs-daring.html" },
+          { q: "Failure is not one thing. There's the cognitive experience of failure, where you analyze what went wrong, and the emotional experience, where you feel it in your body.", attr: "Cognitive vs Emotional — Models for Failure", href: "podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html" }
+        ],
+        [
+          { q: "The stories we choose to tell build trust and demonstrate the values of our organizations. Leaders who are deliberate about the stories they propagate shape their culture.", attr: "Thinking on Building Trust", href: "podcast/thinking-on-building-trust.html" },
+          { q: "Sometimes the most successful things come from the most absurd starting points. The absurdity is not a bug — it's what makes it memorable.", attr: "Absurdist Successes (1000xresist) — Success Pt 7", href: "podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html" },
+          { q: "Creative coding is this beautiful intersection where logic and expression meet. You're not just solving a problem — you're making something that didn't exist before.", attr: "Coding, Creativity & Culture — with Computational Mama", href: "podcast/thinking-on-coding-creativity-culture-with-computational-mama.html" }
+        ]
+      ];
+      const cells = document.querySelectorAll('.quote-cell');
+      if (!cells.length) return;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const INTERVAL = 10000;
+      const STAGGER = 3500;
+      const FADE = 500;
+
+      cells.forEach((cell, idx) => {
+        const pool = POOL[idx] || [];
+        if (!pool.length) return;
+        let i = 0;
+        let paused = false;
+
+        const render = () => {
+          const item = pool[i];
+          cell.querySelector('.q').textContent = '“' + item.q + '”';
+          cell.querySelector('.attr').textContent = item.attr + ' · listen →';
+          cell.href = item.href;
+        };
+
+        const swap = () => {
+          if (paused || pool.length < 2) return;
+          cell.classList.add('fading');
+          setTimeout(() => {
+            i = (i + 1) % pool.length;
+            render();
+            cell.classList.remove('fading');
+          }, FADE);
+        };
+
+        render();
+
+        if (!reduce && pool.length > 1) {
+          cell.addEventListener('mouseenter', () => { paused = true; });
+          cell.addEventListener('mouseleave', () => { paused = false; });
+          setTimeout(() => setInterval(swap, INTERVAL), idx * STAGGER);
+        }
+      });
+    })();
   </script>
 
 </body>
