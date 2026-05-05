@@ -244,7 +244,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 2.25rem 1.75rem 1.6rem;
-    min-height: 240px;
+    min-height: 290px;
     background: #fff;
     border: 1px solid var(--rule);
     border-left: 3px solid var(--pink);
@@ -252,7 +252,7 @@
     text-decoration: none;
     color: var(--ink);
     position: relative;
-    transition: opacity 500ms ease, border-color 200ms, transform 200ms;
+    transition: opacity 700ms ease, border-color 200ms ease, transform 200ms ease;
     box-shadow: 0 2px 8px rgba(44, 53, 68, 0.04);
   }
   .quote-cell::before {
@@ -1017,9 +1017,9 @@
       const cells = document.querySelectorAll('.quote-cell');
       if (!cells.length) return;
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const INTERVAL = 10000;
-      const STAGGER = 3500;
-      const FADE = 500;
+      const INTERVAL = 16000;
+      const STAGGER = 5500;
+      const FADE = 700;
 
       cells.forEach((cell, idx) => {
         const pool = POOL[idx] || [];
@@ -1040,7 +1040,10 @@
           setTimeout(() => {
             i = (i + 1) % pool.length;
             render();
-            cell.classList.remove('fading');
+            // paint new content while still at opacity:0, then fade in
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => cell.classList.remove('fading'));
+            });
           }, FADE);
         };
 
