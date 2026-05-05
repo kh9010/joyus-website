@@ -246,6 +246,86 @@
       font-weight: 600;
     }
 
+    /* ============ SHIFT PAIRS — small before/after visual for chapter 02 ============ */
+    .shift-pairs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0 2rem;
+    }
+    .shift-pair {
+      padding: 1.25rem 1.4rem;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px -8px rgba(44, 53, 68, 0.15);
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .shift-pair:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--cyan); }
+    .shift-pair-before {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      text-decoration: line-through;
+      text-decoration-color: rgba(44, 53, 68, 0.4);
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+    .shift-pair-arrow {
+      display: block;
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--cyan);
+      margin: 0.2rem 0;
+      transform: rotate(-2deg);
+    }
+    .shift-pair-after {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .shift-pair-after em { font-style: italic; color: var(--cyan); }
+
+    /* ============ LESSON CARDS — replaces the philosophy prose in chapter 03 ============ */
+    .lesson-cards {
+      display: grid;
+      gap: 1.25rem;
+      margin: 1rem 0 1.5rem;
+      counter-reset: l;
+    }
+    .lesson-card {
+      counter-increment: l;
+      position: relative;
+      padding: 1.25rem 1.5rem 1.25rem 4.5rem;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-left: 3px solid var(--pink);
+      border-radius: 10px;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .lesson-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--pink); }
+    .lesson-card::before {
+      content: counter(l, decimal-leading-zero);
+      position: absolute;
+      left: 1rem;
+      top: 1.1rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--pink);
+      line-height: 0.9;
+      transform: rotate(-3deg);
+    }
+    .lesson-card p {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.08rem;
+      line-height: 1.5;
+      color: #1a1a1a;
+      margin: 0;
+    }
+    .lesson-card p em { font-style: italic; color: var(--pink); }
+
     /* big two-card decision block at the bottom */
     .cuts-pair {
       max-width: 1000px;
@@ -598,7 +678,7 @@
   <div class="editorial-hero-inner">
     <span class="editorial-eyebrow">a case study — klydo</span>
     <h1>From four people to a million orders to a thesis.</h1>
-    <p class="editorial-lede">Klydo came to us as four people with a dream of 15-minute fashion. We shipped before Diwali, hit 150 daily sales by the new year, and watched the company grow into a million-order business. Eight months in, we were back in the room — helping the leadership team find what the company actually was. This is the whole arc.</p>
+    <p class="editorial-lede">Two chapters. The first was about shipping a 15-minute fashion company before Diwali. The second was about helping its leadership team find what the company actually was — once a million orders had moved through it.</p>
     <div class="meta-row">
       <span>Product Strategy</span>
       <span>Brand Story</span>
@@ -635,9 +715,27 @@
 
   <h2><span class="h2-num">02</span> The shift</h2>
 
-  <p>Eight months later, with the launch behind them and roughly a million orders through the system, the questions had changed. Growth and product were describing the same business in different terms. The pitch deck described it in a third. Investors were saying <em>okay</em> instead of <em>hell yes</em>. And the leadership team — seven people who'd been in the trenches together for nearly a year — was starting to feel quietly siloed.</p>
+  <p>Eight months later, the questions had changed. Growth and product were describing the same business in different terms. The pitch deck described it in a third. Investors were saying <em>okay</em> instead of <em>hell yes</em>. The leadership team — seven people who'd been in the trenches together for nearly a year — was starting to feel quietly siloed. None of that was a strategy problem. It was a thesis problem.</p>
 
-  <p>None of that was a strategy problem. It was a thesis problem. The company could describe its channel — quick commerce for fashion — but couldn't yet describe what it actually was, who it was for, or what it was replacing. We came back for one day and ran the leadership team through the diagnostic, the sticky-notes, the <em>floor and spike</em> frame, the thesis sentence work, and the 90-day plan. The strategy cut tells that story end to end — what was diagnosed, the sentence the team finally landed on, and the experiments that ran in the fourteen days after.</p>
+  <div class="shift-pairs">
+    <div class="shift-pair">
+      <span class="shift-pair-before">describing a channel</span>
+      <span class="shift-pair-arrow">↓</span>
+      <span class="shift-pair-after">writing a <em>thesis</em></span>
+    </div>
+    <div class="shift-pair">
+      <span class="shift-pair-before">"okay, we'll think about it"</span>
+      <span class="shift-pair-arrow">↓</span>
+      <span class="shift-pair-after">a <em>hell yes</em> in the room</span>
+    </div>
+    <div class="shift-pair">
+      <span class="shift-pair-before">working hard, different directions</span>
+      <span class="shift-pair-arrow">↓</span>
+      <span class="shift-pair-after">the <em>same brief</em></span>
+    </div>
+  </div>
+
+  <p>We came back for one day and ran the leadership team through the diagnostic, the sticky-notes, the <em>floor and spike</em> frame, the thesis sentence work, and the 90-day plan. The strategy cut tells that story end to end.</p>
 
   <div class="pull-quote reveal">
     <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
@@ -648,9 +746,19 @@
 
   <h2><span class="h2-num">03</span> What it took</h2>
 
-  <p>Two things we'd say out loud to anyone considering this kind of work: it doesn't get easier when the company has a million orders. It gets harder. The thesis isn't the thing you write down before you launch — it's the thing you can only write down after you've launched, run into your own ceiling, and become honest enough about what isn't landing. And the silos people complain about at this stage are almost never silos. They're a missing sentence. Both of these are reasons to do the strategy work earlier than feels comfortable, not later.</p>
+  <p>Three things we keep saying out loud to anyone considering this kind of work.</p>
 
-  <p>The other thing — and we keep being surprised by how often this matters — is that the visual work and the thesis work don't substitute for each other. A beautiful brand can carry a fuzzy thesis for about six months. A sharp thesis with no visual identity stays invisible for about the same. You need both, in that order, with the discipline to know which one the next quarter is asking for.</p>
+  <ol class="lesson-cards">
+    <li class="lesson-card">
+      <p>It <em>doesn't</em> get easier when the company has a million orders. It gets harder. The thesis is the thing you can only write down after you've launched, run into your own ceiling, and become honest enough about what isn't landing.</p>
+    </li>
+    <li class="lesson-card">
+      <p>The silos people complain about at this stage are <em>almost never</em> silos. They're a missing sentence. Reason to do the strategy work earlier than feels comfortable, not later.</p>
+    </li>
+    <li class="lesson-card">
+      <p>The visual work and the thesis work <em>don't substitute</em> for each other. A beautiful brand carries a fuzzy thesis for about six months. A sharp thesis with no visual identity stays invisible for about the same. You need both — in that order.</p>
+    </li>
+  </ol>
 
 </article>
 
@@ -704,7 +812,7 @@
       }
     });
   }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-  document.querySelectorAll('.reveal, .numbers-strip, .cuts-pair, .editorial-body h2, .chapter-rule').forEach(el => __revealIo.observe(el));
+  document.querySelectorAll('.reveal, .numbers-strip, .cuts-pair, .editorial-body h2, .chapter-rule, .shift-pairs, .lesson-cards').forEach(el => __revealIo.observe(el));
 
   // counter tick on numbers-strip
   const __numIo = new IntersectionObserver((entries) => {
