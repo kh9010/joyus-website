@@ -48,64 +48,27 @@
     }
     .editorial-hero h1 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.6rem, 8vw, 5.4rem);
+      font-size: clamp(2.4rem, 7.5vw, 5rem);
       color: #111;
-      line-height: 0.95;
+      line-height: 1;
       letter-spacing: -0.025em;
-      margin-bottom: 2rem;
-      max-width: 18ch;
+      margin: 0 0 1.5rem;
+      max-width: 16ch;
       position: relative;
     }
-    .editorial-hero h1 .lead-line {
+    .editorial-hero h1 .h1-a { display: block; color: #2C3544; }
+    .editorial-hero h1 .h1-b {
       display: block;
-      color: #2C3544;
-    }
-    .editorial-hero h1 .reveal-line {
-      display: block;
-      margin-top: 0.2em;
-    }
-    .editorial-hero h1 .annotation {
-      display: inline-block;
-      font-family: 'Caveat', cursive;
-      font-size: 0.32em;
-      font-style: normal;
       color: var(--hub-accent);
-      letter-spacing: 0;
-      transform: rotate(-4deg) translateY(-0.6em);
-      margin-left: 0.45em;
-      opacity: 0;
-      transition: opacity 500ms ease, transform 500ms ease;
-      transition-delay: 2200ms;
-      vertical-align: top;
-      white-space: nowrap;
-    }
-    .editorial-hero h1 .annotation::before {
-      content: "↪ ";
-      display: inline-block;
-      transform: scaleX(-1);
-      margin-right: 0.1em;
-    }
-    .editorial-hero.in h1 .annotation { opacity: 1; transform: rotate(-4deg) translateY(-0.4em); }
-    .editorial-lede {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.35rem, 2.4vw, 1.8rem);
-      line-height: 1.25;
-      color: #1a1a1a;
-      margin: 0 0 1rem;
-      max-width: 24ch;
-      letter-spacing: -0.01em;
-    }
-    .editorial-lede em {
       font-style: italic;
-      color: var(--hub-accent);
-      font-weight: 400;
+      margin-top: 0.1em;
     }
     .editorial-subline {
       font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      line-height: 1.65;
+      font-size: 1.05rem;
+      line-height: 1.6;
       color: #555;
-      max-width: 48ch;
+      max-width: 50ch;
       margin: 0;
     }
     .editorial-subline strong { color: #111; font-weight: 500; }
@@ -461,38 +424,21 @@
 
     /* ============ FEEL — strike→replace, mark, meta-row chips, h2 pip-first ============ */
 
-    /* h1 strikethrough → replace reveal (Divya's brief-headline pattern) */
-    .editorial-hero h1 .strike {
-      position: relative;
-      display: inline-block;
-      color: #aaa;
-      transition: color 800ms ease;
-      transition-delay: 1500ms;
-    }
-    .editorial-hero h1 .strike::after {
-      content: "";
-      position: absolute;
-      left: -4%; right: -4%;
-      top: 54%;
-      height: 8px;
-      background: var(--hub-accent);
-      border-radius: 4px;
-      transform: scaleX(0) skew(-2deg);
-      transform-origin: left center;
-      transition: transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1);
-      transition-delay: 700ms;
-    }
-    .editorial-hero.in h1 .strike::after { transform: scaleX(1) skew(-2deg); }
-    .editorial-hero h1 .replace {
-      display: inline-block;
-      color: var(--hub-accent);
-      font-style: italic;
+    /* h1: two-line reveal — first line lands, second line slides up after */
+    .editorial-hero h1 .h1-a {
       opacity: 0;
-      transform: translateY(12px) rotate(-2deg);
-      transition: opacity 600ms ease, transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
-      transition-delay: 1700ms;
+      transform: translateY(12px);
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 200ms;
     }
-    .editorial-hero.in h1 .replace { opacity: 1; transform: translateY(0) rotate(-1deg); }
+    .editorial-hero h1 .h1-b {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 800ms;
+    }
+    .editorial-hero.in h1 .h1-a,
+    .editorial-hero.in h1 .h1-b { opacity: 1; transform: translateY(0); }
 
     /* meta-row chips with dot bullets — the studio's signature */
     .meta-row {
@@ -522,9 +468,8 @@
     }
     .meta-row span:hover { transform: rotate(0) translateY(-2px); box-shadow: 0 8px 18px rgba(44, 53, 68, 0.10); }
     .meta-row span:nth-child(1) { --rot: -1.2deg; }
-    .meta-row span:nth-child(2) { --rot: 0.8deg; }
+    .meta-row span:nth-child(2) { --rot: 0.9deg; }
     .meta-row span:nth-child(3) { --rot: -0.6deg; }
-    .meta-row span:nth-child(4) { --rot: 1.4deg; }
     .meta-row span::before {
       content: "";
       width: 8px; height: 8px;
@@ -800,6 +745,369 @@
       .magic-time::after { display: none; }
     }
 
+    /* ============ ARTIFACTS — visual deliverables grid ============ */
+    .artifacts-section {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: clamp(3rem, 7vh, 5rem) 2rem;
+    }
+    .artifacts-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.5rem;
+      transform: rotate(-1.5deg);
+    }
+    .artifacts-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      transform: rotate(1.5deg);
+    }
+    .artifacts-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+      color: #111;
+      line-height: 1.18;
+      margin: 0 0 2.5rem;
+      max-width: 22ch;
+      letter-spacing: -0.01em;
+    }
+    .artifacts-title em { font-style: italic; color: var(--hub-accent); }
+    .artifacts-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1.25rem;
+    }
+    .artifact-card {
+      position: relative;
+      padding: 1.5rem 1.4rem 1.4rem;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px -10px rgba(44, 53, 68, 0.18);
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+      overflow: hidden;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+    }
+    .artifact-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--accent, var(--hub-accent));
+    }
+    .artifact-card:hover {
+      transform: rotate(0) translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--accent, var(--hub-accent));
+    }
+    .artifact-card.is-sentence    { grid-column: span 6; --accent: var(--hub-accent); --rot: -0.4deg; }
+    .artifact-card.is-archetypes  { grid-column: span 3; --accent: #E91E7B; --rot: 0.5deg; }
+    .artifact-card.is-principles  { grid-column: span 3; --accent: #F2C94A; --rot: -0.6deg; }
+    .artifact-card.is-plan        { grid-column: span 3; --accent: #2C3544; --rot: 0.4deg; }
+    .artifact-card.is-summary     { grid-column: span 3; --accent: #54606F; --rot: -0.3deg; }
+    .artifact-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .artifact-tag::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .artifact-h {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #111;
+      margin: 0 0 0.75rem;
+      line-height: 1.25;
+    }
+    .artifact-card.is-sentence .artifact-h { font-size: 1.2rem; max-width: 28ch; }
+    .artifact-mock {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 0;
+      min-height: 90px;
+    }
+    .artifact-cap {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #555;
+      margin: 0.75rem 0 0;
+      border-top: 1px dashed #e8e6e4;
+      padding-top: 0.75rem;
+    }
+
+    /* artifact 1: the sentence — handwritten quote-style mock */
+    .mock-sentence {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      line-height: 1.4;
+      color: #1a1a1a;
+      text-align: left;
+      max-width: 36ch;
+      position: relative;
+      padding-left: 1rem;
+      border-left: 3px solid var(--hub-accent);
+    }
+    .mock-sentence em { color: var(--hub-accent); font-weight: 400; }
+
+    /* artifact 2: archetypes — 2 mini persona chips */
+    .mock-archetypes {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+    }
+    .mock-archetype-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.55rem 0.75rem;
+      background: rgba(233, 30, 123, 0.06);
+      border: 1px solid rgba(233, 30, 123, 0.18);
+      border-radius: 999px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      color: #1a1a1a;
+    }
+    .mock-archetype-chip::before {
+      content: "";
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #E91E7B, #F2C94A);
+      flex-shrink: 0;
+    }
+
+    /* artifact 3: principles — checklist */
+    .mock-principles {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .mock-principle-line {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      color: #2C3544;
+    }
+    .mock-principle-line::before {
+      content: "✓";
+      width: 16px; height: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #F2C94A;
+      color: #2C3544;
+      border-radius: 3px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* artifact 4: 90-day plan — 3-column mini calendar */
+    .mock-plan {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.45rem;
+      width: 100%;
+    }
+    .mock-plan-month {
+      padding: 0.55rem 0.5rem;
+      background: rgba(44, 53, 68, 0.05);
+      border-radius: 6px;
+      text-align: center;
+      position: relative;
+    }
+    .mock-plan-month-label {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #54606F;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+    }
+    .mock-plan-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+    }
+    .mock-plan-grid span {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #e8e6e4;
+      border-radius: 1px;
+    }
+    .mock-plan-grid span.dot { background: #2C3544; }
+
+    /* artifact 5: summary — paper stack */
+    .mock-summary {
+      width: 100%;
+      max-width: 140px;
+      position: relative;
+      height: 90px;
+    }
+    .mock-summary-page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      border: 1.5px solid #d8d6d3;
+      border-radius: 4px;
+      padding: 0.6rem 0.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      box-shadow: 0 2px 6px rgba(44, 53, 68, 0.08);
+    }
+    .mock-summary-page:nth-child(1) { transform: rotate(-3deg) translate(-3px, 2px); z-index: 1; }
+    .mock-summary-page:nth-child(2) { transform: rotate(2deg) translate(2px, -1px); z-index: 2; }
+    .mock-summary-page:nth-child(3) { transform: rotate(-1deg); z-index: 3; }
+    .mock-summary-line {
+      width: 100%;
+      height: 2px;
+      background: #e8e6e4;
+      border-radius: 1px;
+    }
+    .mock-summary-line:first-child { width: 60%; background: #2C3544; height: 3px; }
+
+    /* artifact stagger */
+    .artifact-card {
+      opacity: 0;
+      transform: translateY(20px) rotate(var(--rot, 0deg));
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .artifacts-grid.in .artifact-card { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
+    .artifacts-grid.in .artifact-card:nth-child(1) { transition-delay: 80ms; }
+    .artifacts-grid.in .artifact-card:nth-child(2) { transition-delay: 220ms; }
+    .artifacts-grid.in .artifact-card:nth-child(3) { transition-delay: 340ms; }
+    .artifacts-grid.in .artifact-card:nth-child(4) { transition-delay: 460ms; }
+    .artifacts-grid.in .artifact-card:nth-child(5) { transition-delay: 580ms; }
+
+    @media (max-width: 720px) {
+      .artifacts-grid { grid-template-columns: 1fr; }
+      .artifact-card.is-sentence,
+      .artifact-card.is-archetypes,
+      .artifact-card.is-principles,
+      .artifact-card.is-plan,
+      .artifact-card.is-summary { grid-column: span 1; }
+    }
+
+    /* ============ READY — self-test framing for "How to know you're ready" ============ */
+    .ready-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vh, 4rem) 2rem clamp(3rem, 6vh, 5rem);
+    }
+    .ready-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.5rem;
+      transform: rotate(-1.5deg);
+    }
+    .ready-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      transform: rotate(1.5deg);
+    }
+    .ready-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      color: #111;
+      line-height: 1.18;
+      margin: 0 0 2rem;
+      max-width: 22ch;
+      letter-spacing: -0.01em;
+    }
+    .ready-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem;
+      counter-reset: r;
+      display: grid;
+      gap: 1.25rem;
+    }
+    .ready-list li {
+      counter-increment: r;
+      position: relative;
+      padding: 1rem 1.25rem 1rem 4.5rem;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-left: 3px solid rgba(79, 196, 207, 0.4);
+      border-radius: 10px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.08rem;
+      line-height: 1.45;
+      color: #1a1a1a;
+      transition: border-left-color 240ms;
+    }
+    .ready-list li:hover { border-left-color: var(--hub-accent); }
+    .ready-list li::before {
+      content: counter(r, decimal-leading-zero);
+      position: absolute;
+      left: 1rem;
+      top: 0.85rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--hub-accent);
+      line-height: 0.9;
+      transform: rotate(-3deg);
+    }
+    .ready-list li em { font-style: italic; color: var(--hub-accent); }
+    .ready-tail {
+      font-family: 'Caveat', cursive;
+      font-size: 1.3rem;
+      color: #111;
+      line-height: 1.4;
+      margin: 0;
+      transform: rotate(-1deg);
+      display: inline-block;
+    }
+    .ready-tail strong { color: var(--hub-accent); font-weight: 700; }
+
+    /* ready-list stagger */
+    .ready-list li {
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1), border-left-color 240ms;
+    }
+    .ready-list.in li { opacity: 1; transform: translateX(0); }
+    .ready-list.in li:nth-child(1) { transition-delay: 100ms; }
+    .ready-list.in li:nth-child(2) { transition-delay: 240ms; }
+    .ready-list.in li:nth-child(3) { transition-delay: 380ms; }
+
     /* ============ VISUAL BLOCKS — day-map, sticky-mini, thesis-template, vs-pair ============ */
 
     /* day-map: 3-column visual of the day's structure */
@@ -1041,10 +1349,8 @@
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note, .magic-moment { opacity: 1; transform: none; }
-      .editorial-hero h1 .strike::after { transform: scaleX(1) skew(-2deg); }
-      .editorial-hero h1 .replace { opacity: 1; transform: rotate(-1deg); }
-      .editorial-hero h1 .annotation { opacity: 1; transform: rotate(-4deg) translateY(-0.4em); }
+      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note, .magic-moment, .artifact-card, .ready-list li { opacity: 1; transform: none; }
+      .editorial-hero h1 .h1-a, .editorial-hero h1 .h1-b { opacity: 1; transform: none; }
       .pull-quote p mark { background-size: 100% 100%; }
       .day-map::before { transform: scaleX(1); }
       .sticky-mini-note { transform: rotate(var(--rot, 0deg)); }
@@ -1088,17 +1394,15 @@
     <span class="hero-dot hd5" aria-hidden="true"></span>
     <span class="hero-dot hd6" aria-hidden="true"></span>
     <div class="editorial-hero-inner">
-      <span class="editorial-theme">a one-day workshop · for leadership teams</span>
+      <span class="editorial-theme">the thesis workshop · for leadership teams</span>
       <h1>
-        <span class="lead-line">Most teams don't have a <span class="strike">silo</span> problem.</span>
-        <span class="reveal-line">They have a <span class="replace">thesis</span> problem.<span class="annotation">the actual one</span></span>
+        <span class="h1-a">Most strategy days produce decks.</span>
+        <span class="h1-b">Ours produces a sentence.</span>
       </h1>
-      <p class="editorial-lede">Most strategy days produce <em>decks</em>. Ours produces a <em>sentence</em>.</p>
-      <p class="editorial-subline">One day in a room. The sentence underneath what your company actually is — plus two or three archetypes and a 90-day plan with named owners. <strong>We've run it inside a Series A startup eight months past launch.</strong> We're now running it for other teams.</p>
+      <p class="editorial-subline">One day. <strong>Run inside a Series A startup eight months past launch.</strong> Now running for other teams.</p>
       <div class="meta-row">
-        <span>Strategy facilitation</span>
-        <span>Leadership offsite</span>
         <span>One day, sometimes two</span>
+        <span>Leadership team only</span>
         <span>Pre-thesis-market-fit</span>
       </div>
     </div>
@@ -1221,25 +1525,108 @@
     </div>
   </section>
 
-  <section class="outcomes-section reveal">
-    <h2>What you walk out with</h2>
-    <ul class="outcomes-list">
-      <li>One sentence the leadership team can say back to each other — <em>who, in what moment, replacing what</em></li>
-      <li>Two or three customer archetypes you commit to winning on first</li>
-      <li>Operating principles for how you run experiments, written down</li>
-      <li>A 90-day plan with named owners and pre-committed win conditions</li>
-      <li>A written summary of what was decided, so it doesn't quietly get retconned</li>
-    </ul>
+  <section class="artifacts-section reveal">
+    <span class="artifacts-eyebrow">on the table at 6pm</span>
+    <h2 class="artifacts-title">Five things in <em>writing</em>.</h2>
+    <div class="artifacts-grid">
+
+      <div class="artifact-card is-sentence">
+        <span class="artifact-tag">the sentence</span>
+        <h3 class="artifact-h">One line the leadership team can say back to each other.</h3>
+        <div class="artifact-mock">
+          <div class="mock-sentence">For <em>____</em> in the moment of <em>____</em>, we replace <em>____</em>.</div>
+        </div>
+        <p class="artifact-cap">Who you're for, in what moment, replacing what. The exercise that takes the whole afternoon.</p>
+      </div>
+
+      <div class="artifact-card is-archetypes">
+        <span class="artifact-tag">the archetypes</span>
+        <h3 class="artifact-h">Two or three customers you commit to first.</h3>
+        <div class="artifact-mock">
+          <div class="mock-archetypes">
+            <span class="mock-archetype-chip">Riya · 27 · Bangalore</span>
+            <span class="mock-archetype-chip">Anika · 31 · Mumbai</span>
+          </div>
+        </div>
+        <p class="artifact-cap">Named, with real demographic and behavioral specificity. What replaces "25–35, all of Bangalore."</p>
+      </div>
+
+      <div class="artifact-card is-principles">
+        <span class="artifact-tag">the principles</span>
+        <h3 class="artifact-h">How the team runs experiments — in writing.</h3>
+        <div class="artifact-mock">
+          <div class="mock-principles">
+            <span class="mock-principle-line">Small bets first.</span>
+            <span class="mock-principle-line">Fast read on signal.</span>
+            <span class="mock-principle-line">No long builds without a fast version.</span>
+            <span class="mock-principle-line">Define success per surface up front.</span>
+          </div>
+        </div>
+        <p class="artifact-cap">Signed off by the room. Most have been violated quietly in the prior quarter.</p>
+      </div>
+
+      <div class="artifact-card is-plan">
+        <span class="artifact-tag">the plan</span>
+        <h3 class="artifact-h">A 90-day plan with named owners.</h3>
+        <div class="artifact-mock">
+          <div class="mock-plan">
+            <div class="mock-plan-month">
+              <span class="mock-plan-month-label">m1</span>
+              <div class="mock-plan-grid"><span></span><span class="dot"></span><span></span><span></span><span class="dot"></span></div>
+            </div>
+            <div class="mock-plan-month">
+              <span class="mock-plan-month-label">m2</span>
+              <div class="mock-plan-grid"><span></span><span></span><span class="dot"></span><span></span><span></span></div>
+            </div>
+            <div class="mock-plan-month">
+              <span class="mock-plan-month-label">m3</span>
+              <div class="mock-plan-grid"><span class="dot"></span><span></span><span></span><span class="dot"></span><span></span></div>
+            </div>
+          </div>
+        </div>
+        <p class="artifact-cap">Three to five things to test in fourteen days, with pre-committed win conditions.</p>
+      </div>
+
+      <div class="artifact-card is-summary">
+        <span class="artifact-tag">the summary</span>
+        <h3 class="artifact-h">A written record of what was decided.</h3>
+        <div class="artifact-mock">
+          <div class="mock-summary">
+            <div class="mock-summary-page">
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+            </div>
+            <div class="mock-summary-page">
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+            </div>
+            <div class="mock-summary-page">
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+              <span class="mock-summary-line"></span>
+            </div>
+          </div>
+        </div>
+        <p class="artifact-cap">So the work doesn't quietly get retconned by Wednesday.</p>
+      </div>
+
+    </div>
   </section>
 
-  <section class="outcomes-section reveal">
-    <h2>How to know you're ready</h2>
-    <ul class="outcomes-list">
+  <section class="ready-section reveal">
+    <span class="ready-eyebrow">a quick self-test</span>
+    <h2 class="ready-title">How to know you're ready.</h2>
+    <ol class="ready-list">
       <li>You've tried to write the company in one sentence twice in the last quarter and the team didn't agree on either version.</li>
       <li>Investors say <em>"interesting"</em> but don't move. The deck has been "almost" for two months.</li>
       <li>You've noticed yourself answering the same internal question — <em>what are we, exactly</em> — three different ways in three different rooms.</li>
-    </ul>
-    <p style="margin-top:1.5rem;color:#666;">If two of those land, book the diagnostic. If all three, skip the diagnostic and book the workshop.</p>
+    </ol>
+    <p class="ready-tail">If two land, book the diagnostic. If <strong>all three</strong>, skip it and book the workshop.</p>
   </section>
 
   <section class="pricing-section reveal">
@@ -1277,41 +1664,6 @@
       </div>
     </div>
     <p class="pricing-tail">After an initial engagement, quarterly retainers ($8K–$12K/quarter) are available — we sit in on one leadership meeting a month and stress-test decisions against the thesis. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
-  </section>
-
-  <section class="outcomes-section reveal">
-    <h2>Who it's for</h2>
-    <ul class="outcomes-list">
-      <li>Leadership teams past founding-conviction but pre-thesis-market-fit</li>
-      <li>Companies working hard but not quite pointing the same direction</li>
-      <li>Founders telling investors a story that lands as <em>okay</em> rather than <em>hell yes</em></li>
-      <li>Teams heading into a fundraise, a pivot, a re-org, or a season of pressure</li>
-    </ul>
-    <p style="margin-top:2rem;"><a href="mailto:hello@joyus.studio" style="color:var(--hub-accent);font-weight:600;text-decoration:none;font-size:1.05rem;">Tell us what's not lining up &rarr;</a></p>
-  </section>
-
-  <section class="note-section reveal">
-    <h2>This isn't, and this is</h2>
-    <div class="vs-pair">
-      <div class="vs-col vs-isnt">
-        <span class="vs-label">isn't</span>
-        <ul>
-          <li>Strategy consulting</li>
-          <li>A framework with a deck</li>
-          <li>Team-building or values exercises</li>
-          <li>A workshop where we tell you what your business is</li>
-        </ul>
-      </div>
-      <div class="vs-col vs-is">
-        <span class="vs-label">is</span>
-        <ul>
-          <li>A room that works</li>
-          <li>The questions you've been avoiding</li>
-          <li>One sentence in writing</li>
-          <li>A 90-day plan that survives Monday morning</li>
-        </ul>
-      </div>
-    </div>
   </section>
 
   <section class="cta-strip reveal">
@@ -1394,7 +1746,7 @@
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings, .day-map, .sticky-mini, .magic-section').forEach(el => revealIo.observe(el));
+    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .findings, .day-map, .sticky-mini, .magic-section, .artifacts-grid, .ready-list').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>
