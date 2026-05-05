@@ -306,14 +306,21 @@
   /* ============ SECTION 3 — PERSONA SPECTRUM ============ */
   .personas-wrap {
     margin-top: 2rem;
-    padding: 3rem 0;
+    padding: 0;
     position: relative;
   }
-  .personas-axis {
+  .personas-row {
     position: relative;
+    height: 220px;
+    margin: 4rem 5% 1rem;
+  }
+  .personas-axis {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
     height: 2px;
     background: linear-gradient(90deg, transparent, var(--ink), transparent);
-    margin: 0 5%;
     transform: scaleX(0);
     transform-origin: left center;
     transition: transform 1200ms cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -322,8 +329,9 @@
   .reveal.in .personas-axis { transform: scaleX(1); }
   .personas-axis-label-l, .personas-axis-label-r {
     position: absolute;
-    top: 1.5rem;
-    font-size: 0.78rem;
+    top: 50%;
+    margin-top: 0.6rem;
+    font-size: 0.72rem;
     font-weight: 600;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -331,36 +339,52 @@
   }
   .personas-axis-label-l { left: 0; }
   .personas-axis-label-r { right: 0; }
-  .personas-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-    justify-content: center;
-    margin-top: 4rem;
-  }
   .persona-chip {
+    position: absolute;
+    left: var(--x, 50%);
+    top: var(--y, 50%);
     font-family: var(--sans);
-    font-size: 0.92rem;
+    font-size: 0.85rem;
     font-weight: 500;
-    padding: 0.55rem 1rem;
+    padding: 0.5rem 0.95rem;
     border-radius: 999px;
     border: 1.5px solid var(--rule);
     background: var(--paper);
     color: var(--ink);
+    white-space: nowrap;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translate(-50%, 20px);
     animation: chipIn 600ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
     animation-delay: var(--cd, 0ms);
     cursor: default;
-    transition: border-color 200ms, color 200ms, background 200ms, transform 200ms;
+    transition: border-color 200ms, color 200ms, background 200ms;
   }
   .reveal.in .persona-chip { animation-play-state: running; }
   .persona-chip:not(.in-view) { animation-play-state: paused; }
-  @keyframes chipIn { to { opacity: 1; transform: translateY(0); } }
+  @keyframes chipIn { to { opacity: 1; transform: translate(-50%, 0); } }
   .persona-chip.builder { border-color: rgba(167, 139, 250, 0.4); background: rgba(167, 139, 250, 0.08); }
   .persona-chip.consumer { border-color: rgba(233, 30, 123, 0.4); background: rgba(233, 30, 123, 0.08); }
   .persona-chip.role { border-color: rgba(79, 196, 207, 0.4); background: rgba(79, 196, 207, 0.08); }
-  .persona-chip:hover { transform: translateY(-2px); border-color: var(--ink); }
+  .persona-chip:hover { border-color: var(--ink); animation-play-state: paused; transform: translate(-50%, -2px); }
+  @media (max-width: 720px) {
+    .personas-row {
+      height: auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin: 2rem 1rem;
+    }
+    .personas-axis,
+    .personas-axis-label-l,
+    .personas-axis-label-r { display: none; }
+    .persona-chip {
+      position: static;
+      transform: translateY(20px);
+      animation-name: chipInMobile;
+    }
+    @keyframes chipInMobile { to { opacity: 1; transform: translateY(0); } }
+  }
   .persona-legend {
     display: flex;
     gap: 1.5rem;
@@ -453,6 +477,28 @@
 
   /* ============ SECTION 6 — HYPOTHESES ============ */
   .hyp-section .sec-title em { color: var(--pink); }
+  .hyp-overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 2rem 0 2.5rem;
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+  }
+  .hyp-overview span {
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(44, 53, 68, 0.04);
+    border: 1px solid rgba(44, 53, 68, 0.1);
+    white-space: nowrap;
+  }
+  .hyp-overview strong {
+    color: var(--pink);
+    margin-right: 0.45rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
   .hyp-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -771,9 +817,8 @@
   }
   .hotspot-tip {
     position: absolute;
-    bottom: calc(100% + 14px);
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, 28px);
     background: var(--ink);
     color: #fff;
     padding: 0.85rem 1rem;
@@ -1087,7 +1132,7 @@
       <span class="num">8</span> bets,<br/>
       drawn <span class="accent">26 times</span>.
     </h1>
-    <p class="hero-deck">A GenAI startup that lets people build software by describing what they want, in plain words. Codewords had no precedent — and no shared mental model with users. We worked with the team to design a product that could prove or disprove eight beliefs about how users would behave, in the wild.</p>
+    <p class="hero-deck">A GenAI startup that lets people build software by describing what they want, in plain words. Codewords had no precedent — and no shared mental model with users. We worked with the team to design a product that could prove or disprove eight beliefs about how users would behave, in the wild. Every screen we shipped traces back to one of those bets — each one drawn, redrawn, and pressure-tested across 26 iterations.</p>
     <div class="hero-meta">
       <span><strong>Agemo × Joyus</strong></span>
       <span>Discipline: <strong>Research, Strategy, Interface</strong></span>
@@ -1110,31 +1155,28 @@
 <!-- ============ SECTION 3 — PERSONA SPECTRUM ============ -->
 <section class="sec">
   <div class="sec-inner reveal">
-    <span class="sec-eyebrow">who is this for?</span>
+    <span class="sec-eyebrow">who Codewords picked first</span>
     <h2 class="sec-title">Twelve user types, on a single <em>proficiency axis</em>.</h2>
     <p class="sec-deck">The team mapped users along a spectrum — from people who'd never write a line of code (Tool Consumers) to people who'd build pipelines of pipelines (Tool Chainers). Hypothesis 4 (Completeness over Simplicity) was a deliberate choice: design for the right edge of the spectrum, even at the cost of casual users.</p>
 
     <div class="personas-wrap">
-      <div class="personas-axis"></div>
-      <span class="personas-axis-label-l">Tool Consumer</span>
-      <span class="personas-axis-label-r">Tool Chainer →</span>
-
       <div class="personas-row" id="personas-row">
-        <span class="persona-chip role"   style="--cd: 100ms;">Deployer</span>
-        <span class="persona-chip role"   style="--cd: 200ms;">Automator</span>
-        <span class="persona-chip role"   style="--cd: 300ms;">Niche tooling builder</span>
-        <span class="persona-chip role"   style="--cd: 400ms;">Prototyper</span>
-        <span class="persona-chip builder" style="--cd: 500ms;">Expert / tech consultant</span>
-        <span class="persona-chip builder" style="--cd: 600ms;">Founder / Designer / PM</span>
-        <span class="persona-chip builder" style="--cd: 700ms;">Indie hacker / microsaas</span>
-        <span class="persona-chip builder" style="--cd: 800ms;">Tinkerer</span>
-        <span class="persona-chip builder" style="--cd: 900ms;">Generalist</span>
-        <span class="persona-chip builder" style="--cd: 1000ms;">Management consultant</span>
-        <span class="persona-chip builder" style="--cd: 1100ms;">Data scientist</span>
-        <span class="persona-chip builder" style="--cd: 1200ms;">Front-end engineer</span>
-        <span class="persona-chip builder" style="--cd: 1300ms;">Back-end engineer</span>
-        <span class="persona-chip consumer" style="--cd: 1400ms;">PMs &amp; designers (consumer)</span>
-        <span class="persona-chip consumer" style="--cd: 1500ms;">ML engineers (consumer)</span>
+        <div class="personas-axis"></div>
+        <span class="personas-axis-label-l">Tool Consumer</span>
+        <span class="personas-axis-label-r">Tool Chainer →</span>
+
+        <span class="persona-chip consumer" style="--x: 4%;  --y: 18%; --cd: 100ms;">PMs &amp; designers</span>
+        <span class="persona-chip builder"  style="--x: 12%; --y: 72%; --cd: 200ms;">Founder / Designer / PM</span>
+        <span class="persona-chip builder"  style="--x: 18%; --y: 18%; --cd: 300ms;">Management consultant</span>
+        <span class="persona-chip role"     style="--x: 28%; --y: 72%; --cd: 400ms;">Prototyper</span>
+        <span class="persona-chip builder"  style="--x: 36%; --y: 18%; --cd: 500ms;">Indie hacker / microsaas</span>
+        <span class="persona-chip builder"  style="--x: 46%; --y: 72%; --cd: 600ms;">Expert / tech consultant</span>
+        <span class="persona-chip builder"  style="--x: 56%; --y: 18%; --cd: 700ms;">Data scientist</span>
+        <span class="persona-chip builder"  style="--x: 64%; --y: 72%; --cd: 800ms;">Front-end engineer</span>
+        <span class="persona-chip builder"  style="--x: 76%; --y: 18%; --cd: 900ms;">Back-end engineer</span>
+        <span class="persona-chip role"     style="--x: 82%; --y: 72%; --cd: 1000ms;">Niche tooling builder</span>
+        <span class="persona-chip role"     style="--x: 90%; --y: 18%; --cd: 1100ms;">Automator</span>
+        <span class="persona-chip role"     style="--x: 96%; --y: 72%; --cd: 1200ms;">Deployer</span>
       </div>
 
       <div class="persona-legend">
@@ -1150,7 +1192,7 @@
 <!-- ============ SECTION 4 — VERBATIM USER VOICE ============ -->
 <section class="sec voice-section">
   <div class="sec-inner reveal">
-    <span class="sec-eyebrow">what real users said</span>
+    <span class="sec-eyebrow">where the synthesis came from</span>
     <h2 class="sec-title">The interviews said the same thing, <em>in different words</em>.</h2>
     <p class="sec-deck">Eleven user-research conversations. The same theme, repeated by everyone from a founding engineer at Swiftkey to a Series A fintech PM: the product was powerful but didn't tell you what it could do, what to try, or why to trust it.</p>
 
@@ -1176,20 +1218,12 @@
         <cite><strong>Lucas</strong> — Technical founder</cite>
       </article>
       <article class="voice-card"><span class="qmark">"</span>
-        <blockquote>I spent a long time trying to understand if I can add an integration.</blockquote>
-        <cite><strong>Lucas</strong> — Technical founder</cite>
-      </article>
-      <article class="voice-card"><span class="qmark">"</span>
         <blockquote>The main goal is to get things done — we'll worry about the quality later.</blockquote>
         <cite><strong>Keshvi R.</strong> — Head of Product, Balderton</cite>
       </article>
       <article class="voice-card"><span class="qmark">"</span>
         <blockquote>I didn't know what to do tbh, so I was just checking out the changelogs.</blockquote>
         <cite><strong>Adnann</strong> — Designer</cite>
-      </article>
-      <article class="voice-card"><span class="qmark">"</span>
-        <blockquote>The information is too subtle. It took me some time to notice the Outline / Build / Deploy and the spinning wheel.</blockquote>
-        <cite><strong>Jon Reynolds</strong> — co-founder, Swiftkey</cite>
       </article>
       <article class="voice-card"><span class="qmark">"</span>
         <blockquote>For the first time today, I did use CW and it saved me 30 minutes in my day.</blockquote>
@@ -1216,7 +1250,18 @@
   <div class="sec-inner reveal">
     <span class="sec-eyebrow">eight bets</span>
     <h2 class="sec-title">Each belief, designed to be <em>falsifiable</em>.</h2>
-    <p class="sec-deck">From the synthesis, the team formalized eight hypotheses — each with a measurable test. This document became the spine of every design decision. Click any card to see how they would have known they were wrong.</p>
+    <p class="sec-deck">The synthesis named four gaps — onboarding, guidance, positioning, integration. The eight hypotheses below are the bets the team made about how to fill them. Each one is written as a falsifiable claim with a measurable test. Click any card to see how they would have known they were wrong.</p>
+
+    <div class="hyp-overview" aria-hidden="true">
+      <span><strong>H1</strong> Behavior change</span>
+      <span><strong>H2</strong> Adoption journey</span>
+      <span><strong>H3</strong> Intent &gt; Curiosity</span>
+      <span><strong>H4</strong> Completeness over Simplicity</span>
+      <span><strong>H5</strong> Defer to the human</span>
+      <span><strong>H6</strong> Draft state matters</span>
+      <span><strong>H7</strong> Remixing is creating</span>
+      <span><strong>H8</strong> Users want it done</span>
+    </div>
 
     <div class="hyp-grid">
       <button type="button" class="hyp-card" aria-expanded="false">
@@ -1428,8 +1473,8 @@
 
     <svg class="flow-svg" viewBox="0 0 1100 420" aria-label="Information flow diagram for building a new function">
       <!-- Lines first (so they're behind nodes) -->
-      <line class="flow-line flow-stagger-2" x1="160" y1="60"  x2="280" y2="60" />
-      <line class="flow-line flow-stagger-3" x1="400" y1="60"  x2="520" y2="60" />
+      <line class="flow-line flow-stagger-2" x1="160" y1="60"  x2="260" y2="60" />
+      <line class="flow-line flow-stagger-3" x1="420" y1="60"  x2="520" y2="60" />
       <line class="flow-line flow-stagger-4" x1="640" y1="60"  x2="760" y2="60" />
       <line class="flow-line flow-stagger-5" x1="820" y1="80"  x2="820" y2="160" />
       <line class="flow-line flow-stagger-6" x1="820" y1="200" x2="820" y2="280" />
@@ -1444,7 +1489,7 @@
         <text class="flow-text on-pink" x="100"  y="64" text-anchor="middle">Codewords user</text>
       </g>
       <g class="flow-stagger-1">
-        <rect class="flow-node" x="280" y="40" width="120" height="40" rx="8" />
+        <rect class="flow-node" x="260" y="40" width="160" height="40" rx="8" />
         <text class="flow-text" x="340" y="64" text-anchor="middle">Pick template / Blank</text>
       </g>
       <g class="flow-stagger-2">
