@@ -322,28 +322,32 @@
   .topics .section-head h2::before { background: var(--cyan); }
 
   .chip-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 0.5rem;
+    row-gap: 1.5rem;
     margin-bottom: 1.75rem;
   }
   .chip {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 0.55rem 1.1rem;
     border-radius: 999px;
     border: 1.5px solid var(--rule);
     background: #fff;
     color: var(--ink);
     font-family: var(--sans);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     font-weight: 500;
-    white-space: nowrap;
+    text-align: center;
     text-decoration: none;
+    position: relative;
     transition: border-color 200ms, background 200ms, color 200ms, transform 200ms;
   }
   .chip:hover { border-color: var(--pink); transform: translateY(-1px); }
-  /* Active chip via sibling selector — works without :has() */
+  /* Active chip via JS-set class (preferred) AND :target sibling selector (no-JS fallback) */
+  .chip.is-active,
   #topic-creative:target ~ .chip-strip .chip[href="#topic-creative"],
   #topic-founders:target ~ .chip-strip .chip[href="#topic-founders"],
   #topic-behavior:target ~ .chip-strip .chip[href="#topic-behavior"],
@@ -356,6 +360,21 @@
     color: #fff;
     border-color: var(--pink);
   }
+  /* Tab-bar connector: small pink triangle below the active chip pointing into the panel */
+  .chip.is-active::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 5px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--pink);
+    pointer-events: none;
+  }
 
   .topic-panel {
     background: #fff;
@@ -364,8 +383,15 @@
     padding: 1.5rem 1.75rem 1.25rem;
     scroll-margin-top: 100px;
   }
-  .topic-panel:not(.rest) { display: none; }
-  .topic-panel:target { display: block; }
+  .topic-panel:not(.rest):not(.is-active) { display: none; }
+  .topic-panel:target,
+  .topic-panel.is-active { display: block; animation: panelFade 280ms ease; }
+  @keyframes panelFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  /* Rest panel: hidden when JS is on (first chip auto-activates).
+     Shown only when neither :target nor .is-active matches anything. */
   .topic-panel.rest {
     display: flex;
     align-items: center;
@@ -374,8 +400,8 @@
     background: rgba(44, 53, 68, 0.02);
     border-style: dashed;
   }
-  /* Hide rest when any panel is :target — works without :has() (rest is last in DOM) */
-  .topic-panel:target ~ .topic-panel.rest { display: none; }
+  .topic-panel:target ~ .topic-panel.rest,
+  .topic-panel.is-active ~ .topic-panel.rest { display: none; }
 
   .topic-panel.rest .rest-hint {
     font-family: var(--hand);
@@ -428,9 +454,14 @@
     white-space: nowrap;
   }
   .topic-eps a:hover .ep-meta { color: var(--pink); }
-  @media (max-width: 600px) {
-    .chip-strip { gap: 0.4rem; }
+  @media (max-width: 720px) {
+    .chip-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0.4rem; row-gap: 1.25rem; }
     .chip { font-size: 0.85rem; padding: 0.45rem 0.85rem; }
+  }
+  @media (max-width: 400px) {
+    .chip-strip { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
     .topic-eps a { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
   }
 
@@ -1302,6 +1333,37 @@
       document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
     }, { passive: true });
 
+    // ===== topic chips: JS tabs (no URL hash, no scroll, smooth swap) =====
+    (function(){
+      const root = document.querySelector('.topics');
+      if (!root) return;
+      const chips = root.querySelectorAll('.chip');
+      const panels = root.querySelectorAll('.topic-panel:not(.rest)');
+      if (!chips.length || !panels.length) return;
+
+      function activate(targetId) {
+        chips.forEach(c => {
+          const href = c.getAttribute('href') || '';
+          c.classList.toggle('is-active', href === '#' + targetId);
+        });
+        panels.forEach(p => {
+          p.classList.toggle('is-active', p.id === targetId);
+        });
+      }
+
+      chips.forEach(chip => {
+        chip.addEventListener('click', e => {
+          e.preventDefault();
+          const href = chip.getAttribute('href') || '';
+          if (href.startsWith('#')) activate(href.slice(1));
+        });
+      });
+
+      // Default: first chip active. Honour deep link if URL hash matches a topic.
+      const hash = (location.hash || '').replace('#', '');
+      const initialId = (hash && root.querySelector('#' + CSS.escape(hash))) ? hash : panels[0].id;
+      activate(initialId);
+    })();
   </script>
 
 </body>
