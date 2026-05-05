@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rachna Nivas — brand cut · Joyus Studio</title>
+<meta name="description" content="60-second brand cut. The operational form of the work — five testable values, behaviors becoming directions." />
+<meta name="robots" content="noindex" />
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/work/rachna-nivas-new-cut-pipe.html" />
+<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --paper-warm: #F4EFE6;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+
+  /* short-cut tag — same pattern as agemo cuts (a link back to the main case study) */
+  .proto-tag {
+    position: fixed;
+    top: 5.5rem; right: 1.25rem;
+    z-index: 480;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--pink);
+    background: var(--paper);
+    border: 1.5px solid var(--pink);
+    border-radius: 999px;
+    padding: 0.3rem 0.95rem;
+    transform: rotate(2deg);
+    box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .proto-tag:hover { transform: rotate(2deg) translate(-2px, -2px); box-shadow: 4px 4px 0 var(--pink), 0 10px 24px -10px rgba(44, 53, 68, 0.18); }
+  @media (max-width: 720px) {
+    .proto-tag { top: auto; bottom: 1rem; right: 1rem; }
+  }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 100ms; }
+  .reveal.delay-2 { transition-delay: 220ms; }
+
+  .hero {
+    min-height: 60vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex; flex-direction: column; justify-content: center;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pink);
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(2.4rem, 6vw, 4.4rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 22ch;
+  }
+  .hero h1 em { color: var(--pink); font-style: normal; }
+  .hero-sub {
+    font-family: var(--hand);
+    font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+    color: var(--ink-soft);
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  .sec {
+    padding: clamp(3rem, 8vh, 6rem) var(--x);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .sec-eyebrow {
+    font-size: 0.74rem; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .sec-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); }
+  .sec-title {
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.6vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 2rem;
+    max-width: 26ch;
+  }
+  .sec-title em { font-style: normal; color: var(--pink); }
+
+  /* values grid (Vol 3 form) */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+  .value-card {
+    background: var(--paper);
+    padding: 1.6rem 1.4rem;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--pink);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .value-card:nth-child(2) { border-left-color: var(--cyan); }
+  .value-card:nth-child(3) { border-left-color: var(--yellow); }
+  .value-card:nth-child(4) { border-left-color: var(--pink); }
+  .value-card:nth-child(5) { border-left-color: var(--cyan); }
+  .value-card:hover { transform: translate(-4px, -4px); box-shadow: 12px 12px 0 var(--ink); }
+  .value-num { font-family: var(--hand); font-weight: 600; font-size: 1.05rem; color: var(--pink); transform: rotate(-2deg); display: inline-block; }
+  .value-title { font-weight: 700; font-size: 1.3rem; letter-spacing: -0.02em; color: var(--ink); margin: 0.3rem 0 0.7rem; line-height: 1.15; }
+  .value-row { display: flex; gap: 0.75rem; padding: 0.65rem 0; border-top: 1px dashed var(--rule); font-size: 0.82rem; line-height: 1.4; }
+  .value-row .label { flex-shrink: 0; width: 78px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink); padding-top: 0.05rem; }
+  .value-row.never .label { color: var(--ink-fade); }
+  .value-row p { color: var(--ink-soft); }
+
+  /* conversion table */
+  .conv {
+    margin-top: 0;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 1.5fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .conv-row:last-child { border-bottom: none; }
+  .conv-row > div { padding: 1.05rem 1.4rem; display: flex; align-items: center; }
+  .conv-from { background: rgba(242, 201, 74, 0.12); font-style: italic; color: var(--ink); border-right: 1px solid var(--rule); font-size: 0.9rem; }
+  .conv-arrow { background: var(--paper); color: var(--ink-fade); justify-content: center; font-family: var(--hand); font-size: 1.4rem; border-right: 1px solid var(--rule); padding: 0; }
+  .conv-to { background: rgba(233, 30, 123, 0.05); color: var(--ink); font-weight: 500; font-size: 0.9rem; line-height: 1.4; }
+  @media (max-width: 720px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-arrow { display: none; }
+    .conv-from { border-right: none; border-bottom: 1px dashed var(--rule); }
+  }
+
+  /* CTA strip — copied from agemo cuts (.ctas / .cta-row / .cta-primary / .cta-ghost) */
+  .ctas {
+    padding: 6rem var(--x);
+    background: var(--paper);
+    text-align: center;
+    border-top: 1px solid var(--rule);
+  }
+  .ctas h2 {
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+  }
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: transform 0.25s, box-shadow 0.25s;
+    font-size: 1rem;
+  }
+  .cta-primary {
+    background: var(--pink);
+    color: #fff;
+    box-shadow: 0 6px 0 #9a1453;
+  }
+  .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+  .cta-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid rgba(44, 53, 68, 0.3);
+  }
+  .cta-ghost:hover { border-color: var(--ink); }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="work-page">
+
+<a class="proto-tag" href="rachna-nivas-new.html">brand cut · v1</a>
+
+<!--BEGIN:NAV-->
+<style>
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: #54606F; text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active { color: #2C3544; font-weight: 500; border-bottom-color: #E91E7B; }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: #2C3544; border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+  @media (max-width: 720px) {
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: #ffffff; border-left: 4px solid #2C3544; box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: #2C3544; }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work" class="active">Work</a>
+    <a href="../work-new.html" data-nav="work-new">Work <sup style="font-size:0.62em;color:#E91E7B;font-weight:600;letter-spacing:0.05em;margin-left:2px;">NEW</sup></a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+<section class="hero">
+  <span class="hero-eyebrow">Rachna Nivas · brand cut</span>
+  <h1>The form that finally <em>worked</em>.</h1>
+  <p class="hero-sub">the operational read &mdash; five testable values, behaviors becoming directions.</p>
+</section>
+
+<section class="sec">
+  <div class="reveal">
+    <span class="sec-eyebrow">five testable values</span>
+    <h2 class="sec-title">Each one paired with a <em>Behaviors</em> column &mdash; and a <em>Never</em>.</h2>
+  </div>
+  <div class="values-grid reveal delay-1">
+    <article class="value-card">
+      <span class="value-num">i.</span>
+      <h3 class="value-title">Fire</h3>
+      <div class="value-row"><span class="label">Behaviors</span><p>trains past comfort, speaks plainly, sets real stakes</p></div>
+      <div class="value-row never"><span class="label">Never</span><p>soften for palatability, perform intensity without work</p></div>
+    </article>
+    <article class="value-card">
+      <span class="value-num">ii.</span>
+      <h3 class="value-title">Raw &amp; Generous</h3>
+      <div class="value-row"><span class="label">Behaviors</span><p>shows struggle and recovery, speaks without sugar-coating, credits lineage</p></div>
+      <div class="value-row never"><span class="label">Never</span><p>performative authenticity, coddling or false harmony</p></div>
+    </article>
+    <article class="value-card">
+      <span class="value-num">iii.</span>
+      <h3 class="value-title">Body &amp; Physicality</h3>
+      <div class="value-row"><span class="label">Behaviors</span><p>shows sweat, precision footwork, stamina; honors limits intelligently</p></div>
+      <div class="value-row never"><span class="label">Never</span><p>ornamental softness that hides effort, body shaming</p></div>
+    </article>
+    <article class="value-card">
+      <span class="value-num">iv.</span>
+      <h3 class="value-title">Conscious &amp; Political</h3>
+      <div class="value-row"><span class="label">Behaviors</span><p>names structures, prices and programs with sovereignty, holds standards</p></div>
+      <div class="value-row never"><span class="label">Never</span><p>exoticize, sanitize dissent, neutrality on erasure</p></div>
+    </article>
+    <article class="value-card">
+      <span class="value-num">v.</span>
+      <h3 class="value-title">Craft Precision</h3>
+      <div class="value-row"><span class="label">Behaviors</span><p>measurable cycles, no shortcuts, rhythm as engine, post-practice reflection</p></div>
+      <div class="value-row never"><span class="label">Never</span><p>vibes over accuracy, aesthetics over form, &ldquo;good enough&rdquo; reps</p></div>
+    </article>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="reveal">
+    <span class="sec-eyebrow">behavior &rarr; direction</span>
+    <h2 class="sec-title">A photographer can <em>act on</em> the right column.</h2>
+  </div>
+  <div class="conv reveal delay-1">
+    <div class="conv-row">
+      <div class="conv-from">Trains past comfort</div>
+      <div class="conv-arrow">&rarr;</div>
+      <div class="conv-to">Show sweat. Show stamina. Show the body working &mdash; not posed.</div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-from">Speaks plainly</div>
+      <div class="conv-arrow">&rarr;</div>
+      <div class="conv-to">Strong shapes. Sharp focus. No softening filters or staged angles.</div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-from">Credits lineage</div>
+      <div class="conv-arrow">&rarr;</div>
+      <div class="conv-to">Capture musicians with the artists. Show the room she came from.</div>
+    </div>
+    <div class="conv-row">
+      <div class="conv-from">Never: soften for palatability</div>
+      <div class="conv-arrow">&rarr;</div>
+      <div class="conv-to">No dark, moody, blurred. No pastels or vintage faded.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ CTAs ============ -->
+<section class="ctas">
+  <h2>Want to see how we got here?</h2>
+  <div class="cta-row">
+    <a class="cta cta-primary" href="rachna-nivas-new.html">see the full case study &rarr;</a>
+    <a class="cta cta-ghost" href="rachna-nivas-new-cut-blocks.html">jump to the story cut &rarr;</a>
+  </div>
+</section>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+<script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
