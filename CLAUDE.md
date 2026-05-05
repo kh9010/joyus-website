@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Stack
 
-Pure static site: hand-written HTML + one shared `styles.css` + vanilla JS. **No build step, no framework, no package.json, no bundler.** Every page links `styles.css` and (except `index.html`) `shape-echo.js`. Deployed on GitHub Pages at `https://kh9010.github.io/joyus-website/`. Firebase is loaded via CDN script tags on the pages that need it; there is no JS toolchain.
+Pure static site: hand-written HTML + one shared `styles.css` + vanilla JS. **No build step, no framework, no package.json, no bundler.** Deployed on GitHub Pages at `https://kh9010.github.io/joyus-website/`. Firebase is loaded via CDN script tags on the pages that need it; there is no JS toolchain.
+
+The nav and footer are the **only** things that go through a sync step:
+- Canonical source: `_partials/nav.html` and `_partials/foot.html`
+- Pages mark insertion points with `<!--BEGIN:NAV-->...<!--END:NAV-->` and `<!--BEGIN:FOOT-->...<!--END:FOOT-->`
+- Run `node scripts/sync-chrome.js` after editing either partial to propagate to all marker-bearing pages
+- Pages without markers (legacy hubs, thinking essays, comics, about, ai-workshops, 404, services-old) carry the older `<nav class="nav-bar">` + 4-col `.footer` markup hand-copied — these are the "editorial wing" and are not yet on the partial system
 
 ## Local dev
 
@@ -12,18 +18,17 @@ Pure static site: hand-written HTML + one shared `styles.css` + vanilla JS. **No
 python -m http.server 8000
 ```
 
-Then open `http://localhost:8000/`. Because the site gates everything behind a splash drawing (see below), test flows by either:
-1. Visiting `/` first and drawing a shape, or
-2. Opening DevTools → Application → Session Storage, setting `joyus_entered=1`, and loading any page directly.
+Then open `http://localhost:8000/`. The homepage (`index.html`) is the typewriter intent box — no splash gate. Load any page directly.
 
 There is nothing to lint or test. Changes are verified by loading pages in a browser.
 
 ## Page inventory
 
 Root-level pages:
-- `index.html` — splash (draw-to-enter)
-- `home.html` — intent-box landing
-- `about.html`, `services.html`, `ai-workshops.html`, `podcast.html`, `404.html`
+- `index.html` — typewriter intent-box homepage (sparse stage, dots, animated tagline). The real entry point.
+- `home.html` — 14-line `meta refresh` redirect to `index.html` (kept for any inbound `/home.html` links)
+- `index-old.html`, `home-old.html` — archived predecessors. The shape-classification splash and the old `CONTENT_MAP` fuzzy-match intent box live here. Not linked from anywhere.
+- `about.html`, `services.html`, `services-old.html`, `ai-workshops.html`, `podcast.html`, `404.html`
 - 6 themed hubs: `hub-story.html`, `hub-building.html`, `hub-behavior.html`, `hub-play.html`, `hub-games.html`, `hub-creative.html`
 
 Subdirectories:
@@ -32,82 +37,67 @@ Subdirectories:
 - `thinking/` — 15 long-form essays drawn from podcast transcripts
 - `comics/` — `index.html`, `the-friend-comic.html`, `gossip.html`
 
-`sitemap.xml` currently lists ~55 URLs (not every podcast episode is in the sitemap — many are intentional dead drops). `robots.txt` allows everything.
+`sitemap.xml` currently lists ~124 URLs (60 podcast episodes, 15 thinking essays, 11 case studies, 6 hubs, plus core pages — not every podcast episode is in the sitemap; many are intentional dead drops). `robots.txt` allows everything.
 
-## Splash → site flow (index.html)
+## index.html — typewriter intent box
 
-`index.html` is a canvas the user draws on. It does real shape classification, not just stroke counting:
+`index.html` is the homepage. Sparse stage with a centered text input, eyebrow line top-left, animated tagline bottom-right, and decorative dots. The user types an intent, presses Enter, and goes to a destination.
 
-1. User drags → strokes accumulate in `allStrokes`.
-2. On stroke end, `findEnclosedRegion()` does a low-res flood fill to detect a closed region.
-3. If closed, `classifyShape()` runs **two classifiers**:
-   - **Primary: $1 Unistroke Recognizer** (resample to 64 points, rotate to indicative angle, scale, compare against pre-built templates for circle/triangle/rectangle).
-   - **Secondary: centroid distance profile** (resample, compute radius profile, count peaks, use CV + peak count).
-   - Geometric overrides: **isoperimetric quotient** bumps high-circularity shapes to `circle`, **aspect ratio** bumps square-ish rectangles to `square`.
-   - **Multi-stroke override:** 3 long strokes → triangle, 4 → rectangle (beats both classifiers).
-4. Shape → destination via the `SHAPES` map at `index.html:567-572`:
-   - `circle` → `about.html`
-   - `triangle` → `hub-games.html`
-   - `square` → `comics/index.html`
-   - `rectangle` → `home.html` (default fallback)
+Key inline JS (~line 520+):
+- A small typewriter animation rotates pre-set tagline phrases.
+- Below the input, 5 hard-coded `<a class="sug">` suggestions (Work / Services / Podcast / Comics / Say hi).
+- On submit, the input value is written to Firestore `intents` ({ text, timestamp, page }) and the user is routed to `services.html` by default, or to a destination matched by inline keyword logic.
 
-   **If you change routing, edit `SHAPES` in `index.html` and the `shapeType` inference in `shape-echo.js:340-347`.**
+There is **no fuzzy `CONTENT_MAP` matcher anymore** — that lived in `home-old.html` and was retired when the typewriter homepage shipped. If you want fuzzy matching back, it's a feature spec, not a regression.
 
-5. On click inside the enclosed region, `enterSite()`:
-   - Sets `sessionStorage.joyus_entered = '1'`
-   - Saves `joyus_shape` (normalized strokes + shape type + hint URL) to sessionStorage
-   - Writes a doc to Firestore `shapes` (simplified, first 3 strokes, sampled)
-   - Redirects to target page
+There is **no draw-to-enter splash anymore** — the canvas-based shape classifier ($1 unistroke + centroid distance) lives in `index-old.html` and is not linked from anywhere. The Firestore `shapes` and `shape_visits` collections are dormant. See `shape-echo.js` note below.
 
-## shape-echo.js (on every non-splash page)
+## shape-echo.js (legacy — slated for removal)
 
-Lives at project root; included via `<script src="shape-echo.js">` (or `../shape-echo.js` from `work/`, `comics/`, `podcast/`, `thinking/`). It:
+`shape-echo.js` shipped on every non-splash page when the splash was live. It:
+1. Read `joyus_shape` from sessionStorage (set by the splash).
+2. If present, replayed the drawing as an SVG next to the nav logo.
+3. Logged the visit to Firestore `shape_visits` and rendered an "others exploring" ticker.
 
-1. Reads `joyus_shape` from sessionStorage.
-2. If present → builds a small SVG replay of the drawing, inserts it next to the `.logo` in the nav. Click returns to `/index.html` (clearing session).
-3. If absent → inserts a subtle pencil icon that also returns to splash.
-4. Logs the visit to Firestore `shape_visits` ({ shapeType, page, timestamp }).
-5. Queries `shape_visits` for other visitors with the same `shapeType` and renders a rotating "other circles exploring → [page]" ticker in the nav (desktop) + a banner below the nav (mobile).
+With the splash retired, **nothing populates `joyus_shape`**, so the script always falls into the "no shape" branch and renders a small pencil button that links back to `index.html`. It still loads Firebase Compat (~230KB) on every page that includes it.
 
-**If a page is missing this behavior, check:** it has a `.logo`, `.nav-logo`, or `.logo-link` element (the script anchors off that), and the `<script src>` path matches its directory depth.
-
-## home.html intent box
-
-The pink-underlined input on `home.html` is the other big interactive surface. Logic lives inline in `home.html` around lines 520-920:
-
-- **`CONTENT_MAP`** (~120 entries): array of `{ display, terms, url, dest }`. Each entry maps fuzzy search terms to a destination (case study, service, podcast, comic, hub, blog post, or `mailto:`). If you add new content, add it here too or it won't surface in suggestions.
-- **`fuzzyMatch()`**: substring scoring against `terms`, `display`, and per-word hits. Threshold score ≥ 2 to surface.
-- **Past intents**: reads last 50 docs from Firestore `intents`, deduped, and mixes into suggestions as "others asked:" rows.
-- **Submit flow**: clicking a suggestion navigates immediately; pressing Enter on a custom intent opens an interstitial with an optional email capture and a `routeForIntent()`-chosen destination (default: `services.html`). Both paths write to Firestore `intents`.
+If you see `<script src="shape-echo.js">` (or `../shape-echo.js`) in a page, it can be removed alongside the page's Firebase compat `<script>` tags. The file itself can be deleted once no page references it.
 
 ## Page templates (three patterns)
 
-1. **Splash**: `index.html` only — its own standalone canvas page. Doesn't link `styles.css`.
+1. **Homepage**: `index.html` — sparse 3-row grid stage (eyebrow / input / tagline) with decorative dots. Doesn't link `styles.css` (self-contained inline styles).
 2. **Editorial / hub / service / blog post**: left-aligned gradient hero (warm-gray → white), 640–680px body column, `.inline-card` for linked content refs, `.pull-quote` for big quotes. Each hub defines `--hub-accent` via `:root` or `body { --hub-accent: ... }`:
    - `hub-story.html` = pink `#E91E7B`
    - `hub-building.html` = cyan `#4FC4CF`
    - `hub-behavior.html` = `#D4A843`
    - `hub-play.html` = `#5BBD72`
-   - `hub-games.html` (accent varies — check the file)
+   - `hub-games.html` = `#8B5CF6` (purple)
    - `hub-creative.html` = `#E8734A`
 
    `thinking/*.html` posts follow the same editorial pattern but are **heavily minified to near-single-line HTML with inline styles**. That's intentional — don't reformat them on a whim, the author maintains them that way.
 3. **Grid / listing**: `work/index.html`, `podcast.html`, `comics/index.html` — centered hero, card grids below. `services.html` uses a two-column `.capability` pattern with alternating image/text.
 
-All non-splash pages share the same nav bar (`.nav-bar > .nav-container > .logo + .hamburger + .nav-menu`) and footer (`.footer-brand`, `.footer-nav`, `.footer-themes`, `.footer-contact`). These are hand-copied to every file, not templated — if you add a page, copy both blocks verbatim and update relative paths for subdirectories.
+### Two nav/footer generations (in-progress unification)
+
+There are currently two parallel chrome systems on the site:
+
+- **Modern** (`<nav class="nav">` + `.foot`): synced from `_partials/nav.html` and `_partials/foot.html`. Used by `index.html`, `services.html`, `podcast.html`, all `work/*` pages, all `podcast/*` episode pages, and all concept/prototype pages. Space Grotesk, ink-soft text, thin one-line footer. To propagate changes: edit the partial, run `node scripts/sync-chrome.js`.
+- **Legacy** (`<nav class="nav-bar">` + 4-column `.footer`): hand-copied to ~31 pages — all 6 hubs, all 15 `thinking/*` essays, `comics/*`, `about.html`, `ai-workshops.html`, `services-old.html`, `404.html`. DM Sans, dark text, richer footer with Themes column linking the hubs.
+
+The legacy nav surfaces Comics + About + Themes; the modern nav drops all three. **This is the biggest open coherency issue.** Migration plan: bring legacy pages onto the partial system, with the modern partial extended to surface Comics. See "What I deliberately did NOT touch" in `.site-rebuild/audit-css-coherency.md` for the full path-A vs path-B vs path-C trade-off.
 
 `styles.css` supports legacy selectors too (`.site-nav`, `.navbar`, `.nav-inner`, `.nav-links`, `.logo-link`), so older pages using those names still style correctly.
 
 ## Firebase
 
-Project `joyus-studio`, loaded via CDN compat SDKs (`firebase-app-compat.js`, `firebase-firestore-compat.js` v10.12.0). Config is duplicated inline in `index.html`, `home.html`, and `shape-echo.js` — keep them in sync. The `measurementId` is `G-K7PDLTYWF6`.
+Project `joyus-studio`, loaded via CDN compat SDKs (`firebase-app-compat.js`, `firebase-firestore-compat.js` v10.12.0). Config is duplicated inline in `index.html` and `shape-echo.js` (the latter is dormant — see above). The `measurementId` is `G-K7PDLTYWF6`.
 
 `experimentalAutoDetectLongPolling: true` is set on every Firestore instance — this works around CORS issues on GitHub Pages. Do not remove.
 
 Collections:
-- `intents` — `{ text, email, timestamp, page }` — writes from the home-page intent box
-- `shapes` — `{ path (JSON-stringified strokes), shapeType, confidence, page, timestamp }` — writes from the splash
-- `shape_visits` — `{ shapeType, page, timestamp }` — writes from `shape-echo.js` on every page load
+- `intents` — `{ text, email?, timestamp, page }` — writes from the homepage typewriter intent input
+- `shapes` — `{ path (JSON-stringified strokes), shapeType, confidence, page, timestamp }` — **dormant** (was the splash; only `index-old.html` writes to it)
+- `shape_visits` — `{ shapeType, page, timestamp }` — **dormant** (was `shape-echo.js`)
 
 All Firestore writes are best-effort (try/catch, silent on failure). The UI never blocks on the network.
 
@@ -203,6 +193,7 @@ The April 2026 R4 pass shipped 12 releases to main rebuilding the `work/*.html` 
 - **Do not center-align editorial hero content** (hubs, services, `thinking/*`, blog posts) — they're left-aligned with a 640–680px column. Only grid/listing heroes (`work/`, `podcast.html`, `comics/`) are centered.
 - **Do not reformat minified `thinking/*.html` files** — they're intentionally single-line with inline styles. Edit content without expanding the formatting.
 - **Canonical URLs currently point to `kh9010.github.io`**. When migrating to `joyus.studio`, update every `<link rel="canonical">`, every `og:url`, every absolute URL in JSON-LD, and the `sitemap.xml` / `robots.txt`.
-- **Shape classification is tuned for 3–4 shapes only**. Don't add more — freehand accuracy drops fast.
-- **If you change shape routing**, update BOTH the `SHAPES` dict in `index.html` AND the shapeType-inference fallback in `shape-echo.js:340-347`.
-- **If you add a new page**, copy the nav + footer blocks from an existing same-depth page (don't try to abstract them — there's no template system), and add an entry to `sitemap.xml` and (if relevant) to `CONTENT_MAP` in `home.html`.
+- **After editing `_partials/nav.html` or `_partials/foot.html`, run `node scripts/sync-chrome.js`** to propagate to all marker-bearing pages. The partials use `{{P}}` as the relative-path-to-root token; the script substitutes it per page based on directory depth.
+- **If you add a new page on the modern chrome system**, include `<!--BEGIN:NAV--><!--END:NAV-->` and `<!--BEGIN:FOOT--><!--END:FOOT-->` markers and run `sync-chrome.js`. If you add a legacy "editorial wing" page (hub, thinking essay, comic), copy the nav + footer markup verbatim from a sibling and update relative paths.
+- **Add new sitemap entries** to `sitemap.xml` for any new public page.
+- **Splash/shape classifier is archived** at `index-old.html`. Don't link it without restoring the full flow (see "shape-echo.js" section).

@@ -1,34 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A year of voice work for a NYC Kathak artist. The brand book was what we made at the end.">
-  <meta property="og:title" content="rachna nivas — Joyus Studio">
-  <meta property="og:description" content="A year of voice work for a NYC Kathak artist. The brand book was what we made at the end.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/rachna-nivas/slide73-brand-1.webp">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/rachna-nivas.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/rachna-nivas.html">
-  <title>rachna nivas — Joyus Studio</title>
-  <link rel="icon" href="../favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../styles.css?v=5">
-  <noscript><style>
-    .rn-obscured { opacity: 1 !important; filter: none !important; color: #111214 !important; }
-    .rn-spread { opacity: 1 !important; transform: none !important; }
-  </style></noscript>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"rachna nivas","description":"A year of voice work for a NYC Kathak artist. The brand book was what we made at the end.","url":"https://kh9010.github.io/joyus-website/work/rachna-nivas.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
-</script>
-</head>
-<body class="work-page rn-page">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rachna Nivas — Joyus Studio</title>
+<meta name="description" content="Your voice is already inside you. Our job is to uncover what's in the way. Nine months of strategic coaching with a Kathak artist, by Joyus Studio." />
+<meta property="og:title" content="Rachna Nivas — Joyus Studio" />
+<meta property="og:description" content="Your voice is already inside you. Our job is to uncover what's in the way. Nine months with a Kathak artist." />
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/rachna-nivas-2025/portrait.png" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/work/rachna-nivas.html" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/work/rachna-nivas.html" />
+<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../case-study.css" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --paper-warm: #F4EFE6;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
 
-  <!--BEGIN:NAV-->
+  /* scroll thread */
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.1s linear;
+  }
+
+  /* cuts switcher */
+  .cuts-switch {
+    position: fixed;
+    top: 5.5rem; right: 1.25rem;
+    z-index: 480;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.55rem 0.4rem 0.85rem;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    font-family: var(--sans);
+  }
+  .cuts-switch-label {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-right: 0.25rem;
+  }
+  .cuts-switch-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--bg);
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .cuts-switch-btn:hover { background: var(--pink); color: #fff; }
+  @media (max-width: 720px) {
+    .cuts-switch {
+      top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
+      box-shadow: 0 -8px 20px -8px rgba(44, 53, 68, 0.18), 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    }
+    .cuts-switch-label { display: none; }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 100ms; }
+  .reveal.delay-2 { transition-delay: 220ms; }
+  .reveal.delay-3 { transition-delay: 340ms; }
+
+  /* =================================================================== */
+  /*  HERO                                                                */
+  /* =================================================================== */
+  .hero {
+    min-height: 100vh; min-height: 100dvh;
+    padding: clamp(7rem, 14vh, 11rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  @media (max-width: 880px) { .hero { grid-template-columns: 1fr; } }
+
+  .hero-eyebrow {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pink);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 123, 0.5); }
+    50%      { box-shadow: 0 0 0 12px rgba(233, 30, 123, 0); }
+  }
+
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(2.6rem, 7vw, 5.6rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+  .hero h1 .accent { color: var(--pink); }
+  .hero h1 .num {
+    font-family: var(--hand);
+    color: var(--pink);
+    font-size: 1.05em;
+    line-height: 0.85;
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-right: 0.05em;
+  }
+
+  .hero-deck {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 36rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-meta {
+    display: flex; gap: 1.75rem; flex-wrap: wrap;
+    font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-fade);
+  }
+  .hero-meta span { display: inline-flex; flex-direction: column; gap: 0.2rem; }
+  .hero-meta strong {
+    color: var(--ink); font-weight: 700;
+    text-transform: none; letter-spacing: -0.01em; font-size: 0.92rem;
+  }
+
+  .hero-photo {
+    aspect-ratio: 3/4;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 18px 18px 0 var(--pink), 0 30px 60px -20px rgba(44,53,68,0.3);
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* =================================================================== */
+  /*  SECTION SHELL                                                       */
+  /* =================================================================== */
+  .sec {
+    padding: clamp(5rem, 11vh, 9rem) var(--x);
+  }
+  .sec-inner { max-width: 1100px; margin: 0 auto; }
+  .sec-narrow { max-width: 760px; }
+  .sec-eyebrow {
+    font-size: 0.74rem; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .sec-eyebrow::before {
+    content: ""; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--pink);
+  }
+  .sec-title {
+    font-weight: 700;
+    font-size: clamp(2rem, 4.6vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    max-width: 24ch;
+  }
+  .sec-title em { font-style: normal; color: var(--pink); }
+  .sec-deck {
+    font-size: clamp(1.05rem, 1.4vw, 1.18rem);
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 38rem;
+    margin-bottom: 2.5rem;
+  }
+  .sec-deck em { color: var(--pink); font-style: normal; font-weight: 500; }
+
+  /* =================================================================== */
+  /*  §1 — what she came in with                                          */
+  /* =================================================================== */
+  .premise {
+    background: var(--paper-warm);
+  }
+  .premise p {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    line-height: 1.6;
+    color: var(--ink);
+    margin-bottom: 1.4rem;
+    max-width: 38rem;
+  }
+  .premise p em { color: var(--pink); font-style: normal; font-weight: 500; }
+  .premise-quote {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    line-height: 1.45;
+    color: var(--ink);
+    border-left: 3px solid var(--pink);
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    margin: 1.5rem 0;
+    max-width: 36rem;
+  }
+  .premise-attr {
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--ink-fade);
+    display: block;
+    margin-top: -0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* =================================================================== */
+  /*  §2 — where voice comes from (premise statement)                     */
+  /* =================================================================== */
+  .premise-block {
+    text-align: center;
+    padding: clamp(6rem, 14vh, 10rem) var(--x);
+  }
+  .premise-block .big {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    max-width: 22ch;
+    margin: 0 auto 1.5rem;
+  }
+  .premise-block .big em { color: var(--pink); font-style: normal; }
+  .premise-block .small {
+    font-family: var(--hand);
+    font-size: clamp(1.3rem, 2vw, 1.7rem);
+    color: var(--ink-soft);
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+
+  /* =================================================================== */
+  /*  §3 — the blocks                                                     */
+  /* =================================================================== */
+  .blocks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 720px) { .blocks-grid { grid-template-columns: 1fr; } }
+  .block {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--pink);
+    border-radius: 6px;
+    padding: 1.75rem 1.6rem;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .block:nth-child(2) { border-left-color: var(--cyan); }
+  .block:nth-child(3) { border-left-color: var(--yellow); }
+  .block:nth-child(4) { border-left-color: var(--ink); }
+  .block:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 var(--ink);
+  }
+  .block-num {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--pink);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-bottom: 0.4rem;
+  }
+  .block:nth-child(2) .block-num { color: var(--cyan); }
+  .block:nth-child(3) .block-num { color: var(--yellow); }
+  .block:nth-child(4) .block-num { color: var(--ink); }
+  .block-h {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.015em;
+  }
+  .block-q {
+    font-family: var(--hand);
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    margin-bottom: 0.85rem;
+    line-height: 1.3;
+  }
+  .block-d {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* =================================================================== */
+  /*  §4 — the work (block → action → outcome)                            */
+  /* =================================================================== */
+  .work-section {
+    background: var(--paper-warm);
+  }
+  .work-row {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1.2fr;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+  .work-row.head {
+    border-top: none;
+    background: var(--ink);
+    color: rgba(255,255,255,0.85);
+  }
+  .work-row.head .work-cell {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 1rem 1.4rem;
+    color: rgba(255,255,255,0.85);
+  }
+  .work-row.head .work-cell.head-block { color: var(--yellow); }
+  .work-row.head .work-cell.head-action { color: #fff; }
+  .work-row.head .work-cell.head-out { color: var(--cyan); }
+  .work-cell {
+    padding: 1.5rem 1.4rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    border-right: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  .work-cell:last-child { border-right: none; }
+  .work-cell.block-c {
+    background: rgba(44, 53, 68, 0.03);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .work-cell.action-c { color: var(--ink); }
+  .work-cell.out-c {
+    color: var(--ink);
+    font-style: italic;
+    background: rgba(233, 30, 123, 0.03);
+  }
+  .work-cell.out-c strong { color: var(--pink); font-style: normal; font-weight: 600; }
+  .work-table {
+    margin-top: 2.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  @media (max-width: 720px) {
+    .work-row { grid-template-columns: 1fr; }
+    .work-row.head { display: none; }
+    .work-cell { border-right: none; border-bottom: 1px dashed var(--rule); }
+    .work-cell:last-child { border-bottom: none; }
+    .work-cell.block-c::before { content: "Block — "; color: var(--ink-fade); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; font-weight: 600; }
+    .work-cell.action-c::before { content: "What we did — "; color: var(--ink-fade); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; font-weight: 600; }
+    .work-cell.out-c::before { content: "What came through — "; color: var(--pink); font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; display: block; margin-bottom: 0.25rem; font-weight: 700; font-style: normal; }
+  }
+
+  /* =================================================================== */
+  /*  §5 — three drafts                                                   */
+  /* =================================================================== */
+  .drafts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.85rem;
+    margin-top: 2rem;
+    position: relative;
+  }
+  @media (max-width: 880px) { .drafts { grid-template-columns: 1fr; } }
+  .draft {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 1.6rem 1.4rem 1.7rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .draft.v1 { border-top: 4px solid var(--cyan); }
+  .draft.v2 { border-top: 4px solid var(--yellow); }
+  .draft.v3 { border-top: 4px solid var(--pink); }
+  .draft:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--ink); }
+  .draft-tag {
+    font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-fade);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .draft-num {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--ink);
+    transform: rotate(-2deg);
+    display: inline-block;
+    margin-bottom: 0.3rem;
+  }
+  .draft.v1 .draft-num { color: var(--cyan); }
+  .draft.v2 .draft-num { color: var(--yellow); }
+  .draft.v3 .draft-num { color: var(--pink); }
+  .draft-h {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .draft-body {
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+  }
+  .draft-shift {
+    font-family: var(--hand);
+    font-size: 1.02rem;
+    color: var(--ink-soft);
+    line-height: 1.35;
+    border-top: 1px dashed var(--rule);
+    padding-top: 0.85rem;
+  }
+  .draft-shift strong { color: var(--pink); font-weight: 600; }
+
+  /* =================================================================== */
+  /*  §6 — Riyaz                                                          */
+  /* =================================================================== */
+  .riyaz-section {
+    background: var(--ink);
+    color: rgba(255,255,255,0.88);
+  }
+  .riyaz-section .sec-eyebrow { color: var(--yellow); }
+  .riyaz-section .sec-eyebrow::before { background: var(--yellow); }
+  .riyaz-section .sec-title { color: #fff; }
+  .riyaz-section .sec-title em { color: var(--yellow); }
+  .riyaz-section .sec-deck { color: rgba(255,255,255,0.78); }
+  .riyaz-section .sec-deck em { color: var(--yellow); }
+  .riyaz-stage {
+    position: relative;
+    height: clamp(560px, 80vh, 720px);
+    margin-top: 2rem;
+  }
+  .riyaz-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--yellow);
+    color: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 3rem;
+    box-shadow: 0 0 0 8px rgba(242, 201, 74, 0.18),
+                0 0 0 24px rgba(242, 201, 74, 0.07),
+                0 30px 60px -20px rgba(0,0,0,0.4);
+    z-index: 5;
+    animation: riyazBreathe 4s ease-in-out infinite;
+  }
+  @keyframes riyazBreathe {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50%      { transform: translate(-50%, -50%) scale(1.04); }
+  }
+  .riyaz-node {
+    position: absolute;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.85);
+    background: transparent;
+    border: 1px solid rgba(242, 201, 74, 0.4);
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    transform: translate(-50%, -50%);
+    transition: background 200ms, color 200ms, border-color 200ms;
+  }
+  .riyaz-node:hover {
+    background: var(--yellow);
+    color: var(--ink);
+    border-color: var(--yellow);
+  }
+  .riyaz-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .riyaz-line {
+    stroke: rgba(242,201,74,0.3);
+    stroke-width: 1;
+    stroke-dasharray: 4 6;
+  }
+
+  /* =================================================================== */
+  /*  §7 — values testable                                                */
+  /* =================================================================== */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+  .value-card {
+    background: var(--paper);
+    padding: 1.85rem 1.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--pink);
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .value-card:nth-child(2) { border-left-color: var(--cyan); }
+  .value-card:nth-child(3) { border-left-color: var(--yellow); }
+  .value-card:nth-child(4) { border-left-color: var(--pink); }
+  .value-card:nth-child(5) { border-left-color: var(--cyan); }
+  .value-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0 var(--ink);
+  }
+  .value-num {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--pink);
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  .value-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0.3rem 0 0.7rem;
+    line-height: 1.15;
+  }
+  .value-def {
+    font-size: 0.92rem;
+    color: var(--ink);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+  .value-row {
+    display: flex; gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+  .value-row .label {
+    flex-shrink: 0;
+    width: 80px;
+    font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--pink);
+    padding-top: 0.05rem;
+  }
+  .value-row.never .label { color: var(--ink-fade); }
+  .value-row p { color: var(--ink-soft); }
+
+  /* =================================================================== */
+  /*  §8 — behavior to direction                                          */
+  /* =================================================================== */
+  .conv {
+    margin-top: 2rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .conv-row {
+    display: grid;
+    grid-template-columns: 1fr 40px 1.5fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .conv-row:last-child { border-bottom: none; }
+  .conv-row > div { padding: 1.1rem 1.4rem; display: flex; align-items: center; }
+  .conv-from {
+    background: rgba(242, 201, 74, 0.12);
+    font-style: italic;
+    color: var(--ink);
+    border-right: 1px solid var(--rule);
+    font-size: 0.95rem;
+  }
+  .conv-arrow {
+    background: var(--paper);
+    color: var(--ink-fade);
+    justify-content: center;
+    font-family: var(--hand);
+    font-size: 1.4rem;
+    border-right: 1px solid var(--rule);
+    padding: 0;
+  }
+  .conv-to {
+    background: rgba(233, 30, 123, 0.05);
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    .conv-row { grid-template-columns: 1fr; }
+    .conv-arrow { display: none; }
+    .conv-from { border-right: none; border-bottom: 1px dashed var(--rule); }
+  }
+
+  /* =================================================================== */
+  /*  §9 — Do / Don't                                                     */
+  /* =================================================================== */
+  .dodont-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(1rem, 3vw, 2.5rem);
+    margin-top: 2rem;
+  }
+  @media (max-width: 720px) { .dodont-grid { grid-template-columns: 1fr; } }
+  .dodont-col-head {
+    display: flex; align-items: baseline; gap: 0.75rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid;
+    padding-bottom: 0.6rem;
+  }
+  .dodont-col.do .dodont-col-head { border-color: var(--pink); }
+  .dodont-col.dont .dodont-col-head { border-color: var(--ink); }
+  .dodont-col-head h3 {
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .dodont-col.do .dodont-col-head h3 { color: var(--pink); }
+  .dodont-col.dont .dodont-col-head h3 { color: var(--ink); }
+  .dodont-col-head .ct {
+    font-size: 0.74rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--ink-fade);
+  }
+  .dodont-rules { list-style: none; margin-bottom: 1.5rem; }
+  .dodont-rules li {
+    font-size: 1rem;
+    color: var(--ink);
+    padding: 0.45rem 0;
+    border-bottom: 1px dashed var(--rule);
+  }
+  .dodont-rules li::before {
+    content: "—";
+    color: var(--pink);
+    margin-right: 0.6em;
+    font-weight: 700;
+  }
+  .dodont-col.dont .dodont-rules li::before { color: var(--ink-fade); }
+  .dodont-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  .dodont-images figure {
+    aspect-ratio: 3/4;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+  .dodont-images img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 400ms ease, filter 400ms ease;
+  }
+  .dodont-col.do .dodont-images figure:hover img { transform: scale(1.05); }
+  .dodont-col.dont .dodont-images img { filter: grayscale(0.5); }
+
+  /* =================================================================== */
+  /*  §10 — visual guide                                                  */
+  /* =================================================================== */
+  .vg-stage { margin-top: 2rem; position: relative; }
+  .vg-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+  .vg-tab {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    padding: 0.55rem 1.1rem;
+    font-family: var(--sans);
+    font-size: 0.82rem; font-weight: 500;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 180ms ease;
+  }
+  .vg-tab:hover { border-color: var(--pink); color: var(--ink); }
+  .vg-tab.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .vg-img-wrap {
+    position: relative;
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--paper);
+    box-shadow: 0 30px 60px -25px rgba(44, 53, 68, 0.3);
+  }
+  .vg-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    opacity: 0;
+    transition: opacity 400ms ease;
+  }
+  .vg-img.active { opacity: 1; }
+  .vg-caption {
+    margin-top: 1rem;
+    font-family: var(--hand);
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    transform: rotate(-0.5deg);
+    display: inline-block;
+  }
+
+  /* =================================================================== */
+  /*  §11 — what came through (mirror to §3)                              */
+  /* =================================================================== */
+  .mirror-section {
+    background: var(--paper-warm);
+  }
+  .mirror-row {
+    display: grid;
+    grid-template-columns: 1fr 60px 1.3fr;
+    gap: 0;
+    padding: 1.75rem 0;
+    border-bottom: 1px dashed var(--rule);
+    align-items: center;
+  }
+  .mirror-row:last-child { border-bottom: none; }
+  .mirror-from {
+    font-family: var(--hand);
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    color: var(--ink-soft);
+    line-height: 1.3;
+    padding-right: 1rem;
+  }
+  .mirror-arrow {
+    color: var(--pink);
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-align: center;
+    font-family: var(--hand);
+  }
+  .mirror-to {
+    font-weight: 700;
+    font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+    color: var(--ink);
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    padding-left: 1rem;
+  }
+  .mirror-to em { color: var(--pink); font-style: normal; }
+  @media (max-width: 720px) {
+    .mirror-row { grid-template-columns: 1fr; gap: 0.5rem; padding: 1.25rem 0; }
+    .mirror-from { padding-right: 0; }
+    .mirror-to { padding-left: 0; }
+    .mirror-arrow { text-align: left; font-size: 1.3rem; }
+  }
+
+  /* =================================================================== */
+  /*  CTA                                                                 */
+  /* =================================================================== */
+  .cta-section {
+    background: var(--ink);
+    padding: clamp(4rem, 8vh, 6rem) var(--x);
+    text-align: center;
+  }
+  .cta-h {
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.5rem;
+    line-height: 1.15;
+  }
+  .cta-h em { color: var(--yellow); font-style: italic; }
+  .cta-btn {
+    display: inline-block;
+    padding: 0.95rem 1.75rem;
+    background: var(--pink);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+  .cta-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--yellow);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body class="work-page">
+
+<div class="thread"><div class="thread-fill" id="thread"></div></div>
+
+<div class="cuts-switch" id="cutsSwitch">
+  <span class="cuts-switch-label">prefer the short version?</span>
+  <a class="cuts-switch-btn" href="rachna-nivas-cut-story.html">story cut</a>
+  <a class="cuts-switch-btn" href="rachna-nivas-cut-brand.html">brand cut</a>
+</div>
+
+<!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
      Sync into pages by running:  node scripts/sync-chrome.js
      ../ → path prefix to repo root (e.g. "" or "../") -->
@@ -132,9 +948,9 @@
   </button>
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
-    <a href="../work-new.html" data-nav="work-new">Work <sup style="font-size:0.62em;color:#E91E7B;font-weight:600;letter-spacing:0.05em;margin-left:2px;">NEW</sup></a>
     <a href="../services.html" data-nav="services">Services</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a href="../about.html" data-nav="about">About</a>
     <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
   </div>
 </nav>
@@ -142,10 +958,10 @@
   (function(){
     var path = window.location.pathname;
     var active = null;
-    if (/work-new\.html/.test(path)) active = 'work-new';
-    else if (/\/work(\/|$)/.test(path)) active = 'work';
+    if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
@@ -182,157 +998,390 @@
 </script>
 <!--END:NAV-->
 
-  <!-- Hero -->
-  <header class="rn-hero">
-    <div class="rn-hero-inner">
-      <p class="rn-eyebrow">a case study &mdash; rachna nivas</p>
-      <h1 class="rn-hero-title">A year of finding who she was.<br>Three weeks of writing it down.</h1>
-      <p class="rn-hero-dek">Rachna Nivas came to us mid-fellowship season with her voice obscured by the 5000-year tradition she embodied. We spent a year with her finding the voice. The brand book was what we made at the end.</p>
-      <div class="rn-meta-bar">
-        <ul class="cs-services">
-          <li>Identity</li><li>Leverage</li><li>Artifacts</li>
-        </ul>
-        <div class="cs-meta-row">
-          <span>USA</span><span>Sole practitioner</span><span>New brand</span>
-        </div>
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div>
+    <span class="hero-eyebrow">Rachna Nivas · Strategic coaching · Case study</span>
+    <h1>
+      Your voice is<br/>
+      already inside you.<br/>
+      <span class="accent">We help you uncover<br/>what&rsquo;s in the way.</span>
+    </h1>
+    <p class="hero-deck">Rachna had thirty years of Kathak practice and a brand of her own &mdash; she just couldn&rsquo;t get her voice out cleanly to the people she needed to reach. We worked with her for nine months to find the blocks and clear them, one by one. The brand book is what came through.</p>
+    <div class="hero-meta">
+      <span>Engagement<strong>Rachna Nivas &times; Joyus</strong></span>
+      <span>Discipline<strong>Strategic coaching</strong></span>
+      <span>Year<strong>Jan &ndash; Sep 2025</strong></span>
+    </div>
+  </div>
+  <div class="hero-photo reveal delay-1">
+    <img src="../images/work/rachna-nivas-2025/portrait.png" alt="Rachna Nivas" />
+  </div>
+</section>
+
+<!-- ============ §1 — what she came in with ============ -->
+<section class="sec premise">
+  <div class="sec-inner sec-narrow reveal">
+    <span class="sec-eyebrow">what she came in with</span>
+    <h2 class="sec-title">A voice that worked &mdash; in the room. Less so on the way <em>out.</em></h2>
+    <p>Rachna is a Kathak soloist with three decades of practice under Pandit Chitresh Das. She runs a teaching program. She tours. She had values she&rsquo;d been living by for years: <em>fire, riyaz, raise don&rsquo;t pander, no shortcuts</em>. The conviction was already there.</p>
+    <p>The thing she kept coming back to was a feeling that what she did wasn&rsquo;t reaching people. That she sounded different on stage than she did on social. That her photographers were sending the wrong kinds of shots. That her grant writing was somehow less than her grant thinking.</p>
+    <p class="premise-quote">&ldquo;What we do <em>just doesn&rsquo;t translate</em> on social media. I don&rsquo;t want to accept that.&rdquo;</p>
+    <span class="premise-attr">Rachna, January 2025</span>
+    <p>The voice was inside. Something kept getting in the way of it coming out.</p>
+  </div>
+</section>
+
+<!-- ============ §2 — where voice comes from ============ -->
+<section class="premise-block">
+  <div class="reveal">
+    <p class="big">Voice doesn&rsquo;t get <em>built</em>. It gets <em>uncovered</em>.</p>
+    <p class="small">our job isn&rsquo;t to write yours. it&rsquo;s to find what&rsquo;s blocking it.</p>
+  </div>
+</section>
+
+<!-- ============ §3 — the blocks ============ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">what we found</span>
+      <h2 class="sec-title">Four blocks &mdash; specific, fixable, in the <em>way of her voice</em>.</h2>
+      <p class="sec-deck">Across the first months, the same kinds of friction kept showing up. None of them were about Rachna lacking something. All of them were about something <em>between</em> her and the people she was trying to reach.</p>
+    </div>
+
+    <div class="blocks-grid reveal delay-1">
+      <article class="block">
+        <div class="block-num">i.</div>
+        <p class="block-q">&ldquo;What we do just doesn&rsquo;t translate.&rdquo;</p>
+        <h3 class="block-h">Wrong forms for the work</h3>
+        <p class="block-d">Mid-shot photos when the dance lives in long shot and close-up. Monotone storytelling without space for emotion to land. The forms she was using were built for someone else&rsquo;s practice.</p>
+      </article>
+      <article class="block">
+        <div class="block-num">ii.</div>
+        <p class="block-q">&ldquo;Maybe I&rsquo;m intimidating. Inaccessible. Elitist.&rdquo;</p>
+        <h3 class="block-h">Self-smallening</h3>
+        <p class="block-d">When other South Asian dancers in NYC didn&rsquo;t respond to her, she read it as a flaw of hers and started softening. The world pushes experts to make themselves smaller; she was complying without meaning to.</p>
+      </article>
+      <article class="block">
+        <div class="block-num">iii.</div>
+        <p class="block-q">&ldquo;A grant. A post. An email. A photo brief.&rdquo;</p>
+        <h3 class="block-h">Every channel a fresh problem</h3>
+        <p class="block-d">She was treating each communication as its own writing task instead of as the same voice coming through different surfaces. So each one took her hours and rarely sounded like the same person.</p>
+      </article>
+      <article class="block">
+        <div class="block-num">iv.</div>
+        <p class="block-q">&ldquo;I told them what I wanted. They sent something else.&rdquo;</p>
+        <h3 class="block-h">No shared vocabulary with collaborators</h3>
+        <p class="block-d">Her photographer, her video editor, her apprentices &mdash; they were all working from descriptions in her head. There was no document anyone could open and act from. Her voice stopped at the edge of the room she was in.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §4 — the work ============ -->
+<section class="sec work-section">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">how we worked</span>
+      <h2 class="sec-title">Nine months. <em>One question</em>, asked four ways.</h2>
+      <p class="sec-deck">We didn&rsquo;t structure the engagement as a brand project. We structured it around the blocks. Each one got its own kind of work, sometimes spread across many sessions, often sideways through unrelated requests &mdash; grant applications, festival prep, photo direction, the long conversations about what mattered to her.</p>
+    </div>
+
+    <div class="work-table reveal delay-1">
+      <div class="work-row head">
+        <div class="work-cell head-block">The block</div>
+        <div class="work-cell head-action">What we did</div>
+        <div class="work-cell head-out">What came through</div>
+      </div>
+      <div class="work-row">
+        <div class="work-cell block-c">Wrong forms for the work</div>
+        <div class="work-cell action-c">Pulled apart what she&rsquo;d been doing &mdash; her photos, her writing, her social presence. Named what wasn&rsquo;t serving her. Built up a picture of what would: dynamic poses, long shots, close-ups of hands and feet, sweat visible, no posing.</div>
+        <div class="work-cell out-c">A clear <strong>visual direction</strong>: five spreads of rules for what to shoot, plus a Do/Don&rsquo;t reference column the next photographer can act from in fifteen seconds.</div>
+      </div>
+      <div class="work-row">
+        <div class="work-cell block-c">Self-smallening</div>
+        <div class="work-cell action-c">Worked through it directly. The conviction she kept softening &mdash; uncompromising, fierce, demanding excellence &mdash; got named as a <em>value</em>, not a flaw. Each value got a Behaviors column (what it produces) and a Never column (what it refuses).</div>
+        <div class="work-cell out-c">A <strong>five-value framework</strong> she could check her own work against. The values she&rsquo;d been quietly apologising for became the ones she could lead with.</div>
+      </div>
+      <div class="work-row">
+        <div class="work-cell block-c">Every channel a fresh problem</div>
+        <div class="work-cell action-c">We worked across the channels &mdash; grants, posts, emails, photo briefs &mdash; not as separate writing exercises but as one voice coming through different surfaces. Tools (GPT prompts, warm-up writing, &ldquo;read it aloud&rdquo;) given so she could keep doing it on her own.</div>
+        <div class="work-cell out-c">A <strong>shared spine</strong> she could write from. The channels stopped being four problems and started being four expressions of the same thing.</div>
+      </div>
+      <div class="work-row">
+        <div class="work-cell block-c">No shared vocabulary with collaborators</div>
+        <div class="work-cell action-c">All of the above had to be written down in a form a third party could pick up and use. Three synthesis drafts, twenty-six days apart, each one a closer read of what she actually meant. The third draft was operational.</div>
+        <div class="work-cell out-c">A <strong>brand book</strong> built from the synthesis. Her voice handed off to collaborators with no translation loss.</div>
       </div>
     </div>
-  </header>
+  </div>
+</section>
 
-  <!-- Chapter 1 — arrival -->
-  <section class="rn-chapter rn-chapter--1" aria-labelledby="rn-ch1-head">
-    <div class="rn-chapter-inner">
-      <p class="rn-eyebrow rn-eyebrow--red">arrival</p>
-      <h2 id="rn-ch1-head" class="rn-chapter-head">A voice getting obscured.</h2>
-      <p class="rn-body">Rachna is a NYC-based Kathak artist, choreographer, educator, and activist. She came to us when she was applying for fellowships and residencies, and her voice kept getting lost &mdash; not in the writing, but under the weight of the 5000-year tradition she was carrying. The applications read like homages to the form. We read her website and her drafts and found the same thing every time: a case being made for why Kathak belonged in the room, with Rachna somewhere behind it.</p>
-
-      <blockquote class="rn-obscured">
-        &ldquo;Her voice was getting obscured, lost in the weight of the tradition she embodied.&rdquo;
-      </blockquote>
-
-      <figure class="rn-inline-fig">
-        <img src="../images/work/rachna-nivas/slide71-from.webp"
-             alt="Dense bio paragraph from Rachna Nivas's earlier artist profile &mdash; conventional third-person form, heavy with descriptors and tradition-first framing."
-             width="1400" height="340" loading="lazy">
-        <figcaption>the application voice, before.</figcaption>
-      </figure>
+<!-- ============ §5 — three drafts ============ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">writing it down</span>
+      <h2 class="sec-title">Three drafts, twenty-six days apart. The voice <em>getting clearer</em> each time.</h2>
+      <p class="sec-deck">Once the blocks were down enough, we tried to write what she sounded like. Three attempts, each one a closer match to her actual voice. The third one was operational: testable, transferable, true.</p>
     </div>
-  </section>
-
-  <!-- Chapter 2 — the year of work -->
-  <section class="rn-chapter rn-chapter--2" aria-labelledby="rn-ch2-head">
-    <div class="rn-chapter-inner">
-      <p class="rn-eyebrow rn-eyebrow--red">the year of work</p>
-      <h2 id="rn-ch2-head" class="rn-chapter-head">Show why you belong.<br>Don&rsquo;t make the case for it.</h2>
-      <p class="rn-body">The work wasn&rsquo;t copywriting. Rachna is already a storyteller &mdash; years on stage, years in the classroom, years as an activist. She can carry a room. What she needed was help bringing the skills she&rsquo;d honed in person to the written form &mdash; so the writing sounded like her, not like a footnote to her tradition.</p>
-
-      <figure class="rn-inline-fig rn-inline-fig--right">
-        <img src="../images/work/rachna-nivas/slide72-before.webp"
-             alt="Instagram post from @rachnanivas &mdash; a 2024 year-in-review reel with a long caption written in Rachna's earlier voice."
-             width="1400" height="1700" loading="lazy">
-        <figcaption>what she was writing when she arrived.</figcaption>
-      </figure>
-
-      <p class="rn-body">For most of a year we worked with her on that. Uncovering her motivations. Asking her to stop explaining Kathak and start speaking from inside it. Helping her show why she belonged, instead of making a case for it.</p>
-
-      <p class="rn-body">As her voice clarified, something else surfaced: she needed her own identity, separate from the guru sisters she&rsquo;d built her early career with.</p>
+    <div class="drafts reveal delay-1">
+      <article class="draft v1">
+        <span class="draft-tag">Vol 1 · Sep 4</span>
+        <span class="draft-num">i.</span>
+        <h3 class="draft-h">First read</h3>
+        <p class="draft-body">Four voice rules, four things she stands for. The right concepts, in the wrong shape &mdash; descriptive, not yet usable.</p>
+        <p class="draft-shift">Voice: Uncompromising / Inviting but Selective / Raw and Generous / Conscious and Political.</p>
+      </article>
+      <article class="draft v2">
+        <span class="draft-tag">Vol 2 · Sep 16</span>
+        <span class="draft-num">ii.</span>
+        <h3 class="draft-h">Where it collided</h3>
+        <p class="draft-body">Twice as long. <em>Fire</em> surfaces as a keyword. Two competing ways of saying what she stands for, both written into the same draft. A sign the synthesis wasn&rsquo;t done.</p>
+        <p class="draft-shift">One frame held: <strong>Fire / Body / Conscious / Craft Precision</strong>. The other one got dropped.</p>
+      </article>
+      <article class="draft v3">
+        <span class="draft-tag">Vol 3 · Sep 30</span>
+        <span class="draft-num">iii.</span>
+        <h3 class="draft-h">Made testable</h3>
+        <p class="draft-body">Five values, each with a Definition, a Behaviors column, and a Never column. A form a collaborator can pick up and act from.</p>
+        <p class="draft-shift">The shape that <strong>survived contact with her practice</strong>. The brand book was built from this.</p>
+      </article>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Chapter 3 — the artifact -->
-  <section class="rn-chapter rn-chapter--3" aria-labelledby="rn-ch3-head">
-    <div class="rn-chapter-inner">
-      <p class="rn-eyebrow rn-eyebrow--red">the artifact</p>
-      <h2 id="rn-ch3-head" class="rn-chapter-head">Three weeks to write down a year.</h2>
-      <p class="rn-body">The brand book came at the end. Three weeks of work after almost a year of conversations. What we put in it wasn&rsquo;t new &mdash; it was what we&rsquo;d already found, set down in a form her team could use without her in the room.</p>
-      <p class="rn-aside">three weeks, at the end of the year.</p>
+<!-- ============ §6 — Riyaz ============ -->
+<section class="sec riyaz-section">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">her word, played back</span>
+      <h2 class="sec-title">She had the word for it. The word was <em>riyaz</em>.</h2>
+      <p class="sec-deck">Riyaz is the daily practice in Indian classical music and dance &mdash; rigour as devotion, repetition as evolution, slowness as spiritual technology. She brought it in. We let it carry the frame. The mind-map we built around it became the spine of the rest of the work &mdash; every value, every voice rule, every visual choice traces back to one of these nodes.</p>
     </div>
-
-    <div class="rn-spreads">
-      <figure class="rn-spread" style="--rn-delay: 0ms">
-        <img src="../images/work/rachna-nivas/slide73-brand-1.webp"
-             alt='brand book spread &mdash; "Who is Rachna," first-person declaration on red'
-             width="1400" height="788" loading="lazy">
-        <figcaption class="rn-spread-caption">the voice, on a page.</figcaption>
-      </figure>
-      <figure class="rn-spread" style="--rn-delay: 120ms">
-        <img src="../images/work/rachna-nivas/slide73-brand-3.webp"
-             alt='brand book spread &mdash; "Body and Physicality," rules for how the body is written and framed'
-             width="1400" height="788" loading="lazy">
-        <figcaption class="rn-spread-caption">how to speak about what the body does.</figcaption>
-      </figure>
-      <figure class="rn-spread" style="--rn-delay: 240ms">
-        <img src="../images/work/rachna-nivas/slide73-brand-2.webp"
-             alt='brand book spread &mdash; "Beliefs," four core principles of the practice'
-             width="1400" height="788" loading="lazy">
-        <figcaption class="rn-spread-caption">four lines to stop having the same conversation twice.</figcaption>
-      </figure>
+    <div class="riyaz-stage reveal delay-1">
+      <svg class="riyaz-svg" id="riyaz-svg" preserveAspectRatio="none" aria-hidden="true"></svg>
+      <div class="riyaz-center">riyaz</div>
+      <div class="riyaz-node" style="top:8%; left:50%;">Longevity of the practice</div>
+      <div class="riyaz-node" style="top:14%; left:18%;">Energy cultivation (tapasya)</div>
+      <div class="riyaz-node" style="top:18%; left:82%;">Slow impact across time</div>
+      <div class="riyaz-node" style="top:30%; left:8%;">Physical components</div>
+      <div class="riyaz-node" style="top:32%; left:92%;">Spiritual components</div>
+      <div class="riyaz-node" style="top:46%; left:5%;">Muscle memory as spiritual memory</div>
+      <div class="riyaz-node" style="top:50%; left:95%;">Daily revolutions</div>
+      <div class="riyaz-node" style="top:62%; left:8%;">Self-confrontational</div>
+      <div class="riyaz-node" style="top:66%; left:90%;">Solitary practice</div>
+      <div class="riyaz-node" style="top:78%; left:14%;">Connection unique to you</div>
+      <div class="riyaz-node" style="top:82%; left:84%;">Spirituality from practice</div>
+      <div class="riyaz-node" style="top:92%; left:50%;">In the end &mdash; sadhana</div>
+      <div class="riyaz-node" style="top:38%; left:32%;">Purpose</div>
+      <div class="riyaz-node" style="top:38%; left:68%;">History</div>
+      <div class="riyaz-node" style="top:62%; left:32%;">Educate</div>
+      <div class="riyaz-node" style="top:62%; left:68%;">Evolution</div>
     </div>
+  </div>
+</section>
 
-    <div class="rn-chapter-inner">
-      <p class="rn-body">A voice guide. Four beliefs. Rules for how to speak about the body. A visual guide for videographers and editors. The book isn&rsquo;t the engagement. The book is what the engagement produced.</p>
-    </div>
-  </section>
-
-  <!-- Chapter 4 — breaking the rules -->
-  <section class="rn-chapter rn-chapter--4" aria-labelledby="rn-ch4-head">
-    <div class="rn-chapter-inner">
-      <p class="rn-eyebrow rn-eyebrow--red">breaking the rules</p>
-      <h2 id="rn-ch4-head" class="rn-chapter-head">Authenticity beat the algorithm.</h2>
-
-      <p class="rn-body">Once the voice was there, the next pressure came from the usual place: make short videos, simplify for people who don&rsquo;t know the form, post more often, feed the algorithm.</p>
-
-      <p class="rn-body">We told her to ignore all of it. Lean into what she already knew. Keep a tight frame through the video. Let the audience work a little. Own the written form.</p>
-
-      <dl class="rn-callout" aria-label="Conventional advice versus what Joyus advised Rachna">
-        <div class="rn-callout-col rn-callout-col--conventional">
-          <dt>the advice everyone gives</dt>
-          <dd>
-            <ul>
-              <li>Short, digestible videos.</li>
-              <li>Simplify the form.</li>
-              <li>Feed the algorithm.</li>
-            </ul>
-          </dd>
-        </div>
-        <div class="rn-callout-col rn-callout-col--joyus">
-          <dt>what we told Rachna</dt>
-          <dd>
-            <ul>
-              <li>Lean into your knowledge.</li>
-              <li>Keep a tight frame.</li>
-              <li>Own the written form.</li>
-            </ul>
-          </dd>
-        </div>
-      </dl>
-
-      <p class="rn-body">The long-form, knowledge-forward posts pulled many times the engagement of the short ones. More importantly, a rising presence in the NYC arts scene &mdash; and a loop we&rsquo;d been hoping for: authenticity bringing in more meaningful contacts, which brought in more meaningful collaborations, which sharpened the voice further.</p>
+<!-- ============ §7 — values testable ============ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">the form that worked</span>
+      <h2 class="sec-title">Five values, each with a <em>Behaviors</em> and a <em>Never</em>.</h2>
+      <p class="sec-deck">A value without a behavior is a poster. The shape we landed on forces every value through two columns &mdash; the action it produces in the world, and the failure mode it must reject. If you can&rsquo;t fill both, the value isn&rsquo;t real yet. This is the form that finally became operational for Rachna.</p>
     </div>
 
-    <div class="rn-evidence">
-      <figure class="rn-evidence-fig">
-        <img src="../images/work/rachna-nivas/slide71-to.webp"
-             alt="Instagram post from @rachnanivas &mdash; 2024 year in review, long-form caption on performance highlights."
-             width="1400" height="1700" loading="lazy">
-        <figcaption>a long-form post from late 2024.</figcaption>
-      </figure>
-      <figure class="rn-evidence-fig">
-        <img src="../images/work/rachna-nivas/slide72-after.webp"
-             alt="Instagram post from @rachnanivas &mdash; Inside Riyaz Series, long-form caption on authenticity versus digital spectacle."
-             width="1400" height="1700" loading="lazy">
-        <figcaption>the Inside Riyaz series &mdash; her practice room, her frame.</figcaption>
-      </figure>
+    <div class="values-grid reveal delay-1">
+      <article class="value-card">
+        <span class="value-num">i. value</span>
+        <h3 class="value-title">Fire</h3>
+        <p class="value-def">Unwavering force in service of truth, transformational, fueling a lifelong pursuit of excellence.</p>
+        <div class="value-row"><span class="label">Behaviors</span><p>trains past comfort, speaks plainly, sets real stakes</p></div>
+        <div class="value-row never"><span class="label">Never</span><p>soften for palatability, perform intensity without work</p></div>
+      </article>
+      <article class="value-card">
+        <span class="value-num">ii. value</span>
+        <h3 class="value-title">Raw &amp; Generous</h3>
+        <p class="value-def">Vulnerability offered with strength. Sharing her spirit and energy so others can rise.</p>
+        <div class="value-row"><span class="label">Behaviors</span><p>shows struggle and recovery, speaks truth without sugar-coating, credits lineage</p></div>
+        <div class="value-row never"><span class="label">Never</span><p>performative &ldquo;authenticity,&rdquo; coddling or false harmony</p></div>
+      </article>
+      <article class="value-card">
+        <span class="value-num">iii. value</span>
+        <h3 class="value-title">Body &amp; Physicality</h3>
+        <p class="value-def">The body is a sacred instrument and athletic engine. Embodiment is truth, not metaphor.</p>
+        <div class="value-row"><span class="label">Behaviors</span><p>shows sweat, precision footwork, stamina; protects and rebuilds; honors limits intelligently</p></div>
+        <div class="value-row never"><span class="label">Never</span><p>ornamental softness that hides effort, spiritual bypassing, body shaming</p></div>
+      </article>
+      <article class="value-card">
+        <span class="value-num">iv. value</span>
+        <h3 class="value-title">Conscious &amp; Political</h3>
+        <p class="value-def">Feminine power centered, decolonial clarity, Eastern thought honored on its own terms, culture raised not pandered to.</p>
+        <div class="value-row"><span class="label">Behaviors</span><p>names structures, prices and programs with sovereignty, holds standards for audience and self</p></div>
+        <div class="value-row never"><span class="label">Never</span><p>exoticize, sanitize dissent, neutrality on erasure</p></div>
+      </article>
+      <article class="value-card">
+        <span class="value-num">v. value</span>
+        <h3 class="value-title">Craft Precision &amp; Mastery</h3>
+        <p class="value-def">Riyaz as science and prayer. Earned strength through repetition, dance held to the standard of elite sport.</p>
+        <div class="value-row"><span class="label">Behaviors</span><p>measurable cycles, no shortcuts, rhythm as engine, post-practice reflection for energetic balance</p></div>
+        <div class="value-row never"><span class="label">Never</span><p>vibes over accuracy, aesthetics over form, &ldquo;good enough&rdquo; reps</p></div>
+      </article>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- Closing — shared -->
-  <section class="cs-closing">
-    <span class="cs-closing-label">your move</span>
-    <h3>Need to sound more like yourself in writing? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
-    <span class="cs-closing-hint">hello@joyus.studio &middot; we read everything</span>
-    <a class="cs-next" href="index.html">all case studies <span class="arrow">&rarr;</span></a>
-  </section>
+<!-- ============ §8 — behavior to direction ============ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">from value to direction</span>
+      <h2 class="sec-title">A behavior is something a <em>third party</em> can act on.</h2>
+      <p class="sec-deck">Once each value had a Behaviors column, the channel-specific direction wrote itself. A photographer reads &ldquo;trains past comfort&rdquo; and knows what to shoot. A copywriter reads &ldquo;speaks plainly&rdquo; and knows what to cut. The conversion is what makes the voice transferable.</p>
+    </div>
+    <div class="conv reveal delay-1">
+      <div class="conv-row">
+        <div class="conv-from">Trains past comfort</div>
+        <div class="conv-arrow">&rarr;</div>
+        <div class="conv-to">Show sweat. Show stamina. Show the body working &mdash; not posed.</div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-from">Speaks plainly</div>
+        <div class="conv-arrow">&rarr;</div>
+        <div class="conv-to">Strong shapes. Sharp focus. No softening filters or staged angles.</div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-from">Credits lineage</div>
+        <div class="conv-arrow">&rarr;</div>
+        <div class="conv-to">Capture musicians with the artists. Show the room, the collaborators, the chain she came from.</div>
+      </div>
+      <div class="conv-row">
+        <div class="conv-from">Never: soften for palatability</div>
+        <div class="conv-arrow">&rarr;</div>
+        <div class="conv-to">No dark, moody, blurred. No pastels or vintage faded. No &ldquo;artistic&rdquo; that distracts from the dance.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- (removed: Do/Don't reference grid — redundant with the visual guide below, and the
+     individual photo references would need to be re-curated against the actual final shoots) -->
+
+<!-- ============ §10 — visual guide ============ -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="reveal">
+      <span class="sec-eyebrow">the spreads</span>
+      <h2 class="sec-title">Five visual rules. Each one teaches the eye <em>one thing</em>.</h2>
+      <p class="sec-deck">The Do/Don&rsquo;t lives in a wider visual guide &mdash; five spreads, each isolating a single rule and pairing it with reference frames the team can match against. Aesthetic, physicality, context, balance, what to avoid.</p>
+    </div>
+    <div class="vg-stage reveal delay-1">
+      <div class="vg-tabs" role="tablist">
+        <button class="vg-tab active" data-vg="aesthetic">Aesthetic</button>
+        <button class="vg-tab" data-vg="physicality">Physicality</button>
+        <button class="vg-tab" data-vg="contextualize">Contextualize</button>
+        <button class="vg-tab" data-vg="balance">Balance of fire &amp; play</button>
+        <button class="vg-tab" data-vg="avoid">Avoid</button>
+      </div>
+      <div class="vg-img-wrap">
+        <img class="vg-img active" data-vg="aesthetic" src="../images/work/rachna-nivas-2025/vg-aesthetic.png" alt="Aesthetic spread" />
+        <img class="vg-img" data-vg="physicality" src="../images/work/rachna-nivas-2025/vg-physicality.png" alt="Physicality spread" />
+        <img class="vg-img" data-vg="contextualize" src="../images/work/rachna-nivas-2025/vg-contextualize.png" alt="Contextualize spread" />
+        <img class="vg-img" data-vg="balance" src="../images/work/rachna-nivas-2025/vg-balance.png" alt="Balance of fire and play spread" />
+        <img class="vg-img" data-vg="avoid" src="../images/work/rachna-nivas-2025/vg-avoid.png" alt="Avoid spread" />
+      </div>
+      <p class="vg-caption" id="vg-caption">Dynamic poses. Refinement in expression. Fabric in motion. Sharp focus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §11 — what came through ============ -->
+<section class="sec mirror-section">
+  <div class="sec-inner sec-narrow">
+    <div class="reveal">
+      <span class="sec-eyebrow">what came through</span>
+      <h2 class="sec-title">The same four blocks &mdash; with the <em>voice</em> coming through.</h2>
+      <p class="sec-deck">Mirror the blocks back. The voice that was inside her all along now has a clear way out.</p>
+    </div>
+    <div class="reveal delay-1">
+      <div class="mirror-row">
+        <div class="mirror-from">&ldquo;What we do just doesn&rsquo;t translate.&rdquo;</div>
+        <div class="mirror-arrow">&rarr;</div>
+        <div class="mirror-to">A photographer can shoot it in <em>fifteen seconds</em>.</div>
+      </div>
+      <div class="mirror-row">
+        <div class="mirror-from">&ldquo;Maybe I&rsquo;m intimidating, inaccessible, elitist.&rdquo;</div>
+        <div class="mirror-arrow">&rarr;</div>
+        <div class="mirror-to">The conviction has a name. <em>Fierce and nurturing</em>, with a Behaviors column.</div>
+      </div>
+      <div class="mirror-row">
+        <div class="mirror-from">&ldquo;A grant. A post. An email. A photo brief.&rdquo;</div>
+        <div class="mirror-arrow">&rarr;</div>
+        <div class="mirror-to">One spine. Four expressions of <em>the same voice</em>.</div>
+      </div>
+      <div class="mirror-row">
+        <div class="mirror-from">&ldquo;I told them what I wanted. They sent something else.&rdquo;</div>
+        <div class="mirror-arrow">&rarr;</div>
+        <div class="mirror-to">A book her collaborators can <em>open and act from</em>.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CLOSING ============ -->
+<style>
+  .cs-closing {
+    padding: clamp(4rem, 10vh, 7rem) var(--x, clamp(1.5rem, 4vw, 3rem)) clamp(3rem, 6vh, 5rem);
+    position: relative;
+    overflow: hidden;
+    border-top: 2px solid var(--ink, #2C3544);
+    background: var(--bg, #FAF7F2);
+    color: var(--ink, #2C3544);
+    z-index: 20;
+  }
+  .cs-closing-label {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft, #54606F);
+    margin: 0 0 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  .cs-closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--cyan, #4FC4CF);
+  }
+  .cs-closing h3 {
+    font-family: 'Space Grotesk', system-ui, sans-serif; font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em; line-height: 1.15;
+    color: var(--ink, #2C3544); max-width: 720px; margin: 0 0 0.75rem;
+  }
+  .cs-closing h3 em { font-style: normal; color: var(--pink, #E91E7B); }
+  .cs-closing h3 a {
+    border-bottom: 3px solid var(--pink, #E91E7B);
+    padding-bottom: 2px; color: var(--pink, #E91E7B); text-decoration: none;
+  }
+  .cs-closing h3 a:hover { color: var(--ink, #2C3544); border-bottom-color: var(--ink, #2C3544); }
+  .cs-closing .cs-closing-hint {
+    display: block; font-size: 0.9rem; color: var(--ink-fade, #8892A0);
+    font-family: 'Space Grotesk', system-ui, sans-serif; letter-spacing: 0.04em;
+  }
+  .cs-closing .cs-next {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    margin-top: 2rem; font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-size: 0.92rem; color: var(--ink-soft, #54606F); text-decoration: none;
+  }
+  .cs-closing .cs-next:hover { color: var(--pink, #E91E7B); }
+  .cs-closing .cs-next .arrow { transition: transform 0.25s; }
+  .cs-closing .cs-next:hover .arrow { transform: translateX(4px); }
+</style>
+<section class="cs-closing">
+  <span class="cs-closing-label">your move</span>
+  <h3>Have a voice that isn&rsquo;t <em>coming through</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+  <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+  <a class="cs-next" href="tatsam.html">next case study: tatsam <span class="arrow">→</span></a>
+</section>
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
@@ -368,41 +1417,67 @@
 </footer>
 <!--END:FOOT-->
 
-  <script>
-    (function () {
-      var supportsIO = 'IntersectionObserver' in window;
-      if (!supportsIO) {
-        document.querySelectorAll('.rn-obscured').forEach(function (el) { el.classList.add('revealed'); });
-        document.querySelectorAll('.rn-spread').forEach(function (el) { el.classList.add('visible'); });
-        return;
-      }
-      var obscured = document.querySelector('.rn-obscured');
-      if (obscured) {
-        var io1 = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) {
-              e.target.classList.add('revealed');
-              io1.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.4 });
-        io1.observe(obscured);
-      }
-      var spreads = document.querySelectorAll('.rn-spread');
-      if (spreads.length) {
-        var io2 = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) {
-            if (e.isIntersecting) {
-              e.target.classList.add('visible');
-              io2.unobserve(e.target);
-            }
-          });
-        }, { threshold: 0.2 });
-        spreads.forEach(function (el) { io2.observe(el); });
-      }
-    })();
-  </script>
+<script>
+const thread = document.getElementById('thread');
+window.addEventListener('scroll', () => {
+  const total = document.body.scrollHeight - window.innerHeight;
+  thread.style.width = Math.min(100, Math.max(0, (window.scrollY / total) * 100)) + '%';
+}, { passive: true });
 
-  <script src="../shape-echo.js"></script>
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+(function(){
+  const svg = document.getElementById('riyaz-svg');
+  if (!svg) return;
+  function draw() {
+    const stage = svg.parentElement;
+    const w = stage.clientWidth, h = stage.clientHeight;
+    svg.setAttribute('viewBox', `0 0 ${w} ${h}`);
+    svg.innerHTML = '';
+    const cx = w/2, cy = h/2;
+    stage.querySelectorAll('.riyaz-node').forEach(node => {
+      const r = node.getBoundingClientRect();
+      const sr = stage.getBoundingClientRect();
+      const nx = r.left - sr.left + r.width/2;
+      const ny = r.top - sr.top + r.height/2;
+      const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      line.setAttribute('class', 'riyaz-line');
+      line.setAttribute('x1', cx); line.setAttribute('y1', cy);
+      line.setAttribute('x2', nx); line.setAttribute('y2', ny);
+      svg.appendChild(line);
+    });
+  }
+  draw();
+  let t;
+  window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 120); });
+  setTimeout(draw, 600);
+})();
+
+(function(){
+  const tabs = document.querySelectorAll('.vg-tab');
+  const imgs = document.querySelectorAll('.vg-img');
+  const cap = document.getElementById('vg-caption');
+  const captions = {
+    'aesthetic': 'Dynamic poses. Refinement in expression. Fabric in motion. Sharp focus.',
+    'physicality': 'The incredible range of the body in motion. Agility, strength, athletic capacity, clean lines.',
+    'contextualize': 'Capture the collaborators, the music, the audience, the space the dance is adapting to.',
+    'balance': 'Strength and play. Closeups on interaction with the taal. Pause, rest, reset between beats.',
+    'avoid': 'Dark and moody. Blurred. Overly artistic. Unnatural lighting. Posed.'
+  };
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const k = tab.dataset.vg;
+      tabs.forEach(t => t.classList.remove('active'));
+      imgs.forEach(i => i.classList.remove('active'));
+      tab.classList.add('active');
+      document.querySelector(`.vg-img[data-vg="${k}"]`).classList.add('active');
+      if (cap) cap.textContent = captions[k] || '';
+    });
+  });
+})();
+</script>
 </body>
 </html>
