@@ -225,26 +225,43 @@
   }
   .btn-secondary:hover { color: var(--pink); border-bottom-color: var(--pink); }
 
-  /* ============ QUOTES BAND (rotating pull-quotes) ============ */
+  /* ============ QUOTES BAND (continuous ticker) ============ */
   .quotes-band {
-    padding: clamp(3rem, 6vh, 4.5rem) var(--x);
-    max-width: 1280px;
-    margin: 0 auto;
+    padding: clamp(3rem, 6vh, 4.5rem) 0 clamp(3rem, 6vh, 4.5rem);
     border-top: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .quotes-band > .section-head {
+    padding: 0 var(--x);
+    max-width: 1280px;
+    margin: 0 auto 1.75rem;
   }
   .quotes-band .section-head h2::before { background: var(--pink); }
-  .quotes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  .quotes-ticker {
+    display: flex;
     gap: 1.25rem;
-    margin-top: 0.5rem;
+    width: max-content;
+    padding-left: var(--x);
+    padding-right: var(--x);
+    animation: quote-ticker 110s linear infinite;
+    will-change: transform;
   }
-  .quote-cell {
+  .quotes-ticker:hover { animation-play-state: paused; }
+  @media (prefers-reduced-motion: reduce) {
+    .quotes-ticker { animation: none; padding-right: 0; }
+  }
+  @keyframes quote-ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .quote-card {
+    flex-shrink: 0;
+    width: 360px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 2.25rem 1.75rem 1.6rem;
-    min-height: 290px;
+    padding: 1.85rem 1.5rem 1.4rem 1.6rem;
     background: #fff;
     border: 1px solid var(--rule);
     border-left: 3px solid var(--pink);
@@ -252,28 +269,30 @@
     text-decoration: none;
     color: var(--ink);
     position: relative;
-    transition: opacity 700ms ease, border-color 200ms ease, transform 200ms ease;
+    transition: transform 200ms ease, box-shadow 200ms ease;
     box-shadow: 0 2px 8px rgba(44, 53, 68, 0.04);
   }
-  .quote-cell::before {
+  .quote-card::before {
     content: "\201C";
-    position: absolute; top: 0.4rem; left: 1rem;
+    position: absolute; top: 0.3rem; left: 0.85rem;
     font-family: var(--hand);
     font-size: 3rem; color: var(--pink);
     opacity: 0.18; line-height: 1;
     pointer-events: none;
   }
-  .quote-cell.fading { opacity: 0; }
-  .quote-cell:hover { transform: translateY(-2px); }
-  .quote-cell .q {
+  .quote-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(44, 53, 68, 0.08);
+  }
+  .quote-card .q {
     font-family: var(--sans);
-    font-size: 1.05rem;
+    font-size: 0.98rem;
     line-height: 1.45;
     color: var(--ink);
     margin: 0 0 1.25rem;
     flex-grow: 1;
   }
-  .quote-cell .attr {
+  .quote-card .attr {
     font-family: var(--sans);
     font-size: 0.78rem;
     font-weight: 500;
@@ -281,15 +300,138 @@
     letter-spacing: 0.04em;
     transition: color 200ms;
   }
-  .quote-cell:hover .attr { color: var(--pink); }
-  @media (max-width: 900px) {
-    .quotes-grid { grid-template-columns: 1fr 1fr; }
-    .quote-cell:nth-child(3) { grid-column: span 2; min-height: auto; }
-  }
+  .quote-card:hover .attr { color: var(--pink); }
   @media (max-width: 600px) {
-    .quotes-grid { grid-template-columns: 1fr; }
-    .quote-cell:nth-child(3) { grid-column: auto; }
-    .quote-cell { min-height: 200px; }
+    .quote-card { width: 280px; padding: 1.4rem 1.2rem 1.1rem 1.4rem; }
+    .quote-card .q { font-size: 0.92rem; }
+  }
+
+  /* ============ TOPICS (recurring themes) ============ */
+  .topics {
+    padding: clamp(3rem, 7vh, 5rem) var(--x);
+    max-width: 1280px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  .topics > .section-head { order: 0; }
+  .topics > .chip-strip { order: 1; }
+  .topics > .topic-panel { order: 2; }
+  .topics .section-head h2::before { background: var(--cyan); }
+
+  .chip-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.75rem;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--rule);
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.92rem;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: border-color 200ms, background 200ms, color 200ms, transform 200ms;
+  }
+  .chip:hover { border-color: var(--pink); transform: translateY(-1px); }
+  /* Active chip via sibling selector — works without :has() */
+  #topic-creative:target ~ .chip-strip .chip[href="#topic-creative"],
+  #topic-founders:target ~ .chip-strip .chip[href="#topic-founders"],
+  #topic-behavior:target ~ .chip-strip .chip[href="#topic-behavior"],
+  #topic-story:target ~ .chip-strip .chip[href="#topic-story"],
+  #topic-design:target ~ .chip-strip .chip[href="#topic-design"],
+  #topic-money:target ~ .chip-strip .chip[href="#topic-money"],
+  #topic-society:target ~ .chip-strip .chip[href="#topic-society"],
+  #topic-ai:target ~ .chip-strip .chip[href="#topic-ai"] {
+    background: var(--pink);
+    color: #fff;
+    border-color: var(--pink);
+  }
+
+  .topic-panel {
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.5rem 1.75rem 1.25rem;
+    scroll-margin-top: 100px;
+  }
+  .topic-panel:not(.rest) { display: none; }
+  .topic-panel:target { display: block; }
+  .topic-panel.rest {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+    background: rgba(44, 53, 68, 0.02);
+    border-style: dashed;
+  }
+  /* Hide rest when any panel is :target — works without :has() (rest is last in DOM) */
+  .topic-panel:target ~ .topic-panel.rest { display: none; }
+
+  .topic-panel.rest .rest-hint {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--ink-fade);
+  }
+  .topic-blurb {
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0 0 1rem;
+    font-style: italic;
+  }
+  .topic-eps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .topic-eps li { border-top: 1px solid var(--rule); }
+  .topic-eps li:first-child { border-top: none; }
+  .topic-eps a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.85rem 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 200ms, transform 200ms;
+    gap: 1rem;
+  }
+  .topic-eps a:hover {
+    color: var(--pink);
+    transform: translateX(4px);
+  }
+  .topic-eps .ep-name {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 500;
+    flex-grow: 1;
+  }
+  .topic-eps .ep-meta {
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--ink-fade);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .topic-eps a:hover .ep-meta { color: var(--pink); }
+  @media (max-width: 600px) {
+    .chip-strip { gap: 0.4rem; }
+    .chip { font-size: 0.85rem; padding: 0.45rem 0.85rem; }
+    .topic-eps a { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
   }
 
   /* ============ SERIES (listen in order) ============ */
@@ -791,16 +933,86 @@
     </div>
   </section>
 
-  <!-- =========== QUOTES BAND (rotating) =========== -->
+  <!-- =========== QUOTES BAND (continuous ticker) =========== -->
   <section class="quotes-band">
     <div class="section-head">
       <h2>lines that stuck</h2>
       <span class="aside">straight from the tape</span>
     </div>
-    <div class="quotes-grid" id="quotes-grid">
-      <a class="quote-cell" data-pool="0" href="#"><p class="q"></p><span class="attr"></span></a>
-      <a class="quote-cell" data-pool="1" href="#"><p class="q"></p><span class="attr"></span></a>
-      <a class="quote-cell" data-pool="2" href="#"><p class="q"></p><span class="attr"></span></a>
+    <div class="quotes-ticker">
+      <a class="quote-card" href="podcast/thinking-on-kindness-vs-niceness.html">
+        <p class="q">"Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent."</p>
+        <span class="attr">Thinking on Kindness vs Niceness · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
+        <p class="q">"Satisfaction and success are not the same pursuit. You can feel deeply satisfied without any external marker of success, and wildly successful without any satisfaction."</p>
+        <span class="attr">Satisfaction with Success — with Lena Chaihorsky · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-caring-and-being-invested.html">
+        <p class="q">"There's a difference between being interested in something and being invested in it. One is about curiosity; the other is about whether you're willing to do something about it."</p>
+        <span class="attr">Thinking on Caring and Being Invested · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-courage-vs-daring.html">
+        <p class="q">"There's a certain degree of tedium in being courageous that I find exhausting. But in making daring decisions, there's a degree of excitement and surprising positive feedback."</p>
+        <span class="attr">Thinking on Courage vs Daring · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html">
+        <p class="q">"Failure is not one thing. There's the cognitive experience of failure, where you analyze what went wrong, and the emotional experience, where you feel it in your body."</p>
+        <span class="attr">Cognitive vs Emotional — Models for Failure · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html">
+        <p class="q">"We have a very Silicon Valley definition of what connection and loneliness look like. But loneliness looks very different for different people."</p>
+        <span class="attr">Accepted Truths, Defaults & How We Got Here · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-building-trust.html">
+        <p class="q">"The stories we choose to tell build trust and demonstrate the values of our organizations. Leaders who are deliberate about the stories they propagate shape their culture."</p>
+        <span class="attr">Thinking on Building Trust · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html">
+        <p class="q">"Sometimes the most successful things come from the most absurd starting points. The absurdity is not a bug — it's what makes it memorable."</p>
+        <span class="attr">Absurdist Successes (1000xresist) — Success Pt 7 · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html">
+        <p class="q">"Creative coding is this beautiful intersection where logic and expression meet. You're not just solving a problem — you're making something that didn't exist before."</p>
+        <span class="attr">Coding, Creativity & Culture — with Computational Mama · listen →</span>
+      </a>
+      <!-- duplicate set for seamless loop -->
+      <a class="quote-card" href="podcast/thinking-on-kindness-vs-niceness.html" aria-hidden="true">
+        <p class="q">"Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent."</p>
+        <span class="attr">Thinking on Kindness vs Niceness · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html" aria-hidden="true">
+        <p class="q">"Satisfaction and success are not the same pursuit. You can feel deeply satisfied without any external marker of success, and wildly successful without any satisfaction."</p>
+        <span class="attr">Satisfaction with Success — with Lena Chaihorsky · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-caring-and-being-invested.html" aria-hidden="true">
+        <p class="q">"There's a difference between being interested in something and being invested in it. One is about curiosity; the other is about whether you're willing to do something about it."</p>
+        <span class="attr">Thinking on Caring and Being Invested · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-courage-vs-daring.html" aria-hidden="true">
+        <p class="q">"There's a certain degree of tedium in being courageous that I find exhausting. But in making daring decisions, there's a degree of excitement and surprising positive feedback."</p>
+        <span class="attr">Thinking on Courage vs Daring · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html" aria-hidden="true">
+        <p class="q">"Failure is not one thing. There's the cognitive experience of failure, where you analyze what went wrong, and the emotional experience, where you feel it in your body."</p>
+        <span class="attr">Cognitive vs Emotional — Models for Failure · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html" aria-hidden="true">
+        <p class="q">"We have a very Silicon Valley definition of what connection and loneliness look like. But loneliness looks very different for different people."</p>
+        <span class="attr">Accepted Truths, Defaults & How We Got Here · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-building-trust.html" aria-hidden="true">
+        <p class="q">"The stories we choose to tell build trust and demonstrate the values of our organizations. Leaders who are deliberate about the stories they propagate shape their culture."</p>
+        <span class="attr">Thinking on Building Trust · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html" aria-hidden="true">
+        <p class="q">"Sometimes the most successful things come from the most absurd starting points. The absurdity is not a bug — it's what makes it memorable."</p>
+        <span class="attr">Absurdist Successes (1000xresist) — Success Pt 7 · listen →</span>
+      </a>
+      <a class="quote-card" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html" aria-hidden="true">
+        <p class="q">"Creative coding is this beautiful intersection where logic and expression meet. You're not just solving a problem — you're making something that didn't exist before."</p>
+        <span class="attr">Coding, Creativity & Culture — with Computational Mama · listen →</span>
+      </a>
     </div>
   </section>
 
@@ -849,6 +1061,101 @@
       </a>
 
     </div>
+  </section>
+
+  <!-- =========== TOPICS (recurring themes) =========== -->
+  <section class="topics" id="topics">
+    <div class="section-head">
+      <h2>recurring threads</h2>
+      <span class="aside">what the show keeps coming back to</span>
+    </div>
+
+    <div class="topic-panel" id="topic-creative">
+      <p class="topic-blurb">How work actually gets made — drafts, dead ends, voice.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/thinking-on-the-creative-process.html"><span class="ep-name">Thinking on the Creative Process</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html"><span class="ep-name">Spilling Some Tea on Writing as Communication and Art</span><span class="ep-meta">38 min</span></a></li>
+        <li><a href="podcast/anuki-premachandra-planting-the-seeds-for-understanding.html"><span class="ep-name">Anuki Premachandra: Planting the Seeds for Understanding</span><span class="ep-meta">interview</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-founders">
+      <p class="topic-blurb">Long conversations with people building things.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/almora-crafting-desire-in-business.html"><span class="ep-name">Almora — Crafting Desire in Business</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html"><span class="ep-name">Ambika Singh (Armoire) — Balancing Energy, Expectations &amp; Perfectionism</span><span class="ep-meta">interview</span></a></li>
+        <li><a href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html"><span class="ep-name">Lena Chaihorsky (Alva10) — Satisfaction with Success</span><span class="ep-meta">interview</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-behavior">
+      <p class="topic-blurb">Why people do what they do — and what changes it.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/thinking-on-decision-making-when-you-lack-certainty.html"><span class="ep-name">Thinking on Decision Making When You Lack Certainty</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/thinking-on-caring-and-being-invested.html"><span class="ep-name">Thinking on Caring and Being Invested</span><span class="ep-meta">solo riff</span></a></li>
+        <li><a href="podcast/thinking-on-kindness-vs-niceness.html"><span class="ep-name">Thinking on Kindness vs Niceness</span><span class="ep-meta">solo riff</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-story">
+      <p class="topic-blurb">The gap between what you say and what lands.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/cranberry-fit-diving-into-storytelling.html"><span class="ep-name">Cranberry.Fit — Diving into Storytelling</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/story-vs-telling-part-1.html"><span class="ep-name">Story vs Telling, Part 1</span><span class="ep-meta">series</span></a></li>
+        <li><a href="podcast/thinking-on-building-trust.html"><span class="ep-name">Thinking on Building Trust</span><span class="ep-meta">solo riff</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-design">
+      <p class="topic-blurb">Game design, product design, the texture of a thing.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/anurati-srivastva-on-games-and-game-design-with-divya.html"><span class="ep-name">Anurati Srivastva on Games and Game Design</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/thinking-on-designing-for-the-end.html"><span class="ep-name">Thinking on Designing for the End</span><span class="ep-meta">solo riff</span></a></li>
+        <li><a href="podcast/thinking-on-designing-spaces-and-changing-your-mind.html"><span class="ep-name">Thinking on Designing Spaces and Changing Your Mind</span><span class="ep-meta">solo riff</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-money">
+      <p class="topic-blurb">Pricing, fundraising, growth — the boring-hard parts.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/machphy-cool-glide-to-funding.html"><span class="ep-name">MachPhy — Cool Glide to Funding</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/503-building-and-selling-a-food-business-with-smiqql-s-dina-holzapfel.html"><span class="ep-name">Dina Holzapfel (Smiqql) — Building &amp; Selling a Food Business</span><span class="ep-meta">interview</span></a></li>
+        <li><a href="podcast/thinking-on-the-smiqql-acquisition-deck.html"><span class="ep-name">Thinking on the Smiqql Acquisition Deck</span><span class="ep-meta">solo riff</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-society">
+      <p class="topic-blurb">Capitalism, defaults, ethics — when the show goes wide.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/thinking-on-ethics-and-affording-your-morals.html"><span class="ep-name">Thinking on Ethics and Affording Your Morals</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/alternatives-to-capitalism-with-nomaan-x.html"><span class="ep-name">Alternatives to Capitalism — with Nomaan X</span><span class="ep-meta">interview</span></a></li>
+        <li><a href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html"><span class="ep-name">Thinking on Accepted Truths, Defaults &amp; How We Got Here</span><span class="ep-meta">solo riff</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel" id="topic-ai">
+      <p class="topic-blurb">What changed when LLMs showed up.</p>
+      <ul class="topic-eps">
+        <li><a href="podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html"><span class="ep-name">Thinking on How LLMs (&amp; GenAI) Changed Our Thinking</span><span class="ep-meta">start here</span></a></li>
+        <li><a href="podcast/thinking-on-working-in-partnership-with-generative-ai-genai.html"><span class="ep-name">Thinking on Working in Partnership with Generative AI</span><span class="ep-meta">solo riff</span></a></li>
+        <li><a href="podcast/thinking-on-ai-the-future-of-work-and-the-commoditization-of-high-er-skilled-lab.html"><span class="ep-name">AI, the Future of Work, and the Commoditization of High(er)-Skilled Labour</span><span class="ep-meta">solo riff</span></a></li>
+      </ul>
+    </div>
+
+    <div class="topic-panel rest">
+      <span class="rest-hint">Pick a thread above.</span>
+    </div>
+
+    <nav class="chip-strip">
+      <a class="chip" href="#topic-creative">creative process</a>
+      <a class="chip" href="#topic-founders">founders, on tape</a>
+      <a class="chip" href="#topic-behavior">behavior &amp; decisions</a>
+      <a class="chip" href="#topic-story">story &amp; telling</a>
+      <a class="chip" href="#topic-design">design &amp; craft</a>
+      <a class="chip" href="#topic-money">money &amp; growth</a>
+      <a class="chip" href="#topic-society">ethics &amp; society</a>
+      <a class="chip" href="#topic-ai">AI &amp; work</a>
+    </nav>
   </section>
 
   <!-- =========== BACKLOG (real episodes) =========== -->
@@ -995,67 +1302,6 @@
       document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
     }, { passive: true });
 
-    // ===== rotating pull-quotes =====
-    (function(){
-      const POOL = [
-        [
-          { q: "Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent.", attr: "Thinking on Kindness vs Niceness", href: "podcast/thinking-on-kindness-vs-niceness.html" },
-          { q: "There's a difference between being interested in something and being invested in it. One is about curiosity; the other is about whether you're willing to do something about it.", attr: "Thinking on Caring and Being Invested", href: "podcast/thinking-on-caring-and-being-invested.html" },
-          { q: "We have a very Silicon Valley definition of what connection and loneliness look like. But loneliness looks very different for different people.", attr: "Accepted Truths, Defaults & How We Got Here", href: "podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html" }
-        ],
-        [
-          { q: "Satisfaction and success are not the same pursuit. You can feel deeply satisfied without any external marker of success, and wildly successful without any satisfaction.", attr: "Satisfaction with Success — with Lena Chaihorsky", href: "podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html" },
-          { q: "There's a certain degree of tedium in being courageous that I find exhausting. But in making daring decisions, there's a degree of excitement and surprising positive feedback.", attr: "Thinking on Courage vs Daring", href: "podcast/thinking-on-courage-vs-daring.html" },
-          { q: "Failure is not one thing. There's the cognitive experience of failure, where you analyze what went wrong, and the emotional experience, where you feel it in your body.", attr: "Cognitive vs Emotional — Models for Failure", href: "podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html" }
-        ],
-        [
-          { q: "The stories we choose to tell build trust and demonstrate the values of our organizations. Leaders who are deliberate about the stories they propagate shape their culture.", attr: "Thinking on Building Trust", href: "podcast/thinking-on-building-trust.html" },
-          { q: "Sometimes the most successful things come from the most absurd starting points. The absurdity is not a bug — it's what makes it memorable.", attr: "Absurdist Successes (1000xresist) — Success Pt 7", href: "podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html" },
-          { q: "Creative coding is this beautiful intersection where logic and expression meet. You're not just solving a problem — you're making something that didn't exist before.", attr: "Coding, Creativity & Culture — with Computational Mama", href: "podcast/thinking-on-coding-creativity-culture-with-computational-mama.html" }
-        ]
-      ];
-      const cells = document.querySelectorAll('.quote-cell');
-      if (!cells.length) return;
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const INTERVAL = 16000;
-      const STAGGER = 5500;
-      const FADE = 700;
-
-      cells.forEach((cell, idx) => {
-        const pool = POOL[idx] || [];
-        if (!pool.length) return;
-        let i = 0;
-        let paused = false;
-
-        const render = () => {
-          const item = pool[i];
-          cell.querySelector('.q').textContent = '“' + item.q + '”';
-          cell.querySelector('.attr').textContent = item.attr + ' · listen →';
-          cell.href = item.href;
-        };
-
-        const swap = () => {
-          if (paused || pool.length < 2) return;
-          cell.classList.add('fading');
-          setTimeout(() => {
-            i = (i + 1) % pool.length;
-            render();
-            // paint new content while still at opacity:0, then fade in
-            requestAnimationFrame(() => {
-              requestAnimationFrame(() => cell.classList.remove('fading'));
-            });
-          }, FADE);
-        };
-
-        render();
-
-        if (!reduce && pool.length > 1) {
-          cell.addEventListener('mouseenter', () => { paused = true; });
-          cell.addEventListener('mouseleave', () => { paused = false; });
-          setTimeout(() => setInterval(swap, INTERVAL), idx * STAGGER);
-        }
-      });
-    })();
   </script>
 
 </body>
