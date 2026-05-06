@@ -37,6 +37,7 @@
       padding: 8rem 2rem 3rem;
       background: var(--warm-gray, #F5F3F0);
       text-align: center;
+      scroll-snap-align: start;
     }
     .comic-hero .inner {
       max-width: 600px;
@@ -258,6 +259,22 @@
       border-color: rgba(255, 255, 255, 0.5);
     }
     .lightbox-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      pointer-events: auto;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-size: 1.6rem; font-weight: 300; line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 200ms, transform 200ms;
+      z-index: 10;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); transform: rotate(90deg); }
     .lightbox-counter {
       position: absolute;
       bottom: 1.5rem;
@@ -684,6 +701,7 @@
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-label="Zoomed comic page" tabindex="-1">
     <img src="" alt="Zoomed comic page" id="lightboxImg">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
     <div class="lightbox-controls">
       <button class="lightbox-btn lightbox-prev" aria-label="Previous page">&#x2190;</button>
       <button class="lightbox-btn lightbox-next" aria-label="Next page">&#x2192;</button>
@@ -746,8 +764,10 @@
       const lightboxCounter = document.getElementById('lightboxCounter');
       const lightboxPrev = document.querySelector('.lightbox-prev');
       const lightboxNext = document.querySelector('.lightbox-next');
+      const lightboxClose = document.querySelector('.lightbox-close');
       const pageImgs = pages.map(p => p.querySelector('img'));
       let currentLightboxPage = 0;
+      let lastFocused = null;
 
       function updateLightbox() {
         const img = pageImgs[currentLightboxPage];
@@ -759,14 +779,17 @@
         if (lightboxNext) lightboxNext.disabled = currentLightboxPage === pageImgs.length - 1;
       }
       function openLightbox(idx) {
+        lastFocused = document.activeElement;
         currentLightboxPage = idx;
         updateLightbox();
         lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+        if (lightboxClose) lightboxClose.focus();
       }
       function closeLightbox() {
         lightbox.classList.remove('active');
         document.body.style.overflow = '';
+        if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
       }
       function navLightbox(dir) {
         const next = currentLightboxPage + dir;
@@ -781,10 +804,12 @@
         });
       });
       if (lightbox) {
+        // Only close on backdrop click (not when tapping the image)
         lightbox.addEventListener('click', (e) => {
-          if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+          if (e.target === lightbox) closeLightbox();
         });
       }
+      if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
       if (lightboxPrev) lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); navLightbox(-1); });
       if (lightboxNext) lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); navLightbox(1); });
 
