@@ -71,10 +71,17 @@
       margin: 0 auto;
     }
 
-    /* Soft scroll-snap so each page anchors at the top of the viewport */
-    html { scroll-snap-type: y proximity; scroll-padding-top: 80px; }
+    /* Stronger scroll-snap: each page fills the viewport so the frame is fully visible */
+    html { scroll-snap-type: y mandatory; scroll-padding-top: 80px; }
     .comic-page {
-      margin-bottom: 5rem;
+      margin-bottom: 0;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 0;
+      box-sizing: border-box;
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s ease-out;
@@ -87,13 +94,21 @@
       margin-bottom: 0;
     }
     .comic-page img {
-      width: 100%;
+      width: auto;
       max-width: 100%;
       height: auto;
+      max-height: calc(100vh - 160px);
+      object-fit: contain;
       display: block;
       margin: 0 auto;
       border-radius: 4px;
       box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+    /* Short viewports (e.g. landscape phone): turn off snap, let it scroll naturally */
+    @media (max-height: 520px) {
+      html { scroll-snap-type: none; }
+      .comic-page { min-height: auto; padding: 2rem 0; }
+      .comic-page img { max-height: none; width: 100%; }
     }
     .comic-page .page-number {
       font-family: 'Caveat', cursive;
@@ -166,12 +181,13 @@
 
     @media (max-width: 640px) {
       .comic-reader {
-        padding: 2rem 1rem 4rem;
+        padding: 1rem 1rem 2rem;
       }
       .comic-page {
-        margin-bottom: 3rem;
+        padding: 0.5rem 0;
       }
       .comic-page img {
+        max-height: calc(100vh - 130px);
         border-radius: 2px;
         box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       }
