@@ -306,165 +306,6 @@
     .quote-card .q { font-size: 0.92rem; }
   }
 
-  /* ============ TOPICS (recurring themes) ============ */
-  .topics {
-    padding: clamp(3rem, 7vh, 5rem) var(--x);
-    max-width: 1280px;
-    margin: 0 auto;
-    border-top: 1px solid var(--rule);
-    scroll-margin-top: 80px;
-    display: flex;
-    flex-direction: column;
-  }
-  .topics > .section-head { order: 0; }
-  .topics > .chip-strip { order: 1; }
-  .topics > .topic-panel { order: 2; }
-  .topics .section-head h2::before { background: var(--cyan); }
-
-  .chip-strip {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    column-gap: 0.5rem;
-    row-gap: 1.5rem;
-    margin-bottom: 1.75rem;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.55rem 1.1rem;
-    border-radius: 999px;
-    border: 1.5px solid var(--rule);
-    background: #fff;
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-align: center;
-    text-decoration: none;
-    position: relative;
-    transition: border-color 200ms, background 200ms, color 200ms, transform 200ms;
-  }
-  .chip:hover { border-color: var(--pink); transform: translateY(-1px); }
-  /* Active chip via JS-set class (preferred) AND :target sibling selector (no-JS fallback) */
-  .chip.is-active,
-  #topic-creative:target ~ .chip-strip .chip[href="#topic-creative"],
-  #topic-founders:target ~ .chip-strip .chip[href="#topic-founders"],
-  #topic-behavior:target ~ .chip-strip .chip[href="#topic-behavior"],
-  #topic-story:target ~ .chip-strip .chip[href="#topic-story"],
-  #topic-design:target ~ .chip-strip .chip[href="#topic-design"],
-  #topic-money:target ~ .chip-strip .chip[href="#topic-money"],
-  #topic-society:target ~ .chip-strip .chip[href="#topic-society"],
-  #topic-ai:target ~ .chip-strip .chip[href="#topic-ai"] {
-    background: var(--pink);
-    color: #fff;
-    border-color: var(--pink);
-  }
-  /* Tab-bar connector: small pink triangle below the active chip pointing into the panel */
-  .chip.is-active::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-top: 5px;
-    transform: translateX(-50%);
-    width: 0;
-    height: 0;
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-top: 7px solid var(--pink);
-    pointer-events: none;
-  }
-
-  .topic-panel {
-    background: #fff;
-    border: 1px solid var(--rule);
-    border-radius: 12px;
-    padding: 1.5rem 1.75rem 1.25rem;
-    scroll-margin-top: 100px;
-  }
-  .topic-panel:not(.rest):not(.is-active) { display: none; }
-  .topic-panel:target,
-  .topic-panel.is-active { display: block; animation: panelFade 280ms ease; }
-  @keyframes panelFade {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  /* Rest panel: hidden when JS is on (first chip auto-activates).
-     Shown only when neither :target nor .is-active matches anything. */
-  .topic-panel.rest {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 140px;
-    background: rgba(44, 53, 68, 0.02);
-    border-style: dashed;
-  }
-  .topic-panel:target ~ .topic-panel.rest,
-  .topic-panel.is-active ~ .topic-panel.rest { display: none; }
-
-  .topic-panel.rest .rest-hint {
-    font-family: var(--hand);
-    font-size: 1.5rem;
-    color: var(--ink-fade);
-  }
-  .topic-blurb {
-    font-family: var(--sans);
-    font-size: 1rem;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 0 0 1rem;
-    font-style: italic;
-  }
-  .topic-eps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .topic-eps li { border-top: 1px solid var(--rule); }
-  .topic-eps li:first-child { border-top: none; }
-  .topic-eps a {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding: 0.85rem 0;
-    text-decoration: none;
-    color: var(--ink);
-    transition: color 200ms, transform 200ms;
-    gap: 1rem;
-  }
-  .topic-eps a:hover {
-    color: var(--pink);
-    transform: translateX(4px);
-  }
-  .topic-eps .ep-name {
-    font-family: var(--sans);
-    font-size: 1rem;
-    font-weight: 500;
-    flex-grow: 1;
-  }
-  .topic-eps .ep-meta {
-    font-family: var(--sans);
-    font-size: 0.74rem;
-    font-weight: 600;
-    color: var(--ink-fade);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    flex-shrink: 0;
-    white-space: nowrap;
-  }
-  .topic-eps a:hover .ep-meta { color: var(--pink); }
-  @media (max-width: 720px) {
-    .chip-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0.4rem; row-gap: 1.25rem; }
-    .chip { font-size: 0.85rem; padding: 0.45rem 0.85rem; }
-  }
-  @media (max-width: 400px) {
-    .chip-strip { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .topic-eps a { flex-direction: column; align-items: flex-start; gap: 0.2rem; }
-  }
-
   /* ============ SERIES (listen in order) ============ */
   .series {
     padding: clamp(3rem, 7vh, 5rem) var(--x);
@@ -578,7 +419,7 @@
   .series-card.s-cyan::after   { background: var(--pink); }
   .series-card.s-yellow::after { background: var(--cyan); }
 
-  /* ============ BACKLOG ============ */
+  /* ============ BACKLOG (with theme filter chips) ============ */
   .backlog {
     padding: clamp(3rem, 7vh, 5rem) var(--x);
     max-width: 1080px;
@@ -587,7 +428,57 @@
   }
   .backlog .section-head h2::before { background: var(--yellow); }
 
+  /* Filter chip strip (above the list) */
+  .bk-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.25rem 0 2rem;
+  }
+  .bk-filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--rule);
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 200ms, background 200ms, color 200ms, transform 200ms;
+  }
+  .bk-filter:hover { border-color: var(--pink); transform: translateY(-1px); }
+  .bk-filter.is-active {
+    background: var(--pink);
+    color: #fff;
+    border-color: var(--pink);
+  }
+  /* Tab-bar connector: small pink triangle below the active filter pointing into the list */
+  .bk-filter.is-active::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 5px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--pink);
+    pointer-events: none;
+  }
+  @media (max-width: 480px) {
+    .bk-filter { font-size: 0.82rem; padding: 0.42rem 0.85rem; }
+  }
+
   .bk-list { list-style: none; }
+  .bk-list > li.is-hidden { display: none; }
   .bk-item {
     display: grid;
     grid-template-columns: 86px 1fr auto auto;
@@ -1096,177 +987,161 @@
     </div>
   </section>
 
-  <!-- =========== TOPICS (recurring themes) =========== -->
-  <section class="topics" id="topics">
+  <!-- =========== EXPLORE (filtered episode list) =========== -->
+  <section class="backlog" id="explore">
     <div class="section-head">
-      <h2>recurring threads</h2>
-      <span class="aside">what the show keeps coming back to</span>
+      <h2>explore</h2>
+      <span class="aside">82 episodes, four threads</span>
     </div>
 
-    <div class="topic-panel" id="topic-creative">
-      <p class="topic-blurb">How work actually gets made — drafts, dead ends, voice.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/thinking-on-the-creative-process.html"><span class="ep-name">Thinking on the Creative Process</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html"><span class="ep-name">Spilling Some Tea on Writing as Communication and Art</span><span class="ep-meta">38 min</span></a></li>
-        <li><a href="podcast/anuki-premachandra-planting-the-seeds-for-understanding.html"><span class="ep-name">Anuki Premachandra: Planting the Seeds for Understanding</span><span class="ep-meta">interview</span></a></li>
-      </ul>
+    <div class="bk-filters" role="tablist" aria-label="Filter episodes by theme">
+      <button type="button" class="bk-filter is-active" data-filter="all">All</button>
+      <button type="button" class="bk-filter" data-filter="creativity">Creativity</button>
+      <button type="button" class="bk-filter" data-filter="why">Understanding why</button>
+      <button type="button" class="bk-filter" data-filter="growth">Personal growth</button>
+      <button type="button" class="bk-filter" data-filter="ai">AI &amp; tech</button>
     </div>
 
-    <div class="topic-panel" id="topic-founders">
-      <p class="topic-blurb">Long conversations with people building things.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/almora-crafting-desire-in-business.html"><span class="ep-name">Almora — Crafting Desire in Business</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html"><span class="ep-name">Ambika Singh (Armoire) — Balancing Energy, Expectations &amp; Perfectionism</span><span class="ep-meta">interview</span></a></li>
-        <li><a href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html"><span class="ep-name">Lena Chaihorsky (Alva10) — Satisfaction with Success</span><span class="ep-meta">interview</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel" id="topic-behavior">
-      <p class="topic-blurb">Why people do what they do — and what changes it.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/thinking-on-decision-making-when-you-lack-certainty.html"><span class="ep-name">Thinking on Decision Making When You Lack Certainty</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/thinking-on-caring-and-being-invested.html"><span class="ep-name">Thinking on Caring and Being Invested</span><span class="ep-meta">solo riff</span></a></li>
-        <li><a href="podcast/thinking-on-kindness-vs-niceness.html"><span class="ep-name">Thinking on Kindness vs Niceness</span><span class="ep-meta">solo riff</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel" id="topic-story">
-      <p class="topic-blurb">The gap between what you say and what lands.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/cranberry-fit-diving-into-storytelling.html"><span class="ep-name">Cranberry.Fit — Diving into Storytelling</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/story-vs-telling-part-1.html"><span class="ep-name">Story vs Telling, Part 1</span><span class="ep-meta">series</span></a></li>
-        <li><a href="podcast/thinking-on-building-trust.html"><span class="ep-name">Thinking on Building Trust</span><span class="ep-meta">solo riff</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel" id="topic-design">
-      <p class="topic-blurb">Game design, product design, the texture of a thing.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/anurati-srivastva-on-games-and-game-design-with-divya.html"><span class="ep-name">Anurati Srivastva on Games and Game Design</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/thinking-on-designing-for-the-end.html"><span class="ep-name">Thinking on Designing for the End</span><span class="ep-meta">solo riff</span></a></li>
-        <li><a href="podcast/thinking-on-designing-spaces-and-changing-your-mind.html"><span class="ep-name">Thinking on Designing Spaces and Changing Your Mind</span><span class="ep-meta">solo riff</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel" id="topic-money">
-      <p class="topic-blurb">Pricing, fundraising, growth — the boring-hard parts.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/machphy-cool-glide-to-funding.html"><span class="ep-name">MachPhy — Cool Glide to Funding</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/503-building-and-selling-a-food-business-with-smiqql-s-dina-holzapfel.html"><span class="ep-name">Dina Holzapfel (Smiqql) — Building &amp; Selling a Food Business</span><span class="ep-meta">interview</span></a></li>
-        <li><a href="podcast/thinking-on-the-smiqql-acquisition-deck.html"><span class="ep-name">Thinking on the Smiqql Acquisition Deck</span><span class="ep-meta">solo riff</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel" id="topic-society">
-      <p class="topic-blurb">Capitalism, defaults, ethics — when the show goes wide.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/thinking-on-ethics-and-affording-your-morals.html"><span class="ep-name">Thinking on Ethics and Affording Your Morals</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/alternatives-to-capitalism-with-nomaan-x.html"><span class="ep-name">Alternatives to Capitalism — with Nomaan X</span><span class="ep-meta">interview</span></a></li>
-        <li><a href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html"><span class="ep-name">Thinking on Accepted Truths, Defaults &amp; How We Got Here</span><span class="ep-meta">solo riff</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel" id="topic-ai">
-      <p class="topic-blurb">What changed when LLMs showed up.</p>
-      <ul class="topic-eps">
-        <li><a href="podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html"><span class="ep-name">Thinking on How LLMs (&amp; GenAI) Changed Our Thinking</span><span class="ep-meta">start here</span></a></li>
-        <li><a href="podcast/thinking-on-working-in-partnership-with-generative-ai-genai.html"><span class="ep-name">Thinking on Working in Partnership with Generative AI</span><span class="ep-meta">solo riff</span></a></li>
-        <li><a href="podcast/thinking-on-ai-the-future-of-work-and-the-commoditization-of-high-er-skilled-lab.html"><span class="ep-name">AI, the Future of Work, and the Commoditization of High(er)-Skilled Labour</span><span class="ep-meta">solo riff</span></a></li>
-      </ul>
-    </div>
-
-    <div class="topic-panel rest">
-      <span class="rest-hint">Pick a thread above.</span>
-    </div>
-
-    <nav class="chip-strip">
-      <a class="chip" href="#topic-creative">creative process</a>
-      <a class="chip" href="#topic-founders">founders, on tape</a>
-      <a class="chip" href="#topic-behavior">behavior &amp; decisions</a>
-      <a class="chip" href="#topic-story">story &amp; telling</a>
-      <a class="chip" href="#topic-design">design &amp; craft</a>
-      <a class="chip" href="#topic-money">money &amp; growth</a>
-      <a class="chip" href="#topic-society">ethics &amp; society</a>
-      <a class="chip" href="#topic-ai">AI &amp; work</a>
-    </nav>
-  </section>
-
-  <!-- =========== BACKLOG (real episodes) =========== -->
-  <section class="backlog">
-    <div class="section-head">
-      <h2>recent</h2>
-      <span class="aside">what we've been pulling apart</span>
-    </div>
     <ul class="bk-list">
 
-      <li><a class="bk-item" href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html">
+      <li data-themes="why"><a class="bk-item" href="podcast/alternatives-to-capitalism-with-nomaan-x.html">
+        <span class="bk-se">S7E14</span>
+        <span class="bk-title">Alternatives to Capitalism — with Nomaan X</span>
+        <span class="bk-date">Oct 2025</span>
+        <span class="bk-dur">58 min</span>
+      </a></li>
+
+      <li data-themes="creativity"><a class="bk-item" href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html">
         <span class="bk-se">S7E13</span>
         <span class="bk-title">Spilling Some Tea on Writing as Communication and Art</span>
         <span class="bk-date">Aug 2025</span>
         <span class="bk-dur">38 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html">
+      <li data-themes="growth"><a class="bk-item" href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html">
         <span class="bk-se">S7E12</span>
         <span class="bk-title">Balancing energy, expectations and perfectionism with Ambika Singh, Founder &amp; CEO Armoire</span>
         <span class="bk-date">Aug 2025</span>
         <span class="bk-dur">53 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/when-its-conforming-to-be-unique.html">
+      <li data-themes="why growth"><a class="bk-item" href="podcast/when-its-conforming-to-be-unique.html">
         <span class="bk-se">S7E11</span>
         <span class="bk-title">When it's Conforming to be Unique</span>
         <span class="bk-date">Aug 2025</span>
         <span class="bk-dur">41 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
+      <li data-themes="growth"><a class="bk-item" href="podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
         <span class="bk-se">S7E10</span>
         <span class="bk-title">Preeti Suri: Tips for Women Founders and Balancing Health &amp; Work</span>
         <span class="bk-date">Jul 2025</span>
         <span class="bk-dur">35 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/story-vs-telling-part-2.html">
+      <li data-themes="creativity"><a class="bk-item" href="podcast/story-vs-telling-part-2.html">
         <span class="bk-se">S7E7</span>
         <span class="bk-title">Story vs Telling, Part 2</span>
         <span class="bk-date">Jun 2025</span>
         <span class="bk-dur">30 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/story-vs-telling-part-1.html">
+      <li data-themes="creativity"><a class="bk-item" href="podcast/story-vs-telling-part-1.html">
         <span class="bk-se">S7E6</span>
         <span class="bk-title">Story vs Telling, Part 1</span>
         <span class="bk-date">May 2025</span>
         <span class="bk-dur">24 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/almora-crafting-desire-in-business.html">
+      <li data-themes="creativity growth"><a class="bk-item" href="podcast/almora-crafting-desire-in-business.html">
         <span class="bk-se">S7E5</span>
         <span class="bk-title">Almora — Crafting Desire in Business</span>
         <span class="bk-date">May 2025</span>
         <span class="bk-dur">60 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/machphy-cool-glide-to-funding.html">
+      <li data-themes="growth"><a class="bk-item" href="podcast/machphy-cool-glide-to-funding.html">
         <span class="bk-se">S7E4</span>
         <span class="bk-title">MachPhy — Cool Glide to Funding</span>
         <span class="bk-date">Apr 2025</span>
         <span class="bk-dur">46 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/cranberry-fit-diving-into-storytelling.html">
+      <li data-themes="creativity growth"><a class="bk-item" href="podcast/cranberry-fit-diving-into-storytelling.html">
         <span class="bk-se">S7E3</span>
         <span class="bk-title">Cranberry.Fit — Diving into Storytelling</span>
         <span class="bk-date">Apr 2025</span>
         <span class="bk-dur">40 min</span>
       </a></li>
 
-      <li><a class="bk-item" href="podcast/thinking-on-the-smiqql-acquisition-deck.html">
+      <li data-themes="creativity growth"><a class="bk-item" href="podcast/thinking-on-the-smiqql-acquisition-deck.html">
         <span class="bk-se">S7E1</span>
         <span class="bk-title">Thinking on the Smiqql Acquisition Deck</span>
         <span class="bk-date">Feb 2025</span>
         <span class="bk-dur">42 min</span>
+      </a></li>
+
+      <li data-themes="ai creativity"><a class="bk-item" href="podcast/building-genai-for-visual-storytelling-with-divya-dashtoon-co-founder-soumyadeep.html">
+        <span class="bk-se">S5E13</span>
+        <span class="bk-title">Building GenAI for Visual Storytelling — with Soumyadeep, Dashtoon co-founder</span>
+        <span class="bk-date">Oct 2024</span>
+        <span class="bk-dur">48 min</span>
+      </a></li>
+
+      <li data-themes="growth"><a class="bk-item" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
+        <span class="bk-se">S5E11</span>
+        <span class="bk-title">Satisfaction with Success — with Lena Chaihorsky (Alva10)</span>
+        <span class="bk-date">Sep 2024</span>
+        <span class="bk-dur">46 min</span>
+      </a></li>
+
+      <li data-themes="ai creativity"><a class="bk-item" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html">
+        <span class="bk-se">S4E2</span>
+        <span class="bk-title">Coding, Creativity &amp; Culture — with Computational Mama</span>
+        <span class="bk-date">Nov 2023</span>
+        <span class="bk-dur">37 min</span>
+      </a></li>
+
+      <li data-themes="ai"><a class="bk-item" href="podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html">
+        <span class="bk-se">S3E9</span>
+        <span class="bk-title">Thinking on How LLMs (&amp; GenAI) Have Changed Our Thinking</span>
+        <span class="bk-date">Sep 2023</span>
+        <span class="bk-dur">46 min</span>
+      </a></li>
+
+      <li data-themes="ai"><a class="bk-item" href="podcast/thinking-on-working-in-partnership-with-generative-ai-genai.html">
+        <span class="bk-se">S2E10</span>
+        <span class="bk-title">Thinking on Working in Partnership with Generative AI</span>
+        <span class="bk-date">May 2023</span>
+        <span class="bk-dur">20 min</span>
+      </a></li>
+
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-caring-and-being-invested.html">
+        <span class="bk-se">S2E3</span>
+        <span class="bk-title">Thinking on Caring and Being Invested</span>
+        <span class="bk-date">Jan 2023</span>
+        <span class="bk-dur">36 min</span>
+      </a></li>
+
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-decision-making-when-you-lack-certainty.html">
+        <span class="bk-se">S2E2</span>
+        <span class="bk-title">Thinking on Decision Making When You Lack Certainty</span>
+        <span class="bk-date">Jan 2023</span>
+        <span class="bk-dur">36 min</span>
+      </a></li>
+
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-kindness-vs-niceness.html">
+        <span class="bk-se">S1E9</span>
+        <span class="bk-title">Thinking on Kindness vs Niceness</span>
+        <span class="bk-date">Nov 2022</span>
+        <span class="bk-dur">39 min</span>
+      </a></li>
+
+      <li data-themes="ai"><a class="bk-item" href="podcast/thinking-on-ai-the-future-of-work-and-the-commoditization-of-high-er-skilled-lab.html">
+        <span class="bk-se">S1E8</span>
+        <span class="bk-title">Thinking on AI, the Future of Work, and the Commoditization of High(er)-Skilled Labour</span>
+        <span class="bk-date">Nov 2022</span>
+        <span class="bk-dur">44 min</span>
       </a></li>
 
     </ul>
@@ -1335,36 +1210,28 @@
       document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
     }, { passive: true });
 
-    // ===== topic chips: JS tabs (no URL hash, no scroll, smooth swap) =====
+    // ===== explore: theme filter on the episode list =====
     (function(){
-      const root = document.querySelector('.topics');
-      if (!root) return;
-      const chips = root.querySelectorAll('.chip');
-      const panels = root.querySelectorAll('.topic-panel:not(.rest)');
-      if (!chips.length || !panels.length) return;
+      const filters = document.querySelectorAll('.bk-filter');
+      const items = document.querySelectorAll('.bk-list > li');
+      if (!filters.length || !items.length) return;
 
-      function activate(targetId) {
-        chips.forEach(c => {
-          const href = c.getAttribute('href') || '';
-          c.classList.toggle('is-active', href === '#' + targetId);
+      function applyFilter(theme) {
+        items.forEach(li => {
+          const themes = (li.dataset.themes || '').split(/\s+/).filter(Boolean);
+          const matches = theme === 'all' || themes.includes(theme);
+          li.classList.toggle('is-hidden', !matches);
         });
-        panels.forEach(p => {
-          p.classList.toggle('is-active', p.id === targetId);
+        filters.forEach(f => {
+          f.classList.toggle('is-active', f.dataset.filter === theme);
         });
       }
 
-      chips.forEach(chip => {
-        chip.addEventListener('click', e => {
-          e.preventDefault();
-          const href = chip.getAttribute('href') || '';
-          if (href.startsWith('#')) activate(href.slice(1));
-        });
+      filters.forEach(filter => {
+        filter.addEventListener('click', () => applyFilter(filter.dataset.filter));
       });
 
-      // Default: first chip active. Honour deep link if URL hash matches a topic.
-      const hash = (location.hash || '').replace('#', '');
-      const initialId = (hash && root.querySelector('#' + CSS.escape(hash))) ? hash : panels[0].id;
-      activate(initialId);
+      applyFilter('all');
     })();
   </script>
 
