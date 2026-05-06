@@ -150,13 +150,16 @@
     .facilitator:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--hub-accent); }
     .facilitator-avatar {
       flex-shrink: 0;
-      width: 56px; height: 56px;
+      width: 64px; height: 64px;
       border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      color: #fff;
+      overflow: hidden;
       background: var(--avatar-bg, var(--hub-accent));
+    }
+    .facilitator-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
     .facilitator-body { flex: 1; min-width: 0; }
     .facilitator-name {
@@ -174,6 +177,16 @@
       font-family: 'DM Sans', sans-serif;
       font-size: 0.92rem; line-height: 1.55;
       color: #444; margin: 0;
+    }
+    .facilitator-line a, .artifact-cap a {
+      color: var(--hub-accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+    .facilitator-line a:hover, .artifact-cap a:hover {
+      text-decoration-thickness: 2px;
     }
     @media (max-width: 640px) { .facilitators-grid { grid-template-columns: 1fr; } }
 
@@ -735,7 +748,56 @@
       display: inline-block;
     }
     .ready-tail strong { color: var(--hub-accent); font-weight: 700; }
-    .ready-tail a { color: var(--hub-accent); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+
+    /* ============ READY BUTTONS — diagnostic / workshop CTA pair ============ */
+    .ready-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0 0.5rem;
+    }
+    .ready-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 1.2rem 1.4rem;
+      border: 1.5px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 0 8px 8px 0;
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .ready-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--hub-accent);
+    }
+    .ready-btn-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--hub-accent);
+    }
+    .ready-btn-action {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #1a1a1a;
+      line-height: 1.25;
+    }
+    .ready-btn-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: #777;
+    }
+    .ready-btn-primary { border-left-color: #E91E7B; }
+    .ready-btn-primary .ready-btn-label { color: #E91E7B; }
+    .ready-btn-primary:hover { box-shadow: 8px 8px 0 #E91E7B; }
+    @media (max-width: 600px) {
+      .ready-buttons { grid-template-columns: 1fr; }
+    }
 
     .ready-list li {
       opacity: 0;
@@ -948,11 +1010,11 @@
         <span class="h1-a">Most strategy days produce decks.</span>
         <span class="h1-b">Ours produces a sentence.</span>
       </h1>
-      <p class="editorial-subline">A leadership offsite for teams with <strong>product-market signal but no thesis-market fit</strong>. One day in a room — and you leave with the sentence the rest of the team can actually say back.</p>
+      <p class="editorial-subline">A leadership offsite for teams who can write the company three different ways and <strong>don't agree on any of them</strong>. One day in a room — and you leave with the sentence the rest of the team can actually say back.</p>
       <div class="meta-row">
         <span>One day · two-day option</span>
-        <span>Leadership team only</span>
-        <span>4–8 people · we travel to you</span>
+        <span>4–8 leaders · larger teams, ask</span>
+        <span>We come to you</span>
       </div>
     </div>
   </section>
@@ -961,27 +1023,22 @@
     <span class="facilitators-eyebrow">who's in the room with you</span>
     <div class="facilitators-grid">
       <div class="facilitator">
-        <div class="facilitator-avatar" style="--avatar-bg: #2C3544;">KS</div>
+        <div class="facilitator-avatar"><img src="images/kahran.jpg" alt="Kahran Singh" loading="lazy"></div>
         <div class="facilitator-body">
           <p class="facilitator-name">Kahran Singh</p>
-          <p class="facilitator-role">Co-founder · runs the strategy half</p>
-          <p class="facilitator-line">Fifteen years in product. Ex-head-of-product across three venture-backed teams; currently embedded as CRO inside an early-stage company. Has run this workshop inside companies before running it as one.</p>
+          <p class="facilitator-role">Co-founder · strategy</p>
+          <p class="facilitator-line">Over a decade of product, marketing, and storytelling across the US, UK, EU, and India. B.Sc. in Computer Science from Tufts. Currently CRO at <a href="work/klydo.html">Klydo</a>, a Series A fashion-commerce company in Bangalore. Has run this workshop inside companies before running it as one.</p>
         </div>
       </div>
       <div class="facilitator">
-        <div class="facilitator-avatar" style="--avatar-bg: #E91E7B;">DT</div>
+        <div class="facilitator-avatar"><img src="images/divya.jpg" alt="Divya Tak" loading="lazy"></div>
         <div class="facilitator-body">
           <p class="facilitator-name">Divya Tak</p>
-          <p class="facilitator-role">Co-founder · runs the design half</p>
-          <p class="facilitator-line">Brand and product designer. The reason the artifacts are written down by 6pm — she runs the room visually while Kahran runs it analytically. The thesis lands when both halves agree.</p>
+          <p class="facilitator-role">Co-founder · design</p>
+          <p class="facilitator-line">Master's in Physics from IIT Kharagpur; designer by self-teaching. Her work runs through Joyus's case studies — <a href="work/tatsam.html">Tatsam</a>, <a href="work/secret-senses.html">Secret Senses</a>, the interactive poetry installation The Line Before. In the workshop, she's the one writing the artifacts on the wall.</p>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="pull-quote reveal">
-    <p>"By 4pm someone in the room says the thing the deck has been <mark>trying to say for six months</mark>. The work is the rest of the team agreeing."</p>
-    <cite>From the workshop</cite>
   </section>
 
   <section class="day-map-section">
@@ -991,17 +1048,17 @@
       <div class="day-block" data-step="01">
         <span class="day-block-time">9 — 12</span>
         <h3>Diagnostic</h3>
-        <p>Two exercises. A three-minute "why am I here" round, then sticky-notes — green / red / alone. The silent stuff comes out.</p>
+        <p>Two exercises. A three-minute "why am I here" round, then sticky-notes on three colors: <em>what's working, what's broken, what you've been carrying alone</em>. The third one does most of the work.</p>
       </div>
       <div class="day-block" data-step="02">
         <span class="day-block-time">12 — 4</span>
         <h3>Thesis</h3>
-        <p>One sentence — <em>who, in what moment, replacing what</em>. Always takes longer than people expect.</p>
+        <p>One sentence — <em>who, in what moment, replacing what</em>. We test it against the team's three different versions, against the deck, and against the customer you talked to last week. Always takes longer than people expect.</p>
       </div>
       <div class="day-block" data-step="03">
         <span class="day-block-time">4 — 6</span>
         <h3>90-day plan</h3>
-        <p>2–3 archetypes, operating principles in writing, a 14-day experiment cell with named owners.</p>
+        <p>2–3 named archetypes, operating principles in writing, and three to five experiments to ship in the next 14 days — each with a named owner and a pre-committed win condition.</p>
       </div>
     </div>
   </section>
@@ -1017,7 +1074,7 @@
         <div class="artifact-mock">
           <div class="mock-sentence">"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</div>
         </div>
-        <p class="artifact-cap">A real workshop output, fuzzed for the client. Found in the room around 4pm. Replaces a category claim ("quick-commerce app") with a moment ("standing in front of her closet").</p>
+        <p class="artifact-cap">From a workshop with <a href="work/klydo.html">Klydo</a>, fuzzed for confidentiality. Found in the room around 4pm. Replaces a category claim ("quick-commerce app") with a moment ("standing in front of her closet").</p>
       </div>
 
       <div class="artifact-card is-archetypes">
@@ -1038,10 +1095,10 @@
         <h3 class="artifact-h">How the team runs experiments — in writing.</h3>
         <div class="artifact-mock">
           <div class="mock-principles">
-            <span class="mock-principle-line">Small bets first.</span>
-            <span class="mock-principle-line">Fast read on signal.</span>
-            <span class="mock-principle-line">No long builds without a fast version.</span>
-            <span class="mock-principle-line">Define success per surface up front.</span>
+            <span class="mock-principle-line">Closet-moment only — kill anything that doesn't land there.</span>
+            <span class="mock-principle-line">Three creator tests before any paid spend.</span>
+            <span class="mock-principle-line">Win conditions in writing on day one, or it's not an experiment.</span>
+            <span class="mock-principle-line">Onboarding gets re-cut for one archetype before two.</span>
           </div>
         </div>
         <p class="artifact-cap">Signed off by the room. Most have been violated quietly in the prior quarter.</p>
@@ -1108,13 +1165,6 @@
     </div>
   </section>
 
-  <section class="proof-row reveal">
-    <a href="work/klydo-cut-strategy.html" class="proof-link">
-      <span class="proof-link-tag">↳ in practice</span>
-      <span class="proof-link-text">How one team found the sentence under their channel<span class="arr">→</span></span>
-    </a>
-  </section>
-
   <section class="ready-section reveal">
     <span class="ready-eyebrow">a quick self-test</span>
     <h2 class="ready-title">How to know you're ready.</h2>
@@ -1123,12 +1173,23 @@
       <li>Investors say <em>"interesting"</em> but don't move. The deck has been "almost" for two months.</li>
       <li>You've noticed yourself answering the same internal question — <em>what are we, exactly</em> — three different ways in three different rooms.</li>
     </ol>
-    <p class="ready-tail">If two land, <a href="mailto:hello@joyus.studio?subject=Diagnostic%20call">book the diagnostic</a>. If <strong>all three</strong>, skip it and <a href="mailto:hello@joyus.studio?subject=Thesis%20Workshop">book the workshop</a>.</p>
+    <div class="ready-buttons">
+      <a href="mailto:hello@joyus.studio?subject=Diagnostic%20call" class="ready-btn">
+        <span class="ready-btn-label">If two land</span>
+        <span class="ready-btn-action">Book the diagnostic →</span>
+        <span class="ready-btn-meta">$2,000 · 90 min · with both of us</span>
+      </a>
+      <a href="mailto:hello@joyus.studio?subject=Thesis%20Workshop" class="ready-btn ready-btn-primary">
+        <span class="ready-btn-label">If all three</span>
+        <span class="ready-btn-action">Book the workshop →</span>
+        <span class="ready-btn-meta">$15,000 · one day · skip the diagnostic</span>
+      </a>
+    </div>
   </section>
 
   <section class="pricing-section reveal">
     <h2>Pricing</h2>
-    <p class="pricing-lede">Four ways to work with us, depending on how much resolution you need. Most teams start with a diagnostic call or the one-day workshop.</p>
+    <p class="pricing-lede">Three ways in. Most teams start with the diagnostic call or the one-day workshop.</p>
     <div class="pricing-tiers">
       <div class="pricing-tier">
         <div class="pricing-tier-head">
@@ -1142,7 +1203,7 @@
           <span class="pricing-tier-name">The Thesis Workshop · one day</span>
           <span class="pricing-tier-price">$15,000</span>
         </div>
-        <p class="pricing-tier-body">Your leadership team in a room with us for a day. We run the diagnostic, find the sentence, and leave you with two or three archetypes, your operating principles in writing, and a 90-day plan with named owners and pre-committed win conditions. Most teams need this once. Some come back before a fundraise.</p>
+        <p class="pricing-tier-body">Your leadership team in a room with us for a day. We run the diagnostic, find the sentence, and leave you with two or three archetypes, your operating principles in writing, and a 90-day plan with named owners and pre-committed win conditions. Most teams need this once.</p>
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
@@ -1151,23 +1212,8 @@
         </div>
         <p class="pricing-tier-body">The same room, with time to go further. We deepen the archetype work, draft the investor narrative, and pressure-test the thesis against your actual P&amp;L — work the one-day version doesn't have time to do. The right call when you're heading into a fundraise, a pivot, or a re-org.</p>
       </div>
-      <div class="pricing-tier">
-        <div class="pricing-tier-head">
-          <span class="pricing-tier-name">Pre-Fundraise Package</span>
-          <span class="pricing-tier-price">$40,000 – $60,000</span>
-        </div>
-        <p class="pricing-tier-body">The two-day workshop, then four weeks of follow-up where we sharpen the deck, the narrative, and the rooms you're walking it into. We sit in on practice pitches, rewrite the slides that aren't landing, and stress-test the answers to the questions that have been getting you "interesting" instead of a term sheet. For founders raising in the next ninety days who can feel the deck isn't earning the meeting it deserves.</p>
-        <p class="pricing-tier-body" style="margin-top:0.75rem;font-size:0.88rem;color:#777;"><em>Includes two days on-site, eight follow-up sessions, two deck revisions, and one mock pitch with written debrief.</em></p>
-      </div>
-      <div class="pricing-tier">
-        <div class="pricing-tier-head">
-          <span class="pricing-tier-name">Quarterly retainer</span>
-          <span class="pricing-tier-price">$8,000 – $12,000 / quarter</span>
-        </div>
-        <p class="pricing-tier-body">After a workshop, the work is making sure the sentence survives Wednesday. We sit in on one leadership meeting a month, stress-test decisions against the thesis, and write a one-page memo each quarter on what's drifting. Available only to teams we've run a workshop with. The mechanism that makes the 90-day plan a year-long plan.</p>
-      </div>
     </div>
-    <p class="pricing-tail">Travel and venue billed at cost when we come to you. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
+    <p class="pricing-tail">Pre-fundraise sprints and quarterly retainers are case-by-case after we've worked together — <a href="mailto:hello@joyus.studio?subject=Ask%20about%20follow-on%20work">ask us about either</a>. Travel and venue billed at cost when we come to you. Standard MSA, NDA, and IP language available before kickoff.</p>
   </section>
 
   <section class="cta-strip reveal">
