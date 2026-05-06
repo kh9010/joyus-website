@@ -74,6 +74,18 @@
     max-width: 14ch;
     position: relative; z-index: 2;
   }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--pink);
+  }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin-top: 1.75rem;
+    position: relative; z-index: 2;
+  }
   .hero-meta {
     margin-top: 3rem;
     display: flex;
@@ -640,7 +652,8 @@
     <span class="dot d-ink    drift"      style="top: 12%; left: 22%; width: 6px; height: 6px;"></span>
 
     <span class="hero-eyebrow">the work</span>
-    <h1>The work.</h1>
+    <h1>Same studio. <em>Five lenses.</em></h1>
+    <p class="hero-sub">How we talk about our work. The stickers, the principles, the lines that stuck.</p>
 
     <div class="hero-meta">
       <span class="hero-meta-label">jump to</span>
