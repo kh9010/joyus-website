@@ -1,0 +1,1693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Investing 101 — a four-talk workshop on what actually happens when you raise. Public sessions and team engagements from Joyus Studio.">
+  <meta property="og:title" content="Investing 101 — A Workshop for Founders Raising — Joyus Studio">
+  <meta property="og:description" content="A four-talk workshop on what actually happens when you raise. Understanding your investor, your money, your story, and yourself.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/workshops-investing-c.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/workshops-investing-c.html">
+  <title>Investing 101 — Joyus Studio</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       workshops-investing-c — pass 5
+       Reuses approved klydo.html patterns: .editorial-hero, .hero-dot,
+       .meta-row, .numbers-strip, .editorial-body, .lesson-cards,
+       .pull-quote, .cuts-pair, .cs-closing. DM Serif → Space Grotesk
+       per Divya's typography rule (sans-only for new pages).
+    ═══════════════════════════════════════════════════════════════ */
+
+    :root {
+      --pink: #E91E7B;
+      --cyan: #4FC4CF;
+      --yellow: #F2C94A;
+      --green: #5BBD72;
+      --warm-gray: #F5F3F0;
+      --ink: #2C3544;
+      --ink-soft: #54606F;
+    }
+
+    /* ── thread (klydo) ─────────────────────────────────────── */
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
+    .thread-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    /* ── editorial-hero (klydo) ─────────────────────────────── */
+    .editorial-hero {
+      padding: clamp(7rem, 14vh, 10rem) 2rem clamp(4rem, 7vh, 5rem);
+      background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 50%, #FAF7F2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .editorial-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
+    .editorial-eyebrow {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--pink);
+      transform: rotate(-1deg);
+      margin-bottom: 1rem;
+    }
+    .editorial-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--pink);
+      animation: pulseDot 2.4s ease-in-out infinite;
+      transform: rotate(0) !important;
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 123, 0.5); }
+      50%      { box-shadow: 0 0 0 12px rgba(233, 30, 123, 0); }
+    }
+    .editorial-hero h1 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 7vw, 4.4rem);
+      color: #111;
+      line-height: 0.98;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.035em;
+    }
+    .editorial-hero h1 em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--pink);
+    }
+    .editorial-lede {
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: #444;
+      border-left: 3px solid var(--pink);
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2.25rem;
+    }
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.95rem;
+      border: 1.5px solid rgba(44, 53, 68, 0.18);
+      border-radius: 999px;
+      background: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .meta-row span::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dot, var(--ink-soft));
+      flex-shrink: 0;
+    }
+    .meta-row span:nth-child(5n+1) { --dot: var(--pink); }
+    .meta-row span:nth-child(5n+2) { --dot: var(--cyan); }
+    .meta-row span:nth-child(5n+3) { --dot: var(--yellow); }
+    .meta-row span:nth-child(5n+4) { --dot: var(--ink); }
+    .meta-row span:nth-child(5n)   { --dot: var(--pink); }
+
+    /* ── hero-dots (klydo) ──────────────────────────────────── */
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: dotDrift 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatY 9s ease-in-out infinite 2s;
+    }
+    @keyframes dotDrift {
+      from { opacity: 0; transform: translate(var(--from-x, -40px), var(--from-y, 40px)) scale(0.7); }
+      to   { opacity: var(--final-opacity, 0.8); transform: translate(0, 0) scale(1); }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .hd1 { width: 240px; height: 240px; top: 8%;  right: -3%;  background: var(--pink); --final-opacity: 0.18; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
+    .hd2 { width: 50px;  height: 50px;  bottom: 18%; right: 24%; background: var(--cyan); --final-opacity: 0.55; --from-y: 30px; animation-delay: 400ms; }
+    .hd3 { width: 18px;  height: 18px;  top: 32%; left: 8%; background: var(--yellow); --final-opacity: 0.85; animation-delay: 600ms; }
+    .hd4 { width: 14px;  height: 14px;  top: 66%; left: 30%; background: var(--pink); --final-opacity: 0.6; animation-delay: 700ms; }
+
+    /* ── numbers-strip (klydo) ──────────────────────────────── */
+    .numbers-strip {
+      max-width: 800px;
+      margin: 2.5rem auto;
+      padding: 2.5rem 2rem;
+      background: var(--pink);
+      border-radius: 14px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1.5rem;
+      text-align: center;
+      box-shadow: 0 18px 40px -20px rgba(154, 20, 83, 0.5);
+      transform: rotate(-0.4deg);
+      position: relative;
+    }
+    .numbers-strip::before {
+      content: "";
+      position: absolute;
+      left: 2rem; right: 2rem; top: 1.25rem;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 200ms;
+    }
+    .numbers-strip.in::before { transform: scaleX(1); }
+    .numbers-strip dt {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(3rem, 6vw, 4.4rem);
+      color: #fff;
+      line-height: 0.92;
+      margin-bottom: 0.5rem;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.04em;
+      transition: transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .numbers-strip.in dt { transform: scale(1); }
+    .numbers-strip:not(.in) dt { transform: scale(0.85); }
+    .numbers-strip dd {
+      margin: 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.88);
+      line-height: 1.4;
+      font-weight: 600;
+    }
+
+    /* ── editorial-body (klydo) ─────────────────────────────── */
+    .editorial-body { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 2rem; }
+    .editorial-body p { font-family: 'Space Grotesk', sans-serif; font-size: 1.05rem; line-height: 1.75; color: #333; margin: 0 0 1.5rem; }
+    .editorial-body > p:first-of-type::first-letter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 3.2rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.12em;
+      margin-top: 0.05em;
+      color: var(--pink);
+    }
+    .editorial-body em { color: #111; font-style: italic; }
+    .editorial-body h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      color: #111;
+      margin: 3.5rem 0 1rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .editorial-body h2::before {
+      content: "";
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulseDot 2.8s ease-in-out infinite;
+      animation-delay: 1.2s;
+    }
+    .editorial-body h2:nth-of-type(1)::before { background: var(--pink); }
+    .editorial-body h2:nth-of-type(2)::before { background: var(--cyan); }
+    .editorial-body h2:nth-of-type(3)::before { background: var(--yellow); }
+    .editorial-body h2 .h2-num {
+      font-family: 'Caveat', cursive;
+      font-size: 0.65em;
+      margin-right: 0.1em;
+      transform: rotate(-3deg);
+      display: inline-block;
+    }
+    .editorial-body h2:nth-of-type(1) .h2-num { color: var(--pink); }
+    .editorial-body h2:nth-of-type(2) .h2-num { color: var(--cyan); }
+    .editorial-body h2:nth-of-type(3) .h2-num { color: var(--yellow); }
+
+    /* ── pull-quote (klydo) ─────────────────────────────────── */
+    .pull-quote {
+      margin: 3rem -1rem;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border-top: 1px solid #e8e6e4;
+      border-bottom: 1px solid #e8e6e4;
+    }
+    .pull-quote p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      line-height: 1.35;
+      color: #1a1a1a;
+      font-style: italic;
+      margin: 0 auto 0.5rem;
+      max-width: 600px;
+    }
+    .pull-quote p mark {
+      background: linear-gradient(180deg, transparent 60%, rgba(233, 30, 123, 0.28) 60%);
+      color: inherit;
+      padding: 0 0.12em;
+    }
+    .pull-quote cite {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--pink);
+      font-style: normal;
+    }
+
+    /* ── audience toggle — quiet inline pill group ──────────── */
+    .audience-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin: 1rem 0 0.5rem;
+    }
+    .audience-toggle-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1.05rem;
+      color: var(--ink-soft);
+      transform: rotate(-1deg);
+    }
+    .audience-toggle-group {
+      display: inline-flex;
+      gap: 0.4rem;
+      background: rgba(44,53,68,0.05);
+      padding: 4px;
+      border-radius: 999px;
+    }
+    .audience-toggle-group button {
+      background: transparent;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.42rem 1.1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: color 0.18s, background 0.18s;
+    }
+    .audience-toggle-group button[aria-pressed="true"] {
+      color: #fff;
+      font-weight: 700;
+      background: var(--pink);
+    }
+    .audience-toggle-group button:hover:not([aria-pressed="true"]) {
+      color: var(--ink);
+      background: rgba(255,255,255,0.7);
+    }
+    .audience-context {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      margin: 0.5rem 0 1.5rem;
+    }
+    .audience-context strong { color: var(--ink); font-weight: 600; }
+
+    /* ── lesson-cards adapted for the four talks (klydo) ────── */
+    .lesson-cards {
+      display: grid;
+      gap: 1.25rem;
+      margin: 1rem 0 1.5rem;
+      counter-reset: l;
+      list-style: none;
+      padding: 0;
+    }
+    .lesson-card {
+      counter-increment: l;
+      position: relative;
+      padding: 0;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-left: 3px solid var(--accent, var(--pink));
+      border-radius: 10px;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .lesson-card:nth-child(1) { --accent: var(--pink); }
+    .lesson-card:nth-child(2) { --accent: var(--cyan); }
+    .lesson-card:nth-child(3) { --accent: var(--yellow); }
+    .lesson-card:nth-child(4) { --accent: var(--green); }
+    .lesson-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--accent, var(--pink)); }
+    .lesson-card[data-open="true"] { box-shadow: 6px 6px 0 var(--accent, var(--pink)); }
+    .lesson-card-trigger {
+      width: 100%;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+      padding: 1.25rem 1.5rem 1.25rem 4.5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 1rem;
+      align-items: center;
+      font-family: inherit;
+    }
+    .lesson-card-trigger:focus-visible {
+      outline: 2px solid var(--pink);
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+    .lesson-card::before {
+      content: counter(l, decimal-leading-zero);
+      position: absolute;
+      left: 1rem;
+      top: 1.1rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent, var(--pink));
+      line-height: 0.9;
+      transform: rotate(-3deg);
+      pointer-events: none;
+    }
+    .lesson-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.18rem;
+      line-height: 1.3;
+      color: #1a1a1a;
+      letter-spacing: -0.015em;
+    }
+    .lesson-card-title em { font-style: italic; color: var(--accent, var(--pink)); }
+    .lesson-card-teaser {
+      grid-column: 1 / -1;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.93rem;
+      color: var(--ink-soft);
+      line-height: 1.5;
+      margin: 0;
+    }
+    .lesson-card-arrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--accent, var(--pink));
+      transform: rotate(-2deg);
+      transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+      white-space: nowrap;
+    }
+    .lesson-card[data-open="true"] .lesson-card-arrow {
+      transform: rotate(90deg);
+    }
+
+    /* expandable panel inside lesson card */
+    .lesson-card-panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .lesson-card[data-open="true"] .lesson-card-panel { grid-template-rows: 1fr; }
+    .lesson-card-panel-inner { overflow: hidden; }
+    .lesson-card-panel-content {
+      padding: 0.5rem 1.5rem 1.75rem 4.5rem;
+      border-top: 1px dashed #e8e6e4;
+      margin-top: 0.5rem;
+      padding-top: 1.5rem;
+    }
+    @media (max-width: 600px) {
+      .lesson-card-trigger { padding-left: 3.75rem; }
+      .lesson-card-panel-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+    }
+    .panel-section { margin-bottom: 1.25rem; }
+    .panel-section:last-child { margin-bottom: 0; }
+    .panel-section-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .panel-section p, .panel-section li {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.96rem;
+      line-height: 1.6;
+      color: #333;
+      margin: 0 0 0.5rem;
+    }
+    .panel-section ul { margin: 0; padding: 0; list-style: none; }
+    .panel-section ul li {
+      padding-left: 1rem;
+      position: relative;
+    }
+    .panel-section ul li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.65em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--pink);
+      opacity: 0.5;
+    }
+    .panel-story {
+      background: rgba(79, 196, 207, 0.08);
+      border-left: 3px solid var(--cyan);
+      padding: 0.85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+    }
+    .panel-story p { font-style: italic; margin: 0; color: #333; }
+    .panel-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      background: var(--pink);
+      text-decoration: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 6px;
+      transition: background 0.2s, gap 0.2s;
+    }
+    .panel-cta:hover { background: #c41569; gap: 0.55rem; }
+
+    /* ── show-don't-tell mini-demos (page-local, kept) ─────── */
+    .demo {
+      background: var(--ink);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 0 0 1.25rem;
+    }
+    .demo-label {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.55);
+      display: block;
+      margin-bottom: 0.85rem;
+    }
+
+    /* talk 1 — investor matrix */
+    .matrix {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 3px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+      aspect-ratio: 1.7 / 1;
+      position: relative;
+    }
+    .matrix-q {
+      background: rgba(255,255,255,0.04);
+      padding: 0.7rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.18s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      border: 0;
+      text-align: left;
+      color: inherit;
+      font-family: inherit;
+    }
+    .matrix-q:hover { background: rgba(233, 30, 123, 0.18); }
+    .matrix-q[aria-pressed="true"] { background: rgba(233, 30, 123, 0.28); }
+    .matrix-q:focus-visible { outline: 2px solid var(--pink); outline-offset: -2px; }
+    .matrix-q-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--pink);
+    }
+    .matrix-q-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.2;
+    }
+    .matrix-q-hint {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.45);
+      line-height: 1.35;
+    }
+    .matrix-axes {
+      display: flex; justify-content: space-between;
+      padding: 0.4rem 0 0;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .matrix-reveal {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(233, 30, 123, 0.12);
+      border-left: 3px solid var(--pink);
+      border-radius: 0 6px 6px 0;
+      display: none;
+    }
+    .matrix-reveal.active { display: block; }
+    .matrix-reveal-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .matrix-reveal-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.72);
+    }
+
+    /* talk 2 — money switcher */
+    .money-btns {
+      display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.85rem;
+    }
+    .money-btn {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      padding: 0.4rem 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.72);
+      cursor: pointer;
+      transition: background 0.18s, border-color 0.18s, color 0.18s;
+    }
+    .money-btn[aria-pressed="true"] { background: var(--cyan); border-color: var(--cyan); color: var(--ink); }
+    .money-btn:hover:not([aria-pressed="true"]) { background: rgba(255,255,255,0.12); color: #fff; }
+    .money-panel { display: none; }
+    .money-panel.active { display: block; }
+    .money-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+    @media (max-width: 480px) { .money-row { grid-template-columns: 1fr; } }
+    .money-field-key {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      display: block;
+    }
+    .money-field-val {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      line-height: 1.45;
+      color: rgba(255,255,255,0.9);
+    }
+    .money-bar {
+      margin-top: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .money-bar-label {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+    }
+    .money-bar-track {
+      flex: 1;
+      height: 8px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .money-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.35s;
+    }
+
+    /* talk 3 — story tabs */
+    .story-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+    .story-tab {
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 4px;
+      padding: 0.35rem 0.9rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s, border-color 0.18s;
+    }
+    .story-tab[aria-pressed="true"] { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+    .story-tab:hover:not([aria-pressed="true"]) { background: rgba(255,255,255,0.12); color: #fff; }
+    .story-core {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin: 0 0 0.6rem;
+    }
+    .story-core strong { color: rgba(255,255,255,0.65); }
+    .story-version { display: none; }
+    .story-version.active { display: block; }
+    .story-version-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #fff;
+      padding: 0.85rem 1.05rem;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      border-left: 3px solid var(--yellow);
+      margin: 0;
+    }
+    .story-version-note {
+      font-family: 'Caveat', cursive;
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.4);
+      display: block;
+      margin-top: 0.4rem;
+    }
+
+    /* talk 4 — fundraise timeline */
+    .timeline { padding: 1rem 0 0.25rem; position: relative; }
+    .timeline-track { display: flex; align-items: center; position: relative; }
+    .timeline-line {
+      position: absolute;
+      left: 1.25rem; right: 1.25rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 2px;
+      background: rgba(255,255,255,0.12);
+    }
+    .timeline-hurdles {
+      display: flex; justify-content: space-between; width: 100%; position: relative; z-index: 2;
+    }
+    .timeline-hurdle {
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      cursor: pointer; flex: 1;
+      background: transparent; border: 0; padding: 0;
+      font-family: inherit; color: inherit;
+    }
+    .hurdle-dot {
+      width: 2.1rem; height: 2.1rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.18s, border-color 0.18s, transform 0.18s;
+    }
+    .timeline-hurdle:hover .hurdle-dot,
+    .timeline-hurdle[aria-pressed="true"] .hurdle-dot {
+      background: var(--green); border-color: var(--green); transform: scale(1.18);
+    }
+    .hurdle-month {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .timeline-hurdle:hover .hurdle-month,
+    .timeline-hurdle[aria-pressed="true"] .hurdle-month { color: var(--green); }
+    .hurdle-reveal {
+      margin-top: 0.85rem;
+      padding: 0.85rem 1.1rem;
+      background: rgba(91, 189, 114, 0.10);
+      border-left: 3px solid var(--green);
+      border-radius: 0 6px 6px 0;
+      display: none;
+    }
+    .hurdle-reveal.active { display: block; }
+    .hurdle-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--green);
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .hurdle-anecdote {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+
+    /* ── cuts-pair — pricing tiles (klydo) ───────────────────── */
+    .cuts-pair {
+      max-width: 800px;
+      margin: 1.5rem auto 1rem;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .cuts-pair-card {
+      display: block;
+      padding: 1.75rem;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid #e8e6e4;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.32s, border-color 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .cuts-pair-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+    }
+    .cuts-pair-card.is-design::before { background: var(--pink); }
+    .cuts-pair-card.is-strategy::before { background: var(--cyan); }
+    .cuts-pair-card.is-design:hover { transform: translate(-6px, -6px); box-shadow: 14px 14px 0 var(--pink); border-color: transparent; }
+    .cuts-pair-card.is-strategy:hover { transform: translate(-6px, -6px); box-shadow: 14px 14px 0 var(--cyan); border-color: transparent; }
+    .cuts-pair-eyebrow {
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      transform: rotate(-2deg);
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .is-design .cuts-pair-eyebrow { color: var(--pink); }
+    .is-strategy .cuts-pair-eyebrow { color: var(--cyan); }
+    .cuts-pair-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.35rem;
+      color: #111;
+      margin: 0 0 0.6rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+    .cuts-pair-body {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #444;
+      margin: 0 0 1rem;
+    }
+    .cuts-pair-arrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #111;
+    }
+    .is-design:hover .cuts-pair-arrow { color: var(--pink); }
+    .is-strategy:hover .cuts-pair-arrow { color: var(--cyan); }
+
+    .pricing-aside {
+      max-width: 800px;
+      margin: 1rem auto 0;
+      text-align: center;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      transform: rotate(-0.6deg);
+    }
+    .pricing-aside a {
+      color: var(--pink);
+      text-decoration: none;
+      border-bottom: 1.5px dashed var(--pink);
+    }
+    .pricing-aside a:hover { color: #c41569; }
+
+    /* ── reveal (klydo) ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* chapter-rule (klydo) */
+    .chapter-rule {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(44, 53, 68, 0.4), transparent);
+      max-width: 720px;
+      margin: 4rem auto 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .chapter-rule.in { transform: scaleX(1); }
+
+    @media (max-width: 600px) {
+      .pull-quote { margin: 3rem 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+      .reveal, .editorial-body h2, .lesson-card { opacity: 1; transform: none; }
+      .numbers-strip dt { transform: scale(1); }
+      .numbers-strip::before, .chapter-rule { transform: scaleX(1); }
+    }
+  </style>
+
+  <!-- GA — Joyus Studio G-K7PDLTYWF6 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K7PDLTYWF6');
+  </script>
+</head>
+<body class="work-page">
+
+  <div class="thread"><div class="thread-fill" id="thread"></div></div>
+
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="workshops.html" data-nav="workshops">Workshops</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
+    <a href="about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <main id="main-content">
+
+    <!-- ── Hero (klydo .editorial-hero) ────────────────────── -->
+    <section class="editorial-hero reveal">
+      <span class="hero-dot hd1" aria-hidden="true"></span>
+      <span class="hero-dot hd2" aria-hidden="true"></span>
+      <span class="hero-dot hd3" aria-hidden="true"></span>
+      <span class="hero-dot hd4" aria-hidden="true"></span>
+      <div class="editorial-hero-inner">
+        <span class="editorial-eyebrow">a workshop · for founders raising</span>
+        <h1>Investing 101 — what actually <em>happens in the room.</em></h1>
+        <p class="editorial-lede">Four talks on what really happens when you raise. The parts that show up in the meeting, and the parts no one warns you about.</p>
+        <div class="meta-row">
+          <span>4 talks</span>
+          <span>90 min each</span>
+          <span>1 artifact per talk</span>
+          <span>For communities or in-house</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Numbers strip (klydo .numbers-strip) ───────────────── -->
+    <dl class="numbers-strip" aria-label="Workshop in numbers">
+      <div><dt>4</dt><dd>talks across 4 weeks</dd></div>
+      <div><dt>1<span style="font-size:0.45em;font-weight:600;">/40</span></dt><dd>cold-pitch close rate</dd></div>
+      <div><dt>4</dt><dd>artifacts you keep</dd></div>
+    </dl>
+
+    <!-- ── Editorial body ─────────────────────────────────────── -->
+    <article class="editorial-body">
+      <p>Most founders learn to raise the way most people learn to grieve — in public, with no preparation, and a lot of conflicting advice. <em>Investing 101</em> is the room we wish someone had walked us into before our first pitch. Four talks, ninety minutes each, with frameworks you'll actually use the week after.</p>
+
+      <h2><span class="h2-num">↳</span>The four talks</h2>
+
+      <div class="audience-toggle" role="group" aria-label="Choose your context">
+        <span class="audience-toggle-label">you are:</span>
+        <div class="audience-toggle-group">
+          <button id="pill-edu" aria-pressed="true" data-audience="edu">running a community</button>
+          <button id="pill-team" aria-pressed="false" data-audience="team">building inside a company</button>
+        </div>
+      </div>
+      <p class="audience-context" id="audienceContext">
+        <strong>You bring us to your community</strong> — accelerator, fellowship, founders' guild — and we run the four talks for your founders.
+      </p>
+
+      <ol class="lesson-cards reveal">
+
+        <!-- Talk 1 ───────────────────────────────────────────── -->
+        <li class="lesson-card" data-talk="1" data-open="false">
+          <button class="lesson-card-trigger" aria-expanded="false" aria-controls="panel-1">
+            <span class="lesson-card-title">Understanding <em>your</em> investor.</span>
+            <span class="lesson-card-arrow" aria-hidden="true">open ↓</span>
+            <span class="lesson-card-teaser">Separating signal from noise — read the room, read who's actually in it.</span>
+          </button>
+          <div class="lesson-card-panel" id="panel-1" role="region">
+            <div class="lesson-card-panel-inner">
+              <div class="lesson-card-panel-content">
+
+                <div class="demo">
+                  <span class="demo-label">explore: tap a quadrant for the archetype</span>
+                  <div class="matrix" role="group" aria-label="Investor archetype matrix">
+                    <button class="matrix-q" data-quadrant="strategic-controlling" aria-pressed="false">
+                      <span class="matrix-q-tag">strategic · controlling</span>
+                      <span class="matrix-q-name">The Builder-VC</span>
+                      <span class="matrix-q-hint">wants a board seat + input on hires</span>
+                    </button>
+                    <button class="matrix-q" data-quadrant="financial-controlling" aria-pressed="false">
+                      <span class="matrix-q-tag">financial · controlling</span>
+                      <span class="matrix-q-name">The Return Machine</span>
+                      <span class="matrix-q-hint">fund timeline drives every decision</span>
+                    </button>
+                    <button class="matrix-q" data-quadrant="strategic-passive" aria-pressed="false">
+                      <span class="matrix-q-tag">strategic · passive</span>
+                      <span class="matrix-q-name">The Door Opener</span>
+                      <span class="matrix-q-hint">network and intros, minimal governance</span>
+                    </button>
+                    <button class="matrix-q" data-quadrant="financial-passive" aria-pressed="false">
+                      <span class="matrix-q-tag">financial · passive</span>
+                      <span class="matrix-q-name">The Quiet Cap</span>
+                      <span class="matrix-q-hint">check size + returns, no operations</span>
+                    </button>
+                  </div>
+                  <div class="matrix-axes">
+                    <span>← strategic</span>
+                    <span>financial →</span>
+                  </div>
+                  <div class="matrix-reveal" id="matrixReveal" role="status">
+                    <span class="matrix-reveal-name" id="matrixRevealName"></span>
+                    <span class="matrix-reveal-text" id="matrixRevealText"></span>
+                  </div>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What this talk covers</span>
+                  <ul>
+                    <li>Investor types and mandates — what distinguishes a strategic VC from a financial one before you open your mouth</li>
+                    <li>What investors have already decided before you speak — pattern-matching, thesis fit, the pre-meeting posture problem</li>
+                    <li>How to construct a meeting research discipline that fits on an index card</li>
+                  </ul>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What you walk out with</span>
+                  <p>A two-axis investor-type map you can annotate before any meeting and a pre-meeting checklist that surfaces what's actually legible from public information.</p>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">Who it's for</span>
+                  <p
+                    class="who-text"
+                    data-edu="Communities of founders — accelerators, fellowships, alumni networks — where members are at-or-near a first raise and need a shared vocabulary for reading investors."
+                    data-team="Leadership teams prepping for a raise cycle who want a shared vocabulary for evaluating investors before the first call."
+                  ></p>
+                </div>
+
+                <div class="panel-section panel-story">
+                  <p
+                    class="story-text"
+                    data-edu="An accelerator brought us in for cohort week 6. The founders had been pitching the same partners for four weeks with similar feedback. By the end of this talk, half the cohort realised they'd been targeting the wrong investor type for their stage. Three rebuilt their target list that night."
+                    data-team="A founding team had one 'investor type' assumption baked into all their board prep. By the end of this talk, three of four realised they'd been briefing each other for the wrong conversation for six weeks."
+                  ></p>
+                </div>
+
+                <a
+                  class="panel-cta"
+                  href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20Talk%201"
+                  data-edu-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20community%20%E2%80%94%20Talk%201"
+                  data-edu-text="Bring it to your community →"
+                  data-team-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20team%20%E2%80%94%20Talk%201"
+                  data-team-text="Bring it to your team →"
+                >Bring it to your community →</a>
+
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Talk 2 ───────────────────────────────────────────── -->
+        <li class="lesson-card" data-talk="2" data-open="false">
+          <button class="lesson-card-trigger" aria-expanded="false" aria-controls="panel-2">
+            <span class="lesson-card-title">Understanding <em>your</em> money.</span>
+            <span class="lesson-card-arrow" aria-hidden="true">open ↓</span>
+            <span class="lesson-card-teaser">Controlling vs strategic vs passive capital — which to take, when to walk.</span>
+          </button>
+          <div class="lesson-card-panel" id="panel-2" role="region">
+            <div class="lesson-card-panel-inner">
+              <div class="lesson-card-panel-content">
+
+                <div class="demo">
+                  <span class="demo-label">explore: what kind of money is this?</span>
+                  <div class="money-btns" role="group" aria-label="Select capital type">
+                    <button class="money-btn" data-money="controlling" aria-pressed="true">Controlling money</button>
+                    <button class="money-btn" data-money="strategic" aria-pressed="false">Strategic money</button>
+                    <button class="money-btn" data-money="passive" aria-pressed="false">Passive money</button>
+                  </div>
+                  <div class="money-panel active" data-money-panel="controlling">
+                    <div class="money-row">
+                      <div><span class="money-field-key">Who gives it</span><span class="money-field-val">Lead VCs, Series A+ institutional funds with board seat expectations</span></div>
+                      <div><span class="money-field-key">What they want</span><span class="money-field-val">Governance, information rights, pro-rata, often a board seat or observer</span></div>
+                      <div><span class="money-field-key">What it costs you</span><span class="money-field-val">Decision velocity. Every major call goes through a new stakeholder.</span></div>
+                      <div><span class="money-field-key">When to take it</span><span class="money-field-val">When you want accountability pressure and the bandwidth to manage it</span></div>
+                    </div>
+                    <div class="money-bar">
+                      <span class="money-bar-label">control given up</span>
+                      <div class="money-bar-track"><div class="money-bar-fill" style="width:85%;background:var(--pink);"></div></div>
+                    </div>
+                  </div>
+                  <div class="money-panel" data-money-panel="strategic">
+                    <div class="money-row">
+                      <div><span class="money-field-key">Who gives it</span><span class="money-field-val">Corporate VCs, strategic angels, industry partners investing for distribution or IP access</span></div>
+                      <div><span class="money-field-key">What they want</span><span class="money-field-val">Market access, co-development options, first-look rights, or talent pipelines</span></div>
+                      <div><span class="money-field-key">What it costs you</span><span class="money-field-val">Optionality. Their strategic agenda can conflict with yours in year two.</span></div>
+                      <div><span class="money-field-key">When to take it</span><span class="money-field-val">When their network unlocks a distribution channel you can't build alone</span></div>
+                    </div>
+                    <div class="money-bar">
+                      <span class="money-bar-label">control given up</span>
+                      <div class="money-bar-track"><div class="money-bar-fill" style="width:50%;background:var(--yellow);"></div></div>
+                    </div>
+                  </div>
+                  <div class="money-panel" data-money-panel="passive">
+                    <div class="money-row">
+                      <div><span class="money-field-key">Who gives it</span><span class="money-field-val">Micro-VCs, angels, syndicates — capital without agenda, often no follow-on</span></div>
+                      <div><span class="money-field-key">What they want</span><span class="money-field-val">Returns. Minimal involvement. Updates quarterly.</span></div>
+                      <div><span class="money-field-key">What it costs you</span><span class="money-field-val">Less than you think. But cap-table noise adds up when you get 12 of them.</span></div>
+                      <div><span class="money-field-key">When to take it</span><span class="money-field-val">When you need to fill a round fast or have a relationship-based reason</span></div>
+                    </div>
+                    <div class="money-bar">
+                      <span class="money-bar-label">control given up</span>
+                      <div class="money-bar-track"><div class="money-bar-fill" style="width:18%;background:var(--green);"></div></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What this talk covers</span>
+                  <ul>
+                    <li>The three capital types — controlling, strategic, and passive — and what each one costs you beyond the cap table</li>
+                    <li>The "free money allure": why bad-fit capital feels like a win in the moment and looks like a constraint twelve months later</li>
+                    <li>Frameworks for deciding which capital to pursue, which to decline, and when to walk from a term sheet</li>
+                  </ul>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What you walk out with</span>
+                  <p>A capital-type scoring lens you can apply to your current pipeline — plus language for the walk-away conversation that doesn't burn the relationship.</p>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">Who it's for</span>
+                  <p
+                    class="who-text"
+                    data-edu="Communities where multiple founders are weighing term sheets simultaneously — fellowship cohorts, accelerator demo-day crews, founder-club chapters."
+                    data-team="Leadership teams mid-raise, especially where the CEO and a co-founder or CFO disagree about which capital source is 'right.'"
+                  ></p>
+                </div>
+
+                <div class="panel-section panel-story">
+                  <p
+                    class="story-text"
+                    data-edu="A founder fellowship ran this talk on day two of their offsite. By session end, four of the eleven founders had shifted their target list — one walked away from a near-signed term sheet that didn't survive the framework, and renegotiated a better one a week later."
+                    data-team="A team's CFO and CEO had been talking past each other about a secondary offer for weeks. This talk gave them the same vocabulary. The disagreement didn't disappear — but it became a real conversation instead of talking-in-circles."
+                  ></p>
+                </div>
+
+                <a
+                  class="panel-cta"
+                  href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20Talk%202"
+                  data-edu-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20community%20%E2%80%94%20Talk%202"
+                  data-edu-text="Bring it to your community →"
+                  data-team-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20team%20%E2%80%94%20Talk%202"
+                  data-team-text="Bring it to your team →"
+                >Bring it to your community →</a>
+
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Talk 3 ───────────────────────────────────────────── -->
+        <li class="lesson-card" data-talk="3" data-open="false">
+          <button class="lesson-card-trigger" aria-expanded="false" aria-controls="panel-3">
+            <span class="lesson-card-title">Curating <em>your</em> story.</span>
+            <span class="lesson-card-arrow" aria-hidden="true">open ↓</span>
+            <span class="lesson-card-teaser">Telling every version — to investors, hires, customers, yourself.</span>
+          </button>
+          <div class="lesson-card-panel" id="panel-3" role="region">
+            <div class="lesson-card-panel-inner">
+              <div class="lesson-card-panel-content">
+
+                <div class="demo">
+                  <span class="demo-label">the story doesn't change. the framing does.</span>
+                  <p class="story-core"><strong>Source:</strong> "We help founders raise money by helping them understand investors."</p>
+                  <div class="story-tabs" role="group" aria-label="Audience framing">
+                    <button class="story-tab" data-story="investors" aria-pressed="true">to investors</button>
+                    <button class="story-tab" data-story="hires" aria-pressed="false">to hires</button>
+                    <button class="story-tab" data-story="customers" aria-pressed="false">to customers</button>
+                    <button class="story-tab" data-story="mom" aria-pressed="false">to your mom</button>
+                  </div>
+                  <div class="story-version active" data-story-panel="investors">
+                    <p class="story-version-text">"We close the information asymmetry between founders and the institutional capital layer. Our four-session program has a documented 2× improvement in pitch-to-second-meeting conversion."</p>
+                    <span class="story-version-note">↳ metrics, category positioning, ROI framing</span>
+                  </div>
+                  <div class="story-version" data-story-panel="hires">
+                    <p class="story-version-text">"We're the studio that finally gives founders the investor literacy they should have learned in business school but didn't. If you want your work to have direct impact on whether a company survives its first round — this is it."</p>
+                    <span class="story-version-note">↳ mission, craft, stakes</span>
+                  </div>
+                  <div class="story-version" data-story-panel="customers">
+                    <p class="story-version-text">"You've been in meetings with investors where you couldn't read the room. We teach you exactly what they're looking for — before you walk in, not after you walk out."</p>
+                    <span class="story-version-note">↳ problem first, outcome second</span>
+                  </div>
+                  <div class="story-version" data-story-panel="mom">
+                    <p class="story-version-text">"You know how founders pitch investors on TV and it looks easy? In real life it's not. We run a class that teaches founders what investors actually care about so they don't waste a year getting it wrong."</p>
+                    <span class="story-version-note">↳ familiar analogy, plain language</span>
+                  </div>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What this talk covers</span>
+                  <ul>
+                    <li>Why your investor story and your hire story and your customer story are different documents with the same source material</li>
+                    <li>The architecture of a pitch that adapts — what stays constant, what mutates by audience, and how to hold both without losing coherence</li>
+                    <li>How to tell the version of the story you haven't earned yet without it feeling like a lie</li>
+                  </ul>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What you walk out with</span>
+                  <p>A story architecture map — one source narrative with four audience branches — plus a live exercise that surfaces the version you're least comfortable telling.</p>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">Who it's for</span>
+                  <p
+                    class="who-text"
+                    data-edu="Communities where founders are stuck on positioning — early-stage cohorts, design-forward founder collectives, founder-led media programs."
+                    data-team="Leadership teams where the CEO's story and the CPO's story don't match when told separately in different rooms."
+                  ></p>
+                </div>
+
+                <div class="panel-section panel-story">
+                  <p
+                    class="story-text"
+                    data-edu="A community of design-led founders ran this as a peer-review session. Each founder told their story four ways. The group voted on which version felt true. Two founders rewrote their decks the next week — both got better second meetings."
+                    data-team="A team's CEO and CPO were asked separately to tell the company story in two minutes. The recordings were played back in the room. They had the same facts and different companies. This talk is where teams find the sentence that reconciles them."
+                  ></p>
+                </div>
+
+                <a
+                  class="panel-cta"
+                  href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20Talk%203"
+                  data-edu-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20community%20%E2%80%94%20Talk%203"
+                  data-edu-text="Bring it to your community →"
+                  data-team-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20team%20%E2%80%94%20Talk%203"
+                  data-team-text="Have your team do this together →"
+                >Bring it to your community →</a>
+
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <!-- Talk 4 ───────────────────────────────────────────── -->
+        <li class="lesson-card" data-talk="4" data-open="false">
+          <button class="lesson-card-trigger" aria-expanded="false" aria-controls="panel-4">
+            <span class="lesson-card-title">Bracing <em>for impact.</em></span>
+            <span class="lesson-card-arrow" aria-hidden="true">open ↓</span>
+            <span class="lesson-card-teaser">The psychological hurdles of fundraising — the parts no one warns you about.</span>
+          </button>
+          <div class="lesson-card-panel" id="panel-4" role="region">
+            <div class="lesson-card-panel-inner">
+              <div class="lesson-card-panel-content">
+
+                <div class="demo">
+                  <span class="demo-label">a raise isn't one moment — it's a sequence of five hurdles</span>
+                  <div class="timeline">
+                    <div class="timeline-track">
+                      <div class="timeline-line" aria-hidden="true"></div>
+                      <div class="timeline-hurdles" role="group" aria-label="Fundraise hurdles">
+                        <button class="timeline-hurdle" data-hurdle="0" aria-pressed="false">
+                          <span class="hurdle-dot"></span>
+                          <span class="hurdle-month">T+0</span>
+                        </button>
+                        <button class="timeline-hurdle" data-hurdle="1" aria-pressed="false">
+                          <span class="hurdle-dot"></span>
+                          <span class="hurdle-month">Month 1</span>
+                        </button>
+                        <button class="timeline-hurdle" data-hurdle="2" aria-pressed="false">
+                          <span class="hurdle-dot"></span>
+                          <span class="hurdle-month">Month 3</span>
+                        </button>
+                        <button class="timeline-hurdle" data-hurdle="3" aria-pressed="false">
+                          <span class="hurdle-dot"></span>
+                          <span class="hurdle-month">Month 5</span>
+                        </button>
+                        <button class="timeline-hurdle" data-hurdle="4" aria-pressed="false">
+                          <span class="hurdle-dot"></span>
+                          <span class="hurdle-month">Close</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="hurdle-reveal" id="hurdleReveal" role="status">
+                      <span class="hurdle-name" id="hurdleName"></span>
+                      <span class="hurdle-anecdote" id="hurdleAnecdote"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What this talk covers</span>
+                  <ul>
+                    <li>The psychological arc of a raise — what you'll feel in month one, three, and five, and why each phase has a different failure mode</li>
+                    <li>How to separate signal from noise in investor feedback without either dismissing it or over-weighting it</li>
+                    <li>The founder identity problem: what happens to your sense of self when the raise is going badly and how to protect the decision-making quality you need most in that moment</li>
+                  </ul>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">What you walk out with</span>
+                  <p>A personal resilience map for your own raise — which phase you're in, what the specific risk is for that phase, and one concrete action to mitigate it.</p>
+                </div>
+
+                <div class="panel-section">
+                  <span class="panel-section-label">Who it's for</span>
+                  <p
+                    class="who-text"
+                    data-edu="Communities supporting founders mid-raise — accelerators with active demo-day cohorts, founder mental-health groups, fellowships at the 60–90-day mark."
+                    data-team="Leadership teams where the raise is putting internal strain on co-founder relationships or where the CEO is carrying the psychological load alone."
+                  ></p>
+                </div>
+
+                <div class="panel-section panel-story">
+                  <p
+                    class="story-text"
+                    data-edu="An accelerator ran this talk in week 10 — most of the cohort was three months into post-program raises and quietly burning out. We mapped each founder's phase on the wall. Six of nine identified themselves as in the 'false trough' — the point where most founders quit. Five of those six closed within eight weeks."
+                    data-team="A co-founding team spent the first half of this talk talking about their raise. They spent the second half talking about each other. One co-founder said it was the first honest conversation they'd had since the raise started."
+                  ></p>
+                </div>
+
+                <a
+                  class="panel-cta"
+                  href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20Talk%204"
+                  data-edu-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20community%20%E2%80%94%20Talk%204"
+                  data-edu-text="Bring it to your community →"
+                  data-team-href="mailto:hello@joyus.studio?subject=Investing%20101%20for%20our%20team%20%E2%80%94%20Talk%204"
+                  data-team-text="Bring it to your team →"
+                >Bring it to your community →</a>
+
+              </div>
+            </div>
+          </div>
+        </li>
+
+      </ol>
+
+      <div class="pull-quote reveal">
+        <p>The <mark>room</mark> is the deliverable. Slides are residue.</p>
+        <cite>— how we run every Joyus workshop</cite>
+      </div>
+
+      <h2><span class="h2-num">↳</span>Two ways in.</h2>
+
+      <div class="cuts-pair">
+        <a class="cuts-pair-card is-design" href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20Community%20engagement">
+          <span class="cuts-pair-eyebrow">for a community</span>
+          <h3 class="cuts-pair-title">If you run an accelerator, fellowship, or founders' guild —</h3>
+          <p class="cuts-pair-body">Bring us in to run the four talks for your founders. We tailor stories and exercises to where your cohort actually is in their raise. From $1,500 / talk, packaged or à la carte.</p>
+          <span class="cuts-pair-arrow">Bring it to your community →</span>
+        </a>
+        <a class="cuts-pair-card is-strategy" href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20Team%20engagement">
+          <span class="cuts-pair-eyebrow">for your team</span>
+          <h3 class="cuts-pair-title">If your leadership team is raising —</h3>
+          <p class="cuts-pair-body">All four talks, your room, your schedule. Best when CEO + co-founders + key hires want a shared vocabulary going into the raise. From $4,500 for the full series.</p>
+          <span class="cuts-pair-arrow">Bring it to your team →</span>
+        </a>
+      </div>
+
+      <p class="pricing-aside">non-profits, student groups, scrappy founder collectives — <a href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20scholarship">write us</a>, we usually find a way.</p>
+
+      <hr class="chapter-rule" />
+    </article>
+
+    <!-- ── Closing (cs-closing from styles.css) ─────────────────── -->
+    <section class="cs-closing">
+      <span class="cs-closing-label">your move</span>
+      <h3>Running a raise and want to know what's actually happening in the room? <em><a href="mailto:hello@joyus.studio?subject=Investing%20101%20%E2%80%94%20inquiry">Be our friends.</a></em></h3>
+      <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    </section>
+
+  </main>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    /* ── scroll thread ─────────────────────────────────────── */
+    (function () {
+      var thread = document.getElementById('thread');
+      window.addEventListener('scroll', function () {
+        if (!thread) return;
+        var total = document.body.scrollHeight - window.innerHeight;
+        thread.style.width = (window.scrollY / Math.max(total, 1)) * 100 + '%';
+      }, { passive: true });
+    })();
+
+    /* ── reveal on scroll (klydo) ──────────────────────────── */
+    (function () {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal, .editorial-body h2, .numbers-strip, .chapter-rule').forEach(function (el) { io.observe(el); });
+    })();
+
+    /* ── audience toggle ───────────────────────────────────── */
+    (function () {
+      var pillEdu = document.getElementById('pill-edu');
+      var pillTeam = document.getElementById('pill-team');
+      var ctx = document.getElementById('audienceContext');
+      var copy = {
+        edu:  '<strong>You bring us to your community</strong> — accelerator, fellowship, founders\' guild — and we run the four talks for your founders.',
+        team: '<strong>You book it for your team</strong> — all four talks, your room, your schedule.'
+      };
+      var params = new URLSearchParams(window.location.search);
+      var stored = sessionStorage.getItem('wi-audience');
+      var audience = params.get('for') === 'team' ? 'team' : (stored === 'team' ? 'team' : 'edu');
+
+      function apply(a) {
+        sessionStorage.setItem('wi-audience', a);
+        pillEdu.setAttribute('aria-pressed', a === 'edu' ? 'true' : 'false');
+        pillTeam.setAttribute('aria-pressed', a === 'team' ? 'true' : 'false');
+        if (ctx) ctx.innerHTML = copy[a] || '';
+        document.querySelectorAll('.story-text, .who-text').forEach(function (el) {
+          el.textContent = el.dataset[a] || '';
+        });
+        document.querySelectorAll('.panel-cta').forEach(function (el) {
+          var h = el.dataset[a + 'Href'], t = el.dataset[a + 'Text'];
+          if (h) el.href = h;
+          if (t) el.textContent = t;
+        });
+      }
+      pillEdu.addEventListener('click', function () { apply('edu'); });
+      pillTeam.addEventListener('click', function () { apply('team'); });
+      apply(audience);
+    })();
+
+    /* ── lesson-card accordion ─────────────────────────────── */
+    (function () {
+      var cards = document.querySelectorAll('.lesson-card');
+      cards.forEach(function (card) {
+        var trig = card.querySelector('.lesson-card-trigger');
+        trig.addEventListener('click', function () {
+          var isOpen = card.dataset.open === 'true';
+          cards.forEach(function (c) {
+            if (c !== card && c.dataset.open === 'true') {
+              c.dataset.open = 'false';
+              c.querySelector('.lesson-card-trigger').setAttribute('aria-expanded', 'false');
+              c.querySelector('.lesson-card-arrow').textContent = 'open ↓';
+            }
+          });
+          card.dataset.open = isOpen ? 'false' : 'true';
+          trig.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+          card.querySelector('.lesson-card-arrow').textContent = isOpen ? 'open ↓' : 'close ↑';
+        });
+      });
+    })();
+
+    /* ── matrix (talk 1) ───────────────────────────────────── */
+    (function () {
+      var data = {
+        'strategic-controlling': { name: 'The Builder-VC', text: 'Ex-operator turned VC. Strong opinions on hiring, GTM, and product roadmap. Wants a board seat. Will be your most demanding investor — and potentially your most useful one, if you\'re ready for the friction.' },
+        'financial-controlling': { name: 'The Return Machine', text: 'Fund lifecycle drives everything. They need liquidity on a schedule. Will push for a sale event earlier than you want. Great for capital efficiency discipline; challenging when you want to play long.' },
+        'strategic-passive':    { name: 'The Door Opener', text: 'Knows everyone in the space. Invests primarily to have a relationship and provide intros. Low governance, high network. Best used to access a distribution channel or a customer segment you can\'t reach alone.' },
+        'financial-passive':    { name: 'The Quiet Cap', text: 'Writes a check, expects a return, sends you a quarterly update email you can answer in two lines. Simple, clean. Watch the cap table if you get too many — 15 angels is a governance headache.' }
+      };
+      var reveal = document.getElementById('matrixReveal');
+      var n = document.getElementById('matrixRevealName');
+      var t = document.getElementById('matrixRevealText');
+      document.querySelectorAll('.matrix-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var was = btn.getAttribute('aria-pressed') === 'true';
+          document.querySelectorAll('.matrix-q').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+          if (was) {
+            reveal.classList.remove('active');
+          } else {
+            btn.setAttribute('aria-pressed', 'true');
+            var d = data[btn.dataset.quadrant];
+            if (d) { n.textContent = d.name; t.textContent = d.text; reveal.classList.add('active'); }
+          }
+        });
+      });
+    })();
+
+    /* ── money switcher (talk 2) ───────────────────────────── */
+    (function () {
+      var btns = document.querySelectorAll('.money-btn');
+      var panels = document.querySelectorAll('.money-panel');
+      btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var type = btn.dataset.money;
+          btns.forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+          btn.setAttribute('aria-pressed', 'true');
+          panels.forEach(function (p) { p.classList.toggle('active', p.dataset.moneyPanel === type); });
+        });
+      });
+    })();
+
+    /* ── story tabs (talk 3) ───────────────────────────────── */
+    (function () {
+      var tabs = document.querySelectorAll('.story-tab');
+      var versions = document.querySelectorAll('.story-version');
+      tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+          var which = tab.dataset.story;
+          tabs.forEach(function (t) { t.setAttribute('aria-pressed', 'false'); });
+          tab.setAttribute('aria-pressed', 'true');
+          versions.forEach(function (v) { v.classList.toggle('active', v.dataset.storyPanel === which); });
+        });
+      });
+    })();
+
+    /* ── timeline (talk 4) ─────────────────────────────────── */
+    (function () {
+      var hurdles = [
+        { name: 'T+0 — The Decision', text: 'You decide to raise. The first hurdle is cognitive: most founders underestimate by 2–3× how much time the raise will eat. Calendars don\'t survive contact with diligence.' },
+        { name: 'Month 1 — The Lull', text: 'You\'ve had a few first meetings. Nothing has converted yet. The temptation is to retell the story louder — usually the wrong move. Better signal: refine targeting before refining pitch.' },
+        { name: 'Month 3 — The False Trough', text: 'The point where most founders quit. Your traction looks bad on a deck because the deck hasn\'t caught up to last week\'s metrics. This is when you most need someone outside the room.' },
+        { name: 'Month 5 — The Stretch', text: 'Either close, or you\'re burning runway on a raise that isn\'t happening. The hardest call: when to pivot from raising to operating. The right answer is rarely the brave-sounding one.' },
+        { name: 'Close — The Reset', text: 'You closed. Now the post-raise vacuum. New investors expect updates that match the deck you sold. The first 30 days post-close shape board dynamics for two years.' }
+      ];
+      var reveal = document.getElementById('hurdleReveal');
+      var name = document.getElementById('hurdleName');
+      var anec = document.getElementById('hurdleAnecdote');
+      document.querySelectorAll('.timeline-hurdle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var idx = parseInt(btn.dataset.hurdle, 10);
+          var was = btn.getAttribute('aria-pressed') === 'true';
+          document.querySelectorAll('.timeline-hurdle').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+          if (was) { reveal.classList.remove('active'); return; }
+          btn.setAttribute('aria-pressed', 'true');
+          var h = hurdles[idx];
+          if (h) { name.textContent = h.name; anec.textContent = h.text; reveal.classList.add('active'); }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

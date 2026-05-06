@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The workshops Joyus Studio runs — strategy rooms (thesis, investor literacy) and practice rooms (AI, prompting, visual storytelling) for founders, communities, and leadership teams.">
+  <meta property="og:title" content="Workshops — Joyus Studio">
+  <meta property="og:description" content="Rooms where we figure things out together. Half-day to multi-day workshops for founders, communities, and leadership teams.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/workshops.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/workshops.html">
+  <title>Workshops — Joyus Studio</title>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       workshops.html — index of all workshops Joyus runs
+       Reuses approved Joyus patterns: .editorial-hero, .hero-dot,
+       .meta-row, .editorial-body, .lesson-cards (here as link cards),
+       .cs-closing. Space Grotesk + Caveat only per typography rule.
+    ═══════════════════════════════════════════════════════════════ */
+
+    :root {
+      --pink: #E91E7B;
+      --cyan: #4FC4CF;
+      --yellow: #F2C94A;
+      --green: #5BBD72;
+      --warm-gray: #F5F3F0;
+      --ink: #2C3544;
+      --ink-soft: #54606F;
+    }
+
+    /* thread */
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
+    .thread-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    /* editorial-hero (Joyus pattern) */
+    .editorial-hero {
+      padding: clamp(7rem, 14vh, 10rem) 2rem clamp(4rem, 7vh, 5rem);
+      background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 50%, #FAF7F2 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    .editorial-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
+    .editorial-eyebrow {
+      display: inline-flex !important;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.15rem;
+      color: var(--pink);
+      transform: rotate(-1deg);
+      margin-bottom: 1rem;
+    }
+    .editorial-eyebrow::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--pink);
+      animation: pulseDot 2.4s ease-in-out infinite;
+      transform: rotate(0) !important;
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 123, 0.5); }
+      50%      { box-shadow: 0 0 0 12px rgba(233, 30, 123, 0); }
+    }
+    .editorial-hero h1 {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: clamp(2.6rem, 7vw, 4.4rem);
+      color: #111;
+      line-height: 0.98;
+      margin: 0 0 1.5rem;
+      letter-spacing: -0.035em;
+    }
+    .editorial-hero h1 em {
+      font-style: italic;
+      font-weight: 700;
+      color: var(--pink);
+    }
+    .editorial-lede {
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: #444;
+      border-left: 3px solid var(--pink);
+      padding-left: 1.25rem;
+      margin: 0;
+    }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2.25rem;
+    }
+    .meta-row span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.45rem 0.95rem;
+      border: 1.5px solid rgba(44, 53, 68, 0.18);
+      border-radius: 999px;
+      background: #fff;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .meta-row span::before {
+      content: "";
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--dot, var(--ink-soft));
+      flex-shrink: 0;
+    }
+    .meta-row span:nth-child(5n+1) { --dot: var(--pink); }
+    .meta-row span:nth-child(5n+2) { --dot: var(--cyan); }
+    .meta-row span:nth-child(5n+3) { --dot: var(--yellow); }
+    .meta-row span:nth-child(5n+4) { --dot: var(--green); }
+    .meta-row span:nth-child(5n)   { --dot: var(--pink); }
+
+    /* hero-dots (Joyus) */
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0;
+      animation: dotDrift 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatY 9s ease-in-out infinite 2s;
+    }
+    @keyframes dotDrift {
+      from { opacity: 0; transform: translate(var(--from-x, -40px), var(--from-y, 40px)) scale(0.7); }
+      to   { opacity: var(--final-opacity, 0.8); transform: translate(0, 0) scale(1); }
+    }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-12px); }
+    }
+    .hd1 { width: 240px; height: 240px; top: 8%;  right: -3%;  background: var(--pink); --final-opacity: 0.18; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
+    .hd2 { width: 50px;  height: 50px;  bottom: 18%; right: 24%; background: var(--cyan); --final-opacity: 0.55; --from-y: 30px; animation-delay: 400ms; }
+    .hd3 { width: 18px;  height: 18px;  top: 32%; left: 8%; background: var(--yellow); --final-opacity: 0.85; animation-delay: 600ms; }
+    .hd4 { width: 14px;  height: 14px;  top: 66%; left: 30%; background: var(--green); --final-opacity: 0.6; animation-delay: 700ms; }
+
+    /* editorial-body (Joyus) */
+    .editorial-body { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 2rem; }
+    .editorial-body p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: #333;
+      margin: 0 0 1.5rem;
+    }
+    .editorial-body > p:first-of-type::first-letter {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 3.2rem;
+      float: left;
+      line-height: 1;
+      margin-right: 0.12em;
+      margin-top: 0.05em;
+      color: var(--pink);
+    }
+    .editorial-body em { color: #111; font-style: italic; }
+    .editorial-body h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: clamp(1.7rem, 3vw, 2.1rem);
+      color: #111;
+      margin: 3.5rem 0 1rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+    .editorial-body h2::before {
+      content: "";
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: pulseDot 2.8s ease-in-out infinite;
+      animation-delay: 1.2s;
+    }
+    .editorial-body h2:nth-of-type(1)::before { background: var(--pink); }
+    .editorial-body h2:nth-of-type(2)::before { background: var(--cyan); }
+    .editorial-body h2:nth-of-type(3)::before { background: var(--yellow); }
+    .editorial-body h2 .h2-num {
+      font-family: 'Caveat', cursive;
+      font-size: 0.65em;
+      margin-right: 0.1em;
+      transform: rotate(-3deg);
+      display: inline-block;
+    }
+    .editorial-body h2:nth-of-type(1) .h2-num { color: var(--pink); }
+    .editorial-body h2:nth-of-type(2) .h2-num { color: var(--cyan); }
+    .editorial-body h2:nth-of-type(3) .h2-num { color: var(--yellow); }
+
+    /* lesson-cards as link cards (Joyus pattern adapted) */
+    .lesson-cards {
+      display: grid;
+      gap: 1.25rem;
+      margin: 1rem 0 1.5rem;
+      counter-reset: l;
+      list-style: none;
+      padding: 0;
+    }
+    .lesson-card {
+      counter-increment: l;
+      position: relative;
+      background: #fff;
+      border: 1.5px solid #e8e6e4;
+      border-left: 3px solid var(--accent, var(--pink));
+      border-radius: 10px;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+      overflow: hidden;
+    }
+    .lesson-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--accent, var(--pink)); }
+
+    /* color cycle for the cards within each section */
+    .lesson-cards .lesson-card:nth-child(1) { --accent: var(--pink); }
+    .lesson-cards .lesson-card:nth-child(2) { --accent: var(--cyan); }
+    .lesson-cards .lesson-card:nth-child(3) { --accent: var(--yellow); }
+    .lesson-cards .lesson-card:nth-child(4) { --accent: var(--green); }
+
+    .lesson-card a {
+      display: block;
+      padding: 1.4rem 1.5rem 1.4rem 4.5rem;
+      text-decoration: none;
+      color: inherit;
+    }
+    .lesson-card a:focus-visible {
+      outline: 2px solid var(--accent, var(--pink));
+      outline-offset: 2px;
+      border-radius: 8px;
+    }
+    .lesson-card::before {
+      content: counter(l, decimal-leading-zero);
+      position: absolute;
+      left: 1rem;
+      top: 1.25rem;
+      font-family: 'Caveat', cursive;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent, var(--pink));
+      line-height: 0.9;
+      transform: rotate(-3deg);
+      pointer-events: none;
+    }
+    .lesson-card-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent, var(--pink));
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+    .lesson-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.18rem;
+      line-height: 1.3;
+      color: #1a1a1a;
+      letter-spacing: -0.015em;
+      margin: 0 0 0.4rem;
+    }
+    .lesson-card-title em { font-style: italic; color: var(--accent, var(--pink)); }
+    .lesson-card-line {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      margin: 0 0 0.6rem;
+    }
+    .lesson-card-foot {
+      display: flex;
+      align-items: baseline;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+    .lesson-card-status {
+      font-family: 'Caveat', cursive;
+      font-size: 1rem;
+      color: var(--accent, var(--pink));
+      transform: rotate(-1.5deg);
+      display: inline-block;
+    }
+    .lesson-card-status.dev { color: var(--ink-soft); }
+    .lesson-card-cta {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: gap 0.2s, color 0.2s;
+    }
+    .lesson-card a:hover .lesson-card-cta { gap: 0.55rem; color: var(--accent, var(--pink)); }
+
+    /* dimmed treatment for in-development items */
+    .lesson-card.is-dev { opacity: 0.78; }
+    .lesson-card.is-dev:hover { opacity: 1; }
+
+    /* custom-rooms note */
+    .custom-rooms-note {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    .custom-rooms-note p {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #444;
+      margin: 0;
+    }
+    .custom-rooms-note a {
+      color: var(--pink);
+      text-decoration: none;
+      border-bottom: 1.5px dashed var(--pink);
+    }
+    .custom-rooms-note a:hover { color: #c41569; }
+
+    /* chapter rule */
+    .chapter-rule {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(44, 53, 68, 0.4), transparent);
+      max-width: 720px;
+      margin: 4rem auto 0;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .chapter-rule.in { transform: scaleX(1); }
+
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+      .reveal, .chapter-rule { opacity: 1; transform: none; }
+    }
+  </style>
+
+  <!-- GA — Joyus Studio G-K7PDLTYWF6 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K7PDLTYWF6');
+  </script>
+</head>
+<body class="work-page">
+
+  <div class="thread"><div class="thread-fill" id="thread"></div></div>
+
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="workshops.html" data-nav="workshops">Workshops</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
+    <a href="about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <main id="main-content">
+
+    <!-- Hero -->
+    <section class="editorial-hero reveal">
+      <span class="hero-dot hd1" aria-hidden="true"></span>
+      <span class="hero-dot hd2" aria-hidden="true"></span>
+      <span class="hero-dot hd3" aria-hidden="true"></span>
+      <span class="hero-dot hd4" aria-hidden="true"></span>
+      <div class="editorial-hero-inner">
+        <span class="editorial-eyebrow">the workshops we run</span>
+        <h1>Rooms where we figure things out <em>together.</em></h1>
+        <p class="editorial-lede">Half-day to multi-day rooms — for leadership teams, founder communities, and creative teams. We don't run keynotes; we run rooms that leave you with something you can use on Monday.</p>
+        <div class="meta-row">
+          <span>For communities</span>
+          <span>For leadership teams</span>
+          <span>Strategy &amp; practice</span>
+          <span>Half-day to multi-day</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Body -->
+    <article class="editorial-body">
+
+      <p>Workshops are how the <em>thinking</em> part of "we think with everyone, we build with a few" scales. Two arcs run through the rooms we run — a <em>strategy</em> arc, where founders and teams find a sentence they can say back to each other, and a <em>practice</em> arc, where designers, founders, and creative teams build new working muscles for AI, prompting, and visual storytelling. Different rooms, same posture.</p>
+
+      <h2><span class="h2-num">↳</span>Strategy rooms</h2>
+
+      <ol class="lesson-cards reveal">
+
+        <li class="lesson-card">
+          <a href="thesis-workshop.html">
+            <span class="lesson-card-tag">1–2 day offsite · for leadership teams</span>
+            <h3 class="lesson-card-title">The Thesis Workshop</h3>
+            <p class="lesson-card-line">Leave with one sentence the leadership team can say back to each other: who you're for, in what moment, replacing what — plus a 90-day plan.</p>
+            <div class="lesson-card-foot">
+              <span class="lesson-card-status">live · for pre-thesis-fit teams</span>
+              <span class="lesson-card-cta">Read the room <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+
+        <li class="lesson-card">
+          <a href="workshops-investing-c.html">
+            <span class="lesson-card-tag">4 talks · 90 min each · for founder communities &amp; teams</span>
+            <h3 class="lesson-card-title">Investing 101</h3>
+            <p class="lesson-card-line">Four talks on what actually happens when you raise — your investor, your money, your story, the hurdles. The parts no one warns you about.</p>
+            <div class="lesson-card-foot">
+              <span class="lesson-card-status">live · for raising founders</span>
+              <span class="lesson-card-cta">See the four talks <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+
+      </ol>
+
+      <h2><span class="h2-num">↳</span>Practice rooms</h2>
+
+      <ol class="lesson-cards reveal">
+
+        <li class="lesson-card">
+          <a href="ai-workshops.html">
+            <span class="lesson-card-tag">half-day → multi-day intensive · for creative &amp; product teams</span>
+            <h3 class="lesson-card-title">AI as a thinking partner</h3>
+            <p class="lesson-card-line">Get past the AI hype and build real workflows. Prompting, when to trust AI vs override, team-wide stickiness — for teams confused about where AI actually fits.</p>
+            <div class="lesson-card-foot">
+              <span class="lesson-card-status">live · runs monthly</span>
+              <span class="lesson-card-cta">Read the room <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+
+        <li class="lesson-card is-dev">
+          <a href="mailto:hello@joyus.studio?subject=Prompting%20workshop%20%E2%80%94%20interest">
+            <span class="lesson-card-tag">half-day · for anyone using LLMs daily</span>
+            <h3 class="lesson-card-title">Prompting — how to talk to our AI friends</h3>
+            <p class="lesson-card-line">Move from "write me a…" to structured prompting that holds up under pressure. Live exercises, audience-driven — bring a real problem and we'll work it.</p>
+            <div class="lesson-card-foot">
+              <span class="lesson-card-status dev">page in development · email to bring it in</span>
+              <span class="lesson-card-cta">Write us <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+
+        <li class="lesson-card is-dev">
+          <a href="mailto:hello@joyus.studio?subject=Visual%20storytelling%20with%20MidJourney%20%E2%80%94%20interest">
+            <span class="lesson-card-tag">half-day, hands-on · for designers, brand teams, founders</span>
+            <h3 class="lesson-card-title">Visual storytelling with MidJourney</h3>
+            <p class="lesson-card-line">Use generative image tools as a storytelling medium, not a spectacle. Outputs you can ship, not just screenshots for the deck.</p>
+            <div class="lesson-card-foot">
+              <span class="lesson-card-status dev">page in development · email to bring it in</span>
+              <span class="lesson-card-cta">Write us <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+
+        <li class="lesson-card is-dev">
+          <a href="mailto:hello@joyus.studio?subject=Tinkering%20with%20ChatGPT%20%E2%80%94%20interest">
+            <span class="lesson-card-tag">half-day or evening · low-stakes intro</span>
+            <h3 class="lesson-card-title">Tinkering experiments with ChatGPT</h3>
+            <p class="lesson-card-line">Practical experiments — small, weird, useful. The lower-key sibling of the prompting workshop, designed for curious teams who want a soft start.</p>
+            <div class="lesson-card-foot">
+              <span class="lesson-card-status dev">page in development · email to bring it in</span>
+              <span class="lesson-card-cta">Write us <span aria-hidden="true">→</span></span>
+            </div>
+          </a>
+        </li>
+
+      </ol>
+
+      <h2><span class="h2-num">↳</span>Custom rooms</h2>
+
+      <div class="custom-rooms-note">
+        <p>We've also run rooms on storytelling, behavioral design, brand strategy, and product narrative. If your team or community has a question that doesn't fit one of the above — <a href="mailto:hello@joyus.studio?subject=A%20custom%20workshop">write us</a>. We'll usually find a way.</p>
+      </div>
+
+      <hr class="chapter-rule" />
+    </article>
+
+    <!-- Closing (uses .cs-closing from styles.css) -->
+    <section class="cs-closing">
+      <span class="cs-closing-label">your move</span>
+      <h3>Have a room you want us to run? <em><a href="mailto:hello@joyus.studio?subject=Workshop%20inquiry">Be our friends.</a></em></h3>
+      <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    </section>
+
+  </main>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    // scroll thread
+    (function () {
+      var thread = document.getElementById('thread');
+      window.addEventListener('scroll', function () {
+        if (!thread) return;
+        var total = document.body.scrollHeight - window.innerHeight;
+        thread.style.width = (window.scrollY / Math.max(total, 1)) * 100 + '%';
+      }, { passive: true });
+    })();
+
+    // reveal-on-scroll
+    (function () {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { threshold: 0.15 });
+      document.querySelectorAll('.reveal, .chapter-rule, .editorial-body h2').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
