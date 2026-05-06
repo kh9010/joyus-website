@@ -115,6 +115,68 @@
     .hd5 { width: 110px; height: 110px; bottom: -3%; left: 4%; background: var(--hub-accent); --final-opacity: 0.18; --from-x: -60px; animation-delay: 300ms; }
     .hd6 { width: 32px; height: 32px; top: 12%; left: 36%; background: #F2C94A; --final-opacity: 0.55; --from-y: -20px; animation-delay: 500ms; }
 
+    /* ============ FACILITATORS — who's in the room ============ */
+    .facilitators {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vh, 3.5rem) 2rem 0;
+    }
+    .facilitators-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.6rem;
+      transform: rotate(-1.5deg);
+    }
+    .facilitators-eyebrow::before {
+      content: ""; width: 9px; height: 9px; border-radius: 50%;
+      background: var(--hub-accent);
+    }
+    .facilitators-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .facilitator {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      background: #fff;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .facilitator:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--hub-accent); }
+    .facilitator-avatar {
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: #fff;
+      background: var(--avatar-bg, var(--hub-accent));
+    }
+    .facilitator-body { flex: 1; min-width: 0; }
+    .facilitator-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: #111;
+      margin: 0;
+    }
+    .facilitator-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--hub-accent);
+      margin: 0.15rem 0 0.5rem;
+    }
+    .facilitator-line {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; line-height: 1.55;
+      color: #444; margin: 0;
+    }
+    @media (max-width: 640px) { .facilitators-grid { grid-template-columns: 1fr; } }
+
     /* h1: two-line reveal */
     .editorial-hero h1 .h1-a {
       opacity: 0;
@@ -470,42 +532,44 @@
       flex-shrink: 0;
     }
 
-    /* artifact 4: plan */
-    .mock-plan {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.45rem;
+    /* artifact 4: plan — week-stretch list */
+    .mock-plan-list {
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
-    .mock-plan-month {
-      padding: 0.55rem 0.5rem;
-      background: rgba(44, 53, 68, 0.05);
-      border-radius: 6px;
-      text-align: center;
-      position: relative;
-    }
-    .mock-plan-month-label {
-      display: block;
+    .mock-plan-row {
+      display: grid;
+      grid-template-columns: 3rem 1fr auto;
+      gap: 0.6rem;
+      align-items: center;
+      padding: 0.45rem 0.55rem;
+      background: rgba(44, 53, 68, 0.04);
+      border-radius: 5px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: #2C3544;
+      line-height: 1.3;
+    }
+    .mock-plan-row.is-tail { background: transparent; border: 1px dashed rgba(44, 53, 68, 0.2); }
+    .mock-plan-when {
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
       color: #54606F;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
     }
-    .mock-plan-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 2px;
+    .mock-plan-what { color: #1a1a1a; }
+    .mock-plan-who {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.4rem;
+      background: #2C3544;
+      color: #fff;
+      border-radius: 3px;
     }
-    .mock-plan-grid span {
-      width: 100%;
-      aspect-ratio: 1;
-      background: #e8e6e4;
-      border-radius: 1px;
-    }
-    .mock-plan-grid span.dot { background: #2C3544; }
 
     /* artifact 5: summary */
     .mock-summary {
@@ -671,6 +735,7 @@
       display: inline-block;
     }
     .ready-tail strong { color: var(--hub-accent); font-weight: 700; }
+    .ready-tail a { color: var(--hub-accent); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
 
     .ready-list li {
       opacity: 0;
@@ -760,6 +825,7 @@
     .pricing-tiers.in .pricing-tier:nth-child(2) { transition-delay: 240ms, 0ms, 0ms, 0ms; }
     .pricing-tiers.in .pricing-tier:nth-child(3) { transition-delay: 380ms, 0ms, 0ms, 0ms; }
     .pricing-tiers.in .pricing-tier:nth-child(4) { transition-delay: 520ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(5) { transition-delay: 660ms, 0ms, 0ms, 0ms; }
     .pricing-tier:hover {
       transform: translate(-4px, -4px);
       box-shadow: 10px 10px 0 var(--hub-accent);
@@ -886,13 +952,35 @@
       <div class="meta-row">
         <span>One day · two-day option</span>
         <span>Leadership team only</span>
-        <span>Pre-thesis-market-fit</span>
+        <span>4–8 people · we travel to you</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="facilitators reveal">
+    <span class="facilitators-eyebrow">who's in the room with you</span>
+    <div class="facilitators-grid">
+      <div class="facilitator">
+        <div class="facilitator-avatar" style="--avatar-bg: #2C3544;">KS</div>
+        <div class="facilitator-body">
+          <p class="facilitator-name">Kahran Singh</p>
+          <p class="facilitator-role">Co-founder · runs the strategy half</p>
+          <p class="facilitator-line">Fifteen years in product. Ex-head-of-product across three venture-backed teams; currently embedded as CRO inside an early-stage company. Has run this workshop inside companies before running it as one.</p>
+        </div>
+      </div>
+      <div class="facilitator">
+        <div class="facilitator-avatar" style="--avatar-bg: #E91E7B;">DT</div>
+        <div class="facilitator-body">
+          <p class="facilitator-name">Divya Tak</p>
+          <p class="facilitator-role">Co-founder · runs the design half</p>
+          <p class="facilitator-line">Brand and product designer. The reason the artifacts are written down by 6pm — she runs the room visually while Kahran runs it analytically. The thesis lands when both halves agree.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="pull-quote reveal">
-    <p>"If you have to find a reason to say no, you'll always find one. The work is <mark>making the reason to say yes</mark> louder than the reasons to say no."</p>
+    <p>"By 4pm someone in the room says the thing the deck has been <mark>trying to say for six months</mark>. The work is the rest of the team agreeing."</p>
     <cite>From the workshop</cite>
   </section>
 
@@ -927,9 +1015,9 @@
         <span class="artifact-tag">the sentence</span>
         <h3 class="artifact-h">One line the leadership team can say back to each other.</h3>
         <div class="artifact-mock">
-          <div class="mock-sentence">For <em>____</em> in the moment of <em>____</em>, we replace <em>____</em>.</div>
+          <div class="mock-sentence">"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</div>
         </div>
-        <p class="artifact-cap">Who you're for, in what moment, replacing what. The exercise that takes the whole afternoon.</p>
+        <p class="artifact-cap">A real workshop output, fuzzed for the client. Found in the room around 4pm. Replaces a category claim ("quick-commerce app") with a moment ("standing in front of her closet").</p>
       </div>
 
       <div class="artifact-card is-archetypes">
@@ -963,22 +1051,30 @@
         <span class="artifact-tag">the plan</span>
         <h3 class="artifact-h">A 90-day plan with named owners.</h3>
         <div class="artifact-mock">
-          <div class="mock-plan">
-            <div class="mock-plan-month">
-              <span class="mock-plan-month-label">m1</span>
-              <div class="mock-plan-grid"><span></span><span class="dot"></span><span></span><span></span><span class="dot"></span></div>
+          <div class="mock-plan-list">
+            <div class="mock-plan-row">
+              <span class="mock-plan-when">W1–2</span>
+              <span class="mock-plan-what">Ship closet-moment landing test</span>
+              <span class="mock-plan-who">PM</span>
             </div>
-            <div class="mock-plan-month">
-              <span class="mock-plan-month-label">m2</span>
-              <div class="mock-plan-grid"><span></span><span></span><span class="dot"></span><span></span><span></span></div>
+            <div class="mock-plan-row">
+              <span class="mock-plan-when">W3–4</span>
+              <span class="mock-plan-what">3 creator partnerships, same hook</span>
+              <span class="mock-plan-who">GM</span>
             </div>
-            <div class="mock-plan-month">
-              <span class="mock-plan-month-label">m3</span>
-              <div class="mock-plan-grid"><span class="dot"></span><span></span><span></span><span class="dot"></span><span></span></div>
+            <div class="mock-plan-row">
+              <span class="mock-plan-when">W5–8</span>
+              <span class="mock-plan-what">Re-cut onboarding around archetype 1</span>
+              <span class="mock-plan-who">DES</span>
+            </div>
+            <div class="mock-plan-row is-tail">
+              <span class="mock-plan-when">W9–12</span>
+              <span class="mock-plan-what">Read win conditions; cut or commit</span>
+              <span class="mock-plan-who">CEO</span>
             </div>
           </div>
         </div>
-        <p class="artifact-cap">Three to five things to test in fourteen days, with pre-committed win conditions.</p>
+        <p class="artifact-cap">Three to five experiments. Pre-committed win conditions. Named owners — initials on the page so accountability survives Wednesday.</p>
       </div>
 
       <div class="artifact-card is-summary">
@@ -1027,7 +1123,7 @@
       <li>Investors say <em>"interesting"</em> but don't move. The deck has been "almost" for two months.</li>
       <li>You've noticed yourself answering the same internal question — <em>what are we, exactly</em> — three different ways in three different rooms.</li>
     </ol>
-    <p class="ready-tail">If two land, book the diagnostic. If <strong>all three</strong>, skip it and book the workshop.</p>
+    <p class="ready-tail">If two land, <a href="mailto:hello@joyus.studio?subject=Diagnostic%20call">book the diagnostic</a>. If <strong>all three</strong>, skip it and <a href="mailto:hello@joyus.studio?subject=Thesis%20Workshop">book the workshop</a>.</p>
   </section>
 
   <section class="pricing-section reveal">
@@ -1039,12 +1135,12 @@
           <span class="pricing-tier-name">Diagnostic call</span>
           <span class="pricing-tier-price">$2,000 · 90 min</span>
         </div>
-        <p class="pricing-tier-body">A focused conversation to map what's misaligned and whether the workshop is the right next move — or whether you're solving a different problem. Credited in full toward a workshop if you book within 60 days.</p>
+        <p class="pricing-tier-body">A focused conversation with both of us to map what's misaligned and whether the workshop is the right next move — or whether you're solving a different problem. If you book a workshop within 60 days, the $2K is a deposit. If not, it was a paid hour of work and you have a clearer picture either way.</p>
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
           <span class="pricing-tier-name">The Thesis Workshop · one day</span>
-          <span class="pricing-tier-price">$12,000</span>
+          <span class="pricing-tier-price">$15,000</span>
         </div>
         <p class="pricing-tier-body">Your leadership team in a room with us for a day. We run the diagnostic, find the sentence, and leave you with two or three archetypes, your operating principles in writing, and a 90-day plan with named owners and pre-committed win conditions. Most teams need this once. Some come back before a fundraise.</p>
       </div>
@@ -1063,8 +1159,15 @@
         <p class="pricing-tier-body">The two-day workshop, then four weeks of follow-up where we sharpen the deck, the narrative, and the rooms you're walking it into. We sit in on practice pitches, rewrite the slides that aren't landing, and stress-test the answers to the questions that have been getting you "interesting" instead of a term sheet. For founders raising in the next ninety days who can feel the deck isn't earning the meeting it deserves.</p>
         <p class="pricing-tier-body" style="margin-top:0.75rem;font-size:0.88rem;color:#777;"><em>Includes two days on-site, eight follow-up sessions, two deck revisions, and one mock pitch with written debrief.</em></p>
       </div>
+      <div class="pricing-tier">
+        <div class="pricing-tier-head">
+          <span class="pricing-tier-name">Quarterly retainer</span>
+          <span class="pricing-tier-price">$8,000 – $12,000 / quarter</span>
+        </div>
+        <p class="pricing-tier-body">After a workshop, the work is making sure the sentence survives Wednesday. We sit in on one leadership meeting a month, stress-test decisions against the thesis, and write a one-page memo each quarter on what's drifting. Available only to teams we've run a workshop with. The mechanism that makes the 90-day plan a year-long plan.</p>
+      </div>
     </div>
-    <p class="pricing-tail">After an initial engagement, quarterly retainers ($8K–$12K/quarter) are available — we sit in on one leadership meeting a month and stress-test decisions against the thesis. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
+    <p class="pricing-tail">Travel and venue billed at cost when we come to you. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
   </section>
 
   <section class="cta-strip reveal">
