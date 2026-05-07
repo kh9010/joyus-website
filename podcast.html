@@ -306,52 +306,6 @@
     .quote-card .q { font-size: 0.92rem; }
   }
 
-  /* ============ ARCHIVE FILTERS (chips above the list) ============ */
-  .bk-list li.hidden { display: none; }
-  .filter-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin: 0 0 1.75rem;
-  }
-  .chip {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 1.05rem;
-    border-radius: 999px;
-    border: 1.5px solid var(--rule);
-    background: #fff;
-    color: var(--ink);
-    font-family: var(--sans);
-    font-size: 0.88rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: border-color 200ms, background 200ms, color 200ms, transform 200ms;
-  }
-  .chip:hover { border-color: var(--pink); transform: translateY(-1px); }
-  .chip.is-active {
-    background: var(--pink);
-    color: #fff;
-    border-color: var(--pink);
-  }
-  .chip-count {
-    margin-left: 0.45rem;
-    font-size: 0.72rem;
-    opacity: 0.7;
-    font-variant-numeric: tabular-nums;
-  }
-  .archive-empty {
-    padding: 2rem 0;
-    font-family: var(--hand);
-    font-size: 1.4rem;
-    color: var(--ink-fade);
-    display: none;
-  }
-  .archive-empty.is-shown { display: block; }
-  @media (max-width: 600px) {
-    .chip { font-size: 0.82rem; padding: 0.42rem 0.85rem; }
-  }
-
   /* ============ SERIES (listen in order) ============ */
   .series {
     padding: clamp(3rem, 7vh, 5rem) var(--x);
@@ -465,7 +419,7 @@
   .series-card.s-cyan::after   { background: var(--pink); }
   .series-card.s-yellow::after { background: var(--cyan); }
 
-  /* ============ BACKLOG ============ */
+  /* ============ BACKLOG (with theme filter chips) ============ */
   .backlog {
     padding: clamp(3rem, 7vh, 5rem) var(--x);
     max-width: 1080px;
@@ -474,7 +428,57 @@
   }
   .backlog .section-head h2::before { background: var(--yellow); }
 
+  /* Filter chip strip (above the list) */
+  .bk-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0.25rem 0 2rem;
+  }
+  .bk-filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--rule);
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 200ms, background 200ms, color 200ms, transform 200ms;
+  }
+  .bk-filter:hover { border-color: var(--pink); transform: translateY(-1px); }
+  .bk-filter.is-active {
+    background: var(--pink);
+    color: #fff;
+    border-color: var(--pink);
+  }
+  /* Tab-bar connector: small pink triangle below the active filter pointing into the list */
+  .bk-filter.is-active::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-top: 5px;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 7px solid var(--pink);
+    pointer-events: none;
+  }
+  @media (max-width: 480px) {
+    .bk-filter { font-size: 0.82rem; padding: 0.42rem 0.85rem; }
+  }
+
   .bk-list { list-style: none; }
+  .bk-list > li.is-hidden { display: none; }
   .bk-item {
     display: grid;
     grid-template-columns: 86px 1fr auto auto;
@@ -860,76 +864,76 @@
       <span class="aside">straight from the tape</span>
     </div>
     <div class="quotes-ticker">
-      <a class="quote-card" href="podcast/thinking-on-kindness-vs-niceness.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-kindness-vs-niceness.html">
         <p class="q">"Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent."</p>
         <span class="attr">Thinking on Kindness vs Niceness · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
+      <a class="quote-card" tabindex="-1" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
         <p class="q">"Satisfaction and success are not the same pursuit. You can feel deeply satisfied without any external marker of success, and wildly successful without any satisfaction."</p>
         <span class="attr">Satisfaction with Success — with Lena Chaihorsky · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-caring-and-being-invested.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-caring-and-being-invested.html">
         <p class="q">"There's a difference between being interested in something and being invested in it. One is about curiosity; the other is about whether you're willing to do something about it."</p>
         <span class="attr">Thinking on Caring and Being Invested · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-courage-vs-daring.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-courage-vs-daring.html">
         <p class="q">"There's a certain degree of tedium in being courageous that I find exhausting. But in making daring decisions, there's a degree of excitement and surprising positive feedback."</p>
         <span class="attr">Thinking on Courage vs Daring · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html">
         <p class="q">"Failure is not one thing. There's the cognitive experience of failure, where you analyze what went wrong, and the emotional experience, where you feel it in your body."</p>
         <span class="attr">Cognitive vs Emotional — Models for Failure · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html">
         <p class="q">"We have a very Silicon Valley definition of what connection and loneliness look like. But loneliness looks very different for different people."</p>
         <span class="attr">Accepted Truths, Defaults & How We Got Here · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-building-trust.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-building-trust.html">
         <p class="q">"The stories we choose to tell build trust and demonstrate the values of our organizations. Leaders who are deliberate about the stories they propagate shape their culture."</p>
         <span class="attr">Thinking on Building Trust · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html">
         <p class="q">"Sometimes the most successful things come from the most absurd starting points. The absurdity is not a bug — it's what makes it memorable."</p>
         <span class="attr">Absurdist Successes (1000xresist) — Success Pt 7 · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html">
         <p class="q">"Creative coding is this beautiful intersection where logic and expression meet. You're not just solving a problem — you're making something that didn't exist before."</p>
         <span class="attr">Coding, Creativity & Culture — with Computational Mama · listen →</span>
       </a>
       <!-- duplicate set for seamless loop -->
-      <a class="quote-card" href="podcast/thinking-on-kindness-vs-niceness.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-kindness-vs-niceness.html" aria-hidden="true">
         <p class="q">"Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent."</p>
         <span class="attr">Thinking on Kindness vs Niceness · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html" aria-hidden="true">
         <p class="q">"Satisfaction and success are not the same pursuit. You can feel deeply satisfied without any external marker of success, and wildly successful without any satisfaction."</p>
         <span class="attr">Satisfaction with Success — with Lena Chaihorsky · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-caring-and-being-invested.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-caring-and-being-invested.html" aria-hidden="true">
         <p class="q">"There's a difference between being interested in something and being invested in it. One is about curiosity; the other is about whether you're willing to do something about it."</p>
         <span class="attr">Thinking on Caring and Being Invested · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-courage-vs-daring.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-courage-vs-daring.html" aria-hidden="true">
         <p class="q">"There's a certain degree of tedium in being courageous that I find exhausting. But in making daring decisions, there's a degree of excitement and surprising positive feedback."</p>
         <span class="attr">Thinking on Courage vs Daring · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html" aria-hidden="true">
         <p class="q">"Failure is not one thing. There's the cognitive experience of failure, where you analyze what went wrong, and the emotional experience, where you feel it in your body."</p>
         <span class="attr">Cognitive vs Emotional — Models for Failure · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html" aria-hidden="true">
         <p class="q">"We have a very Silicon Valley definition of what connection and loneliness look like. But loneliness looks very different for different people."</p>
         <span class="attr">Accepted Truths, Defaults & How We Got Here · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-building-trust.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-building-trust.html" aria-hidden="true">
         <p class="q">"The stories we choose to tell build trust and demonstrate the values of our organizations. Leaders who are deliberate about the stories they propagate shape their culture."</p>
         <span class="attr">Thinking on Building Trust · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-absurdist-successes-and-1000xresist-success-part-7.html" aria-hidden="true">
         <p class="q">"Sometimes the most successful things come from the most absurd starting points. The absurdity is not a bug — it's what makes it memorable."</p>
         <span class="attr">Absurdist Successes (1000xresist) — Success Pt 7 · listen →</span>
       </a>
-      <a class="quote-card" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html" aria-hidden="true">
+      <a class="quote-card" tabindex="-1" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html" aria-hidden="true">
         <p class="q">"Creative coding is this beautiful intersection where logic and expression meet. You're not just solving a problem — you're making something that didn't exist before."</p>
         <span class="attr">Coding, Creativity & Culture — with Computational Mama · listen →</span>
       </a>
@@ -983,159 +987,242 @@
     </div>
   </section>
 
-  <!-- =========== THE ARCHIVE (filter-driven; replaces recurring-threads + recent) =========== -->
+  <!-- =========== EXPLORE (filtered episode list) =========== -->
   <section class="backlog" id="archive">
     <div class="section-head">
       <h2>the archive</h2>
-      <span class="aside">browse by recency or by recurring theme</span>
+      <span class="aside">82 episodes · pick a thread or scroll the lot</span>
     </div>
 
-    <nav class="filter-strip" role="tablist" aria-label="Filter the archive">
-      <button class="chip is-active" data-filter="recent" type="button" aria-pressed="true">recent</button>
-      <button class="chip" data-filter="creative" type="button" aria-pressed="false">creative process<span class="chip-count" data-count="creative"></span></button>
-      <button class="chip" data-filter="business" type="button" aria-pressed="false">founders, on tape<span class="chip-count" data-count="business"></span></button>
-      <button class="chip" data-filter="behavior" type="button" aria-pressed="false">behavior &amp; decisions<span class="chip-count" data-count="behavior"></span></button>
-      <button class="chip" data-filter="storytelling" type="button" aria-pressed="false">storytelling<span class="chip-count" data-count="storytelling"></span></button>
-      <button class="chip" data-filter="ai" type="button" aria-pressed="false">AI &amp; work<span class="chip-count" data-count="ai"></span></button>
-    </nav>
+    <div class="bk-filters" role="tablist" aria-label="Filter episodes by theme">
+      <button type="button" class="bk-filter is-active" data-filter="all">recent</button>
+      <button type="button" class="bk-filter" data-filter="creativity">Creativity</button>
+      <button type="button" class="bk-filter" data-filter="why">Understanding why</button>
+      <button type="button" class="bk-filter" data-filter="growth">Personal growth</button>
+      <button type="button" class="bk-filter" data-filter="together">Working with people you love</button>
+      <button type="button" class="bk-filter" data-filter="ai">AI &amp; tech</button>
+    </div>
 
-    <ul class="bk-list" id="bk-list">
+    <ul class="bk-list">
 
-      <li data-tags="creative ai"><a class="bk-item" href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html">
+      <li data-themes="why"><a class="bk-item" href="podcast/alternatives-to-capitalism-with-nomaan-x.html">
+        <span class="bk-se">S7E14</span>
+        <span class="bk-title">Alternatives to Capitalism — with Nomaan X</span>
+        <span class="bk-date">Oct 2025</span>
+        <span class="bk-dur">58 min</span>
+      </a></li>
+
+      <li data-themes="creativity"><a class="bk-item" href="podcast/spilling-some-tea-on-writing-as-communication-and-art.html">
         <span class="bk-se">S7E13</span>
         <span class="bk-title">Spilling Some Tea on Writing as Communication and Art</span>
         <span class="bk-date">Aug 2025</span>
         <span class="bk-dur">38 min</span>
       </a></li>
 
-      <li data-tags="business design behavior"><a class="bk-item" href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html">
+      <li data-themes="growth"><a class="bk-item" href="podcast/balancing-energy-expectations-and-perfectionism-with-ambika-singh-founder-and-ce.html">
         <span class="bk-se">S7E12</span>
         <span class="bk-title">Balancing energy, expectations and perfectionism with Ambika Singh, Founder &amp; CEO Armoire</span>
         <span class="bk-date">Aug 2025</span>
         <span class="bk-dur">53 min</span>
       </a></li>
 
-      <li data-tags="creative"><a class="bk-item" href="podcast/when-its-conforming-to-be-unique.html">
+      <li data-themes="why growth"><a class="bk-item" href="podcast/when-its-conforming-to-be-unique.html">
         <span class="bk-se">S7E11</span>
         <span class="bk-title">When it's Conforming to be Unique</span>
         <span class="bk-date">Aug 2025</span>
         <span class="bk-dur">41 min</span>
       </a></li>
 
-      <li data-tags="business creative ai growth"><a class="bk-item" href="podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
+      <li data-themes="growth"><a class="bk-item" href="podcast/preeti-suri-tips-for-women-founders-and-balancing-health-work.html">
         <span class="bk-se">S7E10</span>
         <span class="bk-title">Preeti Suri: Tips for Women Founders and Balancing Health &amp; Work</span>
         <span class="bk-date">Jul 2025</span>
         <span class="bk-dur">35 min</span>
       </a></li>
 
-      <li data-tags="storytelling creative"><a class="bk-item" href="podcast/story-vs-telling-part-2.html">
+      <li data-themes="creativity"><a class="bk-item" href="podcast/story-vs-telling-part-2.html">
         <span class="bk-se">S7E7</span>
         <span class="bk-title">Story vs Telling, Part 2</span>
         <span class="bk-date">Jun 2025</span>
         <span class="bk-dur">30 min</span>
       </a></li>
 
-      <li data-tags="storytelling creative"><a class="bk-item" href="podcast/story-vs-telling-part-1.html">
+      <li data-themes="creativity"><a class="bk-item" href="podcast/story-vs-telling-part-1.html">
         <span class="bk-se">S7E6</span>
         <span class="bk-title">Story vs Telling, Part 1</span>
         <span class="bk-date">May 2025</span>
         <span class="bk-dur">24 min</span>
       </a></li>
 
-      <li data-tags="storytelling business design behavior creative"><a class="bk-item" href="podcast/almora-crafting-desire-in-business.html">
+      <li data-themes="creativity growth"><a class="bk-item" href="podcast/almora-crafting-desire-in-business.html">
         <span class="bk-se">S7E5</span>
         <span class="bk-title">Almora — Crafting Desire in Business</span>
         <span class="bk-date">May 2025</span>
         <span class="bk-dur">60 min</span>
       </a></li>
 
-      <li data-tags="storytelling business creative"><a class="bk-item" href="podcast/machphy-cool-glide-to-funding.html">
+      <li data-themes="growth"><a class="bk-item" href="podcast/machphy-cool-glide-to-funding.html">
         <span class="bk-se">S7E4</span>
         <span class="bk-title">MachPhy — Cool Glide to Funding</span>
         <span class="bk-date">Apr 2025</span>
         <span class="bk-dur">46 min</span>
       </a></li>
 
-      <li data-tags="storytelling business design behavior"><a class="bk-item" href="podcast/cranberry-fit-diving-into-storytelling.html">
+      <li data-themes="creativity growth"><a class="bk-item" href="podcast/cranberry-fit-diving-into-storytelling.html">
         <span class="bk-se">S7E3</span>
         <span class="bk-title">Cranberry.Fit — Diving into Storytelling</span>
         <span class="bk-date">Apr 2025</span>
         <span class="bk-dur">40 min</span>
       </a></li>
 
-      <li data-tags="storytelling creative growth"><a class="bk-item" href="podcast/thinking-on-the-smiqql-acquisition-deck.html">
+      <li data-themes="creativity growth"><a class="bk-item" href="podcast/thinking-on-the-smiqql-acquisition-deck.html">
         <span class="bk-se">S7E1</span>
         <span class="bk-title">Thinking on the Smiqql Acquisition Deck</span>
         <span class="bk-date">Feb 2025</span>
         <span class="bk-dur">42 min</span>
       </a></li>
 
-      <li data-tags="business behavior growth"><a class="bk-item" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
+      <li data-themes="ai creativity"><a class="bk-item" href="podcast/building-genai-for-visual-storytelling-with-divya-dashtoon-co-founder-soumyadeep.html">
+        <span class="bk-se">S5E13</span>
+        <span class="bk-title">Building GenAI for Visual Storytelling — with Soumyadeep, Dashtoon co-founder</span>
+        <span class="bk-date">Oct 2024</span>
+        <span class="bk-dur">48 min</span>
+      </a></li>
+
+      <li data-themes="growth"><a class="bk-item" href="podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html">
         <span class="bk-se">S5E11</span>
         <span class="bk-title">Satisfaction with Success — with Lena Chaihorsky (Alva10)</span>
         <span class="bk-date">Sep 2024</span>
         <span class="bk-dur">46 min</span>
       </a></li>
 
-      <li data-tags="creative ai"><a class="bk-item" href="podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html">
+      <li data-themes="together creativity"><a class="bk-item" href="podcast/caravaning-across-africa-with-divya-artists-shikhant-and-shivi.html">
+        <span class="bk-se">S5E9</span>
+        <span class="bk-title">Caravaning across Africa — with Divya &amp; artists Shikhant and Shivi</span>
+        <span class="bk-date">Aug 2024</span>
+        <span class="bk-dur">38 min</span>
+      </a></li>
+
+      <li data-themes="together growth"><a class="bk-item" href="podcast/navigating-changing-dynamics-relationships-with-kahran-and-prem-andrew-co-founde.html">
+        <span class="bk-se">S5E7</span>
+        <span class="bk-title">Navigating Changing Dynamics &amp; Relationships — with Prem &amp; Andrew (Humanly co-founders)</span>
+        <span class="bk-date">Jul 2024</span>
+        <span class="bk-dur">49 min</span>
+      </a></li>
+
+      <li data-themes="together growth"><a class="bk-item" href="podcast/505-building-healthcare-in-india-with-rockethealth-s-abhineet-and-ritika.html">
+        <span class="bk-se">S5E5</span>
+        <span class="bk-title">Building Healthcare in India — with RocketHealth's Abhineet &amp; Ritika (siblings)</span>
+        <span class="bk-date">Jun 2024</span>
+        <span class="bk-dur">43 min</span>
+      </a></li>
+
+      <li data-themes="together creativity"><a class="bk-item" href="podcast/504-creating-comics-together-with-kahran-and-divya.html">
+        <span class="bk-se">S5E4</span>
+        <span class="bk-title">Creating Comics Together — Kahran &amp; Divya</span>
+        <span class="bk-date">Jun 2024</span>
+        <span class="bk-dur">27 min</span>
+      </a></li>
+
+      <li data-themes="together growth"><a class="bk-item" href="podcast/503-building-and-selling-a-food-business-with-smiqql-s-dina-holzapfel.html">
+        <span class="bk-se">S5E3</span>
+        <span class="bk-title">Building &amp; Selling a Food Business — with Dina Holzapfel (Smiqql, with her partner)</span>
+        <span class="bk-date">May 2024</span>
+        <span class="bk-dur">36 min</span>
+      </a></li>
+
+      <li data-themes="ai creativity"><a class="bk-item" href="podcast/thinking-on-coding-creativity-culture-with-computational-mama.html">
+        <span class="bk-se">S4E2</span>
+        <span class="bk-title">Coding, Creativity &amp; Culture — with Computational Mama</span>
+        <span class="bk-date">Nov 2023</span>
+        <span class="bk-dur">37 min</span>
+      </a></li>
+
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-accepted-truths-defaults-and-how-we-got-here.html">
+        <span class="bk-se">S3E10</span>
+        <span class="bk-title">Thinking on Accepted Truths, Defaults &amp; How We Got Here</span>
+        <span class="bk-date">Oct 2023</span>
+        <span class="bk-dur">33 min</span>
+      </a></li>
+
+      <li data-themes="ai"><a class="bk-item" href="podcast/thinking-on-how-llms-genai-have-changed-our-thinking.html">
         <span class="bk-se">S3E9</span>
         <span class="bk-title">Thinking on How LLMs (&amp; GenAI) Have Changed Our Thinking</span>
         <span class="bk-date">Sep 2023</span>
         <span class="bk-dur">46 min</span>
       </a></li>
 
-      <li data-tags="creative"><a class="bk-item" href="podcast/thinking-on-the-creative-process.html">
-        <span class="bk-se">S3E8</span>
-        <span class="bk-title">Thinking on the Creative Process</span>
-        <span class="bk-date">Sep 2023</span>
-        <span class="bk-dur">36 min</span>
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-ethics-and-affording-your-morals.html">
+        <span class="bk-se">S3E2</span>
+        <span class="bk-title">Thinking on Ethics and Affording Your Morals</span>
+        <span class="bk-date">Jun 2023</span>
+        <span class="bk-dur">29 min</span>
       </a></li>
 
-      <li data-tags="creative ai"><a class="bk-item" href="podcast/thinking-on-working-in-partnership-with-generative-ai-genai.html">
+      <li data-themes="ai"><a class="bk-item" href="podcast/thinking-on-working-in-partnership-with-generative-ai-genai.html">
         <span class="bk-se">S2E10</span>
         <span class="bk-title">Thinking on Working in Partnership with Generative AI</span>
         <span class="bk-date">May 2023</span>
         <span class="bk-dur">20 min</span>
       </a></li>
 
-      <li data-tags="design behavior creative"><a class="bk-item" href="podcast/thinking-on-building-trust.html">
-        <span class="bk-se">S2E5</span>
-        <span class="bk-title">Thinking on Building Trust</span>
-        <span class="bk-date">Feb 2023</span>
-        <span class="bk-dur">39 min</span>
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-obedience-and-discipline.html">
+        <span class="bk-se">S2E9</span>
+        <span class="bk-title">Thinking on Obedience and Discipline</span>
+        <span class="bk-date">Apr 2023</span>
+        <span class="bk-dur">27 min</span>
       </a></li>
 
-      <li data-tags="business design creative growth"><a class="bk-item" href="podcast/thinking-on-caring-and-being-invested.html">
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-courage-vs-daring.html">
+        <span class="bk-se">S2E8</span>
+        <span class="bk-title">Thinking on Courage vs Daring</span>
+        <span class="bk-date">Apr 2023</span>
+        <span class="bk-dur">26 min</span>
+      </a></li>
+
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-caring-and-being-invested.html">
         <span class="bk-se">S2E3</span>
         <span class="bk-title">Thinking on Caring and Being Invested</span>
         <span class="bk-date">Jan 2023</span>
         <span class="bk-dur">36 min</span>
       </a></li>
 
-      <li data-tags="design behavior creative"><a class="bk-item" href="podcast/thinking-on-decision-making-when-you-lack-certainty.html">
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-decision-making-when-you-lack-certainty.html">
         <span class="bk-se">S2E2</span>
         <span class="bk-title">Thinking on Decision Making When You Lack Certainty</span>
         <span class="bk-date">Jan 2023</span>
         <span class="bk-dur">36 min</span>
       </a></li>
 
-      <li data-tags="behavior creative"><a class="bk-item" href="podcast/thinking-on-kindness-vs-niceness.html">
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-kindness-vs-niceness.html">
         <span class="bk-se">S1E9</span>
         <span class="bk-title">Thinking on Kindness vs Niceness</span>
         <span class="bk-date">Nov 2022</span>
         <span class="bk-dur">39 min</span>
       </a></li>
 
-      <li data-tags="business creative ai"><a class="bk-item" href="podcast/thinking-on-ai-the-future-of-work-and-the-commoditization-of-high-er-skilled-lab.html">
+      <li data-themes="ai"><a class="bk-item" href="podcast/thinking-on-ai-the-future-of-work-and-the-commoditization-of-high-er-skilled-lab.html">
         <span class="bk-se">S1E8</span>
-        <span class="bk-title">AI, the Future of Work, and the Commoditization of High(er)-Skilled Labour</span>
+        <span class="bk-title">Thinking on AI, the Future of Work, and the Commoditization of High(er)-Skilled Labour</span>
         <span class="bk-date">Nov 2022</span>
         <span class="bk-dur">44 min</span>
       </a></li>
 
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-cognitive-vs-emotional-experiences-models-for-failure.html">
+        <span class="bk-se">S1E3</span>
+        <span class="bk-title">Thinking on Cognitive vs Emotional Experiences — Models for Failure</span>
+        <span class="bk-date">Aug 2022</span>
+        <span class="bk-dur">30 min</span>
+      </a></li>
+
+      <li data-themes="why"><a class="bk-item" href="podcast/thinking-on-signaling-being-in-group.html">
+        <span class="bk-se">S1E2</span>
+        <span class="bk-title">Thinking on Signaling, Being In-Group</span>
+        <span class="bk-date">Aug 2022</span>
+        <span class="bk-dur">22 min</span>
+      </a></li>
+
     </ul>
-    <p class="archive-empty"><span>No episodes match this filter yet — pick another.</span></p>
     <a class="backlog-more" href="podcast/archive.html">the full 82-episode archive →</a>
   </section>
 
@@ -1201,50 +1288,28 @@
       document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
     }, { passive: true });
 
-    // ===== archive filter: chips drive .bk-list visibility =====
+    // ===== explore: theme filter on the episode list =====
     (function(){
-      const strip = document.querySelector('#archive .filter-strip');
-      const list  = document.querySelector('#archive .bk-list');
-      const empty = document.querySelector('#archive .archive-empty');
-      if (!strip || !list) return;
-      const chips = strip.querySelectorAll('.chip');
-      const items = list.querySelectorAll('li');
+      const filters = document.querySelectorAll('.bk-filter');
+      const items = document.querySelectorAll('.bk-list > li');
+      if (!filters.length || !items.length) return;
 
-      // populate chip counts from real data-tags
-      strip.querySelectorAll('.chip-count[data-count]').forEach(el => {
-        const tag = el.getAttribute('data-count');
-        let n = 0;
+      function applyFilter(theme) {
         items.forEach(li => {
-          const tags = (li.getAttribute('data-tags') || '').split(/\s+/);
-          if (tags.indexOf(tag) !== -1) n++;
+          const themes = (li.dataset.themes || '').split(/\s+/).filter(Boolean);
+          const matches = theme === 'all' || themes.includes(theme);
+          li.classList.toggle('is-hidden', !matches);
         });
-        el.textContent = n;
-      });
-
-      function apply(filter) {
-        let visible = 0;
-        items.forEach(li => {
-          const tags = (li.getAttribute('data-tags') || '').split(/\s+/);
-          const show = filter === 'recent' || tags.indexOf(filter) !== -1;
-          li.classList.toggle('hidden', !show);
-          if (show) visible++;
-        });
-        if (empty) empty.classList.toggle('is-shown', visible === 0);
-        chips.forEach(c => {
-          const on = c.getAttribute('data-filter') === filter;
-          c.classList.toggle('is-active', on);
-          c.setAttribute('aria-pressed', on ? 'true' : 'false');
+        filters.forEach(f => {
+          f.classList.toggle('is-active', f.dataset.filter === theme);
         });
       }
 
-      chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-          apply(chip.getAttribute('data-filter') || 'recent');
-        });
+      filters.forEach(filter => {
+        filter.addEventListener('click', () => applyFilter(filter.dataset.filter));
       });
 
-      // Default: recent (the same chronological order the markup is in)
-      apply('recent');
+      applyFilter('all');
     })();
   </script>
 
