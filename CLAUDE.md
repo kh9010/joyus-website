@@ -146,7 +146,11 @@ When orchestrating, run agents in parallel only on non-conflicting files (each c
 
 **Branches named `designmay05`, `designmay06`, `designmayNN` etc. are Divya's** — date-named feature branches she uses for her own iteration. Do NOT commit on them, even if they appear to be "the active feature branch" with recent activity. Mixing Claude/Kahran-session commits with Divya's commits on her date branches conflates histories and crowds her workspace. (Confirmed correction from Kahran on 2026-05-07: *"why are you using divyas branches we talked about this you should be on your own branch."*)
 
-For Claude/Kahran-session work: use a `kahran-<task>` branch — e.g. `kahran-thesis-quiz`, `kahran-comics-spec`, `kahran-podcast-recent`. Create fresh off latest `main` if one doesn't exist for the current task: `git checkout main && git pull && git checkout -b kahran-<task>`.
+For Claude/Kahran-session work: use a **`kahran-<date>-<task>`** branch. Date format matches Divya's date branches (`mmmDD` lowercase, zero-padded) — e.g. `kahran-may07-thesis-quiz`, `kahran-may07-comics-spec`, `kahran-jun14-pricing-update`. The date is essential, not optional: Kahran often runs two parallel Claude Code sessions in different windows on different tasks, and date-less branch names collide when both windows happen to pick the same task name. The date guarantees uniqueness per session-day.
+
+Create fresh off latest `main`: `git checkout main && git pull && git checkout -b kahran-<date>-<task>`.
+
+(Confirmed by Kahran on 2026-05-07: *"make it name and date based branches as our standard ... because i might be claude coding in two different windows on two different things it causes issues."*)
 
 **Verify with `git branch --show-current` before EVERY commit.** The Claude Code session on this machine silently shifts branches between turns — this has happened repeatedly. Don't assume the branch from the previous turn is still checked out. If the wrong branch is checked out, `git checkout` to the correct one BEFORE committing.
 
