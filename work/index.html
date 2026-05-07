@@ -1222,7 +1222,9 @@
       }, 38);
     }
 
-    /* 4. RAIN — colored dots fall from above the card */
+    /* 4. RAIN — colored dots fall from above the card.
+       Keyframes use px throughout — mixing translateY(20%) with translateY(Npx)
+       produced an undefined unit interpolation that silently no-op'd in Chrome. */
     function rain(el) {
       const c = rectOf(el);
       const L = layer();
@@ -1236,10 +1238,11 @@
         L.appendChild(d);
         const delay = Math.random() * 350;
         const distance = c.h + 100 + Math.random() * 50;
+        const fadeIn = Math.max(20, c.h * 0.18);
         const anim = d.animate([
-          { transform: 'translateY(0) rotate(0deg)', opacity: 0 },
-          { transform: 'translateY(20%) rotate(60deg)', opacity: 1, offset: 0.18 },
-          { transform: 'translateY('+distance+'px) rotate(360deg)', opacity: 0 },
+          { transform: 'translateY(0px) rotate(0deg)', opacity: 0 },
+          { transform: 'translateY(' + fadeIn + 'px) rotate(60deg)', opacity: 1, offset: 0.18 },
+          { transform: 'translateY(' + distance + 'px) rotate(360deg)', opacity: 0 },
         ], { duration: 1200 + Math.random() * 500, delay, easing: 'cubic-bezier(0.4, 0.6, 0.6, 1)', fill: 'forwards' });
         anim.onfinish = () => d.remove();
       }
