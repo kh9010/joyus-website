@@ -103,7 +103,7 @@
     <a href="{{P}}work/" data-nav="work">Work</a>
     <a href="{{P}}services.html" data-nav="services">Services</a>
     <a href="{{P}}workshops.html" data-nav="workshops">Workshops</a>
-    <a href="{{P}}podcast.html" data-nav="podcast">Podcast</a>
+    <a href="{{P}}make.html" data-nav="make">Make</a>
     <a href="{{P}}about.html" data-nav="about">About</a>
     <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
   </div>
@@ -115,7 +115,7 @@
     if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
-    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/make\.html/.test(path) || /\/comics(\/|$)/.test(path) || /podcast/.test(path)) active = 'make';
     else if (/about\.html/.test(path)) active = 'about';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');

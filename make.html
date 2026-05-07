@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Off the clock — comics, a podcast, an installation, and films from Joyus Studio. The work that pays the soul, not the rent." />
+<meta property="og:title" content="Off the clock — Joyus Studio" />
+<meta property="og:description" content="Comics, a podcast, an installation, films. The work that pays the soul, not the rent." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/make.html" />
+<meta name="twitter:card" content="summary" />
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/make.html" />
+<title>Off the clock — Joyus Studio</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --warm-gray: #F5F3F0;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  /* skip-link */
+  .skip-to-content {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff;
+    padding: 0.5rem 1rem; z-index: 1000;
+  }
+  .skip-to-content:focus { left: 1rem; top: 1rem; }
+
+  /* ==================== HERO ==================== */
+  .hero {
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    background: linear-gradient(180deg, var(--warm-gray) 0%, #fff 100%);
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-inner {
+    max-width: 720px;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pink);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--pink); }
+  .hero-sub {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 56ch;
+  }
+  .hero-jump {
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
+    display: flex; flex-wrap: wrap;
+    gap: 0.55rem;
+    align-items: baseline;
+  }
+  .hero-jump-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    margin-right: 0.5rem;
+  }
+  .jump-link {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    padding: 0.35rem 0.85rem;
+    border: 1.5px solid var(--rule);
+    border-radius: 999px;
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+  }
+  .jump-link:hover {
+    border-color: var(--pink);
+    color: var(--pink);
+    background: rgba(233, 30, 123, 0.04);
+  }
+
+  .hero-dot {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.85;
+  }
+  .hd1 { background: var(--pink); width: 220px; height: 220px; top: 8%; right: -6%; }
+  .hd2 { background: var(--cyan); width: 38px; height: 38px; bottom: 22%; right: 18%; }
+  .hd3 { background: var(--yellow); width: 16px; height: 16px; top: 26%; right: 32%; }
+  @media (max-width: 720px) {
+    .hd1 { width: 140px; height: 140px; right: -25%; }
+    .hd2, .hd3 { display: none; }
+  }
+
+  /* ==================== SECTION HEADER ==================== */
+  .section {
+    padding: clamp(4rem, 8vh, 6rem) var(--x);
+    border-top: 1px solid var(--rule);
+    scroll-margin-top: 80px;
+  }
+  .section-inner { max-width: 1080px; margin: 0 auto; }
+  .section-narrow .section-inner { max-width: 720px; }
+  .section-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .section-eyebrow::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--accent, var(--pink));
+  }
+  .section h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .section h2 em { font-style: italic; color: var(--accent, var(--pink)); }
+  .section-deck {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin-bottom: 2.5rem;
+  }
+
+  /* ==================== COMICS ==================== */
+  #comics { --accent: var(--pink); background: #fff; }
+  .comics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .comic-card {
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--rule);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+  .comic-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(44, 53, 68, 0.08);
+  }
+  .comic-card-cover {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    background: var(--warm-gray);
+  }
+  .comic-card-cover img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .comic-card:hover .comic-card-cover img { transform: scale(1.03); }
+  .comic-card-cover .placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--ink-fade);
+  }
+  .comic-card-body { padding: 1.25rem 1.4rem 1.5rem; }
+  .comic-card-meta {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--pink);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  .comic-card.coming-soon .comic-card-meta { color: var(--ink-fade); }
+  .comic-card-body h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.4rem;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.55rem;
+  }
+  .comic-card-body p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+  .comic-card.coming-soon { opacity: 0.65; cursor: default; }
+  .comic-card.coming-soon:hover { transform: none; box-shadow: none; }
+
+  /* ==================== PODCAST ==================== */
+  #podcast { --accent: var(--cyan); background: var(--warm-gray); }
+  .podcast-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .podcast-blurb { padding-right: 1rem; }
+  .podcast-stats {
+    display: flex;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.06em;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .podcast-stats strong { color: var(--ink); font-weight: 600; margin-right: 0.4rem; }
+  .podcast-quote {
+    background: #fff;
+    border-left: 3px solid var(--cyan);
+    padding: 1.5rem 1.6rem;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 4px 16px -10px rgba(44, 53, 68, 0.12);
+  }
+  .podcast-quote .q {
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+  .podcast-quote .attr {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+  .podcast-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.4rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+  .podcast-cta:hover {
+    background: var(--ink);
+    color: #fff;
+  }
+  .podcast-pills {
+    margin-top: 1rem;
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+  }
+  .podcast-pill {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    padding: 0.4rem 0.95rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .podcast-pill:hover { color: var(--pink); border-color: var(--pink); }
+  @media (max-width: 720px) {
+    .podcast-row { grid-template-columns: 1fr; gap: 2rem; }
+    .podcast-blurb { padding-right: 0; }
+  }
+
+  /* ==================== INSTALLATION ==================== */
+  #installations { --accent: var(--yellow); background: #fff; }
+  .install-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--rule);
+  }
+  .install-card-image {
+    background: linear-gradient(135deg, #2C3544 0%, #1a1f29 100%);
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .install-card-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(79, 196, 207, 0.4) 0%, transparent 35%),
+      radial-gradient(circle at 70% 60%, rgba(233, 30, 123, 0.35) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(242, 201, 74, 0.25) 0%, transparent 50%);
+  }
+  .install-card-image .label {
+    position: relative;
+    color: rgba(255, 255, 255, 0.85);
+    font-family: var(--hand);
+    font-size: 1.6rem;
+    text-align: center;
+    transform: rotate(-2deg);
+    letter-spacing: 0.04em;
+  }
+  .install-card-body {
+    padding: 2.5rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .install-meta {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--yellow);
+    font-weight: 600;
+    margin-bottom: 0.65rem;
+  }
+  .install-card-body h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.65rem;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .install-card-body p {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+  .install-card-body a {
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px;
+    font-size: 0.93rem;
+    font-weight: 500;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .install-card-body a:hover { color: var(--pink); border-bottom-color: var(--pink); }
+  @media (max-width: 720px) {
+    .install-card { grid-template-columns: 1fr; }
+    .install-card-image { min-height: 220px; }
+    .install-card-body { padding: 2rem 1.75rem; }
+  }
+
+  /* ==================== FILMS ==================== */
+  #films { --accent: var(--cyan); background: var(--warm-gray); }
+  .films-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+  .films-blurb h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 1.65rem;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .films-meta {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--cyan);
+    font-weight: 600;
+    margin-bottom: 0.65rem;
+  }
+  .films-blurb p {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+  }
+  .films-cta {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--ink);
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 2px;
+    font-size: 0.93rem;
+    font-weight: 500;
+  }
+  .films-cta:hover { color: var(--pink); border-bottom-color: var(--pink); }
+  .films-mosaic {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    aspect-ratio: 1 / 1;
+  }
+  .films-tile {
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--ink), #1a1f29);
+    position: relative;
+    overflow: hidden;
+  }
+  .films-tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .films-tile.t1::before { background: radial-gradient(circle at 60% 40%, rgba(233, 30, 123, 0.55), transparent 60%); }
+  .films-tile.t2::before { background: radial-gradient(circle at 30% 70%, rgba(79, 196, 207, 0.55), transparent 60%); }
+  .films-tile.t3::before { background: radial-gradient(circle at 70% 60%, rgba(242, 201, 74, 0.45), transparent 60%); }
+  .films-tile.t4::before { background: radial-gradient(circle at 40% 30%, rgba(91, 189, 114, 0.45), transparent 60%); }
+  @media (max-width: 720px) {
+    .films-row { grid-template-columns: 1fr; gap: 2rem; }
+  }
+
+  /* ==================== CLOSING ==================== */
+  .closing {
+    padding: clamp(4rem, 9vh, 6.5rem) var(--x) clamp(3rem, 6vh, 5rem);
+    border-top: 2px solid var(--ink);
+    background: var(--warm-gray);
+    position: relative;
+    overflow: hidden;
+  }
+  .closing-inner { max-width: 720px; }
+  .closing-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+  }
+  .closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pink);
+  }
+  .closing h3 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 0.85rem;
+  }
+  .closing h3 em { font-style: italic; }
+  .closing h3 a {
+    color: var(--pink);
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px;
+  }
+  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .closing-hint {
+    font-size: 0.9rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.04em;
+  }
+</style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-to-content">Skip to content</a>
+
+<!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="workshops.html" data-nav="workshops">Workshops</a>
+    <a href="make.html" data-nav="make">Make</a>
+    <a href="about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/make\.html/.test(path) || /\/comics(\/|$)/.test(path) || /podcast/.test(path)) active = 'make';
+    else if (/about\.html/.test(path)) active = 'about';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+<main id="main-content">
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero">
+    <span class="hero-dot hd1"></span>
+    <span class="hero-dot hd2"></span>
+    <span class="hero-dot hd3"></span>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">things we make</span>
+      <h1>Off the <em>clock.</em></h1>
+      <p class="hero-sub">Comics, a podcast, an installation, films. The work that pays the soul, not the rent.</p>
+      <div class="hero-jump">
+        <span class="hero-jump-label">jump to</span>
+        <a class="jump-link" href="#comics">Comics</a>
+        <a class="jump-link" href="#podcast">Podcast</a>
+        <a class="jump-link" href="#installations">Installations</a>
+        <a class="jump-link" href="#films">Films</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMICS ==================== -->
+  <section class="section" id="comics">
+    <div class="section-inner">
+      <span class="section-eyebrow">comics</span>
+      <h2>Hand-drawn stories about <em>friendship, connection, and small absurdities.</em></h2>
+      <p class="section-deck">Written by Kahran. Illustrated by Divya. Mostly featuring Mr Curl and the people he tries to stay close to. Plus a few zines about doing serious things unseriously.</p>
+
+      <div class="comics-grid">
+
+        <a href="comics/the-friend-comic.html" class="comic-card">
+          <div class="comic-card-cover">
+            <img src="images/comics/friend/page-1.png" alt="the Friend comic — page 1" loading="lazy" />
+          </div>
+          <div class="comic-card-body">
+            <div class="comic-card-meta">Comic · 4 pages</div>
+            <h3>the Friend comic</h3>
+            <p>Mr Curl catches up with an old friend. Is atrophy inevitable? Are we all doomed to be alone, comforted only by Instagram and Facebook?</p>
+          </div>
+        </a>
+
+        <a href="comics/gossip.html" class="comic-card">
+          <div class="comic-card-cover">
+            <img src="images/comics/gossip/page-1.png" alt="Gossip comic — page 1" loading="lazy" />
+          </div>
+          <div class="comic-card-body">
+            <div class="comic-card-meta">Comic · 4 pages</div>
+            <h3>Gossip</h3>
+            <p>Two friends dissect someone else's relationship over dinner. It spirals. Why do we choose unhappiness?</p>
+          </div>
+        </a>
+
+        <div class="comic-card coming-soon">
+          <div class="comic-card-cover">
+            <span class="placeholder">coming soon</span>
+          </div>
+          <div class="comic-card-body">
+            <div class="comic-card-meta">Comic · coming soon</div>
+            <h3>the Plant Comic</h3>
+            <p>What do you do when your best friend is a plant? And what happens if that plant dies? A treatise on love, friendship, and keeping plants alive.</p>
+          </div>
+        </div>
+
+        <div class="comic-card coming-soon">
+          <div class="comic-card-cover">
+            <span class="placeholder">coming soon</span>
+          </div>
+          <div class="comic-card-body">
+            <div class="comic-card-meta">Comic · coming soon</div>
+            <h3>the Phone Comic</h3>
+            <p>Can you escape your phone? Do you want to? What will you do without it?</p>
+          </div>
+        </div>
+
+        <div class="comic-card coming-soon">
+          <div class="comic-card-cover">
+            <span class="placeholder">coming soon</span>
+          </div>
+          <div class="comic-card-body">
+            <div class="comic-card-meta">Zine · coming soon</div>
+            <h3>the doing serious things unseriously zine</h3>
+            <p>How do you do serious things? Without taking yourself too seriously. If this feels easier said than done, this zine is for you.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PODCAST ==================== -->
+  <section class="section" id="podcast">
+    <div class="section-inner">
+      <span class="section-eyebrow">podcast</span>
+      <h2>Thinking on <em>Thinking.</em></h2>
+      <p class="section-deck">Founder interviews, friend conversations, two-person riffs. Always an idea worth pulling apart.</p>
+
+      <div class="podcast-row">
+        <div class="podcast-blurb">
+          <div class="podcast-stats">
+            <span><strong>86</strong>episodes</span>
+            <span><strong>7</strong>seasons</span>
+            <span><strong>~55</strong>hours</span>
+            <span><strong>since</strong>2023</span>
+          </div>
+          <a class="podcast-cta" href="podcast.html">See all episodes <span aria-hidden="true">→</span></a>
+          <div class="podcast-pills">
+            <a class="podcast-pill" href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener">Spotify</a>
+            <a class="podcast-pill" href="https://podcasts.apple.com/us/podcast/id1636574012" target="_blank" rel="noopener">Apple Podcasts</a>
+            <a class="podcast-pill" href="https://www.iheart.com/podcast/" target="_blank" rel="noopener">iHeart</a>
+          </div>
+        </div>
+        <a class="podcast-quote" href="podcast/thinking-on-kindness-vs-niceness.html">
+          <p class="q">"Politeness feels like how you do something, not what you're doing. Kindness is the intent; niceness is the performance of that intent."</p>
+          <span class="attr">Thinking on Kindness vs Niceness · listen →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== INSTALLATIONS ==================== -->
+  <section class="section" id="installations">
+    <div class="section-inner">
+      <span class="section-eyebrow">installations</span>
+      <h2>Touchscreen poetry, <em>generated together.</em></h2>
+      <p class="section-deck">A first installation in development — visitors assemble a poem from emotional poles, and each choice grows a flower into a shared garden.</p>
+
+      <div class="install-card">
+        <div class="install-card-image">
+          <span class="label">a living garden of<br/>everyone's poems</span>
+        </div>
+        <div class="install-card-body">
+          <div class="install-meta">Interactive installation · in development</div>
+          <h3>The Line Before</h3>
+          <p>A touchscreen installation where visitors assemble a poem by choosing between emotional poles — drawing from 230 fragments written across several years of poetry. Each choice shapes a generative flower; every flower joins a living garden of all previous visitors' poems. Submitted to Science Gallery Bengaluru's INTELLIGENCE open call.</p>
+          <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener">See the project &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FILMS ==================== -->
+  <section class="section" id="films">
+    <div class="section-inner">
+      <span class="section-eyebrow">films</span>
+      <h2>Two videos for <em>the same poem.</em></h2>
+      <p class="section-deck">An experiment in how images change a poem's meaning — for each, two entirely different visual interpretations.</p>
+
+      <div class="films-row">
+        <div class="films-blurb">
+          <div class="films-meta">Video · 2024</div>
+          <h3>Poem Films</h3>
+          <p>An experiment in how different visuals change the feeling of a poem. For each poem, two entirely different video interpretations — exploring how image transforms meaning. Exhibited at Boulder Public Library. Made with Divya Tak using MidJourney and Stable Diffusion.</p>
+          <a class="films-cta" href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener">Watch the films &rarr;</a>
+        </div>
+        <div class="films-mosaic" aria-hidden="true">
+          <div class="films-tile t1"></div>
+          <div class="films-tile t2"></div>
+          <div class="films-tile t3"></div>
+          <div class="films-tile t4"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CLOSING ==================== -->
+  <section class="closing">
+    <span class="hero-dot hd1" style="opacity:0.6;top:20%;right:6%;width:140px;height:140px;"></span>
+    <div class="closing-inner">
+      <span class="closing-label">your move</span>
+      <h3>Making something <em>nobody asked for?</em> <em><a href="mailto:hello@joyus.studio">Send it.</a></em></h3>
+      <span class="closing-hint">hello@joyus.studio · we read everything</span>
+    </div>
+  </section>
+
+</main>
+
+<!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+</body>
+</html>
