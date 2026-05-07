@@ -138,11 +138,23 @@ The session uses `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (set in `.claude/setti
 
 When orchestrating, run agents in parallel only on non-conflicting files (each case study is independent; `styles.css` is the one shared file — devs should prefer page-local `<style>` blocks for new families to avoid concurrent-edit merges).
 
-**Always work on a feature branch. Never commit directly to main. Don't auto-merge — wait for explicit instruction to merge.** The pattern is: branch off latest `main` → edit → commit → push the branch. **Stop there.** Only merge into main when the user says "merge" / "ship" / similar. Auto-merging mid-task disrupts parallel sessions (Kahran often works in a second window simultaneously, e.g. on `thesis-workshop.html`).
+`git push origin main` is permitted by `.claude/settings.local.json` (no PR review), but only after merging from a feature branch — see Branch discipline below.
 
-Every change should pick or create a clearly-named branch (e.g. `designmay06-podcast-recent`, `kahran-comics-spec`) and stay on it. Verify with `git branch --show-current` before every commit. If the harness silently switches you to a different branch (it sometimes does), switch back before continuing.
+## Branch discipline
 
-When the user explicitly asks to merge: first stash any unrelated working-tree changes (the parallel window's edits land here), `git checkout main`, `git merge <branch> --no-ff`, push main, switch back to the working branch. Don't carry the parallel session's in-flight files through a merge.
+**Always work on a personal/task-named branch. Never commit directly to main. Never commit on Divya's branches. Don't auto-merge — wait for explicit instruction.**
+
+**Branches named `designmay05`, `designmay06`, `designmayNN` etc. are Divya's** — date-named feature branches she uses for her own iteration. Do NOT commit on them, even if they appear to be "the active feature branch" with recent activity. Mixing Claude/Kahran-session commits with Divya's commits on her date branches conflates histories and crowds her workspace. (Confirmed correction from Kahran on 2026-05-07: *"why are you using divyas branches we talked about this you should be on your own branch."*)
+
+For Claude/Kahran-session work: use a `kahran-<task>` branch — e.g. `kahran-thesis-quiz`, `kahran-comics-spec`, `kahran-podcast-recent`. Create fresh off latest `main` if one doesn't exist for the current task: `git checkout main && git pull && git checkout -b kahran-<task>`.
+
+**Pattern:** branch off latest `main` → edit → commit → push the branch. **Stop there.** Only merge to main when the user says "merge" / "ship" / similar. Auto-merging mid-task disrupts parallel sessions — Kahran often works in a second window simultaneously (e.g. on `thesis-workshop.html`) while another branch is open.
+
+**Verify with `git branch --show-current` before EVERY commit.** The Claude Code session on this machine silently shifts branches between turns — this has happened repeatedly. Don't assume the branch from the previous turn is still checked out. If the wrong branch is checked out, `git checkout` to the correct one BEFORE committing.
+
+**When the user asks to merge:** first stash any unrelated working-tree changes (the parallel window's edits land here), `git checkout main`, `git pull origin main`, `git merge <branch> --no-ff`, push main, switch back to the working branch. Don't carry the parallel session's in-flight files through a merge.
+
+Each fix → its own commit on a `kahran-*` branch → wait for merge instruction → merge to main with `--no-ff` → push.
 
 ## Klydo cuts — three-version case study
 
