@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The Thesis Workshop from Joyus Studio. A leadership offsite for teams that have product-market signal but haven't yet found thesis-market fit. One day, sometimes two. You leave with a one-sentence answer to who you're for, in what moment, replacing what.">
+  <meta name="description" content="The Thesis Workshop from Joyus Studio. A leadership offsite for teams stuck on positioning — who can write the company three different ways and don't agree on any of them. One day, sometimes two. You leave with a sentence the rest of the team can say back.">
   <meta property="og:title" content="The Thesis Workshop — Joyus Studio">
-  <meta property="og:description" content="A leadership offsite for teams that have product-market signal but haven't yet found thesis-market fit. You leave with one sentence the leadership team can say back to each other.">
+  <meta property="og:description" content="A leadership offsite for teams who can write the company three different ways and don't agree on any of them. One day in a room — and you leave with the sentence the rest of the team can say back.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/thesis-workshop.html">
@@ -19,32 +19,50 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Service","name":"The Thesis Workshop — Joyus Studio","description":"A leadership offsite for teams that have product-market signal but haven't yet found thesis-market fit. One day, sometimes two. Leave with a one-sentence answer to who you're for, in what moment, replacing what — and a 90-day plan to act on it.","provider":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"},"url":"https://kh9010.github.io/joyus-website/thesis-workshop.html","serviceType":"Strategy Workshop"}
+{"@context":"https://schema.org","@type":"Service","name":"The Thesis Workshop — Joyus Studio","description":"A leadership offsite for teams stuck on positioning — who can write the company three different ways and don't agree on any of them. One day, sometimes two. Leave with a sentence the team can say back to each other.","provider":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"},"url":"https://kh9010.github.io/joyus-website/thesis-workshop.html","serviceType":"Strategy Workshop"}
   </script>
   <style>
     :root { --hub-accent: #4FC4CF; }
 
+    /* ============ HERO ============ */
     .editorial-hero {
       padding: clamp(7rem, 16vh, 11rem) 2rem clamp(4rem, 8vh, 6rem);
       background: linear-gradient(to bottom, var(--warm-gray, #F5F3F0) 0%, var(--warm-gray, #F5F3F0) 60%, #fff 100%);
       min-height: 70vh;
       display: flex;
       align-items: center;
+      position: relative;
+      overflow: hidden;
     }
     .editorial-hero-inner {
       max-width: 880px;
       margin: 0 auto;
       width: 100%;
+      position: relative;
+      z-index: 2;
     }
     .editorial-theme {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
       font-family: 'Caveat', cursive;
       font-size: 1.25rem;
       color: var(--hub-accent);
-      display: block;
       margin-bottom: 1rem;
       transform: rotate(-1.5deg);
       transform-origin: left center;
       letter-spacing: 0.01em;
+    }
+    .editorial-theme::before {
+      content: "";
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      animation: pulseDot 2.4s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.5); }
+      50%      { box-shadow: 0 0 0 12px rgba(79, 196, 207, 0); }
     }
     .editorial-hero h1 {
       font-family: 'DM Serif Display', serif;
@@ -73,282 +91,7 @@
     }
     .editorial-subline strong { color: #111; font-weight: 500; }
 
-    .editorial-body {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 3rem 2rem 4rem;
-    }
-    .editorial-body p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1.5rem;
-    }
-    .editorial-body > p:first-of-type::first-letter {
-      font-family: 'DM Serif Display', serif;
-      font-size: 3.2rem;
-      float: left;
-      line-height: 1;
-      margin-right: 0.12em;
-      margin-top: 0.05em;
-      color: var(--hub-accent);
-    }
-    .editorial-body em {
-      color: #333;
-      font-style: italic;
-    }
-    .editorial-body h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
-      color: #111;
-      margin-top: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    .inline-card {
-      margin: 2.5rem 0;
-      border-radius: 8px;
-      border: 1px solid #e8e6e4;
-      border-left: 3px solid var(--hub-accent);
-      overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .inline-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-    }
-    .inline-card a {
-      display: block;
-      padding: 1.25rem 1.5rem;
-      text-decoration: none;
-      color: inherit;
-    }
-    .inline-card-type {
-      display: block;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      color: var(--hub-accent);
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-    }
-    .inline-card-title {
-      display: block;
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: #111;
-      line-height: 1.3;
-    }
-
-    .pull-quote {
-      margin: 3rem -2rem;
-      padding: 2.5rem 2rem;
-      text-align: center;
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-    }
-    .pull-quote p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.4rem, 3vw, 1.9rem);
-      line-height: 1.35;
-      color: #222;
-      font-style: italic;
-      margin-bottom: 0.5rem;
-      max-width: 560px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .pull-quote cite {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--hub-accent);
-      font-style: normal;
-    }
-
-    .outcomes-section {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 0 2rem 3rem;
-    }
-    .outcomes-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
-      color: #111;
-      margin-bottom: 1.5rem;
-    }
-    .outcomes-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .outcomes-list li {
-      padding: 0.9rem 0;
-      border-bottom: 1px solid #eee;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #444;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-    .outcomes-list li::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 1.25rem;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-    }
-    .outcomes-list li:last-child { border-bottom: none; }
-
-    .note-section {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 2rem 2rem 3rem;
-      border-top: 1px solid #eee;
-    }
-    .note-section h2 {
-      font-family: 'Caveat', cursive;
-      font-size: 1.2rem;
-      color: #999;
-      margin-bottom: 1rem;
-    }
-    .note-section p {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: #444;
-      margin-bottom: 1rem;
-    }
-
-    .pricing-section {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 3rem 2rem 2rem;
-      border-top: 1px solid #eee;
-    }
-    .pricing-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.6rem;
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .pricing-section .pricing-lede {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #555;
-      margin-bottom: 2rem;
-    }
-    .pricing-tiers {
-      display: grid;
-      gap: 1.25rem;
-      margin-bottom: 2rem;
-    }
-    .pricing-tier {
-      padding: 1.5rem 1.5rem 1.5rem 1.5rem;
-      border: 1px solid #e8e6e4;
-      border-left: 3px solid var(--hub-accent);
-      border-radius: 8px;
-      background: #fff;
-    }
-    .pricing-tier-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 0.5rem;
-    }
-    .pricing-tier-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      color: #111;
-    }
-    .pricing-tier-price {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: var(--hub-accent);
-    }
-    .pricing-tier-body {
-      font-size: 0.98rem;
-      line-height: 1.65;
-      color: #555;
-      margin: 0;
-    }
-    .pricing-section .pricing-tail {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: #777;
-      margin-top: 0.5rem;
-    }
-    .pricing-section .pricing-tail a {
-      color: var(--hub-accent);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .cta-strip {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .cta-strip h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.5rem);
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .cta-strip p {
-      color: #666;
-      font-size: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    @media (max-width: 600px) {
-      .pull-quote { margin: 3rem 0; }
-    }
-
-    /* ============ MOVEMENT — scroll thread + reveal + drift + pulse ============ */
-    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
-    .thread-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--hub-accent), #E91E7B, #F2C94A);
-      width: 0;
-      transition: width 0.1s linear;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-    .reveal.delay-1 { transition-delay: 100ms; }
-    .reveal.delay-2 { transition-delay: 220ms; }
-    .reveal.delay-3 { transition-delay: 340ms; }
-    .reveal.delay-4 { transition-delay: 460ms; }
-
-    /* pulse dot before the eyebrow */
-    .editorial-theme {
-      display: inline-flex !important;
-      align-items: center;
-      gap: 0.55rem;
-    }
-    .editorial-theme::before {
-      content: "";
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-      animation: pulseDot 2.4s ease-in-out infinite;
-    }
-    @keyframes pulseDot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.5); }
-      50%      { box-shadow: 0 0 0 12px rgba(79, 196, 207, 0); }
-    }
-
     /* hero ambient dots — drift in then float */
-    .editorial-hero { position: relative; overflow: hidden; }
-    .editorial-hero-inner { position: relative; z-index: 2; }
     .hero-dot {
       position: absolute;
       border-radius: 50%;
@@ -372,59 +115,82 @@
     .hd5 { width: 110px; height: 110px; bottom: -3%; left: 4%; background: var(--hub-accent); --final-opacity: 0.18; --from-x: -60px; animation-delay: 300ms; }
     .hd6 { width: 32px; height: 32px; top: 12%; left: 36%; background: #F2C94A; --final-opacity: 0.55; --from-y: -20px; animation-delay: 500ms; }
 
-    /* h2 in the body gets a tiny pulsing pip before it */
-    .editorial-body h2 {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
+    /* ============ FACILITATORS — who's in the room ============ */
+    .facilitators {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vh, 3.5rem) 2rem 0;
     }
-    .editorial-body h2::before {
-      content: "";
-      width: 12px; height: 12px;
-      border-radius: 50%;
+    .facilitators-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: 'Caveat', cursive;
+      font-size: 1.25rem;
+      color: var(--hub-accent);
+      margin-bottom: 0.6rem;
+      transform: rotate(-1.5deg);
+    }
+    .facilitators-eyebrow::before {
+      content: ""; width: 9px; height: 9px; border-radius: 50%;
       background: var(--hub-accent);
+    }
+    .facilitators-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .facilitator {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.25rem;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      background: #fff;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .facilitator:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--hub-accent); }
+    .facilitator-avatar {
       flex-shrink: 0;
-      box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.4);
-      animation: pulseDot 2.8s ease-in-out infinite;
-      animation-delay: 1.2s;
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--avatar-bg, var(--hub-accent));
     }
-
-    /* pricing tiers: chip-in with stagger when the strip enters viewport */
-    .pricing-tier {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 240ms;
+    .facilitator-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
     }
-    .pricing-tiers.in .pricing-tier { opacity: 1; transform: translateY(0); }
-    .pricing-tiers.in .pricing-tier:nth-child(1) { transition-delay: 100ms, 0ms, 0ms, 0ms; }
-    .pricing-tiers.in .pricing-tier:nth-child(2) { transition-delay: 240ms, 0ms, 0ms, 0ms; }
-    .pricing-tiers.in .pricing-tier:nth-child(3) { transition-delay: 380ms, 0ms, 0ms, 0ms; }
-    .pricing-tiers.in .pricing-tier:nth-child(4) { transition-delay: 520ms, 0ms, 0ms, 0ms; }
-    .pricing-tier:hover {
-      transform: translate(-4px, -4px);
-      box-shadow: 10px 10px 0 var(--hub-accent);
+    .facilitator-body { flex: 1; min-width: 0; }
+    .facilitator-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem; color: #111;
+      margin: 0;
     }
-
-    /* outcomes list items: stagger in */
-    .outcomes-list li {
-      opacity: 0;
-      transform: translateX(-12px);
-      transition: opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    .facilitator-role {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--hub-accent);
+      margin: 0.15rem 0 0.5rem;
     }
-    .outcomes-section.in .outcomes-list li { opacity: 1; transform: translateX(0); }
-    .outcomes-section.in .outcomes-list li:nth-child(1) { transition-delay: 80ms; }
-    .outcomes-section.in .outcomes-list li:nth-child(2) { transition-delay: 200ms; }
-    .outcomes-section.in .outcomes-list li:nth-child(3) { transition-delay: 320ms; }
-    .outcomes-section.in .outcomes-list li:nth-child(4) { transition-delay: 440ms; }
-    .outcomes-section.in .outcomes-list li:nth-child(5) { transition-delay: 560ms; }
+    .facilitator-line {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.92rem; line-height: 1.55;
+      color: #444; margin: 0;
+    }
+    .facilitator-line a, .artifact-cap a {
+      color: var(--hub-accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      font-weight: 500;
+    }
+    .facilitator-line a:hover, .artifact-cap a:hover {
+      text-decoration-thickness: 2px;
+    }
+    @media (max-width: 640px) { .facilitators-grid { grid-template-columns: 1fr; } }
 
-    /* inline-card hover: Divya's lift + colored shadow */
-    .inline-card { transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1); }
-    .inline-card:hover { transform: translate(-4px, -4px); box-shadow: 10px 10px 0 var(--hub-accent); }
-
-    /* ============ FEEL — strike→replace, mark, meta-row chips, h2 pip-first ============ */
-
-    /* h1: two-line reveal — first line lands, second line slides up after */
+    /* h1: two-line reveal */
     .editorial-hero h1 .h1-a {
       opacity: 0;
       transform: translateY(12px);
@@ -440,7 +206,7 @@
     .editorial-hero.in h1 .h1-a,
     .editorial-hero.in h1 .h1-b { opacity: 1; transform: translateY(0); }
 
-    /* meta-row chips with dot bullets — the studio's signature */
+    /* meta-row chips */
     .meta-row {
       display: flex;
       flex-wrap: wrap;
@@ -460,8 +226,6 @@
       font-size: 0.82rem;
       font-weight: 500;
       color: #2C3544;
-      letter-spacing: 0;
-      text-transform: none;
       transform: rotate(var(--rot, 0deg));
       transition: transform 200ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 200ms;
       box-shadow: 0 2px 6px rgba(44, 53, 68, 0.04);
@@ -480,9 +244,25 @@
     .meta-row span:nth-child(4n+1) { --dot: var(--hub-accent); }
     .meta-row span:nth-child(4n+2) { --dot: #E91E7B; }
     .meta-row span:nth-child(4n+3) { --dot: #F2C94A; }
-    .meta-row span:nth-child(4n)   { --dot: #2C3544; }
 
-    /* pull-quote mark highlight — phrase emphasis that draws after the quote */
+    /* ============ PULL QUOTE — single signature line ============ */
+    .pull-quote {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(3rem, 7vh, 5rem) 2rem;
+      text-align: center;
+    }
+    .pull-quote p {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.35rem, 2.6vw, 1.85rem);
+      line-height: 1.4;
+      color: #1a1a1a;
+      font-style: italic;
+      margin: 0 0 0.75rem;
+      max-width: 38ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
     .pull-quote p mark {
       background: linear-gradient(180deg, transparent 60%, rgba(79, 196, 207, 0.32) 60%);
       color: inherit;
@@ -493,541 +273,128 @@
       transition-delay: 500ms;
     }
     .pull-quote.in p mark { background-size: 100% 100%; }
-
-    /* h2 pip-first reveal — pip lands, then the heading */
-    .editorial-body h2 {
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 500ms ease 200ms, transform 500ms ease 200ms;
-    }
-    .editorial-body h2.in { opacity: 1; transform: translateY(0); }
-    .editorial-body h2::before {
-      transform: scale(0);
-      transform-origin: center;
-      transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
-      animation: none;
-    }
-    .editorial-body h2.in::before {
-      transform: scale(1);
-      animation: pulseDot 2.8s ease-in-out infinite;
-      animation-delay: 1.2s;
-    }
-
-    /* findings — "what teams keep finding" section */
-    .findings {
-      background: linear-gradient(to bottom, #fff 0%, var(--warm-gray, #F5F3F0) 100%);
-      padding: clamp(4rem, 8vh, 6rem) 2rem;
-    }
-    .findings-inner { max-width: 720px; margin: 0 auto; }
-    .findings-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.25rem;
-      color: var(--hub-accent);
-      margin-bottom: 0.5rem;
-      transform: rotate(-1.5deg);
-    }
-    .findings-eyebrow::before {
-      content: "";
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-      transform: rotate(1.5deg);
-    }
-    .findings-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.7rem, 3.2vw, 2.3rem);
-      color: #111;
-      margin: 0 0 2.5rem;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-      max-width: 22ch;
-    }
-    .findings-title em { font-style: italic; color: var(--hub-accent); }
-    .findings-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      counter-reset: f;
-      display: grid;
-      gap: 2.25rem;
-    }
-    .findings-list li {
-      counter-increment: f;
-      position: relative;
-      padding-left: 4rem;
-      min-height: 3.5rem;
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .findings.in .findings-list li { opacity: 1; transform: translateY(0); }
-    .findings.in .findings-list li:nth-child(1) { transition-delay: 100ms; }
-    .findings.in .findings-list li:nth-child(2) { transition-delay: 240ms; }
-    .findings.in .findings-list li:nth-child(3) { transition-delay: 380ms; }
-    .findings.in .findings-list li:nth-child(4) { transition-delay: 520ms; }
-    .findings-list li::before {
-      content: counter(f, decimal-leading-zero);
-      position: absolute;
-      left: 0;
-      top: -0.2rem;
-      font-family: 'Caveat', cursive;
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--hub-accent);
-      line-height: 0.9;
-      transform: rotate(-3deg);
-    }
-    .findings-list h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.2rem;
-      color: #111;
-      margin: 0 0 0.5rem;
-      line-height: 1.3;
-    }
-    .findings-list p {
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #444;
-      margin: 0;
-    }
-    .findings-list em { font-style: italic; color: #111; }
-
-    /* ============ PHASE — three-phase frame for the body ============ */
-    .phase-intro {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: clamp(3rem, 6vh, 5rem) 2rem 1rem;
-    }
-    .phase-intro-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.25rem;
-      color: var(--hub-accent);
-      margin-bottom: 0.75rem;
-      transform: rotate(-1.5deg);
-    }
-    .phase-intro-eyebrow::before {
-      content: "";
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-      transform: rotate(1.5deg);
-    }
-    .phase-intro-text {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.3rem, 2.4vw, 1.7rem);
-      line-height: 1.35;
-      color: #1a1a1a;
-      margin: 0;
-      letter-spacing: -0.005em;
-    }
-    .phase-intro-text em { font-style: italic; color: var(--hub-accent); }
-
-    .phase {
-      max-width: 880px;
-      margin: 0 auto;
-      padding: clamp(3rem, 6vh, 4.5rem) 2rem;
-      position: relative;
-    }
-    .phase + .phase { padding-top: clamp(2rem, 3vh, 3rem); }
-    .phase-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 1.25rem;
-      margin-bottom: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .phase-num {
-      font-family: 'Caveat', cursive;
-      font-size: clamp(3rem, 5.5vw, 4.6rem);
-      font-weight: 700;
-      color: var(--hub-accent);
-      line-height: 0.9;
-      letter-spacing: -0.02em;
-      transform: rotate(-3deg);
-      display: inline-block;
-      flex-shrink: 0;
-    }
-    .phase-titles {
-      flex: 1;
-      min-width: 60%;
-    }
-    .phase-label {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--hub-accent);
-      margin-bottom: 0.5rem;
-    }
-    .phase-label::before {
-      content: "";
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-    }
-    .phase-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
-      color: #111;
-      line-height: 1.05;
-      letter-spacing: -0.015em;
-      margin: 0;
-    }
-    .phase-name em { font-style: italic; color: var(--hub-accent); }
-    .phase-description {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1.05rem;
-      line-height: 1.65;
-      color: #444;
-      max-width: 60ch;
-      margin: 0 0 2rem;
-    }
-    .phase-description em { color: #111; font-style: italic; }
-
-    /* phase-reframe: inline reframe callout inside a phase */
-    .phase-reframe {
-      margin: 1.5rem 0;
-      padding: 1.5rem 1.75rem;
-      background: rgba(79, 196, 207, 0.06);
-      border-left: 3px solid var(--hub-accent);
-      border-radius: 0 12px 12px 0;
-    }
-    .phase-reframe-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
+    .pull-quote cite {
       font-family: 'Caveat', cursive;
       font-size: 1.1rem;
       color: var(--hub-accent);
-      transform: rotate(-1.5deg);
-      margin-bottom: 0.4rem;
-    }
-    .phase-reframe-tag::before { content: "↳ "; }
-    .phase-reframe h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.15rem, 2vw, 1.4rem);
-      color: #111;
-      margin: 0 0 0.5rem;
-      line-height: 1.25;
-    }
-    .phase-reframe h3 em { font-style: italic; color: var(--hub-accent); }
-    .phase-reframe p {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.98rem;
-      line-height: 1.65;
-      color: #333;
-      margin: 0;
-    }
-    .phase-reframe p em { font-style: italic; color: #111; }
-
-    /* magic-moment--inline: same component, but slightly more padding to sit cleanly inside a phase */
-    .magic-moment.magic-moment--inline {
-      margin: 1.5rem 0;
-      max-width: 100%;
-    }
-
-    .phase-close {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 1rem 2rem clamp(2rem, 5vh, 4rem);
-    }
-    .phase-close-text {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.15rem, 2vw, 1.4rem);
-      line-height: 1.5;
-      color: #1a1a1a;
-      margin: 0;
-      font-style: italic;
-    }
-    .phase-close-text strong {
-      font-style: normal;
-      font-weight: 500;
-      color: var(--hub-accent);
-    }
-
-    /* ============ PULL-QUOTE TRIPTYCH — three sentences from three rooms ============ */
-    .pull-triptych {
-      margin: 3rem -1rem;
-      padding: 2rem 1rem;
-      border-top: 1px solid #eee;
-      border-bottom: 1px solid #eee;
-      display: grid;
-      gap: 1.25rem;
-    }
-    .pull-triptych-eyebrow {
-      font-family: 'Caveat', cursive;
-      font-size: 1.15rem;
-      color: var(--hub-accent);
-      transform: rotate(-1.5deg);
-      display: inline-block;
-      margin: 0 0 0.5rem 1rem;
-    }
-    .pull-triptych-eyebrow::before { content: "↳ "; }
-    .pull-triptych-item {
-      padding: 1.1rem 1.4rem;
-      background: #fff;
-      border: 1px solid #e8e6e4;
-      border-left: 3px solid var(--hub-accent);
-      border-radius: 0 8px 8px 0;
-      transform: rotate(var(--rot, 0deg));
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-      box-shadow: 0 4px 12px -8px rgba(44, 53, 68, 0.15);
-    }
-    .pull-triptych-item:hover {
-      transform: rotate(0) translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--hub-accent);
-    }
-    .pull-triptych-item:nth-child(2) { --rot: -0.4deg; }
-    .pull-triptych-item:nth-child(3) { --rot: 0.5deg; }
-    .pull-triptych-item:nth-child(4) { --rot: -0.3deg; }
-    .pull-triptych-item .triptych-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--hub-accent);
-      margin-bottom: 0.4rem;
-    }
-    .pull-triptych-item .triptych-tag::before {
-      content: "";
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-    }
-    .pull-triptych-item p {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-      line-height: 1.4;
-      font-style: italic;
-      color: #1a1a1a;
-      margin: 0 0 0.5rem;
-    }
-    .pull-triptych-item p mark {
-      background: linear-gradient(180deg, transparent 60%, rgba(79, 196, 207, 0.32) 60%);
-      color: inherit;
-      padding: 0 0.12em;
-      background-size: 0% 100%;
-      background-repeat: no-repeat;
-      transition: background-size 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
-      transition-delay: var(--mark-delay, 500ms);
-    }
-    .pull-triptych.in .pull-triptych-item p mark { background-size: 100% 100%; }
-    .pull-triptych.in .pull-triptych-item:nth-child(2) p mark { transition-delay: 500ms; }
-    .pull-triptych.in .pull-triptych-item:nth-child(3) p mark { transition-delay: 700ms; }
-    .pull-triptych.in .pull-triptych-item:nth-child(4) p mark { transition-delay: 900ms; }
-    .pull-triptych-item cite {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--hub-accent);
       font-style: normal;
     }
-    .pull-triptych-item {
-      opacity: 0;
-      transform: translateY(14px) rotate(var(--rot, 0deg));
-      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-    }
-    .pull-triptych.in .pull-triptych-item { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
-    .pull-triptych.in .pull-triptych-item:nth-child(2) { transition-delay: 100ms; }
-    .pull-triptych.in .pull-triptych-item:nth-child(3) { transition-delay: 240ms; }
-    .pull-triptych.in .pull-triptych-item:nth-child(4) { transition-delay: 380ms; }
 
-    /* ============ MAGIC — the part we can't engineer ============ */
-    .magic-section {
-      background: linear-gradient(135deg, #FAF7F2 0%, var(--warm-gray, #F5F3F0) 60%, #FAF7F2 100%);
-      padding: clamp(4rem, 9vh, 7rem) 2rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .magic-section::before,
-    .magic-section::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      opacity: 0.5;
-    }
-    .magic-section::before {
-      width: 240px; height: 240px;
-      background: radial-gradient(circle, rgba(79, 196, 207, 0.18) 0%, transparent 70%);
-      top: -80px; right: -60px;
-    }
-    .magic-section::after {
-      width: 180px; height: 180px;
-      background: radial-gradient(circle, rgba(233, 30, 123, 0.14) 0%, transparent 70%);
-      bottom: -50px; left: -40px;
-    }
-    .magic-inner {
-      max-width: 760px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-    .magic-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.3rem;
-      color: var(--hub-accent);
-      margin-bottom: 0.5rem;
-      transform: rotate(-2deg);
-    }
-    .magic-eyebrow::before {
-      content: "";
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--hub-accent);
-      transform: rotate(2deg);
-    }
-    .magic-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
-      color: #111;
-      line-height: 1.18;
-      letter-spacing: -0.01em;
-      margin: 0 0 1.25rem;
-      max-width: 22ch;
-    }
-    .magic-title em { font-style: italic; color: var(--hub-accent); }
-    .magic-intro {
-      font-family: 'DM Sans', sans-serif;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #444;
-      max-width: 56ch;
-      margin: 0 0 2.5rem;
-    }
-    .magic-moments {
-      display: grid;
-      gap: 1.25rem;
-      margin: 0 0 2rem;
-    }
-    .magic-moment {
-      position: relative;
-      padding: 1.5rem 1.75rem 1.5rem 5.5rem;
-      background: #fff;
-      border: 1.5px solid #e8e6e4;
-      border-radius: 12px;
-      box-shadow: 0 6px 18px -10px rgba(44, 53, 68, 0.18);
-      transform: rotate(var(--rot, 0deg));
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-    }
-    .magic-moment:hover {
-      transform: rotate(0) translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--hub-accent);
-    }
-    .magic-moment:nth-child(1) { --rot: -0.6deg; }
-    .magic-moment:nth-child(2) { --rot: 0.5deg; }
-    .magic-moment:nth-child(3) { --rot: -0.4deg; }
-    .magic-time {
-      position: absolute;
-      left: 1.25rem;
-      top: 1.4rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
-      color: var(--hub-accent);
-      font-weight: 700;
-      transform: rotate(-3deg);
-      line-height: 1;
-      letter-spacing: 0.01em;
-    }
-    .magic-time::after {
-      content: "";
-      display: block;
-      width: 28px; height: 2px;
-      background: var(--hub-accent);
-      margin-top: 0.4rem;
-      opacity: 0.4;
-    }
-    .magic-moment p {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.08rem;
-      line-height: 1.55;
-      color: #1a1a1a;
-      margin: 0;
-    }
-    .magic-moment p em {
-      font-style: italic;
-      color: var(--hub-accent);
-    }
-    .magic-tail {
-      font-family: 'Caveat', cursive;
-      font-size: 1.45rem;
-      color: #111;
-      line-height: 1.4;
-      margin: 0;
-      transform: rotate(-1deg);
-      display: inline-block;
-    }
-    .magic-tail strong {
-      color: var(--hub-accent);
-      font-weight: 700;
-    }
-
-    /* magic moment stagger */
-    .magic-moment {
-      opacity: 0;
-      transform: translateY(20px) rotate(var(--rot, 0deg));
-      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-    }
-    .magic-section.in .magic-moment { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
-    .magic-section.in .magic-moment:nth-child(1) { transition-delay: 100ms; }
-    .magic-section.in .magic-moment:nth-child(2) { transition-delay: 280ms; }
-    .magic-section.in .magic-moment:nth-child(3) { transition-delay: 460ms; }
-
-    @media (max-width: 720px) {
-      .magic-moment { padding: 1.25rem 1.25rem 1.25rem 1.25rem; }
-      .magic-time { position: static; display: inline-block; margin-bottom: 0.5rem; }
-      .magic-time::after { display: none; }
-    }
-
-    /* ============ ARTIFACTS — visual deliverables grid ============ */
-    .artifacts-section {
+    /* ============ DAY MAP — how the day runs ============ */
+    .day-map-section {
       max-width: 880px;
       margin: 0 auto;
-      padding: clamp(3rem, 7vh, 5rem) 2rem;
+      padding: clamp(1rem, 3vh, 2rem) 2rem clamp(2rem, 5vh, 3rem);
     }
-    .artifacts-eyebrow {
+    .section-eyebrow {
       display: inline-flex;
       align-items: center;
       gap: 0.55rem;
       font-family: 'Caveat', cursive;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       color: var(--hub-accent);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
       transform: rotate(-1.5deg);
     }
-    .artifacts-eyebrow::before {
+    .section-eyebrow::before {
       content: "";
       width: 9px; height: 9px;
       border-radius: 50%;
       background: var(--hub-accent);
       transform: rotate(1.5deg);
     }
-    .artifacts-title {
+    .section-h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.8rem, 3.4vw, 2.4rem);
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
       color: #111;
       line-height: 1.18;
-      margin: 0 0 2.5rem;
-      max-width: 22ch;
       letter-spacing: -0.01em;
+      margin: 0 0 2rem;
+      max-width: 22ch;
     }
-    .artifacts-title em { font-style: italic; color: var(--hub-accent); }
+    .section-h2 em { font-style: italic; color: var(--hub-accent); }
+    .day-map {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      position: relative;
+    }
+    .day-map::before {
+      content: "";
+      position: absolute;
+      top: 50%; left: 8%; right: 8%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--hub-accent), transparent);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition-delay: 400ms;
+      z-index: 0;
+      opacity: 0.35;
+    }
+    .day-map.in::before { transform: scaleX(1); }
+    .day-block {
+      padding: 1.5rem 1.25rem;
+      border: 1.5px solid #e8e6e4;
+      border-radius: 12px;
+      background: #fff;
+      position: relative;
+      z-index: 1;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .day-block:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--hub-accent); }
+    .day-block::before {
+      content: attr(data-step);
+      position: absolute;
+      top: -0.55rem;
+      left: 1.25rem;
+      background: var(--hub-accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+    }
+    .day-block-time {
+      display: block;
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      color: var(--hub-accent);
+      margin: 0.4rem 0 0.5rem;
+      transform: rotate(-1.5deg);
+    }
+    .day-block h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: #111;
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
+    }
+    .day-block p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: #555;
+      margin: 0;
+    }
+    .day-block em { color: #1a1a1a; font-style: italic; }
+    .day-block { opacity: 0; transform: translateY(16px); transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms; }
+    .day-map.in .day-block { opacity: 1; transform: translateY(0); }
+    .day-map.in .day-block:nth-child(1) { transition-delay: 100ms; }
+    .day-map.in .day-block:nth-child(2) { transition-delay: 240ms; }
+    .day-map.in .day-block:nth-child(3) { transition-delay: 380ms; }
+    @media (max-width: 720px) {
+      .day-map { grid-template-columns: 1fr; gap: 0.75rem; }
+      .day-map::before { display: none; }
+    }
+
+    /* ============ ARTIFACTS — the centerpiece, what you walk away with ============ */
+    .artifacts-section {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vh, 4rem) 2rem clamp(3rem, 6vh, 5rem);
+    }
     .artifacts-grid {
       display: grid;
       grid-template-columns: repeat(6, 1fr);
@@ -1107,7 +474,7 @@
       padding-top: 0.75rem;
     }
 
-    /* artifact 1: the sentence — handwritten quote-style mock */
+    /* artifact 1: the sentence */
     .mock-sentence {
       font-family: 'DM Serif Display', serif;
       font-style: italic;
@@ -1122,7 +489,7 @@
     }
     .mock-sentence em { color: var(--hub-accent); font-weight: 400; }
 
-    /* artifact 2: archetypes — 2 mini persona chips */
+    /* artifact 2: archetypes */
     .mock-archetypes {
       display: flex;
       flex-direction: column;
@@ -1149,7 +516,7 @@
       flex-shrink: 0;
     }
 
-    /* artifact 3: principles — checklist */
+    /* artifact 3: principles */
     .mock-principles {
       width: 100%;
       display: flex;
@@ -1178,44 +545,46 @@
       flex-shrink: 0;
     }
 
-    /* artifact 4: 90-day plan — 3-column mini calendar */
-    .mock-plan {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.45rem;
+    /* artifact 4: plan — week-stretch list */
+    .mock-plan-list {
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
     }
-    .mock-plan-month {
-      padding: 0.55rem 0.5rem;
-      background: rgba(44, 53, 68, 0.05);
-      border-radius: 6px;
-      text-align: center;
-      position: relative;
-    }
-    .mock-plan-month-label {
-      display: block;
+    .mock-plan-row {
+      display: grid;
+      grid-template-columns: 3rem 1fr auto;
+      gap: 0.6rem;
+      align-items: center;
+      padding: 0.45rem 0.55rem;
+      background: rgba(44, 53, 68, 0.04);
+      border-radius: 5px;
       font-family: 'DM Sans', sans-serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 0.78rem;
+      color: #2C3544;
+      line-height: 1.3;
+    }
+    .mock-plan-row.is-tail { background: transparent; border: 1px dashed rgba(44, 53, 68, 0.2); }
+    .mock-plan-when {
+      font-weight: 700;
+      font-size: 0.7rem;
+      letter-spacing: 0.04em;
       color: #54606F;
-      margin-bottom: 0.4rem;
-      font-weight: 600;
     }
-    .mock-plan-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 2px;
+    .mock-plan-what { color: #1a1a1a; }
+    .mock-plan-who {
+      font-family: 'DM Serif Display', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.15rem 0.4rem;
+      background: #2C3544;
+      color: #fff;
+      border-radius: 3px;
     }
-    .mock-plan-grid span {
-      width: 100%;
-      aspect-ratio: 1;
-      background: #e8e6e4;
-      border-radius: 1px;
-    }
-    .mock-plan-grid span.dot { background: #2C3544; }
 
-    /* artifact 5: summary — paper stack */
+    /* artifact 5: summary */
     .mock-summary {
       width: 100%;
       max-width: 140px;
@@ -1246,12 +615,7 @@
     }
     .mock-summary-line:first-child { width: 60%; background: #2C3544; height: 3px; }
 
-    /* artifact stagger */
-    .artifact-card {
-      opacity: 0;
-      transform: translateY(20px) rotate(var(--rot, 0deg));
-      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-    }
+    .artifact-card { opacity: 0; transform: translateY(20px) rotate(var(--rot, 0deg)); transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms; }
     .artifacts-grid.in .artifact-card { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
     .artifacts-grid.in .artifact-card:nth-child(1) { transition-delay: 80ms; }
     .artifacts-grid.in .artifact-card:nth-child(2) { transition-delay: 220ms; }
@@ -1268,7 +632,45 @@
       .artifact-card.is-summary { grid-column: span 1; }
     }
 
-    /* ============ READY — self-test framing for "How to know you're ready" ============ */
+    /* ============ PROOF — small case-study link ============ */
+    .proof-row {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 2rem clamp(2rem, 4vh, 3rem);
+    }
+    .proof-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.4rem;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 0 8px 8px 0;
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .proof-link:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--hub-accent);
+    }
+    .proof-link-tag {
+      flex-shrink: 0;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      color: var(--hub-accent);
+      transform: rotate(-2deg);
+    }
+    .proof-link-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.05rem;
+      color: #1a1a1a;
+      line-height: 1.35;
+    }
+    .proof-link-text .arr { color: var(--hub-accent); margin-left: 0.3em; }
+
+    /* ============ READY — self-test ============ */
     .ready-section {
       max-width: 760px;
       margin: 0 auto;
@@ -1347,7 +749,56 @@
     }
     .ready-tail strong { color: var(--hub-accent); font-weight: 700; }
 
-    /* ready-list stagger */
+    /* ============ READY BUTTONS — diagnostic / workshop CTA pair ============ */
+    .ready-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 2rem 0 0.5rem;
+    }
+    .ready-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      padding: 1.2rem 1.4rem;
+      border: 1.5px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 0 8px 8px 0;
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .ready-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--hub-accent);
+    }
+    .ready-btn-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--hub-accent);
+    }
+    .ready-btn-action {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.1rem;
+      color: #1a1a1a;
+      line-height: 1.25;
+    }
+    .ready-btn-meta {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      color: #777;
+    }
+    .ready-btn-primary { border-left-color: #E91E7B; }
+    .ready-btn-primary .ready-btn-label { color: #E91E7B; }
+    .ready-btn-primary:hover { box-shadow: 8px 8px 0 #E91E7B; }
+    @media (max-width: 600px) {
+      .ready-buttons { grid-template-columns: 1fr; }
+    }
+
     .ready-list li {
       opacity: 0;
       transform: translateX(-12px);
@@ -1358,253 +809,162 @@
     .ready-list.in li:nth-child(2) { transition-delay: 240ms; }
     .ready-list.in li:nth-child(3) { transition-delay: 380ms; }
 
-    /* ============ VISUAL BLOCKS — day-map, sticky-mini, thesis-template, vs-pair ============ */
-
-    /* day-map: 3-column visual of the day's structure */
-    .day-map {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin: 2rem 0 2.5rem;
-      position: relative;
+    /* ============ PRICING ============ */
+    .pricing-section {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: clamp(2rem, 5vh, 4rem) 2rem clamp(3rem, 6vh, 5rem);
+      border-top: 1px solid #eee;
     }
-    .day-map::before {
-      content: "";
-      position: absolute;
-      top: 50%; left: 8%; right: 8%;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--hub-accent), transparent);
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
-      transition-delay: 400ms;
-      z-index: 0;
-      opacity: 0.35;
-    }
-    .day-map.in::before { transform: scaleX(1); }
-    .day-block {
-      padding: 1.5rem 1.25rem;
-      border: 1.5px solid #e8e6e4;
-      border-radius: 12px;
-      background: #fff;
-      position: relative;
-      z-index: 1;
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .day-block:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--hub-accent); }
-    .day-block::before {
-      content: attr(data-step);
-      position: absolute;
-      top: -0.55rem;
-      left: 1.25rem;
-      background: var(--hub-accent);
-      color: #fff;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      padding: 0.22rem 0.6rem;
-      border-radius: 999px;
-    }
-    .day-block-time {
-      display: block;
-      font-family: 'Caveat', cursive;
-      font-size: 1.35rem;
-      color: var(--hub-accent);
-      margin: 0.4rem 0 0.5rem;
-      transform: rotate(-1.5deg);
-    }
-    .day-block h3 {
+    .pricing-section h2 {
       font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
+      font-size: clamp(1.7rem, 3vw, 2.2rem);
       color: #111;
       margin: 0 0 0.5rem;
-      line-height: 1.2;
+      letter-spacing: -0.01em;
     }
-    .day-block p {
-      font-size: 0.92rem;
-      line-height: 1.5;
+    .pricing-section .pricing-lede {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .pricing-tiers {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .pricing-tier {
+      padding: 1.5rem;
+      border: 1px solid #e8e6e4;
+      border-left: 3px solid var(--hub-accent);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .pricing-tier-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-tier-name {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.2rem;
+      color: #111;
+    }
+    .pricing-tier-price {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--hub-accent);
+    }
+    .pricing-tier-body {
+      font-size: 0.98rem;
+      line-height: 1.65;
       color: #555;
       margin: 0;
     }
-    @media (max-width: 720px) {
-      .day-map { grid-template-columns: 1fr; gap: 0.75rem; }
-      .day-map::before { display: none; }
+    .pricing-section .pricing-tail {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      color: #777;
+      margin-top: 0.5rem;
+    }
+    .pricing-section .pricing-tail a {
+      color: var(--hub-accent);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .pricing-tier {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 240ms;
+    }
+    .pricing-tiers.in .pricing-tier { opacity: 1; transform: translateY(0); }
+    .pricing-tiers.in .pricing-tier:nth-child(1) { transition-delay: 100ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(2) { transition-delay: 240ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(3) { transition-delay: 380ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(4) { transition-delay: 520ms, 0ms, 0ms, 0ms; }
+    .pricing-tiers.in .pricing-tier:nth-child(5) { transition-delay: 660ms, 0ms, 0ms, 0ms; }
+    .pricing-tier:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 10px 10px 0 var(--hub-accent);
     }
 
-    /* sticky-mini: small wall of colored sticky notes — decorative, reinforces the diagnostic */
-    .sticky-mini-wrap {
-      position: relative;
-      margin: 2rem 0 1rem;
+    /* ============ CTA ============ */
+    .cta-strip {
+      padding: 5rem 2rem;
+      text-align: center;
     }
-    .sticky-mini-cap {
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      color: var(--hub-accent);
-      transform: rotate(-2deg);
-      display: inline-block;
+    .cta-strip h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      color: #111;
       margin-bottom: 0.5rem;
     }
-    .sticky-mini-cap::before { content: "↳ "; }
-    .sticky-mini {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .cta-strip p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 50ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ============ MOVEMENT — scroll thread + reveal ============ */
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
+    .thread-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--hub-accent), #E91E7B, #F2C94A);
+      width: 0;
+      transition: width 0.1s linear;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* section-h2 with pulsing pip */
+    .section-h2 {
+      display: flex;
+      align-items: center;
       gap: 0.7rem;
-      padding: 1.25rem;
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 12px;
     }
-    .sticky-mini-note {
-      display: block;
-      padding: 0.85rem 0.95rem;
-      font-family: 'Caveat', cursive;
-      font-size: 0.95rem;
-      color: #2C3544;
-      border-radius: 4px;
-      transform: rotate(var(--rot, 0deg));
-      box-shadow: 0 4px 12px rgba(44, 53, 68, 0.08);
-      line-height: 1.3;
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    .section-h2::before {
+      content: "";
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--hub-accent);
+      flex-shrink: 0;
+      box-shadow: 0 0 0 0 rgba(79, 196, 207, 0.4);
+      animation: pulseDot 2.8s ease-in-out infinite;
+      animation-delay: 1.2s;
+      transform: scale(0);
+      transform-origin: center;
+      transition: transform 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
     }
-    .sticky-mini-note:hover { transform: rotate(0deg) scale(1.04); box-shadow: 0 8px 18px rgba(44,53,68,0.14); z-index: 5; position: relative; }
-    .sticky-mini-note .tag {
-      display: block;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(44, 53, 68, 0.55);
-      margin-bottom: 0.25rem;
+    .section-h2.in::before {
+      transform: scale(1);
     }
-    .sticky-mini-note.y { background: #FFF4B5; }
-    .sticky-mini-note.p { background: #FFD6E7; }
-    .sticky-mini-note.b { background: #C9E8FF; }
-    .sticky-mini-note.g { background: #D4F0D4; }
-    .sticky-mini-note.pe { background: #FFD4B8; }
-    .sticky-mini-note.l { background: #E4CCFF; }
-    @media (max-width: 600px) {
-      .sticky-mini { grid-template-columns: repeat(2, 1fr); }
+    .section-h2 {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 500ms ease 200ms, transform 500ms ease 200ms;
     }
-
-    /* thesis-template: visual mad-libs */
-    .thesis-template {
-      margin: 2.5rem 0 1rem;
-      padding: 2rem 2.25rem;
-      background: linear-gradient(135deg, #fff 0%, var(--warm-gray, #F5F3F0) 100%);
-      border-left: 4px solid var(--hub-accent);
-      border-radius: 0 12px 12px 0;
-      font-family: 'DM Serif Display', serif;
-      position: relative;
-    }
-    .thesis-template-line {
-      font-size: clamp(1.1rem, 2vw, 1.35rem);
-      color: #1a1a1a;
-      line-height: 1.85;
-    }
-    .thesis-template-line .blank {
-      display: inline-block;
-      min-width: 11rem;
-      max-width: 100%;
-      border-bottom: 2px dashed var(--hub-accent);
-      margin: 0 0.2em;
-      height: 1.05em;
-      vertical-align: -0.15em;
-    }
-    .thesis-template-line .label {
-      font-family: 'DM Sans', sans-serif;
-      font-style: normal;
-      font-weight: 500;
-    }
-    .thesis-template-tail {
-      margin-top: 1.25rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.15rem;
-      color: var(--hub-accent);
-      font-style: normal;
-      transform: rotate(-1deg);
-      display: inline-block;
-    }
-    .thesis-template-tail::before { content: "→ "; }
-
-    /* vs-pair: replacement for note-section prose. Two columns: isn't / is */
-    .vs-pair {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .vs-col {
-      padding: 1.5rem;
-      border-radius: 12px;
-      background: #fff;
-      border: 1.5px solid #e8e6e4;
-    }
-    .vs-col.vs-is { border-left: 3px solid var(--hub-accent); }
-    .vs-col.vs-isnt { border-left: 3px solid rgba(44, 53, 68, 0.25); }
-    .vs-label {
-      display: inline-block;
-      font-family: 'Caveat', cursive;
-      font-size: 1.4rem;
-      color: rgba(44, 53, 68, 0.6);
-      margin-bottom: 0.75rem;
-      transform: rotate(-2deg);
-    }
-    .vs-col.vs-is .vs-label { color: var(--hub-accent); }
-    .vs-col ul { list-style: none; padding: 0; margin: 0; }
-    .vs-col li {
-      font-size: 0.95rem;
-      line-height: 1.5;
-      color: #444;
-      padding: 0.55rem 0 0.55rem 1.1rem;
-      border-bottom: 1px dashed #e8e6e4;
-      position: relative;
-    }
-    .vs-col li:last-child { border-bottom: none; }
-    .vs-col.vs-isnt li::before {
-      content: "✕";
-      position: absolute;
-      left: 0; top: 0.55rem;
-      color: rgba(44, 53, 68, 0.4);
-      font-size: 0.85rem;
-      font-weight: 700;
-    }
-    .vs-col.vs-is li::before {
-      content: "✓";
-      position: absolute;
-      left: 0; top: 0.55rem;
-      color: var(--hub-accent);
-      font-size: 0.95rem;
-      font-weight: 700;
-    }
-    @media (max-width: 600px) {
-      .vs-pair { grid-template-columns: 1fr; gap: 1rem; }
-    }
-
-    /* the visual blocks should reveal smoothly when scrolled into view */
-    .day-block { opacity: 0; transform: translateY(16px); transition: opacity 600ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 600ms cubic-bezier(0.2, 0.8, 0.2, 1); }
-    .day-map.in .day-block { opacity: 1; transform: translateY(0); }
-    .day-map.in .day-block:nth-child(1) { transition-delay: 100ms; }
-    .day-map.in .day-block:nth-child(2) { transition-delay: 240ms; }
-    .day-map.in .day-block:nth-child(3) { transition-delay: 380ms; }
-    .sticky-mini-note { opacity: 0; transform: translateY(10px) rotate(var(--rot, 0deg)); transition: opacity 500ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 500ms cubic-bezier(0.2, 0.8, 0.2, 1); }
-    .sticky-mini.in .sticky-mini-note { opacity: 1; transform: translateY(0) rotate(var(--rot, 0deg)); }
-    .sticky-mini.in .sticky-mini-note:nth-child(1) { transition-delay: 60ms; }
-    .sticky-mini.in .sticky-mini-note:nth-child(2) { transition-delay: 160ms; }
-    .sticky-mini.in .sticky-mini-note:nth-child(3) { transition-delay: 260ms; }
-    .sticky-mini.in .sticky-mini-note:nth-child(4) { transition-delay: 360ms; }
-    .sticky-mini.in .sticky-mini-note:nth-child(5) { transition-delay: 460ms; }
-    .sticky-mini.in .sticky-mini-note:nth-child(6) { transition-delay: 560ms; }
+    .section-h2.in { opacity: 1; transform: translateY(0); }
 
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .pricing-tier, .outcomes-list li, .editorial-body h2, .findings-list li, .day-block, .sticky-mini-note, .magic-moment, .artifact-card, .ready-list li, .pull-triptych-item { opacity: 1; transform: none; }
-      .pull-triptych-item p mark { background-size: 100% 100%; }
-      .editorial-hero h1 .h1-a, .editorial-hero h1 .h1-b { opacity: 1; transform: none; }
+      .reveal, .pricing-tier, .day-block, .artifact-card, .ready-list li, .section-h2 { opacity: 1; transform: none; }
       .pull-quote p mark { background-size: 100% 100%; }
+      .editorial-hero h1 .h1-a, .editorial-hero h1 .h1-b { opacity: 1; transform: none; }
       .day-map::before { transform: scaleX(1); }
-      .sticky-mini-note { transform: rotate(var(--rot, 0deg)); }
+      .section-h2::before { transform: scale(1); }
     }
   </style>
 </head>
@@ -1650,240 +1010,127 @@
         <span class="h1-a">Most strategy days produce decks.</span>
         <span class="h1-b">Ours produces a sentence.</span>
       </h1>
-      <p class="editorial-subline">A leadership offsite for teams with <strong>product-market signal but no thesis-market fit</strong>. We run it as a one-day room, sometimes two — and you leave with the one sentence the rest of the team can say back.</p>
+      <p class="editorial-subline">A leadership offsite for teams who can write the company three different ways and <strong>don't agree on any of them</strong>. One day in a room — and you leave with the sentence the rest of the team can actually say back.</p>
       <div class="meta-row">
         <span>One day · two-day option</span>
-        <span>Leadership team only</span>
-        <span>Pre-thesis-market-fit</span>
+        <span>4–8 leaders · larger teams, ask</span>
+        <span>We come to you</span>
       </div>
     </div>
   </section>
 
-  <article class="editorial-body">
-
-    <p>Here's the pattern. A team books a strategy day because the silos are getting worse — and what they actually need is a thesis. Growth and product describe the same business in different words. The pitch deck describes it in a third. Someone says <em>"alignment"</em> and the room goes quiet because nobody knows what they'd be aligning <em>on</em>. The silos aren't the problem. The missing sentence is.</p>
-
-    <div class="pull-quote reveal">
-      <p>"If you have to find a reason to say no, you'll always find one. The work is <mark>making the reason to say yes</mark> louder than the reasons to say no."</p>
-      <cite>From the workshop</cite>
+  <section class="facilitators reveal">
+    <span class="facilitators-eyebrow">who's in the room with you</span>
+    <div class="facilitators-grid">
+      <div class="facilitator">
+        <div class="facilitator-avatar"><img src="images/kahran.jpg" alt="Kahran Singh" loading="lazy"></div>
+        <div class="facilitator-body">
+          <p class="facilitator-name">Kahran Singh</p>
+          <p class="facilitator-role">Co-founder · the operating lens</p>
+          <p class="facilitator-line">Pressure-tests every candidate sentence against operating reality — the P&amp;L, the deck, the customer call that didn't land. Currently CRO at <a href="work/klydo.html">Klydo</a>, a Series A commerce company in Bangalore, where he rebuilt the operating thesis with the founders before running it on the number. Twelve years across product and positioning at venture-backed companies in the US and India. BSc Computer Science, Tufts.</p>
+        </div>
+      </div>
+      <div class="facilitator">
+        <div class="facilitator-avatar"><img src="images/divya.jpg" alt="Divya Tak" loading="lazy"></div>
+        <div class="facilitator-body">
+          <p class="facilitator-name">Divya Tak</p>
+          <p class="facilitator-role">Co-founder · the maker's lens</p>
+          <p class="facilitator-line">Pressure-tests every candidate sentence against what the team will actually be able to show, ship, and point at. Led design on <a href="work/tatsam.html">Tatsam</a>, a mental-health product now in clinical use, where the team walked in with five product directions and walked out with one. Twelve years across product, experience, and game design. Master's in Physics, IIT Kharagpur. <em>Two strategic models, one room.</em></p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <h2>How a day with us runs</h2>
-
+  <section class="day-map-section">
+    <span class="section-eyebrow">how the day runs</span>
+    <h2 class="section-h2">A room. Three windows. <em>One sentence by 6pm.</em></h2>
     <div class="day-map">
       <div class="day-block" data-step="01">
         <span class="day-block-time">9 — 12</span>
         <h3>Diagnostic</h3>
-        <p>Two exercises. A three-minute "why am I here" round, then sticky-notes — green / red / alone. The silent stuff comes out.</p>
+        <p>Two exercises. A three-minute "why am I here" round, then sticky-notes on three colors: <em>what's working, what's broken, what you've been carrying alone</em>. The third one does most of the work.</p>
       </div>
       <div class="day-block" data-step="02">
         <span class="day-block-time">12 — 4</span>
         <h3>Thesis</h3>
-        <p>One sentence — <em>who, in what moment, replacing what</em>. Always takes longer than people expect.</p>
+        <p>One sentence — <em>who, in what moment, replacing what</em>. We test it against the team's three different versions, against the deck, and against the customer you talked to last week. Always takes longer than people expect.</p>
       </div>
       <div class="day-block" data-step="03">
         <span class="day-block-time">4 — 6</span>
-        <h3>90-day plan</h3>
-        <p>2–3 archetypes, operating principles in writing, a 14-day experiment cell with named owners.</p>
+        <h3>The handoff</h3>
+        <p>The conversation that turns the sentence into the team's next move. We don't ship you a plan; we hold the time so the room can produce one — what changes Monday, what to test in 30 days, what to leave alone for now.</p>
       </div>
-    </div>
-
-  </article>
-
-  <section class="phase-intro reveal">
-    <span class="phase-intro-eyebrow">the part we can't engineer</span>
-    <p class="phase-intro-text">The methods are below. The thing that makes the room different is something you'll feel between the methods — what we can only watch for. <em>We can't promise it. We've watched it happen every time.</em></p>
-  </section>
-
-  <section class="phase phase-1 reveal">
-    <div class="phase-header">
-      <span class="phase-num">01</span>
-      <div class="phase-titles">
-        <span class="phase-label">9 — 12 · diagnostic</span>
-        <h2 class="phase-name">First, what's <em>actually</em> going on.</h2>
-      </div>
-    </div>
-    <p class="phase-description">Two exercises in the morning. A three-minute round where each leader says, in their own words, why they're spending their life on this company — adjacent answers are normal, identical answers are rare. Then sticky-notes on three colors: <em>what's working, what's broken in how we work together, and what's a problem you're holding alone.</em> The third question is the one that does the most work.</p>
-
-    <div class="sticky-mini-wrap">
-      <span class="sticky-mini-cap">a slice of what comes off the wall</span>
-      <div class="sticky-mini">
-        <span class="sticky-mini-note y" style="--rot:-3deg"><span class="tag">protect</span>the small-team trust we still have</span>
-        <span class="sticky-mini-note p" style="--rot:2deg"><span class="tag">broken</span>handoffs between functions</span>
-        <span class="sticky-mini-note b" style="--rot:-1deg"><span class="tag">alone</span>am I the only one who thinks the roadmap is the wrong roadmap?</span>
-        <span class="sticky-mini-note g" style="--rot:4deg"><span class="tag">protect</span>the shape of the founding decision</span>
-        <span class="sticky-mini-note pe" style="--rot:-2deg"><span class="tag">broken</span>meetings that don't actually decide</span>
-        <span class="sticky-mini-note l" style="--rot:3deg"><span class="tag">alone</span>the version of the company in the deck isn't the one we're actually running</span>
-      </div>
-    </div>
-
-    <div class="magic-moment magic-moment--inline">
-      <span class="magic-time">11 AM</span>
-      <p>Somebody's voice cracks a little on the third sticky-note question — <em>what's a problem you're holding alone.</em> Then somebody else raises their hand and says, "I have that one too."</p>
-    </div>
-
-    <aside class="phase-reframe">
-      <span class="phase-reframe-tag">a reframe this room almost always surfaces</span>
-      <h3>People form bonds when they <em>give</em>, not when they take.</h3>
-      <p>Most teams measure conversion as <em>did they buy</em> — the narrowest possible definition of a relationship. Real stickiness comes from the moments where a user gives back: a profile, a piece of feedback, a photo, an opinion, ten minutes. The diagnostic almost always surfaces three or four "investment surfaces" the dashboard has been walking past.</p>
-    </aside>
-  </section>
-
-  <section class="phase phase-2 reveal">
-    <div class="phase-header">
-      <span class="phase-num">02</span>
-      <div class="phase-titles">
-        <span class="phase-label">12 — 4 · thesis</span>
-        <h2 class="phase-name">Then, the sentence <em>underneath</em>.</h2>
-      </div>
-    </div>
-    <p class="phase-description">Most teams arrive describing themselves with a channel — <em>"quick commerce for fashion," "a community for runners," "an AI agent for legal."</em> Channels are descriptions. The afternoon's exercise is finding the sentence underneath: <em>who you're for, in what moment of their life, replacing what.</em> It always takes longer than people expect. It's almost always worth it.</p>
-
-    <div class="thesis-template" aria-hidden="true">
-      <div class="thesis-template-line"><span class="label">For</span> <span class="blank"></span></div>
-      <div class="thesis-template-line"><span class="label">in the moment of</span> <span class="blank"></span></div>
-      <div class="thesis-template-line"><span class="label">we replace</span> <span class="blank"></span></div>
-      <span class="thesis-template-tail">one sentence the team can say back to each other</span>
-    </div>
-
-    <div class="pull-triptych reveal">
-      <span class="pull-triptych-eyebrow">three sentences from three rooms</span>
-      <div class="pull-triptych-item">
-        <span class="triptych-tag">fashion commerce</span>
-        <p>"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's <mark>already wearing it wrong</mark>."</p>
-        <cite>A founder, halfway through finding the sentence</cite>
-      </div>
-      <div class="pull-triptych-item">
-        <span class="triptych-tag">running &amp; fitness</span>
-        <p>"We're not a running app. That's a category. We're <mark>what runners reach for</mark> when their body has changed and the old ways of training stop working."</p>
-        <cite>A founder, the morning after</cite>
-      </div>
-      <div class="pull-triptych-item">
-        <span class="triptych-tag">legal · b2b</span>
-        <p>"We're not a legal-tech tool. That's a market. We're <mark>the firm for founders</mark> the big firms won't take seriously yet."</p>
-        <cite>A managing partner, on a whiteboard</cite>
-      </div>
-    </div>
-
-    <div class="magic-moment magic-moment--inline">
-      <span class="magic-time">3 PM</span>
-      <p>Someone who's been quiet all morning says a sentence the rest of the room immediately recognizes. The team starts finishing each other's thoughts instead of arguing past each other.</p>
-    </div>
-
-    <aside class="phase-reframe">
-      <span class="phase-reframe-tag">a reframe this room almost always surfaces</span>
-      <h3>The thesis is hiding a tension you're not naming.</h3>
-      <p>Most theses sit on top of a contradiction the team hasn't said out loud. The marketing voice goes one way; the operating model goes the other. The customer the founder describes in pitch meetings isn't the one the unit economics actually serve. Teams that name the tension get a real choice. Teams that hide it from themselves keep optimizing both sides into a stalemate.</p>
-    </aside>
-  </section>
-
-  <section class="phase phase-3 reveal">
-    <div class="phase-header">
-      <span class="phase-num">03</span>
-      <div class="phase-titles">
-        <span class="phase-label">4 — 6 · 90-day plan</span>
-        <h2 class="phase-name">Then, the bridge to <em>Monday morning</em>.</h2>
-      </div>
-    </div>
-    <p class="phase-description">Two or three customer archetypes the team commits to first — named, with real demographic and behavioral specificity. Operating principles for how experiments run, in writing. Three to five things to test in the next fourteen days, with named owners and pre-committed win conditions. The plan that turns the sentence into the next ninety days.</p>
-
-    <div class="magic-moment magic-moment--inline">
-      <span class="magic-time">later</span>
-      <p>The person who'd been the difficult voice in every meeting becomes, very quickly, the right voice. The team realizes the question they'd been brushing off was <em>the question.</em></p>
-    </div>
-
-    <aside class="phase-reframe">
-      <span class="phase-reframe-tag">a reframe this room almost always surfaces</span>
-      <h3>Differentiation has two halves.</h3>
-      <p><em>"We're different — we have feature X"</em> is what every product page says; buyers and investors have heard the line two hundred times. Real differentiation has two halves: a customer opens the product and immediately sees something they don't see elsewhere, <em>and</em> they're compelled enough to mention it to a friend. We pressure-test every claimed differentiator against both halves. Most fail the second.</p>
-    </aside>
-  </section>
-
-  <section class="phase-close reveal">
-    <p class="phase-close-text">By the time everyone leaves, the silos have started to close. Not because anyone gave a speech about collaboration — because the team finally has the same brief. <strong>We can't promise the room shifts. We've watched it shift every time.</strong></p>
-  </section>
-
-  <section class="inline-cards-block">
-    <div class="inline-card reveal" style="max-width:680px;margin:0 auto 1.5rem;">
-      <a href="work/klydo-cut-strategy.html">
-        <span class="inline-card-type">Case study</span>
-        <span class="inline-card-title">How one team found the sentence under their channel &rarr;</span>
-      </a>
-    </div>
-    <div class="inline-card reveal" style="max-width:680px;margin:0 auto;">
-      <a href="ai-workshops.html">
-        <span class="inline-card-type">Workshops</span>
-        <span class="inline-card-title">Thinking with AI — our other workshop, on AI in real workflows &rarr;</span>
-      </a>
     </div>
   </section>
 
   <section class="artifacts-section reveal">
-    <span class="artifacts-eyebrow">on the table at 6pm</span>
-    <h2 class="artifacts-title">Five things in <em>writing</em>.</h2>
+    <span class="section-eyebrow">how the room actually moves</span>
+    <h2 class="section-h2">Five moves. <em>Every workshop.</em></h2>
     <div class="artifacts-grid">
 
       <div class="artifact-card is-sentence">
-        <span class="artifact-tag">the sentence</span>
-        <h3 class="artifact-h">One line the leadership team can say back to each other.</h3>
+        <span class="artifact-tag">the sentence frame</span>
+        <h3 class="artifact-h">Every articulation gets tested against three questions: <em>who, in what moment, replacing what.</em></h3>
         <div class="artifact-mock">
-          <div class="mock-sentence">For <em>____</em> in the moment of <em>____</em>, we replace <em>____</em>.</div>
+          <div class="mock-sentence">"We're not a quick-commerce app. That's a channel. We're the place she goes when she's standing in front of her closet and feels like she's already wearing it wrong."</div>
         </div>
-        <p class="artifact-cap">Who you're for, in what moment, replacing what. The exercise that takes the whole afternoon.</p>
+        <p class="artifact-cap">A real workshop output, fuzzed for confidentiality — from a room with <a href="work/klydo.html">Klydo</a>. Replaces a category claim ("quick-commerce app") with a moment ("standing in front of her closet").</p>
       </div>
 
       <div class="artifact-card is-archetypes">
-        <span class="artifact-tag">the archetypes</span>
-        <h3 class="artifact-h">Two or three customers you commit to first.</h3>
+        <span class="artifact-tag">the check-in</span>
+        <h3 class="artifact-h">Three minutes per person. Why are you here, in your own words.</h3>
         <div class="artifact-mock">
           <div class="mock-archetypes">
-            <span class="mock-archetype-chip">Priya · 27 · Bangalore</span>
-            <span class="mock-archetype-chip">Marcus · 41 · Brooklyn</span>
-            <span class="mock-archetype-chip">Sana · 34 · Karachi</span>
+            <span class="mock-archetype-chip">"to keep this from becoming the wrong company"</span>
+            <span class="mock-archetype-chip">"to find out if we still agree"</span>
+            <span class="mock-archetype-chip">"because I don't trust the deck anymore"</span>
           </div>
         </div>
-        <p class="artifact-cap">Named, with real demographic and behavioral specificity. What replaces "25–35, urban metro, high intent."</p>
+        <p class="artifact-cap">Forces specificity before any frame is in the room. Adjacent answers are normal; identical answers are rare. The differences map the work.</p>
       </div>
 
       <div class="artifact-card is-principles">
-        <span class="artifact-tag">the principles</span>
-        <h3 class="artifact-h">How the team runs experiments — in writing.</h3>
+        <span class="artifact-tag">the sticky-notes diagnostic</span>
+        <h3 class="artifact-h">Three colors. Three questions. The third one does most of the work.</h3>
         <div class="artifact-mock">
           <div class="mock-principles">
-            <span class="mock-principle-line">Small bets first.</span>
-            <span class="mock-principle-line">Fast read on signal.</span>
-            <span class="mock-principle-line">No long builds without a fast version.</span>
-            <span class="mock-principle-line">Define success per surface up front.</span>
+            <span class="mock-principle-line">Green — what's working that we should protect.</span>
+            <span class="mock-principle-line">Red — what's broken in how we work.</span>
+            <span class="mock-principle-line">Yellow — what you've been carrying alone.</span>
           </div>
         </div>
-        <p class="artifact-cap">Signed off by the room. Most have been violated quietly in the prior quarter.</p>
+        <p class="artifact-cap">Silent for five minutes, then we read the wall together. The yellow notes are the ones the room hasn't been able to talk about.</p>
       </div>
 
       <div class="artifact-card is-plan">
-        <span class="artifact-tag">the plan</span>
-        <h3 class="artifact-h">A 90-day plan with named owners.</h3>
+        <span class="artifact-tag">the pressure-test</span>
+        <h3 class="artifact-h">Run the candidate sentence against three things — and rewrite if it fails any of them.</h3>
         <div class="artifact-mock">
-          <div class="mock-plan">
-            <div class="mock-plan-month">
-              <span class="mock-plan-month-label">m1</span>
-              <div class="mock-plan-grid"><span></span><span class="dot"></span><span></span><span></span><span class="dot"></span></div>
+          <div class="mock-plan-list">
+            <div class="mock-plan-row">
+              <span class="mock-plan-when">vs.</span>
+              <span class="mock-plan-what">the deck — does the sentence survive a slide?</span>
+              <span class="mock-plan-who">01</span>
             </div>
-            <div class="mock-plan-month">
-              <span class="mock-plan-month-label">m2</span>
-              <div class="mock-plan-grid"><span></span><span></span><span class="dot"></span><span></span><span></span></div>
+            <div class="mock-plan-row">
+              <span class="mock-plan-when">vs.</span>
+              <span class="mock-plan-what">the team's three current versions</span>
+              <span class="mock-plan-who">02</span>
             </div>
-            <div class="mock-plan-month">
-              <span class="mock-plan-month-label">m3</span>
-              <div class="mock-plan-grid"><span class="dot"></span><span></span><span></span><span class="dot"></span><span></span></div>
+            <div class="mock-plan-row is-tail">
+              <span class="mock-plan-when">vs.</span>
+              <span class="mock-plan-what">the actual customer you talked to last week</span>
+              <span class="mock-plan-who">03</span>
             </div>
           </div>
         </div>
-        <p class="artifact-cap">Three to five things to test in fourteen days, with pre-committed win conditions.</p>
+        <p class="artifact-cap">A sentence that survives all three is rare on the first pass. Most rooms rewrite it twice between 2pm and 4pm.</p>
       </div>
 
       <div class="artifact-card is-summary">
-        <span class="artifact-tag">the summary</span>
-        <h3 class="artifact-h">A written record of what was decided.</h3>
+        <span class="artifact-tag">the write-up</span>
+        <h3 class="artifact-h">Nothing leaves the room verbal.</h3>
         <div class="artifact-mock">
           <div class="mock-summary">
             <div class="mock-summary-page">
@@ -1920,44 +1167,47 @@
       <li>Investors say <em>"interesting"</em> but don't move. The deck has been "almost" for two months.</li>
       <li>You've noticed yourself answering the same internal question — <em>what are we, exactly</em> — three different ways in three different rooms.</li>
     </ol>
-    <p class="ready-tail">If two land, book the diagnostic. If <strong>all three</strong>, skip it and book the workshop.</p>
+    <div class="ready-buttons">
+      <a href="mailto:hello@joyus.studio?subject=Diagnostic%20call" class="ready-btn">
+        <span class="ready-btn-label">If two land</span>
+        <span class="ready-btn-action">Book the diagnostic →</span>
+        <span class="ready-btn-meta">$2,000 · 90 min · with both of us</span>
+      </a>
+      <a href="mailto:hello@joyus.studio?subject=Thesis%20Workshop" class="ready-btn ready-btn-primary">
+        <span class="ready-btn-label">If all three</span>
+        <span class="ready-btn-action">Book the workshop →</span>
+        <span class="ready-btn-meta">$15,000 · one day · skip the diagnostic</span>
+      </a>
+    </div>
   </section>
 
   <section class="pricing-section reveal">
     <h2>Pricing</h2>
-    <p class="pricing-lede">Four ways to work with us, depending on how much resolution you need. Most teams start with a diagnostic call or the one-day workshop.</p>
+    <p class="pricing-lede">Three ways in. Most teams start with the diagnostic call or the one-day workshop.</p>
     <div class="pricing-tiers">
       <div class="pricing-tier">
         <div class="pricing-tier-head">
           <span class="pricing-tier-name">Diagnostic call</span>
           <span class="pricing-tier-price">$2,000 · 90 min</span>
         </div>
-        <p class="pricing-tier-body">A focused conversation to map what's misaligned and whether the workshop is the right next move — or whether you're solving a different problem. Credited in full toward a workshop if you book within 60 days.</p>
+        <p class="pricing-tier-body">A focused conversation with both of us to map what's misaligned and whether the workshop is the right next move — or whether you're solving a different problem. If you book a workshop within 60 days, the $2K is a deposit. If not, it was a paid hour of work and you have a clearer picture either way.</p>
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
           <span class="pricing-tier-name">The Thesis Workshop · one day</span>
-          <span class="pricing-tier-price">$12,000</span>
+          <span class="pricing-tier-price">$15,000</span>
         </div>
-        <p class="pricing-tier-body">Your leadership team in a room with us for a day. We run the diagnostic, find the sentence, and leave you with two or three archetypes, your operating principles in writing, and a 90-day plan with named owners and pre-committed win conditions. Most teams need this once. Some come back before a fundraise.</p>
+        <p class="pricing-tier-body">Eight hours. Two facilitators. Your leadership team. We run the five moves above and hold the time. The conversation the team has been postponing happens — and the sentence the room finds is yours to do with what you will. Most teams need this once.</p>
       </div>
       <div class="pricing-tier">
         <div class="pricing-tier-head">
           <span class="pricing-tier-name">The Thesis Workshop · two days</span>
           <span class="pricing-tier-price">$25,000</span>
         </div>
-        <p class="pricing-tier-body">The same room, with time to go further. We deepen the archetype work, draft the investor narrative, and pressure-test the thesis against your actual P&amp;L — work the one-day version doesn't have time to do. The right call when you're heading into a fundraise, a pivot, or a re-org.</p>
-      </div>
-      <div class="pricing-tier">
-        <div class="pricing-tier-head">
-          <span class="pricing-tier-name">Pre-Fundraise Package</span>
-          <span class="pricing-tier-price">$40,000 – $60,000</span>
-        </div>
-        <p class="pricing-tier-body">The two-day workshop, then four weeks of follow-up where we sharpen the deck, the narrative, and the rooms you're walking it into. We sit in on practice pitches, rewrite the slides that aren't landing, and stress-test the answers to the questions that have been getting you "interesting" instead of a term sheet. For founders raising in the next ninety days who can feel the deck isn't earning the meeting it deserves.</p>
-        <p class="pricing-tier-body" style="margin-top:0.75rem;font-size:0.88rem;color:#777;"><em>Includes two days on-site, eight follow-up sessions, two deck revisions, and one mock pitch with written debrief.</em></p>
+        <p class="pricing-tier-body">The same room, with time to go further. Deeper pressure-tests, a second pass on the sentence after a night to sit with it, and room for the harder arguments — including against your actual P&amp;L. The right call when you're heading into a fundraise, a pivot, or a re-org.</p>
       </div>
     </div>
-    <p class="pricing-tail">After an initial engagement, quarterly retainers ($8K–$12K/quarter) are available — we sit in on one leadership meeting a month and stress-test decisions against the thesis. <a href="mailto:hello@joyus.studio">Get in touch.</a></p>
+    <p class="pricing-tail">Pre-fundraise sprints and quarterly retainers are case-by-case after we've worked together — <a href="mailto:hello@joyus.studio?subject=Ask%20about%20follow-on%20work">ask us about either</a>. Travel and venue billed at cost when we come to you. Standard MSA, NDA, and IP language available before kickoff.</p>
   </section>
 
   <section class="cta-strip reveal">
@@ -2040,7 +1290,7 @@
         }
       });
     }, { threshold: 0.18, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('.reveal, .pricing-tiers, .outcomes-section, .editorial-body h2, .editorial-hero, .day-map, .sticky-mini, .artifacts-grid, .ready-list, .pull-triptych, .phase, .phase-intro, .phase-close').forEach(el => revealIo.observe(el));
+    document.querySelectorAll('.reveal, .pricing-tiers, .editorial-hero, .day-map, .artifacts-grid, .ready-list, .section-h2').forEach(el => revealIo.observe(el));
   </script>
 <script src="shape-echo.js"></script>
 </body>
