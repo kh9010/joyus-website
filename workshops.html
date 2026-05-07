@@ -1,483 +1,467 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The workshops Joyus Studio runs — strategy rooms (thesis, investor literacy) and practice rooms (AI, prompting, visual storytelling) for founders, communities, and leadership teams.">
-  <meta property="og:title" content="Workshops — Joyus Studio">
-  <meta property="og:description" content="Rooms where we figure things out together. Half-day to multi-day workshops for founders, communities, and leadership teams.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://kh9010.github.io/joyus-website/workshops.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="https://kh9010.github.io/joyus-website/workshops.html">
-  <title>Workshops — Joyus Studio</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="The workshops Joyus Studio runs — strategy rooms (thesis, investor literacy) and practice rooms (AI, prompting, visual storytelling) for founders, communities, and leadership teams. Starting at $2,000 for up to 10 people · 3 hours.">
+<meta property="og:title" content="Workshops — Joyus Studio">
+<meta property="og:description" content="Rooms where we figure things out together. Half-day to multi-day workshops for founders, communities, and leadership teams. Starting at $2,000.">
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/workshops.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/workshops.html">
+<title>Workshops — Joyus Studio</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ───── Base — same tokens as services.html / podcast.html ───── */
+  :root {
+    --bg: #FAF7F2;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pink: #E91E7B;
+    --cyan: #4FC4CF;
+    --yellow: #F2C94A;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
 
-  <style>
-    /* ═══════════════════════════════════════════════════════════════
-       workshops.html — index of all workshops Joyus runs
-       Reuses approved Joyus patterns: .editorial-hero, .hero-dot,
-       .meta-row, .editorial-body, .lesson-cards (here as link cards),
-       .cs-closing. Space Grotesk + Caveat only per typography rule.
-    ═══════════════════════════════════════════════════════════════ */
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.15s linear;
+  }
 
-    :root {
-      --pink: #E91E7B;
-      --cyan: #4FC4CF;
-      --yellow: #F2C94A;
-      --green: #5BBD72;
-      --warm-gray: #F5F3F0;
-      --ink: #2C3544;
-      --ink-soft: #54606F;
-    }
+  .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+  .d-pink { background: var(--pink); }
+  .d-cyan { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
 
-    /* thread */
-    .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 499; pointer-events: none; }
-    .thread-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
-      width: 0;
-      transition: width 0.1s linear;
-    }
+  /* ───── HERO (v1 — eyebrow / em-pink h1 / lede with border-left / meta + handwritten anchor) ───── */
+  .hero {
+    min-height: 60vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-eyebrow {
+    font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 2rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 12px; height: 12px;
+    border-radius: 50%; background: var(--pink);
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 17ch;
+    position: relative; z-index: 2;
+  }
+  .hero h1 em { font-style: normal; color: var(--pink); }
+  .hero h1 em::after { content: "."; color: var(--yellow); }
+  .hero-lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    line-height: 1.6; color: var(--ink-soft);
+    max-width: 56ch; margin-top: 2.5rem;
+    padding-top: 1.5rem; border-top: 2px solid var(--ink);
+    position: relative; z-index: 2;
+  }
+  .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
+  .hero-meta {
+    font-size: 0.85rem; letter-spacing: 0.1em;
+    color: var(--ink-fade); margin-top: 2rem;
+    padding-top: 1rem; border-top: 1px solid var(--rule);
+    max-width: 52ch; position: relative; z-index: 2;
+    text-transform: uppercase; font-weight: 500;
+  }
+  .hero-meta span + span::before {
+    content: " → "; color: var(--pink); padding: 0 0.4em;
+  }
+  .hero-anchor {
+    margin-top: 1.75rem;
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--ink-soft);
+    transform: rotate(-1deg);
+    display: inline-block;
+    line-height: 1.3;
+    position: relative; z-index: 2;
+  }
+  .hero-anchor em { color: var(--pink); font-style: normal; font-weight: 600; }
+  .hero .dh1 { width: 320px; height: 320px; top: 12%; right: -6%; }
+  .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
+  .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
+  .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
 
-    /* editorial-hero (Joyus pattern) */
-    .editorial-hero {
-      padding: clamp(7rem, 14vh, 10rem) 2rem clamp(4rem, 7vh, 5rem);
-      background: linear-gradient(to bottom, var(--warm-gray) 0%, var(--warm-gray) 50%, #FAF7F2 100%);
-      position: relative;
-      overflow: hidden;
-    }
-    .editorial-hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 2; }
-    .editorial-eyebrow {
-      display: inline-flex !important;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'Caveat', cursive;
-      font-size: 1.15rem;
-      color: var(--pink);
-      transform: rotate(-1deg);
-      margin-bottom: 1rem;
-    }
-    .editorial-eyebrow::before {
-      content: "";
-      width: 9px; height: 9px;
-      border-radius: 50%;
-      background: var(--pink);
-      animation: pulseDot 2.4s ease-in-out infinite;
-      transform: rotate(0) !important;
-    }
-    @keyframes pulseDot {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(233, 30, 123, 0.5); }
-      50%      { box-shadow: 0 0 0 12px rgba(233, 30, 123, 0); }
-    }
-    .editorial-hero h1 {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-weight: 700;
-      font-size: clamp(2.6rem, 7vw, 4.4rem);
-      color: #111;
-      line-height: 0.98;
-      margin: 0 0 1.5rem;
-      letter-spacing: -0.035em;
-    }
-    .editorial-hero h1 em {
-      font-style: italic;
-      font-weight: 700;
-      color: var(--pink);
-    }
-    .editorial-lede {
-      font-size: 1.18rem;
-      line-height: 1.7;
-      color: #444;
-      border-left: 3px solid var(--pink);
-      padding-left: 1.25rem;
-      margin: 0;
-    }
-    .meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 2.25rem;
-    }
-    .meta-row span {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      padding: 0.45rem 0.95rem;
-      border: 1.5px solid rgba(44, 53, 68, 0.18);
-      border-radius: 999px;
-      background: #fff;
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
-    .meta-row span::before {
-      content: "";
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--dot, var(--ink-soft));
-      flex-shrink: 0;
-    }
-    .meta-row span:nth-child(5n+1) { --dot: var(--pink); }
-    .meta-row span:nth-child(5n+2) { --dot: var(--cyan); }
-    .meta-row span:nth-child(5n+3) { --dot: var(--yellow); }
-    .meta-row span:nth-child(5n+4) { --dot: var(--green); }
-    .meta-row span:nth-child(5n)   { --dot: var(--pink); }
+  /* ───── PRICING LADDER (v3 strip — clean, calmly between hero and arcs) ───── */
+  .ladder-strip {
+    padding: clamp(2.5rem, 5vh, 3.5rem) var(--x);
+    border-bottom: 1px solid var(--rule);
+    background: #fff;
+  }
+  .ladder-strip-inner {
+    max-width: 1280px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+  }
+  .ladder-strip-label {
+    font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-fade);
+    display: inline-flex; align-items: center; gap: 0.65rem;
+  }
+  .ladder-strip-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--ink);
+  }
+  .ladder-strip ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+  .ladder-strip li {
+    display: flex; flex-direction: column; gap: 0.25rem;
+    padding-left: 0.85rem;
+    border-left: 3px solid var(--lc, var(--pink));
+  }
+  .ladder-strip li:nth-child(1) { --lc: var(--pink); }
+  .ladder-strip li:nth-child(2) { --lc: var(--cyan); }
+  .ladder-strip li:nth-child(3) { --lc: var(--yellow); }
+  .ladder-strip .lab {
+    font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; font-weight: 600;
+    color: var(--ink-fade);
+  }
+  .ladder-strip .price {
+    font-family: var(--hand);
+    font-size: 1.55rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .ladder-strip .price em {
+    color: var(--lc, var(--pink));
+    font-style: normal;
+  }
+  .ladder-strip .scope {
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    line-height: 1.4;
+  }
+  @media (max-width: 720px) {
+    .ladder-strip-inner { grid-template-columns: 1fr; }
+  }
 
-    /* hero-dots (Joyus) */
-    .hero-dot {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0;
-      animation: dotDrift 1.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards, floatY 9s ease-in-out infinite 2s;
-    }
-    @keyframes dotDrift {
-      from { opacity: 0; transform: translate(var(--from-x, -40px), var(--from-y, 40px)) scale(0.7); }
-      to   { opacity: var(--final-opacity, 0.8); transform: translate(0, 0) scale(1); }
-    }
-    @keyframes floatY {
-      0%, 100% { transform: translateY(0); }
-      50%      { transform: translateY(-12px); }
-    }
-    .hd1 { width: 240px; height: 240px; top: 8%;  right: -3%;  background: var(--pink); --final-opacity: 0.18; --from-x: 80px; --from-y: -40px; animation-delay: 200ms; }
-    .hd2 { width: 50px;  height: 50px;  bottom: 18%; right: 24%; background: var(--cyan); --final-opacity: 0.55; --from-y: 30px; animation-delay: 400ms; }
-    .hd3 { width: 18px;  height: 18px;  top: 32%; left: 8%; background: var(--yellow); --final-opacity: 0.85; animation-delay: 600ms; }
-    .hd4 { width: 14px;  height: 14px;  top: 66%; left: 30%; background: var(--green); --final-opacity: 0.6; animation-delay: 700ms; }
+  /* ───── ARC BANDS (v1's saturated alternating bg energy) ───── */
+  .arc {
+    padding: clamp(4.5rem, 9vh, 7rem) 0 clamp(4rem, 8vh, 6rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .arc-head {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--x) clamp(2.25rem, 4vh, 3rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: end;
+    position: relative; z-index: 3;
+  }
+  .arc-label {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 0.65rem;
+    margin-bottom: 1rem;
+  }
+  .arc-label .dot-mark {
+    width: 9px; height: 9px;
+    border-radius: 50%; display: inline-block;
+  }
+  .arc-word {
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.9;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    margin: 0;
+  }
+  .arc-word::after { content: "."; }
+  .arc-manifesto {
+    font-size: clamp(1.2rem, 1.85vw, 1.65rem);
+    line-height: 1.35; font-weight: 500;
+    max-width: 36ch;
+  }
+  .arc-manifesto em { font-style: normal; font-weight: 600; }
+  .arc-explain {
+    grid-column: 1 / -1;
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    line-height: 1.7;
+    max-width: 60ch;
+    padding-left: 1rem;
+    border-left: 2px solid currentColor;
+    margin-top: 1rem;
+  }
+  .arc-explain em { font-style: normal; font-weight: 500; }
 
-    /* editorial-body (Joyus) */
-    .editorial-body { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 2rem; }
-    .editorial-body p {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1.05rem;
-      line-height: 1.75;
-      color: #333;
-      margin: 0 0 1.5rem;
-    }
-    .editorial-body > p:first-of-type::first-letter {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 3.2rem;
-      float: left;
-      line-height: 1;
-      margin-right: 0.12em;
-      margin-top: 0.05em;
-      color: var(--pink);
-    }
-    .editorial-body em { color: #111; font-style: italic; }
-    .editorial-body h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: clamp(1.7rem, 3vw, 2.1rem);
-      color: #111;
-      margin: 3.5rem 0 1rem;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-    }
-    .editorial-body h2::before {
-      content: "";
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: pulseDot 2.8s ease-in-out infinite;
-      animation-delay: 1.2s;
-    }
-    .editorial-body h2:nth-of-type(1)::before { background: var(--pink); }
-    .editorial-body h2:nth-of-type(2)::before { background: var(--cyan); }
-    .editorial-body h2:nth-of-type(3)::before { background: var(--yellow); }
-    .editorial-body h2 .h2-num {
-      font-family: 'Caveat', cursive;
-      font-size: 0.65em;
-      margin-right: 0.1em;
-      transform: rotate(-3deg);
-      display: inline-block;
-    }
-    .editorial-body h2:nth-of-type(1) .h2-num { color: var(--pink); }
-    .editorial-body h2:nth-of-type(2) .h2-num { color: var(--cyan); }
-    .editorial-body h2:nth-of-type(3) .h2-num { color: var(--yellow); }
+  .poster-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--x);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 1.75rem);
+    position: relative; z-index: 3;
+  }
 
-    /* lesson-cards as link cards (Joyus pattern adapted) */
-    .lesson-cards {
-      display: grid;
-      gap: 1.25rem;
-      margin: 1rem 0 1.5rem;
-      counter-reset: l;
-      list-style: none;
-      padding: 0;
-    }
-    .lesson-card {
-      counter-increment: l;
-      position: relative;
-      background: #fff;
-      border: 1.5px solid #e8e6e4;
-      border-left: 3px solid var(--accent, var(--pink));
-      border-radius: 10px;
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-      overflow: hidden;
-    }
-    .lesson-card:hover { transform: translate(-3px, -3px); box-shadow: 8px 8px 0 var(--accent, var(--pink)); }
+  /* poster cards (v3 style — saturated card on light card-bg, hover offset shadow) */
+  .poster {
+    position: relative;
+    background: #fff;
+    border: 1.5px solid var(--rule);
+    border-top: 6px solid var(--accent, var(--pink));
+    border-radius: 14px;
+    padding: 1.6rem 1.5rem 1.4rem;
+    display: flex; flex-direction: column;
+    transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    overflow: hidden;
+    color: var(--ink);
+    min-height: 280px;
+  }
+  .poster:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 var(--accent, var(--pink));
+  }
+  .poster::before {
+    content: ""; position: absolute;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    top: -25px; right: -25px;
+    background: var(--accent, var(--pink));
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .poster .poster-no {
+    font-family: var(--hand);
+    font-size: 2rem; line-height: 0.85;
+    color: var(--accent, var(--pink));
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+  .poster .poster-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--ink-fade);
+    margin-bottom: 0.6rem;
+  }
+  .poster .poster-title {
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.18;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    margin-bottom: 0.55rem;
+  }
+  .poster .poster-title em {
+    font-style: italic;
+    color: var(--accent, var(--pink));
+  }
+  .poster .poster-line {
+    font-size: 0.95rem; line-height: 1.55;
+    color: var(--ink-soft);
+    margin-bottom: 1.25rem;
+    flex-grow: 1;
+  }
+  .poster .poster-foot {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 0.85rem; flex-wrap: wrap;
+    border-top: 1px solid var(--rule);
+    padding-top: 0.85rem;
+  }
+  .poster .poster-price {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--accent, var(--pink));
+    line-height: 1;
+    transform: rotate(-2deg);
+    display: inline-block;
+  }
+  .poster .poster-price em { font-style: normal; }
+  .poster .poster-cta {
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--ink);
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    transition: gap 0.2s, color 0.2s;
+  }
+  .poster:hover .poster-cta { gap: 0.55rem; color: var(--accent, var(--pink)); }
+  .poster.is-dev { opacity: 0.78; }
+  .poster.is-dev:hover { opacity: 1; }
 
-    /* color cycle for the cards within each section */
-    .lesson-cards .lesson-card:nth-child(1) { --accent: var(--pink); }
-    .lesson-cards .lesson-card:nth-child(2) { --accent: var(--cyan); }
-    .lesson-cards .lesson-card:nth-child(3) { --accent: var(--yellow); }
-    .lesson-cards .lesson-card:nth-child(4) { --accent: var(--green); }
+  /* ───── arc-1 = paper bg, pink-led ───── */
+  .arc-1 { background: var(--bg); }
+  .arc-1 .arc-word { color: var(--ink); }
+  .arc-1 .arc-word::after { color: var(--pink); }
+  .arc-1 .arc-manifesto { color: var(--ink); }
+  .arc-1 .arc-manifesto em { color: var(--pink); }
+  .arc-1 .arc-explain { color: var(--ink-soft); border-left-color: var(--rule); }
+  .arc-1 .arc-explain em { color: var(--ink); }
+  .arc-1 .arc-label { color: var(--ink-soft); }
+  .arc-1 .poster:nth-child(1) { --accent: var(--pink); }
+  .arc-1 .poster:nth-child(2) { --accent: var(--yellow); }
+  .arc-1 .poster:nth-child(3) { --accent: var(--cyan); }
 
-    .lesson-card a {
-      display: block;
-      padding: 1.4rem 1.5rem 1.4rem 4.5rem;
-      text-decoration: none;
-      color: inherit;
-    }
-    .lesson-card a:focus-visible {
-      outline: 2px solid var(--accent, var(--pink));
-      outline-offset: 2px;
-      border-radius: 8px;
-    }
-    .lesson-card::before {
-      content: counter(l, decimal-leading-zero);
-      position: absolute;
-      left: 1rem;
-      top: 1.25rem;
-      font-family: 'Caveat', cursive;
-      font-size: 2.2rem;
-      font-weight: 700;
-      color: var(--accent, var(--pink));
-      line-height: 0.9;
-      transform: rotate(-3deg);
-      pointer-events: none;
-    }
-    .lesson-card-tag {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--accent, var(--pink));
-      display: block;
-      margin-bottom: 0.3rem;
-    }
-    .lesson-card-title {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.18rem;
-      line-height: 1.3;
-      color: #1a1a1a;
-      letter-spacing: -0.015em;
-      margin: 0 0 0.4rem;
-    }
-    .lesson-card-title em { font-style: italic; color: var(--accent, var(--pink)); }
-    .lesson-card-line {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.95rem;
-      line-height: 1.55;
-      color: var(--ink-soft);
-      margin: 0 0 0.6rem;
-    }
-    .lesson-card-foot {
-      display: flex;
-      align-items: baseline;
-      gap: 0.85rem;
-      flex-wrap: wrap;
-    }
-    .lesson-card-status {
-      font-family: 'Caveat', cursive;
-      font-size: 1rem;
-      color: var(--accent, var(--pink));
-      transform: rotate(-1.5deg);
-      display: inline-block;
-    }
-    .lesson-card-status.dev { color: var(--ink-soft); }
-    .lesson-card-cta {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-left: auto;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      transition: gap 0.2s, color 0.2s;
-    }
-    .lesson-card a:hover .lesson-card-cta { gap: 0.55rem; color: var(--accent, var(--pink)); }
+  /* ───── arc-2 = ink (dark) bg, white text + cyan/yellow accent ───── */
+  .arc-2 { background: var(--ink); }
+  .arc-2 { --on: #fff; --on-soft: rgba(255,255,255,0.78); --on-fade: rgba(255,255,255,0.55); --on-line: rgba(255,255,255,0.18); }
+  .arc-2 .arc-word { color: var(--on); }
+  .arc-2 .arc-word::after { color: var(--cyan); }
+  .arc-2 .arc-manifesto { color: var(--on); }
+  .arc-2 .arc-manifesto em { color: var(--cyan); }
+  .arc-2 .arc-explain { color: var(--on-soft); border-left-color: var(--on-line); }
+  .arc-2 .arc-explain em { color: var(--on); }
+  .arc-2 .arc-label { color: var(--on-fade); }
+  .arc-2 .poster:nth-child(1) { --accent: var(--cyan); }
+  .arc-2 .poster:nth-child(2) { --accent: var(--pink); }
+  .arc-2 .poster:nth-child(3) { --accent: var(--yellow); }
+  .arc-2 .poster:nth-child(4) { --accent: var(--pink); }
 
-    /* dimmed treatment for in-development items */
-    .lesson-card.is-dev { opacity: 0.78; }
-    .lesson-card.is-dev:hover { opacity: 1; }
+  /* ───── arc-3 = cyan bg, ink text ───── */
+  .arc-3 { background: var(--cyan); }
+  .arc-3 .arc-word { color: var(--ink); }
+  .arc-3 .arc-word::after { color: var(--pink); }
+  .arc-3 .arc-manifesto { color: var(--ink); }
+  .arc-3 .arc-manifesto em { color: var(--ink); font-weight: 700; }
+  .arc-3 .arc-explain { color: rgba(44,53,68,0.78); border-left-color: rgba(44,53,68,0.2); }
+  .arc-3 .arc-explain em { color: var(--ink); }
+  .arc-3 .arc-label { color: rgba(44,53,68,0.65); }
+  .arc-3 .poster { --accent: var(--yellow); }
 
-    /* custom-rooms note */
-    .custom-rooms-note {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 2rem;
-    }
-    .custom-rooms-note p {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem;
-      line-height: 1.7;
-      color: #444;
-      margin: 0;
-    }
-    .custom-rooms-note a {
-      color: var(--pink);
-      text-decoration: none;
-      border-bottom: 1.5px dashed var(--pink);
-    }
-    .custom-rooms-note a:hover { color: #c41569; }
+  .arc .dot { opacity: 0.45; }
+  .arc-1 .ad1 { width: 380px; height: 380px; top: -8%; right: -8%; }
+  .arc-1 .ad2 { width: 42px; height: 42px; top: 36%; right: 30%; }
+  .arc-1 .ad3 { width: 18px; height: 18px; bottom: 14%; left: 42%; }
+  .arc-2 .bd1 { width: 380px; height: 380px; top: -8%; left: -8%; }
+  .arc-2 .bd2 { width: 38px; height: 38px; top: 22%; left: 32%; }
+  .arc-2 .bd3 { width: 18px; height: 18px; bottom: 16%; right: 28%; }
+  .arc-3 .cd1 { width: 380px; height: 380px; top: -10%; right: -10%; }
+  .arc-3 .cd2 { width: 36px; height: 36px; top: 60%; right: 32%; }
 
-    /* chapter rule */
-    .chapter-rule {
-      border: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(44, 53, 68, 0.4), transparent);
-      max-width: 720px;
-      margin: 4rem auto 0;
-      transform: scaleX(0);
-      transform-origin: left center;
-      transition: transform 1100ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .chapter-rule.in { transform: scaleX(1); }
+  /* ───── CLOSING (matches services.html / podcast.html exactly) ───── */
+  .closing {
+    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+    position: relative; overflow: hidden;
+    border-top: 2px solid var(--ink);
+  }
+  .closing-label {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    position: relative; z-index: 2;
+  }
+  .closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--yellow);
+  }
+  .closing h3 {
+    font-weight: 600;
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    letter-spacing: -0.02em; line-height: 1.15;
+    margin-bottom: 0.75rem; max-width: 720px;
+    position: relative; z-index: 2;
+  }
+  .closing h3 em { font-style: normal; color: var(--pink); }
+  .closing h3 a {
+    border-bottom: 3px solid var(--pink);
+    padding-bottom: 2px; color: var(--pink);
+  }
+  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .closing .hint {
+    display: block; font-size: 0.9rem; color: var(--ink-fade);
+    position: relative; z-index: 2;
+  }
+  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
 
-    /* reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .reveal.in { opacity: 1; transform: translateY(0); }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-      .reveal, .chapter-rule { opacity: 1; transform: none; }
-    }
-  </style>
-
-  <!-- GA — Joyus Studio G-K7PDLTYWF6 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-K7PDLTYWF6');
-  </script>
+  @media (max-width: 880px) {
+    .arc-head { grid-template-columns: 1fr; }
+    .arc-1 .ad1, .arc-2 .bd1, .arc-3 .cd1 { display: none; }
+    .hero .dh2, .hero .dh3 { display: none; }
+  }
+  .hero { min-height: 60dvh; }
+</style>
 </head>
-<body class="work-page">
+<body>
 
-  <div class="thread"><div class="thread-fill" id="thread"></div></div>
-
-  <a href="#main-content" class="skip-to-content">Skip to content</a>
+  <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
   <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-      → path prefix to repo root (e.g. "" or "../") -->
 <style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    padding-top: max(1.25rem, env(safe-area-inset-top));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-  }
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-links {
-    display: flex; gap: 1.75rem; align-items: center;
-    list-style: none; padding: 0; margin: 0;
-  }
-  .nav .nav-links a {
-    font-size: 0.92rem;
-    color: #54606F;
-    text-decoration: none;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: #54606F; text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
   .nav .nav-links a:hover { color: #E91E7B; }
-  .nav .nav-links a.active {
-    color: #2C3544;
-    font-weight: 500;
-    border-bottom-color: #E91E7B;
-  }
+  .nav .nav-links a.active { color: #2C3544; font-weight: 500; border-bottom-color: #E91E7B; }
   .nav .nav-cta { color: #2C3544; font-weight: 500; }
   .nav .nav-cta:hover { color: #E91E7B; }
-
-  /* Hamburger button — hidden on desktop */
-  .nav-toggle {
-    display: none;
-    width: 44px; height: 44px;
-    background: transparent; border: 0; padding: 0;
-    cursor: pointer; position: relative; z-index: 510;
-    align-items: center; justify-content: center;
-  }
-  .nav-toggle span {
-    display: block; width: 24px; height: 2px;
-    background: #2C3544; border-radius: 2px;
-    position: absolute;
-    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
-  }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: #2C3544; border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
   .nav-toggle span:nth-child(1) { top: 14px; }
   .nav-toggle span:nth-child(2) { top: 21px; }
   .nav-toggle span:nth-child(3) { top: 28px; }
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-
   @media (max-width: 720px) {
-    .nav {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(250, 247, 242, 0.95);
-    }
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
     .nav-toggle { display: inline-flex; }
-    .nav .nav-links {
-      position: fixed;
-      inset: 0;
-      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
-      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
-      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      z-index: 505;
-    }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: #ffffff; border-left: 4px solid #2C3544; box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
     .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: #2C3544;
-    }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: #2C3544; }
     .nav .nav-links a.active { border-bottom-color: #E91E7B; }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navMenu">
     <a href="work/" data-nav="work">Work</a>
     <a href="services.html" data-nav="services">Services</a>
@@ -499,194 +483,220 @@
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
+        if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active');
       }
     }
-    // hamburger toggle
     var toggle = document.querySelector('.nav-toggle');
     var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
-      var close = function() {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = menu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      // close on link tap
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', close);
-      });
-      // close on escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu.classList.contains('open')) close();
-      });
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
     }
   })();
 </script>
 <!--END:NAV-->
 
-  <main id="main-content">
+  <!-- =========== HERO =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-pink"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-cyan"></span>
+    <span class="dot dh4 d-pink"></span>
 
-    <!-- Hero -->
-    <section class="editorial-hero reveal">
-      <span class="hero-dot hd1" aria-hidden="true"></span>
-      <span class="hero-dot hd2" aria-hidden="true"></span>
-      <span class="hero-dot hd3" aria-hidden="true"></span>
-      <span class="hero-dot hd4" aria-hidden="true"></span>
-      <div class="editorial-hero-inner">
-        <span class="editorial-eyebrow">the workshops we run</span>
-        <h1>Rooms where we figure things out <em>together.</em></h1>
-        <p class="editorial-lede">Half-day to multi-day rooms — for leadership teams, founder communities, and creative teams. We don't run keynotes; we run rooms that leave you with something you can use on Monday.</p>
-        <div class="meta-row">
-          <span>For communities</span>
-          <span>For leadership teams</span>
-          <span>Strategy &amp; practice</span>
-          <span>Half-day to multi-day</span>
+    <span class="hero-eyebrow">workshops</span>
+    <h1>Rooms where we figure things out <em>together</em></h1>
+    <p class="hero-lede">
+      Half-day to multi-day rooms — for leadership teams, founder communities, and creative teams. <em>Not keynotes.</em> Rooms that leave you with something you can use on Monday.
+    </p>
+    <p class="hero-meta">
+      <span>Strategy</span><span>Practice</span><span>Custom</span>
+    </p>
+    <span class="hero-anchor">starting at <em>$2,000</em> · up to 10 people · 3 hours</span>
+  </section>
+
+  <!-- =========== PRICING LADDER =========== -->
+  <section class="ladder-strip">
+    <div class="ladder-strip-inner">
+      <span class="ladder-strip-label">how rooms are priced</span>
+      <ul>
+        <li>
+          <span class="lab">starter room</span>
+          <span class="price">from <em>$2k</em></span>
+          <span class="scope">3 hours · up to 10 people · flat fee</span>
+        </li>
+        <li>
+          <span class="lab">half-day team</span>
+          <span class="price">from <em>$5k</em></span>
+          <span class="scope">~4 hours · up to 12 people · deeper material</span>
+        </li>
+        <li>
+          <span class="lab">multi-day offsite</span>
+          <span class="price">from <em>$20k</em></span>
+          <span class="scope">leadership-sized · 1–2 days · by enquiry</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- =========== ARC 1 — STRATEGY (paper bg, pink-led) =========== -->
+  <article class="arc arc-1" id="strategy">
+    <span class="dot ad1 d-pink"></span>
+    <span class="dot ad2 d-yellow"></span>
+    <span class="dot ad3 d-cyan"></span>
+    <div class="arc-head">
+      <div>
+        <div class="arc-label"><span class="dot-mark" style="background: var(--pink)"></span>01 — strategy rooms</div>
+        <h2 class="arc-word">strategy</h2>
+      </div>
+      <p class="arc-manifesto">A room where the leadership team finds <em>one sentence</em> they can say back to each other.</p>
+      <p class="arc-explain">Strategy rooms are for the moment <em>before</em> a deck or a brief. We ask the questions until the shape of the answer is clear — and we leave you with an artifact you can use the following week. Not a slide pile. <em>A decision the team has actually made.</em></p>
+    </div>
+    <div class="poster-grid">
+
+      <a class="poster" href="thesis-workshop.html">
+        <span class="poster-no">01</span>
+        <span class="poster-tag">1–2 day offsite · for leadership teams</span>
+        <h3 class="poster-title">The <em>Thesis</em> Workshop</h3>
+        <p class="poster-line">Leave with one sentence the leadership team can say back to each other: who you're for, in what moment, replacing what — plus a 90-day plan.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$20k</em></span>
+          <span class="poster-cta">read the room <span aria-hidden="true">→</span></span>
         </div>
+      </a>
+
+      <a class="poster" href="workshops-investing-c.html">
+        <span class="poster-no">02</span>
+        <span class="poster-tag">4 talks · 90 min each · for communities</span>
+        <h3 class="poster-title">Investing <em>101</em> — full series</h3>
+        <p class="poster-line">Four talks on what actually happens when you raise — your investor, your money, your story, the hurdles. The parts no one warns you about.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$7k</em></span>
+          <span class="poster-cta">see the four talks <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+      <a class="poster" href="workshops-investing-c.html">
+        <span class="poster-no">03</span>
+        <span class="poster-tag">90 min · for individual founders &amp; cohorts</span>
+        <h3 class="poster-title">Investing 101 — <em>single talk</em></h3>
+        <p class="poster-line">Pick one of the four. Bring it to your community evening, accelerator cohort, or founder dinner. The starter-room rate applies — flat fee for the room.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$2k</em></span>
+          <span class="poster-cta">talk to us <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
+
+    </div>
+  </article>
+
+  <!-- =========== ARC 2 — PRACTICE (ink bg) =========== -->
+  <article class="arc arc-2" id="practice">
+    <span class="dot bd1 d-cyan"></span>
+    <span class="dot bd2 d-yellow"></span>
+    <span class="dot bd3 d-pink"></span>
+    <div class="arc-head">
+      <div>
+        <div class="arc-label"><span class="dot-mark" style="background: var(--cyan)"></span>02 — practice rooms</div>
+        <h2 class="arc-word">practice</h2>
       </div>
-    </section>
+      <p class="arc-manifesto">Build the working muscles. <em>AI, prompting, image-making</em> — through doing, not slides.</p>
+      <p class="arc-explain">Practice rooms are hands-on. Bring a real problem and we work it together — prompting, AI workflows, generative image as a storytelling medium. The output you leave with isn't a deck; <em>it's a way of working you'll use the next morning.</em></p>
+    </div>
+    <div class="poster-grid">
 
-    <!-- Body -->
-    <article class="editorial-body">
+      <a class="poster" href="ai-workshops.html">
+        <span class="poster-no">01</span>
+        <span class="poster-tag">half-day → multi-day · creative &amp; product teams</span>
+        <h3 class="poster-title">AI as a <em>thinking partner</em></h3>
+        <p class="poster-line">Get past the AI hype and build real workflows. Prompting, when to trust AI vs override, team-wide stickiness — for teams confused about where AI actually fits.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$5k</em></span>
+          <span class="poster-cta">read the room <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
 
-      <p>Workshops are how the <em>thinking</em> part of "we think with everyone, we build with a few" scales. Two arcs run through the rooms we run — a <em>strategy</em> arc, where founders and teams find a sentence they can say back to each other, and a <em>practice</em> arc, where designers, founders, and creative teams build new working muscles for AI, prompting, and visual storytelling. Different rooms, same posture.</p>
+      <a class="poster is-dev" href="mailto:hello@joyus.studio?subject=Prompting%20workshop%20%E2%80%94%20interest">
+        <span class="poster-no">02</span>
+        <span class="poster-tag">3 hours or half-day · for anyone using LLMs daily</span>
+        <h3 class="poster-title">Prompting — <em>talk to AI</em></h3>
+        <p class="poster-line">Move from "write me a…" to structured prompting that holds up under pressure. Live exercises, audience-driven — bring a real problem and we'll work it.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$2k</em></span>
+          <span class="poster-cta">bring it in <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
 
-      <h2><span class="h2-num">↳</span>Strategy rooms</h2>
+      <a class="poster is-dev" href="mailto:hello@joyus.studio?subject=Visual%20storytelling%20with%20MidJourney%20%E2%80%94%20interest">
+        <span class="poster-no">03</span>
+        <span class="poster-tag">half-day, hands-on · designers, brand teams</span>
+        <h3 class="poster-title">MidJourney — <em>visual storytelling</em></h3>
+        <p class="poster-line">Use generative image tools as a storytelling medium, not a spectacle. Outputs you can ship, not just screenshots for the deck.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$5k</em></span>
+          <span class="poster-cta">bring it in <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
 
-      <ol class="lesson-cards reveal">
+      <a class="poster is-dev" href="mailto:hello@joyus.studio?subject=Tinkering%20with%20ChatGPT%20%E2%80%94%20interest">
+        <span class="poster-no">04</span>
+        <span class="poster-tag">3-hour evening · low-stakes intro</span>
+        <h3 class="poster-title">Tinkering with <em>ChatGPT</em></h3>
+        <p class="poster-line">Practical experiments — small, weird, useful. The lower-key sibling of the prompting workshop, designed for curious teams who want a soft start.</p>
+        <div class="poster-foot">
+          <span class="poster-price">from <em>$2k</em></span>
+          <span class="poster-cta">bring it in <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
 
-        <li class="lesson-card">
-          <a href="thesis-workshop.html">
-            <span class="lesson-card-tag">1–2 day offsite · for leadership teams</span>
-            <h3 class="lesson-card-title">The Thesis Workshop</h3>
-            <p class="lesson-card-line">Leave with one sentence the leadership team can say back to each other: who you're for, in what moment, replacing what — plus a 90-day plan.</p>
-            <div class="lesson-card-foot">
-              <span class="lesson-card-status">live · for pre-thesis-fit teams</span>
-              <span class="lesson-card-cta">Read the room <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </li>
+    </div>
+  </article>
 
-        <li class="lesson-card">
-          <a href="workshops-investing-c.html">
-            <span class="lesson-card-tag">4 talks · 90 min each · for founder communities &amp; teams</span>
-            <h3 class="lesson-card-title">Investing 101</h3>
-            <p class="lesson-card-line">Four talks on what actually happens when you raise — your investor, your money, your story, the hurdles. The parts no one warns you about.</p>
-            <div class="lesson-card-foot">
-              <span class="lesson-card-status">live · for raising founders</span>
-              <span class="lesson-card-cta">See the four talks <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </li>
-
-      </ol>
-
-      <h2><span class="h2-num">↳</span>Practice rooms</h2>
-
-      <ol class="lesson-cards reveal">
-
-        <li class="lesson-card">
-          <a href="ai-workshops.html">
-            <span class="lesson-card-tag">half-day → multi-day intensive · for creative &amp; product teams</span>
-            <h3 class="lesson-card-title">AI as a thinking partner</h3>
-            <p class="lesson-card-line">Get past the AI hype and build real workflows. Prompting, when to trust AI vs override, team-wide stickiness — for teams confused about where AI actually fits.</p>
-            <div class="lesson-card-foot">
-              <span class="lesson-card-status">live · runs monthly</span>
-              <span class="lesson-card-cta">Read the room <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </li>
-
-        <li class="lesson-card is-dev">
-          <a href="mailto:hello@joyus.studio?subject=Prompting%20workshop%20%E2%80%94%20interest">
-            <span class="lesson-card-tag">half-day · for anyone using LLMs daily</span>
-            <h3 class="lesson-card-title">Prompting — how to talk to our AI friends</h3>
-            <p class="lesson-card-line">Move from "write me a…" to structured prompting that holds up under pressure. Live exercises, audience-driven — bring a real problem and we'll work it.</p>
-            <div class="lesson-card-foot">
-              <span class="lesson-card-status dev">page in development · email to bring it in</span>
-              <span class="lesson-card-cta">Write us <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </li>
-
-        <li class="lesson-card is-dev">
-          <a href="mailto:hello@joyus.studio?subject=Visual%20storytelling%20with%20MidJourney%20%E2%80%94%20interest">
-            <span class="lesson-card-tag">half-day, hands-on · for designers, brand teams, founders</span>
-            <h3 class="lesson-card-title">Visual storytelling with MidJourney</h3>
-            <p class="lesson-card-line">Use generative image tools as a storytelling medium, not a spectacle. Outputs you can ship, not just screenshots for the deck.</p>
-            <div class="lesson-card-foot">
-              <span class="lesson-card-status dev">page in development · email to bring it in</span>
-              <span class="lesson-card-cta">Write us <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </li>
-
-        <li class="lesson-card is-dev">
-          <a href="mailto:hello@joyus.studio?subject=Tinkering%20with%20ChatGPT%20%E2%80%94%20interest">
-            <span class="lesson-card-tag">half-day or evening · low-stakes intro</span>
-            <h3 class="lesson-card-title">Tinkering experiments with ChatGPT</h3>
-            <p class="lesson-card-line">Practical experiments — small, weird, useful. The lower-key sibling of the prompting workshop, designed for curious teams who want a soft start.</p>
-            <div class="lesson-card-foot">
-              <span class="lesson-card-status dev">page in development · email to bring it in</span>
-              <span class="lesson-card-cta">Write us <span aria-hidden="true">→</span></span>
-            </div>
-          </a>
-        </li>
-
-      </ol>
-
-      <h2><span class="h2-num">↳</span>Custom rooms</h2>
-
-      <div class="custom-rooms-note">
-        <p>We've also run rooms on storytelling, behavioral design, brand strategy, and product narrative. If your team or community has a question that doesn't fit one of the above — <a href="mailto:hello@joyus.studio?subject=A%20custom%20workshop">write us</a>. We'll usually find a way.</p>
+  <!-- =========== ARC 3 — CUSTOM (cyan bg, ink text) =========== -->
+  <article class="arc arc-3" id="custom">
+    <span class="dot cd1 d-yellow"></span>
+    <span class="dot cd2 d-pink"></span>
+    <div class="arc-head">
+      <div>
+        <div class="arc-label"><span class="dot-mark" style="background: var(--ink)"></span>03 — custom rooms</div>
+        <h2 class="arc-word">custom</h2>
       </div>
+      <p class="arc-manifesto">A question that doesn't fit the catalogue? <em>Bring it.</em></p>
+      <p class="arc-explain">We've also run rooms on storytelling, behavioral design, brand strategy, and product narrative for teams that asked. <em>If the question is real, we'll usually find a way.</em> Tell us who's in the room, what's at stake, and how long we have — we send a brief back inside a week.</p>
+    </div>
+    <div class="poster-grid">
 
-      <hr class="chapter-rule" />
-    </article>
+      <a class="poster" href="mailto:hello@joyus.studio?subject=A%20custom%20workshop">
+        <span class="poster-no">01</span>
+        <span class="poster-tag">3 hours → multi-day · any team, any topic</span>
+        <h3 class="poster-title">Tell us what the <em>room needs</em></h3>
+        <p class="poster-line">Tell us who's in the room, what's at stake, and how long we have. We send a brief back inside a week — with a quote you can react to.</p>
+        <div class="poster-foot">
+          <span class="poster-price">priced to fit</span>
+          <span class="poster-cta">write to us <span aria-hidden="true">→</span></span>
+        </div>
+      </a>
 
-    <!-- Closing (uses .cs-closing from styles.css) -->
-    <section class="cs-closing">
-      <span class="cs-closing-label">your move</span>
-      <h3>Have a room you want us to run? <em><a href="mailto:hello@joyus.studio?subject=Workshop%20inquiry">Be our friends.</a></em></h3>
-      <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
-    </section>
+    </div>
+  </article>
 
-  </main>
+  <!-- =========== CLOSING =========== -->
+  <section class="closing">
+    <span class="dot dx1 d-pink"></span>
+    <span class="dot dx2 d-cyan"></span>
+    <span class="dot dx3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h3>Have a room you want us to run? <em><a href="mailto:hello@joyus.studio?subject=Workshop%20inquiry">Be our friends.</a></em></h3>
+    <span class="hint">hello@joyus.studio · we read everything · 48-hour quote</span>
+  </section>
 
   <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
 <style>
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: #FAF7F2;
-    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
-    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    font-size: 0.78rem;
-    color: #8892A0;
-    letter-spacing: 0.05em;
-  }
+  .foot { position: relative; z-index: 20; background: #FAF7F2; padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif; font-size: 0.78rem; color: #8892A0; letter-spacing: 0.05em; }
   .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: #E91E7B; }
-  @media (max-width: 480px) {
-    .foot { justify-content: flex-start; }
-  }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
@@ -695,23 +705,10 @@
 <!--END:FOOT-->
 
   <script>
-    // scroll thread
-    (function () {
-      var thread = document.getElementById('thread');
-      window.addEventListener('scroll', function () {
-        if (!thread) return;
-        var total = document.body.scrollHeight - window.innerHeight;
-        thread.style.width = (window.scrollY / Math.max(total, 1)) * 100 + '%';
-      }, { passive: true });
-    })();
-
-    // reveal-on-scroll
-    (function () {
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { threshold: 0.15 });
-      document.querySelectorAll('.reveal, .chapter-rule, .editorial-body h2').forEach(function (el) { io.observe(el); });
-    })();
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
   </script>
 </body>
 </html>

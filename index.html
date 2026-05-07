@@ -74,7 +74,9 @@
   .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); top: -10%; right: -10%; opacity: 0.95; }
   .hero .dh2 { width: 64px; height: 64px; top: 20%; right: 22%; }
   .hero .dh3 { width: 28px; height: 28px; top: 14%; left: 28%; }
-  .hero .dh4 { width: 140px; height: 140px; bottom: 8%; right: 12%; }
+  /* dh4 sat behind the bottom-right tagline; relocated to mid-right so the magenta
+     in the tagline doesn't have to fight a cyan field behind it */
+  .hero .dh4 { width: 110px; height: 110px; top: 36%; right: 4%; }
   .hero .dh5 { width: 38px; height: 38px; bottom: 22%; left: 14%; }
   .hero .dh6 { width: 18px; height: 18px; top: 56%; left: 4%; }
   .hero .dh7 { width: 22px; height: 22px; top: 64%; right: 6%; }
@@ -427,7 +429,8 @@
       border-bottom-width: 4px;
     }
     /* declutter the dot scatter on mobile */
-    .hero .dh4, .hero .dh9 { display: none; }
+    .hero .dh9 { display: none; }
+    .hero .dh4 { width: 60px; height: 60px; right: 4%; top: 38%; }
     .hero .dh1 { width: 220px; height: 220px; right: -25%; opacity: 0.85; }
     .hero .dh2 { width: 36px; height: 36px; }
     .hero .dh3 { width: 18px; height: 18px; }

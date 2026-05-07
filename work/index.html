@@ -67,15 +67,25 @@
   }
   .hero h1 {
     font-weight: 700;
-    font-size: clamp(4rem, 12vw, 10rem);
-    line-height: 0.92;
-    letter-spacing: -0.045em;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
     color: var(--ink);
-    max-width: 14ch;
+    max-width: 18ch;
     position: relative; z-index: 2;
   }
+  .hero h1 em { font-style: normal; color: var(--pink); }
+  .hero-sub {
+    margin-top: 1.75rem;
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 56ch;
+    position: relative; z-index: 2;
+  }
+  .hero-sub strong { color: var(--ink); font-weight: 600; }
   .hero-meta {
-    margin-top: 3rem;
+    margin-top: 2.25rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.6rem;
@@ -640,7 +650,8 @@
     <span class="dot d-ink    drift"      style="top: 12%; left: 22%; width: 6px; height: 6px;"></span>
 
     <span class="hero-eyebrow">the work</span>
-    <h1>The work.</h1>
+    <h1>What we make, <em>across five disciplines.</em></h1>
+    <p class="hero-sub">A scrolling tape of case studies, drawn from <strong>brand &amp; identity</strong>, <strong>product &amp; interface</strong>, <strong>research</strong>, <strong>narrative &amp; story</strong>, and <strong>growth</strong>. Drag any band, or jump straight to a discipline.</p>
 
     <div class="hero-meta">
       <span class="hero-meta-label">jump to</span>
@@ -1209,7 +1220,9 @@
       }, 38);
     }
 
-    /* 4. RAIN — colored dots fall from above the card */
+    /* 4. RAIN — colored dots fall from above the card.
+       Keyframes use px throughout — mixing translateY(20%) with translateY(Npx)
+       produced an undefined unit interpolation that silently no-op'd in Chrome. */
     function rain(el) {
       const c = rectOf(el);
       const L = layer();
@@ -1223,10 +1236,11 @@
         L.appendChild(d);
         const delay = Math.random() * 350;
         const distance = c.h + 100 + Math.random() * 50;
+        const fadeIn = Math.max(20, c.h * 0.18);
         const anim = d.animate([
-          { transform: 'translateY(0) rotate(0deg)', opacity: 0 },
-          { transform: 'translateY(20%) rotate(60deg)', opacity: 1, offset: 0.18 },
-          { transform: 'translateY('+distance+'px) rotate(360deg)', opacity: 0 },
+          { transform: 'translateY(0px) rotate(0deg)', opacity: 0 },
+          { transform: 'translateY(' + fadeIn + 'px) rotate(60deg)', opacity: 1, offset: 0.18 },
+          { transform: 'translateY(' + distance + 'px) rotate(360deg)', opacity: 0 },
         ], { duration: 1200 + Math.random() * 500, delay, easing: 'cubic-bezier(0.4, 0.6, 0.6, 1)', fill: 'forwards' });
         anim.onfinish = () => d.remove();
       }
