@@ -138,7 +138,21 @@ The session uses `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (set in `.claude/setti
 
 When orchestrating, run agents in parallel only on non-conflicting files (each case study is independent; `styles.css` is the one shared file — devs should prefer page-local `<style>` blocks for new families to avoid concurrent-edit merges).
 
-`git push origin main` is permitted by `.claude/settings.local.json` (no PR review). Each fix → its own commit + push so releases stay reviewable.
+`git push origin main` is permitted by `.claude/settings.local.json` (no PR review), but only after merging from a feature branch — see Branch discipline below.
+
+## Branch discipline
+
+**Always work on a personal/task-named branch. Never commit directly to main. Never commit on Divya's branches.**
+
+**Branches named `designmay05`, `designmay06`, `designmayNN` etc. are Divya's** — date-named feature branches she uses for her own iteration. Do NOT commit on them, even if they appear to be "the active feature branch" with recent activity. Mixing Claude/Kahran-session commits with Divya's commits on her date branches conflates histories and crowds her workspace. (Confirmed correction from Kahran on 2026-05-07: *"why are you using divyas branches we talked about this you should be on your own branch."*)
+
+For Claude/Kahran-session work: use a `kahran-<task>` branch — e.g. `kahran-thesis-quiz`, `kahran-comics-spec`, `kahran-podcast-recent`. Create fresh off latest `main` if one doesn't exist for the current task: `git checkout main && git pull && git checkout -b kahran-<task>`.
+
+**Verify with `git branch --show-current` before EVERY commit.** The Claude Code session on this machine silently shifts branches between turns — this has happened repeatedly. Don't assume the branch from the previous turn is still checked out. If the wrong branch is checked out, `git checkout` to the correct one BEFORE committing.
+
+**Pattern:** branch off latest `main` → edit → commit → push the branch → wait for explicit "merge to main" instruction → `git merge <branch> --no-ff` → push main → `git checkout` back to your branch.
+
+Each fix → its own commit on a `kahran-*` branch → wait for merge instruction → merge to main with `--no-ff` → push.
 
 ## Klydo cuts — three-version case study
 
