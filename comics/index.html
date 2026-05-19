@@ -1,14 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="refresh" content="0; url=../make.html#comics" />
-<link rel="canonical" href="https://kh9010.github.io/joyus-website/make.html" />
-<title>Comics — Joyus Studio</title>
-<meta name="robots" content="noindex" />
-<script>window.location.replace('../make.html#comics');</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comics by Joyus Studio — hand-drawn stories about friendship, connection, and the small absurdities of being human.">
+  <meta property="og:title" content="Comics — Joyus Studio">
+  <meta property="og:description" content="Hand-drawn comics about friendship, connection, and the small absurdities of being human.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/comics/">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/comics/">
+  <title>Comics — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .comics-hero {
+      padding: 8rem 2rem 4rem;
+      background: var(--warm-gray, #F5F3F0);
+    }
+    .comics-hero .inner {
+      max-width: 700px;
+    }
+    .comics-hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      margin-bottom: 1rem;
+      color: #111;
+    }
+    .comics-hero p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .comics-grid-section {
+      padding: 5rem 2rem;
+    }
+    .comics-grid-section .inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .comics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .comic-card {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+      border: 1px solid #e8e6e4;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .comic-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
+      opacity: 1;
+    }
+    .comic-card-cover {
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: var(--warm-gray);
+    }
+    .comic-card-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .comic-card:hover .comic-card-cover img {
+      transform: scale(1.03);
+    }
+    .comic-card-body {
+      padding: 1.5rem 1.75rem 1.75rem;
+    }
+    .comic-card-body h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      color: #111;
+      margin-bottom: 0.4rem;
+    }
+    .comic-card-meta {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--pink, #E91E7B);
+      margin-bottom: 0.75rem;
+    }
+    .comic-card-body p {
+      font-size: 0.95rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    /* Coming soon cards */
+    .comic-card.coming-soon {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+    .comic-card.coming-soon .comic-card-cover {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .comic-card.coming-soon .comic-card-cover .placeholder-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1.5rem;
+      color: #bbb;
+    }
+    .comic-card.coming-soon .comic-card-meta {
+      color: #bbb;
+    }
+
+    /* Fade-in animation */
+    .comic-card {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+    }
+    .comic-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .comic-card.coming-soon.visible {
+      opacity: 0.55;
+    }
+
+    @media (max-width: 480px) {
+      .comics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-<p>Redirecting to <a href="../make.html#comics">/make.html#comics</a>…</p>
+
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../workshops.html" data-nav="workshops">Workshops</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a href="../about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <main id="main-content">
+  <section class="comics-hero">
+    <div class="inner">
+      <h1>Comics</h1>
+      <p>Hand-drawn stories about friendship, connection, and the small absurdities of being human. Written by Kahran Singh, illustrated by Divya Tak.</p>
+    </div>
+  </section>
+
+  <section class="comics-grid-section">
+    <div class="inner">
+      <div class="comics-grid">
+
+        <a href="the-friend-comic.html" class="comic-card">
+          <div class="comic-card-cover">
+            <img src="../images/comics/friend/page-1.png" alt="the Friend comic — page 1" loading="lazy">
+          </div>
+          <div class="comic-card-body">
+            <h2>the Friend comic</h2>
+            <div class="comic-card-meta">Comic &middot; 4 pages</div>
+            <p>Mr Curl catches up with an old friend. Is atrophy inevitable? Are we all doomed to be alone, comforted only by Instagram and Facebook?</p>
+          </div>
+        </a>
+
+        <a href="gossip.html" class="comic-card">
+          <div class="comic-card-cover">
+            <img src="../images/comics/gossip/page-1.png" alt="Gossip comic — page 1" loading="lazy">
+          </div>
+          <div class="comic-card-body">
+            <h2>Gossip</h2>
+            <div class="comic-card-meta">Comic &middot; 4 pages</div>
+            <p>Two friends dissect someone else's relationship over dinner. It spirals. Why do we choose unhappiness?</p>
+          </div>
+        </a>
+
+        <div class="comic-card coming-soon">
+          <div class="comic-card-cover">
+            <span class="placeholder-text">coming soon</span>
+          </div>
+          <div class="comic-card-body">
+            <h2>the Plant Comic</h2>
+            <div class="comic-card-meta">Comic &middot; coming soon</div>
+            <p>What do you do when your best friend is a plant? And what happens if that plant dies? A treatise on love, friendship, and keeping plants alive.</p>
+          </div>
+        </div>
+
+        <div class="comic-card coming-soon">
+          <div class="comic-card-cover">
+            <span class="placeholder-text">coming soon</span>
+          </div>
+          <div class="comic-card-body">
+            <h2>the Phone Comic</h2>
+            <div class="comic-card-meta">Comic &middot; coming soon</div>
+            <p>Can you escape your phone? Do you want to? What will you do without it?</p>
+          </div>
+        </div>
+
+        <div class="comic-card coming-soon">
+          <div class="comic-card-cover">
+            <span class="placeholder-text">coming soon</span>
+          </div>
+          <div class="comic-card-body">
+            <h2>the doing serious things unseriously zine</h2>
+            <div class="comic-card-meta">Zine &middot; coming soon</div>
+            <p>How do you do serious things? Without taking yourself too seriously! If this feels easier said than done, this zine is for you.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section style="padding:4rem 2rem;text-align:center;border-top:1px solid #eee;">
+    <h2 style="font-family:'Caveat',cursive;font-size:1.8rem;color:#111;margin-bottom:0.5rem;">Want more?</h2>
+    <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">These comics come from the same studio that does brand strategy, visual design, and storytelling for startups and mission-driven companies.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+      <a href="../services.html" style="display:inline-block;padding:0.7rem 1.5rem;border:1.5px solid #E91E7B;border-radius:50px;font-size:0.9rem;font-weight:600;color:#E91E7B;text-decoration:none;transition:all 0.2s;">Work with us &rarr;</a>
+      <a href="../podcast.html" style="display:inline-block;padding:0.7rem 1.5rem;border:1.5px solid #111;border-radius:50px;font-size:0.9rem;font-weight:600;color:#111;text-decoration:none;transition:all 0.2s;">Podcast &rarr;</a>
+      <a href="../work/index.html" style="display:inline-block;padding:0.7rem 1.5rem;border:1.5px solid #111;border-radius:50px;font-size:0.9rem;font-weight:600;color:#111;text-decoration:none;transition:all 0.2s;">Our Work &rarr;</a>
+    </div>
+  </section>
+  </main>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  
 </body>
 </html>

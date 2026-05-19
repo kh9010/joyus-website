@@ -4,6 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Off the clock — things to read, hear, touch, and watch from Joyus Studio. The work that pays the soul, not the rent." />
+<meta name="robots" content="noindex, nofollow" />
+<!-- DRAFT: this page is unlinked from the public nav and not in the sitemap.
+     Reinstate by reverting commit on kahran-may19-unship-make and re-running scripts/sync-chrome.js. -->
 <meta property="og:title" content="Off the clock — Joyus Studio" />
 <meta property="og:description" content="Things to read, hear, touch, and watch. The work that pays the soul, not the rent." />
 <meta property="og:type" content="website" />
@@ -637,7 +640,7 @@
     <a href="work/" data-nav="work">Work</a>
     <a href="services.html" data-nav="services">Services</a>
     <a href="workshops.html" data-nav="workshops">Workshops</a>
-    <a href="make.html" data-nav="make">Make</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
     <a href="about.html" data-nav="about">About</a>
     <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
   </div>
@@ -649,7 +652,7 @@
     if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
-    else if (/make\.html/.test(path) || /\/comics(\/|$)/.test(path) || /podcast/.test(path)) active = 'make';
+    else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
