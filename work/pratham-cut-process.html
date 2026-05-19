@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How we got to the rings — the six-week methodology, the diagnostic, the seven-touchpoint comparison, and the six directions Joyus recommended to PrathamUSA.">
+  <meta property="og:title" content="pratham · the process cut — Joyus Studio">
+  <meta property="og:description" content="The six weeks, three problems, seven touchpoints, six directions behind the Pratham donor-journey rebuild.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/pratham/logo.webp">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/pratham-cut-process.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/pratham-cut-process.html">
+  <title>pratham · the process cut — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css?v=4">
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --paper: #ffffff;
+    --paper-warm: #F4EFE6;
+    --ink: #2C3544;
+    --ink-soft: #54606F;
+    --ink-fade: #8892A0;
+    --rule: rgba(44, 53, 68, 0.12);
+    --pratham-gold: #F2B705;
+    --pratham-gold-deep: #B87800;
+    --pratham-gold-soft: #FFF3B8;
+    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    --hand: 'Caveat', cursive;
+    --x: clamp(1.5rem, 4vw, 3rem);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  img { max-width: 100%; display: block; }
+
+  /* cuts-switch pill */
+  .cuts-switch {
+    position: fixed;
+    top: 5.5rem; right: 1.25rem;
+    z-index: 480;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.4rem 0.55rem 0.4rem 0.85rem;
+    background: rgba(255, 255, 255, 0.92);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    font-family: var(--sans);
+  }
+  .cuts-switch-label {
+    font-family: var(--hand);
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin-right: 0.25rem;
+  }
+  .cuts-switch-here {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--pratham-gold-soft);
+    animation: prCutsHere 3.2s ease-in-out infinite;
+  }
+  @keyframes prCutsHere {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(242, 183, 5, 0); }
+    50%      { box-shadow: 0 0 0 6px rgba(242, 183, 5, 0.18); }
+  }
+  .cuts-switch-btn {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: var(--bg);
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .cuts-switch-btn:hover { background: var(--pratham-gold-deep); color: #fff; }
+  @media (max-width: 720px) {
+    .cuts-switch {
+      top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
+      box-shadow: 0 -8px 20px -8px rgba(44, 53, 68, 0.18), 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+    }
+    .cuts-switch-label { display: none; }
+  }
+
+  /* reveal */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  .reveal.delay-1 { transition-delay: 100ms; }
+  .reveal.delay-2 { transition-delay: 220ms; }
+
+  /* =========================================================== */
+  /*  HERO                                                        */
+  /* =========================================================== */
+  .pc-hero {
+    padding: clamp(7rem, 14vh, 11rem) var(--x) clamp(3rem, 6vh, 5rem);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .pc-eyebrow {
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--pratham-gold-deep);
+    margin-bottom: 1.5rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .pc-eyebrow::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pratham-gold);
+  }
+  .pc-hero h1 {
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5.5vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+    max-width: 24ch;
+  }
+  .pc-hero h1 em { font-style: normal; color: var(--pratham-gold-deep); }
+  .pc-hero-deck {
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    color: var(--ink);
+    line-height: 1.55;
+    max-width: 38rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* =========================================================== */
+  /*  SECTION SHELL                                               */
+  /* =========================================================== */
+  .pc-sec {
+    padding: clamp(4rem, 9vh, 7rem) var(--x);
+  }
+  .pc-sec-inner { max-width: 1100px; margin: 0 auto; }
+  .pc-sec-narrow { max-width: 760px; }
+  .pc-sec-eyebrow {
+    font-size: 0.74rem; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--pratham-gold-deep);
+    margin-bottom: 1rem;
+    display: inline-flex; align-items: baseline; gap: 0.6rem;
+  }
+  .pc-sec-eyebrow .num {
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--pratham-gold);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+  .pc-sec-title {
+    font-weight: 700;
+    font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+  .pc-sec-title em { font-style: normal; color: var(--pratham-gold-deep); }
+  .pc-sec-deck {
+    font-size: clamp(1rem, 1.3vw, 1.12rem);
+    color: var(--ink);
+    line-height: 1.6;
+    max-width: 36rem;
+    margin-bottom: 2.5rem;
+  }
+
+  /* =========================================================== */
+  /*  §01 — the six weeks                                         */
+  /* =========================================================== */
+  .pc-weeks {
+    background: var(--paper-warm);
+  }
+  .pc-weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 720px) { .pc-weeks-grid { grid-template-columns: 1fr; } }
+  .pc-week {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--pratham-gold);
+    border-radius: 6px;
+    padding: 1.25rem 1.4rem;
+  }
+  .pc-week:nth-child(2) { border-left-color: var(--pratham-gold-deep); }
+  .pc-week:nth-child(3) { border-left-color: var(--pratham-gold); }
+  .pc-week:nth-child(4) { border-left-color: var(--pratham-gold-deep); }
+  .pc-week:nth-child(5) { border-left-color: var(--pratham-gold); }
+  .pc-week:nth-child(6) { border-left-color: var(--ink); }
+  .pc-week-tag {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--pratham-gold-deep);
+    margin-bottom: 0.2rem;
+  }
+  .pc-week-h {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.01em;
+  }
+  .pc-week-d {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* =========================================================== */
+  /*  §02 — the diagnosis                                         */
+  /* =========================================================== */
+  .pc-diag-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 880px) { .pc-diag-grid { grid-template-columns: 1fr; } }
+  .pc-diag {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-top: 4px solid var(--pratham-gold-deep);
+    border-radius: 6px;
+    padding: 1.6rem 1.5rem;
+  }
+  .pc-diag-num {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.6rem;
+    color: var(--pratham-gold-deep);
+    margin-bottom: 0.3rem;
+  }
+  .pc-diag-h {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.01em;
+  }
+  .pc-diag-d {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* =========================================================== */
+  /*  §03 — the touchpoints table                                 */
+  /* =========================================================== */
+  .pc-tp-wrap {
+    margin-top: 2rem;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .pc-tp-row {
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr 0.9fr 1.5fr 0.9fr;
+    border-top: 1px solid var(--rule);
+  }
+  .pc-tp-row.head {
+    border-top: none;
+    background: var(--ink);
+    color: rgba(255,255,255,0.85);
+  }
+  .pc-tp-cell {
+    padding: 1rem 1.15rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    border-right: 1px solid var(--rule);
+  }
+  .pc-tp-cell:last-child { border-right: none; }
+  .pc-tp-row.head .pc-tp-cell {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+  .pc-tp-cell.tp-name {
+    font-weight: 700;
+    color: var(--ink);
+    background: rgba(44, 53, 68, 0.025);
+  }
+  .pc-tp-cell.tp-impact-strong {
+    color: var(--pratham-gold-deep);
+    font-weight: 600;
+  }
+  .pc-tp-row.tp-row-strong {
+    background: rgba(242, 183, 5, 0.06);
+  }
+  .pc-tp-foot {
+    padding: 1rem 1.15rem;
+    font-size: 0.82rem;
+    color: var(--ink-fade);
+    background: var(--paper-warm);
+    border-top: 1px solid var(--rule);
+  }
+  .pc-tp-foot em { color: var(--pratham-gold-deep); font-style: normal; font-weight: 600; }
+  @media (max-width: 880px) {
+    .pc-tp-row { grid-template-columns: 1fr; }
+    .pc-tp-row.head { display: none; }
+    .pc-tp-cell {
+      border-right: none;
+      border-bottom: 1px dashed var(--rule);
+    }
+    .pc-tp-cell:last-child { border-bottom: none; }
+    .pc-tp-cell.tp-freq::before { content: "Frequency — "; color: var(--ink-fade); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: 600; }
+    .pc-tp-cell.tp-impact::before { content: "Impact — "; color: var(--ink-fade); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: 600; }
+    .pc-tp-cell.tp-why::before { content: "Why — "; color: var(--ink-fade); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: 600; }
+    .pc-tp-cell.tp-effort::before { content: "Effort — "; color: var(--ink-fade); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.2rem; font-weight: 600; }
+  }
+
+  /* =========================================================== */
+  /*  §04 — the directions                                        */
+  /* =========================================================== */
+  .pc-dir-section { background: var(--paper-warm); }
+  .pc-dir-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  @media (max-width: 720px) { .pc-dir-grid { grid-template-columns: 1fr; } }
+  .pc-dir {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 1.75rem 1.6rem;
+    position: relative;
+    transition: transform 220ms ease, box-shadow 220ms ease;
+  }
+  .pc-dir:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0 var(--ink);
+  }
+  .pc-dir.is-headline {
+    border: 2px solid var(--pratham-gold);
+    background: linear-gradient(180deg, rgba(255, 243, 184, 0.4), var(--paper) 70%);
+  }
+  .pc-dir.is-headline::after {
+    content: "the one tied to the love-moment";
+    position: absolute;
+    top: -0.7rem; right: 1.2rem;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--pratham-gold-deep);
+    background: var(--bg);
+    padding: 0 0.5rem;
+    transform: rotate(-1.5deg);
+  }
+  .pc-dir-num {
+    font-family: var(--hand);
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--pratham-gold-deep);
+    margin-bottom: 0.4rem;
+  }
+  .pc-dir-h {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 0.65rem;
+    letter-spacing: -0.01em;
+  }
+  .pc-dir-d {
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .pc-dir-d strong { color: var(--ink); font-weight: 600; }
+
+  /* =========================================================== */
+  /*  asset placeholder (for Divya / Figma)                       */
+  /* =========================================================== */
+  .pc-placeholder {
+    margin: 2.5rem 0 0;
+    padding: 1.5rem 1.6rem;
+    border: 2px dashed rgba(242, 183, 5, 0.55);
+    border-radius: 8px;
+    background: rgba(255, 243, 184, 0.25);
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .pc-placeholder strong {
+    display: block;
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--pratham-gold-deep);
+    margin-bottom: 0.35rem;
+  }
+
+  /* =========================================================== */
+  /*  closing — cuts CTA pair                                     */
+  /* =========================================================== */
+  .pc-cuts-out {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem var(--x) 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pc-cuts-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    font-family: var(--sans);
+    transition: transform 0.25s, box-shadow 0.25s;
+  }
+  .pc-cuts-cta--main {
+    background: var(--pratham-gold);
+    color: var(--ink);
+    box-shadow: 0 6px 0 var(--pratham-gold-deep);
+  }
+  .pc-cuts-cta--main:hover { transform: translateY(-2px); box-shadow: 0 8px 0 var(--pratham-gold-deep); }
+
+  /* closing CTA block (mirrors main page) */
+  .cs-closing {
+    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
+    border-top: 2px solid var(--ink);
+    background: var(--bg);
+    color: var(--ink);
+    position: relative;
+    z-index: 20;
+  }
+  .cs-closing-label {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 1.25rem;
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-family: var(--sans);
+  }
+  .cs-closing-label::before {
+    content: ""; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--pratham-gold);
+  }
+  .cs-closing h3 {
+    font-family: var(--sans); font-weight: 600;
+    font-size: clamp(1.6rem, 3.8vw, 2.5rem);
+    letter-spacing: -0.02em; line-height: 1.15;
+    color: var(--ink); max-width: 720px; margin: 0 0 0.75rem;
+  }
+  .cs-closing h3 em { font-style: normal; color: var(--pratham-gold-deep); }
+  .cs-closing h3 a {
+    border-bottom: 3px solid var(--pratham-gold-deep);
+    padding-bottom: 2px; color: var(--pratham-gold-deep);
+  }
+  .cs-closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .cs-closing .cs-closing-hint {
+    display: block; font-size: 0.9rem; color: var(--ink-fade);
+    font-family: var(--sans); letter-spacing: 0.04em;
+  }
+  .cs-closing .cs-next {
+    display: inline-flex; align-items: center; gap: 0.45rem;
+    margin-top: 2rem; font-family: var(--sans);
+    font-size: 0.92rem; color: var(--ink-soft);
+  }
+  .cs-closing .cs-next:hover { color: var(--pratham-gold-deep); }
+</style>
+</head>
+<body class="work-page">
+
+  <!-- cuts switcher — quick jump back to main -->
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">two cuts</span>
+    <a href="pratham.html" class="cuts-switch-btn">main</a>
+    <span class="cuts-switch-here">process</span>
+  </div>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     ../ → path prefix to repo root (e.g. "" or "../") -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: #54606F;
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a.active {
+    color: #2C3544;
+    font-weight: 500;
+    border-bottom-color: #E91E7B;
+  }
+  .nav .nav-cta { color: #2C3544; font-weight: 500; }
+  .nav .nav-cta:hover { color: #E91E7B; }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: #2C3544; border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: #ffffff;
+      border-left: 4px solid #2C3544;
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #2C3544;
+    }
+    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../workshops.html" data-nav="workshops">Workshops</a>
+    <a href="../make.html" data-nav="make">Make</a>
+    <a href="../about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/make\.html/.test(path) || /\/comics(\/|$)/.test(path) || /podcast/.test(path)) active = 'make';
+    else if (/about\.html/.test(path)) active = 'about';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <header class="pc-hero">
+    <p class="pc-eyebrow">a process cut — pratham</p>
+    <h1>How we got there. Six weeks of work, three problems, seven touchpoints, six <em>directions</em>.</h1>
+    <p class="pc-hero-deck">The main page shows the answer &mdash; the rings, the shift from cause to a roomful of people doing the work. This page shows how we got to that answer: who we talked to, what we found, and what we told Pratham to do about it.</p>
+  </header>
+
+  <!-- ============ §01 — the six weeks ============ -->
+  <section class="pc-sec pc-weeks">
+    <div class="pc-sec-inner">
+      <div class="reveal">
+        <span class="pc-sec-eyebrow"><span class="num">i.</span> how the engagement ran</span>
+        <h2 class="pc-sec-title">Six weeks, in this order.</h2>
+        <p class="pc-sec-deck">Not a brand sprint. A structured listening exercise &mdash; we spent the first three weeks understanding what Pratham&rsquo;s donors actually wanted, how Pratham was positioned in their charitable ecosystem, and where in their journey people moved or stalled. Weeks four through six turned what we&rsquo;d learned into a journey map, a set of diagnostics, and a slate of recommendations.</p>
+      </div>
+
+      <div class="pc-weeks-grid reveal delay-1">
+        <div class="pc-week">
+          <p class="pc-week-tag">Week 1</p>
+          <h3 class="pc-week-h">Org mapping</h3>
+          <p class="pc-week-d">Identified the key owners of ideas inside Pratham &mdash; chapter leaders, dev staff, leadership &mdash; and spoke to them about how each one defined the problem Pratham solves.</p>
+        </div>
+        <div class="pc-week">
+          <p class="pc-week-tag">Week 2</p>
+          <h3 class="pc-week-h">Emotional needs &amp; donor conversations</h3>
+          <p class="pc-week-d">Drafted a hypothesis of what was driving activation. Then started donor conversations &mdash; chapter organizers, retained majors, lapsed donors &mdash; to test whether the hypothesis held against actual experience.</p>
+        </div>
+        <div class="pc-week">
+          <p class="pc-week-tag">Week 3</p>
+          <h3 class="pc-week-h">Positioning</h3>
+          <p class="pc-week-d">Mapped where Pratham sat in each donor&rsquo;s broader charitable ecosystem. Who was Pratham &ldquo;in competition&rdquo; with for share-of-mind &mdash; and on what basis?</p>
+        </div>
+        <div class="pc-week">
+          <p class="pc-week-tag">Week 4</p>
+          <h3 class="pc-week-h">Journey mapping</h3>
+          <p class="pc-week-d">Customer-journey mapping for the donor: entry points, exit points, the moments where commitment deepened. The two ring diagrams (the main page&rsquo;s spine) came out of this week.</p>
+        </div>
+        <div class="pc-week">
+          <p class="pc-week-tag">Week 5</p>
+          <h3 class="pc-week-h">Recommendations</h3>
+          <p class="pc-week-d">Synthesised the journey work into a slate of recommendations for the Pratham team and a scoped Phase 2 to act on them.</p>
+        </div>
+        <div class="pc-week">
+          <p class="pc-week-tag">Week 6+</p>
+          <h3 class="pc-week-h">Shared understanding</h3>
+          <p class="pc-week-d">Walked leadership through what we&rsquo;d found &mdash; including a clear-eyed read of the share of donation capital Pratham was winning vs. competing nonprofits, and what would be needed to grow it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §02 — the diagnosis ============ -->
+  <section class="pc-sec">
+    <div class="pc-sec-inner">
+      <div class="reveal">
+        <span class="pc-sec-eyebrow"><span class="num">ii.</span> what we found wrong</span>
+        <h2 class="pc-sec-title">Three structural problems, naming the same root.</h2>
+        <p class="pc-sec-deck">The donor-side findings traced back to three things on the org side. They&rsquo;re different angles on one underlying issue: Pratham was operating on a one-dimensional read of what donor commitment actually was.</p>
+      </div>
+
+      <div class="pc-diag-grid reveal delay-1">
+        <article class="pc-diag">
+          <div class="pc-diag-num">i.</div>
+          <h3 class="pc-diag-h">Pratham was reactive in its processes.</h3>
+          <p class="pc-diag-d">Donor communication was triggered by external events &mdash; a gala, a tax-receipt deadline, an annual report drop &mdash; rather than by where the donor was in their own journey with Pratham. The org responded; it didn&rsquo;t shape.</p>
+        </article>
+        <article class="pc-diag">
+          <div class="pc-diag-num">ii.</div>
+          <h3 class="pc-diag-h">Donor journeys hadn&rsquo;t been constructed with intentionality.</h3>
+          <p class="pc-diag-d">There was no shared internal model of what a donor&rsquo;s arc through Pratham was supposed to feel like. Chapters improvised in good faith and produced wildly different experiences of the same org from one city to the next.</p>
+        </article>
+        <article class="pc-diag">
+          <div class="pc-diag-num">iii.</div>
+          <h3 class="pc-diag-h">The metric was one-dimensional.</h3>
+          <p class="pc-diag-d">&ldquo;Donation in the last 12 months&rdquo; was the dashboard&rsquo;s headline. That number flattened relational depth into a dollar bucket &mdash; and quietly mis-categorised some of Pratham&rsquo;s most committed donors as mid-tier because their current-year gift wasn&rsquo;t the biggest in the room.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §03 — touchpoints table ============ -->
+  <section class="pc-sec pc-weeks">
+    <div class="pc-sec-inner">
+      <div class="reveal">
+        <span class="pc-sec-eyebrow"><span class="num">iii.</span> the seven touchpoints, compared</span>
+        <h2 class="pc-sec-title">What Pratham was using to talk to donors &mdash; and what each one was actually <em>doing</em>.</h2>
+        <p class="pc-sec-deck">We mapped the seven categories of donor touchpoint Pratham was running and graded each on frequency, impact, why the donor engaged, and the perceived effort cost on Pratham&rsquo;s side. The pattern is in the highlighted rows &mdash; the two highest-impact touchpoints are the two least frequent ones.</p>
+      </div>
+
+      <div class="pc-tp-wrap reveal delay-1">
+        <div class="pc-tp-row head">
+          <div class="pc-tp-cell">Touchpoint</div>
+          <div class="pc-tp-cell">Frequency</div>
+          <div class="pc-tp-cell">Impact</div>
+          <div class="pc-tp-cell">Why the donor engages</div>
+          <div class="pc-tp-cell">Pratham effort</div>
+        </div>
+        <div class="pc-tp-row">
+          <div class="pc-tp-cell tp-name">Email</div>
+          <div class="pc-tp-cell tp-freq">Occasionally</div>
+          <div class="pc-tp-cell tp-impact">Minimal</div>
+          <div class="pc-tp-cell tp-why">Curiosity</div>
+          <div class="pc-tp-cell tp-effort">Low</div>
+        </div>
+        <div class="pc-tp-row">
+          <div class="pc-tp-cell tp-name">Social media</div>
+          <div class="pc-tp-cell tp-freq">Rarely</div>
+          <div class="pc-tp-cell tp-impact">Minimal</div>
+          <div class="pc-tp-cell tp-why">Distraction</div>
+          <div class="pc-tp-cell tp-effort">Low</div>
+        </div>
+        <div class="pc-tp-row">
+          <div class="pc-tp-cell tp-name">Long-form publications<br/><span style="font-size:0.78rem;color:var(--ink-fade);font-weight:400;">(reports, books)</span></div>
+          <div class="pc-tp-cell tp-freq">Very rarely</div>
+          <div class="pc-tp-cell tp-impact">Some</div>
+          <div class="pc-tp-cell tp-why">Focused interest</div>
+          <div class="pc-tp-cell tp-effort">Medium/high</div>
+        </div>
+        <div class="pc-tp-row tp-row-strong">
+          <div class="pc-tp-cell tp-name">1:1 conversations<br/><span style="font-size:0.78rem;color:var(--ink-fade);font-weight:400;">(with dev staff or donors)</span></div>
+          <div class="pc-tp-cell tp-freq">Rarely</div>
+          <div class="pc-tp-cell tp-impact tp-impact-strong">Strong</div>
+          <div class="pc-tp-cell tp-why">Personal validation, sense of connection, looking for purpose</div>
+          <div class="pc-tp-cell tp-effort">Medium/high</div>
+        </div>
+        <div class="pc-tp-row">
+          <div class="pc-tp-cell tp-name">Large fundraising events<br/><span style="font-size:0.78rem;color:var(--ink-fade);font-weight:400;">(galas)</span></div>
+          <div class="pc-tp-cell tp-freq">Frequently</div>
+          <div class="pc-tp-cell tp-impact">Some</div>
+          <div class="pc-tp-cell tp-why">Personal validation, social status</div>
+          <div class="pc-tp-cell tp-effort">Very high</div>
+        </div>
+        <div class="pc-tp-row">
+          <div class="pc-tp-cell tp-name">Small group events<br/><span style="font-size:0.78rem;color:var(--ink-fade);font-weight:400;">(salons)</span></div>
+          <div class="pc-tp-cell tp-freq">Occasionally</div>
+          <div class="pc-tp-cell tp-impact">Some</div>
+          <div class="pc-tp-cell tp-why">Focused interest, social status</div>
+          <div class="pc-tp-cell tp-effort">High</div>
+        </div>
+        <div class="pc-tp-row tp-row-strong">
+          <div class="pc-tp-cell tp-name">Site visits</div>
+          <div class="pc-tp-cell tp-freq">Rarely</div>
+          <div class="pc-tp-cell tp-impact tp-impact-strong">Strong</div>
+          <div class="pc-tp-cell tp-why">Focused interest, sense of connection, finding a sense of purpose</div>
+          <div class="pc-tp-cell tp-effort">Medium/low</div>
+        </div>
+        <p class="pc-tp-foot">The two <em>Strong-impact</em> rows are both <em>Rarely</em>-frequency. Galas, the most frequent touchpoint, are <em>Some</em>-impact at <em>Very high</em> effort. The mismatch between impact and frequency was the loudest finding in the data &mdash; and the foundation of the recommendations below.</p>
+      </div>
+
+      <aside class="pc-placeholder">
+        <strong>Figma artifact pending (Divya)</strong>
+        The original version of this comparison was a fully designed Figma table with iconography for each touchpoint type and a heat-map gradient on the Impact and Effort columns. Once Divya pulls that asset down, we can either swap it in as a static image at the bottom of this section, or restyle this HTML table to match the Figma version.
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ §04 — the directions ============ -->
+  <section class="pc-sec pc-dir-section">
+    <div class="pc-sec-inner">
+      <div class="reveal">
+        <span class="pc-sec-eyebrow"><span class="num">iv.</span> what we told pratham to do</span>
+        <h2 class="pc-sec-title">Six directions out of the diagnosis.</h2>
+        <p class="pc-sec-deck">Half of these were systems work (the way the org runs day-to-day). The other half were experience work (the way donors meet the org). Together they answered the three problems above without trying to replace any of Pratham&rsquo;s existing strengths.</p>
+      </div>
+
+      <div class="pc-dir-grid reveal delay-1">
+        <article class="pc-dir">
+          <div class="pc-dir-num">i.</div>
+          <h3 class="pc-dir-h">Build a system to simplify and speed up digital asset creation.</h3>
+          <p class="pc-dir-d">Chapter leaders were spending hours re-making the same images, decks, and one-pagers. A small shared asset system would free up that time for donor work.</p>
+        </article>
+        <article class="pc-dir">
+          <div class="pc-dir-num">ii.</div>
+          <h3 class="pc-dir-h">Find and build automations for existing processes.</h3>
+          <p class="pc-dir-d">Post-event follow-up, tax-receipt cadence, and the lapsed-donor outreach loop were all being run by hand. Automating the rote bits would let the team spend their attention where it actually moved the journey.</p>
+        </article>
+        <article class="pc-dir">
+          <div class="pc-dir-num">iii.</div>
+          <h3 class="pc-dir-h">Expand systems for donors to volunteer non-monetary assets.</h3>
+          <p class="pc-dir-d">Several Connected and Deepened donors wanted to give time, skill, or network access &mdash; not just money &mdash; and Pratham had no formal channel for it. Building one would broaden how donors could deepen.</p>
+        </article>
+        <article class="pc-dir">
+          <div class="pc-dir-num">iv.</div>
+          <h3 class="pc-dir-h">Build ways for passionate donors to engage more deeply.</h3>
+          <p class="pc-dir-d">Includes the <strong>&ldquo;Humans of Pratham&rdquo; series</strong> &mdash; donor-led storytelling, in donors&rsquo; own words, surfaced to other donors at earlier stages of their journey. The deepest donors were a content asset Pratham wasn&rsquo;t using.</p>
+        </article>
+        <article class="pc-dir is-headline">
+          <div class="pc-dir-num">v.</div>
+          <h3 class="pc-dir-h">Identify &amp; strengthen the experiences that already moved people in.</h3>
+          <p class="pc-dir-d">The site visit was the strongest single thing Pratham had &mdash; <em>Strong</em> impact, but <em>Rarely</em>-frequency. The recommendation was to build out a <strong>digital site-visit program (the DLV program)</strong> that gave a larger set of donors access to the same seminal experience, without the trip cost. Same moment, more vehicles.</p>
+        </article>
+        <article class="pc-dir">
+          <div class="pc-dir-num">vi.</div>
+          <h3 class="pc-dir-h">Create measures beyond &ldquo;donation in the last 12 months.&rdquo;</h3>
+          <p class="pc-dir-d">Add depth signals &mdash; site-visit attendance, multi-year retention, publication engagement, inter-chapter referrals, family-level involvement &mdash; and report them alongside dollars. Sort by relationship, not by amount.</p>
+        </article>
+      </div>
+
+      <aside class="pc-placeholder">
+        <strong>Figma artifact pending (Divya)</strong>
+        The original deck rendered each of these six directions as an illustrated card. Once those illustrations are pulled from Figma we can place them inside each card above &mdash; either as a small icon top-right, or as a full-bleed image at the top. Layout is ready for either.
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ closing ============ -->
+  <div class="pc-cuts-out">
+    <a href="pratham.html" class="pc-cuts-cta pc-cuts-cta--main">&larr; back to the main page (the rings)</a>
+  </div>
+
+  <section class="cs-closing">
+    <span class="cs-closing-label">your move</span>
+    <h3>Need to <em>rebuild a donor journey</em>? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="convegenius.html">next case study: convegenius <span class="arrow">&rarr;</span></a>
+  </section>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: #FAF7F2;
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 0.78rem;
+    color: #8892A0;
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: #E91E7B; }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+<script>
+  // reveal observer
+  (function() {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>

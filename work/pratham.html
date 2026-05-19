@@ -427,9 +427,71 @@
 }
 
 .pr-rings-stage { min-width: 320px; }
+
+/* cuts-switch pill — top-right, mirrors klydo/agemo pattern */
+.cuts-switch {
+  position: fixed;
+  top: 5.5rem; right: 1.25rem;
+  z-index: 480;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.55rem 0.4rem 0.85rem;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(44, 53, 68, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+.cuts-switch-label {
+  font-family: 'Caveat', cursive;
+  font-size: 1rem;
+  color: #54606F;
+  margin-right: 0.25rem;
+}
+.cuts-switch-here {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2C3544;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #FFF3B8;
+  animation: prCutsHere 3.2s ease-in-out infinite;
+}
+@keyframes prCutsHere {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(242, 183, 5, 0); }
+  50%      { box-shadow: 0 0 0 6px rgba(242, 183, 5, 0.18); }
+}
+.cuts-switch-btn {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #2C3544;
+  text-decoration: none;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  background: #FAF7F2;
+  transition: background 200ms ease, color 200ms ease;
+}
+.cuts-switch-btn:hover { background: #E8A500; color: #fff; }
+@media (max-width: 720px) {
+  .cuts-switch {
+    top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
+    box-shadow: 0 -8px 20px -8px rgba(44, 53, 68, 0.18), 0 10px 24px -10px rgba(44, 53, 68, 0.18);
+  }
+  .cuts-switch-label { display: none; }
+}
 </style>
 </head>
 <body class="work-page">
+
+  <!-- cuts switcher — quick jump to the process cut -->
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">two cuts</span>
+    <span class="cuts-switch-here">main</span>
+    <a href="pratham-cut-process.html" class="cuts-switch-btn">process</a>
+  </div>
 
   <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
@@ -596,10 +658,10 @@
     <div class="inner">
       <img class="logo-inset" src="../images/work/pratham/logo.webp" alt="PrathamUSA">
       <p class="name">a case study — pratham</p>
-      <h1>How do you find the moments that make your people fall in love — and how do you replicate them when circumstances change?</h1>
+      <h1>Pratham&rsquo;s longest donors remembered the same shift &mdash; the day the org stopped being a cause and became a room of people doing the work.</h1>
       <div class="lede">
-        <p>Our client was the large nonprofit, PrathamUSA, who saw a catastrophic drop in donations in 2020 and going into 2021 — with fundraising galas eviscerated and many of the $2,000–$10,000 donors with them. These donors were the feeder source of Pratham's super-committed, $10,000+ donors, and a few years without them would hurt the organization for years to come.</p>
-        <p>We engaged with Pratham on this problem to determine what brought donors in at different levels, what caused them to increase their donations, and what could be done to re-create the donor journey in the new post-2020 world.</p>
+        <p>PrathamUSA had lost most of their $2K&ndash;$10K donor base in 2020. Galas were eviscerated; the feeder for the org&rsquo;s $10K-for-life donors was disappearing.</p>
+        <p>We took the question on: what moves a donor from a first check to a decades-long commitment? Talking to chapter organizers, retained majors, and lapsed donors, the same answer came back in different shapes &mdash; for one it was sitting with mothers making contextual math materials, for another watching a teacher work a one-room classroom, for another meeting a child. The vehicle was almost always a site visit. The thing that mattered wasn&rsquo;t the trip &mdash; it was finally being able to see the org work as a specific, human thing instead of a cause.</p>
       </div>
       <div class="meta-bar">
         <ul class="cs-services">
@@ -938,7 +1000,7 @@
           "Lapsed major donors from 2019 who are still on the list.",
           "Chapter board members early in their tenure."
         ],
-        recommendation: "Get every Connected donor to a site visit in India within 24 months. This is the ring where site visits demonstrably move people inward toward Deepened Connection and eventually Permanent Bond — and it's the ring where the information-flow breakdown was costing Pratham the most donors."
+        recommendation: "Get every Connected donor into a room with the actual work — a site visit in India is the strongest vehicle, but the operative thing isn't the trip, it's the moment the org stops being a cause and becomes a specific room of people. This is where the information-flow breakdown was costing Pratham the most donors, and it's the ring where designed exposure to the real work moves people inward most reliably."
       }
     },
     {
@@ -1001,7 +1063,7 @@
     label: "The person at the center",
     shortTagline: "Why Joyus rebuilt the dashboard around this human.",
     deepDive: {
-      meaning: "Pratham's donors come in at different levels, stay for different reasons, and fall in love at different speeds. Before this engagement, the org grouped them by annual gift size. After, by where they stood in this diagram.\n\nClick any ring to read who lives there, what Pratham could see about them before and after, and the one process change that moved them inward."
+      meaning: "Pratham's donors come in at different levels, fall in love at different specifics, and stay for different reasons. Before this engagement, the org grouped them by annual gift size. After, by where they stood in this diagram — closer to the center meaning closer to the work, not closer to the biggest check.\n\nClick any ring to read who lives there, what Pratham could see about them before and after, and the one process change that moved them inward."
     }
   };
 
