@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Meet the founders of Joyus Studio — Kahran Singh and Divya Tak. Design, behavioral science, and storytelling for businesses building something that matters.">
+  <meta name="description" content="Joyus Studio — a design, experience, and storytelling studio. Small core, wide bench. We work the overlap of design, behavioral science, and storytelling for founders and mission-driven teams.">
   <meta property="og:title" content="About — Joyus Studio">
-  <meta property="og:description" content="Meet the founders of Joyus Studio — Kahran Singh and Divya Tak. Design, behavioral science, and storytelling for businesses building something that matters.">
+  <meta property="og:description" content="Joyus Studio — a design, experience, and storytelling studio. Small core, wide bench. We work the overlap of design, behavioral science, and storytelling for founders and mission-driven teams.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/about.html">
@@ -74,40 +74,7 @@
     .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
     .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
 
-    /* === PHILOSOPHY STRIP === */
-    .philosophy {
-      position: relative;
-      background: var(--ink);
-      color: var(--bg);
-      padding: clamp(4rem, 9vh, 6rem) var(--x);
-      text-align: center;
-      overflow: hidden;
-    }
-    .philosophy p {
-      max-width: 900px;
-      margin: 0 auto;
-      font-size: clamp(1.5rem, 3vw, 2.4rem);
-      font-weight: 500;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-    }
-    .philosophy p em {
-      font-style: italic;
-      color: var(--yellow);
-      font-weight: 600;
-    }
-    .philosophy .dp1 { width: 80px; height: 80px; top: 18%; left: 8%; background: var(--pink); opacity: 0.5; }
-    .philosophy .dp2 { width: 24px; height: 24px; top: 65%; right: 12%; background: var(--cyan); }
-    .philosophy .dp3 { width: 14px; height: 14px; top: 30%; right: 22%; background: var(--yellow); }
-
-    /* === FOUNDERS === */
-    .founders {
-      position: relative;
-      padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(4rem, 8vh, 6rem);
-      overflow: hidden;
-    }
-    .founders-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 3; }
-    /* .section-label base comes from styles.css (dot follows --accent). */
+    /* === SHARED section-h2 === */
     .section-h2 {
       font-weight: 700;
       letter-spacing: -0.035em;
@@ -118,67 +85,210 @@
     }
     .section-h2 em { font-style: italic; color: var(--pink); }
 
-    .founder {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: clamp(2rem, 4vw, 4rem);
-      align-items: start;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--rule);
+    /* === SELECTED WORK — marquee band (paradigm from work/index.html) === */
+    .selected-work {
+      position: relative;
+      padding: clamp(4rem, 8vh, 6rem) 0 clamp(3rem, 6vh, 5rem);
+      overflow: hidden;
     }
-    .founder:last-of-type { border-bottom: 0; }
+    .selected-work-head {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 var(--x);
+      position: relative;
+      z-index: 3;
+    }
+    .selected-work .section-label::before { background: var(--pink); }
+    .sw-foot {
+      max-width: 1200px;
+      margin: 2rem auto 0;
+      padding: 0 var(--x);
+      display: flex;
+      justify-content: flex-end;
+    }
+    .sw-foot a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--pink);
+      padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .sw-foot a:hover { color: var(--pink); }
+
+    .marquee {
+      display: flex;
+      width: max-content;
+      gap: 2rem;
+      will-change: transform;
+      align-items: stretch;
+      position: relative;
+      z-index: 3;
+      padding: 0 var(--x);
+      cursor: grab;
+      touch-action: pan-y;
+    }
+    .marquee.is-dragging { cursor: grabbing; }
+    .marquee.is-dragging * { pointer-events: none; }
+
+    .card {
+      flex-shrink: 0;
+      position: relative;
+      height: 280px;
+      width: 340px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #1a1f29;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      cursor: pointer;
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      box-shadow: 0 6px 22px rgba(20, 24, 32, 0.08);
+    }
+    .card.wide  { width: 540px; }
+    .card.tight { width: 240px; }
+    .card.mega  { width: 680px; }
+    .card:hover {
+      transform: translate(-6px, -6px) rotate(var(--tilt, 0deg));
+      box-shadow: 14px 14px 0 var(--pink);
+    }
+    .marquee.is-dragging .card {
+      transform: rotate(var(--tilt, 0deg)) !important;
+      box-shadow: 0 6px 22px rgba(20, 24, 32, 0.08) !important;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(20, 24, 32, 0.78) 0%, rgba(20, 24, 32, 0) 100%);
+      pointer-events: none;
+    }
+    .card-name {
+      position: absolute;
+      left: 20px; right: 20px; bottom: 18px;
+      z-index: 2;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      color: #fff;
+      line-height: 1;
+    }
+    .card-sticker {
+      position: absolute;
+      top: 14px;
+      z-index: 3;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 6px 11px;
+      border-radius: 100px;
+      box-shadow: 0 4px 14px rgba(20, 24, 32, 0.18);
+      color: var(--ink);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .card-sticker.right  { right: -6px; transform: rotate(6deg); }
+    .card-sticker.left   { left: -6px;  transform: rotate(-5deg); }
+    .card-sticker.yellow { background: var(--yellow); }
+    .card-sticker.pink   { background: var(--pink); color: #fff; }
+    .card-sticker.cyan   { background: var(--cyan); }
+
+    /* === FOUNDERS — side-by-side === */
+    .founders {
+      position: relative;
+      padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(4rem, 8vh, 6rem);
+      overflow: hidden;
+    }
+    .founders-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 3; }
+    .founders-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 5vw, 5rem);
+      align-items: start;
+    }
+    .founder {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
     .founder-photo {
-      width: 100%; aspect-ratio: 1 / 1;
+      width: 100%;
+      max-width: 320px;
+      aspect-ratio: 1 / 1;
       border-radius: 12px;
       object-fit: cover;
       background: var(--rule);
     }
-    .founder-meta { margin-top: 1rem; }
     .founder-name {
       font-size: clamp(1.5rem, 2.4vw, 2rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.1;
+      margin-top: 0.25rem;
     }
     .founder-role {
       font-family: var(--hand);
       font-size: 1.25rem;
       color: var(--pink);
-      margin-top: 0.25rem;
+      margin-top: 0.1rem;
     }
     .founder-bio p {
-      font-size: clamp(1rem, 1.3vw, 1.1rem);
+      font-size: clamp(1rem, 1.2vw, 1.05rem);
       line-height: 1.65;
       color: var(--ink-soft);
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
     }
     .founder-bio p:last-child { margin-bottom: 0; }
+    .founder-projects {
+      margin-top: 0.5rem;
+    }
+    .founder-projects-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-fade);
+      margin-bottom: 0.75rem;
+    }
+    .founder-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .founder-chip {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 0.5rem 0.85rem;
+      border: 1.5px solid var(--rule);
+      border-radius: 999px;
+      background: #fff;
+      transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    }
+    .founder-chip:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+      transform: translateY(-1px);
+    }
+    .founder-chip-meta {
+      font-size: 0.72rem;
+      color: var(--ink-fade);
+      letter-spacing: 0.02em;
+    }
     .founders .dq1 { width: 140px; height: 140px; top: 6%; right: -50px; background: var(--cyan); opacity: 0.4; }
     .founders .dq2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
-
-    /* === HOW WE WORK === */
-    .how {
-      position: relative;
-      padding: clamp(4rem, 8vh, 6rem) var(--x);
-      background: var(--ink);
-      color: var(--bg);
-      overflow: hidden;
-    }
-    .how-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 3; }
-    .how .section-label { color: var(--bg); opacity: 0.7; }
-    .how .section-label::before { background: var(--cyan); }
-    .how .section-h2 { color: var(--bg); }
-    .how .section-h2 em { color: var(--cyan); }
-    .how p {
-      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
-      line-height: 1.65;
-      color: rgba(250, 247, 242, 0.82);
-      max-width: 60ch;
-      margin-bottom: 1.25rem;
-    }
-    .how p em { font-style: normal; color: var(--bg); font-weight: 500; }
-    .how .dh-1 { width: 100px; height: 100px; top: 10%; right: 4%; background: var(--pink); opacity: 0.5; }
-    .how .dh-2 { width: 28px; height: 28px; bottom: 18%; right: 22%; background: var(--yellow); }
 
     /* === VALUES === */
     .values {
@@ -297,9 +407,17 @@
     .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; background: var(--yellow); }
 
     /* === RESPONSIVE === */
+    @media (max-width: 860px) {
+      .founders-grid { grid-template-columns: 1fr; gap: clamp(3rem, 7vh, 4.5rem); }
+      .founder-photo { max-width: 280px; }
+    }
     @media (max-width: 720px) {
-      .founder { grid-template-columns: 1fr; gap: 1.25rem; }
-      .founder-photo { max-width: 240px; }
+      .card { height: 240px; width: 280px; }
+      .card.wide { width: 420px; }
+      .card.tight { width: 200px; }
+      .card.mega { width: 520px; }
+      .card-name { font-size: 1.25rem; }
+      .marquee { gap: 1.25rem; padding: 0 1.25rem; }
     }
   </style>
 </head>
@@ -472,81 +590,23 @@
     <span class="dot dh3 d-cyan"></span>
     <span class="dot dh4 d-pink"></span>
     <div class="hero-inner">
-      <p class="hero-eyebrow">two-person advisory &amp; design studio</p>
+      <p class="hero-eyebrow">design · experience · storytelling studio</p>
       <h1>About <em>Joyus</em></h1>
       <p class="hero-lede">
-        We're a two-person studio that helps startups and mission-driven companies build real relationships with the people they're trying to reach. We focus on <em>how people actually behave</em> — not how a spreadsheet says they should — and use that to help teams make smarter decisions.
+        Joyus is a studio that helps founders and mission-driven teams build real relationships with the people they're trying to reach. Our core is two — <em>Divya Tak and Kahran Singh</em> — and a wider bench of illustrators, animators, developers, and researchers we bring in when a project asks for it.
       </p>
       <p class="hero-lede">
-        Our thing is the overlap between design, behavioral science, and storytelling. Most agencies pick one. We do all three — and we've brought that perspective to companies across the US, UK, India, and Hong Kong.
+        Our work sits at the overlap of design, behavioral science, and storytelling. Most agencies pick one. We do all three — across the US, UK, India, and Hong Kong.
       </p>
       <p class="hero-aside">est. 2021 · made with care.</p>
     </div>
   </section>
 
-  <!-- PHILOSOPHY STRIP -->
-  <section class="philosophy">
-    <span class="dot dp1"></span>
-    <span class="dot dp2"></span>
-    <span class="dot dp3"></span>
-    <p>Good work starts with the <em>right question</em> — not the right answer.</p>
-  </section>
-
-  <!-- FOUNDERS -->
-  <section class="founders">
-    <span class="dot dq1"></span>
-    <span class="dot dq2"></span>
-    <div class="founders-inner">
-      <p class="section-label">our founders</p>
-      <h2 class="section-h2">Two people. <em>Three disciplines.</em></h2>
-
-      <div class="founder">
-        <div>
-          <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo" loading="lazy" width="800" height="800">
-          <div class="founder-meta">
-            <h3 class="founder-name">Kahran Singh</h3>
-            <p class="founder-role">co-founder, strategy</p>
-          </div>
-        </div>
-        <div class="founder-bio">
-          <p>Kahran brings product design, product marketing, and strategic storytelling to Joyus. With over a decade of experience across education, travel, technology, and consumer goods — working across the US, UK, EU, and India — he's built a unique perspective on problem-solving and an ability to adapt to wildly different markets and client needs.</p>
-          <p>As an active angel investor with deep connections to both the Seattle and Indian startup ecosystems, Kahran works closely with CEOs and founders to find clarity in their messaging and build lasting relationships with the people who matter most to their business. He holds a B.Sc. in Computer Science from Tufts University.</p>
-        </div>
-      </div>
-
-      <div class="founder">
-        <div>
-          <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo" loading="lazy" width="800" height="800">
-          <div class="founder-meta">
-            <h3 class="founder-name">Divya Tak</h3>
-            <p class="founder-role">co-founder, design</p>
-          </div>
-        </div>
-        <div class="founder-bio">
-          <p>Divya is an artist at heart, storyteller in the head, with designer hands. Her background spans experience design, product design &amp; development, and game design. She uses the newest technology and insights into consumer behavior to craft culture-shaping experiences across industries including technology, consumer goods, and education.</p>
-          <p>Divya has a Master's degree in Physics from IIT Kharagpur and taught herself design by making a lot of things. Her illustrations — playful characters, intricate watercolors, and expressive line work — have become a signature of Joyus's creative output, from the Tatsam mental health app to Secret Senses packaging to The Line Before, an interactive poetry installation currently in development.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HOW WE WORK -->
-  <section class="how">
-    <span class="dot dh-1"></span>
-    <span class="dot dh-2"></span>
-    <div class="how-inner">
-      <p class="section-label">how we work</p>
-      <h2 class="section-h2">We work problems from <em>diagnosis to clarity</em>.</h2>
-      <p>We grew up at the intersection of design, product, and marketing. That means we don't hand off problems — we work them from diagnosis to clarity — and when it's the right fit, all the way to delivery. We pull from behavioral economics, gamification, and a lot of varied experience to help teams see what they couldn't see before — and when we build, to <em>make things that actually hold up</em>.</p>
-      <p>Every project is shaped around you — your stage, your constraints, your weird specific situation. We're just as happy doing a single focused session as a months-long partnership, and we adapt as we learn.</p>
-    </div>
-  </section>
-
-  <!-- VALUES -->
+  <!-- HOW WE WORK — the six things -->
   <section class="values">
     <span class="dot dv1"></span>
     <div class="values-inner">
-      <p class="section-label">what sets us apart</p>
+      <p class="section-label">how we work</p>
       <h2 class="section-h2">Six things we <em>care about</em>.</h2>
       <div class="values-grid">
         <div class="value">
@@ -577,13 +637,93 @@
     </div>
   </section>
 
+  <!-- SELECTED WORK — marquee band (same paradigm as work/index.html) -->
+  <section class="selected-work band" data-color="pink">
+    <div class="selected-work-head">
+      <p class="section-label">selected work</p>
+      <h2 class="section-h2">A few we're <em>proud of</em>.</h2>
+    </div>
+    <div class="marquee" data-speed="50" data-dir="-1">
+      <a class="card mega" href="work/klydo.html" data-bg="images/work/klydo.jpg" style="--tilt: 1.0deg;">
+        <span class="card-sticker yellow right">★ studio favourite</span>
+        <span class="card-name">Klydo</span>
+      </a>
+      <a class="card" href="work/tatsam.html" data-bg="images/work/tatsam.jpg" style="--tilt: -0.9deg;">
+        <span class="card-sticker cyan left">2024 in flight</span>
+        <span class="card-name">Tatsam</span>
+      </a>
+      <a class="card tight" href="work/pratham.html" data-bg="images/work/pratham.jpg" style="--tilt: -0.6deg;">
+        <span class="card-name">Pratham USA</span>
+      </a>
+      <a class="card" href="work/xtdb.html" data-bg="images/work/xtdb.jpg" style="--tilt: 0.5deg;">
+        <span class="card-name">XTDB</span>
+      </a>
+      <a class="card tight" href="work/gliitch.html" data-bg="images/work/gliitch.jpg" style="--tilt: -1.4deg;">
+        <span class="card-name">Gliitch</span>
+      </a>
+      <a class="card" href="work/convegenius.html" data-bg="images/work/convegenius.jpg" style="--tilt: 0.8deg;">
+        <span class="card-name">ConveGenius</span>
+      </a>
+      <a class="card tight" href="work/rachna-nivas.html" data-bg="images/work/rachna-nivas.jpg" style="--tilt: -0.7deg;">
+        <span class="card-name">Rachna Nivas</span>
+      </a>
+      <a class="card" href="work/tomboyx.html" data-bg="images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
+        <span class="card-name">TomboyX</span>
+      </a>
+      <a class="card" href="work/secret-senses.html" data-bg="images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
+        <span class="card-name">Secret Senses</span>
+      </a>
+      <a class="card" href="work/agemo.html" data-bg="images/work/agemo.jpg" style="--tilt: -0.5deg;">
+        <span class="card-sticker pink right">behind the scenes →</span>
+        <span class="card-name">Agemo</span>
+      </a>
+      <!-- duplicates so the marquee can loop seamlessly -->
+      <a class="card mega" href="work/klydo.html" data-bg="images/work/klydo.jpg" style="--tilt: 1.0deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-sticker yellow right">★ studio favourite</span>
+        <span class="card-name">Klydo</span>
+      </a>
+      <a class="card" href="work/tatsam.html" data-bg="images/work/tatsam.jpg" style="--tilt: -0.9deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-sticker cyan left">2024 in flight</span>
+        <span class="card-name">Tatsam</span>
+      </a>
+      <a class="card tight" href="work/pratham.html" data-bg="images/work/pratham.jpg" style="--tilt: -0.6deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">Pratham USA</span>
+      </a>
+      <a class="card" href="work/xtdb.html" data-bg="images/work/xtdb.jpg" style="--tilt: 0.5deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">XTDB</span>
+      </a>
+      <a class="card tight" href="work/gliitch.html" data-bg="images/work/gliitch.jpg" style="--tilt: -1.4deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">Gliitch</span>
+      </a>
+      <a class="card" href="work/convegenius.html" data-bg="images/work/convegenius.jpg" style="--tilt: 0.8deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">ConveGenius</span>
+      </a>
+      <a class="card tight" href="work/rachna-nivas.html" data-bg="images/work/rachna-nivas.jpg" style="--tilt: -0.7deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">Rachna Nivas</span>
+      </a>
+      <a class="card" href="work/tomboyx.html" data-bg="images/work/tomboyx.jpg" style="--tilt: 1.0deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">TomboyX</span>
+      </a>
+      <a class="card" href="work/secret-senses.html" data-bg="images/work/secret-senses.jpg" style="--tilt: 0.7deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-name">Secret Senses</span>
+      </a>
+      <a class="card" href="work/agemo.html" data-bg="images/work/agemo.jpg" style="--tilt: -0.5deg;" aria-hidden="true" tabindex="-1">
+        <span class="card-sticker pink right">behind the scenes →</span>
+        <span class="card-name">Agemo</span>
+      </a>
+    </div>
+    <div class="sw-foot">
+      <a href="work/">see all our work →</a>
+    </div>
+  </section>
+
   <!-- CREATIONS -->
   <section class="creations">
     <span class="dot dc1"></span>
     <span class="dot dc2"></span>
     <div class="creations-inner">
       <p class="section-label">things we make &amp; explore</p>
-      <h2 class="section-h2">Beyond client work — <em>what keeps us curious</em>.</h2>
+      <h2 class="section-h2">What keeps us <em>curious</em>.</h2>
       <p class="creations-lede">A podcast, comics, a poetry installation, and a few small experiments along the way.</p>
       <div class="creations-grid">
         <a href="comics/index.html" class="creation">
@@ -614,6 +754,58 @@
     </div>
   </section>
 
+  <!-- FOUNDERS — side-by-side, project chips -->
+  <section class="founders">
+    <span class="dot dq1"></span>
+    <span class="dot dq2"></span>
+    <div class="founders-inner">
+      <p class="section-label">our founders</p>
+      <h2 class="section-h2">The two of <em>us</em>.</h2>
+
+      <div class="founders-grid">
+        <div class="founder">
+          <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo" loading="lazy" width="800" height="800">
+          <div>
+            <h3 class="founder-name">Kahran Singh</h3>
+            <p class="founder-role">co-founder</p>
+          </div>
+          <div class="founder-bio">
+            <p>Kahran tends to pull a project toward its first honest sentence — the framing the founder hasn't said out loud yet. A decade across education, travel, technology, and consumer goods (US, UK, EU, India) means he's allergic to plans that only work in slide form.</p>
+            <p>An active angel investor with ties in both the Seattle and Indian startup ecosystems, he sits closest to the CEO conversation — clarity in messaging, decisions under uncertainty, and the hand-off from strategy into shipped product. B.Sc. Computer Science, Tufts.</p>
+          </div>
+          <div class="founder-projects">
+            <p class="founder-projects-label">recent on</p>
+            <div class="founder-chips">
+              <a class="founder-chip" href="work/klydo-cut-strategy.html">Klydo <span class="founder-chip-meta">— strategy</span></a>
+              <a class="founder-chip" href="work/pratham.html">Pratham USA <span class="founder-chip-meta">— positioning</span></a>
+              <a class="founder-chip" href="work/xtdb.html">XTDB <span class="founder-chip-meta">— developer story</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="founder">
+          <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo" loading="lazy" width="800" height="800">
+          <div>
+            <h3 class="founder-name">Divya Tak</h3>
+            <p class="founder-role">co-founder</p>
+          </div>
+          <div class="founder-bio">
+            <p>Divya tends to pull a project toward the world it lives in — the texture, the cast of characters, the moments people will remember. Experience design, product, game design, and an illustration practice that's become a Joyus signature.</p>
+            <p>Master's in Physics from IIT Kharagpur; design taught by making a lot of things. Her hand shows up across the studio — Tatsam's mental-health flows, Secret Senses' packaging, The Line Before's interactive poetry. The studio's craft floor is hers.</p>
+          </div>
+          <div class="founder-projects">
+            <p class="founder-projects-label">recent on</p>
+            <div class="founder-chips">
+              <a class="founder-chip" href="work/tatsam.html">Tatsam <span class="founder-chip-meta">— product</span></a>
+              <a class="founder-chip" href="work/secret-senses.html">Secret Senses <span class="founder-chip-meta">— packaging</span></a>
+              <a class="founder-chip" href="work/rachna-nivas.html">Rachna Nivas <span class="founder-chip-meta">— brand</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CLOSING -->
   <section class="closing">
     <span class="dot dx1"></span>
@@ -625,6 +817,153 @@
   </section>
 
   </main>
+
+  <script>
+    /* Lazy-load card background images via IntersectionObserver. Cards carry
+       their image URL in data-bg; we only apply the background-image when the
+       card enters (or comes within 600px of) the viewport. */
+    (function(){
+      const cards = document.querySelectorAll('.card[data-bg]');
+      if (!cards.length) return;
+      if (!('IntersectionObserver' in window)) {
+        cards.forEach(c => { c.style.backgroundImage = "url('" + c.dataset.bg + "')"; });
+        return;
+      }
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const card = entry.target;
+            card.style.backgroundImage = "url('" + card.dataset.bg + "')";
+            io.unobserve(card);
+          }
+        });
+      }, { rootMargin: '600px' });
+      cards.forEach(c => io.observe(c));
+    })();
+  </script>
+
+  <script>
+    /* Tape-bands marquee engine. Auto-advances; hovers slow to 25%;
+       click-and-drag scrubs; horizontal trackpad / shift+wheel offsets;
+       click is suppressed after a drag of >4px. prefers-reduced-motion
+       holds auto-scroll at 0 while keeping drag/click navigation intact. */
+    (function(){
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      document.querySelectorAll('.band').forEach(initBand);
+
+      function initBand(section){
+        const track = section.querySelector('.marquee');
+        if (!track) return;
+        const baseSpeed = parseFloat(track.dataset.speed) || 60;
+        const dir = parseFloat(track.dataset.dir) || -1;
+        const speed = reduceMotion ? 0 : baseSpeed * dir;
+
+        let contentWidth = 0;
+        let offset = 0;
+        let lastT = performance.now();
+        let hovered = false;
+        let dragging = false;
+        let dragStartX = 0;
+        let dragStartOffset = 0;
+        let moved = false;
+        let activePointerId = null;
+
+        const measure = () => { contentWidth = track.scrollWidth / 2; };
+        const ready = () => {
+          measure();
+          offset = contentWidth * 0.5;
+          requestAnimationFrame(tick);
+        };
+
+        if (document.readyState === 'complete') ready();
+        else window.addEventListener('load', ready, { once: true });
+        let resizeTimer = null;
+        window.addEventListener('resize', () => {
+          if (resizeTimer) clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(() => { resizeTimer = null; measure(); }, 100);
+        });
+
+        section.addEventListener('mouseenter', () => { hovered = true; });
+        section.addEventListener('mouseleave', () => { hovered = false; });
+
+        track.addEventListener('pointerdown', (e) => {
+          if (e.pointerType === 'mouse' && e.button !== 0) return;
+          dragging = true;
+          moved = false;
+          dragStartX = e.clientX;
+          dragStartOffset = offset;
+          activePointerId = e.pointerId;
+          try { track.setPointerCapture(e.pointerId); } catch(_) {}
+          track.classList.add('is-dragging');
+        });
+
+        track.addEventListener('pointermove', (e) => {
+          if (!dragging) return;
+          const dx = e.clientX - dragStartX;
+          if (Math.abs(dx) > 4) moved = true;
+          offset = dragStartOffset - dx;
+        });
+
+        const endDrag = () => {
+          if (!dragging) return;
+          dragging = false;
+          track.classList.remove('is-dragging');
+          try { if (activePointerId !== null) track.releasePointerCapture(activePointerId); } catch(_) {}
+          activePointerId = null;
+          if (moved) {
+            track.classList.add('just-dragged');
+            setTimeout(() => track.classList.remove('just-dragged'), 60);
+          }
+        };
+        track.addEventListener('pointerup', (e) => {
+          const wasMove = moved;
+          endDrag();
+          if (wasMove) return;
+          const realTarget = document.elementFromPoint(e.clientX, e.clientY);
+          const link = realTarget && realTarget.closest && realTarget.closest('a[href]');
+          if (link && track.contains(link)) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) {
+              window.open(link.href, '_blank', 'noopener,noreferrer');
+            } else {
+              window.location.href = link.href;
+            }
+          }
+        });
+        track.addEventListener('pointercancel', endDrag);
+        track.addEventListener('lostpointercapture', endDrag);
+
+        track.addEventListener('click', (e) => {
+          if (track.classList.contains('just-dragged')) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, true);
+
+        section.addEventListener('wheel', (e) => {
+          const useDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX
+                         : (e.shiftKey ? e.deltaY : 0);
+          if (useDelta !== 0) {
+            e.preventDefault();
+            offset += useDelta;
+          }
+        }, { passive: false });
+
+        function tick(t){
+          const dt = Math.min((t - lastT) / 1000, 0.1);
+          lastT = t;
+          if (!dragging && contentWidth > 0) {
+            offset += speed * (hovered ? 0.25 : 1) * dt;
+          }
+          if (contentWidth > 0) {
+            while (offset >= contentWidth) offset -= contentWidth;
+            while (offset < 0) offset += contentWidth;
+            track.style.transform = 'translate3d(' + (-offset) + 'px, 0, 0)';
+          }
+          requestAnimationFrame(tick);
+        }
+      }
+    })();
+  </script>
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
