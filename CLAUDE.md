@@ -63,30 +63,20 @@ With the splash retired, **nothing populates `joyus_shape`**, so the script alwa
 
 If you see `<script src="shape-echo.js">` (or `../shape-echo.js`) in a page, it can be removed alongside the page's Firebase compat `<script>` tags. The file itself can be deleted once no page references it.
 
-## Page templates (three patterns)
+## Page templates (two patterns + WIP)
 
-1. **Homepage**: `index.html` — sparse 3-row grid stage (eyebrow / input / tagline) with decorative dots. Doesn't link `styles.css` (self-contained inline styles).
-2. **Editorial / hub / service / blog post**: left-aligned gradient hero (warm-gray → white), 640–680px body column, `.inline-card` for linked content refs, `.pull-quote` for big quotes. Each hub defines `--hub-accent` via `:root` or `body { --hub-accent: ... }`:
-   - `hub-story.html` = pink `#E91E7B`
-   - `hub-building.html` = cyan `#4FC4CF`
-   - `hub-behavior.html` = `#D4A843`
-   - `hub-play.html` = `#5BBD72`
-   - `hub-games.html` = `#8B5CF6` (purple)
-   - `hub-creative.html` = `#E8734A`
+1. **Homepage**: `index.html` — sparse 3-row grid stage (eyebrow / input / tagline) with decorative dots. Self-contained inline styles.
+2. **Modern editorial / grid / listing**: hero + body content + closing/foot. Links `styles.css` for tokens + primitives + body baseline; the page's own inline `<style>` carries the page-specific composition. Used by `services.html`, `podcast.html`, all `work/*`, all `podcast/*`. Set `<body data-accent="pink|cyan">`.
+3. **WIP (unmigrated)**: 6 hubs, 15 `thinking/*` essays, `comics/*`, `about.html`, `ai-workshops.html`, `services-old.html`, `404.html`. These wear the yellow `<div class="wip-banner">` sticker at the top. They link `styles.css` but their old class names (`.nav-bar`, `.footer` 4-col, `.hub-eyebrow`, etc.) no longer have rules there, so they render mostly unstyled until rebuilt. Migrate one at a time. `thinking/*.html` posts are heavily minified to near-single-line HTML — don't reformat them on a whim, the author maintains them that way; rebuild as a deliberate restructure.
 
-   `thinking/*.html` posts follow the same editorial pattern but are **heavily minified to near-single-line HTML with inline styles**. That's intentional — don't reformat them on a whim, the author maintains them that way.
-3. **Grid / listing**: `work/index.html`, `podcast.html`, `comics/index.html` — centered hero, card grids below. `services.html` uses a two-column `.capability` pattern with alternating image/text.
+### Two nav/footer generations (HTML-level — visual is unified by `styles.css`)
 
-### Two nav/footer generations (in-progress unification)
+At the HTML level, two nav/footer shapes still coexist; the **visual** system is unified by `styles.css`.
 
-There are currently two parallel chrome systems on the site:
+- **Modern partial** (`<nav class="nav">` + `.foot`): synced from `_partials/nav.html` and `_partials/foot.html`. Used by `index.html`, `services.html`, `podcast.html`, all `work/*`, all `podcast/*`, plus concept/prototype pages. To propagate partial changes: edit the partial, run `node scripts/sync-chrome.js`.
+- **Legacy hand-copied** (`<nav class="nav-bar">` + 4-column `<footer class="footer">`): on the ~28 WIP pages. These markup shapes no longer have CSS in `styles.css`, so they render as plain lists. The WIP banner says that's expected.
 
-- **Modern** (`<nav class="nav">` + `.foot`): synced from `_partials/nav.html` and `_partials/foot.html`. Used by `index.html`, `services.html`, `podcast.html`, all `work/*` pages, all `podcast/*` episode pages, and all concept/prototype pages. Space Grotesk, ink-soft text, thin one-line footer. To propagate changes: edit the partial, run `node scripts/sync-chrome.js`.
-- **Legacy** (`<nav class="nav-bar">` + 4-column `.footer`): hand-copied to ~31 pages — all 6 hubs, all 15 `thinking/*` essays, `comics/*`, `about.html`, `ai-workshops.html`, `services-old.html`, `404.html`. DM Sans, dark text, richer footer with Themes column linking the hubs.
-
-The legacy nav surfaces Comics + About + Themes; the modern nav drops all three. **This is the biggest open coherency issue.** Migration plan: bring legacy pages onto the partial system, with the modern partial extended to surface Comics. See "What I deliberately did NOT touch" in `.site-rebuild/audit-css-coherency.md` for the full path-A vs path-B vs path-C trade-off.
-
-`styles.css` supports legacy selectors too (`.site-nav`, `.navbar`, `.nav-inner`, `.nav-links`, `.logo-link`), so older pages using those names still style correctly.
+When a WIP page gets rebuilt, its nav and footer markup should be replaced with the partial markers (`<!--BEGIN:NAV--><!--END:NAV-->`, `<!--BEGIN:FOOT--><!--END:FOOT-->`); then re-run `sync-chrome.js` to inject the modern chrome.
 
 ## Firebase
 
@@ -103,9 +93,67 @@ All Firestore writes are best-effort (try/catch, silent on failure). The UI neve
 
 ## Design system
 
-- **Fonts**: DM Serif Display (headings), DM Sans (body), Caveat (script/accents)
-- **Colors** (`styles.css` `:root`): `--pink #E91E7B`, `--cyan #4FC4CF`, `--warm-gray #F5F3F0`, `--black #111214`
-- **Hero accent pattern**: gradient from `--warm-gray` to white, 8rem top padding (fits under the fixed nav)
+**`styles.css` is the canonical source of truth — one system, every page links it.** The old DM Serif / DM Sans / warm-gray editorial-wing system was retired on 2026-05-20; the legacy class definitions that used to live in `styles.css` were removed in the same pass. Pages that haven't been redesigned against the new system **wear a yellow `<div class="wip-banner">` sticker** immediately after `<body>` so the breakage reads as intentional — they look mostly unstyled (browser defaults + the new body font) until rebuilt. Migrate WIP pages one at a time. See `DESIGN-LANGUAGE.md` (repo root) for the full 2026-05-20 audit.
+
+### Tokens (in `styles.css :root`)
+
+| Token | Value | Role |
+|---|---|---|
+| `--bg` | `#FAF7F2` | Paper / page |
+| `--ink` | `#2C3544` | Headlines, body |
+| `--ink-soft` | `#54606F` | Secondary text |
+| `--ink-fade` | `#8892A0` | Tertiary / meta |
+| `--rule` | `rgba(44, 53, 68, 0.12)` | Hairlines |
+| `--pink` | `#E91E7B` | Primary accent |
+| `--cyan` | `#4FC4CF` | Secondary accent |
+| `--yellow` | `#F2C94A` | Tertiary accent (first-class) |
+| `--sans` | `'Space Grotesk'` | Everything |
+| `--hand` | `'Caveat'` | Asides, hand-notes |
+| `--x` | `clamp(1.5rem, 4vw, 3rem)` | Side-padding |
+
+No serif. Display sizes are large (4–10rem) with tight letter-spacing (~-0.04em).
+
+### Per-page accent (set on `<body data-accent="…">`)
+
+| Page / family | Accent |
+|---|---|
+| `index.html` (home) | `pink` |
+| `services.html` | `pink` |
+| `work/index.html`, all `work/*.html` | `pink` |
+| `podcast.html`, all `podcast/*.html` | `cyan` |
+| Reserved campaigns | `yellow` |
+
+The variation across pages is intentional — keep it static per page (don't randomize), and don't mix accents within one page. `--accent` resolves to the page's accent via the `body[data-accent]` rule in `styles.css`.
+
+### Primitives (all prefixed `.j-` to avoid colliding with existing inline `.hero` / `.card` / `.eyebrow` on modern pages)
+
+| Class | Purpose |
+|---|---|
+| `.j-hero` + `.j-hero__inner` / `__title` / `__kicker` | Unified hero for non-home pages |
+| `.j-eyebrow` | Section label with leading accent dot |
+| `.j-kicker` | Caveat hand-note |
+| `.j-pill` (+ `--solid`, `--active`) | Round-corner inline button/link |
+| `.j-card` (+ `--photo`, `--solid`, `--quote`, `--stat`) | Card primitive family |
+| `.j-dots` (+ `.j-dot--pink` / `--cyan` / `--yellow` / `--ink` / `--ring`) | Decorative ornament |
+| `.j-progress-thread` | Fixed gradient scroll indicator |
+| `.j-closing` (+ `__inner` / `__cta` / `__hint`) | End-of-page block, flows into `.foot` |
+| `.foot` | Footer (shared with `_partials/foot.html`) |
+| `.wip-banner` (+ `.wip-banner__note`) | The redesign sticker |
+
+When you reach for a card / pill / hero treatment that doesn't fit an existing variant, **add a variant to `styles.css`** rather than inventing inline — that's how design debt builds up. Update this table when you add new primitives.
+
+### Closing + footer = one design moment
+
+`.j-closing` and `.foot` are designed as a single end-of-page moment: same paper bg, the seam is invisible (the `.j-closing + .foot` rule kills the footer's top border and tightens the gap). When editing one, edit the other.
+
+### WIP banner
+
+```html
+<div class="wip-banner">WIP — to be redesigned <span class="wip-banner__note">we'll rework this page in the new system soon</span></div>
+```
+
+Drop it immediately after `<body>` on any unmigrated page. Remove it once the page has been rebuilt with the new primitives.
+
 - **Body column**: 640–680px max-width for editorial content, 960–1200px for grids
 
 ## Positioning

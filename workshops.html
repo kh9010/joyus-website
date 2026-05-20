@@ -17,6 +17,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
 <style>
   /* ───── Base — same tokens as services.html / podcast.html ───── */
   :root {
@@ -129,68 +130,6 @@
   .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
   .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
   .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
-
-  /* ───── PRICING LADDER (v3 strip — clean, calmly between hero and arcs) ───── */
-  .ladder-strip {
-    padding: clamp(2.5rem, 5vh, 3.5rem) var(--x);
-    border-bottom: 1px solid var(--rule);
-    background: #fff;
-  }
-  .ladder-strip-inner {
-    max-width: 1280px; margin: 0 auto;
-    display: grid;
-    grid-template-columns: 240px 1fr;
-    gap: clamp(1.5rem, 3vw, 3rem);
-    align-items: center;
-  }
-  .ladder-strip-label {
-    font-size: 0.72rem; font-weight: 600;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink-fade);
-    display: inline-flex; align-items: center; gap: 0.65rem;
-  }
-  .ladder-strip-label::before {
-    content: ""; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--ink);
-  }
-  .ladder-strip ul {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.25rem;
-  }
-  .ladder-strip li {
-    display: flex; flex-direction: column; gap: 0.25rem;
-    padding-left: 0.85rem;
-    border-left: 3px solid var(--lc, var(--pink));
-  }
-  .ladder-strip li:nth-child(1) { --lc: var(--pink); }
-  .ladder-strip li:nth-child(2) { --lc: var(--cyan); }
-  .ladder-strip li:nth-child(3) { --lc: var(--yellow); }
-  .ladder-strip .lab {
-    font-size: 0.7rem; letter-spacing: 0.14em;
-    text-transform: uppercase; font-weight: 600;
-    color: var(--ink-fade);
-  }
-  .ladder-strip .price {
-    font-family: var(--hand);
-    font-size: 1.55rem;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.1;
-  }
-  .ladder-strip .price em {
-    color: var(--lc, var(--pink));
-    font-style: normal;
-  }
-  .ladder-strip .scope {
-    font-size: 0.82rem;
-    color: var(--ink-soft);
-    line-height: 1.4;
-  }
-  @media (max-width: 720px) {
-    .ladder-strip-inner { grid-template-columns: 1fr; }
-  }
 
   /* ───── ARC BANDS (v1's saturated alternating bg energy) ───── */
   .arc {
@@ -377,6 +316,30 @@
   .arc-3 .arc-explain { color: rgba(44,53,68,0.78); border-left-color: rgba(44,53,68,0.2); }
   .arc-3 .arc-explain em { color: var(--ink); }
   .arc-3 .arc-label { color: rgba(44,53,68,0.65); }
+
+  /* Custom arc: text + single card side by side */
+  .arc-3-layout {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--x);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    position: relative; z-index: 3;
+  }
+  .arc-3-layout .arc-word { margin: 0.4rem 0 1.25rem; }
+  .arc-3-layout .arc-manifesto { margin-bottom: 1rem; }
+  .arc-3-layout .arc-explain {
+    padding-left: 1rem;
+    border-left: 2px solid currentColor;
+    margin-top: 1rem;
+    max-width: 60ch;
+  }
+  .arc-3-layout .poster { min-height: 280px; }
+  @media (max-width: 760px) {
+    .arc-3-layout { grid-template-columns: 1fr; gap: 2rem; }
+  }
   .arc-3 .poster { --accent: var(--yellow); }
 
   .arc .dot { opacity: 0.45; }
@@ -614,30 +577,6 @@
     <p class="hero-aside"><em>make complexity into a wonderland.</em></p>
   </section>
 
-  <!-- =========== PRICING LADDER =========== -->
-  <section class="ladder-strip">
-    <div class="ladder-strip-inner">
-      <span class="ladder-strip-label">how rooms are priced</span>
-      <ul>
-        <li>
-          <span class="lab">starter room</span>
-          <span class="price">from <em>$2k</em></span>
-          <span class="scope">3 hours · up to 10 people · flat fee</span>
-        </li>
-        <li>
-          <span class="lab">half-day team</span>
-          <span class="price">from <em>$5k</em></span>
-          <span class="scope">~4 hours · up to 12 people · deeper material</span>
-        </li>
-        <li>
-          <span class="lab">multi-day offsite</span>
-          <span class="price">from <em>$20k</em></span>
-          <span class="scope">leadership-sized · 1–2 days · by enquiry</span>
-        </li>
-      </ul>
-    </div>
-  </section>
-
   <!-- =========== ARC 1 — STRATEGY (paper bg, pink-led) =========== -->
   <article class="arc arc-1" id="strategy">
     <span class="dot ad1 d-pink"></span>
@@ -751,19 +690,17 @@
     </div>
   </article>
 
-  <!-- =========== ARC 3 — CUSTOM (cyan bg, ink text) =========== -->
+  <!-- =========== ARC 3 — CUSTOM (cyan bg, ink text) — text + card side by side =========== -->
   <article class="arc arc-3" id="custom">
     <span class="dot cd1 d-yellow"></span>
     <span class="dot cd2 d-pink"></span>
-    <div class="arc-head">
-      <div>
+    <div class="arc-3-layout">
+      <div class="arc-3-text">
         <div class="arc-label"><span class="dot-mark" style="background: var(--ink)"></span>03 — custom</div>
         <h2 class="arc-word">custom</h2>
+        <p class="arc-manifesto"><em>We love doing custom work.</em></p>
+        <p class="arc-explain">We'll put together custom rooms on storytelling, behavioral design, brand strategy, and product narratives. <em>Tell us what's at stake and your timeframe</em> — we'll send a brief back inside a week.</p>
       </div>
-      <p class="arc-manifesto"><em>We love doing custom work.</em></p>
-      <p class="arc-explain">We'll put together custom rooms on storytelling, behavioral design, brand strategy, and product narratives. <em>Tell us what's at stake and your timeframe</em> — we'll send a brief back inside a week.</p>
-    </div>
-    <div class="poster-grid">
 
       <a class="poster" href="mailto:hello@joyus.studio?subject=A%20custom%20workshop">
         <span class="poster-no">01</span>
@@ -775,7 +712,6 @@
           <span class="poster-cta">write to us <span aria-hidden="true">→</span></span>
         </div>
       </a>
-
     </div>
   </article>
 
