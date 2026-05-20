@@ -16,269 +16,380 @@
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <style>
-    .about-hero {
-      padding: 8rem 2rem 5rem;
-      background: var(--warm-gray, #F5F3F0);
+    :root {
+      --bg: #FAF7F2;
+      --ink: #2C3544;
+      --ink-soft: #54606F;
+      --ink-fade: #8892A0;
+      --rule: rgba(44, 53, 68, 0.12);
+      --pink: #E91E7B;
+      --cyan: #4FC4CF;
+      --yellow: #F2C94A;
+      --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+      --hand: 'Caveat', cursive;
+      --x: clamp(1.5rem, 4vw, 3rem);
     }
-    .about-hero .inner {
-      max-width: 740px;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
-    .about-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1.25rem;
-      color: #111;
-    }
-    .about-hero p {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.8;
-      margin-bottom: 1rem;
-    }
-    .about-hero p:last-child { margin-bottom: 0; }
 
-    .philosophy-strip {
-      background: #1a1a1a;
-      padding: 4rem 2rem;
+    /* === Decorative dots — signature element === */
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .d-pink { background: var(--pink); }
+    .d-cyan { background: var(--cyan); }
+    .d-yellow { background: var(--yellow); }
+    .d-ink { background: var(--ink); }
+
+    /* === HERO === */
+    .hero {
+      position: relative;
+      padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3.5rem, 7vh, 6rem);
+      overflow: hidden;
+    }
+    .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 3; }
+    .hero-eyebrow {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink-soft);
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 9px; height: 9px;
+      border-radius: 50%; background: var(--pink);
+    }
+    .hero h1 {
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      line-height: 0.95;
+      font-size: clamp(2.75rem, 7vw, 5.5rem);
+      color: var(--ink);
+      max-width: 18ch;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--pink);
+    }
+    .hero-lede {
+      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+      line-height: 1.55;
+      color: var(--ink-soft);
+      max-width: 60ch;
+      margin-top: 1.75rem;
+    }
+    .hero-lede em { font-style: normal; color: var(--ink); font-weight: 500; }
+    .hero-aside {
+      font-family: var(--hand);
+      font-size: clamp(1.4rem, 2vw, 1.7rem);
+      color: var(--ink-soft);
+      margin-top: 2rem;
+      transform: rotate(-1deg);
+      display: inline-block;
+    }
+    .hero .dh1 { width: 120px; height: 120px; top: 18%; right: -40px; opacity: 0.5; }
+    .hero .dh2 { width: 60px; height: 60px; top: 70%; right: 30%; }
+    .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
+    .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
+
+    /* === PHILOSOPHY STRIP === */
+    .philosophy {
+      position: relative;
+      background: var(--ink);
+      color: var(--bg);
+      padding: clamp(4rem, 9vh, 6rem) var(--x);
       text-align: center;
+      overflow: hidden;
     }
-    .philosophy-strip p {
-      max-width: 700px;
+    .philosophy p {
+      max-width: 900px;
       margin: 0 auto;
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.3rem, 3vw, 1.7rem);
-      color: white;
-      line-height: 1.6;
+      font-size: clamp(1.5rem, 3vw, 2.4rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.25;
     }
+    .philosophy p em {
+      font-style: italic;
+      color: var(--yellow);
+      font-weight: 600;
+    }
+    .philosophy .dp1 { width: 80px; height: 80px; top: 18%; left: 8%; background: var(--pink); opacity: 0.5; }
+    .philosophy .dp2 { width: 24px; height: 24px; top: 65%; right: 12%; background: var(--cyan); }
+    .philosophy .dp3 { width: 14px; height: 14px; top: 30%; right: 22%; background: var(--yellow); }
 
-    .founders-section {
-      padding: 5rem 2rem;
-      max-width: 960px;
-      margin: 0 auto;
+    /* === FOUNDERS === */
+    .founders {
+      position: relative;
+      padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(4rem, 8vh, 6rem);
+      overflow: hidden;
     }
-    .founders-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: #111;
+    .founders-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 3; }
+    .section-label {
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--ink-soft);
+      display: inline-flex; align-items: center; gap: 0.65rem;
+      margin-bottom: 1.25rem;
+    }
+    .section-label::before {
+      content: ''; width: 9px; height: 9px;
+      border-radius: 50%; background: var(--pink);
+    }
+    .section-h2 {
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.0;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--ink);
       margin-bottom: 3rem;
     }
-    .founder-photo {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      filter: grayscale(100%);
-      margin-bottom: 1rem;
-    }
+    .section-h2 em { font-style: italic; color: var(--pink); }
+
     .founder {
       display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 2.5rem;
-      margin-bottom: 3.5rem;
+      grid-template-columns: 280px 1fr;
+      gap: clamp(2rem, 4vw, 4rem);
       align-items: start;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--rule);
     }
-    .founder:last-child { margin-bottom: 0; }
+    .founder:last-of-type { border-bottom: 0; }
+    .founder-photo {
+      width: 100%; aspect-ratio: 1 / 1;
+      border-radius: 12px;
+      object-fit: cover;
+      background: var(--rule);
+    }
+    .founder-meta { margin-top: 1rem; }
     .founder-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      color: #111;
-      margin-bottom: 0.3rem;
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
     }
     .founder-role {
-      font-size: 0.85rem;
-      color: #999;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 0;
+      font-family: var(--hand);
+      font-size: 1.25rem;
+      color: var(--pink);
+      margin-top: 0.25rem;
     }
     .founder-bio p {
-      font-size: 1rem;
-      line-height: 1.8;
-      color: #555;
-      margin-bottom: 0.75rem;
-    }
-    .founder-bio p:last-child { margin-bottom: 0; }
-
-    .values-section {
-      padding: 5rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .values-section .inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .values-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: #111;
-      margin-bottom: 2.5rem;
-    }
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2.5rem;
-    }
-    .value h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .value p {
-      font-size: 0.95rem;
-      color: #666;
+      font-size: clamp(1rem, 1.3vw, 1.1rem);
       line-height: 1.65;
-    }
-
-    .approach-section {
-      padding: 5rem 2rem;
-    }
-    .approach-section .inner {
-      max-width: 780px;
-      margin: 0 auto;
-    }
-    .approach-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: #111;
-      margin-bottom: 1.5rem;
-    }
-    .approach-section p {
-      font-size: 1.05rem;
-      color: #444;
-      line-height: 1.85;
+      color: var(--ink-soft);
       margin-bottom: 1rem;
     }
+    .founder-bio p:last-child { margin-bottom: 0; }
+    .founders .dq1 { width: 140px; height: 140px; top: 6%; right: -50px; background: var(--cyan); opacity: 0.4; }
+    .founders .dq2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
 
-    .creations-section {
-      padding: 5rem 2rem;
-      background: var(--warm-gray, #F5F3F0);
+    /* === HOW WE WORK === */
+    .how {
+      position: relative;
+      padding: clamp(4rem, 8vh, 6rem) var(--x);
+      background: var(--ink);
+      color: var(--bg);
+      overflow: hidden;
     }
-    .creations-section .inner {
-      max-width: 960px;
-      margin: 0 auto;
+    .how-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 3; }
+    .how .section-label { color: var(--bg); opacity: 0.7; }
+    .how .section-label::before { background: var(--cyan); }
+    .how .section-h2 { color: var(--bg); }
+    .how .section-h2 em { color: var(--cyan); }
+    .how p {
+      font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+      line-height: 1.65;
+      color: rgba(250, 247, 242, 0.82);
+      max-width: 60ch;
+      margin-bottom: 1.25rem;
     }
-    .creations-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: #111;
-      margin-bottom: 0.5rem;
+    .how p em { font-style: normal; color: var(--bg); font-weight: 500; }
+    .how .dh-1 { width: 100px; height: 100px; top: 10%; right: 4%; background: var(--pink); opacity: 0.5; }
+    .how .dh-2 { width: 28px; height: 28px; bottom: 18%; right: 22%; background: var(--yellow); }
+
+    /* === VALUES === */
+    .values {
+      position: relative;
+      padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(4rem, 8vh, 6rem);
+      overflow: hidden;
     }
-    .creations-section .section-intro {
-      color: #666;
-      font-size: 1rem;
+    .values-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 3; }
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1.5rem, 2.5vw, 2rem);
+    }
+    .value {
+      position: relative;
+      padding: 2rem 1.75rem;
+      border: 1.5px solid var(--rule);
+      border-top: 6px solid var(--vc, var(--pink));
+      border-radius: 14px;
+      background: #fff;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+    }
+    .value:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--vc, var(--pink));
+    }
+    .value:nth-child(6n+1) { --vc: var(--pink); }
+    .value:nth-child(6n+2) { --vc: var(--cyan); }
+    .value:nth-child(6n+3) { --vc: var(--yellow); }
+    .value:nth-child(6n+4) { --vc: var(--ink); }
+    .value:nth-child(6n+5) { --vc: var(--pink); }
+    .value:nth-child(6n+6) { --vc: var(--cyan); }
+    .value h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.85rem;
+      color: var(--ink);
+    }
+    .value p {
+      font-size: 0.98rem;
+      line-height: 1.6;
+      color: var(--ink-soft);
+    }
+    .values .dv1 { width: 180px; height: 180px; top: -40px; right: -40px; background: var(--yellow); opacity: 0.3; }
+
+    /* === CREATIONS === */
+    .creations {
+      position: relative;
+      padding: clamp(4rem, 8vh, 6rem) var(--x);
+      background: var(--cyan);
+      overflow: hidden;
+    }
+    .creations-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 3; }
+    .creations .section-label { color: rgba(44, 53, 68, 0.65); }
+    .creations .section-label::before { background: var(--ink); }
+    .creations .section-h2 em { color: var(--white, #fff); }
+    .creations-lede {
+      font-family: var(--hand);
+      font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+      color: var(--ink);
       margin-bottom: 3rem;
+      max-width: 40ch;
     }
     .creations-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: clamp(1.5rem, 2.5vw, 2rem);
     }
-    .creation-card {
-      background: white;
-      border-radius: 12px;
-      padding: 2rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-    .creation-card h3 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.3rem;
-      color: #111;
-      margin-bottom: 0.3rem;
-    }
-    .creation-card .creation-type {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #E91E7B;
-      margin-bottom: 0.75rem;
-    }
-    .creation-card p {
-      font-size: 0.95rem;
-      color: #555;
-      line-height: 1.7;
-      margin-bottom: 0.75rem;
-    }
-    .creation-card a {
-      font-size: 0.85rem;
-      color: #E91E7B;
-      font-weight: 600;
-    }
-
-    .themes-section {
-      padding: 5rem 2rem;
-    }
-    .themes-section .inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .themes-section h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .themes-section .section-intro {
-      color: #666;
-      font-size: 1rem;
-      margin-bottom: 2rem;
-    }
-    .themes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
-    }
-    .theme-card {
-      background: var(--warm-gray, #F5F3F0);
-      border-radius: 8px;
-      padding: 1.25rem 1.5rem;
+    .creation {
+      position: relative;
+      padding: 2rem 1.75rem;
+      background: var(--bg);
+      border-radius: 14px;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
       text-decoration: none;
-      color: inherit;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      color: var(--ink);
+      display: flex; flex-direction: column;
+      min-height: 220px;
     }
-    .theme-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-      opacity: 1;
+    .creation:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 8px 8px 0 var(--ink);
     }
-    .theme-card h3 {
-      font-family: 'DM Serif Display', serif;
+    .creation-kind {
+      font-family: var(--hand);
       font-size: 1.1rem;
-      color: #111;
-      margin-bottom: 0.3rem;
-    }
-    .theme-card p {
-      font-family: 'Caveat', cursive;
-      font-size: 0.95rem;
-      color: #999;
-      margin-bottom: 0;
-    }
-
-    .about-cta {
-      padding: 5rem 2rem;
-      text-align: center;
-    }
-    .about-cta h2 {
-      font-family: 'Caveat', cursive;
-      font-size: 2.5rem;
-      color: #111;
+      color: var(--pink);
       margin-bottom: 0.5rem;
     }
-
-    @media (max-width: 640px) {
-      .founder { grid-template-columns: 1fr; gap: 0.75rem; }
-      .values-grid { grid-template-columns: 1fr; }
-      .creations-grid { grid-template-columns: 1fr !important; }
-      .themes-grid { grid-template-columns: 1fr; }
+    .creation h3 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 0.85rem;
     }
+    .creation p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      flex: 1;
+    }
+    .creation-link {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--pink);
+      letter-spacing: 0.02em;
+    }
+    .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 5%; background: var(--pink); opacity: 0.4; }
+    .creations .dc2 { width: 24px; height: 24px; bottom: 12%; left: 8%; background: var(--yellow); }
+
+    /* === CLOSING === */
+    .closing {
+      position: relative;
+      padding: clamp(4rem, 9vh, 6.5rem) var(--x) clamp(2.5rem, 5vh, 4rem);
+      border-top: 1px solid var(--rule);
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .closing-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 3; }
+    .closing .section-label { margin-bottom: 1.25rem; }
+    .closing h2 {
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.05;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      color: var(--ink);
+    }
+    .closing h2 a {
+      color: inherit;
+      text-decoration: none;
+      background-image: linear-gradient(var(--pink), var(--pink));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 100% 6px;
+      padding-bottom: 0.1em;
+    }
+    .closing h2 a:hover {
+      background-image: linear-gradient(var(--ink), var(--ink));
+    }
+    .closing .hint {
+      font-family: var(--hand);
+      font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+      color: var(--ink-soft);
+      margin-top: 1.5rem;
+    }
+    .closing .dx1 { width: 100px; height: 100px; top: 12%; right: -20px; background: var(--yellow); opacity: 0.5; }
+    .closing .dx2 { width: 22px; height: 22px; bottom: 18%; left: 8%; background: var(--cyan); }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 720px) {
+      .founder { grid-template-columns: 1fr; gap: 1.25rem; }
+      .founder-photo { max-width: 240px; }
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible { outline: 2px solid var(--pink); outline-offset: 2px; }
+
+    .skip-to-content {
+      position: absolute;
+      left: -9999px; top: 0; z-index: 999;
+      padding: 0.75rem 1.5rem;
+      background: var(--pink); color: #fff;
+      font-weight: 600; font-size: 0.9rem;
+      border-radius: 0 0 8px 0;
+    }
+    .skip-to-content:focus { left: 0; }
   </style>
 </head>
 <body data-accent="pink">
-  <div class="wip-banner">WIP — to be redesigned <span class="wip-banner__note">we'll rework this page in the new system soon</span></div>
-
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
   <!--BEGIN:NAV-->
@@ -438,58 +549,90 @@
 <!--END:NAV-->
 
   <main id="main-content">
-  <section class="about-hero">
-    <div class="inner">
-      <p style="font-size:0.8rem;text-transform:uppercase;letter-spacing:2px;color:#999;margin-bottom:0.75rem;">Two-Person Advisory & Design Studio</p>
-      <h1>About Joyus</h1>
-      <p>We're a two-person studio that helps startups and mission-driven companies build real relationships with the people they're trying to reach. We focus on how people actually behave — not how a spreadsheet says they should — and use that to help teams make smarter decisions.</p>
-      <p>Our thing is the overlap between design, behavioral science, and storytelling. Most agencies pick one. We do all three — and we've brought that perspective to companies across the US, UK, India, and Hong Kong.</p>
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="dot dh1 d-pink"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-cyan"></span>
+    <span class="dot dh4 d-pink"></span>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">two-person advisory &amp; design studio</p>
+      <h1>About <em>Joyus</em></h1>
+      <p class="hero-lede">
+        We're a two-person studio that helps startups and mission-driven companies build real relationships with the people they're trying to reach. We focus on <em>how people actually behave</em> — not how a spreadsheet says they should — and use that to help teams make smarter decisions.
+      </p>
+      <p class="hero-lede">
+        Our thing is the overlap between design, behavioral science, and storytelling. Most agencies pick one. We do all three — and we've brought that perspective to companies across the US, UK, India, and Hong Kong.
+      </p>
+      <p class="hero-aside">est. 2021 · made with care.</p>
     </div>
   </section>
 
-  <section class="philosophy-strip">
-    <p>Good work starts with the right question — not the right answer.</p>
+  <!-- PHILOSOPHY STRIP -->
+  <section class="philosophy">
+    <span class="dot dp1"></span>
+    <span class="dot dp2"></span>
+    <span class="dot dp3"></span>
+    <p>Good work starts with the <em>right question</em> — not the right answer.</p>
   </section>
 
-  <section class="founders-section">
-    <h2>Our Founders</h2>
+  <!-- FOUNDERS -->
+  <section class="founders">
+    <span class="dot dq1"></span>
+    <span class="dot dq2"></span>
+    <div class="founders-inner">
+      <p class="section-label">our founders</p>
+      <h2 class="section-h2">Two people. <em>Three disciplines.</em></h2>
 
-    <div class="founder">
-      <div>
-        <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo" loading="lazy" width="800" height="800">
-        <h3 class="founder-name">Kahran Singh</h3>
-        <p class="founder-role">Co-founder, Strategy</p>
+      <div class="founder">
+        <div>
+          <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo" loading="lazy" width="800" height="800">
+          <div class="founder-meta">
+            <h3 class="founder-name">Kahran Singh</h3>
+            <p class="founder-role">co-founder, strategy</p>
+          </div>
+        </div>
+        <div class="founder-bio">
+          <p>Kahran brings product design, product marketing, and strategic storytelling to Joyus. With over a decade of experience across education, travel, technology, and consumer goods — working across the US, UK, EU, and India — he's built a unique perspective on problem-solving and an ability to adapt to wildly different markets and client needs.</p>
+          <p>As an active angel investor with deep connections to both the Seattle and Indian startup ecosystems, Kahran works closely with CEOs and founders to find clarity in their messaging and build lasting relationships with the people who matter most to their business. He holds a B.Sc. in Computer Science from Tufts University.</p>
+        </div>
       </div>
-      <div class="founder-bio">
-        <p>Kahran brings product design, product marketing, and strategic storytelling to Joyus. With over a decade of experience across education, travel, technology, and consumer goods — working across the US, UK, EU, and India — he's built a unique perspective on problem-solving and an ability to adapt to wildly different markets and client needs.</p>
-        <p>As an active angel investor with deep connections to both the Seattle and Indian startup ecosystems, Kahran works closely with CEOs and founders to find clarity in their messaging and build lasting relationships with the people who matter most to their business. He holds a B.Sc. in Computer Science from Tufts University.</p>
-      </div>
-    </div>
 
-    <div class="founder">
-      <div>
-        <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo" loading="lazy" width="800" height="800">
-        <h3 class="founder-name">Divya Tak</h3>
-        <p class="founder-role">Co-founder, Design</p>
-      </div>
-      <div class="founder-bio">
-        <p>Divya is an artist at heart, storyteller in the head, with designer hands. Her background spans experience design, product design & development, and game design. She uses the newest technology and insights into consumer behavior to craft culture-shaping experiences across industries including technology, consumer goods, and education.</p>
-        <p>Divya has a Master's degree in Physics from IIT Kharagpur and taught herself design by making a lot of things. Her illustrations — playful characters, intricate watercolors, and expressive line work — have become a signature of Joyus's creative output, from the Tatsam mental health app to Secret Senses packaging to The Line Before, an interactive poetry installation currently in development.</p>
+      <div class="founder">
+        <div>
+          <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo" loading="lazy" width="800" height="800">
+          <div class="founder-meta">
+            <h3 class="founder-name">Divya Tak</h3>
+            <p class="founder-role">co-founder, design</p>
+          </div>
+        </div>
+        <div class="founder-bio">
+          <p>Divya is an artist at heart, storyteller in the head, with designer hands. Her background spans experience design, product design &amp; development, and game design. She uses the newest technology and insights into consumer behavior to craft culture-shaping experiences across industries including technology, consumer goods, and education.</p>
+          <p>Divya has a Master's degree in Physics from IIT Kharagpur and taught herself design by making a lot of things. Her illustrations — playful characters, intricate watercolors, and expressive line work — have become a signature of Joyus's creative output, from the Tatsam mental health app to Secret Senses packaging to The Line Before, an interactive poetry installation currently in development.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="approach-section">
-    <div class="inner">
-      <h2>How We Work</h2>
-      <p>We grew up at the intersection of design, product, and marketing. That means we don't hand off problems — we work them from diagnosis to clarity — and when it's the right fit, all the way to delivery. We pull from behavioral economics, gamification, and a lot of varied experience to help teams see what they couldn't see before — and when we build, to make things that actually hold up.</p>
+  <!-- HOW WE WORK -->
+  <section class="how">
+    <span class="dot dh-1"></span>
+    <span class="dot dh-2"></span>
+    <div class="how-inner">
+      <p class="section-label">how we work</p>
+      <h2 class="section-h2">We work problems from <em>diagnosis to clarity</em>.</h2>
+      <p>We grew up at the intersection of design, product, and marketing. That means we don't hand off problems — we work them from diagnosis to clarity — and when it's the right fit, all the way to delivery. We pull from behavioral economics, gamification, and a lot of varied experience to help teams see what they couldn't see before — and when we build, to <em>make things that actually hold up</em>.</p>
       <p>Every project is shaped around you — your stage, your constraints, your weird specific situation. We're just as happy doing a single focused session as a months-long partnership, and we adapt as we learn.</p>
     </div>
   </section>
 
-  <section class="values-section">
-    <div class="inner">
-      <h2>What Sets Us Apart</h2>
+  <!-- VALUES -->
+  <section class="values">
+    <span class="dot dv1"></span>
+    <div class="values-inner">
+      <p class="section-label">what sets us apart</p>
+      <h2 class="section-h2">Six things we <em>care about</em>.</h2>
       <div class="values-grid">
         <div class="value">
           <h3>Interdisciplinary</h3>
@@ -519,73 +662,54 @@
     </div>
   </section>
 
-  <section class="creations-section">
-    <div class="inner">
-      <h2>Things We Make & Explore</h2>
-      <p class="section-intro">Beyond client work, we make things that keep us curious.</p>
+  <!-- CREATIONS -->
+  <section class="creations">
+    <span class="dot dc1"></span>
+    <span class="dot dc2"></span>
+    <div class="creations-inner">
+      <p class="section-label">things we make &amp; explore</p>
+      <h2 class="section-h2">Beyond client work — <em>what keeps us curious</em>.</h2>
+      <p class="creations-lede">A podcast, comics, a poetry installation, and a few small experiments along the way.</p>
       <div class="creations-grid">
-        <div class="creation-card">
-          <h3>Comics</h3>
-          <p class="creation-type">Hand-drawn comics by Divya Tak</p>
+        <a href="comics/index.html" class="creation">
+          <span class="creation-kind">comics</span>
+          <h3>Hand-drawn comics</h3>
           <p>Stories about friendship, connection, and the small absurdities of being human. Featuring Mr Curl and friends in tales about staying close, gossip that spirals, and plants that need saving.</p>
-          <a href="comics/index.html">Read the comics →</a>
-        </div>
-        <div class="creation-card">
+          <span class="creation-link">read the comics →</span>
+        </a>
+        <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener" class="creation">
+          <span class="creation-kind">installation — in development</span>
           <h3>The Line Before</h3>
-          <p class="creation-type">Interactive Installation — In Development</p>
-          <p>A touchscreen installation where visitors assemble a poem by choosing between emotional poles — drawing from 230 fragments written across several years of poetry. Each choice shapes a generative flower; every flower joins a living garden of all previous visitors' poems. Submitted to Science Gallery Bengaluru's INTELLIGENCE open call.</p>
-          <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener">See the project →</a>
-        </div>
-        <div class="creation-card">
+          <p>A touchscreen installation where visitors assemble a poem by choosing between emotional poles — drawing from 230 fragments. Each choice shapes a generative flower; every flower joins a living garden of all previous visitors' poems.</p>
+          <span class="creation-link">see the project →</span>
+        </a>
+        <a href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener" class="creation">
+          <span class="creation-kind">video — 2024</span>
           <h3>Poem Films</h3>
-          <p class="creation-type">Video — 2024</p>
-          <p>An experiment in how different visuals change the feeling of a poem. For each poem, two entirely different video interpretations — exploring how image transforms meaning. Exhibited at Boulder Public Library. Made with Divya Tak using MidJourney and Stable Diffusion.</p>
-          <a href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener">Watch the films →</a>
-        </div>
-        <div class="creation-card">
+          <p>An experiment in how different visuals change the feeling of a poem. For each poem, two entirely different video interpretations — exploring how image transforms meaning. Exhibited at Boulder Public Library.</p>
+          <span class="creation-link">watch the films →</span>
+        </a>
+        <a href="podcast.html" class="creation">
+          <span class="creation-kind">podcast</span>
           <h3>Thinking on Thinking</h3>
-          <p class="creation-type">Podcast</p>
-          <p>A podcast exploring behavior, its impact on work and life, and the real-life questions we've struggled with on our entrepreneurial journey. Hosted by Divya Tak & Kahran Singh. Available on Spotify, Apple Podcasts, and iHeart.</p>
-          <a href="podcast.html">Explore the podcast →</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="themes-section">
-    <div class="inner">
-      <h2>Explore by Theme</h2>
-      <p class="section-intro">Ideas we keep coming back to — across podcasts, comics, and client work.</p>
-      <div class="themes-grid">
-        <a href="hub-story.html" class="theme-card" style="border-left:3px solid #E91E7B;">
-          <h3>Finding Your Story</h3>
-          <p>Seven notes in a scale — find yours.</p>
-        </a>
-        <a href="hub-building.html" class="theme-card" style="border-left:3px solid #4FC4CF;">
-          <h3>Building Something That Matters</h3>
-          <p>Build right, not fast.</p>
-        </a>
-        <a href="hub-behavior.html" class="theme-card" style="border-left:3px solid #D4A843;">
-          <h3>How People Actually Behave</h3>
-          <p>Nine muses, nine impulses.</p>
-        </a>
-        <a href="hub-play.html" class="theme-card" style="border-left:3px solid #5BBD72;">
-          <h3>Play as Practice</h3>
-          <p>Ten sides is almost absurd — that's the point.</p>
-        </a>
-        <a href="hub-creative.html" class="theme-card" style="border-left:3px solid #E8734A;">
-          <h3>Drawing Outside the Lines</h3>
-          <p>The interesting stuff lives at the edges.</p>
+          <p>Behavior, work, and the real-life questions we've struggled with on our entrepreneurial journey. Hosted by Divya Tak &amp; Kahran Singh. Available on Spotify, Apple Podcasts, and iHeart.</p>
+          <span class="creation-link">explore the podcast →</span>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="about-cta">
-    <h2 style="font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);color:#111;margin-bottom:0.5rem;">Let's figure something out together.</h2>
-    <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">Tell us what you're working on — we'll tell you if we can help.</p>
-    <p><a href="mailto:hello@joyus.studio" class="cta-button">hello@joyus.studio</a></p>
+  <!-- CLOSING -->
+  <section class="closing">
+    <span class="dot dx1"></span>
+    <span class="dot dx2"></span>
+    <div class="closing-inner">
+      <p class="section-label">your move</p>
+      <h2>Let's figure something out <em><a href="mailto:hello@joyus.studio">together</a></em>.</h2>
+      <p class="hint">tell us what you're working on · we read everything · 48-hour reply</p>
+    </div>
   </section>
+
   </main>
 
   <!--BEGIN:FOOT-->
@@ -622,6 +746,5 @@
 </footer>
 <!--END:FOOT-->
 
-  
 </body>
 </html>
