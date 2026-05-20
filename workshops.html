@@ -19,31 +19,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
 <style>
-  /* ───── Base — same tokens as services.html / podcast.html ───── */
-  :root {
-    --bg: #FAF7F2;
-    --ink: #2C3544;
-    --ink-soft: #54606F;
-    --ink-fade: #8892A0;
-    --rule: rgba(44, 53, 68, 0.12);
-    --pink: #E91E7B;
-    --cyan: #4FC4CF;
-    --yellow: #F2C94A;
-    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    --hand: 'Caveat', cursive;
-    --x: clamp(1.5rem, 4vw, 3rem);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  /* :root tokens + body baseline come from styles.css */
+  body { overflow-x: hidden; }
 
   .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
   .thread-fill {
@@ -66,17 +43,7 @@
     position: relative; overflow: hidden;
     border-bottom: 1px solid var(--rule);
   }
-  .hero-eyebrow {
-    font-size: 0.85rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--ink); margin-bottom: 2rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    position: relative; z-index: 2;
-  }
-  .hero-eyebrow::before {
-    content: ""; width: 12px; height: 12px;
-    border-radius: 50%; background: var(--pink);
-  }
+  /* .hero-eyebrow styles come from styles.css */
   .hero h1 {
     font-weight: 700;
     font-size: clamp(3rem, 8vw, 6.5rem);
@@ -157,6 +124,9 @@
     width: 9px; height: 9px;
     border-radius: 50%; display: inline-block;
   }
+  .arc-1 .dot-mark { background: var(--pink); }
+  .arc-2 .dot-mark { background: var(--cyan); }
+  .arc-3 .dot-mark { background: var(--ink); }
   .arc-word {
     font-weight: 700;
     letter-spacing: -0.045em;
@@ -352,40 +322,7 @@
   .arc-3 .cd1 { width: 380px; height: 380px; top: -10%; right: -10%; }
   .arc-3 .cd2 { width: 36px; height: 36px; top: 60%; right: 32%; }
 
-  /* ───── CLOSING (matches services.html / podcast.html exactly) ───── */
-  .closing {
-    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
-    position: relative; overflow: hidden;
-    border-top: 2px solid var(--ink);
-  }
-  .closing-label {
-    font-size: 0.78rem; font-weight: 500;
-    letter-spacing: 0.22em; text-transform: uppercase;
-    color: var(--ink-soft); margin-bottom: 1.25rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    position: relative; z-index: 2;
-  }
-  .closing-label::before {
-    content: ""; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--yellow);
-  }
-  .closing h3 {
-    font-weight: 600;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    letter-spacing: -0.02em; line-height: 1.15;
-    margin-bottom: 0.75rem; max-width: 720px;
-    position: relative; z-index: 2;
-  }
-  .closing h3 em { font-style: normal; color: var(--pink); }
-  .closing h3 a {
-    border-bottom: 3px solid var(--pink);
-    padding-bottom: 2px; color: var(--pink);
-  }
-  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-  .closing .hint {
-    display: block; font-size: 0.9rem; color: var(--ink-fade);
-    position: relative; z-index: 2;
-  }
+  /* .closing styles come from styles.css; page-local dot positions stay. */
   .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
   .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
   .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
@@ -398,14 +335,16 @@
   .hero { min-height: 60dvh; }
 </style>
 </head>
-<body>
+<body data-accent="pink">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
 
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
   <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
      Sync into pages by running:  node scripts/sync-chrome.js
-      → path prefix to repo root (e.g. "" or "../") -->
+      → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .nav {
     position: fixed;
@@ -419,7 +358,7 @@
     background: rgba(250, 247, 242, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
   }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
@@ -429,21 +368,21 @@
   }
   .nav .nav-links a {
     font-size: 0.92rem;
-    color: #54606F;
+    color: var(--ink-soft);
     text-decoration: none;
     font-weight: 400;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
     transition: color 0.2s, border-color 0.2s;
   }
-  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a:hover { color: var(--pink); }
   .nav .nav-links a.active {
-    color: #2C3544;
+    color: var(--ink);
     font-weight: 500;
-    border-bottom-color: #E91E7B;
+    border-bottom-color: var(--pink);
   }
-  .nav .nav-cta { color: #2C3544; font-weight: 500; }
-  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
 
   /* Hamburger button — hidden on desktop */
   .nav-toggle {
@@ -455,7 +394,7 @@
   }
   .nav-toggle span {
     display: block; width: 24px; height: 2px;
-    background: #2C3544; border-radius: 2px;
+    background: var(--ink); border-radius: 2px;
     position: absolute;
     transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
   }
@@ -482,8 +421,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -493,14 +432,14 @@
     .nav .nav-links a {
       font-size: 1.6rem;
       font-weight: 500;
-      color: #2C3544;
+      color: var(--ink);
     }
-    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -558,6 +497,7 @@
 </script>
 <!--END:NAV-->
 
+  <main id="main-content">
   <!-- =========== HERO =========== -->
   <section class="hero">
     <span class="dot dh1 d-pink"></span>
@@ -584,7 +524,7 @@
     <span class="dot ad3 d-cyan"></span>
     <div class="arc-head">
       <div>
-        <div class="arc-label"><span class="dot-mark" style="background: var(--pink)"></span>01 — strategic</div>
+        <div class="arc-label"><span class="dot-mark"></span>01 — strategic</div>
         <h2 class="arc-word">strategy</h2>
       </div>
       <p class="arc-manifesto">A room to make space for <em>the real problems</em>.</p>
@@ -635,7 +575,7 @@
     <span class="dot bd3 d-pink"></span>
     <div class="arc-head">
       <div>
-        <div class="arc-label"><span class="dot-mark" style="background: var(--cyan)"></span>02 — practical</div>
+        <div class="arc-label"><span class="dot-mark"></span>02 — practical</div>
         <h2 class="arc-word">practice</h2>
       </div>
       <p class="arc-manifesto">Building the working muscle. <em>Make AI work for you.</em></p>
@@ -696,7 +636,7 @@
     <span class="dot cd2 d-pink"></span>
     <div class="arc-3-layout">
       <div class="arc-3-text">
-        <div class="arc-label"><span class="dot-mark" style="background: var(--ink)"></span>03 — custom</div>
+        <div class="arc-label"><span class="dot-mark"></span>03 — custom</div>
         <h2 class="arc-word">custom</h2>
         <p class="arc-manifesto"><em>We love doing custom work.</em></p>
         <p class="arc-explain">We'll put together custom rooms on storytelling, behavioral design, brand strategy, and product narratives. <em>Tell us what's at stake and your timeframe</em> — we'll send a brief back inside a week.</p>
@@ -721,18 +661,20 @@
     <span class="dot dx2 d-cyan"></span>
     <span class="dot dx3 d-yellow"></span>
     <span class="closing-label">your move</span>
-    <h3>Have a room you want us to run? <em><a href="mailto:hello@joyus.studio?subject=Workshop%20inquiry">Be our friends.</a></em></h3>
+    <h2>Have a room you want us to run? <em><a href="mailto:hello@joyus.studio?subject=Workshop%20inquiry">Be our friends.</a></em></h2>
     <span class="hint">hello@joyus.studio · we read everything · 48-hour quote</span>
   </section>
+  </main>
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .foot {
     position: relative;
     z-index: 20;
-    background: #FAF7F2;
+    background: var(--bg);
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
@@ -742,13 +684,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
     font-size: 0.78rem;
-    color: #8892A0;
+    color: var(--ink-fade);
     letter-spacing: 0.05em;
   }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
   @media (max-width: 480px) {
     .foot { justify-content: flex-start; }
   }

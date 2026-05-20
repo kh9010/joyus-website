@@ -1,10 +1,11 @@
 <!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .foot {
     position: relative;
     z-index: 20;
-    background: #FAF7F2;
+    background: var(--bg);
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
@@ -14,13 +15,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
     font-size: 0.78rem;
-    color: #8892A0;
+    color: var(--ink-fade);
     letter-spacing: 0.05em;
   }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
   @media (max-width: 480px) {
     .foot { justify-content: flex-start; }
   }

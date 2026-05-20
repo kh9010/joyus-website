@@ -3,35 +3,23 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Thinking on Thinking — the Joyus Studio podcast. Behavior, work, creative practice, and the questions we've struggled with on our entrepreneurial journey. Hosted by Divya Tak and Kahran Singh.">
+<meta property="og:title" content="Thinking on Thinking — Joyus Studio Podcast">
+<meta property="og:description" content="The Joyus Studio podcast on behavior, work, and creative practice. Hosted by Divya Tak and Kahran Singh.">
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/podcast.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/podcast.html">
 <title>Thinking on Thinking · Joyus Studio</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --bg: #FAF7F2;
-    --ink: #2C3544;
-    --ink-soft: #54606F;
-    --ink-fade: #8892A0;
-    --rule: rgba(44, 53, 68, 0.12);
-    --pink: #E91E7B;
-    --cyan: #4FC4CF;
-    --yellow: #F2C94A;
-    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    --hand: 'Caveat', cursive;
-    --x: clamp(1.5rem, 4vw, 3rem);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  /* :root tokens + body baseline come from styles.css */
   img { max-width: 100%; display: block; }
 
   /* nav comes from /_partials/nav.html — synced via scripts/sync-chrome.js */
@@ -65,22 +53,7 @@
     overflow: hidden;
     border-bottom: 1px solid var(--rule);
   }
-  .hero-eyebrow {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 1.5rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    position: relative; z-index: 2;
-  }
-  .hero-eyebrow::before {
-    content: "";
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--pink);
-  }
+  /* .hero-eyebrow styles come from styles.css (dot follows --accent = cyan here) */
   .hero h1 {
     font-weight: 700;
     font-size: clamp(3rem, 9vw, 7rem);
@@ -131,21 +104,7 @@
     max-width: 1080px;
     margin: 0 auto;
   }
-  .featured-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    margin-bottom: 1.5rem;
-  }
-  .featured-label::before {
-    content: "";
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--yellow);
-  }
+  /* .featured-label styles come from styles.css */
   .featured-ep-no {
     font-family: var(--hand);
     font-size: clamp(3rem, 6vw, 5rem);
@@ -547,21 +506,7 @@
     text-align: center;
     border-top: 1px solid var(--rule);
   }
-  .subscribe-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    margin-bottom: 1rem;
-  }
-  .subscribe-label::before {
-    content: "";
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--pink);
-  }
+  /* .subscribe-label styles come from styles.css */
   .subscribe h2 {
     font-weight: 600;
     font-size: clamp(1.75rem, 3.5vw, 2.5rem);
@@ -599,73 +544,24 @@
   .pill:hover::before { color: var(--yellow); }
 
   /* ============ CLOSING ============ */
-  .closing {
-    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
-    position: relative;
-    overflow: hidden;
-    border-top: 2px solid var(--ink);
-    margin-top: 2rem;
-  }
+  /* .closing styles come from styles.css; only page-local dot positions stay. */
+  .closing { margin-top: 2rem; }
   .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
   .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
   .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
-  .closing-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 1.25rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    position: relative; z-index: 2;
-  }
-  .closing-label::before {
-    content: ""; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--yellow);
-  }
-  .closing h3 {
-    font-weight: 600;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 0.75rem;
-    max-width: 720px;
-    position: relative; z-index: 2;
-  }
-  .closing h3 em { font-style: normal; color: var(--pink); }
-  .closing h3 a {
-    border-bottom: 3px solid var(--pink);
-    padding-bottom: 2px;
-    color: var(--pink);
-  }
-  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-  .closing .hint {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--ink-fade);
-    position: relative; z-index: 2;
-  }
 
-  .foot {
-    padding: 1.5rem var(--x) 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
 </style>
 </head>
 <body data-accent="cyan">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
 
   <div class="thread"><div class="thread-fill" id="tf"></div></div>
 
   <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
      Sync into pages by running:  node scripts/sync-chrome.js
-      → path prefix to repo root (e.g. "" or "../") -->
+      → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .nav {
     position: fixed;
@@ -679,7 +575,7 @@
     background: rgba(250, 247, 242, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
   }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
@@ -689,21 +585,21 @@
   }
   .nav .nav-links a {
     font-size: 0.92rem;
-    color: #54606F;
+    color: var(--ink-soft);
     text-decoration: none;
     font-weight: 400;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
     transition: color 0.2s, border-color 0.2s;
   }
-  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a:hover { color: var(--pink); }
   .nav .nav-links a.active {
-    color: #2C3544;
+    color: var(--ink);
     font-weight: 500;
-    border-bottom-color: #E91E7B;
+    border-bottom-color: var(--pink);
   }
-  .nav .nav-cta { color: #2C3544; font-weight: 500; }
-  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
 
   /* Hamburger button — hidden on desktop */
   .nav-toggle {
@@ -715,7 +611,7 @@
   }
   .nav-toggle span {
     display: block; width: 24px; height: 2px;
-    background: #2C3544; border-radius: 2px;
+    background: var(--ink); border-radius: 2px;
     position: absolute;
     transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
   }
@@ -742,8 +638,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -753,14 +649,14 @@
     .nav .nav-links a {
       font-size: 1.6rem;
       font-weight: 500;
-      color: #2C3544;
+      color: var(--ink);
     }
-    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -818,6 +714,7 @@
 </script>
 <!--END:NAV-->
 
+  <main id="main-content">
   <!-- =========== HERO =========== -->
   <section class="hero">
     <span class="dot dh1 d-cyan"></span>
@@ -846,7 +743,8 @@
     <div class="player-wrap">
       <iframe
         src="https://open.spotify.com/embed/show/1tr060dblBf7kUvIQ1Qanz?utm_source=generator&theme=0"
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox allow-forms"
         loading="lazy"
         title="Thinking on Thinking — Spotify player">
       </iframe>
@@ -995,13 +893,13 @@
       <span class="aside">82 episodes · pick a thread or scroll the lot</span>
     </div>
 
-    <div class="bk-filters" role="tablist" aria-label="Filter episodes by theme">
-      <button type="button" class="bk-filter is-active" data-filter="all">recent</button>
-      <button type="button" class="bk-filter" data-filter="creativity">Creativity</button>
-      <button type="button" class="bk-filter" data-filter="why">Understanding why</button>
-      <button type="button" class="bk-filter" data-filter="growth">Personal growth</button>
-      <button type="button" class="bk-filter" data-filter="together">Working with people you love</button>
-      <button type="button" class="bk-filter" data-filter="ai">AI &amp; tech</button>
+    <div class="bk-filters" role="group" aria-label="Filter episodes by theme">
+      <button type="button" class="bk-filter is-active" data-filter="all" aria-pressed="true">recent</button>
+      <button type="button" class="bk-filter" data-filter="creativity" aria-pressed="false">Creativity</button>
+      <button type="button" class="bk-filter" data-filter="why" aria-pressed="false">Understanding why</button>
+      <button type="button" class="bk-filter" data-filter="growth" aria-pressed="false">Personal growth</button>
+      <button type="button" class="bk-filter" data-filter="together" aria-pressed="false">Working with people you love</button>
+      <button type="button" class="bk-filter" data-filter="ai" aria-pressed="false">AI &amp; tech</button>
     </div>
 
     <ul class="bk-list">
@@ -1232,10 +1130,9 @@
     <span class="subscribe-label">follow along</span>
     <h2><em>Subscribe on your app of choice.</em></h2>
     <div class="subscribe-pills">
-      <a class="pill" href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener">Spotify</a>
-      <a class="pill" href="https://podcasts.apple.com/us/podcast/id1636574012" target="_blank" rel="noopener">Apple Podcasts</a>
-      <a class="pill" href="https://www.iheart.com/podcast/" target="_blank" rel="noopener">iHeart</a>
-      <a class="pill" href="podcast.html">RSS / Feed</a>
+      <a class="pill" href="https://open.spotify.com/show/1tr060dblBf7kUvIQ1Qanz" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <a class="pill" href="https://podcasts.apple.com/us/podcast/id1636574012" target="_blank" rel="noopener noreferrer">Apple Podcasts</a>
+      <a class="pill" href="https://www.iheart.com/podcast/" target="_blank" rel="noopener noreferrer">iHeart</a>
     </div>
   </section>
 
@@ -1245,18 +1142,20 @@
     <span class="dot dx2 d-cyan"></span>
     <span class="dot dx3 d-yellow"></span>
     <span class="closing-label">your move</span>
-    <h3>A topic you wish someone was making an episode about? <em><a href="mailto:hello@joyus.studio">Tell us.</a></em></h3>
+    <h2>A topic you wish someone was making an episode about? <em><a href="mailto:hello@joyus.studio">Tell us.</a></em></h2>
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
+  </main>
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .foot {
     position: relative;
     z-index: 20;
-    background: #FAF7F2;
+    background: var(--bg);
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
@@ -1266,13 +1165,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
     font-size: 0.78rem;
-    color: #8892A0;
+    color: var(--ink-fade);
     letter-spacing: 0.05em;
   }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
   @media (max-width: 480px) {
     .foot { justify-content: flex-start; }
   }
@@ -1302,7 +1201,9 @@
           li.classList.toggle('is-hidden', !matches);
         });
         filters.forEach(f => {
-          f.classList.toggle('is-active', f.dataset.filter === theme);
+          const active = f.dataset.filter === theme;
+          f.classList.toggle('is-active', active);
+          f.setAttribute('aria-pressed', active ? 'true' : 'false');
         });
       }
 
