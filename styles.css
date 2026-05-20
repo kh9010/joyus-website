@@ -58,6 +58,19 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   outline-offset: 2px;
 }
 
+/* Visually hidden — offscreen text that screen readers still read.
+   Used for headings or labels that shouldn't appear in the visual design
+   but are needed for semantic structure (e.g. the homepage's <h1>). */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* Skip-to-content (accessibility) */
 .skip-to-content {
   position: absolute;
@@ -124,24 +137,44 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   pointer-events: none;
 }
 
-/* ── .j-eyebrow — uppercase label with leading accent dot ────────── */
+/* ── Eyebrow family — canonical, used across all pages.
+   Consolidates .hero-eyebrow / .closing-label / .featured-label /
+   .subscribe-label / .section-label / .j-eyebrow (which were duplicated
+   inline on every page). Same shape; dot color picks up --accent by
+   default. Per-variant overrides below for the section-specific dots. */
+.hero-eyebrow,
+.closing-label,
+.featured-label,
+.subscribe-label,
+.section-label,
 .j-eyebrow {
   display: inline-flex;
   align-items: center;
-  gap: 0.6rem;
-  font: 500 0.82rem / 1 var(--sans);
-  letter-spacing: 0.12em;
+  gap: 0.75rem;
+  font: 500 0.78rem / 1 var(--sans);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-soft);
-  margin: 0 0 2.5rem;
+  margin: 0 0 1.5rem;
+  position: relative;
+  z-index: 2;
 }
+.hero-eyebrow::before,
+.closing-label::before,
+.featured-label::before,
+.subscribe-label::before,
+.section-label::before,
 .j-eyebrow::before {
-  content: '';
-  width: 8px; height: 8px;
+  content: "";
+  width: 10px; height: 10px;
   border-radius: 50%;
   background: var(--accent);
   flex-shrink: 0;
 }
+/* Per-variant dot colors (overrides the --accent default) */
+.closing-label::before,
+.featured-label::before,
+.subscribe-label::before { background: var(--yellow); }
 
 /* ── .j-kicker — Caveat hand-note ────────────────────────────────── */
 .j-kicker {
@@ -280,37 +313,42 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .j-dots .j-dot--ink    { background: var(--ink); }
 .j-dots .j-dot--ring   { background: transparent; border: 2px solid currentColor; }
 
-/* ── .j-closing — end-of-page block (flows directly into .foot) ──── */
-.j-closing {
+/* ── .closing — canonical end-of-page block (the "your move" moment).
+   Consolidates the .closing family that was previously duplicated inline
+   on every page. Connected to .foot below as one design moment.        */
+.closing {
+  padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
   position: relative;
-  padding: 6rem var(--x) 3rem;
-  border-top: 1px solid var(--rule);
-  background: var(--bg);
+  overflow: hidden;
+  border-top: 2px solid var(--ink);
 }
-.j-closing__inner {
-  max-width: 1200px;
-  margin: 0 auto;
+.closing h3, .closing h2 {
+  font-weight: 600;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+  max-width: 720px;
+  position: relative;
+  z-index: 2;
 }
-.j-closing .j-eyebrow { margin-bottom: 1.5rem; }
-.j-closing__cta {
-  font: 700 clamp(2.5rem, 5vw, 4.5rem) / 1.05 var(--sans);
-  letter-spacing: -0.03em;
-  color: var(--ink);
-  margin: 0;
+.closing h3, .closing h2 em { font-style: normal; color: var(--pink); }
+.closing h3, .closing h2 a {
+  border-bottom: 3px solid var(--pink);
+  padding-bottom: 2px;
+  color: var(--pink);
 }
-.j-closing__cta a {
-  color: inherit;
-  background-image: linear-gradient(var(--accent), var(--accent));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 6px;
-  padding-bottom: 0.1em;
+.closing h3, .closing h2 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.closing .hint {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--ink-fade);
+  position: relative;
+  z-index: 2;
 }
-.j-closing__hint {
-  font: 400 clamp(1.2rem, 1.4vw, 1.5rem) / 1.3 var(--hand);
-  color: var(--ink-soft);
-  margin-top: 1.5rem;
-}
+/* Closing flows directly into the foot — kill the foot's top gap so they
+   read as one moment. */
+.closing + .foot { padding-top: 0.5rem; }
 
 /* ═══════════════════════════════════════════════════════════════════
    .foot — shared with `_partials/foot.html` (not prefixed because the

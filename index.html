@@ -3,36 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Joyus Studio — a two-person advisory and design studio. Tell us what you need; we'll help you figure it out.">
+<meta property="og:title" content="Joyus Studio">
+<meta property="og:description" content="A two-person advisory and design studio for businesses navigating complexity, uncertainty, and change.">
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/">
 <title>Joyus Studio</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
 <style>
-  :root {
-    --bg: #FAF7F2;
-    --ink: #2C3544;
-    --ink-soft: #54606F;
-    --ink-fade: #8892A0;
-    --rule: rgba(44, 53, 68, 0.12);
-    --pink: #E91E7B;
-    --cyan: #4FC4CF;
-    --yellow: #F2C94A;
-    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    --hand: 'Caveat', cursive;
-    --x: clamp(1.5rem, 4vw, 3rem);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    min-height: 100vh;
-  }
-  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  /* :root tokens + body baseline come from styles.css */
+  body { min-height: 100vh; }
 
   /* nav and foot styles come from /_partials/ — synced via scripts/sync-chrome.js */
 
@@ -86,25 +74,16 @@
 
   /* eyebrow pinned top-left of the hero (absolute so the stage can center
      in the full viewport, not between eyebrow and tagline) */
+  /* .hero-eyebrow base styles come from styles.css.
+     Homepage overrides: pin to top-left, yellow dot (not the page accent). */
   .hero-eyebrow {
     position: absolute;
     top: clamp(5rem, 10vh, 8rem);
     left: var(--x);
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin: 0;
-    display: inline-flex; align-items: center; gap: 0.6rem;
     z-index: 3;
+    margin: 0;
   }
-  .hero-eyebrow::before {
-    content: "";
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--yellow);
-  }
+  .hero-eyebrow::before { background: var(--yellow); }
 
   /* === V13: Sparse stage. Input is the center of gravity. ===
      The 1fr middle row centers it vertically; max-width cap keeps it
@@ -181,62 +160,6 @@
     align-self: center;
   }
   .hero-fill .submit:hover { color: var(--pink); transform: translateX(4px); }
-  .intent-wrap > .intent-box { display: none; }
-
-  /* INTENT BOX — the signature pill */
-  .intent-wrap {
-    max-width: 680px;
-    position: relative;
-    z-index: 20;
-    margin-bottom: 2rem;
-  }
-  .intent-annotation {
-    position: absolute;
-    bottom: calc(100% + 0.25rem);
-    left: 2rem;
-    font-family: var(--hand);
-    font-weight: 600;
-    font-size: 1.4rem;
-    color: var(--pink);
-    transform: rotate(-2deg);
-    line-height: 1.1;
-    pointer-events: none;
-  }
-  .intent-annotation::after {
-    content: "↓";
-    display: inline-block;
-    margin-left: 0.4rem;
-    font-family: var(--sans);
-    font-size: 1rem;
-    color: var(--pink);
-    transform: translateY(4px);
-  }
-
-  .intent-box {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border: 2px solid var(--ink);
-    border-radius: 12px;
-    box-shadow: 6px 6px 0 var(--pink);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-    padding: 0.35rem 0.45rem 0.35rem 1.5rem;
-    position: relative;
-  }
-  .intent-box::before {
-    content: "›";
-    color: var(--ink-fade);
-    font-size: 1.2rem;
-    margin-right: 0.5rem;
-    line-height: 1;
-    transform: translateY(-1px);
-    transition: color 0.25s;
-  }
-  .intent-box:focus-within {
-    box-shadow: 6px 6px 0 var(--cyan);
-    transform: translate(-1px, -1px);
-  }
-  .intent-box:focus-within::before { color: var(--pink); }
   #intentInput {
     flex: 1;
     border: 0;
@@ -249,46 +172,7 @@
     letter-spacing: -0.005em;
     min-width: 0;
   }
-  #intentInput::placeholder { color: #a9a49b; font-style: italic; }
-  .intent-arrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 8px;
-    background: var(--bg);
-    font-size: 1.1rem;
-    color: var(--ink);
-    flex-shrink: 0;
-    border: 0;
-    cursor: pointer;
-    transition: background 0.25s, color 0.25s, transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
-    font-family: inherit;
-  }
-  .intent-box:focus-within .intent-arrow {
-    background: var(--pink);
-    color: #fff;
-    transform: translateX(3px);
-  }
-
-  .intent-hint {
-    font-family: var(--hand);
-    font-size: 1.2rem;
-    color: var(--ink-soft);
-    margin-top: 0.85rem;
-    margin-left: 1rem;
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.4rem;
-  }
-  .intent-hint::before {
-    content: "";
-    display: inline-block;
-    width: 22px; height: 10px;
-    background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 10'><path d='M1 5 Q 8 0 14 5 T 21 5' stroke='%23E91E7B' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>") no-repeat center / contain;
-    transform: translateY(-3px);
-  }
+  #intentInput::placeholder { color: var(--ink-fade); font-style: italic; }
 
   /* SUGGESTIONS — sits flush under the input, in the hero-stage frame.
      Lighter than a form dropdown — feels like a list of ideas opening up. */
@@ -373,52 +257,11 @@
     color: var(--pink);
   }
 
-  /* ============ CLOSING ============ */
-  .closing {
-    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
-    position: relative;
-    overflow: hidden;
-    border-top: 2px solid var(--ink);
-  }
+  /* ============ CLOSING ============
+     .closing family styles come from styles.css; page-local dots only. */
   .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
   .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
   .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
-  .closing-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 1.25rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    position: relative; z-index: 2;
-  }
-  .closing-label::before {
-    content: ""; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--yellow);
-  }
-  .closing h3 {
-    font-weight: 600;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 0.75rem;
-    max-width: 720px;
-    position: relative; z-index: 2;
-  }
-  .closing h3 em { font-style: normal; color: var(--pink); }
-  .closing h3 a {
-    border-bottom: 3px solid var(--pink);
-    padding-bottom: 2px;
-    color: var(--pink);
-  }
-  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-  .closing .hint {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--ink-fade);
-    position: relative; z-index: 2;
-  }
 
   /* foot comes from /_partials/foot.html */
 
@@ -459,11 +302,13 @@
 </style>
 </head>
 <body data-accent="pink">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
 
   <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
      Sync into pages by running:  node scripts/sync-chrome.js
-      → path prefix to repo root (e.g. "" or "../") -->
+      → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .nav {
     position: fixed;
@@ -477,7 +322,7 @@
     background: rgba(250, 247, 242, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
   }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
@@ -487,21 +332,21 @@
   }
   .nav .nav-links a {
     font-size: 0.92rem;
-    color: #54606F;
+    color: var(--ink-soft);
     text-decoration: none;
     font-weight: 400;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
     transition: color 0.2s, border-color 0.2s;
   }
-  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a:hover { color: var(--pink); }
   .nav .nav-links a.active {
-    color: #2C3544;
+    color: var(--ink);
     font-weight: 500;
-    border-bottom-color: #E91E7B;
+    border-bottom-color: var(--pink);
   }
-  .nav .nav-cta { color: #2C3544; font-weight: 500; }
-  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
 
   /* Hamburger button — hidden on desktop */
   .nav-toggle {
@@ -513,7 +358,7 @@
   }
   .nav-toggle span {
     display: block; width: 24px; height: 2px;
-    background: #2C3544; border-radius: 2px;
+    background: var(--ink); border-radius: 2px;
     position: absolute;
     transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
   }
@@ -540,8 +385,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -551,14 +396,14 @@
     .nav .nav-links a {
       font-size: 1.6rem;
       font-weight: 500;
-      color: #2C3544;
+      color: var(--ink);
     }
-    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -616,6 +461,8 @@
 </script>
 <!--END:NAV-->
 
+  <main id="main-content">
+  <h1 class="visually-hidden">Joyus Studio — Tell us what you need</h1>
   <!-- =========== HERO — the intent moment =========== -->
   <section class="hero">
     <span class="dot dh1 d-pink"></span>
@@ -632,7 +479,7 @@
     <span class="hero-eyebrow">complexity · uncertainty · change · est. 2021</span>
 
     <div class="hero-stage">
-      <h1 class="hero-h1">i need…</h1>
+      <label class="hero-h1" for="intentInput">i need…</label>
       <form class="hero-fill" onsubmit="event.preventDefault();">
         <input id="intentInput" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="Tell us what you need" />
         <button class="submit" type="submit" aria-label="Submit">→</button>
@@ -672,18 +519,20 @@
     <span class="dot dx2 d-cyan"></span>
     <span class="dot dx3 d-yellow"></span>
     <span class="closing-label">your move</span>
-    <h3>Don't know what you need? <em><a href="mailto:hello@joyus.studio">Be our friends anyway.</a></em></h3>
+    <h2>Don't know what you need? <em><a href="mailto:hello@joyus.studio">Be our friends anyway.</a></em></h2>
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
+  </main>
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .foot {
     position: relative;
     z-index: 20;
-    background: #FAF7F2;
+    background: var(--bg);
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
@@ -693,13 +542,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
     font-size: 0.78rem;
-    color: #8892A0;
+    color: var(--ink-fade);
     letter-spacing: 0.05em;
   }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
   @media (max-width: 480px) {
     .foot { justify-content: flex-start; }
   }
@@ -727,43 +576,50 @@
       'to just think with someone',
       'a conversation worth listening to'
     ];
-    const TYPE_MS = 65;
-    const DELETE_MS = 28;
-    const HOLD_MS = 1800;
-    const GAP_MS = 350;
-    let pIdx = 0, cIdx = 0, typing = true;
 
-    function tick() {
-      // never overwrite while user is interacting
-      if (document.activeElement === input || input.value) {
-        setTimeout(tick, 600);
-        return;
-      }
-      const word = prompts[pIdx];
-      if (typing) {
-        cIdx++;
-        input.placeholder = word.slice(0, cIdx) + (cIdx < word.length ? '|' : '');
-        if (cIdx >= word.length) {
-          input.placeholder = word;
-          typing = false;
-          setTimeout(tick, HOLD_MS);
+    // Honor reduced-motion preference — show a single static prompt instead of cycling.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      input.placeholder = prompts[0];
+    } else {
+      const TYPE_MS = 65;
+      const DELETE_MS = 28;
+      const HOLD_MS = 1800;
+      const GAP_MS = 350;
+      let pIdx = 0, cIdx = 0, typing = true;
+
+      function tick() {
+        // never overwrite while user is interacting
+        if (document.activeElement === input || input.value) {
+          setTimeout(tick, 600);
           return;
         }
-        setTimeout(tick, TYPE_MS);
-      } else {
-        cIdx--;
-        input.placeholder = word.slice(0, cIdx) + (cIdx > 0 ? '|' : '');
-        if (cIdx <= 0) {
-          input.placeholder = '';
-          typing = true;
-          pIdx = (pIdx + 1) % prompts.length;
-          setTimeout(tick, GAP_MS);
-          return;
+        const word = prompts[pIdx];
+        if (typing) {
+          cIdx++;
+          input.placeholder = word.slice(0, cIdx) + (cIdx < word.length ? '|' : '');
+          if (cIdx >= word.length) {
+            input.placeholder = word;
+            typing = false;
+            setTimeout(tick, HOLD_MS);
+            return;
+          }
+          setTimeout(tick, TYPE_MS);
+        } else {
+          cIdx--;
+          input.placeholder = word.slice(0, cIdx) + (cIdx > 0 ? '|' : '');
+          if (cIdx <= 0) {
+            input.placeholder = '';
+            typing = true;
+            pIdx = (pIdx + 1) % prompts.length;
+            setTimeout(tick, GAP_MS);
+            return;
+          }
+          setTimeout(tick, DELETE_MS);
         }
-        setTimeout(tick, DELETE_MS);
       }
+      setTimeout(tick, 400);
     }
-    setTimeout(tick, 400);
   </script>
 
 </body>

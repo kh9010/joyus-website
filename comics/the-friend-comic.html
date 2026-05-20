@@ -441,7 +441,8 @@
   <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
      Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../") -->
+     ../ → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .nav {
     position: fixed;
@@ -455,7 +456,7 @@
     background: rgba(250, 247, 242, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
   }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
@@ -465,21 +466,21 @@
   }
   .nav .nav-links a {
     font-size: 0.92rem;
-    color: #54606F;
+    color: var(--ink-soft);
     text-decoration: none;
     font-weight: 400;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
     transition: color 0.2s, border-color 0.2s;
   }
-  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a:hover { color: var(--pink); }
   .nav .nav-links a.active {
-    color: #2C3544;
+    color: var(--ink);
     font-weight: 500;
-    border-bottom-color: #E91E7B;
+    border-bottom-color: var(--pink);
   }
-  .nav .nav-cta { color: #2C3544; font-weight: 500; }
-  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
 
   /* Hamburger button — hidden on desktop */
   .nav-toggle {
@@ -491,7 +492,7 @@
   }
   .nav-toggle span {
     display: block; width: 24px; height: 2px;
-    background: #2C3544; border-radius: 2px;
+    background: var(--ink); border-radius: 2px;
     position: absolute;
     transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
   }
@@ -518,8 +519,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -529,14 +530,14 @@
     .nav .nav-links a {
       font-size: 1.6rem;
       font-weight: 500;
-      color: #2C3544;
+      color: var(--ink);
     }
-    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -666,12 +667,13 @@
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .foot {
     position: relative;
     z-index: 20;
-    background: #FAF7F2;
+    background: var(--bg);
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
@@ -681,13 +683,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
     font-size: 0.78rem;
-    color: #8892A0;
+    color: var(--ink-fade);
     letter-spacing: 0.05em;
   }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
   @media (max-width: 480px) {
     .foot { justify-content: flex-start; }
   }

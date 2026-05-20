@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Case studies from Joyus Studio — work across brand, product, research, story, and growth for businesses building something that matters.">
+<meta property="og:title" content="Work — Joyus Studio">
+<meta property="og:description" content="Same studio. Five lenses. Brand, product, research, story, growth — case studies from Joyus Studio.">
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/work/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/work/">
 <title>Work · Joyus Studio</title>
+<link rel="icon" href="../favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -15,29 +25,8 @@
   C. Across brand, product, research, story, growth.
 -->
 <style>
-  :root {
-    --bg: #FAF7F2;
-    --ink: #2C3544;
-    --ink-soft: #54606F;
-    --ink-fade: #8892A0;
-    --rule: rgba(44, 53, 68, 0.12);
-    --pink: #E91E7B;
-    --cyan: #4FC4CF;
-    --yellow: #F2C94A;
-    --sans: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-    --x: clamp(1.5rem, 4vw, 3rem);
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: var(--sans);
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  /* :root tokens + body baseline come from styles.css */
+  body { overflow-x: hidden; }
   img { max-width: 100%; display: block; }
 
   /* ============ HERO — bold + spacious ============ */
@@ -50,22 +39,8 @@
     position: relative;
     overflow: hidden;
   }
-  .hero-eyebrow {
-    font-size: 0.85rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink);
-    margin-bottom: 2rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-    position: relative; z-index: 2;
-  }
-  .hero-eyebrow::before {
-    content: "";
-    width: 14px; height: 14px;
-    border-radius: 50%;
-    background: var(--yellow);
-  }
+  /* .hero-eyebrow base comes from styles.css; work/ uses a yellow dot. */
+  .hero-eyebrow::before { background: var(--yellow); }
   .hero h1 {
     font-weight: 700;
     font-size: clamp(4rem, 12vw, 10rem);
@@ -463,46 +438,11 @@
   }
 
 
-  /* ============ CLOSING ============ */
-  .closing {
-    position: relative;
-    z-index: 20;
-    padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem);
-    background: var(--bg);
-    border-top: 2px solid var(--ink);
-  }
-  .closing-label {
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    margin-bottom: 1.25rem;
-    display: inline-flex; align-items: center; gap: 0.75rem;
-  }
-  .closing-label::before {
-    content: ""; width: 10px; height: 10px;
-    border-radius: 50%; background: var(--cyan);
-  }
-  .closing h3 {
-    font-weight: 600;
-    font-size: clamp(1.75rem, 4vw, 2.75rem);
-    letter-spacing: -0.02em;
-    line-height: 1.15;
-    margin-bottom: 0.75rem;
-    max-width: 720px;
-  }
-  .closing h3 a {
-    border-bottom: 3px solid var(--pink);
-    padding-bottom: 2px;
-    color: var(--pink);
-  }
-  .closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-  .closing .hint {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--ink-fade);
-  }
+  /* ============ CLOSING ============
+     .closing family styles come from styles.css; work/ overrides:
+     z-index lifts above the marquees; cyan dot (not yellow). */
+  .closing { z-index: 20; background: var(--bg); }
+  .closing-label::before { background: var(--cyan); }
 
   @media (max-width: 720px) {
     .band { padding: 2.4rem 0 2.2rem; }
@@ -514,11 +454,13 @@
 </style>
 </head>
 <body data-accent="pink">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
 
   <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
      Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../") -->
+     ../ → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .nav {
     position: fixed;
@@ -532,7 +474,7 @@
     background: rgba(250, 247, 242, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
   }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
@@ -542,21 +484,21 @@
   }
   .nav .nav-links a {
     font-size: 0.92rem;
-    color: #54606F;
+    color: var(--ink-soft);
     text-decoration: none;
     font-weight: 400;
     padding-bottom: 2px;
     border-bottom: 1.5px solid transparent;
     transition: color 0.2s, border-color 0.2s;
   }
-  .nav .nav-links a:hover { color: #E91E7B; }
+  .nav .nav-links a:hover { color: var(--pink); }
   .nav .nav-links a.active {
-    color: #2C3544;
+    color: var(--ink);
     font-weight: 500;
-    border-bottom-color: #E91E7B;
+    border-bottom-color: var(--pink);
   }
-  .nav .nav-cta { color: #2C3544; font-weight: 500; }
-  .nav .nav-cta:hover { color: #E91E7B; }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
 
   /* Hamburger button — hidden on desktop */
   .nav-toggle {
@@ -568,7 +510,7 @@
   }
   .nav-toggle span {
     display: block; width: 24px; height: 2px;
-    background: #2C3544; border-radius: 2px;
+    background: var(--ink); border-radius: 2px;
     position: absolute;
     transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
   }
@@ -595,8 +537,8 @@
       align-items: flex-start;
       justify-content: flex-start;
       gap: 1.75rem;
-      background: #ffffff;
-      border-left: 4px solid #2C3544;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
       box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
       transform: translateX(100%);
       transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
@@ -606,14 +548,14 @@
     .nav .nav-links a {
       font-size: 1.6rem;
       font-weight: 500;
-      color: #2C3544;
+      color: var(--ink);
     }
-    .nav .nav-links a.active { border-bottom-color: #E91E7B; }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
-  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" /></a>
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
   <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
@@ -671,6 +613,7 @@
 </script>
 <!--END:NAV-->
 
+  <main id="main-content">
   <!-- =========== HERO =========== -->
   <section class="hero">
     <span class="dot d-pink   drift"      style="top: 18%; right: 8%;  width: 220px; height: 220px; opacity: 0.85;"></span>
@@ -701,21 +644,21 @@
       <span class="band-name">Brand &amp; Identity</span>
     </div>
     <div class="marquee right" data-speed="55" data-dir="-1">
-      <a class="card mega" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: 1.0deg;">
+      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 1.0deg;">
         <span class="card-sticker yellow right">★ studio favourite</span>
         <span class="card-name">Klydo</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: 1.0deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact note invert" style="--tilt: 1.3deg;">
         <span class="fact-kicker">recurring problem</span>
         <span class="fact-statement">Naming the thing the founder can&rsquo;t say out loud yet.</span>
       </div>
-      <div class="card tight is-coming-soon" style="background-image: url('../images/work/rachna-nivas.jpg'); --tilt: -0.9deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">Rachna Nivas</span>
       </div>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -0.9deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.9deg;">
         <span class="card-sticker cyan left">2024 in flight</span>
         <span class="card-name">Tatsam</span>
       </a>
@@ -723,37 +666,37 @@
         <span class="fact-q">A logo isn&rsquo;t an identity. An identity is what the brand can do when no one&rsquo;s watching.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./pratham.html" style="background-image: url('../images/work/pratham.jpg'); --tilt: -0.6deg;">
+      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Pratham USA</span>
       </a>
-      <a class="card" href="./xtdb.html" style="background-image: url('../images/work/xtdb.jpg'); --tilt: 0.5deg;">
+      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">XTDB</span>
       </a>
       <div class="fact stat" style="--tilt: -0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">8</span></div>
         <span class="fact-num-label">Brand identities shipped since 2022.</span>
       </div>
-      <a class="card tight" href="./gliitch.html" style="background-image: url('../images/work/gliitch.jpg'); --tilt: -1.4deg;">
+      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Gliitch</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/secret-senses.jpg'); --tilt: 0.7deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
-      <a class="card mega" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: 1.0deg;">
+      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 1.0deg;">
         <span class="card-sticker yellow right">★ studio favourite</span>
         <span class="card-name">Klydo</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: 1.0deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact note invert" style="--tilt: 1.3deg;">
         <span class="fact-kicker">recurring problem</span>
         <span class="fact-statement">Naming the thing the founder can&rsquo;t say out loud yet.</span>
       </div>
-      <div class="card tight is-coming-soon" style="background-image: url('../images/work/rachna-nivas.jpg'); --tilt: -0.9deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">Rachna Nivas</span>
       </div>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -0.9deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.9deg;">
         <span class="card-sticker cyan left">2024 in flight</span>
         <span class="card-name">Tatsam</span>
       </a>
@@ -761,20 +704,20 @@
         <span class="fact-q">A logo isn&rsquo;t an identity. An identity is what the brand can do when no one&rsquo;s watching.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./pratham.html" style="background-image: url('../images/work/pratham.jpg'); --tilt: -0.6deg;">
+      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Pratham USA</span>
       </a>
-      <a class="card" href="./xtdb.html" style="background-image: url('../images/work/xtdb.jpg'); --tilt: 0.5deg;">
+      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">XTDB</span>
       </a>
       <div class="fact stat" style="--tilt: -0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">8</span></div>
         <span class="fact-num-label">Brand identities shipped since 2022.</span>
       </div>
-      <a class="card tight" href="./gliitch.html" style="background-image: url('../images/work/gliitch.jpg'); --tilt: -1.4deg;">
+      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Gliitch</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/secret-senses.jpg'); --tilt: 0.7deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
     </div>
@@ -787,50 +730,50 @@
       <span class="band-name">Product &amp; Interface</span>
     </div>
     <div class="marquee left-slow" data-speed="42" data-dir="1">
-      <a class="card" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: -1.4deg;">
+      <a class="card" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Klydo</span>
       </a>
       <div class="fact quote wide" style="--tilt: 1.0deg;">
         <span class="fact-q">The interface is where research meets opinion. One of them has to lose.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Kahran, on Agemo</span>
       </div>
-      <div class="card mega is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: -0.5deg;">
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.5deg;">
         <span class="card-sticker pink right">behind the scenes →</span>
         <span class="card-name">Agemo</span>
       </div>
-      <a class="card tight" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: 1.3deg;">
+      <a class="card tight" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: 1.3deg;">
         <span class="card-name">Tatsam</span>
       </a>
       <div class="fact note" style="--tilt: 0.4deg;">
         <span class="fact-kicker">our bias</span>
         <span class="fact-statement">Make the state obvious before the action.</span>
       </div>
-      <a class="card" href="./convegenius.html" style="background-image: url('../images/work/convegenius.jpg'); --tilt: -0.3deg;">
+      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -0.3deg;">
         <span class="card-name">ConveGenius</span>
       </a>
       <div class="fact stat" style="--tilt: 0.8deg;">
         <div class="fact-num-wrap"><span class="fact-num">4</span></div>
         <span class="fact-num-label">Products shipped or in flight.</span>
       </div>
-      <a class="card" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: -1.4deg;">
+      <a class="card" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Klydo</span>
       </a>
       <div class="fact quote wide" style="--tilt: 1.0deg;">
         <span class="fact-q">The interface is where research meets opinion. One of them has to lose.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Kahran, on Agemo</span>
       </div>
-      <div class="card mega is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: -0.5deg;">
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.5deg;">
         <span class="card-sticker pink right">behind the scenes →</span>
         <span class="card-name">Agemo</span>
       </div>
-      <a class="card tight" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: 1.3deg;">
+      <a class="card tight" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: 1.3deg;">
         <span class="card-name">Tatsam</span>
       </a>
       <div class="fact note" style="--tilt: 0.4deg;">
         <span class="fact-kicker">our bias</span>
         <span class="fact-statement">Make the state obvious before the action.</span>
       </div>
-      <a class="card" href="./convegenius.html" style="background-image: url('../images/work/convegenius.jpg'); --tilt: -0.3deg;">
+      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -0.3deg;">
         <span class="card-name">ConveGenius</span>
       </a>
       <div class="fact stat" style="--tilt: 0.8deg;">
@@ -847,14 +790,14 @@
       <span class="band-name">Research &amp; Strategy</span>
     </div>
     <div class="marquee right-fast" data-speed="75" data-dir="-1">
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: -1.2deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -1.2deg;">
         <span class="card-name">Agemo</span>
       </div>
       <div class="fact quote wide" style="--tilt: 0.7deg;">
         <span class="fact-q">Research isn&rsquo;t a deck. It&rsquo;s a fight the team has with the user, and someone takes notes.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card" href="./convegenius.html" style="background-image: url('../images/work/convegenius.jpg'); --tilt: 0.7deg;">
+      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: 0.7deg;">
         <span class="card-sticker yellow right">12 interviews</span>
         <span class="card-name">ConveGenius</span>
       </a>
@@ -862,21 +805,21 @@
         <span class="fact-kicker">how we work</span>
         <span class="fact-statement">User interviews, diary studies, hypothesis sprints, category mapping.</span>
       </div>
-      <div class="card tight is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.9deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact stat" style="--tilt: -1.2deg;">
         <div class="fact-num-wrap"><span class="fact-num">31</span></div>
         <span class="fact-num-label">User interviews across the last three projects.</span>
       </div>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: -1.2deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -1.2deg;">
         <span class="card-name">Agemo</span>
       </div>
       <div class="fact quote wide" style="--tilt: 0.7deg;">
         <span class="fact-q">Research isn&rsquo;t a deck. It&rsquo;s a fight the team has with the user, and someone takes notes.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card" href="./convegenius.html" style="background-image: url('../images/work/convegenius.jpg'); --tilt: 0.7deg;">
+      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: 0.7deg;">
         <span class="card-sticker yellow right">12 interviews</span>
         <span class="card-name">ConveGenius</span>
       </a>
@@ -884,7 +827,7 @@
         <span class="fact-kicker">how we work</span>
         <span class="fact-statement">User interviews, diary studies, hypothesis sprints, category mapping.</span>
       </div>
-      <div class="card tight is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.9deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact stat" style="--tilt: -1.2deg;">
@@ -901,7 +844,7 @@
       <span class="band-name">Story &amp; Narrative</span>
     </div>
     <div class="marquee left" data-speed="50" data-dir="1">
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.9deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.9deg;">
         <span class="card-sticker pink right">the line that landed</span>
         <span class="card-name">TomboyX</span>
       </div>
@@ -909,27 +852,27 @@
         <span class="fact-q">All up in our undies.</span>
         <span class="fact-att"><span class="dot-bullet"></span>TomboyX, the line that landed</span>
       </div>
-      <div class="card tight is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: 0.5deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Agemo</span>
       </div>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -1.1deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">Tatsam</span>
       </a>
       <div class="fact note" style="--tilt: -0.9deg;">
         <span class="fact-kicker">a tagline took</span>
         <span class="fact-statement">26 drafts and a slot machine to find.</span>
       </div>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/rachna-nivas.jpg'); --tilt: 1.1deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 1.1deg;">
         <span class="card-name">Rachna Nivas</span>
       </div>
-      <a class="card tight" href="./xtdb.html" style="background-image: url('../images/work/xtdb.jpg'); --tilt: 0.8deg;">
+      <a class="card tight" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">XTDB</span>
       </a>
       <div class="fact stat" style="--tilt: 1.0deg;">
         <div class="fact-num-wrap"><span class="fact-num">5</span></div>
         <span class="fact-num-label">Narratives shipped end to end.</span>
       </div>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.9deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.9deg;">
         <span class="card-sticker pink right">the line that landed</span>
         <span class="card-name">TomboyX</span>
       </div>
@@ -937,20 +880,20 @@
         <span class="fact-q">All up in our undies.</span>
         <span class="fact-att"><span class="dot-bullet"></span>TomboyX, the line that landed</span>
       </div>
-      <div class="card tight is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: 0.5deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Agemo</span>
       </div>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -1.1deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">Tatsam</span>
       </a>
       <div class="fact note" style="--tilt: -0.9deg;">
         <span class="fact-kicker">a tagline took</span>
         <span class="fact-statement">26 drafts and a slot machine to find.</span>
       </div>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/rachna-nivas.jpg'); --tilt: 1.1deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 1.1deg;">
         <span class="card-name">Rachna Nivas</span>
       </div>
-      <a class="card tight" href="./xtdb.html" style="background-image: url('../images/work/xtdb.jpg'); --tilt: 0.8deg;">
+      <a class="card tight" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">XTDB</span>
       </a>
       <div class="fact stat" style="--tilt: 1.0deg;">
@@ -967,17 +910,17 @@
       <span class="band-name">Growth &amp; Revenue</span>
     </div>
     <div class="marquee right-mid" data-speed="60" data-dir="-1">
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -1.1deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">Tatsam</span>
       </a>
       <div class="fact note invert" style="--tilt: -0.9deg;">
         <span class="fact-kicker">the advisory move</span>
         <span class="fact-statement">Figure out where the next dollar should come from before figuring out how to ask for it.</span>
       </div>
-      <a class="card" href="./pratham.html" style="background-image: url('../images/work/pratham.jpg'); --tilt: 0.4deg;">
+      <a class="card" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.4deg;">
         <span class="card-name">Pratham USA</span>
       </a>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.7deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.7deg;">
         <span class="card-sticker yellow left">fundraise as story</span>
         <span class="card-name">TomboyX</span>
       </div>
@@ -985,20 +928,20 @@
         <span class="fact-q">Capital isn&rsquo;t fuel. It&rsquo;s a contract about what you&rsquo;re willing to be next.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: 0.5deg;">
+      <a class="card tight" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Klydo</span>
       </a>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -1.1deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">Tatsam</span>
       </a>
       <div class="fact note invert" style="--tilt: -0.9deg;">
         <span class="fact-kicker">the advisory move</span>
         <span class="fact-statement">Figure out where the next dollar should come from before figuring out how to ask for it.</span>
       </div>
-      <a class="card" href="./pratham.html" style="background-image: url('../images/work/pratham.jpg'); --tilt: 0.4deg;">
+      <a class="card" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.4deg;">
         <span class="card-name">Pratham USA</span>
       </a>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.7deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.7deg;">
         <span class="card-sticker yellow left">fundraise as story</span>
         <span class="card-name">TomboyX</span>
       </div>
@@ -1006,7 +949,7 @@
         <span class="fact-q">Capital isn&rsquo;t fuel. It&rsquo;s a contract about what you&rsquo;re willing to be next.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: 0.5deg;">
+      <a class="card tight" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Klydo</span>
       </a>
     </div>
@@ -1019,74 +962,74 @@
       <span class="band-name">Full case studies</span>
     </div>
     <div class="marquee" data-speed="48" data-dir="-1">
-      <a class="card mega" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: 0.8deg;">
+      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.8deg;">
         <span class="card-sticker yellow right">★ studio favourite</span>
         <span class="card-name">Klydo</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.8deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.8deg;">
         <span class="card-name">TomboyX</span>
       </div>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/rachna-nivas.jpg'); --tilt: 0.7deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Rachna Nivas</span>
       </div>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: -0.6deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Agemo / Codewords</span>
       </div>
       <div class="fact stat" style="--tilt: 0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">10</span></div>
         <span class="fact-num-label">Full case studies, written front to back.</span>
       </div>
-      <a class="card" href="./convegenius.html" style="background-image: url('../images/work/convegenius.jpg'); --tilt: -1.1deg;">
+      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">ConveGenius</span>
       </a>
-      <a class="card tight" href="./pratham.html" style="background-image: url('../images/work/pratham.jpg'); --tilt: 0.8deg;">
+      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">Pratham USA</span>
       </a>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -0.4deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.4deg;">
         <span class="card-name">Tatsam</span>
       </a>
-      <a class="card" href="./xtdb.html" style="background-image: url('../images/work/xtdb.jpg'); --tilt: 1.0deg;">
+      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">XTDB</span>
       </a>
-      <a class="card tight" href="./gliitch.html" style="background-image: url('../images/work/gliitch.jpg'); --tilt: -1.3deg;">
+      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.3deg;">
         <span class="card-name">Gliitch</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/secret-senses.jpg'); --tilt: 0.7deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
-      <a class="card mega" href="./klydo.html" style="background-image: url('../images/work/klydo.jpg'); --tilt: 0.8deg;">
+      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.8deg;">
         <span class="card-sticker yellow right">★ studio favourite</span>
         <span class="card-name">Klydo</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/tomboyx.jpg'); --tilt: -0.8deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.8deg;">
         <span class="card-name">TomboyX</span>
       </div>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/rachna-nivas.jpg'); --tilt: 0.7deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Rachna Nivas</span>
       </div>
-      <div class="card wide is-coming-soon" style="background-image: url('../images/work/agemo.jpg'); --tilt: -0.6deg;">
+      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Agemo / Codewords</span>
       </div>
       <div class="fact stat" style="--tilt: 0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">10</span></div>
         <span class="fact-num-label">Full case studies, written front to back.</span>
       </div>
-      <a class="card" href="./convegenius.html" style="background-image: url('../images/work/convegenius.jpg'); --tilt: -1.1deg;">
+      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">ConveGenius</span>
       </a>
-      <a class="card tight" href="./pratham.html" style="background-image: url('../images/work/pratham.jpg'); --tilt: 0.8deg;">
+      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">Pratham USA</span>
       </a>
-      <a class="card" href="./tatsam.html" style="background-image: url('../images/work/tatsam.jpg'); --tilt: -0.4deg;">
+      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.4deg;">
         <span class="card-name">Tatsam</span>
       </a>
-      <a class="card" href="./xtdb.html" style="background-image: url('../images/work/xtdb.jpg'); --tilt: 1.0deg;">
+      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">XTDB</span>
       </a>
-      <a class="card tight" href="./gliitch.html" style="background-image: url('../images/work/gliitch.jpg'); --tilt: -1.3deg;">
+      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.3deg;">
         <span class="card-name">Gliitch</span>
       </a>
-      <div class="card is-coming-soon" style="background-image: url('../images/work/secret-senses.jpg'); --tilt: 0.7deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
     </div>
@@ -1095,18 +1038,20 @@
   <!-- =========== CLOSING =========== -->
   <section class="closing">
     <span class="closing-label">your move</span>
-    <h3>See a project that feels like yours? <a href="mailto:hello@joyus.studio">Be our friends.</a></h3>
+    <h2>See a project that feels like yours? <a href="mailto:hello@joyus.studio">Be our friends.</a></h2>
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
+  </main>
 
   <!--BEGIN:FOOT-->
 <!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js -->
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
 <style>
   .foot {
     position: relative;
     z-index: 20;
-    background: #FAF7F2;
+    background: var(--bg);
     padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
     padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
     max-width: 1400px;
@@ -1116,13 +1061,13 @@
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
-    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-family: var(--sans);
     font-size: 0.78rem;
-    color: #8892A0;
+    color: var(--ink-fade);
     letter-spacing: 0.05em;
   }
-  .foot a { color: #8892A0; text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: #E91E7B; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
   @media (max-width: 480px) {
     .foot { justify-content: flex-start; }
   }
@@ -1324,8 +1269,10 @@
 
     /* Delegate from each marquee track AND from document — pointer capture in the
        marquee engine can redirect click target, so we resolve via elementFromPoint
-       as a fallback. */
+       as a fallback. Honors prefers-reduced-motion by skipping the firework dispatch. */
+    const reduceMotionFx = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function handleClick(e) {
+      if (reduceMotionFx) return;
       let fact = e.target && e.target.closest && e.target.closest('.fact');
       if (!fact) {
         const el = document.elementFromPoint(e.clientX, e.clientY);
@@ -1370,11 +1317,39 @@
 </script>
 
 <script>
+  /* Lazy-load card background images via IntersectionObserver. Cards carry
+     their image URL in data-bg; we only apply it as a background-image when
+     the card enters the viewport (or comes within 600px of it). Cuts initial
+     paint from ~60 image requests down to the first band that's actually
+     visible. Falls back to immediate loading if IO isn't supported. */
+  (function(){
+    const cards = document.querySelectorAll('.card[data-bg]');
+    if (!cards.length) return;
+    if (!('IntersectionObserver' in window)) {
+      cards.forEach(c => { c.style.backgroundImage = "url('" + c.dataset.bg + "')"; });
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const card = entry.target;
+          card.style.backgroundImage = "url('" + card.dataset.bg + "')";
+          io.unobserve(card);
+        }
+      });
+    }, { rootMargin: '600px' });
+    cards.forEach(c => io.observe(c));
+  })();
+</script>
+
+<script>
   /* Tape Bands marquee engine.
      Auto-advances; hovers slow to 25% (no full pause); click-and-drag scrubs;
      horizontal trackpad / shift+wheel offsets the band; click is suppressed
-     after a drag of more than 4px. */
+     after a drag of more than 4px. Honors prefers-reduced-motion by holding
+     the auto-scroll at 0 while keeping drag/click navigation intact. */
   (function(){
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('.band').forEach(initBand);
 
     function initBand(section){
@@ -1382,7 +1357,7 @@
       if (!track) return;
       const baseSpeed = parseFloat(track.dataset.speed) || 60;
       const dir = parseFloat(track.dataset.dir) || -1;
-      const speed = baseSpeed * dir;
+      const speed = reduceMotion ? 0 : baseSpeed * dir;
 
       let contentWidth = 0;
       let offset = 0;
@@ -1454,7 +1429,7 @@
         if (link && track.contains(link)) {
           // open in new tab if modifier keys, else navigate
           if (e.ctrlKey || e.metaKey || e.shiftKey || e.button === 1) {
-            window.open(link.href, '_blank');
+            window.open(link.href, '_blank', 'noopener,noreferrer');
           } else {
             window.location.href = link.href;
           }
