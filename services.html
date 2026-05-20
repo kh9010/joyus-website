@@ -44,62 +44,91 @@
   .d-yellow { background: var(--yellow); }
   .d-ink    { background: var(--ink); }
 
-  /* ============ HERO ============ */
+  /* ============ HERO — accordion of five verbs ============ */
   .hero {
-    min-height: 58vh;
-    padding: clamp(6rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: clamp(6rem, 12vh, 9rem) var(--x) clamp(2.5rem, 5vh, 4.5rem);
     position: relative;
     overflow: hidden;
     border-bottom: 1px solid var(--rule);
   }
-  .hero-meta {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
-    color: var(--ink-fade);
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--rule);
-    max-width: 60ch;
-    position: relative; z-index: 2;
-    text-transform: uppercase;
-    font-weight: 500;
-  }
-  .hero-meta span + span::before {
-    content: " → ";
-    color: var(--pink);
-    padding: 0 0.4em;
-  }
-  .hero-sub {
-    font-size: 1.05rem;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    max-width: 52ch;
-    margin-top: 1rem;
-    position: relative; z-index: 2;
-  }
-  /* .hero-eyebrow styles come from styles.css */
-  .hero-title {
-    font-weight: 700;
-    font-size: clamp(3.5rem, 10vw, 9rem);
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    color: var(--ink);
-    max-width: 16ch;
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
     position: relative;
     z-index: 2;
   }
-  .hero-title em {
-    font-style: normal;
-    font-weight: 700;
-    color: var(--pink);
-    position: relative;
+  /* .hero-eyebrow styles come from styles.css */
+
+  .verb-stack {
+    list-style: none;
+    padding: 0;
+    margin: clamp(1.5rem, 3vh, 2.5rem) 0 0;
   }
-  .hero-title em::after {
-    content: ".";
-    color: var(--yellow);
+  .verb-stack li {
+    border-bottom: 1px solid var(--rule);
+  }
+  .verb-stack li:first-child {
+    border-top: 1px solid var(--rule);
+  }
+  .verb-jump {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: baseline;
+    padding: clamp(0.85rem, 2vh, 1.4rem) 0;
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.32s ease, opacity 0.32s ease;
+  }
+  .vj-head {
+    display: inline-flex;
+    align-items: baseline;
+    gap: clamp(0.8rem, 1.8vw, 1.4rem);
+    min-width: 0;
+  }
+  .vj-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    flex-shrink: 0;
+    transition: color 0.32s ease;
+  }
+  .vj-word {
+    font-weight: 700;
+    font-size: clamp(2.5rem, 7.5vw, 6rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: inherit;
+  }
+  .vj-line {
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.4;
+    color: var(--ink-soft);
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+    align-self: center;
+  }
+  .vj-line em {
+    color: var(--pink);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* Desktop hover: dim others, reveal hovered row's line */
+  @media (hover: hover) and (pointer: fine) {
+    .verb-stack:hover .verb-jump { opacity: 0.4; }
+    .verb-stack .verb-jump:hover {
+      opacity: 1;
+      color: var(--pink);
+    }
+    .verb-stack .verb-jump:hover .vj-num { color: var(--pink); }
+    .verb-stack .verb-jump:hover .vj-line {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   /* hero dots */
@@ -107,6 +136,9 @@
   .hero .dot-h2 { width: 60px; height: 60px; top: 72%; right: 28%; }
   .hero .dot-h3 { width: 22px; height: 22px; top: 24%; right: 18%; }
   .hero .dot-h4 { width: 14px; height: 14px; top: 56%; right: 8%; }
+
+  /* Verb sections: leave room for the fixed nav when jumped to */
+  .verb { scroll-margin-top: 4rem; }
 
   /* ============ VERB — base ============ */
   .verb {
@@ -289,6 +321,14 @@
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 880px) {
+    /* Hero accordion collapses to one column — the line hides, taps jump */
+    .verb-jump {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+    }
+    .vj-line { display: none; }
+    .vj-word { font-size: clamp(2.5rem, 12vw, 4.5rem); }
+
     /* Drop the 100vh per-verb so 5 sections don't = 5 swipes */
     .verb { min-height: auto; padding: 4rem var(--x) 4rem; }
     /* push verb-label below the fixed nav */
@@ -501,12 +541,41 @@
     <span class="dot dot-h3 d-cyan"></span>
     <span class="dot dot-h4 d-pink"></span>
 
-    <span class="hero-eyebrow">services</span>
-    <h1 class="hero-title">What we do, <em>when you ask</em></h1>
-    <p class="hero-meta">
-      <span>Advise</span><span>Design</span><span>Tell</span><span>Strategize</span><span>Chart</span>
-    </p>
-    <p class="hero-sub">Five things we do — each one a wider question than the last.</p>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">hire</span>
+      <ol class="verb-stack">
+        <li>
+          <a class="verb-jump" href="#v-1">
+            <span class="vj-head"><span class="vj-num">01</span><span class="vj-word">advise</span></span>
+            <span class="vj-line">You bring the problem. <em>We help you see it clearly enough to decide.</em></span>
+          </a>
+        </li>
+        <li>
+          <a class="verb-jump" href="#v-2">
+            <span class="vj-head"><span class="vj-num">02</span><span class="vj-word">design</span></span>
+            <span class="vj-line">You don't have a solution yet. <em>We design what it should be.</em></span>
+          </a>
+        </li>
+        <li>
+          <a class="verb-jump" href="#v-3">
+            <span class="vj-head"><span class="vj-num">03</span><span class="vj-word">tell</span></span>
+            <span class="vj-line">The story that unifies the team is usually <em>the same story that lands with investors and customers.</em></span>
+          </a>
+        </li>
+        <li>
+          <a class="verb-jump" href="#v-4">
+            <span class="vj-head"><span class="vj-num">04</span><span class="vj-word">strategize</span></span>
+            <span class="vj-line">When the question is still open, <em>we go deep with you until it isn't.</em></span>
+          </a>
+        </li>
+        <li>
+          <a class="verb-jump" href="#v-5">
+            <span class="vj-head"><span class="vj-num">05</span><span class="vj-word">chart</span></span>
+            <span class="vj-line">Sometimes the question isn't what to do — <em>it's where to go.</em></span>
+          </a>
+        </li>
+      </ol>
+    </div>
   </section>
 
   <!-- =========== 01 ADVISE =========== -->
