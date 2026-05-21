@@ -421,6 +421,16 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+/* Floating drift — gentle vertical bob for decorative dots.
+   Three speeds so a cluster of dots doesn't move in lockstep. */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.dot.drift      { animation: float-y 8s ease-in-out infinite; }
+.dot.drift-slow { animation: float-y 12s ease-in-out infinite; }
+.dot.drift-fast { animation: float-y 6s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
