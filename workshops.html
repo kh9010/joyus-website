@@ -41,7 +41,6 @@
     padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
     display: flex; flex-direction: column; justify-content: center;
     position: relative; overflow: hidden;
-    border-bottom: 1px solid var(--rule);
   }
   /* .hero-eyebrow styles come from styles.css */
   .hero h1 {
@@ -58,21 +57,10 @@
   .hero-lede {
     font-size: clamp(1.05rem, 1.4vw, 1.25rem);
     line-height: 1.6; color: var(--ink-soft);
-    max-width: 56ch; margin-top: 2.5rem;
-    padding-top: 1.5rem; border-top: 2px solid var(--ink);
+    max-width: 56ch; margin-top: 1.75rem;
     position: relative; z-index: 2;
   }
   .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
-  .hero-meta {
-    font-size: 0.85rem; letter-spacing: 0.1em;
-    color: var(--ink-fade); margin-top: 2rem;
-    padding-top: 1rem; border-top: 1px solid var(--rule);
-    max-width: 52ch; position: relative; z-index: 2;
-    text-transform: uppercase; font-weight: 500;
-  }
-  .hero-meta span + span::before {
-    content: " → "; color: var(--pink); padding: 0 0.4em;
-  }
   .hero-anchor {
     margin-top: 1.75rem;
     font-family: var(--hand);
@@ -93,7 +81,7 @@
     position: relative; z-index: 2;
   }
   .hero-aside em { font-style: italic; color: var(--ink); font-weight: 500; }
-  .hero .dh1 { width: 320px; height: 320px; top: 12%; right: -6%; }
+  .hero .dh1 { width: 140px; height: 140px; top: 16%; right: 8%; opacity: 0.55; }
   .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
   .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
   .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
@@ -146,8 +134,6 @@
     font-size: clamp(1rem, 1.3vw, 1.1rem);
     line-height: 1.7;
     max-width: 60ch;
-    padding-left: 1rem;
-    border-left: 2px solid currentColor;
     margin-top: 1rem;
   }
   .arc-explain em { font-style: normal; font-weight: 500; }
@@ -246,16 +232,17 @@
     transition: gap 0.2s, color 0.2s;
   }
   .poster:hover .poster-cta { gap: 0.55rem; color: var(--accent, var(--pink)); }
-  .poster.is-dev { opacity: 0.78; }
-  .poster.is-dev:hover { opacity: 1; }
+  /* .is-dev opacity removed — all posters render at full opacity */
 
-  /* ───── arc-1 = paper bg, pink-led ───── */
-  .arc-1 { background: var(--bg); }
+  /* ───── arc-1 = paper bg, pink-led, gentle warm tonal step ───── */
+  .arc-1 {
+    background: linear-gradient(180deg, var(--bg) 0%, #F2EDE3 100%);
+  }
   .arc-1 .arc-word { color: var(--ink); }
   .arc-1 .arc-word::after { color: var(--pink); }
   .arc-1 .arc-manifesto { color: var(--ink); }
   .arc-1 .arc-manifesto em { color: var(--pink); }
-  .arc-1 .arc-explain { color: var(--ink-soft); border-left-color: var(--rule); }
+  .arc-1 .arc-explain { color: var(--ink-soft); }
   .arc-1 .arc-explain em { color: var(--ink); }
   .arc-1 .arc-label { color: var(--ink-soft); }
   .arc-1 .poster:nth-child(1) { --accent: var(--pink); }
@@ -269,7 +256,7 @@
   .arc-2 .arc-word::after { color: var(--cyan); }
   .arc-2 .arc-manifesto { color: var(--on); }
   .arc-2 .arc-manifesto em { color: var(--cyan); }
-  .arc-2 .arc-explain { color: var(--on-soft); border-left-color: var(--on-line); }
+  .arc-2 .arc-explain { color: var(--on-soft); }
   .arc-2 .arc-explain em { color: var(--on); }
   .arc-2 .arc-label { color: var(--on-fade); }
   .arc-2 .poster:nth-child(1) { --accent: var(--cyan); }
@@ -283,7 +270,7 @@
   .arc-3 .arc-word::after { color: var(--pink); }
   .arc-3 .arc-manifesto { color: var(--ink); }
   .arc-3 .arc-manifesto em { color: var(--ink); font-weight: 700; }
-  .arc-3 .arc-explain { color: rgba(44,53,68,0.78); border-left-color: rgba(44,53,68,0.2); }
+  .arc-3 .arc-explain { color: rgba(44,53,68,0.78); }
   .arc-3 .arc-explain em { color: var(--ink); }
   .arc-3 .arc-label { color: rgba(44,53,68,0.65); }
 
@@ -301,8 +288,6 @@
   .arc-3-layout .arc-word { margin: 0.4rem 0 1.25rem; }
   .arc-3-layout .arc-manifesto { margin-bottom: 1rem; }
   .arc-3-layout .arc-explain {
-    padding-left: 1rem;
-    border-left: 2px solid currentColor;
     margin-top: 1rem;
     max-width: 60ch;
   }
@@ -313,14 +298,17 @@
   .arc-3 .poster { --accent: var(--yellow); }
 
   .arc .dot { opacity: 0.45; }
-  .arc-1 .ad1 { width: 380px; height: 380px; top: -8%; right: -8%; }
+  .arc-1 .ad1 { width: 160px; height: 160px; top: 12%; right: 8%; opacity: 0.55; }
   .arc-1 .ad2 { width: 42px; height: 42px; top: 36%; right: 30%; }
   .arc-1 .ad3 { width: 18px; height: 18px; bottom: 14%; left: 42%; }
-  .arc-2 .bd1 { width: 380px; height: 380px; top: -8%; left: -8%; }
+  .arc-1 .ad4 { width: 26px; height: 26px; top: 8%; left: 6%; }
+  .arc-2 .bd1 { width: 160px; height: 160px; top: 14%; left: 8%; opacity: 0.55; }
   .arc-2 .bd2 { width: 38px; height: 38px; top: 22%; left: 32%; }
   .arc-2 .bd3 { width: 18px; height: 18px; bottom: 16%; right: 28%; }
-  .arc-3 .cd1 { width: 380px; height: 380px; top: -10%; right: -10%; }
+  .arc-2 .bd4 { width: 28px; height: 28px; bottom: 18%; right: 8%; }
+  .arc-3 .cd1 { width: 160px; height: 160px; top: 12%; right: 8%; opacity: 0.55; }
   .arc-3 .cd2 { width: 36px; height: 36px; top: 60%; right: 32%; }
+  .arc-3 .cd3 { width: 22px; height: 22px; bottom: 12%; left: 8%; }
 
   /* .closing styles come from styles.css; page-local dot positions stay. */
   .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
@@ -329,7 +317,6 @@
 
   @media (max-width: 880px) {
     .arc-head { grid-template-columns: 1fr; }
-    .arc-1 .ad1, .arc-2 .bd1, .arc-3 .cd1 { display: none; }
     .hero .dh2, .hero .dh3 { display: none; }
   }
   .hero { min-height: 60dvh; }
@@ -500,34 +487,28 @@
   <main id="main-content">
   <!-- =========== HERO =========== -->
   <section class="hero">
-    <span class="dot dh1 d-pink"></span>
-    <span class="dot dh2 d-yellow"></span>
-    <span class="dot dh3 d-cyan"></span>
-    <span class="dot dh4 d-pink"></span>
+    <span class="dot dh1 d-pink drift"></span>
+    <span class="dot dh2 d-yellow drift-slow"></span>
+    <span class="dot dh3 d-cyan drift-fast"></span>
+    <span class="dot dh4 d-pink drift"></span>
 
     <span class="hero-eyebrow">make</span>
     <h1>Rooms to figure things out <em>together</em></h1>
     <p class="hero-lede">
       Half-day to multi-day rooms — for leadership, founders, and creatives. Rooms to give you something <em>useful</em> on Monday morning.
     </p>
-    <p class="hero-meta">
-      <span>Strategic</span><span>Practical</span><span>Custom</span>
-    </p>
-    <span class="hero-anchor">starting at <em>$2,000</em></span>
-    <p class="hero-aside"><em>make complexity into a wonderland.</em></p>
   </section>
 
   <!-- =========== ARC 1 — STRATEGY (paper bg, pink-led) =========== -->
   <article class="arc arc-1" id="strategy">
-    <span class="dot ad1 d-pink"></span>
-    <span class="dot ad2 d-yellow"></span>
-    <span class="dot ad3 d-cyan"></span>
+    <span class="dot ad1 d-pink drift"></span>
+    <span class="dot ad2 d-yellow drift-slow"></span>
+    <span class="dot ad3 d-cyan drift-fast"></span>
+    <span class="dot ad4 d-yellow drift-slow"></span>
     <div class="arc-head">
       <div>
-        <div class="arc-label"><span class="dot-mark"></span>01 — strategic</div>
         <h2 class="arc-word">strategy</h2>
       </div>
-      <p class="arc-manifesto">A room to make space for <em>the real problems</em>.</p>
       <p class="arc-explain">Strategic rooms create the space for the team to talk about the real issues — and produce the <em>artifacts and structures</em> you need so you don't have to recreate them next Monday morning.</p>
     </div>
     <div class="poster-grid">
@@ -570,15 +551,14 @@
 
   <!-- =========== ARC 2 — PRACTICE (ink bg) =========== -->
   <article class="arc arc-2" id="practice">
-    <span class="dot bd1 d-cyan"></span>
-    <span class="dot bd2 d-yellow"></span>
-    <span class="dot bd3 d-pink"></span>
+    <span class="dot bd1 d-cyan drift"></span>
+    <span class="dot bd2 d-yellow drift-slow"></span>
+    <span class="dot bd3 d-pink drift-fast"></span>
+    <span class="dot bd4 d-cyan drift-slow"></span>
     <div class="arc-head">
       <div>
-        <div class="arc-label"><span class="dot-mark"></span>02 — practical</div>
         <h2 class="arc-word">practice</h2>
       </div>
-      <p class="arc-manifesto">Building the working muscle. <em>Make AI work for you.</em></p>
       <p class="arc-explain">Practice rooms are hands-on. These days they're mostly about AI — we help you bring AI into your workflows, whether creative, management, data, or <em>something else</em>.</p>
     </div>
     <div class="poster-grid">
@@ -632,18 +612,16 @@
 
   <!-- =========== ARC 3 — CUSTOM (cyan bg, ink text) — text + card side by side =========== -->
   <article class="arc arc-3" id="custom">
-    <span class="dot cd1 d-yellow"></span>
-    <span class="dot cd2 d-pink"></span>
+    <span class="dot cd1 d-yellow drift"></span>
+    <span class="dot cd2 d-pink drift-fast"></span>
+    <span class="dot cd3 d-yellow drift-slow"></span>
     <div class="arc-3-layout">
       <div class="arc-3-text">
-        <div class="arc-label"><span class="dot-mark"></span>03 — custom</div>
         <h2 class="arc-word">custom</h2>
-        <p class="arc-manifesto"><em>We love doing custom work.</em></p>
         <p class="arc-explain">We'll put together custom rooms on storytelling, behavioral design, brand strategy, and product narratives. <em>Tell us what's at stake and your timeframe</em> — we'll send a brief back inside a week.</p>
       </div>
 
       <a class="poster" href="mailto:hello@joyus.studio?subject=A%20custom%20workshop">
-        <span class="poster-no">01</span>
         <span class="poster-tag">any team, any topic</span>
         <h3 class="poster-title"><em>Contact us</em></h3>
         <p class="poster-line">Tell us what's at stake and your timeframe. Brief back in a week.</p>
@@ -657,9 +635,9 @@
 
   <!-- =========== CLOSING =========== -->
   <section class="closing">
-    <span class="dot dx1 d-pink"></span>
-    <span class="dot dx2 d-cyan"></span>
-    <span class="dot dx3 d-yellow"></span>
+    <span class="dot dx1 d-pink drift"></span>
+    <span class="dot dx2 d-cyan drift-fast"></span>
+    <span class="dot dx3 d-yellow drift-slow"></span>
     <span class="closing-label">your move</span>
     <h2>Have a room you want us to run? <em><a href="mailto:hello@joyus.studio?subject=Workshop%20inquiry">Be our friends.</a></em></h2>
     <span class="hint">hello@joyus.studio · we read everything · 48-hour quote</span>

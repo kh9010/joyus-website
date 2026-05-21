@@ -33,44 +33,46 @@
     .d-yellow { background: var(--yellow); }
     .d-ink { background: var(--ink); }
 
-    /* === HERO === */
+    /* === HERO — matches workshops/services pattern === */
     .hero {
-      position: relative;
-      padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3.5rem, 7vh, 6rem);
-      overflow: hidden;
+      min-height: 60vh;
+      padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative; overflow: hidden;
     }
-    .hero-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 3; }
-    /* .hero-eyebrow base comes from styles.css (dot follows --accent = pink here) */
+    .hero-inner { max-width: 1200px; margin: 0; position: relative; z-index: 2; }
+    /* .hero-eyebrow base comes from styles.css */
     .hero h1 {
       font-weight: 700;
-      letter-spacing: -0.045em;
+      font-size: clamp(3rem, 8vw, 6.5rem);
       line-height: 0.95;
-      font-size: clamp(2.75rem, 7vw, 5.5rem);
+      letter-spacing: -0.04em;
       color: var(--ink);
-      max-width: 18ch;
+      max-width: 17ch;
+      position: relative; z-index: 2;
     }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--pink);
-    }
+    .hero h1 em { font-style: normal; color: var(--pink); }
+    .hero h1 em::after { content: "."; color: var(--yellow); }
     .hero-lede {
-      font-size: clamp(1.1rem, 1.6vw, 1.35rem);
-      line-height: 1.55;
-      color: var(--ink-soft);
-      max-width: 60ch;
-      margin-top: 1.75rem;
+      font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+      line-height: 1.6; color: var(--ink-soft);
+      max-width: 56ch; margin-top: 1.75rem;
+      position: relative; z-index: 2;
     }
-    .hero-lede em { font-style: normal; color: var(--ink); font-weight: 500; }
+    .hero-lede + .hero-lede { margin-top: 1rem; }
+    .hero-lede em { color: var(--ink); font-style: normal; font-weight: 500; }
     .hero-aside {
+      margin-top: 1.75rem;
       font-family: var(--hand);
-      font-size: clamp(1.4rem, 2vw, 1.7rem);
+      font-size: 1.5rem;
       color: var(--ink-soft);
-      margin-top: 2rem;
       transform: rotate(-1deg);
       display: inline-block;
+      line-height: 1.3;
+      position: relative; z-index: 2;
     }
-    .hero .dh1 { width: 120px; height: 120px; top: 18%; right: -40px; opacity: 0.5; }
-    .hero .dh2 { width: 60px; height: 60px; top: 70%; right: 30%; }
+    .hero .dh1 { width: 140px; height: 140px; top: 16%; right: 8%; opacity: 0.55; }
+    .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
     .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
     .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
 
@@ -83,7 +85,7 @@
       color: var(--ink);
       margin-bottom: 3rem;
     }
-    .section-h2 em { font-style: italic; color: var(--pink); }
+    .section-h2 em { font-style: normal; color: var(--pink); }
 
     /* === SELECTED WORK — marquee band (paradigm from work/index.html) === */
     .selected-work {
@@ -247,50 +249,11 @@
       margin-bottom: 0.85rem;
     }
     .founder-bio p:last-child { margin-bottom: 0; }
-    .founder-projects {
-      margin-top: 0.5rem;
-    }
-    .founder-projects-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-fade);
-      margin-bottom: 0.75rem;
-    }
-    .founder-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .founder-chip {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 0.4rem;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--ink);
-      text-decoration: none;
-      padding: 0.5rem 0.85rem;
-      border: 1.5px solid var(--rule);
-      border-radius: 999px;
-      background: #fff;
-      transition: border-color 0.2s, color 0.2s, transform 0.2s;
-    }
-    .founder-chip:hover {
-      border-color: var(--pink);
-      color: var(--pink);
-      transform: translateY(-1px);
-    }
-    .founder-chip-meta {
-      font-size: 0.72rem;
-      color: var(--ink-fade);
-      letter-spacing: 0.02em;
-    }
-    .founders .dq1 { width: 140px; height: 140px; top: 6%; right: -50px; background: var(--cyan); opacity: 0.4; }
+    .founders .dq1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--cyan); opacity: 0.55; }
     .founders .dq2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
+    .founders .dq3 { width: 14px; height: 14px; top: 18%; left: 4%; background: var(--pink); }
 
-    /* === VALUES === */
+    /* === VALUES — uses the .poster card primitive from workshops === */
     .values {
       position: relative;
       padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(4rem, 8vh, 6rem);
@@ -304,12 +267,16 @@
     }
     .value {
       position: relative;
-      padding: 2rem 1.75rem;
+      background: #fff;
       border: 1.5px solid var(--rule);
       border-top: 6px solid var(--vc, var(--pink));
       border-radius: 14px;
-      background: #fff;
+      padding: 1.6rem 1.5rem 1.4rem;
+      display: flex; flex-direction: column;
       transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+      overflow: hidden;
+      color: var(--ink);
+      min-height: 240px;
     }
     .value:hover {
       transform: translate(-3px, -3px);
@@ -321,21 +288,34 @@
     .value:nth-child(6n+4) { --vc: var(--ink); }
     .value:nth-child(6n+5) { --vc: var(--pink); }
     .value:nth-child(6n+6) { --vc: var(--cyan); }
+    .value-num {
+      font-family: var(--hand);
+      font-size: 2rem; line-height: 0.85;
+      color: var(--vc, var(--pink));
+      transform: rotate(-3deg);
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      position: relative; z-index: 1;
+    }
     .value h3 {
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.01em;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.6rem;
       color: var(--ink);
+      position: relative; z-index: 1;
     }
     .value p {
-      font-size: 0.98rem;
-      line-height: 1.6;
+      font-size: 0.95rem;
+      line-height: 1.55;
       color: var(--ink-soft);
+      position: relative; z-index: 1;
     }
-    .values .dv1 { width: 180px; height: 180px; top: -40px; right: -40px; background: var(--yellow); opacity: 0.3; }
+    .values .dv1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--yellow); opacity: 0.5; }
+    .values .dv2 { width: 22px; height: 22px; bottom: 10%; left: 5%; background: var(--pink); }
+    .values .dv3 { width: 14px; height: 14px; top: 18%; left: 3%; background: var(--cyan); }
 
-    /* === CREATIONS === */
+    /* === CREATIONS — same .value/.poster card primitive, on cyan bg === */
     .creations {
       position: relative;
       padding: clamp(4rem, 8vh, 6rem) var(--x);
@@ -343,9 +323,9 @@
       overflow: hidden;
     }
     .creations-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 3; }
-    .creations .section-label { color: rgba(44, 53, 68, 0.65); }
+    .creations .section-label { color: rgba(44, 53, 68, 0.7); }
     .creations .section-label::before { background: var(--ink); }
-    .creations .section-h2 em { color: var(--white, #fff); }
+    .creations .section-h2 em { color: var(--ink); }
     .creations-lede {
       font-family: var(--hand);
       font-size: clamp(1.4rem, 2.2vw, 1.85rem);
@@ -358,48 +338,64 @@
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: clamp(1.5rem, 2.5vw, 2rem);
     }
-    .creation {
+    .creation-card {
       position: relative;
-      padding: 2rem 1.75rem;
-      background: var(--bg);
+      background: #fff;
+      border: 1.5px solid var(--rule);
+      border-top: 6px solid var(--cc, var(--pink));
       border-radius: 14px;
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-      text-decoration: none;
-      color: var(--ink);
+      padding: 1.6rem 1.5rem 1.4rem;
       display: flex; flex-direction: column;
-      min-height: 220px;
+      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
+      overflow: hidden;
+      color: var(--ink);
+      text-decoration: none;
+      min-height: 240px;
     }
-    .creation:hover {
+    .creation-card:hover {
       transform: translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--ink);
+      box-shadow: 8px 8px 0 var(--cc, var(--pink));
     }
+    /* Cycle pink → yellow → ink → pink (avoid cyan — section bg is cyan) */
+    .creation-card:nth-child(4n+1) { --cc: var(--pink); }
+    .creation-card:nth-child(4n+2) { --cc: var(--yellow); }
+    .creation-card:nth-child(4n+3) { --cc: var(--ink); }
+    .creation-card:nth-child(4n+4) { --cc: var(--pink); }
     .creation-kind {
       font-family: var(--hand);
-      font-size: 1.1rem;
-      color: var(--pink);
-      margin-bottom: 0.5rem;
+      font-size: 1.25rem; line-height: 0.95;
+      color: var(--cc, var(--pink));
+      transform: rotate(-3deg);
+      display: inline-block;
+      margin-bottom: 0.75rem;
+      position: relative; z-index: 1;
     }
-    .creation h3 {
-      font-size: 1.45rem;
+    .creation-card h3 {
+      font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.015em;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.6rem;
+      color: var(--ink);
+      position: relative; z-index: 1;
     }
-    .creation p {
+    .creation-card p {
       font-size: 0.95rem;
       line-height: 1.55;
       color: var(--ink-soft);
       flex: 1;
+      position: relative; z-index: 1;
     }
     .creation-link {
       margin-top: 1rem;
       font-size: 0.9rem;
       font-weight: 500;
-      color: var(--pink);
+      color: var(--cc, var(--pink));
       letter-spacing: 0.02em;
+      position: relative; z-index: 1;
     }
-    .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 5%; background: var(--pink); opacity: 0.4; }
-    .creations .dc2 { width: 24px; height: 24px; bottom: 12%; left: 8%; background: var(--yellow); }
+    .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--pink); opacity: 0.5; }
+    .creations .dc2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
+    .creations .dc3 { width: 14px; height: 14px; top: 22%; left: 5%; background: var(--ink); }
 
     /* === CLOSING — styles come from styles.css; page-local dot positions only === */
     .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; background: var(--pink); }
@@ -585,10 +581,10 @@
 
   <!-- HERO -->
   <section class="hero">
-    <span class="dot dh1 d-pink"></span>
-    <span class="dot dh2 d-yellow"></span>
-    <span class="dot dh3 d-cyan"></span>
-    <span class="dot dh4 d-pink"></span>
+    <span class="dot dh1 d-pink drift"></span>
+    <span class="dot dh2 d-yellow drift-slow"></span>
+    <span class="dot dh3 d-cyan drift-fast"></span>
+    <span class="dot dh4 d-pink drift"></span>
     <div class="hero-inner">
       <p class="hero-eyebrow">meet</p>
       <h1>About <em>Joyus</em></h1>
@@ -604,32 +600,40 @@
 
   <!-- HOW WE WORK — the six things -->
   <section class="values">
-    <span class="dot dv1"></span>
+    <span class="dot dv1 drift"></span>
+    <span class="dot dv2 drift-fast"></span>
+    <span class="dot dv3 drift-slow"></span>
     <div class="values-inner">
       <p class="section-label">how we work</p>
       <h2 class="section-h2">Six things we <em>care about</em>.</h2>
       <div class="values-grid">
         <div class="value">
+          <span class="value-num" aria-hidden="true">01</span>
           <h3>Interdisciplinary</h3>
           <p>We don't separate strategy from craft, or research from design. We pull from design thinking, behavioral economics, and gamification — and we've done it across enough industries and geographies that the cross-pollination is the whole point.</p>
         </div>
         <div class="value">
+          <span class="value-num" aria-hidden="true">02</span>
           <h3>Culturally Sensitive</h3>
           <p>We've worked across India, the US, the UK, and Hong Kong. That means we borrow ideas freely — like using distribution networks for brand growth, something that's common in India but almost unheard of in the West.</p>
         </div>
         <div class="value">
+          <span class="value-num" aria-hidden="true">03</span>
           <h3>Play as Practice</h3>
           <p>Joy and rigor aren't opposites. The projects that'll haunt you until the day they're made are the ones worth doing. We bring play, curiosity, and obsessive craft to everything — because the best work happens when you actually care.</p>
         </div>
         <div class="value">
+          <span class="value-num" aria-hidden="true">04</span>
           <h3>Long-Term Partnerships</h3>
           <p>We don't do drive-by consulting. We stick around, check how things landed, and look for what to build next together. Our best client relationships span years.</p>
         </div>
         <div class="value">
+          <span class="value-num" aria-hidden="true">05</span>
           <h3>Hands-On &amp; Fast</h3>
           <p>We're smaller than a big firm and that's the point. We move fast, we make things ourselves, and we don't have six layers between the idea and the work.</p>
         </div>
         <div class="value">
+          <span class="value-num" aria-hidden="true">06</span>
           <h3>AI-Native</h3>
           <p>We don't just talk about AI — we use it to make things. We help teams cut through the hype and build real workflows that actually save time and make better work.</p>
         </div>
@@ -719,32 +723,33 @@
 
   <!-- CREATIONS -->
   <section class="creations">
-    <span class="dot dc1"></span>
-    <span class="dot dc2"></span>
+    <span class="dot dc1 drift"></span>
+    <span class="dot dc2 drift-fast"></span>
+    <span class="dot dc3 drift-slow"></span>
     <div class="creations-inner">
       <p class="section-label">things we make &amp; explore</p>
       <h2 class="section-h2">What keeps us <em>curious</em>.</h2>
       <p class="creations-lede">A podcast, comics, a poetry installation, and a few small experiments along the way.</p>
       <div class="creations-grid">
-        <a href="comics/index.html" class="creation">
+        <a href="comics/index.html" class="creation-card">
           <span class="creation-kind">comics</span>
           <h3>Hand-drawn comics</h3>
           <p>Stories about friendship, connection, and the small absurdities of being human. Featuring Mr Curl and friends in tales about staying close, gossip that spirals, and plants that need saving.</p>
           <span class="creation-link">read the comics →</span>
         </a>
-        <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener noreferrer" class="creation">
+        <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener noreferrer" class="creation-card">
           <span class="creation-kind">installation — in development</span>
           <h3>The Line Before</h3>
           <p>A touchscreen installation where visitors assemble a poem by choosing between emotional poles — drawing from 230 fragments. Each choice shapes a generative flower; every flower joins a living garden of all previous visitors' poems.</p>
           <span class="creation-link">see the project →</span>
         </a>
-        <a href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener noreferrer" class="creation">
+        <a href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener noreferrer" class="creation-card">
           <span class="creation-kind">video — 2024</span>
           <h3>Poem Films</h3>
           <p>An experiment in how different visuals change the feeling of a poem. For each poem, two entirely different video interpretations — exploring how image transforms meaning. Exhibited at Boulder Public Library.</p>
           <span class="creation-link">watch the films →</span>
         </a>
-        <a href="podcast.html" class="creation">
+        <a href="podcast.html" class="creation-card">
           <span class="creation-kind">podcast</span>
           <h3>Thinking on Thinking</h3>
           <p>Behavior, work, and the real-life questions we've struggled with on our entrepreneurial journey. Hosted by Divya Tak &amp; Kahran Singh. Available on Spotify, Apple Podcasts, and iHeart.</p>
@@ -756,8 +761,9 @@
 
   <!-- FOUNDERS — side-by-side, project chips -->
   <section class="founders">
-    <span class="dot dq1"></span>
-    <span class="dot dq2"></span>
+    <span class="dot dq1 drift"></span>
+    <span class="dot dq2 drift-slow"></span>
+    <span class="dot dq3 drift-fast"></span>
     <div class="founders-inner">
       <p class="section-label">our founders</p>
       <h2 class="section-h2">The two of <em>us</em>.</h2>
@@ -773,14 +779,6 @@
             <p>Kahran tends to pull a project toward its first honest sentence — the framing the founder hasn't said out loud yet. A decade across education, travel, technology, and consumer goods (US, UK, EU, India) means he's allergic to plans that only work in slide form.</p>
             <p>An active angel investor with ties in both the Seattle and Indian startup ecosystems, he sits closest to the CEO conversation — clarity in messaging, decisions under uncertainty, and the hand-off from strategy into shipped product. B.Sc. Computer Science, Tufts.</p>
           </div>
-          <div class="founder-projects">
-            <p class="founder-projects-label">recent on</p>
-            <div class="founder-chips">
-              <a class="founder-chip" href="work/klydo-cut-strategy.html">Klydo <span class="founder-chip-meta">— strategy</span></a>
-              <a class="founder-chip" href="work/pratham.html">Pratham USA <span class="founder-chip-meta">— positioning</span></a>
-              <a class="founder-chip" href="work/xtdb.html">XTDB <span class="founder-chip-meta">— developer story</span></a>
-            </div>
-          </div>
         </div>
 
         <div class="founder">
@@ -793,14 +791,6 @@
             <p>Divya tends to pull a project toward the world it lives in — the texture, the cast of characters, the moments people will remember. Experience design, product, game design, and an illustration practice that's become a Joyus signature.</p>
             <p>Master's in Physics from IIT Kharagpur; design taught by making a lot of things. Her hand shows up across the studio — Tatsam's mental-health flows, Secret Senses' packaging, The Line Before's interactive poetry. The studio's craft floor is hers.</p>
           </div>
-          <div class="founder-projects">
-            <p class="founder-projects-label">recent on</p>
-            <div class="founder-chips">
-              <a class="founder-chip" href="work/tatsam.html">Tatsam <span class="founder-chip-meta">— product</span></a>
-              <a class="founder-chip" href="work/secret-senses.html">Secret Senses <span class="founder-chip-meta">— packaging</span></a>
-              <a class="founder-chip" href="work/rachna-nivas.html">Rachna Nivas <span class="founder-chip-meta">— brand</span></a>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -808,9 +798,9 @@
 
   <!-- CLOSING -->
   <section class="closing">
-    <span class="dot dx1"></span>
-    <span class="dot dx2"></span>
-    <span class="dot dx3"></span>
+    <span class="dot dx1 drift"></span>
+    <span class="dot dx2 drift-fast"></span>
+    <span class="dot dx3 drift-slow"></span>
     <span class="closing-label">your move</span>
     <h2>Let's figure something out together. <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h2>
     <span class="hint">hello@joyus.studio · we read everything</span>
