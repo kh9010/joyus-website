@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Services from Joyus Studio — advise, design, tell, strategize, chart. Five things we do for businesses building something new.">
+<meta property="og:title" content="Services — Joyus Studio">
+<meta property="og:description" content="Advise, design, tell, strategize, chart. Five things Joyus Studio does for teams figuring out what's next.">
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/services-v2.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/services-v2.html">
+<title>Services · Joyus Studio</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+<style>
+  /* :root tokens + body baseline come from styles.css */
+  body { overflow-x: hidden; }
+
+  /* progress thread */
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.15s linear;
+  }
+
+  /* ============ DOTS ============ */
+  .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+  .d-pink   { background: var(--pink); }
+  .d-cyan   { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
+  .d-ink    { background: var(--ink); }
+
+  /* ============ HERO — placeholder header (workshops-style) ============ */
+  .hero {
+    min-height: 56vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 17ch;
+    position: relative; z-index: 2;
+  }
+  .hero h1 em { font-style: normal; color: var(--pink); }
+  .hero h1 em::after { content: "."; color: var(--yellow); }
+  .hero-lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    line-height: 1.6; color: var(--ink-soft);
+    max-width: 56ch; margin-top: 1.75rem;
+    position: relative; z-index: 2;
+  }
+  .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
+  .hero .dh1 { width: 220px; height: 220px; top: 16%; right: 6%; opacity: 0.55; }
+  .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
+  .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
+  .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
+
+  /* ============ VERB ACCORDION ============ */
+  .verbs {
+    padding: clamp(2rem, 4vh, 3.5rem) 0 clamp(4rem, 8vh, 6rem);
+    position: relative;
+    border-top: 1px solid var(--rule);
+  }
+  .verb-stack {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  /* Full-width row so the tinted background bleeds edge-to-edge */
+  .verb-item {
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.46s ease;
+  }
+  /* Solid backgrounds per verb when open — full saturation, like the original v-N fields */
+  .verb-item[data-tone="pink"][data-open="true"]   { background: var(--pink); }
+  .verb-item[data-tone="ink"][data-open="true"]    { background: var(--ink); }
+  .verb-item[data-tone="yellow"][data-open="true"] { background: var(--yellow); }
+  .verb-item[data-tone="cyan"][data-open="true"]   { background: var(--cyan); }
+
+  /* On-bg color tokens — set when the verb is open so all descendants pick them up.
+     pink/ink are dark fields → white text. yellow/cyan are light fields → ink text. */
+  .verb-item[data-tone="pink"][data-open="true"],
+  .verb-item[data-tone="ink"][data-open="true"] {
+    --on-bg: #fff;
+    --on-bg-soft: rgba(255, 255, 255, 0.78);
+    --on-bg-fade: rgba(255, 255, 255, 0.55);
+    --on-bg-line: rgba(255, 255, 255, 0.22);
+    --on-bg-accent: var(--yellow);
+  }
+  .verb-item[data-tone="yellow"][data-open="true"],
+  .verb-item[data-tone="cyan"][data-open="true"] {
+    --on-bg: var(--ink);
+    --on-bg-soft: rgba(44, 53, 68, 0.78);
+    --on-bg-fade: rgba(44, 53, 68, 0.55);
+    --on-bg-line: rgba(44, 53, 68, 0.18);
+    --on-bg-accent: var(--ink);
+  }
+
+  .verb-row {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    color: var(--ink);
+    font-family: var(--sans);
+    display: block;
+    transition: color 0.32s ease, opacity 0.32s ease;
+  }
+  .verb-row-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(1rem, 2.4vh, 1.6rem) var(--x);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    align-items: center;
+  }
+  .vj-head {
+    display: inline-flex;
+    align-items: baseline;
+    gap: clamp(0.8rem, 1.8vw, 1.4rem);
+    min-width: 0;
+  }
+  .vj-num {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-fade);
+    flex-shrink: 0;
+    transition: color 0.32s ease;
+  }
+  .vj-word {
+    font-weight: 700;
+    font-size: clamp(2.5rem, 7.5vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: inherit;
+  }
+  /* +/× toggle */
+  .vj-toggle {
+    width: 28px; height: 28px;
+    position: relative;
+    flex-shrink: 0;
+    display: inline-block;
+  }
+  .vj-toggle::before,
+  .vj-toggle::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    transition: transform 0.32s ease, background 0.32s ease;
+  }
+  .vj-toggle::before { left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; }
+  .vj-toggle::after  { top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; }
+  .verb-row[aria-expanded="true"] .vj-toggle::after { transform: scaleY(0); }
+
+  /* Desktop hover: dim others, highlight hovered row in pink */
+  @media (hover: hover) and (pointer: fine) {
+    .verb-stack:hover .verb-row { opacity: 0.45; }
+    .verb-stack .verb-row:hover { opacity: 1; color: var(--pink); }
+    .verb-stack .verb-row:hover .vj-num { color: var(--pink); }
+    /* When a row is open, don't dim it — and use the on-bg color, not pink */
+    .verb-stack .verb-item[data-open="true"] .verb-row { opacity: 1; color: var(--on-bg); }
+    .verb-stack .verb-item[data-open="true"] .verb-row:hover { color: var(--on-bg); }
+    .verb-stack .verb-item[data-open="true"] .vj-num,
+    .verb-stack .verb-item[data-open="true"] .verb-row:hover .vj-num { color: var(--on-bg-fade); }
+  }
+  /* Open row colors (no-hover fallback / touch) */
+  .verb-item[data-open="true"] .verb-row { color: var(--on-bg); }
+  .verb-item[data-open="true"] .vj-num { color: var(--on-bg-fade); }
+
+  /* Accordion panel — grid-rows trick for height animation */
+  .verb-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .verb-item[data-open="true"] .verb-panel { grid-template-rows: 1fr; }
+  .verb-panel-wrap { overflow: hidden; min-height: 0; }
+  .verb-panel-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0.5rem var(--x) clamp(2rem, 5vh, 3rem);
+    display: grid;
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    grid-template-rows: auto auto;
+    column-gap: clamp(1.5rem, 4vw, 4rem);
+    row-gap: 1.75rem;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.32s ease 0.05s, transform 0.32s ease 0.05s;
+  }
+  .verb-item[data-open="true"] .verb-panel-inner { opacity: 1; transform: translateY(0); }
+
+  .manifesto {
+    grid-column: 1 / -1;
+    font-size: clamp(1.2rem, 1.85vw, 1.65rem);
+    line-height: 1.35;
+    font-weight: 500;
+    color: var(--on-bg, var(--ink));
+    margin: 0;
+    max-width: 48ch;
+  }
+  .manifesto em {
+    color: var(--on-bg-accent, var(--pink));
+    font-style: normal;
+    font-weight: 600;
+  }
+
+  /* ---------- Left column: questions ---------- */
+  .questions {
+    grid-column: 1;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .questions li {
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.5;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--on-bg-line, var(--rule));
+    font-style: italic;
+    font-weight: 400;
+    color: var(--on-bg-soft, var(--ink-soft));
+    cursor: pointer;
+    transition: color 0.2s ease, padding-left 0.25s ease;
+    position: relative;
+  }
+  .questions li:first-child { border-top: 0; }
+  .questions li::before {
+    content: "→";
+    position: absolute;
+    left: -1.3em;
+    top: 0.85rem;
+    color: var(--on-bg-accent, var(--pink));
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    font-style: normal;
+  }
+  .questions li:hover,
+  .questions li:focus,
+  .questions li[data-active="true"] {
+    color: var(--on-bg, var(--pink));
+    padding-left: 0.4em;
+  }
+  .questions li:hover::before,
+  .questions li:focus::before,
+  .questions li[data-active="true"]::before {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .questions li:focus { outline: 0; }
+
+  /* ---------- Right column: related (editorial, joyus language) ---------- */
+  .related {
+    grid-column: 2;
+    position: relative;
+    min-height: 220px;
+  }
+  .related-empty {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--on-bg-fade, var(--ink-fade));
+    line-height: 1.4;
+    transform: rotate(-1deg);
+    display: inline-block;
+    padding: 0.25rem 0;
+    transition: opacity 0.25s ease;
+  }
+  .related-empty em {
+    color: var(--on-bg-accent, var(--pink));
+    font-style: normal;
+    font-weight: 500;
+  }
+  .related[data-state="filled"] .related-empty { display: none; }
+
+  .related-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--on-bg-fade, var(--ink-fade));
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .related[data-state="empty"] .related-label { display: none; }
+
+  .related-cards { display: block; }
+  .related[data-state="empty"] .related-cards { display: none; }
+
+  /* Editorial card: no box, no rounded border, no thumbnail tile.
+     Hairline above, eyebrow with leading dot, big title, soft sub, arrow on hover. */
+  .rel-card {
+    display: block;
+    position: relative;
+    padding: 0.95rem 2rem 0.95rem 0;
+    text-decoration: none;
+    color: var(--on-bg, var(--ink));
+    border-top: 1px solid var(--on-bg-line, var(--rule));
+    transition: padding-left 0.28s ease;
+    animation: rel-in 0.32s ease both;
+  }
+  .rel-card:first-child { border-top: 0; padding-top: 0.45rem; }
+  .rel-card:last-child  { padding-bottom: 0.25rem; }
+  .rel-card:hover { padding-left: 0.4rem; }
+  @keyframes rel-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .rel-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--on-bg-fade, var(--ink-fade));
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  .rel-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+    background: var(--pink);
+  }
+  .rel-card[data-type="podcast"] .rel-dot { background: var(--cyan); }
+  .rel-card[data-type="essay"]   .rel-dot { background: var(--yellow); }
+  /* On dark/saturated open bgs, dots use the on-bg accent so they don't vibrate */
+  .verb-item[data-tone="pink"][data-open="true"] .rel-dot,
+  .verb-item[data-tone="ink"][data-open="true"]  .rel-dot { background: var(--on-bg-accent); }
+  .verb-item[data-tone="yellow"][data-open="true"] .rel-card[data-type="project"] .rel-dot { background: var(--ink); }
+  .verb-item[data-tone="cyan"][data-open="true"]   .rel-card[data-type="project"] .rel-dot { background: var(--ink); }
+
+  .rel-title {
+    display: block;
+    font-size: clamp(1.1rem, 1.45vw, 1.3rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--on-bg, var(--ink));
+    margin: 0;
+  }
+  .rel-sub {
+    display: block;
+    font-size: 0.92rem;
+    color: var(--on-bg-soft, var(--ink-soft));
+    margin-top: 0.2rem;
+    line-height: 1.4;
+  }
+  .rel-arrow {
+    position: absolute;
+    right: 0;
+    top: 1rem;
+    font-size: 1.05rem;
+    color: var(--on-bg-fade, var(--ink-fade));
+    transition: transform 0.28s ease, color 0.25s ease;
+    line-height: 1;
+  }
+  .rel-card:first-child .rel-arrow { top: 0.5rem; }
+  .rel-card:hover .rel-arrow {
+    transform: translateX(4px);
+    color: var(--on-bg, var(--pink));
+  }
+
+  /* ================================================================
+     RELATED-CARD VARIANTS — assigned per verb so you can compare.
+     Each verb has a data-variant on its .related: A | B | C | D | 0
+     ================================================================ */
+
+  /* ---------- VARIANT A: PULL-QUOTE ---------- */
+  /* No card. No metadata. Just a line FROM the work, magazine-style.
+     Giant open-quote mark, italic body, small attribution + arrow.
+     Reads like a pulled quote in an editorial spread. */
+  .related[data-variant="A"] .related-cards {
+    display: grid;
+    gap: 1.8rem;
+    padding-top: 0.4rem;
+  }
+  .related[data-variant="A"] .pq-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 0.75rem;
+    row-gap: 0.3rem;
+    align-items: start;
+    text-decoration: none;
+    color: var(--on-bg);
+    position: relative;
+    transition: transform 0.3s ease, padding-left 0.3s ease;
+  }
+  .related[data-variant="A"] .pq-card:hover { padding-left: 0.35rem; }
+  .related[data-variant="A"] .pq-mark {
+    grid-row: 1 / 3;
+    font-family: 'Space Grotesk', serif;
+    font-size: clamp(3.5rem, 6vw, 5rem);
+    line-height: 0.7;
+    color: var(--on-bg-accent);
+    font-weight: 700;
+    align-self: start;
+    margin-top: -0.1em;
+  }
+  .related[data-variant="A"] .pq-quote {
+    grid-column: 2;
+    margin: 0;
+    font-size: clamp(1.15rem, 1.5vw, 1.4rem);
+    line-height: 1.3;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--on-bg);
+    letter-spacing: -0.005em;
+  }
+  .related[data-variant="A"] .pq-attrib {
+    grid-column: 2;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 0.82rem;
+    color: var(--on-bg-fade);
+    margin-top: 0.2rem;
+    letter-spacing: 0.04em;
+  }
+  .related[data-variant="A"] .pq-from { color: var(--on-bg-fade); text-transform: lowercase; }
+  .related[data-variant="A"] .pq-title { color: var(--on-bg); font-weight: 600; text-transform: none; }
+  .related[data-variant="A"] .pq-arrow {
+    color: var(--on-bg-accent);
+    margin-left: 0.2rem;
+    transition: transform 0.25s ease;
+    display: inline-block;
+  }
+  .related[data-variant="A"] .pq-card:hover .pq-arrow { transform: translateX(4px); }
+
+  /* ---------- VARIANT B: SPEECH-BUBBLE / MARGIN-NOTE ---------- */
+  /* A handwritten reply, rotated slightly, with a tail tucked in.
+     Caveat eyebrow ("look at how →"), title large, sub small.
+     Feels conversational — like an aside passed back from a teammate. */
+  .related[data-variant="B"] .related-cards {
+    display: grid;
+    gap: 1.4rem;
+    padding-top: 0.5rem;
+  }
+  .related[data-variant="B"] .sb-card {
+    display: block;
+    text-decoration: none;
+    color: var(--ink);
+    transition: transform 0.3s ease;
+  }
+  .related[data-variant="B"] .sb-card:nth-child(1) { transform: rotate(-1deg); }
+  .related[data-variant="B"] .sb-card:nth-child(2) { transform: rotate(0.8deg); margin-left: 1.5rem; }
+  .related[data-variant="B"] .sb-card:hover { transform: rotate(0) translateY(-2px); }
+  .related[data-variant="B"] .sb-bubble {
+    display: inline-block;
+    position: relative;
+    background: var(--bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 18px 18px 18px 4px;
+    padding: 0.95rem 1.1rem 1rem;
+    max-width: 100%;
+  }
+  .related[data-variant="B"] .sb-card:nth-child(2) .sb-bubble {
+    border-radius: 18px 18px 4px 18px;
+  }
+  /* tail */
+  .related[data-variant="B"] .sb-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 14px;
+    width: 14px; height: 14px;
+    background: var(--bg);
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    transform: rotate(45deg) skew(-8deg, -8deg);
+    border-radius: 2px;
+  }
+  .related[data-variant="B"] .sb-card:nth-child(2) .sb-bubble::after {
+    left: auto; right: 14px;
+    transform: rotate(45deg) skew(8deg, 8deg);
+  }
+  .related[data-variant="B"] .sb-intro {
+    display: block;
+    font-family: var(--hand);
+    font-size: 1.3rem;
+    color: var(--pink);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+    transform: rotate(-1.5deg);
+    transform-origin: left center;
+  }
+  .related[data-variant="B"] .sb-card[data-type="podcast"] .sb-intro { color: #2A8A92; }
+  .related[data-variant="B"] .sb-card[data-type="essay"]   .sb-intro { color: #9C7A14; }
+  .related[data-variant="B"] .sb-title {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+  }
+  .related[data-variant="B"] .sb-sub {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    margin-top: 0.3rem;
+  }
+
+  /* ---------- VARIANT C: COMIC PANEL ---------- */
+  /* Thick-bordered zine panel. Numbered + typed stamp at the top,
+     ALL-CAPS title in the middle, sub line + arrow at the foot.
+     Echoes Joyus Comics. Slight rotation. */
+  .related[data-variant="C"] .related-cards {
+    display: grid;
+    gap: 0.9rem;
+    padding-top: 0.3rem;
+  }
+  .related[data-variant="C"] .cp-card {
+    display: block;
+    background: var(--ink);
+    color: #fff;
+    border: 2.5px solid #fff;
+    box-shadow: 5px 5px 0 var(--on-bg-line, rgba(0,0,0,0.18));
+    padding: 0.9rem 1.05rem 0.95rem;
+    text-decoration: none;
+    transform: rotate(-0.8deg);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+  }
+  .related[data-variant="C"] .cp-card:nth-child(2) { transform: rotate(0.6deg); }
+  .related[data-variant="C"] .cp-card:hover {
+    transform: rotate(0) translate(-2px, -2px);
+    box-shadow: 9px 9px 0 var(--on-bg-line, rgba(0,0,0,0.22));
+  }
+  .related[data-variant="C"] .cp-card[data-type="project"] { background: var(--ink); }
+  .related[data-variant="C"] .cp-card[data-type="podcast"] { background: var(--pink); }
+  .related[data-variant="C"] .cp-card[data-type="essay"]   { background: var(--cyan); color: var(--ink); border-color: var(--ink); }
+  .related[data-variant="C"] .cp-stamp {
+    display: inline-block;
+    font-size: 0.66rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 700;
+    background: rgba(255,255,255,0.15);
+    padding: 3px 8px 4px;
+    margin-bottom: 0.6rem;
+  }
+  .related[data-variant="C"] .cp-card[data-type="essay"] .cp-stamp { background: rgba(0,0,0,0.12); }
+  .related[data-variant="C"] .cp-title {
+    display: block;
+    font-size: clamp(1.6rem, 2.4vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 0.95;
+    text-transform: uppercase;
+  }
+  .related[data-variant="C"] .cp-sub {
+    display: block;
+    font-size: 0.86rem;
+    margin-top: 0.55rem;
+    opacity: 0.85;
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+  }
+  .related[data-variant="C"] .cp-arrow { font-weight: 700; margin-left: 0.25rem; }
+
+  /* ---------- VARIANT D: FREE-FLOATING STAMPS ---------- */
+  /* Two stamps placed asymmetrically in the panel — no grid, no list.
+     Confidence + whitespace. Each stamp is a thin pill with type-dot,
+     a big title, and an arrow. They land where they land. */
+  .related[data-variant="D"] .related-cards {
+    position: relative;
+    min-height: 240px;
+    padding-top: 0.5rem;
+  }
+  .related[data-variant="D"] .st-card {
+    position: absolute;
+    display: inline-grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    column-gap: 0.75rem;
+    row-gap: 0.2rem;
+    align-items: baseline;
+    padding: 0.7rem 1.1rem 0.85rem;
+    background: var(--bg);
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 8px 20px rgba(20, 20, 30, 0.15);
+    transition: transform 0.32s ease, box-shadow 0.32s ease;
+  }
+  .related[data-variant="D"] .st-card:nth-child(1) {
+    top: 0;
+    left: 0;
+    transform: rotate(-3deg);
+  }
+  .related[data-variant="D"] .st-card:nth-child(2) {
+    top: 120px;
+    right: 0;
+    left: auto;
+    transform: rotate(2.5deg);
+  }
+  .related[data-variant="D"] .st-card:hover {
+    transform: rotate(0) translateY(-3px);
+    box-shadow: 0 14px 28px rgba(20, 20, 30, 0.22);
+  }
+  .related[data-variant="D"] .st-tag {
+    grid-row: 1;
+    grid-column: 1 / 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--ink-fade);
+  }
+  .related[data-variant="D"] .st-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--pink);
+    display: inline-block;
+  }
+  .related[data-variant="D"] .st-card[data-type="podcast"] .st-dot { background: var(--cyan); }
+  .related[data-variant="D"] .st-card[data-type="essay"]   .st-dot { background: var(--yellow); }
+  .related[data-variant="D"] .st-title {
+    grid-row: 2;
+    grid-column: 1;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .related[data-variant="D"] .st-arrow {
+    grid-row: 2;
+    grid-column: 2;
+    align-self: center;
+    font-size: 1.15rem;
+    color: var(--ink);
+    transition: transform 0.25s ease;
+  }
+  .related[data-variant="D"] .st-card:hover .st-arrow { transform: translateX(4px); }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 880px) {
+    .vj-word { font-size: clamp(2.2rem, 11vw, 3.6rem); }
+    .verb-panel-inner {
+      grid-template-columns: 1fr;
+      row-gap: 1.25rem;
+    }
+    .manifesto { max-width: none; }
+    .questions, .related { grid-column: 1; }
+    .related { min-height: 0; margin-top: 0.5rem; }
+    .questions li::before { display: none; }
+    .questions li:hover, .questions li[data-active="true"] { padding-left: 0; }
+    /* On touch, no hover — so always show a compact card list under each question */
+    .related-empty { display: none; }
+  }
+
+  /* iOS Safari URL-bar safe height */
+  .hero { min-height: 56dvh; }
+
+  /* ============ CLOSING ============
+     .closing / .closing-label / .closing h3 / .closing .hint all come
+     from styles.css. Only page-local decorative dot positions live here. */
+  .closing .dot-x1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+  .closing .dot-x2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+  .closing .dot-x3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+
+  /* foot styles come from /_partials/foot.html */
+
+  /* Respect reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .verb-panel,
+    .verb-panel-inner,
+    .verb-row,
+    .vj-toggle::before,
+    .vj-toggle::after { transition: none !important; }
+  }
+</style>
+</head>
+<body data-accent="pink">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <div class="thread"><div class="thread-fill" id="tf"></div></div>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: var(--sans);
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: var(--pink); }
+  .nav .nav-links a.active {
+    color: var(--ink);
+    font-weight: 500;
+    border-bottom-color: var(--pink);
+  }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--ink); border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="services-v2.html" data-nav="services-v2">Services v2</a>
+    <a href="workshops.html" data-nav="workshops">Workshops</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
+    <a href="about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services-v2\.html/.test(path)) active = 'services-v2';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <main id="main-content">
+  <!-- =========== HERO — placeholder header =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-pink"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-cyan"></span>
+    <span class="dot dh4 d-pink"></span>
+
+    <span class="hero-eyebrow">hire</span>
+    <h1>Five things <em>we do</em></h1>
+    <p class="hero-lede">
+      Tap a verb to see how it shows up in the room. <em>Pick the one that sounds like your week.</em>
+    </p>
+  </section>
+
+  <!-- =========== VERB ACCORDION =========== -->
+  <section class="verbs">
+    <ol class="verb-stack" id="verb-stack">
+
+      <!-- 01 ADVISE — pink tint -->
+      <li class="verb-item" data-open="false" data-tone="pink">
+        <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-1">
+          <span class="verb-row-inner">
+            <span class="vj-head"><span class="vj-num">01</span><span class="vj-word">advise</span></span>
+            <span class="vj-toggle" aria-hidden="true"></span>
+          </span>
+        </button>
+        <div class="verb-panel" id="panel-1" role="region" aria-label="advise">
+          <div class="verb-panel-wrap">
+            <div class="verb-panel-inner">
+              <p class="manifesto">You bring the problem. <em>We help you see it clearly enough to decide.</em></p>
+              <ul class="questions">
+                <li tabindex="0" data-related="klydo,ep14,essay1">Should we rebuild the brand, or just rename it?</li>
+                <li tabindex="0" data-related="pratham,ep42">Is the product landing with the audience we think we're talking to?</li>
+                <li tabindex="0" data-related="tatsam,ep22,essay2">Do I have more options than I think I do?</li>
+                <li tabindex="0" data-related="agemo,ep56">Do I need a co-founder, or a hire?</li>
+              </ul>
+              <div class="related" data-state="empty" data-variant="A">
+                <span class="related-label">Variant A · pull-quote (a line FROM the work)</span>
+                <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
+                <div class="related-cards"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 02 DESIGN — ink tint -->
+      <li class="verb-item" data-open="false" data-tone="ink">
+        <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-2">
+          <span class="verb-row-inner">
+            <span class="vj-head"><span class="vj-num">02</span><span class="vj-word">design</span></span>
+            <span class="vj-toggle" aria-hidden="true"></span>
+          </span>
+        </button>
+        <div class="verb-panel" id="panel-2" role="region" aria-label="design">
+          <div class="verb-panel-wrap">
+            <div class="verb-panel-inner">
+              <p class="manifesto">You don't have a solution yet. <em>We design what it should be.</em></p>
+              <ul class="questions">
+                <li tabindex="0" data-related="klydo,agemo,essay1">What is this product, actually?</li>
+                <li tabindex="0" data-related="rachna,tomboyx,ep31">What should this brand stand for — and to whom?</li>
+                <li tabindex="0" data-related="agemo,ep42">We have the idea. What's the smallest real version of it?</li>
+                <li tabindex="0" data-related="convegenius,ep56,essay2">Why do customers come back — and how do we make more of that?</li>
+              </ul>
+              <div class="related" data-state="empty" data-variant="B">
+                <span class="related-label">Variant B · speech bubble (a margin-note reply)</span>
+                <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
+                <div class="related-cards"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 03 TELL — yellow tint -->
+      <li class="verb-item" data-open="false" data-tone="yellow">
+        <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-3">
+          <span class="verb-row-inner">
+            <span class="vj-head"><span class="vj-num">03</span><span class="vj-word">tell</span></span>
+            <span class="vj-toggle" aria-hidden="true"></span>
+          </span>
+        </button>
+        <div class="verb-panel" id="panel-3" role="region" aria-label="tell">
+          <div class="verb-panel-wrap">
+            <div class="verb-panel-inner">
+              <p class="manifesto">The story that unifies the team is usually <em>the same story that lands with investors and customers.</em></p>
+              <ul class="questions">
+                <li tabindex="0" data-related="xtdb,ep31,essay1">Why aren't investors seeing what we see?</li>
+                <li tabindex="0" data-related="tatsam,klydo,ep14">How do we say what we do without sounding like everyone else?</li>
+                <li tabindex="0" data-related="pratham,ep22">How do we get our own team to believe the same thing?</li>
+                <li tabindex="0" data-related="tomboyx,ep31,essay2">How does our story earn trust?</li>
+              </ul>
+              <div class="related" data-state="empty" data-variant="C">
+                <span class="related-label">Variant C · comic panel (zine-style)</span>
+                <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
+                <div class="related-cards"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 04 STRATEGIZE — cyan tint -->
+      <li class="verb-item" data-open="false" data-tone="cyan">
+        <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-4">
+          <span class="verb-row-inner">
+            <span class="vj-head"><span class="vj-num">04</span><span class="vj-word">strategize</span></span>
+            <span class="vj-toggle" aria-hidden="true"></span>
+          </span>
+        </button>
+        <div class="verb-panel" id="panel-4" role="region" aria-label="strategize">
+          <div class="verb-panel-wrap">
+            <div class="verb-panel-inner">
+              <p class="manifesto">When the question is still open, <em>we go deep with you until it isn't.</em></p>
+              <ul class="questions">
+                <li tabindex="0" data-related="klydo,ep56,essay2">What should we be doing in the next three months — and the next six?</li>
+                <li tabindex="0" data-related="convegenius,ep42">What's working, what's not, and why?</li>
+                <li tabindex="0" data-related="tomboyx,ep22,essay1">Is it a retention problem, or a growth problem?</li>
+                <li tabindex="0" data-related="xtdb,agemo,ep31">Is there an adjacent market we should be in?</li>
+              </ul>
+              <div class="related" data-state="empty" data-variant="D">
+                <span class="related-label">Variant D · free-floating stamps (asymmetric)</span>
+                <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
+                <div class="related-cards"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+      <!-- 05 CHART — pink tint -->
+      <li class="verb-item" data-open="false" data-tone="pink">
+        <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-5">
+          <span class="verb-row-inner">
+            <span class="vj-head"><span class="vj-num">05</span><span class="vj-word">chart</span></span>
+            <span class="vj-toggle" aria-hidden="true"></span>
+          </span>
+        </button>
+        <div class="verb-panel" id="panel-5" role="region" aria-label="chart">
+          <div class="verb-panel-wrap">
+            <div class="verb-panel-inner">
+              <p class="manifesto">Sometimes the question isn't what to do — <em>it's where to go.</em></p>
+              <ul class="questions">
+                <li tabindex="0" data-related="tomboyx,ep56,essay1">How do we make this a sustainable business?</li>
+                <li tabindex="0" data-related="xtdb,ep42">Where will the growth in enterprise value come from?</li>
+                <li tabindex="0" data-related="klydo,convegenius,ep31">Where did the market, the team, and the company stop agreeing?</li>
+                <li tabindex="0" data-related="tatsam,ep22,essay2">What's my second act?</li>
+              </ul>
+              <div class="related" data-state="empty" data-variant="0">
+                <span class="related-label">Related · baseline · editorial</span>
+                <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
+                <div class="related-cards"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- =========== CLOSING =========== -->
+  <section class="closing">
+    <span class="dot dot-x1 d-pink"></span>
+    <span class="dot dot-x2 d-cyan"></span>
+    <span class="dot dot-x3 d-yellow"></span>
+    <span class="closing-label">your move</span>
+    <h2>Pick a verb. <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h2>
+    <span class="hint">hello@joyus.studio · we read everything</span>
+  </section>
+  </main>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: var(--bg);
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    // Scroll progress thread
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      document.getElementById('tf').style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
+
+    // Accordion: single-open
+    (function () {
+      const stack = document.getElementById('verb-stack');
+      if (!stack) return;
+      const items = stack.querySelectorAll('.verb-item');
+      items.forEach((item) => {
+        const btn = item.querySelector('.verb-row');
+        if (!btn) return;
+        btn.addEventListener('click', () => {
+          const isOpen = item.getAttribute('data-open') === 'true';
+          items.forEach((other) => {
+            other.setAttribute('data-open', 'false');
+            const ob = other.querySelector('.verb-row');
+            if (ob) ob.setAttribute('aria-expanded', 'false');
+            // reset related panel state when verb closes
+            const rel = other.querySelector('.related');
+            if (rel) {
+              rel.setAttribute('data-state', 'empty');
+              const cards = rel.querySelector('.related-cards');
+              if (cards) cards.innerHTML = '';
+            }
+            other.querySelectorAll('.questions li').forEach((q) => q.removeAttribute('data-active'));
+          });
+          if (!isOpen) {
+            item.setAttribute('data-open', 'true');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    })();
+
+    // ---- Question hover/focus → reveal related cards (visual placeholder) ----
+    (function () {
+      // PLACEHOLDER POOL — these are not yet curated mappings; the visual
+      // is real but the question→content mapping will be reviewed in a
+      // later pass against actual case studies + podcast episodes.
+      // PLACEHOLDER POOL — `quote` is a representative line FROM that work
+      // (made up for now; will be real lines pulled from each case study /
+      // podcast / essay in the curation pass).
+      const POOL = {
+        klydo:        { type: 'project', title: 'Klydo',        sub: 'Brand & product rebuild', href: 'work/klydo.html',         quote: 'the brand wasn’t lost — the telling was.' },
+        pratham:      { type: 'project', title: 'Pratham',      sub: 'Brand strategy',          href: 'work/pratham.html',       quote: 'talk to who’s actually here, not who you wish was.' },
+        tomboyx:      { type: 'project', title: 'TomboyX',      sub: 'Repositioning',           href: 'work/tomboyx.html',       quote: 'we sold the body, not the body type.' },
+        tatsam:       { type: 'project', title: 'Tatsam',       sub: 'Quiet luxury brand',      href: 'work/tatsam.html',        quote: 'quiet isn’t quiet. it’s confident.' },
+        agemo:        { type: 'project', title: 'Agemo',        sub: 'Product & research',      href: 'work/agemo.html',         quote: 'ship the smallest real version. then the next.' },
+        convegenius:  { type: 'project', title: 'ConveGenius',  sub: 'Gamification system',     href: 'work/convegenius.html',   quote: 'the loop teaches. the score doesn’t.' },
+        rachna:       { type: 'project', title: 'Rachna Nivas', sub: 'Brand foundation',        href: 'work/rachna-nivas.html',  quote: 'every brand is a room you walk into.' },
+        xtdb:         { type: 'project', title: 'XTDB',         sub: 'Developer brand & story', href: 'work/xtdb.html',          quote: 'let the docs tell the truth before marketing does.' },
+        ep14:         { type: 'podcast', title: 'Ep 14',        sub: 'Naming things',           href: 'podcast.html',            quote: 'naming things is most of strategy.' },
+        ep22:         { type: 'podcast', title: 'Ep 22',        sub: 'The founder’s voice',     href: 'podcast.html',            quote: 'the founder is the brand. for now.' },
+        ep31:         { type: 'podcast', title: 'Ep 31',        sub: 'Stories that land',       href: 'podcast.html',            quote: 'stories travel further than slides.' },
+        ep42:         { type: 'podcast', title: 'Ep 42',        sub: 'Talking to real users',   href: 'podcast.html',            quote: 'five real customers a week. for a year.' },
+        ep56:         { type: 'podcast', title: 'Ep 56',        sub: 'Strategy under pressure', href: 'podcast.html',            quote: 'when you don’t know what to do, slow down.' },
+        essay1:       { type: 'essay',   title: 'On building',  sub: 'thinking · essay',        href: 'thinking/',               quote: 'you don’t graduate from being early.' },
+        essay2:       { type: 'essay',   title: 'On naming',    sub: 'thinking · essay',        href: 'thinking/',               quote: 'names are decisions about what you’ll defend.' }
+      };
+
+      // Hand-written intro phrases per type, used by the speech-bubble variant
+      const HAND_INTRO = {
+        project: 'look at how →',
+        podcast: 'we said this on →',
+        essay:   'we wrote about it →'
+      };
+
+      function escAttr(s) { return String(s).replace(/"/g, '&quot;'); }
+
+      function editorialCard(item) {
+        return (
+          '<a class="rel-card" data-type="' + item.type + '" href="' + item.href + '">' +
+            '<span class="rel-tag"><span class="rel-dot" aria-hidden="true"></span>' + item.type + '</span>' +
+            '<span class="rel-title">' + item.title + '</span>' +
+            '<span class="rel-sub">' + item.sub + '</span>' +
+            '<span class="rel-arrow" aria-hidden="true">→</span>' +
+          '</a>'
+        );
+      }
+
+      function pullQuoteCard(item) {
+        return (
+          '<a class="pq-card" data-type="' + item.type + '" href="' + item.href + '">' +
+            '<span class="pq-mark" aria-hidden="true">“</span>' +
+            '<blockquote class="pq-quote">' + item.quote + '</blockquote>' +
+            '<span class="pq-attrib">' +
+              '<span class="pq-from">— ' + item.type + ' ·</span> ' +
+              '<span class="pq-title">' + item.title + '</span> ' +
+              '<span class="pq-arrow" aria-hidden="true">→</span>' +
+            '</span>' +
+          '</a>'
+        );
+      }
+
+      function speechBubbleCard(item) {
+        const intro = HAND_INTRO[item.type] || 'see →';
+        return (
+          '<a class="sb-card" data-type="' + item.type + '" href="' + item.href + '">' +
+            '<span class="sb-bubble">' +
+              '<span class="sb-intro">' + intro + '</span>' +
+              '<span class="sb-title">' + item.title + '</span>' +
+              '<span class="sb-sub">' + item.sub + '</span>' +
+            '</span>' +
+          '</a>'
+        );
+      }
+
+      function comicPanelCard(item, i) {
+        const num = String((i || 0) + 1).padStart(2, '0');
+        return (
+          '<a class="cp-card" data-type="' + item.type + '" href="' + item.href + '">' +
+            '<span class="cp-stamp">' + num + ' / ' + item.type + '</span>' +
+            '<span class="cp-title">' + item.title + '</span>' +
+            '<span class="cp-sub">' + item.sub + ' <span class="cp-arrow" aria-hidden="true">→</span></span>' +
+          '</a>'
+        );
+      }
+
+      function stampCard(item) {
+        return (
+          '<a class="st-card" data-type="' + item.type + '" href="' + item.href + '">' +
+            '<span class="st-tag"><span class="st-dot" aria-hidden="true"></span>' + item.type + '</span>' +
+            '<span class="st-title">' + item.title + '</span>' +
+            '<span class="st-arrow" aria-hidden="true">→</span>' +
+          '</a>'
+        );
+      }
+
+      function cardHTML(item, variant, i) {
+        if (!item) return '';
+        if (variant === 'A') return pullQuoteCard(item);
+        if (variant === 'B') return speechBubbleCard(item);
+        if (variant === 'C') return comicPanelCard(item, i);
+        if (variant === 'D') return stampCard(item);
+        return editorialCard(item);
+      }
+
+      function fill(li) {
+        const item = li.closest('.verb-item');
+        if (!item) return;
+        const rel = item.querySelector('.related');
+        const cards = rel && rel.querySelector('.related-cards');
+        if (!rel || !cards) return;
+        const variant = rel.getAttribute('data-variant') || '0';
+        const ids = (li.getAttribute('data-related') || '')
+          .split(',').map(s => s.trim()).filter(Boolean).slice(0, 2);
+        const html = ids.map((id, i) => cardHTML(POOL[id], variant, i)).join('');
+        if (!html) return;
+        cards.innerHTML = html;
+        rel.setAttribute('data-state', 'filled');
+        item.querySelectorAll('.questions li').forEach(q => q.removeAttribute('data-active'));
+        li.setAttribute('data-active', 'true');
+      }
+
+      // No mouseleave clear — keep the last hovered question's cards visible
+      // so the user can actually move over and click one of them.
+
+      document.querySelectorAll('.questions').forEach((ul) => {
+        ul.querySelectorAll('li[data-related]').forEach((li) => {
+          li.addEventListener('mouseenter', () => fill(li));
+          li.addEventListener('focus', () => fill(li));
+        });
+      });
+    })();
+  </script>
+
+</body>
+</html>
