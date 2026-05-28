@@ -253,63 +253,72 @@
     .founders .dq2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
     .founders .dq3 { width: 14px; height: 14px; top: 18%; left: 4%; background: var(--pink); }
 
-    /* === VALUES — uses the .poster card primitive from workshops === */
+    /* === VALUES — alternating diptych: pair anchor + elaboration === */
     .values {
       position: relative;
       padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(4rem, 8vh, 6rem);
       overflow: hidden;
     }
     .values-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 3; }
-    .values-grid {
+    .values-list {
+      list-style: none;
+      padding: 0;
+      margin: clamp(2rem, 4vh, 3rem) 0 0;
+    }
+    .value-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: clamp(1.5rem, 2.5vw, 2rem);
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(1.5rem, 5vw, 4rem);
+      align-items: center;
+      padding: clamp(2.25rem, 5vh, 3.5rem) 0;
+      border-bottom: 1px solid var(--rule);
     }
-    .value {
-      position: relative;
-      background: #fff;
-      border: 1.5px solid var(--rule);
-      border-top: 6px solid var(--vc, var(--pink));
-      border-radius: 14px;
-      padding: 1.6rem 1.5rem 1.4rem;
-      display: flex; flex-direction: column;
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-      overflow: hidden;
-      color: var(--ink);
-      min-height: 240px;
-    }
-    .value:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--vc, var(--pink));
-    }
-    .value:nth-child(6n+1) { --vc: var(--pink); }
-    .value:nth-child(6n+2) { --vc: var(--cyan); }
-    .value:nth-child(6n+3) { --vc: var(--yellow); }
-    .value:nth-child(6n+4) { --vc: var(--ink); }
-    .value:nth-child(6n+5) { --vc: var(--pink); }
-    .value:nth-child(6n+6) { --vc: var(--cyan); }
-    .value-num {
+    .value-row:last-child { border-bottom: 0; }
+    .value-row:nth-child(even) .vr-pair { grid-column: 2; grid-row: 1; text-align: right; }
+    .value-row:nth-child(even) .vr-body { grid-column: 1; grid-row: 1; }
+    .vr-pair { position: relative; }
+    .vr-num {
       font-family: var(--hand);
-      font-size: 2rem; line-height: 0.85;
+      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      line-height: 1;
       color: var(--vc, var(--pink));
       transform: rotate(-3deg);
       display: inline-block;
-      margin-bottom: 0.75rem;
-      position: relative; z-index: 1;
+      margin-bottom: 0.55rem;
     }
-    .value h3 {
-      font-size: 1.25rem;
+    .vr-word {
       font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.6rem;
-      color: var(--ink);
-      position: relative; z-index: 1;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      color: var(--vc, var(--pink));
+      margin: 0;
     }
-    .value p {
-      font-size: 0.95rem;
-      line-height: 1.55;
+    .vr-body p {
+      font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+      line-height: 1.6;
       color: var(--ink-soft);
-      position: relative; z-index: 1;
+      max-width: 52ch;
+      margin: 0;
+    }
+    .vr-body p .skip { color: var(--ink-fade); }
+    .value-row:nth-child(5n+1) { --vc: var(--pink); }
+    .value-row:nth-child(5n+2) { --vc: var(--cyan); }
+    .value-row:nth-child(5n+3) { --vc: var(--yellow); }
+    .value-row:nth-child(5n+4) { --vc: var(--pink); }
+    .value-row:nth-child(5n+5) { --vc: var(--cyan); }
+    @media (max-width: 720px) {
+      .value-row,
+      .value-row:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .value-row:nth-child(even) .vr-pair {
+        grid-column: 1; grid-row: 1; text-align: left;
+      }
+      .value-row:nth-child(even) .vr-body {
+        grid-column: 1; grid-row: 2;
+      }
     }
     .values .dv1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--yellow); opacity: 0.5; }
     .values .dv2 { width: 22px; height: 22px; bottom: 10%; left: 5%; background: var(--pink); }
@@ -600,34 +609,54 @@
     <span class="dot dv3 drift-slow"></span>
     <div class="values-inner">
       <p class="section-label">how we work</p>
-      <h2 class="section-h2"><em>Five</em> things we care about.</h2>
-      <div class="values-grid">
-        <div class="value">
-          <span class="value-num" aria-hidden="true">01</span>
-          <h3>Interdisciplinary</h3>
-          <p>We pull from design thinking, behavioral economics, and gamification — and apply it across design, marketing, and product to find the real source of the problem.</p>
-        </div>
-        <div class="value">
-          <span class="value-num" aria-hidden="true">02</span>
-          <h3>Play as Practice</h3>
-          <p>Joy and rigor aren't opposites. We bring play and obsessive craft to our work, because the best work happens when you engage all parts of yourself.</p>
-        </div>
-        <div class="value">
-          <span class="value-num" aria-hidden="true">03</span>
-          <h3>Long-Term Partnerships</h3>
-          <p>We don't do drive-by consulting. We stick around, check how things landed, and look for what to build next together. Our best client relationships span years.</p>
-        </div>
-        <div class="value">
-          <span class="value-num" aria-hidden="true">04</span>
-          <h3>Hands-On, Cross-Cultural</h3>
-          <p>We're smaller than a big firm. We move fast, make things ourselves, and have done it across India, the US, the UK, and Hong Kong. Working across contexts lets us cross-pollinate ideas — distribution-network growth lands as well in the West as it did in India.</p>
-        </div>
-        <div class="value">
-          <span class="value-num" aria-hidden="true">05</span>
-          <h3>AI-Native</h3>
-          <p>We don't just talk about AI — we use it to make things, from websites to our own projects to projects for teams. We build real workflows that actually save time and make better work.</p>
-        </div>
-      </div>
+      <h2 class="section-h2"><em>Five</em> things we choose.</h2>
+      <ol class="values-list">
+        <li class="value-row">
+          <div class="vr-pair">
+            <span class="vr-num" aria-hidden="true">01</span>
+            <h3 class="vr-word">wonder.</h3>
+          </div>
+          <div class="vr-body">
+            <p>Instead of <span class="skip">dread</span>, we walk toward the unknown. The most interesting part of any project is the part nobody's mapped yet.</p>
+          </div>
+        </li>
+        <li class="value-row">
+          <div class="vr-pair">
+            <span class="vr-num" aria-hidden="true">02</span>
+            <h3 class="vr-word">play.</h3>
+          </div>
+          <div class="vr-body">
+            <p>Instead of <span class="skip">paralysis</span>, we make things. A rough sketch tells us more than another meeting — and it's usually more fun, too.</p>
+          </div>
+        </li>
+        <li class="value-row">
+          <div class="vr-pair">
+            <span class="vr-num" aria-hidden="true">03</span>
+            <h3 class="vr-word">curiosity.</h3>
+          </div>
+          <div class="vr-body">
+            <p>Instead of <span class="skip">defensiveness</span>, we go looking for what could have been missed. The useful answer is almost always the one nobody saw coming.</p>
+          </div>
+        </li>
+        <li class="value-row">
+          <div class="vr-pair">
+            <span class="vr-num" aria-hidden="true">04</span>
+            <h3 class="vr-word">emergence.</h3>
+          </div>
+          <div class="vr-body">
+            <p>Instead of <span class="skip">forcing</span> a thesis onto the work, we listen for what it's trying to be. The strongest ideas surface once you make room for them.</p>
+          </div>
+        </li>
+        <li class="value-row">
+          <div class="vr-pair">
+            <span class="vr-num" aria-hidden="true">05</span>
+            <h3 class="vr-word">wayfinding.</h3>
+          </div>
+          <div class="vr-body">
+            <p>Instead of <span class="skip">rigid control</span>, we keep one eye on the destination and the other on what the project keeps revealing. Successful plans tend to get better after the work begins.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
