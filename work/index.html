@@ -43,9 +43,9 @@
   .hero-eyebrow::before { background: var(--yellow); }
   .hero h1 {
     font-weight: 700;
-    font-size: clamp(4rem, 12vw, 10rem);
-    line-height: 0.92;
-    letter-spacing: -0.045em;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
     color: var(--ink);
     max-width: 14ch;
     position: relative; z-index: 2;
@@ -124,28 +124,22 @@
     position: relative;
     z-index: 4;
   }
-  .band-num {
-    font-family: var(--sans);
-    font-variant-numeric: tabular-nums;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    color: var(--ink-fade);
-  }
   .band-name {
-    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    font-size: clamp(2.4rem, 5vw, 4.25rem);
     font-weight: 700;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.035em;
+    line-height: 1;
     color: var(--ink);
     display: inline-flex;
     align-items: center;
-    gap: 0.7rem;
+    gap: 0.85rem;
   }
   .band-name::before {
     content: "";
-    width: 12px; height: 12px;
+    width: 16px; height: 16px;
     border-radius: 50%;
     background: var(--band-color, var(--ink));
+    flex-shrink: 0;
   }
 
   .marquee {
@@ -192,12 +186,20 @@
     box-shadow: 14px 14px 0 var(--hover-shadow);
   }
 
-  /* Coming-soon case study cards — visible but unclickable, with a yellow pill */
+  /* Coming-soon case study cards — visible but unclickable. The image is
+     desaturated + darkened by a full-cover veil (::after), while the
+     "Coming soon" pill (::before) sits ABOVE the veil so it stays crisp.
+     No filter/opacity on the card itself — that would dim the label too. */
   .card.is-coming-soon {
     cursor: default;
     pointer-events: none;
-    filter: grayscale(0.55);
-    opacity: 0.6;
+  }
+  .card.is-coming-soon::after {
+    inset: 0;
+    height: auto;
+    background: rgba(20, 24, 32, 0.42);
+    -webkit-backdrop-filter: grayscale(1) brightness(0.92);
+    backdrop-filter: grayscale(1) brightness(0.92);
   }
   .card.is-coming-soon::before {
     content: "Coming soon";
@@ -206,14 +208,15 @@
     transform: translate(-50%, -50%);
     background: var(--yellow);
     color: var(--ink);
-    font: 500 0.8rem / 1 var(--sans);
+    font: 700 0.92rem / 1 var(--sans);
     text-transform: uppercase;
-    letter-spacing: 0.12em;
-    padding: 0.55rem 1.1rem;
+    letter-spacing: 0.14em;
+    padding: 0.7rem 1.3rem;
     border-radius: 999px;
-    z-index: 10;
+    z-index: 12;
     pointer-events: none;
     white-space: nowrap;
+    box-shadow: 0 6px 18px rgba(20, 24, 32, 0.3);
   }
   .card.is-coming-soon:hover {
     transform: rotate(var(--tilt, 0deg));
@@ -244,29 +247,6 @@
     color: #fff;
     line-height: 1;
   }
-
-  /* Sticker badges — pinned on top corner, tilted */
-  .card-sticker {
-    position: absolute;
-    top: 14px;
-    z-index: 3;
-    font-size: 0.66rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 6px 11px;
-    border-radius: 100px;
-    box-shadow: 0 4px 14px rgba(20,24,32,0.18);
-    color: var(--ink);
-    pointer-events: none;
-    white-space: nowrap;
-  }
-  .card-sticker.right { right: -6px; transform: rotate(6deg); }
-  .card-sticker.left  { left: -6px;  transform: rotate(-5deg); }
-  .card-sticker.yellow { background: var(--yellow); }
-  .card-sticker.pink   { background: var(--pink); color: #fff; }
-  .card-sticker.cyan   { background: var(--cyan); }
-  .card-sticker.ink    { background: var(--ink); color: #fff; }
 
   /* ============ FACT CARDS — bold, loud, three distinct tones ============ */
   .fact {
@@ -562,11 +542,10 @@
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
-    <a href="../services-v2.html" data-nav="services-v2">Services v2</a>
     <a href="../workshops.html" data-nav="workshops">Workshops</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
     <a href="../about.html" data-nav="about">About</a>
-    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    <a class="nav-cta" href="../say-hi.html" data-nav="say-hi">Say hi</a>
   </div>
 </nav>
 <script>
@@ -574,11 +553,11 @@
     var path = window.location.pathname;
     var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services-v2\.html/.test(path)) active = 'services-v2';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
@@ -641,15 +620,16 @@
 
   <!-- =========== BAND 01 — BRAND =========== -->
   <section class="band" id="band-brand" data-color="pink">
+    <span class="dot d-cyan"   style="top:6%; right:9%; width:20px; height:20px; opacity:.5;"></span>
+    <span class="dot d-yellow" style="bottom:10%; left:5%; width:30px; height:30px; opacity:.4;"></span>
+    <span class="dot d-pink"   style="bottom:18%; right:22%; width:12px; height:12px; opacity:.55;"></span>
     <div class="band-head">
-      <span class="band-num">01</span>
       <span class="band-name">Brand &amp; Identity</span>
     </div>
     <div class="marquee right" data-speed="55" data-dir="-1">
-      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 1.0deg;">
-        <span class="card-sticker yellow right">★ studio favourite</span>
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">TomboyX</span>
       </div>
@@ -657,37 +637,35 @@
         <span class="fact-kicker">recurring problem</span>
         <span class="fact-statement">Naming the thing the founder can&rsquo;t say out loud yet.</span>
       </div>
-      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: -0.9deg;">
+      <a class="card tight" href="./rachna-nivas.html" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">Rachna Nivas</span>
-      </div>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.9deg;">
-        <span class="card-sticker cyan left">2024 in flight</span>
-        <span class="card-name">Tatsam</span>
       </a>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.9deg;">
+        <span class="card-name">Tatsam</span>
+      </div>
       <div class="fact quote wide" style="--tilt: -0.6deg;">
         <span class="fact-q">A logo isn&rsquo;t an identity. An identity is what the brand can do when no one&rsquo;s watching.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: -0.6deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/pratham.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
-      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.5deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">XTDB</span>
-      </a>
+      </div>
       <div class="fact stat" style="--tilt: -0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">8</span></div>
         <span class="fact-num-label">Brand identities shipped since 2022.</span>
       </div>
-      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.4deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Gliitch</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
-      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 1.0deg;">
-        <span class="card-sticker yellow right">★ studio favourite</span>
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">TomboyX</span>
       </div>
@@ -695,30 +673,29 @@
         <span class="fact-kicker">recurring problem</span>
         <span class="fact-statement">Naming the thing the founder can&rsquo;t say out loud yet.</span>
       </div>
-      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: -0.9deg;">
+      <a class="card tight" href="./rachna-nivas.html" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">Rachna Nivas</span>
-      </div>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.9deg;">
-        <span class="card-sticker cyan left">2024 in flight</span>
-        <span class="card-name">Tatsam</span>
       </a>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.9deg;">
+        <span class="card-name">Tatsam</span>
+      </div>
       <div class="fact quote wide" style="--tilt: -0.6deg;">
         <span class="fact-q">A logo isn&rsquo;t an identity. An identity is what the brand can do when no one&rsquo;s watching.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: -0.6deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/pratham.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
-      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.5deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">XTDB</span>
-      </a>
+      </div>
       <div class="fact stat" style="--tilt: -0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">8</span></div>
         <span class="fact-num-label">Brand identities shipped since 2022.</span>
       </div>
-      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.4deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Gliitch</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
@@ -727,57 +704,57 @@
 
   <!-- =========== BAND 02 — PRODUCT =========== -->
   <section class="band" id="band-product" data-color="cyan">
+    <span class="dot d-pink"   style="top:9%; left:7%; width:16px; height:16px; opacity:.5;"></span>
+    <span class="dot d-cyan"   style="bottom:8%; right:8%; width:34px; height:34px; opacity:.38;"></span>
+    <span class="dot d-ink"    style="top:14%; right:30%; width:9px; height:9px; opacity:.5;"></span>
     <div class="band-head">
-      <span class="band-num">02</span>
       <span class="band-name">Product &amp; Interface</span>
     </div>
     <div class="marquee left-slow" data-speed="42" data-dir="1">
-      <a class="card" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: -1.4deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
       <div class="fact quote wide" style="--tilt: 1.0deg;">
         <span class="fact-q">The interface is where research meets opinion. One of them has to lose.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Kahran, on Agemo</span>
       </div>
-      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.5deg;">
-        <span class="card-sticker pink right">behind the scenes →</span>
+      <a class="card mega" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: -0.5deg;">
         <span class="card-name">Agemo</span>
-      </div>
-      <a class="card tight" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: 1.3deg;">
-        <span class="card-name">Tatsam</span>
       </a>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: 1.3deg;">
+        <span class="card-name">Tatsam</span>
+      </div>
       <div class="fact note" style="--tilt: 0.4deg;">
         <span class="fact-kicker">our bias</span>
         <span class="fact-statement">Make the state obvious before the action.</span>
       </div>
-      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -0.3deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/convegenius.jpg" style="--tilt: -0.3deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
+      </div>
       <div class="fact stat" style="--tilt: 0.8deg;">
         <div class="fact-num-wrap"><span class="fact-num">4</span></div>
         <span class="fact-num-label">Products shipped or in flight.</span>
       </div>
-      <a class="card" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: -1.4deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
       <div class="fact quote wide" style="--tilt: 1.0deg;">
         <span class="fact-q">The interface is where research meets opinion. One of them has to lose.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Kahran, on Agemo</span>
       </div>
-      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.5deg;">
-        <span class="card-sticker pink right">behind the scenes →</span>
+      <a class="card mega" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: -0.5deg;">
         <span class="card-name">Agemo</span>
-      </div>
-      <a class="card tight" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: 1.3deg;">
-        <span class="card-name">Tatsam</span>
       </a>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: 1.3deg;">
+        <span class="card-name">Tatsam</span>
+      </div>
       <div class="fact note" style="--tilt: 0.4deg;">
         <span class="fact-kicker">our bias</span>
         <span class="fact-statement">Make the state obvious before the action.</span>
       </div>
-      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -0.3deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/convegenius.jpg" style="--tilt: -0.3deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
+      </div>
       <div class="fact stat" style="--tilt: 0.8deg;">
         <div class="fact-num-wrap"><span class="fact-num">4</span></div>
         <span class="fact-num-label">Products shipped or in flight.</span>
@@ -787,22 +764,23 @@
 
   <!-- =========== BAND 03 — RESEARCH =========== -->
   <section class="band" id="band-research" data-color="yellow">
+    <span class="dot d-yellow" style="top:7%; right:6%; width:26px; height:26px; opacity:.45;"></span>
+    <span class="dot d-pink"   style="bottom:12%; left:14%; width:14px; height:14px; opacity:.55;"></span>
+    <span class="dot d-cyan"   style="bottom:22%; right:12%; width:10px; height:10px; opacity:.55;"></span>
     <div class="band-head">
-      <span class="band-num">03</span>
       <span class="band-name">Research &amp; Strategy</span>
     </div>
     <div class="marquee right-fast" data-speed="75" data-dir="-1">
-      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -1.2deg;">
+      <a class="card wide" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: -1.2deg;">
         <span class="card-name">Agemo</span>
-      </div>
+      </a>
       <div class="fact quote wide" style="--tilt: 0.7deg;">
         <span class="fact-q">Research isn&rsquo;t a deck. It&rsquo;s a fight the team has with the user, and someone takes notes.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: 0.7deg;">
-        <span class="card-sticker yellow right">12 interviews</span>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/convegenius.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
+      </div>
       <div class="fact note invert" style="--tilt: -0.5deg;">
         <span class="fact-kicker">how we work</span>
         <span class="fact-statement">User interviews, diary studies, hypothesis sprints, category mapping.</span>
@@ -814,17 +792,16 @@
         <div class="fact-num-wrap"><span class="fact-num">31</span></div>
         <span class="fact-num-label">User interviews across the last three projects.</span>
       </div>
-      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -1.2deg;">
+      <a class="card wide" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: -1.2deg;">
         <span class="card-name">Agemo</span>
-      </div>
+      </a>
       <div class="fact quote wide" style="--tilt: 0.7deg;">
         <span class="fact-q">Research isn&rsquo;t a deck. It&rsquo;s a fight the team has with the user, and someone takes notes.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: 0.7deg;">
-        <span class="card-sticker yellow right">12 interviews</span>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/convegenius.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
+      </div>
       <div class="fact note invert" style="--tilt: -0.5deg;">
         <span class="fact-kicker">how we work</span>
         <span class="fact-statement">User interviews, diary studies, hypothesis sprints, category mapping.</span>
@@ -841,63 +818,63 @@
 
   <!-- =========== BAND 04 — STORY =========== -->
   <section class="band" id="band-story" data-color="pink">
+    <span class="dot d-cyan"   style="top:8%; left:10%; width:22px; height:22px; opacity:.45;"></span>
+    <span class="dot d-yellow" style="top:16%; right:8%; width:13px; height:13px; opacity:.5;"></span>
+    <span class="dot d-pink"   style="bottom:9%; right:26%; width:28px; height:28px; opacity:.4;"></span>
     <div class="band-head">
-      <span class="band-num">04</span>
       <span class="band-name">Story &amp; Narrative</span>
     </div>
     <div class="marquee left" data-speed="50" data-dir="1">
       <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.9deg;">
-        <span class="card-sticker pink right">the line that landed</span>
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact quote tight" style="--tilt: 0.8deg;">
         <span class="fact-q">All up in our undies.</span>
         <span class="fact-att"><span class="dot-bullet"></span>TomboyX, the line that landed</span>
       </div>
-      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: 0.5deg;">
+      <a class="card tight" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Agemo</span>
-      </div>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
-        <span class="card-name">Tatsam</span>
       </a>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
+        <span class="card-name">Tatsam</span>
+      </div>
       <div class="fact note" style="--tilt: -0.9deg;">
         <span class="fact-kicker">a tagline took</span>
         <span class="fact-statement">26 drafts and a slot machine to find.</span>
       </div>
-      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 1.1deg;">
+      <a class="card wide" href="./rachna-nivas.html" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 1.1deg;">
         <span class="card-name">Rachna Nivas</span>
-      </div>
-      <a class="card tight" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.8deg;">
-        <span class="card-name">XTDB</span>
       </a>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.8deg;">
+        <span class="card-name">XTDB</span>
+      </div>
       <div class="fact stat" style="--tilt: 1.0deg;">
         <div class="fact-num-wrap"><span class="fact-num">5</span></div>
         <span class="fact-num-label">Narratives shipped end to end.</span>
       </div>
       <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.9deg;">
-        <span class="card-sticker pink right">the line that landed</span>
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact quote tight" style="--tilt: 0.8deg;">
         <span class="fact-q">All up in our undies.</span>
         <span class="fact-att"><span class="dot-bullet"></span>TomboyX, the line that landed</span>
       </div>
-      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: 0.5deg;">
+      <a class="card tight" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Agemo</span>
-      </div>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
-        <span class="card-name">Tatsam</span>
       </a>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
+        <span class="card-name">Tatsam</span>
+      </div>
       <div class="fact note" style="--tilt: -0.9deg;">
         <span class="fact-kicker">a tagline took</span>
         <span class="fact-statement">26 drafts and a slot machine to find.</span>
       </div>
-      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 1.1deg;">
+      <a class="card wide" href="./rachna-nivas.html" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 1.1deg;">
         <span class="card-name">Rachna Nivas</span>
-      </div>
-      <a class="card tight" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.8deg;">
-        <span class="card-name">XTDB</span>
       </a>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/xtdb.jpg" style="--tilt: 0.8deg;">
+        <span class="card-name">XTDB</span>
+      </div>
       <div class="fact stat" style="--tilt: 1.0deg;">
         <div class="fact-num-wrap"><span class="fact-num">5</span></div>
         <span class="fact-num-label">Narratives shipped end to end.</span>
@@ -907,130 +884,130 @@
 
   <!-- =========== BAND 05 — GROWTH =========== -->
   <section class="band" id="band-growth" data-color="cyan">
+    <span class="dot d-pink"   style="top:6%; right:13%; width:18px; height:18px; opacity:.5;"></span>
+    <span class="dot d-ink"    style="bottom:14%; left:8%; width:11px; height:11px; opacity:.5;"></span>
+    <span class="dot d-yellow" style="bottom:20%; right:7%; width:24px; height:24px; opacity:.42;"></span>
     <div class="band-head">
-      <span class="band-num">05</span>
       <span class="band-name">Growth &amp; Revenue</span>
     </div>
     <div class="marquee right-mid" data-speed="60" data-dir="-1">
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">Tatsam</span>
-      </a>
+      </div>
       <div class="fact note invert" style="--tilt: -0.9deg;">
         <span class="fact-kicker">the advisory move</span>
         <span class="fact-statement">Figure out where the next dollar should come from before figuring out how to ask for it.</span>
       </div>
-      <a class="card" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.4deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/pratham.jpg" style="--tilt: 0.4deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
+      </div>
       <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.7deg;">
-        <span class="card-sticker yellow left">fundraise as story</span>
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact quote" style="--tilt: -0.9deg;">
         <span class="fact-q">Capital isn&rsquo;t fuel. It&rsquo;s a contract about what you&rsquo;re willing to be next.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.5deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Klydo</span>
-      </a>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">Tatsam</span>
-      </a>
+      </div>
       <div class="fact note invert" style="--tilt: -0.9deg;">
         <span class="fact-kicker">the advisory move</span>
         <span class="fact-statement">Figure out where the next dollar should come from before figuring out how to ask for it.</span>
       </div>
-      <a class="card" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.4deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/pratham.jpg" style="--tilt: 0.4deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
+      </div>
       <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.7deg;">
-        <span class="card-sticker yellow left">fundraise as story</span>
         <span class="card-name">TomboyX</span>
       </div>
       <div class="fact quote" style="--tilt: -0.9deg;">
         <span class="fact-q">Capital isn&rsquo;t fuel. It&rsquo;s a contract about what you&rsquo;re willing to be next.</span>
         <span class="fact-att"><span class="dot-bullet"></span>Studio principle</span>
       </div>
-      <a class="card tight" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.5deg;">
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
     </div>
   </section>
 
   <!-- =========== BAND 06 — FULL CASE STUDIES =========== -->
   <section class="band" id="band-full" data-color="pink">
+    <span class="dot d-cyan"   style="top:6%; right:9%; width:20px; height:20px; opacity:.5;"></span>
+    <span class="dot d-yellow" style="bottom:10%; left:5%; width:30px; height:30px; opacity:.4;"></span>
+    <span class="dot d-pink"   style="bottom:18%; right:22%; width:12px; height:12px; opacity:.55;"></span>
     <div class="band-head">
-      <span class="band-num">ALL</span>
       <span class="band-name">Full case studies</span>
     </div>
     <div class="marquee" data-speed="48" data-dir="-1">
-      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.8deg;">
-        <span class="card-sticker yellow right">★ studio favourite</span>
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.8deg;">
         <span class="card-name">TomboyX</span>
       </div>
-      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 0.7deg;">
+      <a class="card" href="./rachna-nivas.html" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Rachna Nivas</span>
-      </div>
-      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.6deg;">
+      </a>
+      <a class="card wide" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Agemo / Codewords</span>
-      </div>
+      </a>
       <div class="fact stat" style="--tilt: 0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">10</span></div>
         <span class="fact-num-label">Full case studies, written front to back.</span>
       </div>
-      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -1.1deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/convegenius.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
-      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.8deg;">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/pratham.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.4deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.4deg;">
         <span class="card-name">Tatsam</span>
-      </a>
-      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 1.0deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/xtdb.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">XTDB</span>
-      </a>
-      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.3deg;">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.3deg;">
         <span class="card-name">Gliitch</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
-      <a class="card mega" href="./klydo.html" data-bg="../images/work/klydo.jpg" style="--tilt: 0.8deg;">
-        <span class="card-sticker yellow right">★ studio favourite</span>
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/klydo.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">Klydo</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tomboyx.jpg" style="--tilt: -0.8deg;">
         <span class="card-name">TomboyX</span>
       </div>
-      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 0.7deg;">
+      <a class="card" href="./rachna-nivas.html" data-bg="../images/work/rachna-nivas.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Rachna Nivas</span>
-      </div>
-      <div class="card wide is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/agemo.jpg" style="--tilt: -0.6deg;">
+      </a>
+      <a class="card wide" href="./agemo.html" data-bg="../images/work/agemo.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Agemo / Codewords</span>
-      </div>
+      </a>
       <div class="fact stat" style="--tilt: 0.6deg;">
         <div class="fact-num-wrap"><span class="fact-num">10</span></div>
         <span class="fact-num-label">Full case studies, written front to back.</span>
       </div>
-      <a class="card" href="./convegenius.html" data-bg="../images/work/convegenius.jpg" style="--tilt: -1.1deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/convegenius.jpg" style="--tilt: -1.1deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
-      <a class="card tight" href="./pratham.html" data-bg="../images/work/pratham.jpg" style="--tilt: 0.8deg;">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/pratham.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
-      <a class="card" href="./tatsam.html" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.4deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/tatsam.jpg" style="--tilt: -0.4deg;">
         <span class="card-name">Tatsam</span>
-      </a>
-      <a class="card" href="./xtdb.html" data-bg="../images/work/xtdb.jpg" style="--tilt: 1.0deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/xtdb.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">XTDB</span>
-      </a>
-      <a class="card tight" href="./gliitch.html" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.3deg;">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/gliitch.jpg" style="--tilt: -1.3deg;">
         <span class="card-name">Gliitch</span>
-      </a>
+      </div>
       <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="../images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
       </div>
@@ -1040,7 +1017,7 @@
   <!-- =========== CLOSING =========== -->
   <section class="closing">
     <span class="closing-label">your move</span>
-    <h2>See a project that feels like yours? <a href="mailto:hello@joyus.studio">Be our friends.</a></h2>
+    <h2>See a project that feels like yours? <a href="../say-hi.html">Be our friends.</a></h2>
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
   </main>
@@ -1076,7 +1053,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
 

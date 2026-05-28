@@ -421,15 +421,39 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
-/* Floating drift — gentle vertical bob for decorative dots.
-   Three speeds so a cluster of dots doesn't move in lockstep. */
+/* Gentle vertical bob (transform) + size pulse (scale). Kept on separate
+   properties so the two animations layer instead of overriding. */
 @keyframes float-y {
   0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-14px); }
+  50%      { transform: translateY(-12px); }
 }
-.dot.drift      { animation: float-y 8s ease-in-out infinite; }
-.dot.drift-slow { animation: float-y 12s ease-in-out infinite; }
-.dot.drift-fast { animation: float-y 6s ease-in-out infinite; }
+@keyframes breathe {
+  0%, 100% { scale: 1; }
+  50%      { scale: 1.08; }
+}
+
+/* EVERY decorative dot bobs AND breathes, site-wide. The two animations
+   target different properties (transform vs scale) so they compose. */
+.dot,
+.j-dots .j-dot {
+  animation: float-y 7s ease-in-out infinite, breathe 5.5s ease-in-out infinite;
+}
+
+/* De-sync: give each dot in a cluster its own pair of durations + negative
+   delays (one value per animation: float-y, breathe) so nothing moves in
+   lockstep. nth-of-type cycles these across however many dots a page has. */
+.dot:nth-of-type(7n+1), .j-dots .j-dot:nth-child(7n+1) { animation-duration: 7s,   5.5s; animation-delay: -0.4s, -2.1s; }
+.dot:nth-of-type(7n+2), .j-dots .j-dot:nth-child(7n+2) { animation-duration: 8.6s, 6.4s; animation-delay: -2.7s, -0.8s; }
+.dot:nth-of-type(7n+3), .j-dots .j-dot:nth-child(7n+3) { animation-duration: 6.1s, 4.7s; animation-delay: -1.3s, -3.4s; }
+.dot:nth-of-type(7n+4), .j-dots .j-dot:nth-child(7n+4) { animation-duration: 9.4s, 7.2s; animation-delay: -3.8s, -1.6s; }
+.dot:nth-of-type(7n+5), .j-dots .j-dot:nth-child(7n+5) { animation-duration: 7.7s, 5.1s; animation-delay: -0.9s, -4.0s; }
+.dot:nth-of-type(7n+6), .j-dots .j-dot:nth-child(7n+6) { animation-duration: 6.6s, 6.0s; animation-delay: -4.5s, -2.6s; }
+.dot:nth-of-type(7n),   .j-dots .j-dot:nth-child(7n)   { animation-duration: 8.1s, 4.4s; animation-delay: -2.0s, -3.9s; }
+
+/* The legacy .drift / .drift-slow / .drift-fast classes are now inert —
+   the base .dot rule above already bobs + breathes, and the nth-of-type
+   buckets handle de-syncing every dot (including drifted ones). Leaving
+   the classes in markup is harmless. */
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
