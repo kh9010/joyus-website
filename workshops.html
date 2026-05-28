@@ -174,14 +174,6 @@
     opacity: 0.12;
     pointer-events: none;
   }
-  .poster .poster-no {
-    font-family: var(--hand);
-    font-size: 2rem; line-height: 0.85;
-    color: var(--accent, var(--pink));
-    transform: rotate(-3deg);
-    display: inline-block;
-    margin-bottom: 0.75rem;
-  }
   .poster .poster-tag {
     font-size: 0.7rem;
     letter-spacing: 0.16em;
@@ -247,6 +239,8 @@
   .arc-1 .poster:nth-child(1) { --accent: var(--pink); }
   .arc-1 .poster:nth-child(2) { --accent: var(--yellow); }
   .arc-1 .poster:nth-child(3) { --accent: var(--cyan); }
+  .arc-1 .poster:nth-child(4) { --accent: var(--yellow); }
+  .arc-1 .poster:nth-child(5) { --accent: var(--cyan); }
 
   /* ───── arc-2 = ink (dark) bg, white text + cyan/yellow accent ───── */
   .arc-2 { background: var(--ink); }
@@ -432,11 +426,10 @@
   <div class="nav-links" id="navMenu">
     <a href="work/" data-nav="work">Work</a>
     <a href="services.html" data-nav="services">Services</a>
-    <a href="services-v2.html" data-nav="services-v2">Services v2</a>
     <a href="workshops.html" data-nav="workshops">Workshops</a>
     <a href="podcast.html" data-nav="podcast">Podcast</a>
     <a href="about.html" data-nav="about">About</a>
-    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    <a class="nav-cta" href="say-hi.html" data-nav="say-hi">Say hi</a>
   </div>
 </nav>
 <script>
@@ -444,11 +437,11 @@
     var path = window.location.pathname;
     var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services-v2\.html/.test(path)) active = 'services-v2';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
@@ -501,45 +494,36 @@
   </section>
 
   <!-- =========== ARC 1 — STRATEGY (paper bg, pink-led) =========== -->
-  <article class="arc arc-1" id="strategy">
+  <article class="arc arc-1" id="rooms">
     <span class="dot ad1 d-pink drift"></span>
     <span class="dot ad2 d-yellow drift-slow"></span>
     <span class="dot ad3 d-cyan drift-fast"></span>
     <span class="dot ad4 d-yellow drift-slow"></span>
-    <div class="arc-head">
-      <div>
-        <h2 class="arc-word">strategy</h2>
-      </div>
-      <p class="arc-explain">Strategic rooms create the space for the team to talk about the real issues — and produce the <em>artifacts and structures</em> you need so you don't have to recreate them next Monday morning.</p>
-    </div>
     <div class="poster-grid">
 
-      <a class="poster" href="thesis-workshop.html">
-        <span class="poster-no">01</span>
-        <span class="poster-tag">1–2 day offsite · for leadership teams</span>
+      <a class="poster" href="say-hi.html?room=thesis">
+        <span class="poster-tag">strategy · 1–2 day offsite · for leadership teams</span>
         <h3 class="poster-title">The <em>Thesis</em> Workshop</h3>
         <p class="poster-line">For teams that have stopped talking. Break the silos, start talking together again — and leave with the artifacts that make it stick.</p>
         <div class="poster-foot">
           <span class="poster-price">from <em>$20k</em></span>
-          <span class="poster-cta">read the room <span aria-hidden="true">→</span></span>
+          <span class="poster-cta">talk to us <span aria-hidden="true">→</span></span>
         </div>
       </a>
 
-      <a class="poster" href="workshops-investing-c.html">
-        <span class="poster-no">02</span>
-        <span class="poster-tag">4 talks · 90 min each · before your first round</span>
-        <h3 class="poster-title">Before your <em>first round</em> — 4 talks</h3>
+      <a class="poster" href="say-hi.html?room=first-round">
+        <span class="poster-tag">strategy · 4 talks · 90 min each</span>
+        <h3 class="poster-title">Before your <em>first round</em></h3>
         <p class="poster-line">What actually happens when you raise. Four talks: your investor, your money, your story, the hurdles.</p>
         <div class="poster-foot">
           <span class="poster-price">from <em>$7k</em></span>
-          <span class="poster-cta">see the four talks <span aria-hidden="true">→</span></span>
+          <span class="poster-cta">talk to us <span aria-hidden="true">→</span></span>
         </div>
       </a>
 
-      <a class="poster" href="mailto:hello@joyus.studio?subject=Pre-investor%201%3A1%20%E2%80%94%20deck%20review">
-        <span class="poster-no">03</span>
-        <span class="poster-tag">1:1 · for founders right before raising</span>
-        <h3 class="poster-title">Before the <em>investor</em> — 1:1 review</h3>
+      <a class="poster" href="say-hi.html?room=investor-1on1">
+        <span class="poster-tag">strategy · 1:1 · for founders</span>
+        <h3 class="poster-title">Before the <em>investor</em></h3>
         <p class="poster-line">We'll review your deck, let you present to us, and break it down. Plus our thoughts on which investors might be a fit.</p>
         <div class="poster-foot">
           <span class="poster-price">from <em>$2k</em></span>
@@ -547,90 +531,26 @@
         </div>
       </a>
 
-    </div>
-  </article>
-
-  <!-- =========== ARC 2 — PRACTICE (ink bg) =========== -->
-  <article class="arc arc-2" id="practice">
-    <span class="dot bd1 d-cyan drift"></span>
-    <span class="dot bd2 d-yellow drift-slow"></span>
-    <span class="dot bd3 d-pink drift-fast"></span>
-    <span class="dot bd4 d-cyan drift-slow"></span>
-    <div class="arc-head">
-      <div>
-        <h2 class="arc-word">practice</h2>
-      </div>
-      <p class="arc-explain">Practice rooms are hands-on. These days they're mostly about AI — we help you bring AI into your workflows, whether creative, management, data, or <em>something else</em>.</p>
-    </div>
-    <div class="poster-grid">
-
-      <a class="poster" href="ai-workshops.html">
-        <span class="poster-no">01</span>
-        <span class="poster-tag">half-day → multi-day · creative &amp; product teams</span>
+      <a class="poster" href="say-hi.html?room=think-with-ai">
+        <span class="poster-tag">practice · half-day → multi-day · creative &amp; product teams</span>
         <h3 class="poster-title">How to <em>think with AI</em></h3>
-        <p class="poster-line">We'll cover how to make AI your thinking partner — and how to advocate for it as a thinking partner inside your organization.</p>
+        <p class="poster-line">Make AI your thinking partner — and learn how to advocate for it as one inside your organization. Hands-on, bring real work.</p>
         <div class="poster-foot">
           <span class="poster-price">from <em>$5k</em></span>
-          <span class="poster-cta">read the room <span aria-hidden="true">→</span></span>
+          <span class="poster-cta">talk to us <span aria-hidden="true">→</span></span>
         </div>
       </a>
 
-      <a class="poster is-dev" href="mailto:hello@joyus.studio?subject=Prompting%20workshop%20%E2%80%94%20interest">
-        <span class="poster-no">02</span>
-        <span class="poster-tag">3 hours or half-day · for anyone using LLMs daily</span>
-        <h3 class="poster-title">Prompting — <em>talk to AI</em></h3>
-        <p class="poster-line">Move from "write me a…" to structured prompting that holds up under pressure. Live exercises, audience-driven — bring a real problem and we'll work it.</p>
-        <div class="poster-foot">
-          <span class="poster-price">from <em>$2k</em></span>
-          <span class="poster-cta">bring it in <span aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-      <a class="poster is-dev" href="mailto:hello@joyus.studio?subject=Visual%20storytelling%20with%20MidJourney%20%E2%80%94%20interest">
-        <span class="poster-no">03</span>
-        <span class="poster-tag">half-day, hands-on · designers, brand teams</span>
-        <h3 class="poster-title">MidJourney — <em>visual storytelling</em></h3>
-        <p class="poster-line">Use generative image tools as a storytelling medium, not a spectacle. Outputs you can ship — not just memes for Slack.</p>
-        <div class="poster-foot">
-          <span class="poster-price">from <em>$5k</em></span>
-          <span class="poster-cta">bring it in <span aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-      <a class="poster is-dev" href="mailto:hello@joyus.studio?subject=Advanced%20AI%20%E2%80%94%20interest">
-        <span class="poster-no">04</span>
-        <span class="poster-tag">half-day · for teams already using AI daily</span>
-        <h3 class="poster-title">Advanced <em>AI</em></h3>
-        <p class="poster-line">Advanced techniques — MCPs, agents, and the rest. More likely with Claude than ChatGPT, at this point.</p>
-        <div class="poster-foot">
-          <span class="poster-price">from <em>$5k</em></span>
-          <span class="poster-cta">bring it in <span aria-hidden="true">→</span></span>
-        </div>
-      </a>
-
-    </div>
-  </article>
-
-  <!-- =========== ARC 3 — CUSTOM (cyan bg, ink text) — text + card side by side =========== -->
-  <article class="arc arc-3" id="custom">
-    <span class="dot cd1 d-yellow drift"></span>
-    <span class="dot cd2 d-pink drift-fast"></span>
-    <span class="dot cd3 d-yellow drift-slow"></span>
-    <div class="arc-3-layout">
-      <div class="arc-3-text">
-        <h2 class="arc-word">custom</h2>
-        <p class="arc-explain">We'll put together custom rooms on storytelling, behavioral design, brand strategy, and product narratives. <em>Tell us what's at stake and your timeframe</em> — we'll send a brief back inside a week.</p>
-      </div>
-
-      <a class="poster" href="mailto:hello@joyus.studio?subject=A%20custom%20workshop">
-        <span class="poster-tag">any team, any topic</span>
-        <h3 class="poster-title"><em>Contact us</em></h3>
-        <p class="poster-line">Tell us what's at stake and your timeframe. Brief back in a week.</p>
+      <a class="poster" href="say-hi.html?room=custom">
+        <span class="poster-tag">custom · any team, any topic</span>
+        <h3 class="poster-title">A room, <em>built to fit</em></h3>
+        <p class="poster-line">Storytelling, behavioral design, brand strategy, product narratives. Tell us what's at stake and your timeframe — we'll send a brief back inside a week.</p>
         <div class="poster-foot">
           <span class="poster-price">priced to fit</span>
-          <span class="poster-cta">write to us <span aria-hidden="true">→</span></span>
+          <span class="poster-cta">talk to us <span aria-hidden="true">→</span></span>
         </div>
       </a>
+
     </div>
   </article>
 
@@ -676,7 +596,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  <a href="say-hi.html">say hi · hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
 

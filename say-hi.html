@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Say hi to Joyus Studio. Tell us what you're working on, or just come think with us. Advisory & design studio — Kahran Singh & Divya Tak.">
+<meta property="og:title" content="Say hi — Joyus Studio">
+<meta property="og:description" content="Tell us what you're working on, or just come think with us.">
+<meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kh9010.github.io/joyus-website/say-hi.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://kh9010.github.io/joyus-website/say-hi.html">
+<title>Say hi · Joyus Studio</title>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+<style>
+  /* :root tokens + body baseline come from styles.css */
+  body { overflow-x: hidden; }
+
+  .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+  .d-pink { background: var(--pink); }
+  .d-cyan { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); }
+
+  /* progress thread (matches services/workshops/etc.) */
+  .thread { position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 99; }
+  .thread-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow));
+    width: 0;
+    transition: width 0.15s linear;
+  }
+
+  /* ───── HERO (canonical: left-aligned, eyebrow + big h1 + lede) ───── */
+  .hero {
+    min-height: 50vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(2.5rem, 5vh, 4rem);
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-inner { position: relative; z-index: 2; }
+  .hero h1 {
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    max-width: 16ch;
+    margin: 0.5rem 0 0;
+    position: relative; z-index: 2;
+  }
+  .hero h1 em { font-style: normal; color: var(--pink); }
+  .hero h1 em::after { content: "."; color: var(--yellow); }
+  .hero-lede {
+    font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+    line-height: 1.6; color: var(--ink-soft);
+    max-width: 52ch; margin-top: 1.5rem;
+  }
+  .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
+  .hero .dh1 { width: 220px; height: 220px; top: 18%; right: 5%; opacity: 0.5; }
+  .hero .dh2 { width: 54px; height: 54px; top: 70%; right: 26%; }
+  .hero .dh3 { width: 20px; height: 20px; top: 30%; right: 18%; }
+
+  /* ───── CONTACT GRID ───── */
+  .contact {
+    padding: clamp(1rem, 3vh, 2.5rem) var(--x) clamp(4rem, 9vh, 7rem);
+    position: relative;
+  }
+  .contact-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+
+  /* form */
+  .form-label-eyebrow,
+  .ways-eyebrow {
+    font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-soft);
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 1.5rem;
+  }
+  .form-label-eyebrow .dot-mark,
+  .ways-eyebrow .dot-mark {
+    width: 9px; height: 9px; border-radius: 50%; display: inline-block;
+  }
+  .form-label-eyebrow .dot-mark { background: var(--pink); }
+  .ways-eyebrow .dot-mark { background: var(--cyan); }
+
+  .say-form { display: grid; gap: 1.4rem; }
+  .field { display: grid; gap: 0.5rem; }
+  .field label {
+    font-size: 0.92rem; font-weight: 500; color: var(--ink);
+  }
+  .field input,
+  .field textarea {
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1.5px solid var(--rule);
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    width: 100%;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--ink-fade); }
+  .field input:focus,
+  .field textarea:focus {
+    outline: 0;
+    border-color: var(--pink);
+    box-shadow: 0 0 0 3px rgba(233, 30, 123, 0.12);
+  }
+  .field textarea { resize: vertical; min-height: 130px; line-height: 1.5; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }
+
+  .send-btn {
+    justify-self: start;
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    background: var(--pink);
+    border: 0;
+    border-radius: 999px;
+    padding: 0.85rem 1.9rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  }
+  .send-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(233, 30, 123, 0.28); }
+  .send-note {
+    font-size: 0.84rem; color: var(--ink-fade); margin-top: -0.4rem;
+  }
+
+  /* thank-you state */
+  .say-thanks {
+    border: 1.5px dashed var(--rule);
+    border-radius: 14px;
+    padding: 2rem 1.75rem;
+    background: rgba(233, 30, 123, 0.04);
+  }
+  .say-thanks .hand {
+    font-family: var(--hand);
+    font-size: 2rem;
+    color: var(--pink);
+    line-height: 1.1;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .say-thanks p { color: var(--ink-soft); font-size: 1rem; line-height: 1.55; margin: 0; }
+  .say-thanks a { color: var(--pink); font-weight: 500; }
+
+  /* other ways / socials */
+  .ways {
+    border-left: 1px solid var(--rule);
+    padding-left: clamp(1.5rem, 3vw, 2.5rem);
+  }
+  @media (max-width: 880px) {
+    .contact-inner { grid-template-columns: 1fr; }
+    .ways { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 2rem; }
+  }
+  .ways-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
+  .way {
+    display: flex; align-items: baseline; gap: 0.65rem;
+    padding: 0.95rem 0;
+    border-top: 1px solid var(--rule);
+    text-decoration: none;
+    color: var(--ink);
+    transition: padding-left 0.25s ease, color 0.2s ease;
+  }
+  .ways-list li:first-child .way { border-top: 0; }
+  .way:hover { padding-left: 0.4rem; color: var(--pink); }
+  .way-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; position: relative; top: 0.55em; }
+  .way[data-kind="email"]    .way-dot { background: var(--pink); }
+  .way[data-kind="podcast"]  .way-dot { background: var(--cyan); }
+  .way[data-kind="social"]   .way-dot { background: var(--yellow); }
+  .way-main { display: block; }
+  .way-name { font-size: 1.1rem; font-weight: 600; line-height: 1.2; display: block; }
+  .way-sub { font-size: 0.86rem; color: var(--ink-soft); display: block; margin-top: 0.15rem; }
+  .way-arrow { margin-left: auto; color: var(--ink-fade); transition: transform 0.25s ease, color 0.2s ease; align-self: center; }
+  .way:hover .way-arrow { transform: translateX(4px); color: var(--pink); }
+
+  .ways-hand {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--ink-soft);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-top: 1.75rem;
+    line-height: 1.3;
+  }
+  .ways-hand em { color: var(--pink); font-style: normal; font-weight: 600; }
+
+  /* foot styles come from /_partials/foot.html */
+</style>
+</head>
+<body data-accent="pink">
+  <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+  <div class="thread"><div class="thread-fill" id="tf"></div></div>
+
+  <!--BEGIN:NAV-->
+<!-- Single source of truth for the top nav.
+     Sync into pages by running:  node scripts/sync-chrome.js
+      → path prefix to repo root (e.g. "" or "../")
+     Colors use the tokens declared in styles.css :root. -->
+<style>
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+    background: rgba(250, 247, 242, 0.88);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-family: var(--sans);
+  }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links {
+    display: flex; gap: 1.75rem; align-items: center;
+    list-style: none; padding: 0; margin: 0;
+  }
+  .nav .nav-links a {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-weight: 400;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav .nav-links a:hover { color: var(--pink); }
+  .nav .nav-links a.active {
+    color: var(--ink);
+    font-weight: 500;
+    border-bottom-color: var(--pink);
+  }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
+
+  /* Hamburger button — hidden on desktop */
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    background: transparent; border: 0; padding: 0;
+    cursor: pointer; position: relative; z-index: 510;
+    align-items: center; justify-content: center;
+  }
+  .nav-toggle span {
+    display: block; width: 24px; height: 2px;
+    background: var(--ink); border-radius: 2px;
+    position: absolute;
+    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
+  }
+  .nav-toggle span:nth-child(1) { top: 14px; }
+  .nav-toggle span:nth-child(2) { top: 21px; }
+  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+
+  @media (max-width: 720px) {
+    .nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(250, 247, 242, 0.95);
+    }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links {
+      position: fixed;
+      inset: 0;
+      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
+      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.75rem;
+      background: var(--white);
+      border-left: 4px solid var(--ink);
+      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      z-index: 505;
+    }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="navMenu">
+    <a href="work/" data-nav="work">Work</a>
+    <a href="services.html" data-nav="services">Services</a>
+    <a href="workshops.html" data-nav="workshops">Workshops</a>
+    <a href="podcast.html" data-nav="podcast">Podcast</a>
+    <a href="about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="say-hi.html" data-nav="say-hi">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname;
+    var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
+    if (active) {
+      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
+      for (var i = 0; i < links.length; i++) {
+        if (links[i].getAttribute('data-nav') === active) {
+          links[i].classList.add('active');
+        }
+      }
+    }
+    // hamburger toggle
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() {
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        var open = menu.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+      // close on link tap
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', close);
+      });
+      // close on escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menu.classList.contains('open')) close();
+      });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <main id="main-content">
+  <!-- =========== HERO =========== -->
+  <section class="hero">
+    <span class="dot dh1 d-pink"></span>
+    <span class="dot dh2 d-yellow"></span>
+    <span class="dot dh3 d-cyan"></span>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">say hi</span>
+      <h1>Be our <em>friends</em></h1>
+      <p class="hero-lede">
+        Tell us what you're working on — or what's keeping you up at night. We read everything, and we <em>like</em> the half-formed questions. No pitch required.
+      </p>
+    </div>
+  </section>
+
+  <!-- =========== CONTACT =========== -->
+  <section class="contact">
+    <div class="contact-inner">
+      <!-- form -->
+      <div class="form-col">
+        <span class="form-label-eyebrow"><span class="dot-mark"></span>drop us a line</span>
+        <form class="say-form" id="sayForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input type="text" id="f-name" name="name" placeholder="Divya / a studio / your dog" autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input type="email" id="f-email" name="email" placeholder="you@something.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-msg">What's on your mind?</label>
+            <textarea id="f-msg" name="message" placeholder="A brand that feels like me. A product to launch from zero. Or just a conversation worth having."></textarea>
+          </div>
+          <button class="send-btn" type="submit">Send it →</button>
+          <p class="send-note">This opens your email app with the note drafted — prototype, no data is stored.</p>
+        </form>
+
+        <!-- shown after submit -->
+        <div class="say-thanks" id="sayThanks" hidden>
+          <span class="hand">talk soon →</span>
+          <p>Your email app should be opening with the note ready to send. If it didn't, write us directly at <a href="mailto:hello@joyus.studio">hello@joyus.studio</a> — we read everything.</p>
+        </div>
+      </div>
+
+      <!-- other ways / socials -->
+      <aside class="ways">
+        <span class="ways-eyebrow"><span class="dot-mark"></span>other ways to find us</span>
+        <ul class="ways-list">
+          <li>
+            <a class="way" data-kind="email" href="mailto:hello@joyus.studio">
+              <span class="way-dot"></span>
+              <span class="way-main">
+                <span class="way-name">Email</span>
+                <span class="way-sub">hello@joyus.studio · we read everything</span>
+              </span>
+              <span class="way-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <li>
+            <a class="way" data-kind="podcast" href="podcast.html">
+              <span class="way-dot"></span>
+              <span class="way-main">
+                <span class="way-name">The podcast</span>
+                <span class="way-sub">on Spotify, Apple Podcasts &amp; iHeart</span>
+              </span>
+              <span class="way-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <!-- TODO: replace href with the real Instagram URL -->
+          <li>
+            <a class="way" data-kind="social" href="#" data-placeholder="instagram">
+              <span class="way-dot"></span>
+              <span class="way-main">
+                <span class="way-name">Instagram</span>
+                <span class="way-sub">@joyus.studio — placeholder, add real link</span>
+              </span>
+              <span class="way-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          <!-- TODO: replace href with the real LinkedIn URL -->
+          <li>
+            <a class="way" data-kind="social" href="#" data-placeholder="linkedin">
+              <span class="way-dot"></span>
+              <span class="way-main">
+                <span class="way-name">LinkedIn</span>
+                <span class="way-sub">Joyus Studio — placeholder, add real link</span>
+              </span>
+              <span class="way-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+        </ul>
+        <span class="ways-hand">we're a <em>two-person</em> studio — you'll always reach a real one of us.</span>
+      </aside>
+    </div>
+  </section>
+  </main>
+
+  <!--BEGIN:FOOT-->
+<!-- Single source of truth for the site footer.
+     Sync into pages by running:  node scripts/sync-chrome.js
+     Colors use the tokens declared in styles.css :root. -->
+<style>
+  .foot {
+    position: relative;
+    z-index: 20;
+    background: var(--bg);
+    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
+    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    color: var(--ink-fade);
+    letter-spacing: 0.05em;
+  }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
+  @media (max-width: 480px) {
+    .foot { justify-content: flex-start; }
+  }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="say-hi.html">say hi · hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const total = document.body.scrollHeight - window.innerHeight;
+      const tf = document.getElementById('tf');
+      if (tf && total > 0) tf.style.width = (window.scrollY / total) * 100 + '%';
+    }, { passive: true });
+
+    // Pre-fill the form when arriving from a workshop block (?room=…)
+    (function () {
+      const ROOMS = {
+        'thesis':        { label: 'The Thesis Workshop',     msg: "We'd love to talk about running The Thesis Workshop with our team." },
+        'first-round':   { label: 'Before your first round', msg: "We're raising soon — interested in the 'Before your first round' talks." },
+        'investor-1on1': { label: 'Before the investor (1:1)', msg: "I'd like a 1:1 investor / deck review before we raise." },
+        'think-with-ai': { label: 'How to think with AI',    msg: "We'd like to run a 'How to think with AI' workshop for our team." },
+        'custom':        { label: 'A custom room',           msg: "We're after a custom workshop. Here's what's at stake: " }
+      };
+      const room = new URLSearchParams(window.location.search).get('room');
+      const r = room && ROOMS[room];
+      if (!r) return;
+      const msgEl = document.getElementById('f-msg');
+      if (msgEl) msgEl.value = r.msg;
+      const eyebrow = document.querySelector('.form-label-eyebrow');
+      if (eyebrow) eyebrow.innerHTML = '<span class="dot-mark"></span>about · ' + r.label;
+    })();
+
+    (function () {
+      const form = document.getElementById('sayForm');
+      const thanks = document.getElementById('sayThanks');
+      if (!form) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const name = (document.getElementById('f-name').value || '').trim();
+        const email = (document.getElementById('f-email').value || '').trim();
+        const msg = (document.getElementById('f-msg').value || '').trim();
+        const subject = 'Hi from ' + (name || 'someone') + ' — via joyus.studio';
+        let body = msg || '(no message)';
+        body += '\n\n— ' + (name || 'someone') + (email ? ' (' + email + ')' : '');
+        window.location.href = 'mailto:hello@joyus.studio?subject=' +
+          encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        form.hidden = true;
+        thanks.hidden = false;
+      });
+      // Placeholder social links shouldn't navigate to "#"
+      document.querySelectorAll('.way[data-placeholder]').forEach(function (a) {
+        a.addEventListener('click', function (e) { e.preventDefault(); });
+      });
+    })();
+  </script>
+
+</body>
+</html>

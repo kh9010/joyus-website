@@ -183,11 +183,10 @@
   <div class="nav-links" id="navMenu">
     <a href="work/" data-nav="work">Work</a>
     <a href="services.html" data-nav="services">Services</a>
-    <a href="services-v2.html" data-nav="services-v2">Services v2</a>
     <a href="workshops.html" data-nav="workshops">Workshops</a>
     <a href="podcast.html" data-nav="podcast">Podcast</a>
     <a href="about.html" data-nav="about">About</a>
-    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    <a class="nav-cta" href="say-hi.html" data-nav="say-hi">Say hi</a>
   </div>
 </nav>
 <script>
@@ -195,11 +194,11 @@
     var path = window.location.pathname;
     var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services-v2\.html/.test(path)) active = 'services-v2';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
@@ -329,7 +328,7 @@
   <section class="hub-cta">
     <h2>Want to make something joyful?</h2>
     <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;max-width:460px;margin-left:auto;margin-right:auto;">We bring play and creative experimentation into strategy, products, and brand experiences. <a href="services.html" style="color:var(--hub-accent);font-weight:600;text-decoration:none;">See how we work.</a></p>
-    <a href="mailto:hello@joyus.studio" class="cta-btn">Get in touch</a>
+    <a href="say-hi.html" class="cta-btn">Get in touch</a>
   </section>
   </main>
 
@@ -364,7 +363,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  <a href="say-hi.html">say hi · hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
 

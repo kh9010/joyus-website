@@ -300,11 +300,10 @@
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
-    <a href="../services-v2.html" data-nav="services-v2">Services v2</a>
     <a href="../workshops.html" data-nav="workshops">Workshops</a>
     <a href="../podcast.html" data-nav="podcast">Podcast</a>
     <a href="../about.html" data-nav="about">About</a>
-    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    <a class="nav-cta" href="../say-hi.html" data-nav="say-hi">Say hi</a>
   </div>
 </nav>
 <script>
@@ -312,11 +311,11 @@
     var path = window.location.pathname;
     var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services-v2\.html/.test(path)) active = 'services-v2';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
@@ -504,7 +503,7 @@
     <span class="dot dx2 d-cyan"></span>
     <span class="dot dx3 d-yellow"></span>
     <span class="closing-label">your move</span>
-    <h3>Heard something that got you thinking? <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h3>
+    <h3>Heard something that got you thinking? <em><a href="../say-hi.html">Be our friends.</a></em></h3>
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
 
@@ -539,7 +538,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
 

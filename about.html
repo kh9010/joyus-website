@@ -333,65 +333,60 @@
       margin-bottom: 3rem;
       max-width: 40ch;
     }
-    .creations-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: clamp(1.5rem, 2.5vw, 2rem);
+    /* Chat-thread of image bubbles — alternating sides, minimal caption */
+    .creations-chat {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(1rem, 2.2vw, 1.5rem);
+      max-width: 720px;
+      margin: 0 auto;
     }
-    .creation-card {
-      position: relative;
+    .chat-bubble {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       background: #fff;
-      border: 1.5px solid var(--rule);
-      border-top: 6px solid var(--cc, var(--pink));
-      border-radius: 14px;
-      padding: 1.6rem 1.5rem 1.4rem;
-      display: flex; flex-direction: column;
-      transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 240ms;
-      overflow: hidden;
-      color: var(--ink);
+      border-radius: 24px;
+      padding: 0.7rem 0.9rem;
+      max-width: 78%;
       text-decoration: none;
-      min-height: 240px;
-    }
-    .creation-card:hover {
-      transform: translate(-3px, -3px);
-      box-shadow: 8px 8px 0 var(--cc, var(--pink));
-    }
-    /* Cycle pink → yellow → ink → pink (avoid cyan — section bg is cyan) */
-    .creation-card:nth-child(4n+1) { --cc: var(--pink); }
-    .creation-card:nth-child(4n+2) { --cc: var(--yellow); }
-    .creation-card:nth-child(4n+3) { --cc: var(--ink); }
-    .creation-card:nth-child(4n+4) { --cc: var(--pink); }
-    .creation-kind {
-      font-family: var(--hand);
-      font-size: 1.25rem; line-height: 0.95;
-      color: var(--cc, var(--pink));
-      transform: rotate(-3deg);
-      display: inline-block;
-      margin-bottom: 0.75rem;
-      position: relative; z-index: 1;
-    }
-    .creation-card h3 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      margin-bottom: 0.6rem;
       color: var(--ink);
-      position: relative; z-index: 1;
+      box-shadow: 0 8px 20px rgba(20, 20, 30, 0.10);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .creation-card p {
-      font-size: 0.95rem;
-      line-height: 1.55;
+    .chat-bubble:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20, 20, 30, 0.18); }
+    .chat-bubble.left  { align-self: flex-start; border-bottom-left-radius: 6px; }
+    .chat-bubble.right { align-self: flex-end; flex-direction: row-reverse; border-bottom-right-radius: 6px; }
+    .chat-bubble img {
+      width: 86px; height: 86px;
+      object-fit: cover;
+      border-radius: 18px;
+      flex-shrink: 0;
+      display: block;
+    }
+    .chat-cap { display: flex; flex-direction: column; gap: 0.15rem; padding: 0 0.4rem; min-width: 0; }
+    .chat-bubble.right .chat-cap { align-items: flex-end; text-align: right; }
+    .chat-kind {
+      font-family: var(--hand);
+      font-size: 1.2rem; line-height: 1;
+      color: var(--pink);
+    }
+    .chat-bubble[data-cc="ink"]    .chat-kind { color: var(--ink); }
+    .chat-bubble[data-cc="yellow"] .chat-kind { color: #C79A1E; }
+    .chat-title {
+      font-size: 1.08rem; font-weight: 700;
+      letter-spacing: -0.015em; line-height: 1.15;
+      color: var(--ink);
+    }
+    .chat-arrow {
+      font-size: 0.86rem; font-weight: 500;
       color: var(--ink-soft);
-      flex: 1;
-      position: relative; z-index: 1;
+      transition: transform 0.25s ease, color 0.2s ease;
     }
-    .creation-link {
-      margin-top: 1rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--cc, var(--pink));
-      letter-spacing: 0.02em;
-      position: relative; z-index: 1;
+    .chat-bubble:hover .chat-arrow { color: var(--pink); }
+    @media (max-width: 560px) {
+      .chat-bubble { max-width: 100%; }
+      .chat-bubble img { width: 64px; height: 64px; }
     }
     .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--pink); opacity: 0.5; }
     .creations .dc2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
@@ -526,11 +521,10 @@
   <div class="nav-links" id="navMenu">
     <a href="work/" data-nav="work">Work</a>
     <a href="services.html" data-nav="services">Services</a>
-    <a href="services-v2.html" data-nav="services-v2">Services v2</a>
     <a href="workshops.html" data-nav="workshops">Workshops</a>
     <a href="podcast.html" data-nav="podcast">Podcast</a>
     <a href="about.html" data-nav="about">About</a>
-    <a class="nav-cta" href="mailto:hello@joyus.studio">Say hi</a>
+    <a class="nav-cta" href="say-hi.html" data-nav="say-hi">Say hi</a>
   </div>
 </nav>
 <script>
@@ -538,11 +532,11 @@
     var path = window.location.pathname;
     var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services-v2\.html/.test(path)) active = 'services-v2';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
     if (active) {
       var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
       for (var i = 0; i < links.length; i++) {
@@ -726,30 +720,39 @@
       <p class="section-label">things we make &amp; explore</p>
       <h2 class="section-h2">What keeps us <em>curious</em>.</h2>
       <p class="creations-lede">A podcast, comics, a poetry installation, and a few small experiments along the way.</p>
-      <div class="creations-grid">
-        <a href="comics/index.html" class="creation-card">
-          <span class="creation-kind">comics</span>
-          <h3>Hand-drawn comics</h3>
-          <p>Stories about friendship, connection, and the small absurdities of being human. Featuring Mr Curl and friends in tales about staying close, gossip that spirals, and plants that need saving.</p>
-          <span class="creation-link">read the comics →</span>
+      <div class="creations-chat">
+        <!-- TODO: confirm the real Instagram handle/URL -->
+        <a class="chat-bubble left" data-cc="pink" href="https://www.instagram.com/joyus.studio/" target="_blank" rel="noopener noreferrer">
+          <img src="images/comics/friend/page-1.png" alt="Hand-drawn comic — Mr Curl and friends" loading="lazy" width="86" height="86">
+          <span class="chat-cap">
+            <span class="chat-kind">comics</span>
+            <span class="chat-title">Mr Curl &amp; friends</span>
+            <span class="chat-arrow">on Instagram →</span>
+          </span>
         </a>
-        <a href="https://divya.studiotypo.xyz" target="_blank" rel="noopener noreferrer" class="creation-card">
-          <span class="creation-kind">installation — in development</span>
-          <h3>The Line Before</h3>
-          <p>A touchscreen installation where visitors assemble a poem by choosing between emotional poles — drawing from 230 fragments. Each choice shapes a generative flower; every flower joins a living garden of all previous visitors' poems.</p>
-          <span class="creation-link">see the project →</span>
+        <a class="chat-bubble right" data-cc="ink" href="podcast.html">
+          <img src="images/podcast-cover.jpg" alt="Thinking on Thinking — the podcast" loading="lazy" width="86" height="86">
+          <span class="chat-cap">
+            <span class="chat-kind">podcast</span>
+            <span class="chat-title">Thinking on Thinking</span>
+            <span class="chat-arrow">listen →</span>
+          </span>
         </a>
-        <a href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener noreferrer" class="creation-card">
-          <span class="creation-kind">video — 2024</span>
-          <h3>Poem Films</h3>
-          <p>An experiment in how different visuals change the feeling of a poem. For each poem, two entirely different video interpretations — exploring how image transforms meaning. Exhibited at Boulder Public Library.</p>
-          <span class="creation-link">watch the films →</span>
+        <a class="chat-bubble left" data-cc="yellow" href="https://divya.studiotypo.xyz" target="_blank" rel="noopener noreferrer">
+          <img src="images/illustration-hero.png" alt="The Line Before — poetry installation" loading="lazy" width="86" height="86">
+          <span class="chat-cap">
+            <span class="chat-kind">installation</span>
+            <span class="chat-title">The Line Before</span>
+            <span class="chat-arrow">see the project →</span>
+          </span>
         </a>
-        <a href="podcast.html" class="creation-card">
-          <span class="creation-kind">podcast</span>
-          <h3>Thinking on Thinking</h3>
-          <p>Behavior, work, and the real-life questions we've struggled with on our entrepreneurial journey. Hosted by Divya Tak &amp; Kahran Singh. Available on Spotify, Apple Podcasts, and iHeart.</p>
-          <span class="creation-link">explore the podcast →</span>
+        <a class="chat-bubble right" data-cc="pink" href="https://kahransingh.com/poem-films.html" target="_blank" rel="noopener noreferrer">
+          <img src="images/illustration-podcast.jpg" alt="Poem Films" loading="lazy" width="86" height="86">
+          <span class="chat-cap">
+            <span class="chat-kind">video</span>
+            <span class="chat-title">Poem Films</span>
+            <span class="chat-arrow">watch →</span>
+          </span>
         </a>
       </div>
     </div>
@@ -798,7 +801,7 @@
     <span class="dot dx2 drift-fast"></span>
     <span class="dot dx3 drift-slow"></span>
     <span class="closing-label">your move</span>
-    <h2>Let's figure something out together. <em><a href="mailto:hello@joyus.studio">Be our friends.</a></em></h2>
+    <h2>Let's figure something out together. <em><a href="say-hi.html">Be our friends.</a></em></h2>
     <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
 
@@ -982,7 +985,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  <a href="say-hi.html">say hi · hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
 
