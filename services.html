@@ -62,14 +62,16 @@
     position: relative; z-index: 2;
   }
   .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
-  .hero .dh1 { width: 220px; height: 220px; top: 16%; right: 6%; opacity: 0.55; }
-  .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
-  .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
-  .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
+  /* Large dot anchored low-right (not the rote top-right corner); smaller
+     dots scattered up the right margin. Colours + opacity unchanged. */
+  .hero .dh1 { width: 220px; height: 220px; bottom: -8%; right: 6%; opacity: 0.9; }
+  .hero .dh2 { width: 60px; height: 60px; top: 22%; right: 24%; }
+  .hero .dh3 { width: 22px; height: 22px; top: 14%; right: 10%; }
+  .hero .dh4 { width: 14px; height: 14px; top: 48%; right: 14%; }
 
   /* ============ VERB ACCORDION ============ */
   .verbs {
-    padding: clamp(2rem, 4vh, 3.5rem) 0 clamp(4rem, 8vh, 6rem);
+    padding: 0 0 clamp(4rem, 8vh, 6rem);
     position: relative;
     border-top: 1px solid var(--rule);
   }
@@ -181,17 +183,28 @@
     position: relative;
     flex-shrink: 0;
     display: inline-block;
+    /* Always sit in the last column so it stays hard-right even when the
+       preview column is empty (open state / mobile) — otherwise it auto-flows
+       in next to the verb. */
+    grid-column: 3;
+    justify-self: end;
+    transform-origin: 50% 50%;
+    transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1);
   }
   .vj-toggle::before,
   .vj-toggle::after {
     content: "";
     position: absolute;
     background: currentColor;
-    transition: transform 0.32s ease, background 0.32s ease;
+    transform-origin: 50% 50%;
+    transition: transform 0.42s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.32s ease;
   }
   .vj-toggle::before { left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; }
   .vj-toggle::after  { top: 0; bottom: 0; left: 50%; width: 2px; margin-left: -1px; }
-  .verb-row[aria-expanded="true"] .vj-toggle::after { transform: scaleY(0); }
+  /* + → − : whole mark spins a half-turn while the vertical stroke rotates
+     down onto the horizontal one. The icon never leaves its slot. */
+  .verb-row[aria-expanded="true"] .vj-toggle { transform: rotate(180deg); }
+  .verb-row[aria-expanded="true"] .vj-toggle::after { transform: rotate(90deg); }
 
   /* Desktop hover: dim others, highlight hovered row in pink */
   @media (hover: hover) and (pointer: fine) {
@@ -221,7 +234,7 @@
     margin: 0 auto;
     padding: 0.5rem var(--x) clamp(2rem, 5vh, 3rem);
     display: grid;
-    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    grid-template-columns: minmax(0, 4.5fr) minmax(0, 7.5fr);
     grid-template-rows: auto auto;
     column-gap: clamp(1.5rem, 4vw, 4rem);
     row-gap: 1.75rem;
@@ -314,30 +327,38 @@
   }
   .related[data-state="filled"] .related-empty { display: none; }
 
-  .related-cards { display: block; }
   .related[data-state="empty"] .related-cards { display: none; }
 
   /* Related items = speech bubbles. A handwritten reply tucked into a
      colored bubble, color-coded by type (project / podcast / essay).
      JS jitters each bubble's rotation + horizontal shift so the little
      cluster feels loose, dynamic and hand-placed rather than stacked. */
-  .related-cards { display: block; position: relative; padding-top: 0.4rem; }
+  /* Loose horizontal scatter — bubbles wrap across the wide right column
+     and use the space instead of stacking into a tall single file. */
+  .related-cards {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: clamp(0.75rem, 1.6vw, 1.4rem);
+    position: relative;
+    /* vertical room so the randomized ±offsets don't clip against the panel */
+    padding: 2rem 0 3rem;
+  }
 
   .sb-card {
     display: block;
     text-decoration: none;
     color: var(--ink);
-    margin-bottom: 2rem;
-    transform: rotate(var(--rot, 0deg));
-    margin-left: var(--shift, 0);
-    transform-origin: left center;
+    flex: 0 1 auto;
+    max-width: 16rem;
+    transform: translate(var(--nx, 0), var(--ny, 0)) rotate(var(--rot, 0deg));
+    transform-origin: center center;
     transition: transform 0.3s ease;
     animation: rel-in 0.34s ease both;
   }
-  .sb-card:last-child { margin-bottom: 0; }
-  .sb-card:hover { transform: rotate(0deg) translateY(-3px); }
+  .sb-card:hover { transform: translate(var(--nx, 0), calc(var(--ny, 0px) - 4px)) rotate(0deg); }
   @keyframes rel-in {
-    from { opacity: 0; transform: translateY(6px) rotate(var(--rot, 0deg)); }
+    from { opacity: 0; transform: translate(var(--nx, 0), calc(var(--ny, 0px) + 6px)) rotate(var(--rot, 0deg)); }
     to   { opacity: 1; }
   }
 
@@ -378,7 +399,6 @@
     transition: color 0.25s ease;
   }
   .sb-card[data-type="podcast"] .sb-intro { color: #2A8A92; }
-  .sb-card[data-type="essay"]   .sb-intro { color: #B07F0F; }
 
   .sb-title {
     display: block;
@@ -397,20 +417,12 @@
     transition: color 0.25s ease;
   }
 
-  /* ---- Hover inversion: bubble fills with its type color ---- */
-  .sb-card[data-type="project"]:hover .sb-bubble { background: var(--pink); }
-  .sb-card[data-type="podcast"]:hover .sb-bubble { background: #2A8A92; }
-  .sb-card[data-type="essay"]:hover   .sb-bubble { background: var(--yellow); }
-  /* project + podcast are dark fills → white text; essay (yellow) → ink */
-  .sb-card[data-type="project"]:hover .sb-title,
-  .sb-card[data-type="project"]:hover .sb-intro,
-  .sb-card[data-type="podcast"]:hover .sb-title,
-  .sb-card[data-type="podcast"]:hover .sb-intro { color: #fff; }
-  .sb-card[data-type="project"]:hover .sb-sub,
-  .sb-card[data-type="podcast"]:hover .sb-sub { color: rgba(255,255,255,0.82); }
-  .sb-card[data-type="essay"]:hover .sb-title,
-  .sb-card[data-type="essay"]:hover .sb-intro { color: var(--ink); }
-  .sb-card[data-type="essay"]:hover .sb-sub { color: rgba(44,53,68,0.8); }
+  /* ---- Hover: lift + deepen shadow, tint the title to the type color.
+     The bubble stays paper-white so it always reads against the verb's
+     background — a colored fill could match a pink/cyan panel and vanish. ---- */
+  .sb-card:hover .sb-bubble { box-shadow: 0 13px 28px rgba(20, 20, 30, 0.22); }
+  .sb-card[data-type="project"]:hover .sb-title { color: var(--pink); }
+  .sb-card[data-type="podcast"]:hover .sb-title { color: #2A8A92; }
 
   /* ============ RESPONSIVE ============ */
   @media (max-width: 880px) {
@@ -648,9 +660,9 @@
             <div class="verb-panel-inner">
               <p class="manifesto">You bring the problem. <em>We help you see it clearly enough to decide.</em></p>
               <ul class="questions">
-                <li tabindex="0" data-related="klydo,ep14,essay1,pratham">Should we rebuild the brand, or just rename it?</li>
+                <li tabindex="0" data-related="klydo,ep14,pratham">Should we rebuild the brand, or just rename it?</li>
                 <li tabindex="0" data-related="pratham,ep42,klydo,tatsam">Is the product landing with the audience we think we're talking to?</li>
-                <li tabindex="0" data-related="tatsam,ep22,essay2,klydo">Do I have more options than I think I do?</li>
+                <li tabindex="0" data-related="tatsam,ep22,klydo">Do I have more options than I think I do?</li>
                 <li tabindex="0" data-related="agemo,ep56,klydo,pratham">Do I need a co-founder, or a hire?</li>
               </ul>
               <div class="related" data-state="empty">
@@ -676,10 +688,10 @@
             <div class="verb-panel-inner">
               <p class="manifesto">You don't have a solution yet. <em>We design what it should be.</em></p>
               <ul class="questions">
-                <li tabindex="0" data-related="klydo,agemo,essay1,pratham">What is this product, actually?</li>
+                <li tabindex="0" data-related="klydo,agemo,pratham">What is this product, actually?</li>
                 <li tabindex="0" data-related="rachna,tomboyx,ep31,klydo">What should this brand stand for — and to whom?</li>
                 <li tabindex="0" data-related="agemo,ep42,klydo,pratham">We have the idea. What's the smallest real version of it?</li>
-                <li tabindex="0" data-related="convegenius,ep56,essay2,klydo">Why do customers come back — and how do we make more of that?</li>
+                <li tabindex="0" data-related="convegenius,ep56,klydo">Why do customers come back — and how do we make more of that?</li>
               </ul>
               <div class="related" data-state="empty">
                 <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
@@ -704,10 +716,10 @@
             <div class="verb-panel-inner">
               <p class="manifesto">The story that unifies the team is usually <em>the same story that lands with investors and customers.</em></p>
               <ul class="questions">
-                <li tabindex="0" data-related="xtdb,ep31,essay1,klydo">Why aren't investors seeing what we see?</li>
+                <li tabindex="0" data-related="xtdb,ep31,klydo">Why aren't investors seeing what we see?</li>
                 <li tabindex="0" data-related="tatsam,klydo,ep14,pratham">How do we say what we do without sounding like everyone else?</li>
                 <li tabindex="0" data-related="pratham,ep22,klydo,tatsam">How do we get our own team to believe the same thing?</li>
-                <li tabindex="0" data-related="tomboyx,ep31,essay2,klydo">How does our story earn trust?</li>
+                <li tabindex="0" data-related="tomboyx,ep31,klydo">How does our story earn trust?</li>
               </ul>
               <div class="related" data-state="empty">
                 <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
@@ -732,9 +744,9 @@
             <div class="verb-panel-inner">
               <p class="manifesto">When the question is still open, <em>we go deep with you until it isn't.</em></p>
               <ul class="questions">
-                <li tabindex="0" data-related="klydo,ep56,essay2,pratham">What should we be doing in the next three months — and the next six?</li>
+                <li tabindex="0" data-related="klydo,ep56,pratham">What should we be doing in the next three months — and the next six?</li>
                 <li tabindex="0" data-related="convegenius,ep42,klydo,pratham">What's working, what's not, and why?</li>
-                <li tabindex="0" data-related="tomboyx,ep22,essay1,klydo">Is it a retention problem, or a growth problem?</li>
+                <li tabindex="0" data-related="tomboyx,ep22,klydo">Is it a retention problem, or a growth problem?</li>
                 <li tabindex="0" data-related="xtdb,agemo,ep31,klydo">Is there an adjacent market we should be in?</li>
               </ul>
               <div class="related" data-state="empty">
@@ -760,10 +772,10 @@
             <div class="verb-panel-inner">
               <p class="manifesto">Sometimes the question isn't what to do — <em>it's where to go.</em></p>
               <ul class="questions">
-                <li tabindex="0" data-related="tomboyx,ep56,essay1,klydo">How do we make this a sustainable business?</li>
+                <li tabindex="0" data-related="tomboyx,ep56,klydo">How do we make this a sustainable business?</li>
                 <li tabindex="0" data-related="xtdb,ep42,klydo,pratham">Where will the growth in enterprise value come from?</li>
                 <li tabindex="0" data-related="klydo,convegenius,ep31,pratham">Where did the market, the team, and the company stop agreeing?</li>
-                <li tabindex="0" data-related="tatsam,ep22,essay2,klydo">What's my second act?</li>
+                <li tabindex="0" data-related="tatsam,ep22,klydo">What's my second act?</li>
               </ul>
               <div class="related" data-state="empty">
                 <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
@@ -870,28 +882,25 @@
       // (made up for now; will be real lines pulled from each case study /
       // podcast / essay in the curation pass).
       const POOL = {
-        klydo:        { type: 'project', title: 'Klydo',        sub: 'Brand & product rebuild', href: 'work/klydo.html',         quote: 'the brand wasn’t lost — the telling was.' },
-        pratham:      { type: 'project', title: 'Pratham',      sub: 'Brand strategy',          href: 'work/pratham.html',       quote: 'talk to who’s actually here, not who you wish was.' },
-        tomboyx:      { type: 'project', title: 'TomboyX',      sub: 'Repositioning',           href: 'work/tomboyx.html',       quote: 'we sold the body, not the body type.' },
-        tatsam:       { type: 'project', title: 'Tatsam',       sub: 'Quiet luxury brand',      href: 'work/tatsam.html',        quote: 'quiet isn’t quiet. it’s confident.' },
-        agemo:        { type: 'project', title: 'Agemo',        sub: 'Product & research',      href: 'work/agemo.html',         quote: 'ship the smallest real version. then the next.' },
-        convegenius:  { type: 'project', title: 'ConveGenius',  sub: 'Gamification system',     href: 'work/convegenius.html',   quote: 'the loop teaches. the score doesn’t.' },
+        klydo:        { type: 'project', title: 'Klydo',        sub: 'Brand & product rebuild', href: 'coming-soon.html',         quote: 'the brand wasn’t lost — the telling was.' },
+        pratham:      { type: 'project', title: 'Pratham',      sub: 'Brand strategy',          href: 'coming-soon.html',       quote: 'talk to who’s actually here, not who you wish was.' },
+        tomboyx:      { type: 'project', title: 'TomboyX',      sub: 'Repositioning',           href: 'coming-soon.html',       quote: 'we sold the body, not the body type.' },
+        tatsam:       { type: 'project', title: 'Tatsam',       sub: 'Quiet luxury brand',      href: 'coming-soon.html',        quote: 'quiet isn’t quiet. it’s confident.' },
+        agemo:        { type: 'project', title: 'Agemo',        sub: 'Product & research',      href: 'work/agemo.html',          quote: 'ship the smallest real version. then the next.' },
+        convegenius:  { type: 'project', title: 'ConveGenius',  sub: 'Gamification system',     href: 'coming-soon.html',   quote: 'the loop teaches. the score doesn’t.' },
         rachna:       { type: 'project', title: 'Rachna Nivas', sub: 'Brand foundation',        href: 'work/rachna-nivas.html',  quote: 'every brand is a room you walk into.' },
-        xtdb:         { type: 'project', title: 'XTDB',         sub: 'Developer brand & story', href: 'work/xtdb.html',          quote: 'let the docs tell the truth before marketing does.' },
+        xtdb:         { type: 'project', title: 'XTDB',         sub: 'Developer brand & story', href: 'coming-soon.html',          quote: 'let the docs tell the truth before marketing does.' },
         ep14:         { type: 'podcast', title: 'Ep 14',        sub: 'Naming things',           href: 'podcast.html',            quote: 'naming things is most of strategy.' },
         ep22:         { type: 'podcast', title: 'Ep 22',        sub: 'The founder’s voice',     href: 'podcast.html',            quote: 'the founder is the brand. for now.' },
         ep31:         { type: 'podcast', title: 'Ep 31',        sub: 'Stories that land',       href: 'podcast.html',            quote: 'stories travel further than slides.' },
         ep42:         { type: 'podcast', title: 'Ep 42',        sub: 'Talking to real users',   href: 'podcast.html',            quote: 'five real customers a week. for a year.' },
-        ep56:         { type: 'podcast', title: 'Ep 56',        sub: 'Strategy under pressure', href: 'podcast.html',            quote: 'when you don’t know what to do, slow down.' },
-        essay1:       { type: 'essay',   title: 'On building',  sub: 'thinking · essay',        href: 'thinking/',               quote: 'you don’t graduate from being early.' },
-        essay2:       { type: 'essay',   title: 'On naming',    sub: 'thinking · essay',        href: 'thinking/',               quote: 'names are decisions about what you’ll defend.' }
+        ep56:         { type: 'podcast', title: 'Ep 56',        sub: 'Strategy under pressure', href: 'podcast.html',            quote: 'when you don’t know what to do, slow down.' }
       };
 
       // Hand-written intro phrases per type
       const HAND_INTRO = {
         project: 'look at how →',
-        podcast: 'we said this on →',
-        essay:   'we wrote about it →'
+        podcast: 'we said this on →'
       };
 
       function speechBubbleCard(item) {
@@ -915,16 +924,20 @@
         return h;
       }
 
-      // Loose, hand-placed feel: jitter each bubble's rotation, horizontal
-      // shift and the gap beneath it.
+      // Sticky-note feel: push each bubble off its wrapped-flow slot with a
+      // randomized x/y offset + rotation (seeded by question text + slot, so it
+      // varies within a single question but is stable across hovers). Breaks the
+      // tidy row/grid alignment without changing the bubble design.
       function jitter(card, seed, slot) {
         const h = (hash(seed) + slot * 7919) & 0xffff;
-        const rot = ((h % 110) / 10 - 5.5).toFixed(2);                 // -5.5deg .. +5.5deg
-        const shift = (((h >> 3) % 55) / 10 + (slot % 2) * 1.6).toFixed(2); // 0..5.5rem, odd slots pushed right
-        const gap = (1.5 + ((h >> 6) % 16) / 10).toFixed(2);           // 1.5 .. 3.0rem
+        const rot = ((h % 260) / 10 - 13).toFixed(2);                  // -13deg .. +13deg
+        const nx = (((h >> 3) % 84) - 36).toFixed(0);                  // -36px .. +47px
+        const ny = (((h >> 8) % 100) - 44).toFixed(0);                 // -44px .. +55px
+        const aligns = ['flex-start', 'center', 'flex-end'];
+        card.style.alignSelf = aligns[(h >> 14) % 3];                  // staggers vertically in the line
         card.style.setProperty('--rot', rot + 'deg');
-        card.style.setProperty('--shift', shift + 'rem');
-        card.style.marginBottom = gap + 'rem';
+        card.style.setProperty('--nx', nx + 'px');
+        card.style.setProperty('--ny', ny + 'px');
       }
 
       function fill(li) {
@@ -942,6 +955,10 @@
         const html = ids.map(id => POOL[id] ? speechBubbleCard(POOL[id]) : '').join('');
         if (!html) return;
         cards.innerHTML = html;
+        // Vary the whole cluster's horizontal distribution per question, so the
+        // organisation differs question-to-question (not just bubble-to-bubble).
+        const dist = ['flex-start', 'center', 'space-between', 'flex-end'];
+        cards.style.justifyContent = dist[hash(seed) % dist.length];
         cards.querySelectorAll('.sb-card').forEach((c, slot) => jitter(c, seed, slot));
         rel.setAttribute('data-state', 'filled');
         item.querySelectorAll('.questions li').forEach(q => q.removeAttribute('data-active'));

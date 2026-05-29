@@ -60,7 +60,10 @@
     justify-content: center;
   }
   /* Scattered playful dots — fill the negative space the sparse layout opens up */
-  .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); top: -10%; right: -10%; opacity: 0.95; }
+  /* The signature big dot used to sit top-right on every page; here it bleeds
+     off the LEFT mid-edge so home doesn't repeat that top-right-accent structure.
+     Size / colour / opacity unchanged. */
+  .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); top: 28%; left: -12%; opacity: 0.95; }
   .hero .dh2 { width: 64px; height: 64px; top: 20%; right: 22%; }
   .hero .dh3 { width: 28px; height: 28px; top: 14%; left: 28%; }
   /* dh4 sat behind the bottom-right tagline; relocated to mid-right so the magenta
@@ -90,7 +93,7 @@
      from sprawling to the page edges. */
   .hero-stage {
     width: 100%;
-    max-width: 820px;
+    max-width: 900px;
     min-width: 0;
     align-self: center;
     display: flex;
@@ -124,13 +127,13 @@
     min-width: 0;
     font-family: var(--sans);
     font-weight: 700;
-    font-size: clamp(2.6rem, 6.5vw, 5.4rem);
+    font-size: clamp(2rem, 4.7vw, 3.9rem);
     line-height: 1.05;
     letter-spacing: -0.04em;
     color: var(--pink);
     background: transparent;
     border: 0;
-    border-bottom: 6px solid var(--ink);
+    border-bottom: 5px solid var(--ink);
     outline: none;
     padding: 0 0.15em 0.1em;
     transition: border-color 0.25s;
@@ -269,13 +272,13 @@
     /* keep "i need…" small — DO NOT inflate it */
     .hero-h1 { font-size: 1.3rem !important; }
     .hero-fill #intentInput {
-      font-size: clamp(2.4rem, 10vw, 3.6rem);
+      font-size: clamp(2rem, 8.5vw, 3rem);
       border-bottom-width: 4px;
     }
     /* declutter the dot scatter on mobile */
     .hero .dh9 { display: none; }
     .hero .dh4 { width: 60px; height: 60px; right: 4%; top: 38%; }
-    .hero .dh1 { width: 220px; height: 220px; right: -25%; opacity: 0.85; }
+    .hero .dh1 { width: 220px; height: 220px; left: -30%; right: auto; opacity: 0.85; }
     .hero .dh2 { width: 36px; height: 36px; }
     .hero .dh3 { width: 18px; height: 18px; }
     /* on mobile, tagline pinned to bottom-left */
@@ -539,54 +542,87 @@
 </footer>
 <!--END:FOOT-->
 
+  <!-- Firebase (compat) — best-effort capture of typed intents. -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script>
     const input = document.getElementById('intentInput');
     const sug = document.getElementById('intentSuggestions');
+
+    // ── Firebase: log what people type into the intent box (best-effort). ──
+    // experimentalAutoDetectLongPolling works around CORS on GitHub Pages —
+    // do not remove. All writes are silent on failure; the UI never blocks.
+    var intentDb = null;
+    try {
+      firebase.initializeApp({
+        apiKey: "AIzaSyAE4YqmNENXay7sS55JOJT4Ql9u73g8Xgk",
+        authDomain: "joyus-studio.firebaseapp.com",
+        projectId: "joyus-studio",
+        storageBucket: "joyus-studio.firebasestorage.app",
+        messagingSenderId: "654710924238",
+        appId: "1:654710924238:web:c300c98f31d2f620b3c19f",
+        measurementId: "G-K7PDLTYWF6"
+      });
+      intentDb = firebase.firestore();
+      intentDb.settings({ experimentalAutoDetectLongPolling: true, merge: true });
+    } catch (e) { intentDb = null; }
+
+    function logIntent(text, matched) {
+      if (!intentDb) return;
+      try {
+        intentDb.collection('intents').add({
+          text: text,
+          matched: matched,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          page: 'index'
+        });
+      } catch (e) { /* silent */ }
+    }
 
     // ── Content map for fuzzy matching ──
     // Ported from home-old.html (2026-05-28). Each entry: display copy, fuzzy
     // search terms, destination url, and the short label shown after the arrow.
     const CONTENT_MAP = [
       // TomboyX — pitch deck, fundraising, investor storytelling
-      { display: "help with a pitch deck", terms: ["pitch", "deck", "investor", "presentation", "slides"], url: "work/tomboyx.html", dest: "TomboyX" },
-      { display: "help with fundraising", terms: ["fundrais", "raising", "raise", "capital", "series", "round", "money", "venture", "vc"], url: "work/tomboyx.html", dest: "TomboyX" },
-      { display: "an investor presentation that works", terms: ["investor", "pitch", "presentation", "convince", "fund"], url: "work/tomboyx.html", dest: "TomboyX" },
+      { display: "help with a pitch deck", terms: ["pitch", "deck", "investor", "presentation", "slides"], url: "coming-soon.html", dest: "TomboyX" },
+      { display: "help with fundraising", terms: ["fundrais", "raising", "raise", "capital", "series", "round", "money", "venture", "vc"], url: "coming-soon.html", dest: "TomboyX" },
+      { display: "an investor presentation that works", terms: ["investor", "pitch", "presentation", "convince", "fund"], url: "coming-soon.html", dest: "TomboyX" },
 
       // Klydo — fashion, ecommerce, GTM, product launch, startup growth
-      { display: "to launch a product from zero", terms: ["launch", "product launch", "go to market", "gtm", "market entry", "zero"], url: "work/klydo.html", dest: "Klydo" },
-      { display: "a fashion or ecommerce brand", terms: ["fashion", "ecommerce", "e-commerce", "clothing", "apparel", "retail", "shop", "store", "dtc", "d2c", "direct to consumer"], url: "work/klydo.html", dest: "Klydo" },
-      { display: "to grow fast from zero", terms: ["growth", "grow", "scale", "traction", "early stage", "zero to", "0 to", "startup growth"], url: "work/klydo.html", dest: "Klydo" },
+      { display: "to launch a product from zero", terms: ["launch", "product launch", "go to market", "gtm", "market entry", "zero"], url: "coming-soon.html", dest: "Klydo" },
+      { display: "a fashion or ecommerce brand", terms: ["fashion", "ecommerce", "e-commerce", "clothing", "apparel", "retail", "shop", "store", "dtc", "d2c", "direct to consumer"], url: "coming-soon.html", dest: "Klydo" },
+      { display: "to grow fast from zero", terms: ["growth", "grow", "scale", "traction", "early stage", "zero to", "0 to", "startup growth"], url: "coming-soon.html", dest: "Klydo" },
 
       // Tatsam — brand, visual identity, mental health
-      { display: "a brand that feels like me", terms: ["brand", "branding", "brand identity", "brand story", "brand build", "visual identity", "identity"], url: "work/tatsam.html", dest: "Tatsam" },
-      { display: "to build a visual language", terms: ["visual language", "visual system", "design system", "illustration", "look and feel"], url: "work/tatsam.html", dest: "Tatsam" },
-      { display: "help with a mental health product", terms: ["mental health", "mental wellness", "wellness", "therapy", "wellbeing", "well-being", "mindful", "stigma", "safe space"], url: "work/tatsam.html", dest: "Tatsam" },
+      { display: "a brand that feels like me", terms: ["brand", "branding", "brand identity", "brand story", "brand build", "visual identity", "identity"], url: "coming-soon.html", dest: "Tatsam" },
+      { display: "to build a visual language", terms: ["visual language", "visual system", "design system", "illustration", "look and feel"], url: "coming-soon.html", dest: "Tatsam" },
+      { display: "help with a mental health product", terms: ["mental health", "mental wellness", "wellness", "therapy", "wellbeing", "well-being", "mindful", "stigma", "safe space"], url: "coming-soon.html", dest: "Tatsam" },
 
       // PrathamUSA — nonprofit, donor journey
-      { display: "to improve our donor experience", terms: ["donor", "donation", "nonprofit", "non-profit", "ngo", "charity", "giving", "philanthrop"], url: "work/pratham.html", dest: "PrathamUSA" },
-      { display: "help with a nonprofit", terms: ["nonprofit", "non-profit", "ngo", "social enterprise", "social impact", "mission-driven", "impact"], url: "work/pratham.html", dest: "PrathamUSA" },
-      { display: "to fix our user journey", terms: ["journey", "user journey", "customer journey", "experience map", "touchpoint", "flow", "funnel"], url: "work/pratham.html", dest: "PrathamUSA" },
+      { display: "to improve our donor experience", terms: ["donor", "donation", "nonprofit", "non-profit", "ngo", "charity", "giving", "philanthrop"], url: "coming-soon.html", dest: "PrathamUSA" },
+      { display: "help with a nonprofit", terms: ["nonprofit", "non-profit", "ngo", "social enterprise", "social impact", "mission-driven", "impact"], url: "coming-soon.html", dest: "PrathamUSA" },
+      { display: "to fix our user journey", terms: ["journey", "user journey", "customer journey", "experience map", "touchpoint", "flow", "funnel"], url: "coming-soon.html", dest: "PrathamUSA" },
 
       // ConveGenius — gamification, EdTech
-      { display: "gamification for my product", terms: ["game", "gamif", "gamification", "interactive", "engage", "retention", "habit", "reward", "badge", "streak", "points"], url: "work/convegenius.html", dest: "ConveGenius" },
-      { display: "to make learning more engaging", terms: ["edtech", "education", "learning", "student", "classroom", "school", "teach"], url: "work/convegenius.html", dest: "ConveGenius" },
-      { display: "behavioral design for engagement", terms: ["behavior", "behavioural", "behavioral", "nudge", "habit", "retention", "engagement"], url: "work/convegenius.html", dest: "ConveGenius" },
+      { display: "gamification for my product", terms: ["game", "gamif", "gamification", "interactive", "engage", "retention", "habit", "reward", "badge", "streak", "points"], url: "coming-soon.html", dest: "ConveGenius" },
+      { display: "to make learning more engaging", terms: ["edtech", "education", "learning", "student", "classroom", "school", "teach"], url: "coming-soon.html", dest: "ConveGenius" },
+      { display: "behavioral design for engagement", terms: ["behavior", "behavioural", "behavioral", "nudge", "habit", "retention", "engagement"], url: "coming-soon.html", dest: "ConveGenius" },
 
       // Secret Senses — packaging, illustration
-      { display: "packaging design", terms: ["packaging", "package", "label", "cpg", "consumer goods", "shelf", "unboxing"], url: "work/secret-senses.html", dest: "Secret Senses" },
-      { display: "hand-drawn illustration for my brand", terms: ["illustrat", "watercolor", "hand-drawn", "hand drawn", "artwork", "art direction"], url: "work/secret-senses.html", dest: "Secret Senses" },
+      { display: "packaging design", terms: ["packaging", "package", "label", "cpg", "consumer goods", "shelf", "unboxing"], url: "coming-soon.html", dest: "Secret Senses" },
+      { display: "hand-drawn illustration for my brand", terms: ["illustrat", "watercolor", "hand-drawn", "hand drawn", "artwork", "art direction"], url: "coming-soon.html", dest: "Secret Senses" },
 
       // XTDB — rebrand, developer tools
-      { display: "to rebrand my company", terms: ["rebrand", "rename", "new name", "brand refresh", "brand overhaul", "repositioning"], url: "work/xtdb.html", dest: "XTDB" },
-      { display: "brand for a developer product", terms: ["developer", "dev tool", "saas", "b2b", "enterprise", "technical", "database", "api", "sdk", "open source"], url: "work/xtdb.html", dest: "XTDB" },
-      { display: "brand guidelines", terms: ["brand guideline", "style guide", "brand book", "brand system", "design guideline", "media guide"], url: "work/xtdb.html", dest: "XTDB" },
+      { display: "to rebrand my company", terms: ["rebrand", "rename", "new name", "brand refresh", "brand overhaul", "repositioning"], url: "coming-soon.html", dest: "XTDB" },
+      { display: "brand for a developer product", terms: ["developer", "dev tool", "saas", "b2b", "enterprise", "technical", "database", "api", "sdk", "open source"], url: "coming-soon.html", dest: "XTDB" },
+      { display: "brand guidelines", terms: ["brand guideline", "style guide", "brand book", "brand system", "design guideline", "media guide"], url: "coming-soon.html", dest: "XTDB" },
 
       // Agemo — AI, developer tools, product strategy
       { display: "help with an AI product", terms: ["ai", "artificial intelligence", "llm", "generative", "prompt", "machine learning", "ml", "gpt", "chatbot", "copilot"], url: "work/agemo.html", dest: "Agemo" },
       { display: "product strategy and research", terms: ["product strategy", "user research", "discovery", "product direction", "product market fit", "pmf", "research"], url: "work/agemo.html", dest: "Agemo" },
 
       // Gliitch — brand identity from scratch
-      { display: "a brand identity from scratch", terms: ["identity", "logo", "brand from scratch", "new brand", "brand creation", "moodboard", "mood board", "typography", "color palette"], url: "work/gliitch.html", dest: "Gliitch" },
+      { display: "a brand identity from scratch", terms: ["identity", "logo", "brand from scratch", "new brand", "brand creation", "moodboard", "mood board", "typography", "color palette"], url: "coming-soon.html", dest: "Gliitch" },
 
       // Rachna Nivas — content strategy, performance
       { display: "a content strategy", terms: ["content strategy", "content", "social media", "instagram", "personal brand", "creator", "influencer", "audience building"], url: "work/rachna-nivas.html", dest: "Rachna Nivas" },
@@ -727,14 +763,6 @@
       { display: "game design thinking for products", terms: ["game", "game design", "gamification", "levels", "feedback loop", "progression", "onboarding"], url: "hub-games.html", dest: "Game Design" },
       { display: "creativity at the edges", terms: ["creative", "creativity", "unconventional", "different", "outside", "art", "experiment", "code", "technology"], url: "hub-creative.html", dest: "Creative" },
 
-      // Essays
-      { display: "why your pitch deck is not your story", terms: ["pitch", "deck", "story", "investor", "narrative", "fundraise", "slides"], url: "thinking/your-pitch-deck-is-not-your-story.html", dest: "essay" },
-      { display: "the difference between voice and tone", terms: ["voice", "tone", "brand voice", "writing", "consistency", "personality"], url: "thinking/voice-versus-tone.html", dest: "essay" },
-      { display: "running a two-person studio", terms: ["studio", "small team", "two person", "partnership", "lean", "agency", "bootstrapped"], url: "thinking/the-two-person-studio.html", dest: "essay" },
-      { display: "why your nonprofit website isn't raising money", terms: ["nonprofit", "non-profit", "website", "fundraising", "donor", "conversion", "ngo"], url: "thinking/why-your-nonprofits-website-isnt-raising-money.html", dest: "essay" },
-      { display: "from zero to 150 daily sales", terms: ["sales", "growth", "ecommerce", "launch", "zero to", "revenue", "traction", "daily sales"], url: "thinking/from-zero-to-150-daily-sales.html", dest: "essay" },
-      { display: "doing serious things unseriously", terms: ["serious", "unserious", "play", "fun", "joy", "whimsy", "creative", "humor"], url: "thinking/doing-serious-things-unseriously.html", dest: "essay" },
-      { display: "how AI made us smaller and weirder", terms: ["ai", "small", "weird", "creative", "llm", "generative", "tools", "technology"], url: "thinking/ai-made-us-smaller-and-weirder.html", dest: "essay" },
 
       // Contact / portfolio entry points
       { display: "to talk to someone", terms: ["talk", "chat", "call", "consultation", "consult", "advice", "discuss", "connect", "reach out", "contact", "email", "hello", "hi", "say hi"], url: "say-hi.html", dest: "say hi" },
@@ -766,9 +794,12 @@
       return sayHi ? [sayHi] : defaultEntries();
     }
 
-    function fuzzyMatch(query) {
+    // Returns the real scored hits (score >= 2, top 5), or [] when nothing
+    // clears the threshold. Kept separate from fuzzyMatch so the submit
+    // handler can tell a genuine match from the no-match fallback.
+    function scoreHits(query) {
       var q = (query || '').toLowerCase().trim();
-      if (!q) return defaultEntries();
+      if (!q) return [];
       // length > 2 (≥3 chars): "in", "to", "of", "at", "on" are noise — they substring-match
       // hundreds of unrelated terms (uncertainty, branding, finite, etc.) and bury the
       // legit hits. Useful short queries like "ai" still match via the full-query
@@ -801,11 +832,16 @@
       });
 
       scored.sort(function(a, b) { return b.score - a.score; });
-      var hits = scored
+      return scored
         .filter(function(s) { return s.score >= 2; })
         .slice(0, 5)
         .map(function(s) { return s.entry; });
+    }
 
+    function fuzzyMatch(query) {
+      var q = (query || '').toLowerCase().trim();
+      if (!q) return defaultEntries();
+      var hits = scoreHits(q);
       return hits.length > 0 ? hits : noMatchEntries();
     }
 
@@ -842,6 +878,24 @@
     input.addEventListener('blur', () => {
       setTimeout(() => sug.classList.remove('visible'), 160);
     });
+
+    // ── Submit (Enter / arrow button) ──
+    // Capture what they typed, then route: a real fuzzy match goes straight
+    // to that page; no match lands on the interstitial, carrying the query.
+    const intentForm = document.querySelector('.hero-fill');
+    if (intentForm) {
+      intentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = input.value.trim();
+        if (!q) { input.focus(); return; }
+        const hits = scoreHits(q);
+        const matched = hits.length > 0;
+        logIntent(q, matched);
+        window.location.href = matched
+          ? hits[0].url
+          : 'looking.html?q=' + encodeURIComponent(q);
+      });
+    }
 
     // Typewriter placeholder — cycles through prompts character-by-character.
     // Pauses when the input is focused or has content so we never fight the user.

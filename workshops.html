@@ -80,10 +80,12 @@
     position: relative; z-index: 2;
   }
   .hero-aside em { font-style: italic; color: var(--ink); font-weight: 500; }
-  .hero .dh1 { width: 140px; height: 140px; top: 16%; right: 8%; opacity: 0.55; }
-  .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
-  .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
-  .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
+  /* Asymmetric scatter down the right margin — big saturated pink high-ish,
+     smaller cyan/yellow falling away below it. */
+  .hero .dh1 { width: 170px; height: 170px; top: 24%; right: 6%; opacity: 0.9; }
+  .hero .dh2 { width: 52px; height: 52px; top: 66%; right: 15%; }
+  .hero .dh3 { width: 26px; height: 26px; top: 14%; right: 24%; }
+  .hero .dh4 { width: 13px; height: 13px; top: 46%; right: 30%; }
 
   /* ───── ARC BANDS (v1's saturated alternating bg energy) ───── */
   .arc {
@@ -228,6 +230,10 @@
   /* ───── arc-1 = paper bg, pink-led, gentle warm tonal step ───── */
   .arc-1 {
     background: linear-gradient(180deg, var(--bg) 0%, #F2EDE3 100%);
+    /* arc-1 sits directly under the hero headline and has no arc-head, so
+       pull its top padding in — the hero's own bottom padding already
+       carries the breathing room. */
+    padding-top: clamp(1.5rem, 3vh, 2.5rem);
   }
   .arc-1 .arc-word { color: var(--ink); }
   .arc-1 .arc-word::after { color: var(--pink); }
@@ -291,7 +297,7 @@
   .arc-3 .poster { --accent: var(--yellow); }
 
   .arc .dot { opacity: 0.45; }
-  .arc-1 .ad1 { width: 160px; height: 160px; top: 12%; right: 8%; opacity: 0.55; }
+  .arc-1 .ad1 { width: 160px; height: 160px; top: 12%; right: 8%; opacity: 0.85; }
   .arc-1 .ad2 { width: 42px; height: 42px; top: 36%; right: 30%; }
   .arc-1 .ad3 { width: 18px; height: 18px; bottom: 14%; left: 42%; }
   .arc-1 .ad4 { width: 26px; height: 26px; top: 8%; left: 6%; }

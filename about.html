@@ -71,10 +71,12 @@
       line-height: 1.3;
       position: relative; z-index: 2;
     }
-    .hero .dh1 { width: 140px; height: 140px; top: 16%; right: 8%; opacity: 0.55; }
-    .hero .dh2 { width: 60px; height: 60px; top: 72%; right: 28%; }
-    .hero .dh3 { width: 22px; height: 22px; top: 24%; right: 18%; }
-    .hero .dh4 { width: 14px; height: 14px; top: 56%; right: 8%; }
+    /* Large dot sits bottom-right here so each hero's cluster differs from
+       the next; smaller dots ride up the right edge. Colours + opacity kept. */
+    .hero .dh1 { width: 140px; height: 140px; bottom: 8%; right: 7%; opacity: 0.9; }
+    .hero .dh2 { width: 60px; height: 60px; top: 20%; right: 26%; }
+    .hero .dh3 { width: 22px; height: 22px; top: 58%; right: 16%; }
+    .hero .dh4 { width: 14px; height: 14px; top: 18%; right: 9%; }
 
     /* === SHARED section-h2 === */
     .section-h2 {
@@ -159,6 +161,37 @@
     .card:hover {
       transform: translate(-6px, -6px) rotate(var(--tilt, 0deg));
       box-shadow: 14px 14px 0 var(--pink);
+    }
+    /* Coming-soon tiles — visible but not clickable. Full-cover desaturating
+       veil (::after) with a crisp "Coming soon" pill (::before) above it. */
+    .card.is-coming-soon { cursor: default; pointer-events: none; }
+    .card.is-coming-soon::after {
+      inset: 0;
+      height: auto;
+      background: rgba(20, 24, 32, 0.42);
+      -webkit-backdrop-filter: grayscale(1) brightness(0.92);
+      backdrop-filter: grayscale(1) brightness(0.92);
+    }
+    .card.is-coming-soon::before {
+      content: "Coming soon";
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--yellow);
+      color: var(--ink);
+      font: 700 0.92rem / 1 var(--sans);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      padding: 0.7rem 1.3rem;
+      border-radius: 999px;
+      z-index: 12;
+      pointer-events: none;
+      white-space: nowrap;
+      box-shadow: 0 6px 18px rgba(20, 24, 32, 0.3);
+    }
+    .card.is-coming-soon:hover {
+      transform: rotate(var(--tilt, 0deg));
+      box-shadow: 0 6px 22px rgba(20, 24, 32, 0.08);
     }
     .marquee.is-dragging .card {
       transform: rotate(var(--tilt, 0deg)) !important;
@@ -279,12 +312,13 @@
     .vr-pair { position: relative; }
     .vr-num {
       font-family: var(--hand);
-      font-size: clamp(1.4rem, 2vw, 1.8rem);
+      font-size: clamp(1.5rem, 2.1vw, 2rem);
       line-height: 1;
       color: var(--vc, var(--pink));
       transform: rotate(-3deg);
       display: inline-block;
       margin-bottom: 0.55rem;
+      transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .vr-word {
       font-weight: 700;
@@ -293,6 +327,14 @@
       letter-spacing: -0.035em;
       color: var(--vc, var(--pink));
       margin: 0;
+      display: inline-block;
+      padding-bottom: 0.08em;
+      /* accent underline that grows on row hover (color-matched per value) */
+      background-image: linear-gradient(var(--vc, var(--pink)), var(--vc, var(--pink)));
+      background-repeat: no-repeat;
+      background-position: 0 100%;
+      background-size: 0% 5px;
+      transition: background-size 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
     }
     .vr-body p {
       font-size: clamp(1.05rem, 1.4vw, 1.2rem);
@@ -300,8 +342,19 @@
       color: var(--ink-soft);
       max-width: 52ch;
       margin: 0;
+      transition: color 0.3s ease;
     }
     .vr-body p .skip { color: var(--ink-fade); }
+
+    /* Hover: underline sweeps in, word + number lean, body text firms up. */
+    .value-row:hover .vr-word { background-size: 100% 5px; transform: translateX(8px); }
+    .value-row:nth-child(even) .vr-word { background-position: 100% 100%; }
+    .value-row:nth-child(even):hover .vr-word { transform: translateX(-8px); }
+    .value-row:hover .vr-num { transform: rotate(3deg) scale(1.1); }
+    .value-row:hover .vr-body p { color: var(--ink); }
+    @media (prefers-reduced-motion: reduce) {
+      .vr-word, .vr-num { transition: none; }
+    }
     .value-row:nth-child(5n+1) { --vc: var(--pink); }
     .value-row:nth-child(5n+2) { --vc: var(--cyan); }
     .value-row:nth-child(5n+3) { --vc: var(--yellow); }
@@ -343,34 +396,44 @@
       margin-bottom: 3rem;
       max-width: 52ch;
     }
-    /* Chat-thread of image bubbles — alternating sides, minimal caption */
+    /* Loose scattered cluster (was a tall single-file chat thread) — wraps
+       ~2-up, each card tilted + staggered so it feels hand-pinned and fills
+       the width instead of running tall. */
     .creations-chat {
       display: flex;
-      flex-direction: column;
-      gap: clamp(1rem, 2.2vw, 1.5rem);
-      max-width: 720px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: clamp(1.5rem, 3vw, 2.75rem);
+      max-width: 960px;
       margin: 0 auto;
     }
     .chat-bubble {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
+      flex: 0 1 400px;
       background: #fff;
-      border-radius: 24px;
-      padding: 0.7rem 0.9rem;
-      max-width: 78%;
+      border-radius: 28px;
+      padding: 1.1rem 1.45rem;
       text-decoration: none;
       color: var(--ink);
-      box-shadow: 0 8px 20px rgba(20, 20, 30, 0.10);
+      box-shadow: 0 10px 24px rgba(20, 20, 30, 0.12);
+      transform: rotate(var(--tilt, 0deg));
       transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
-    .chat-bubble:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(20, 20, 30, 0.18); }
-    .chat-bubble.left  { align-self: flex-start; border-bottom-left-radius: 6px; }
-    .chat-bubble.right { align-self: flex-end; flex-direction: row-reverse; border-bottom-right-radius: 6px; }
+    .chat-bubble:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 0 16px 34px rgba(20, 20, 30, 0.2); }
+    .chat-bubble.left  { flex-direction: row;        border-bottom-left-radius: 6px; }
+    .chat-bubble.right { flex-direction: row-reverse; border-bottom-right-radius: 6px; }
+    /* tilt + vertical stagger per card so the cluster reads scattered, not gridded */
+    .chat-bubble:nth-child(1) { --tilt: -2.5deg; }
+    .chat-bubble:nth-child(2) { --tilt: 1.8deg;  margin-top: 2.5rem; }
+    .chat-bubble:nth-child(3) { --tilt: 2deg;    margin-top: -0.5rem; }
+    .chat-bubble:nth-child(4) { --tilt: -1.6deg; margin-top: 2rem; }
     .chat-bubble img {
-      width: 86px; height: 86px;
+      width: 118px; height: 118px;
       object-fit: cover;
-      border-radius: 18px;
+      border-radius: 20px;
       flex-shrink: 0;
       display: block;
     }
@@ -378,13 +441,13 @@
     .chat-bubble.right .chat-cap { align-items: flex-end; text-align: right; }
     .chat-kind {
       font-family: var(--hand);
-      font-size: 1.2rem; line-height: 1;
+      font-size: 1.45rem; line-height: 1;
       color: var(--pink);
     }
     .chat-bubble[data-cc="ink"]    .chat-kind { color: var(--ink); }
     .chat-bubble[data-cc="yellow"] .chat-kind { color: #C79A1E; }
     .chat-title {
-      font-size: 1.08rem; font-weight: 700;
+      font-size: 1.3rem; font-weight: 700;
       letter-spacing: -0.015em; line-height: 1.15;
       color: var(--ink);
     }
@@ -395,10 +458,10 @@
     }
     .chat-bubble:hover .chat-arrow { color: var(--pink); }
     @media (max-width: 560px) {
-      .chat-bubble { max-width: 100%; }
-      .chat-bubble img { width: 64px; height: 64px; }
+      .chat-bubble { flex-basis: 100%; --tilt: 0deg !important; margin-top: 0 !important; }
+      .chat-bubble img { width: 88px; height: 88px; }
     }
-    .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--pink); opacity: 0.5; }
+    .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--pink); opacity: 0.85; }
     .creations .dc2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
     .creations .dc3 { width: 14px; height: 14px; top: 22%; left: 5%; background: var(--ink); }
 
@@ -668,71 +731,65 @@
       <h2 class="section-h2">A few we're <em>proud of</em></h2>
     </div>
     <div class="marquee" data-speed="50" data-dir="-1">
-      <a class="card mega" href="work/klydo.html" data-bg="images/work/klydo.jpg" style="--tilt: 1.0deg;">
-        <span class="card-sticker yellow right">★ studio favourite</span>
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/klydo.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">Klydo</span>
-      </a>
-      <a class="card" href="work/tatsam.html" data-bg="images/work/tatsam.jpg" style="--tilt: -0.9deg;">
-        <span class="card-sticker cyan left">2024 in flight</span>
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/tatsam.jpg" style="--tilt: -0.9deg;">
         <span class="card-name">Tatsam</span>
-      </a>
-      <a class="card tight" href="work/pratham.html" data-bg="images/work/pratham.jpg" style="--tilt: -0.6deg;">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/pratham.jpg" style="--tilt: -0.6deg;">
         <span class="card-name">Pratham USA</span>
-      </a>
-      <a class="card" href="work/xtdb.html" data-bg="images/work/xtdb.jpg" style="--tilt: 0.5deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/xtdb.jpg" style="--tilt: 0.5deg;">
         <span class="card-name">XTDB</span>
-      </a>
-      <a class="card tight" href="work/gliitch.html" data-bg="images/work/gliitch.jpg" style="--tilt: -1.4deg;">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/gliitch.jpg" style="--tilt: -1.4deg;">
         <span class="card-name">Gliitch</span>
-      </a>
-      <a class="card" href="work/convegenius.html" data-bg="images/work/convegenius.jpg" style="--tilt: 0.8deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/convegenius.jpg" style="--tilt: 0.8deg;">
         <span class="card-name">ConveGenius</span>
-      </a>
+      </div>
       <a class="card tight" href="work/rachna-nivas.html" data-bg="images/work/rachna-nivas.jpg" style="--tilt: -0.7deg;">
         <span class="card-name">Rachna Nivas</span>
       </a>
-      <a class="card" href="work/tomboyx.html" data-bg="images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/tomboyx.jpg" style="--tilt: 1.0deg;">
         <span class="card-name">TomboyX</span>
-      </a>
-      <a class="card" href="work/secret-senses.html" data-bg="images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/secret-senses.jpg" style="--tilt: 0.7deg;">
         <span class="card-name">Secret Senses</span>
-      </a>
+      </div>
       <a class="card" href="work/agemo.html" data-bg="images/work/agemo.jpg" style="--tilt: -0.5deg;">
-        <span class="card-sticker pink right">behind the scenes →</span>
         <span class="card-name">Agemo</span>
       </a>
       <!-- duplicates so the marquee can loop seamlessly -->
-      <a class="card mega" href="work/klydo.html" data-bg="images/work/klydo.jpg" style="--tilt: 1.0deg;" aria-hidden="true" tabindex="-1">
-        <span class="card-sticker yellow right">★ studio favourite</span>
+      <div class="card mega is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/klydo.jpg" style="--tilt: 1.0deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">Klydo</span>
-      </a>
-      <a class="card" href="work/tatsam.html" data-bg="images/work/tatsam.jpg" style="--tilt: -0.9deg;" aria-hidden="true" tabindex="-1">
-        <span class="card-sticker cyan left">2024 in flight</span>
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/tatsam.jpg" style="--tilt: -0.9deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">Tatsam</span>
-      </a>
-      <a class="card tight" href="work/pratham.html" data-bg="images/work/pratham.jpg" style="--tilt: -0.6deg;" aria-hidden="true" tabindex="-1">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/pratham.jpg" style="--tilt: -0.6deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">Pratham USA</span>
-      </a>
-      <a class="card" href="work/xtdb.html" data-bg="images/work/xtdb.jpg" style="--tilt: 0.5deg;" aria-hidden="true" tabindex="-1">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/xtdb.jpg" style="--tilt: 0.5deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">XTDB</span>
-      </a>
-      <a class="card tight" href="work/gliitch.html" data-bg="images/work/gliitch.jpg" style="--tilt: -1.4deg;" aria-hidden="true" tabindex="-1">
+      </div>
+      <div class="card tight is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/gliitch.jpg" style="--tilt: -1.4deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">Gliitch</span>
-      </a>
-      <a class="card" href="work/convegenius.html" data-bg="images/work/convegenius.jpg" style="--tilt: 0.8deg;" aria-hidden="true" tabindex="-1">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/convegenius.jpg" style="--tilt: 0.8deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">ConveGenius</span>
-      </a>
+      </div>
       <a class="card tight" href="work/rachna-nivas.html" data-bg="images/work/rachna-nivas.jpg" style="--tilt: -0.7deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">Rachna Nivas</span>
       </a>
-      <a class="card" href="work/tomboyx.html" data-bg="images/work/tomboyx.jpg" style="--tilt: 1.0deg;" aria-hidden="true" tabindex="-1">
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/tomboyx.jpg" style="--tilt: 1.0deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">TomboyX</span>
-      </a>
-      <a class="card" href="work/secret-senses.html" data-bg="images/work/secret-senses.jpg" style="--tilt: 0.7deg;" aria-hidden="true" tabindex="-1">
+      </div>
+      <div class="card is-coming-soon" role="img" aria-label="Case study coming soon" data-bg="images/work/secret-senses.jpg" style="--tilt: 0.7deg;" aria-hidden="true" tabindex="-1">
         <span class="card-name">Secret Senses</span>
-      </a>
+      </div>
       <a class="card" href="work/agemo.html" data-bg="images/work/agemo.jpg" style="--tilt: -0.5deg;" aria-hidden="true" tabindex="-1">
-        <span class="card-sticker pink right">behind the scenes →</span>
         <span class="card-name">Agemo</span>
       </a>
     </div>
