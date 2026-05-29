@@ -489,7 +489,7 @@
       <div id="intentSuggestions" role="listbox"></div>
     </div>
 
-    <p class="hero-tagline">brand &amp; <em>identity</em> · <em>product</em> &amp; interface · <em>research</em> &amp; strategy · story &amp; <em>narrative</em> · growth &amp; <em>revenue</em></p>
+    <p class="hero-tagline">tell us<br>what you're<br><em>pulling on</em></p>
    </div>
   </section>
 
@@ -758,6 +758,14 @@
         .filter(Boolean);
     }
 
+    // When a query returns no matches, surface the say-hi entry instead of the
+    // curated defaults — "we couldn't find it, but you can just tell us" reads
+    // intentional where the defaults felt like the search did nothing.
+    function noMatchEntries() {
+      var sayHi = CONTENT_MAP.find(function(e) { return e.url === 'say-hi.html'; });
+      return sayHi ? [sayHi] : defaultEntries();
+    }
+
     function fuzzyMatch(query) {
       var q = (query || '').toLowerCase().trim();
       if (!q) return defaultEntries();
@@ -798,7 +806,7 @@
         .slice(0, 5)
         .map(function(s) { return s.entry; });
 
-      return hits.length > 0 ? hits : defaultEntries();
+      return hits.length > 0 ? hits : noMatchEntries();
     }
 
     function renderSuggestions(query) {
