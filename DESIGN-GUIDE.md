@@ -8,12 +8,46 @@ Pair this with `CLAUDE.md` (architecture, gotchas, agent setup). This file answe
 
 ## 1. Voice
 
-> We think with everyone. We build with a few.
+> We help teams, creatives, and organizations reconnect with curiosity.
 
-- Sound human, not corporate. Lowercase eyebrows ("your move", "what mattered"), title-case headings.
+Joyus speaks with warmth, curiosity, and intelligence — "serious play." Human, collaborative, imaginative, emotionally sincere; never polished or corporate. The voice is exploratory rather than authoritative — curious friends building and discovering together. Complexity is met with wonder, not fear. Ideas should feel dynamic, interconnected, and slightly magical — as if new worlds are constantly opening up.
+
+### Tone targets
+
+- intellectually playful · curious · warm · human · sincere
+- imaginative · alive · lightly magical · exploratory
+- direct AND alive with possibility — never just one or the other
+
+### Phrase shapes that land
+
+`serious play` · `building together` · `ideas in motion` · `joyful problem-solving` · `connecting unexpected dots` · `playful rigor` · `wandering through possibility` · `thoughtful mischief` · `imaginative clarity` · `finding hidden possibilities` · `ideas that open worlds` · `work that feels alive`
+
+### Conventions
+
+- Sound human, not corporate. Lowercase eyebrows (`who we are when no one's watching`, `stories from the studio floor`, `the offsite, redrawn`), title-case h1s.
 - Plainspoken; no jargon unless the case study earns it.
+- **No trailing periods on h1s, section h2s, or value/card headlines.** Headlines are not sentences. (e.g. `Five ways to see our work`, not `Five ways to see our work.`) Same goes for the yellow-period `em::after` CSS device that used to live on `.hero h1 em` — it's been removed; don't reintroduce.
 - Pink is for warmth + emphasis, never for warning. Cyan is for confidence. Yellow is for surprise / attention. Ink (`#2C3544`) is for body. Don't introduce new accent colors.
-- "Be our friends." — the standard outro. Never "contact us" or "get in touch."
+- "Be our friends" — the standard outro. Never "contact us" or "get in touch."
+
+### Avoid
+
+- **Consultant aphorisms.** "Hold X loosely, Y tightly", "the right answer comes from…" — TED-talk cadence; reads like a copywriter wrapping up.
+- **Anti-corporate snark as humor.** "Faster than any meeting", "doesn't honor a Gantt chart" — reads pointed, not warm.
+- **McKinsey verbs.** Hunt for, drive, leverage, unlock, transform.
+- **Polished-deck cadence.** Short declarative tagline rhythm that announces "I am a copywriter's tagline." The voice should feel handwritten, not boardroom.
+- **Overused agency words.** Inspire, pivot, grow, transform — every studio promises these; they say nothing.
+
+### Touchstones — copy that nails it
+
+| Page | Line | Why it works |
+|---|---|---|
+| home eyebrow | `a storytelling consultancy · based in BLR & NYC` | Honest, no posturing |
+| podcast eyebrow | `worth pulling on` | Brain-tickler; invites curiosity |
+| workshops eyebrow | `the offsite, redrawn` | Positions against a known category in two words |
+| work eyebrow | `stories from the studio floor` | Informal, lived-in |
+| about lede | `Through collaboration, a polymathic mindset, creativity, and playful inquiry, we help teams uncover new ways of seeing, thinking, and building together.` | Names the practice, not the deliverables |
+| about values (wonder) | `Instead of dread, we walk towards the unknown.` | One sentence carries the whole value. Wide-eyed without using the word. |
 
 ---
 
@@ -332,6 +366,7 @@ Keep transitions short (`0.2s–0.3s`). Long, choreographed animations belong on
 - **Do not** add more than the four established shapes (`.dot` palette = pink/cyan/yellow only).
 - **Do not** copy the homepage stage template (`index.html`) to other pages — it's bespoke.
 - **Do not** invent new closing language — always "Be our friends."
+- **Do not** put trailing periods on h1s, section h2s, or value/card headlines. Headlines are not sentences. (See §1 → Conventions.)
 
 ---
 

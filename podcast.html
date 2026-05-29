@@ -90,6 +90,17 @@
     color: var(--ink-fade);
     padding: 0 0.15em;
   }
+  .hero-meta a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--rule);
+    text-underline-offset: 3px;
+    transition: color 0.2s, text-decoration-color 0.2s;
+  }
+  .hero-meta a:hover {
+    color: var(--cyan);
+    text-decoration-color: var(--cyan);
+  }
   .hero .dh1 { width: 280px; height: 280px; top: 8%; right: -10%; }
   .hero .dh2 { width: 46px; height: 46px; bottom: 20%; right: 22%; }
   .hero .dh3 { width: 20px; height: 20px; top: 30%; right: 34%; }
@@ -723,10 +734,10 @@
     <span class="dot dh3 d-pink"></span>
 
     <span class="hero-eyebrow">worth pulling on</span>
-    <h1>Thinking on <em>Thinking.</em></h1>
+    <h1>Thinking on <em>Thinking</em></h1>
     <p class="hero-sub">Interviews and conversations exploring what happens when you grab something and pull on it, and pull on it, and pull on it. <em>Is everything recursive when you're thinking about thinking?</em></p>
     <p class="hero-meta">
-      <span>On all major podcast platforms</span><span>Want to be featured? <a href="say-hi.html">Say hi.</a></span>
+      <span>On all major podcast platforms</span><span><a href="say-hi.html">Want to be featured?</a></span>
     </p>
   </section>
 
