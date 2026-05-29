@@ -1,0 +1,77 @@
+PODCAST META AGENT PROMPT — reusable template for the per-chunk dispatch.
+Fill in {CHUNK_NUM} for each parallel run. The script
+scripts/podcast-meta-extract.mjs writes /tmp/podcast-meta-chunk-N.json files
+the agents read; agents write sidecar files into podcast/<slug>.meta.json.
+
+────────────────────────────────────────────────────────────────────────────
+
+You are enriching the metadata for podcast episodes on joyus.studio. Each
+episode has a full conversational transcript and we use that to generate a
+"sidecar" JSON file that drives autocomplete on the homepage (and will drive
+RSS, social cards, search later).
+
+Read /tmp/podcast-meta-chunk-{CHUNK_NUM}.json — it is an array of episode
+records: { slug, file, url, h1, desc, transcript, transcript_hash, transcript_length }.
+
+For EACH episode in the chunk, write a sidecar file to:
+  podcast/<slug>.meta.json
+
+Each sidecar has this exact shape:
+
+{
+  "slug": "<slug>",
+  "url": "<url>",
+  "title": "<h1>",
+  "summary": "<2–3 sentence summary of what the episode is actually about, written for someone deciding whether to listen — pull from the transcript, not the meta description>",
+  "topics": [<6–12 short lowercase topic phrases — what the conversation is actually about; include SECONDARY themes the meta description ignores>],
+  "people": [<full names of people in the conversation — hosts plus guests; pull from transcript when title is vague>],
+  "places": [<cities, countries, regions mentioned with meaningful weight; empty array if none>],
+  "intents": [
+    {
+      "display": "<phrase a visitor might type or click; lowercase, no period, framed as what they want — 'to hear founders talk about partnership' not 'episode 504'>",
+      "terms": [<8–15 lowercase keywords/stems — include people first names, places, profession words, emotional states, industries, anything someone might naturally search>],
+      "dest": "<≤22 chars; guest name or topic shorthand, NOT 'podcast episode'>"
+    },
+    ... (1 entry per distinct intent — most episodes have 1, but if an episode covers two genuinely different intents add a second; e.g. Preeti Suri covers BOTH "women founder burnout" AND "balancing parenting with a startup" — those are different searches)
+  ],
+  "transcript_hash": "<copy from the input record verbatim — never invent>",
+  "generated_at": "<ISO 8601 timestamp at generation time>",
+  "generator": "claude-opus-4-7"
+}
+
+CRITICAL RULES:
+
+1. READ THE TRANSCRIPT, not just the description. The whole reason we're doing
+   this is that meta descriptions miss secondary topics. If Preeti and Ambika
+   talk about parenting their kids alongside founder burnout, the intents
+   array MUST include a parenting-focused entry.
+
+2. Don't fabricate topics that aren't in the transcript. If the conversation
+   doesn't go there, don't invent it. Better to have fewer high-quality
+   intents than padded ones.
+
+3. Drop generic terms from `terms` arrays: "thinking", "episode", "podcast",
+   "joyus", "kahran", "divya" (the hosts appear on every episode — they don't
+   discriminate). Same for "talk", "conversation", "chat" — too common.
+
+4. Stem when it helps: use "fundrais" (matches fundraise/fundraising/fundraiser),
+   "parent" (matches parenting/parents/parent), "startup" not "startups".
+
+5. `dest` ≤22 characters. Use the most recognizable label — guest name when
+   they're the draw, topic shorthand when the conversation is the draw.
+
+6. `display` is lowercase, no period, framed as a visitor intent. Examples:
+   - GOOD: "to hear founders work through cofounder tension"
+   - BAD: "Continuing Projects with Kahran and Divya"
+   - GOOD: "to think about kindness vs niceness"
+   - BAD: "Episode about kindness"
+
+7. Write the sidecar files DIRECTLY with the Write tool — do not output them
+   in your response. After writing all sidecars for your chunk, verify each
+   one is valid JSON by reading it back, then report only:
+   - count of sidecars written
+   - any episodes where the transcript was empty / unusable
+   - any episodes where you were uncertain about a second intent (mention slug + your reasoning)
+
+8. Pace yourself: 27 episodes per chunk. Write one sidecar at a time. Don't
+   batch into a single mega-response — that loses fidelity.
