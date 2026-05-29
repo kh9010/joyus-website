@@ -2,15 +2,17 @@
 // scripts/podcast-meta-bake.mjs
 //
 // Reads every podcast/*.meta.json sidecar, flattens their `intents` arrays
-// into CONTENT_MAP entry rows, and splices them into index.html between the
-// `podcast.html` umbrella entry and the `// Comics` marker.
+// into CONTENT_MAP entry rows, and splices them into intent-box.js between the
+// `podcast.html` umbrella entry and the `// Comics` marker. (CONTENT_MAP lives
+// in intent-box.js, shared by index.html + looking.html — it used to be inline
+// in index.html.)
 //
 // Idempotent: re-running with no sidecar changes produces no diff.
 //
 // Usage:
 //   node scripts/podcast-meta-bake.mjs           # bake + write
 //   node scripts/podcast-meta-bake.mjs --dry     # print, don't write
-//   node scripts/podcast-meta-bake.mjs --check   # exit 1 if index.html is stale
+//   node scripts/podcast-meta-bake.mjs --check   # exit 1 if intent-box.js is stale
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -19,13 +21,13 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const repoRoot = path.resolve(__dirname, '..');
 const podcastDir = path.join(repoRoot, 'podcast');
-const indexPath = path.join(repoRoot, 'index.html');
+const targetPath = path.join(repoRoot, 'intent-box.js');
 
 const args = process.argv.slice(2);
 const dry = args.includes('--dry');
 const check = args.includes('--check');
 
-// Anchors in index.html — keep these stable. If you rename, update both
+// Anchors in intent-box.js — keep these stable. If you rename, update both
 // places (and the splice will detect a mismatch and exit non-zero).
 const BEFORE_LINE = '      { display: "a conversation worth listening to", terms: ["podcast", "thinking on thinking", "listen", "episode", "spotify", "apple podcast", "conversation"], url: "podcast.html", dest: "the podcast" },\n';
 const AFTER_ANCHOR = '\n      // Comics';
@@ -82,13 +84,13 @@ for (const sc of sidecars) {
 
 const newBlock = lines.join('\n');
 
-// ── Splice into index.html ──
-const html = fs.readFileSync(indexPath, 'utf8');
+// ── Splice into intent-box.js ──
+const html = fs.readFileSync(targetPath, 'utf8');
 const beforeIdx = html.indexOf(BEFORE_LINE);
 const afterIdx = html.indexOf(AFTER_ANCHOR, beforeIdx);
 
 if (beforeIdx === -1 || afterIdx === -1) {
-  console.error('✗ Anchors not found in index.html — splice aborted.');
+  console.error('✗ Anchors not found in intent-box.js — splice aborted.');
   console.error('  Expected umbrella line:', JSON.stringify(BEFORE_LINE.slice(0, 80) + '…'));
   console.error('  Expected after-anchor:', JSON.stringify(AFTER_ANCHOR));
   process.exit(2);
@@ -105,10 +107,10 @@ if (dry) {
 
 if (check) {
   if (next === html) {
-    console.log(`✓ index.html is up-to-date (${intentCount} intents from ${sidecars.length} sidecars)`);
+    console.log(`✓ intent-box.js is up-to-date (${intentCount} intents from ${sidecars.length} sidecars)`);
     process.exit(0);
   } else {
-    console.error('✗ index.html is stale. Run: node scripts/podcast-meta-bake.mjs');
+    console.error('✗ intent-box.js is stale. Run: node scripts/podcast-meta-bake.mjs');
     process.exit(1);
   }
 }
@@ -118,6 +120,6 @@ if (next === html) {
   process.exit(0);
 }
 
-fs.writeFileSync(indexPath, next);
-console.log(`✓ Baked ${intentCount} intents from ${sidecars.length} sidecars into index.html`);
+fs.writeFileSync(targetPath, next);
+console.log(`✓ Baked ${intentCount} intents from ${sidecars.length} sidecars into intent-box.js`);
 console.log(`  size delta: ${next.length - html.length} bytes`);

@@ -1,7 +1,7 @@
 # podcast metadata workflow
 
 Generates a structured sidecar JSON for every podcast episode, then bakes
-the autocomplete entries into `index.html`. Designed to handle new episodes
+the autocomplete entries into `intent-box.js` (shared by index.html + looking.html). Designed to handle new episodes
 as you record them.
 
 ## Files
@@ -12,7 +12,7 @@ as you record them.
 - `podcast-meta-prompt.txt` — the agent prompt template. Fill in
   `{CHUNK_NUM}` and dispatch one agent per chunk.
 - `podcast-meta-bake.mjs` — reads every `podcast/*.meta.json`, flattens
-  `intents` into CONTENT_MAP rows, splices into `index.html`.
+  `intents` into CONTENT_MAP rows, splices into `intent-box.js`.
 
 ## Sidecar shape (`podcast/<slug>.meta.json`)
 
@@ -48,7 +48,7 @@ as you record them.
 1. `node scripts/podcast-meta-extract.mjs` — writes chunk files to `/tmp/`
 2. Dispatch one Claude Code agent per chunk file using the prompt template
    (`scripts/podcast-meta-prompt.txt`), each producing N sidecar files
-3. `node scripts/podcast-meta-bake.mjs` — splices into `index.html`
+3. `node scripts/podcast-meta-bake.mjs` — splices into `intent-box.js`
 
 ## Workflow — new episode
 
@@ -82,4 +82,4 @@ it (current default: overwrite).
 node scripts/podcast-meta-bake.mjs --check
 ```
 
-Exits 1 if `index.html` is stale relative to the current sidecars.
+Exits 1 if `intent-box.js` is stale relative to the current sidecars.

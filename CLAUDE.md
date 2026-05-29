@@ -43,11 +43,17 @@ Subdirectories:
 
 `index.html` is the homepage. Sparse stage with a centered text input, eyebrow line top-left, animated tagline bottom-right, and decorative dots. The user types an intent, presses Enter, and goes to a destination.
 
-Key inline JS (~line 560+):
-- A small typewriter animation rotates pre-set tagline phrases.
-- A `CONTENT_MAP` of ~160 intent entries + a `fuzzyMatch()` scoring function drives live autocomplete in `#intentSuggestions` as the user types. On focus with empty input, a curated default of 5 suggestions shows. No matches → falls back to the same defaults.
-- Scoring: substring-in-query → +3 per term; word-in-single-word-term → +1 (multi-word terms are deliberately skipped to avoid `"work"` matching `"ai workshop"`); query-in-display → +2; word-in-display → +0.5. Threshold ≥2. Min word length 3 chars (so `"in"` doesn't substring-match `"uncertainty"`).
+**The intent-box logic lives in `intent-box.js` (shared by `index.html` and `looking.html`), not inline.** Each page loads the Firebase compat SDKs, then `intent-box.js`, then calls `initIntentBox({ page, prompts?, placeholder? })`. The homepage passes the typewriter `prompts`; `looking.html` passes a static `placeholder`. `intent-box.js` owns `CONTENT_MAP`, the scorer, the looser near-miss pass, Firebase intent logging, and the Enter-to-route behavior.
+
+- A small typewriter animation rotates pre-set placeholder prompts (homepage only — pass `opts.prompts`).
+- A `CONTENT_MAP` of ~150 intent entries + a `scoreEntries()` scorer drives live autocomplete in `#intentSuggestions` as the user types. On focus with empty input, a curated default of 5 suggestions shows. No matches → falls back to the say-hi entry.
+- Scoring: substring-in-query → +3 per term; word-in-single-word-term → +1 (multi-word terms are deliberately skipped to avoid `"work"` matching `"ai workshop"`); query-in-display → +2; word-in-display → +0.5. Min word length 3 chars (so `"in"` doesn't substring-match `"uncertainty"`). The autocomplete dropdown surfaces everything scoring ≥2.
+- **Enter-to-route confidence bar (`CONFIDENT_MATCH = 4`):** a query scoring ≥4 deep-links straight to its top hit. Anything weaker routes to `looking.html?q=…&n=…`, handing over near-miss cards (the strict ≥2 cluster, topped up by a looser IDF-weighted token pass — see below). This is why most strong queries deep-link but vague ones land on the near-miss page instead of force-routing to one shaky match. (Changing the bar changes how aggressively the near-miss page fires.)
 - The podcast portion of `CONTENT_MAP` is generated, not hand-edited. See `## Podcast metadata workflow` below.
+
+### looking.html — near-miss / "things you might be into" page
+
+The failed-search landing. Trimmed to: the headline "We don't have a page like that yet", an autocomplete search box (same `intent-box.js`, so visitors can try another intent right there), and — when the homepage handed over near-misses via `?n=` (a JSON array of `{d:display, u:url, t:dest}`) — a soft list of cards under "Here's a few things we've made that might be close to what you're pulling on." No near-misses → just the headline + search box. The near-miss source is the strict ≥2 cluster, topped up by `looseEntries()` (a lenient token-overlap pass weighted by IDF so rare words like "fashion"/"tax" carry signal and common ones like "brand"/"team" don't); truly-unrelated queries surface nothing, by design.
 
 There is **no draw-to-enter splash anymore** — the canvas-based shape classifier ($1 unistroke + centroid distance) lives in `index-old.html` and is not linked from anywhere. The Firestore `shapes` and `shape_visits` collections are dormant. See `shape-echo.js` note below.
 
@@ -58,7 +64,7 @@ Every podcast episode has a structured sidecar JSON at `podcast/<slug>.meta.json
 **Pipeline (3 scripts + 1 prompt):**
 - `scripts/podcast-meta-extract.mjs` — walks `podcast/*.html`, hashes each transcript, writes "needs-meta" chunk files to `/tmp/podcast-meta-chunk-N.json`. Skips episodes whose sidecar already matches the current hash, so re-runs are cheap.
 - `scripts/podcast-meta-prompt.txt` — the agent prompt template + schema. Reusable.
-- `scripts/podcast-meta-bake.mjs` — reads all sidecars, flattens `intents` arrays into `CONTENT_MAP` rows, splices into `index.html` between the `podcast.html` umbrella entry and the `// Comics` anchor. Idempotent. Has `--dry` and `--check` modes.
+- `scripts/podcast-meta-bake.mjs` — reads all sidecars, flattens `intents` arrays into `CONTENT_MAP` rows, splices into `intent-box.js` between the `podcast.html` umbrella entry and the `// Comics` anchor. Idempotent. Has `--dry` and `--check` modes. (Target moved from `index.html` to `intent-box.js` when the intent box was extracted into a shared file.)
 - `scripts/README-podcast-meta.md` — full workflow doc + recipes.
 
 **New episode? Run:**
