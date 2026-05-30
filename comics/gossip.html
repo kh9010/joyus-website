@@ -16,422 +16,79 @@
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js" defer></script>
   <style>
-    /* Reading progress bar */
-    .reading-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: var(--pink, #E91E7B);
-      z-index: 200;
-      transition: width 0.1s linear;
-    }
+    .reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: var(--pink); z-index: 200; transition: width 0.1s linear; }
 
-    .comic-hero {
-      padding: 8rem 2rem 3rem;
-      background: var(--warm-gray, #F5F3F0);
-      text-align: center;
-      scroll-snap-align: start;
-    }
-    .comic-hero .inner {
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    .comic-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      color: #111;
-      margin-bottom: 0.5rem;
-    }
-    .comic-hero .comic-tagline {
-      font-size: 1.05rem;
-      color: #555;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-    .comic-hero .comic-meta {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-    }
+    .comic-hero { padding: 8rem var(--x) 3rem; background: var(--bg); border-bottom: 1px solid var(--rule); text-align: center; scroll-snap-align: start; }
+    .comic-hero .inner { max-width: 600px; margin: 0 auto; }
+    .comic-hero h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 0.6rem; }
+    .comic-hero .comic-tagline { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 1.4rem; }
+    .comic-hero .comic-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-fade); }
 
-    /* Comic reader */
-    .comic-reader {
-      padding: 3rem 2rem 5rem;
-      background: #fff;
-    }
-    .comic-reader .reader-inner {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Stronger scroll-snap: each page fills the viewport so the frame is fully visible */
+    .comic-reader { padding: 3rem var(--x) 5rem; background: var(--bg); }
+    .comic-reader .reader-inner { max-width: 800px; margin: 0 auto; }
     html { scroll-snap-type: y mandatory; scroll-padding-top: 80px; }
-    /* Hero is also a snap point so the page never auto-jumps past it on load */
-    .comic-hero { scroll-snap-align: start; }
-    .comic-page {
-      margin-bottom: 0;
-      min-height: calc(100vh - 80px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem 0;
-      box-sizing: border-box;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.5s ease-out;
-      scroll-snap-align: start;
-    }
-    .comic-page.visible {
-      opacity: 1;
-    }
-    .comic-page:last-child {
-      margin-bottom: 0;
-    }
-    .comic-page img {
-      width: auto;
-      max-width: 100%;
-      height: auto;
-      max-height: calc(100vh - 160px);
-      object-fit: contain;
-      display: block;
-      margin: 0 auto;
-      border-radius: 4px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
-    }
-    /* Short viewports (e.g. landscape phone): turn off snap, let it scroll naturally */
-    @media (max-height: 520px) {
-      html { scroll-snap-type: none; }
-      .comic-page { min-height: auto; padding: 2rem 0; }
-      .comic-page img { max-height: none; width: 100%; }
-    }
-    .comic-page .page-number {
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      color: #ccc;
-      margin-top: 1rem;
-      user-select: none;
-    }
+    .comic-page { margin-bottom: 0; min-height: calc(100vh - 80px); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem 0; box-sizing: border-box; text-align: center; opacity: 0; transition: opacity 0.5s ease-out; scroll-snap-align: start; cursor: zoom-in; }
+    .comic-page.visible { opacity: 1; }
+    .comic-page img { width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 160px); object-fit: contain; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 4px 24px rgba(44,53,68,0.10); transition: transform 0.32s ease, box-shadow 0.32s ease; }
+    .comic-page:hover img { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(44,53,68,0.16); }
+    @media (max-height: 520px) { html { scroll-snap-type: none; } .comic-page { min-height: auto; padding: 2rem 0; } .comic-page img { max-height: none; width: 100%; } }
+    .comic-page .page-number { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-fade); margin-top: 1rem; user-select: none; }
 
-    /* Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 300;
-      background: rgba(0,0,0,0.92);
-      align-items: center;
-      justify-content: center;
-      cursor: zoom-out;
-      padding: 2rem;
-    }
-    .lightbox.active {
-      display: flex;
-    }
-    .lightbox img {
-      max-width: 95vw;
-      max-height: 95vh;
-      object-fit: contain;
-      border-radius: 4px;
-    }
-
-    /* End navigation */
-    .comic-end-nav {
-      padding: 3rem 2rem 4rem;
-      border-top: 1px solid #eee;
-    }
-    .comic-end-nav .inner {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .comic-end-nav a {
-      color: #111;
-      text-decoration: none;
-      font-weight: 500;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    .comic-end-nav a:hover {
-      color: var(--pink, #E91E7B);
-    }
-    .comic-nav-label {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #999;
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-
-    /* Keyboard hint */
-    .keyboard-hint {
-      text-align: center;
-      padding: 0.75rem;
-      font-size: 0.8rem;
-      color: #bbb;
-    }
-
-    @media (max-width: 640px) {
-      .comic-reader {
-        padding: 1rem 1rem 2rem;
-      }
-      .comic-page {
-        padding: 0.5rem 0;
-      }
-      .comic-page img {
-        max-height: calc(100vh - 130px);
-        border-radius: 2px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      }
-    }
-
-    /* Page hover (cursor: zoom-in + subtle lift) */
-    .comic-page { cursor: zoom-in; }
-    .comic-page img { transition: transform 0.32s ease, box-shadow 0.32s ease; }
-    .comic-page:hover img {
-      transform: translateY(-3px);
-      box-shadow: 0 14px 36px rgba(0,0,0,0.14);
-    }
-
-    /* Floating page indicator (appears on scroll, fades out) */
-    .page-indicator {
-      position: fixed;
-      bottom: 1.75rem; right: 1.75rem;
-      background: rgba(17, 18, 20, 0.85);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      color: #fff;
-      padding: 0.45rem 0.95rem;
-      border-radius: 999px;
-      font-family: 'Caveat', cursive;
-      font-size: 1.15rem;
-      letter-spacing: 0.02em;
-      pointer-events: none;
-      z-index: 50;
-      opacity: 0;
-      transform: translateY(8px);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .page-indicator.visible { opacity: 1; transform: translateY(0); }
-    @media (max-width: 720px) {
-      .page-indicator { bottom: 1rem; right: 1rem; font-size: 1rem; }
-    }
-
-    /* Lightbox controls (prev / next / counter) */
-    .lightbox-controls {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 clamp(1rem, 4vw, 3rem);
-    }
-    .lightbox-btn {
-      pointer-events: auto;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      color: #fff;
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      font-size: 1.3rem; font-weight: 300;
-      transition: background 200ms, transform 200ms, border-color 200ms;
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-    }
-    .lightbox-btn:hover {
-      background: rgba(255, 255, 255, 0.18);
-      transform: scale(1.06);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(20,24,32,0.93); align-items: center; justify-content: center; cursor: zoom-out; padding: 2rem; }
+    .lightbox.active { display: flex; }
+    .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 4px; }
+    .lightbox-controls { position: absolute; inset: 0; pointer-events: none; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(1rem, 4vw, 3rem); }
+    .lightbox-btn { pointer-events: auto; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25); color: #fff; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1.3rem; font-weight: 300; transition: background 200ms, transform 200ms, border-color 200ms; -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+    .lightbox-btn:hover { background: rgba(255,255,255,0.18); transform: scale(1.06); border-color: rgba(255,255,255,0.5); }
     .lightbox-btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
-    .lightbox-close {
-      position: absolute;
-      top: 1.5rem; right: 1.5rem;
-      pointer-events: auto;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      width: 44px; height: 44px;
-      border-radius: 50%;
-      font-size: 1.6rem; font-weight: 300; line-height: 1;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 200ms, transform 200ms;
-      z-index: 10;
-    }
+    .lightbox-close { position: absolute; top: 1.5rem; right: 1.5rem; pointer-events: auto; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.25); color: #fff; width: 44px; height: 44px; border-radius: 50%; font-size: 1.6rem; font-weight: 300; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 200ms, transform 200ms; z-index: 10; }
     .lightbox-close:hover { background: rgba(255,255,255,0.2); transform: rotate(90deg); }
-    .lightbox-counter {
-      position: absolute;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255, 255, 255, 0.7);
-      font-family: 'Caveat', cursive;
-      font-size: 1.25rem;
-      letter-spacing: 0.04em;
-      pointer-events: none;
-    }
-    @media (max-width: 600px) {
-      .lightbox-btn { width: 44px; height: 44px; font-size: 1.1rem; }
-    }
+    .lightbox-counter { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.7); font-family: var(--hand); font-size: 1.25rem; letter-spacing: 0.04em; pointer-events: none; }
+    @media (max-width: 600px) { .lightbox-btn { width: 44px; height: 44px; font-size: 1.1rem; } }
 
-    /* End-of-comic beat */
-    .comic-end {
-      text-align: center;
-      padding: 4rem 2rem 1rem;
-      background: #fff;
-      position: relative;
-    }
-    .comic-end .squiggle {
-      display: inline-block;
-      font-family: 'Caveat', cursive;
-      font-size: 2.6rem;
-      color: var(--pink, #E91E7B);
-      transform: rotate(-2deg);
-      margin-bottom: 0.4rem;
-      letter-spacing: 0.04em;
-    }
-    .comic-end .credits {
-      font-size: 0.92rem;
-      color: #888;
-      letter-spacing: 0.01em;
-      max-width: 460px;
-      margin: 0 auto;
-      line-height: 1.55;
-    }
+    .comic-end { text-align: center; padding: 4rem var(--x) 1rem; background: var(--bg); }
+    .comic-end .squiggle { display: inline-block; font-family: var(--hand); font-size: 2.6rem; color: var(--pink); transform: rotate(-2deg); margin-bottom: 0.4rem; letter-spacing: 0.04em; }
+    .comic-end .credits { font-size: 0.92rem; color: var(--ink-fade); max-width: 460px; margin: 0 auto; line-height: 1.55; }
 
-    /* Print "coming soon" CTA */
-    .print-cta {
-      padding: 2.5rem 2rem 4rem;
-      background: linear-gradient(180deg, #fff 0%, var(--warm-gray, #F5F3F0) 60%, var(--warm-gray, #F5F3F0) 100%);
-    }
-    .print-cta .inner {
-      max-width: 580px;
-      margin: 0 auto;
-      background: #fff;
-      border: 1px solid rgba(44, 53, 68, 0.08);
-      border-left: 3px solid var(--pink, #E91E7B);
-      border-radius: 0 14px 14px 0;
-      padding: 2.25rem 2.25rem 2rem;
-      position: relative;
-      box-shadow: 0 12px 36px -22px rgba(44, 53, 68, 0.18);
-    }
-    .print-cta .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--pink, #E91E7B);
-      margin-bottom: 0.85rem;
-    }
-    .print-cta .eyebrow::before {
-      content: "";
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--pink, #E91E7B);
-      display: inline-block;
-    }
-    .print-cta h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(1.55rem, 3.4vw, 2.1rem);
-      color: #111;
-      line-height: 1.12;
-      margin-bottom: 0.7rem;
-      letter-spacing: -0.01em;
-    }
-    .print-cta h2 em {
-      font-style: italic;
-      color: var(--pink, #E91E7B);
-    }
-    .print-cta .lede {
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #555;
-      margin-bottom: 1.4rem;
-    }
-    .print-cta-form {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      margin-bottom: 0.65rem;
-    }
-    .print-cta-form input[type="email"] {
-      flex: 1 1 220px;
-      padding: 0.78rem 1.1rem;
-      border: 1.5px solid rgba(44, 53, 68, 0.15);
-      border-radius: 999px;
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-size: 0.95rem;
-      color: #2C3544;
-      background: #fff;
-      transition: border-color 200ms, box-shadow 200ms;
-    }
-    .print-cta-form input[type="email"]:focus {
-      outline: none;
-      border-color: var(--pink, #E91E7B);
-      box-shadow: 0 0 0 3px rgba(233, 30, 123, 0.12);
-    }
-    .print-cta-form button {
-      padding: 0.78rem 1.5rem;
-      border-radius: 999px;
-      border: 0;
-      background: var(--pink, #E91E7B);
-      color: #fff;
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      cursor: pointer;
-      transition: background 200ms, transform 200ms;
-    }
-    .print-cta-form button:hover {
-      background: #c5176a;
-      transform: translateY(-1px);
-    }
+    .print-cta { padding: 2.5rem var(--x) 4rem; background: var(--bg); }
+    .print-cta .inner { max-width: 580px; margin: 0 auto; background: var(--white); border: 1px solid var(--rule); border-left: 3px solid var(--pink); border-radius: 0 14px 14px 0; padding: 2.25rem 2.25rem 2rem; position: relative; box-shadow: 0 12px 36px -22px rgba(44,53,68,0.18); }
+    .print-cta .eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-family: var(--sans); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.85rem; }
+    .print-cta .eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); display: inline-block; }
+    .print-cta h2 { font-family: var(--sans); font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2.1rem); color: var(--ink); line-height: 1.08; margin-bottom: 0.7rem; letter-spacing: -0.025em; }
+    .print-cta h2 em { font-style: normal; color: var(--pink); }
+    .print-cta .lede { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); margin-bottom: 1.4rem; }
+    .print-cta-form { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.65rem; }
+    .print-cta-form input[type="email"] { flex: 1 1 220px; padding: 0.78rem 1.1rem; border: 1.5px solid var(--rule); border-radius: 999px; font-family: var(--sans); font-size: 0.95rem; color: var(--ink); background: var(--white); transition: border-color 200ms, box-shadow 200ms; }
+    .print-cta-form input[type="email"]:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 3px rgba(233,30,123,0.12); }
+    .print-cta-form button { padding: 0.78rem 1.5rem; border-radius: 999px; border: 0; background: var(--pink); color: var(--white); font-family: var(--sans); font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 200ms, transform 200ms; }
+    .print-cta-form button:hover { background: #c5176a; transform: translateY(-1px); }
     .print-cta-form button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
     .print-cta-form.is-success { display: none; }
-    .print-cta-status {
-      font-size: 0.88rem;
-      color: #888;
-      min-height: 1.3em;
-      transition: color 200ms;
-    }
+    .print-cta-status { font-size: 0.88rem; color: var(--ink-fade); min-height: 1.3em; transition: color 200ms; }
     .print-cta-status.success { color: #2c8b5e; font-weight: 500; }
     .print-cta-status.error { color: #b94a4a; }
-    .print-cta .small-print {
-      font-size: 0.78rem;
-      color: #999;
-      margin-top: 0.85rem;
-      margin-bottom: 0;
-    }
-    @media (max-width: 600px) {
-      .print-cta { padding: 1.75rem 1rem 3rem; }
-      .print-cta .inner { padding: 1.75rem 1.5rem 1.5rem; }
-      .print-cta-form input[type="email"] { flex-basis: 100%; }
-      .print-cta-form button { flex: 1; }
-    }
+    .print-cta .small-print { font-size: 0.78rem; color: var(--ink-fade); margin-top: 0.85rem; margin-bottom: 0; }
+    @media (max-width: 600px) { .print-cta .inner { padding: 1.75rem 1.5rem 1.5rem; } .print-cta-form input[type="email"] { flex-basis: 100%; } .print-cta-form button { flex: 1; } }
+
+    .comic-end-nav { padding: 3rem var(--x) 4rem; border-top: 1px solid var(--rule); }
+    .comic-end-nav .inner { max-width: 800px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+    .comic-end-nav a { color: var(--ink); text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: color 0.2s; }
+    .comic-end-nav a:hover { color: var(--pink); }
+    .comic-nav-next { text-align: right; }
+    .comic-nav-label { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-fade); display: block; margin-bottom: 0.25rem; }
+
+    .keyboard-hint { text-align: center; padding: 0.75rem; font-size: 0.8rem; color: var(--ink-fade); }
+    .page-indicator { position: fixed; bottom: 1.75rem; right: 1.75rem; background: rgba(20,24,32,0.85); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); color: #fff; padding: 0.45rem 0.95rem; border-radius: 999px; font-family: var(--hand); font-size: 1.15rem; letter-spacing: 0.02em; pointer-events: none; z-index: 50; opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .page-indicator.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 720px) { .page-indicator { bottom: 1rem; right: 1rem; font-size: 1rem; } }
   </style>
 </head>
 <body data-accent="pink">
-  <div class="wip-banner">WIP — to be redesigned <span class="wip-banner__note">we'll rework this page in the new system soon</span></div>
 
   <div class="reading-progress" id="readingProgress"></div>
 

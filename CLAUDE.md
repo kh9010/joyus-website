@@ -35,7 +35,7 @@ Subdirectories:
 - `work/` — `index.html` + 11 case studies (agemo, convegenius, gliitch, klydo, pratham, rachna-nivas, secret-senses, tatsam, tomboyx, xtdb)
 - `podcast/` — ~80 individual episode pages (Spotify / Apple / iHeart embeds vary per episode)
 - `thinking/` — 15 long-form essays drawn from podcast transcripts
-- `comics/` — `index.html`, `the-friend-comic.html`, `gossip.html`
+- `comics/` — `index.html` + 5 comics: `the-friend-comic.html`, `gossip.html`, `plant-comic.html`, `phone-comic.html`, `serious-zine.html` (migrated to the new design system 2026-05-29; the comic pages source from the joyus.studio Creations PDFs, rendered to `images/comics/<slug>/page-N.{png,jpg}`). The reader (scroll-snap, lightbox, page indicator, print-interest form) is shared across all five.
 
 `sitemap.xml` currently lists ~124 URLs (60 podcast episodes, 15 thinking essays, 11 case studies, 6 hubs, plus core pages — not every podcast episode is in the sitemap; many are intentional dead drops). `robots.txt` allows everything.
 
@@ -92,7 +92,7 @@ If you see `<script src="shape-echo.js">` (or `../shape-echo.js`) in a page, it 
 
 1. **Homepage**: `index.html` — sparse 3-row grid stage (eyebrow / input / tagline) with decorative dots. Self-contained inline styles.
 2. **Modern editorial / grid / listing**: hero + body content + closing/foot. Links `styles.css` for tokens + primitives + body baseline; the page's own inline `<style>` carries the page-specific composition. Used by `services.html`, `podcast.html`, all `work/*`, all `podcast/*`. Set `<body data-accent="pink|cyan">`.
-3. **WIP (unmigrated)**: 6 hubs, 15 `thinking/*` essays, `comics/*`, `about.html`, `ai-workshops.html`, `services-old.html`, `404.html`. These wear the yellow `<div class="wip-banner">` sticker at the top. They link `styles.css` but their old class names (`.nav-bar`, `.footer` 4-col, `.hub-eyebrow`, etc.) no longer have rules there, so they render mostly unstyled until rebuilt. Migrate one at a time. `thinking/*.html` posts are heavily minified to near-single-line HTML — don't reformat them on a whim, the author maintains them that way; rebuild as a deliberate restructure.
+3. **WIP (unmigrated)**: 6 hubs, 15 `thinking/*` essays, `about.html`, `ai-workshops.html`, `services-old.html`, `404.html`. These wear the yellow `<div class="wip-banner">` sticker at the top. (`comics/*` was migrated to the new system on 2026-05-29 — Space Grotesk, tokens, no WIP banner — so it's no longer in this list.) They link `styles.css` but their old class names (`.nav-bar`, `.footer` 4-col, `.hub-eyebrow`, etc.) no longer have rules there, so they render mostly unstyled until rebuilt. Migrate one at a time. `thinking/*.html` posts are heavily minified to near-single-line HTML — don't reformat them on a whim, the author maintains them that way; rebuild as a deliberate restructure.
 
 ### Two nav/footer generations (HTML-level — visual is unified by `styles.css`)
 
