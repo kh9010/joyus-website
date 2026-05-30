@@ -28,8 +28,7 @@
     .comics-grid-section .inner { max-width: 960px; margin: 0 auto; }
     .comics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2.5rem; }
 
-    .comic-card { text-decoration: none; color: inherit; display: block; border-radius: 14px; overflow: hidden; background: var(--white); border: 1px solid var(--rule); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease; }
-    .comic-card.visible { opacity: 1; transform: translateY(0); }
+    .comic-card { text-decoration: none; color: inherit; display: block; border-radius: 14px; overflow: hidden; background: var(--white); border: 1px solid var(--rule); transition: transform 0.3s ease, box-shadow 0.3s ease; }
     .comic-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,53,68,0.12); }
     .comic-card-cover { aspect-ratio: 3 / 4; overflow: hidden; background: var(--bg); }
     .comic-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }

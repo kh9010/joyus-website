@@ -31,7 +31,7 @@
 
     .comic-reader { padding: 3rem var(--x) 5rem; background: var(--bg); }
     .comic-reader .reader-inner { max-width: 800px; margin: 0 auto; }
-    html { scroll-snap-type: y mandatory; scroll-padding-top: 80px; }
+    html { scroll-snap-type: y proximity; scroll-padding-top: 80px; }
     .comic-page { margin-bottom: 0; min-height: calc(100vh - 80px); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1rem 0; box-sizing: border-box; text-align: center; opacity: 0; transition: opacity 0.5s ease-out; scroll-snap-align: start; cursor: zoom-in; }
     .comic-page.visible { opacity: 1; }
     .comic-page img { width: auto; max-width: 100%; height: auto; max-height: calc(100vh - 160px); object-fit: contain; display: block; margin: 0 auto; border-radius: 6px; box-shadow: 0 4px 24px rgba(44,53,68,0.10); transition: transform 0.32s ease, box-shadow 0.32s ease; }
