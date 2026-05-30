@@ -319,16 +319,6 @@
     .value-row:nth-child(even) .vr-pair { grid-column: 2; grid-row: 1; text-align: right; }
     .value-row:nth-child(even) .vr-body { grid-column: 1; grid-row: 1; }
     .vr-pair { position: relative; }
-    .vr-num {
-      font-family: var(--hand);
-      font-size: clamp(1.5rem, 2.1vw, 2rem);
-      line-height: 1;
-      color: var(--vc, var(--pink));
-      transform: rotate(-3deg);
-      display: inline-block;
-      margin-bottom: 0.55rem;
-      transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
     .vr-word {
       font-weight: 700;
       font-size: clamp(2.6rem, 7vw, 5.5rem);
@@ -355,14 +345,13 @@
     }
     .vr-body p .skip { color: var(--ink-fade); }
 
-    /* Hover: underline sweeps in, word + number lean, body text firms up. */
+    /* Hover: underline sweeps in, word leans, body text firms up. */
     .value-row:hover .vr-word { background-size: 100% 5px; transform: translateX(8px); }
     .value-row:nth-child(even) .vr-word { background-position: 100% 100%; }
     .value-row:nth-child(even):hover .vr-word { transform: translateX(-8px); }
-    .value-row:hover .vr-num { transform: rotate(3deg) scale(1.1); }
     .value-row:hover .vr-body p { color: var(--ink); }
     @media (prefers-reduced-motion: reduce) {
-      .vr-word, .vr-num { transition: none; }
+      .vr-word { transition: none; }
     }
     .value-row:nth-child(5n+1) { --vc: var(--pink); }
     .value-row:nth-child(5n+2) { --vc: var(--cyan); }
@@ -686,7 +675,6 @@
       <ol class="values-list">
         <li class="value-row">
           <div class="vr-pair">
-            <span class="vr-num" aria-hidden="true">01</span>
             <h3 class="vr-word">wonder</h3>
           </div>
           <div class="vr-body">
@@ -695,7 +683,6 @@
         </li>
         <li class="value-row">
           <div class="vr-pair">
-            <span class="vr-num" aria-hidden="true">02</span>
             <h3 class="vr-word">play</h3>
           </div>
           <div class="vr-body">
@@ -704,7 +691,6 @@
         </li>
         <li class="value-row">
           <div class="vr-pair">
-            <span class="vr-num" aria-hidden="true">03</span>
             <h3 class="vr-word">curiosity</h3>
           </div>
           <div class="vr-body">
@@ -713,7 +699,6 @@
         </li>
         <li class="value-row">
           <div class="vr-pair">
-            <span class="vr-num" aria-hidden="true">04</span>
             <h3 class="vr-word">emergence</h3>
           </div>
           <div class="vr-body">
@@ -722,7 +707,6 @@
         </li>
         <li class="value-row">
           <div class="vr-pair">
-            <span class="vr-num" aria-hidden="true">05</span>
             <h3 class="vr-word">wayfinding</h3>
           </div>
           <div class="vr-body">
