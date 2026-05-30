@@ -16,137 +16,38 @@
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
-    .comics-hero {
-      padding: 8rem 2rem 4rem;
-      background: var(--warm-gray, #F5F3F0);
-    }
-    .comics-hero .inner {
-      max-width: 700px;
-    }
-    .comics-hero h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
-      margin-bottom: 1rem;
-      color: #111;
-    }
-    .comics-hero p {
-      font-size: 1.1rem;
-      color: #555;
-      line-height: 1.7;
-      max-width: 560px;
-    }
+    .comics-hero { padding: 8rem var(--x) 4rem; background: var(--bg); border-bottom: 1px solid var(--rule); }
+    .comics-hero .inner { max-width: 700px; margin: 0 auto; }
+    .comics-hero h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 1rem; color: var(--ink); }
+    .comics-hero p { font-size: 1.1rem; color: var(--ink-soft); line-height: 1.7; max-width: 560px; }
 
-    .comics-grid-section {
-      padding: 5rem 2rem;
-    }
-    .comics-grid-section .inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .comics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 2.5rem;
-    }
+    .comics-grid-section { padding: 4rem var(--x) 2rem; }
+    .comics-grid-section .inner { max-width: 960px; margin: 0 auto; }
+    .comics-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 2.5rem; }
 
-    .comic-card {
-      text-decoration: none;
-      color: inherit;
-      display: block;
-      border-radius: 12px;
-      overflow: hidden;
-      background: white;
-      border: 1px solid #e8e6e4;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .comic-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.1);
-      opacity: 1;
-    }
-    .comic-card-cover {
-      aspect-ratio: 3 / 4;
-      overflow: hidden;
-      background: var(--warm-gray);
-    }
-    .comic-card-cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .comic-card:hover .comic-card-cover img {
-      transform: scale(1.03);
-    }
-    .comic-card-body {
-      padding: 1.5rem 1.75rem 1.75rem;
-    }
-    .comic-card-body h2 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.4rem;
-      color: #111;
-      margin-bottom: 0.4rem;
-    }
-    .comic-card-meta {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--pink, #E91E7B);
-      margin-bottom: 0.75rem;
-    }
-    .comic-card-body p {
-      font-size: 0.95rem;
-      color: #666;
-      line-height: 1.6;
-      margin-bottom: 0;
-    }
+    .comic-card { text-decoration: none; color: inherit; display: block; border-radius: 14px; overflow: hidden; background: var(--white); border: 1px solid var(--rule); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .comic-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(44,53,68,0.12); }
+    .comic-card-cover { aspect-ratio: 3 / 4; overflow: hidden; background: var(--bg); }
+    .comic-card-cover img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .comic-card:hover .comic-card-cover img { transform: scale(1.03); }
+    .comic-card-body { padding: 1.5rem 1.75rem 1.75rem; }
+    .comic-card-body h2 { font-family: var(--sans); font-weight: 600; font-size: 1.4rem; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.45rem; }
+    .comic-card-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--pink); margin-bottom: 0.75rem; }
+    .comic-card-body p { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 0; }
 
-    /* Coming soon cards */
-    .comic-card.coming-soon {
-      opacity: 0.55;
-      pointer-events: none;
-    }
-    .comic-card.coming-soon .comic-card-cover {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .comic-card.coming-soon .comic-card-cover .placeholder-text {
-      font-family: 'Caveat', cursive;
-      font-size: 1.5rem;
-      color: #bbb;
-    }
-    .comic-card.coming-soon .comic-card-meta {
-      color: #bbb;
-    }
+    .comics-outro { padding: 3rem var(--x) 5rem; text-align: center; border-top: 1px solid var(--rule); }
+    .comics-outro .inner { max-width: 640px; margin: 0 auto; }
+    .comics-outro h2 { font-family: var(--hand); font-size: 2rem; color: var(--ink); margin-bottom: 0.5rem; }
+    .comics-outro p { color: var(--ink-soft); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
+    .comics-outro-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 
-    /* Fade-in animation */
-    .comic-card {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
-    }
-    .comic-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .comic-card.coming-soon.visible {
-      opacity: 0.55;
-    }
-
-    @media (max-width: 480px) {
-      .comics-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 480px) { .comics-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body data-accent="pink">
-  <div class="wip-banner">WIP — to be redesigned <span class="wip-banner__note">we'll rework this page in the new system soon</span></div>
 
   <a href="#main-content" class="skip-to-content">Skip to content</a>
 
@@ -342,50 +243,51 @@
           </div>
         </a>
 
-        <div class="comic-card coming-soon">
+        <a href="plant-comic.html" class="comic-card">
           <div class="comic-card-cover">
-            <span class="placeholder-text">coming soon</span>
+            <img src="../images/comics/plant/page-1.jpg" alt="the Plant Comic — page 1" loading="lazy">
           </div>
           <div class="comic-card-body">
             <h2>the Plant Comic</h2>
-            <div class="comic-card-meta">Comic &middot; coming soon</div>
+            <div class="comic-card-meta">Comic &middot; 4 pages</div>
             <p>What do you do when your best friend is a plant? And what happens if that plant dies? A treatise on love, friendship, and keeping plants alive.</p>
           </div>
-        </div>
+        </a>
 
-        <div class="comic-card coming-soon">
+        <a href="phone-comic.html" class="comic-card">
           <div class="comic-card-cover">
-            <span class="placeholder-text">coming soon</span>
+            <img src="../images/comics/phone/page-1.jpg" alt="the Phone Comic — page 1" loading="lazy">
           </div>
           <div class="comic-card-body">
             <h2>the Phone Comic</h2>
-            <div class="comic-card-meta">Comic &middot; coming soon</div>
+            <div class="comic-card-meta">Comic &middot; 4 pages</div>
             <p>Can you escape your phone? Do you want to? What will you do without it?</p>
           </div>
-        </div>
+        </a>
 
-        <div class="comic-card coming-soon">
+        <a href="serious-zine.html" class="comic-card">
           <div class="comic-card-cover">
-            <span class="placeholder-text">coming soon</span>
+            <img src="../images/comics/zine/page-1.jpg" alt="the doing serious things unseriously zine — page 1" loading="lazy">
           </div>
           <div class="comic-card-body">
             <h2>the doing serious things unseriously zine</h2>
-            <div class="comic-card-meta">Zine &middot; coming soon</div>
-            <p>How do you do serious things? Without taking yourself too seriously! If this feels easier said than done, this zine is for you.</p>
+            <div class="comic-card-meta">Zine &middot; 14 pages</div>
+            <p>How do you do serious things? Without taking yourself too seriously. If that feels easier said than done, this zine is for you.</p>
           </div>
-        </div>
-
+        </a>
       </div>
     </div>
   </section>
 
-  <section style="padding:4rem 2rem;text-align:center;border-top:1px solid #eee;">
-    <h2 style="font-family:'Caveat',cursive;font-size:1.8rem;color:#111;margin-bottom:0.5rem;">Want more?</h2>
-    <p style="color:#666;font-size:1rem;margin-bottom:1.5rem;">These comics come from the same studio that does brand strategy, visual design, and storytelling for startups and mission-driven companies.</p>
-    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-      <a href="../services.html" style="display:inline-block;padding:0.7rem 1.5rem;border:1.5px solid #E91E7B;border-radius:50px;font-size:0.9rem;font-weight:600;color:#E91E7B;text-decoration:none;transition:all 0.2s;">Work with us &rarr;</a>
-      <a href="../podcast.html" style="display:inline-block;padding:0.7rem 1.5rem;border:1.5px solid #111;border-radius:50px;font-size:0.9rem;font-weight:600;color:#111;text-decoration:none;transition:all 0.2s;">Podcast &rarr;</a>
-      <a href="../work/index.html" style="display:inline-block;padding:0.7rem 1.5rem;border:1.5px solid #111;border-radius:50px;font-size:0.9rem;font-weight:600;color:#111;text-decoration:none;transition:all 0.2s;">Our Work &rarr;</a>
+  <section class="comics-outro">
+    <div class="inner">
+      <h2>Want more?</h2>
+      <p>These comics come from the same studio that does brand strategy, visual design, and storytelling for startups and mission-driven teams.</p>
+      <div class="comics-outro-actions">
+        <a class="j-pill j-pill--solid" href="../services.html">Work with us &rarr;</a>
+        <a class="j-pill" href="../podcast.html">Podcast</a>
+        <a class="j-pill" href="../work/index.html">Our work</a>
+      </div>
     </div>
   </section>
   </main>
