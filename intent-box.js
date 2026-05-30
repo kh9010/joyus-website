@@ -219,7 +219,10 @@
       // Comics
       { display: "to read a comic about friendship", terms: ["friend", "friendship", "comic", "connection", "close", "mr curl"], url: "comics/the-friend-comic.html", dest: "The Friend" },
       { display: "to understand why people gossip", terms: ["gossip", "gossipping", "talk about people", "why we gossip", "unhappiness"], url: "comics/gossip.html", dest: "Gossip" },
-      { display: "to read your comics", terms: ["comics", "all comics", "zine", "illustration"], url: "comics/index.html", dest: "comics" },
+      { display: "to read a comic about a dying plant", terms: ["plant", "plants", "gardening", "grief", "loss", "death", "keeping alive", "best friend", "care", "mr curl"], url: "comics/plant-comic.html", dest: "the Plant Comic" },
+      { display: "to read a comic about phone addiction", terms: ["phone", "smartphone", "screen", "screen time", "addiction", "doomscroll", "doomscrolling", "attention", "digital", "escape", "social media"], url: "comics/phone-comic.html", dest: "the Phone Comic" },
+      { display: "to read the doing serious things unseriously zine", terms: ["zine", "serious", "unserious", "unseriously", "serious play", "play", "playful", "whimsy", "doing serious things"], url: "comics/serious-zine.html", dest: "the unserious zine" },
+      { display: "to read your comics", terms: ["comics", "all comics", "illustration"], url: "comics/index.html", dest: "comics" },
 
       // Themed hubs
       { display: "help finding my story", terms: ["story", "narrative", "finding", "voice", "message", "tell", "storytelling"], url: "hub-story.html", dest: "Finding Your Story" },
