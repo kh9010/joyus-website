@@ -38,8 +38,8 @@
 
   /* ───── HERO (canonical: left-aligned, eyebrow + big h1 + lede) ───── */
   .hero {
-    min-height: 50vh;
-    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(2.5rem, 5vh, 4rem);
+    min-height: 56vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
     display: flex; flex-direction: column; justify-content: center;
     position: relative; overflow: hidden;
   }
@@ -50,8 +50,8 @@
     line-height: 0.95;
     letter-spacing: -0.04em;
     color: var(--ink);
-    max-width: 16ch;
-    margin: 0.5rem 0 0;
+    max-width: 17ch;
+    margin: 0;
     position: relative; z-index: 2;
   }
   .hero h1 em { font-style: normal; color: var(--pink); }
@@ -59,12 +59,13 @@
   .hero-lede {
     font-size: clamp(1.05rem, 1.4vw, 1.25rem);
     line-height: 1.6; color: var(--ink-soft);
-    max-width: 52ch; margin-top: 1.5rem;
+    max-width: 56ch; margin-top: 1.75rem;
   }
   .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
-  .hero .dh1 { width: 220px; height: 220px; top: 18%; right: 5%; opacity: 0.5; }
-  .hero .dh2 { width: 54px; height: 54px; top: 70%; right: 26%; }
-  .hero .dh3 { width: 20px; height: 20px; top: 30%; right: 18%; }
+  /* big dot anchored low-right (signature), smaller dots up the right margin — matches services/workshops */
+  .hero .dh1 { width: 220px; height: 220px; bottom: -8%; right: 6%; opacity: 0.9; }
+  .hero .dh2 { width: 60px; height: 60px; top: 22%; right: 24%; }
+  .hero .dh3 { width: 22px; height: 22px; top: 14%; right: 10%; }
 
   /* ───── CONTACT GRID ───── */
   .contact {
