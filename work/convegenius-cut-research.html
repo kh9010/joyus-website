@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex"><!-- cut — indexed via the main study -->
+  <meta name="description" content="The research cut of the ConveGenius gamification project — the student motivations, the activity-to-goal map, and the existing reward landscape that grounded the system. By Joyus Studio.">
+  <meta property="og:title" content="ConveGenius — the research cut — Joyus Studio">
+  <meta property="og:description" content="Who the students are, what they do, and what already rewards them — the discovery behind the ConveGenius gamification system.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/convegenius/logo.webp">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/convegenius-cut-research.html">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/convegenius-cut-research.html">
+  <title>ConveGenius — the research cut — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; }
+    body.cg { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .cg img { max-width: 100%; display: block; }
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600; }
+    .thread-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--yellow), var(--pink), var(--cyan)); transition: width 0.1s linear; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
+
+    .cg-hero { position: relative; overflow: hidden; padding: clamp(6.5rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem); }
+    .cg-hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); margin-bottom: 1.6rem; }
+    .back-link:hover { color: var(--pink); }
+    .cg-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.2rem; }
+    .cg-eyebrow::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--yellow); }
+    .cg-hero h1 { font-weight: 700; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.03; letter-spacing: -0.04em; max-width: 20ch; margin: 0; }
+    .cg-hero h1 em { font-style: normal; color: var(--pink); }
+    .cg-deck { font-size: clamp(1.05rem, 1.5vw, 1.28rem); line-height: 1.6; color: var(--ink-soft); max-width: 64ch; margin-top: 1.5rem; }
+    .cg-deck strong { color: var(--ink); font-weight: 600; }
+    .cg-sessions { margin-top: 1.8rem; font-size: 0.85rem; letter-spacing: 0.04em; color: var(--ink-fade); display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; border-top: 1px solid var(--rule); padding-top: 1.3rem; }
+    .cg-sessions span + span::before { content: "·"; margin-right: 1.2rem; color: var(--rule); }
+    .cg-hero .dot1 { width: 180px; height: 180px; bottom: -10%; right: 4%; background: var(--yellow); opacity: 0.5; }
+    .cg-hero .dot2 { width: 40px; height: 40px; top: 30%; right: 16%; }
+    .cg-hero .dot3 { width: 16px; height: 16px; top: 22%; left: 10%; }
+
+    .sec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vh, 6rem) var(--x); }
+    .sec.alt { background: #fff; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+    .sec-eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); }
+    .sec-title { font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2.7rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 22ch; margin: 0 0 1.3rem; }
+    .sec-title em { font-style: normal; color: var(--pink); }
+    .sec-lede { font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.65; color: var(--ink); max-width: 64ch; margin: 0 0 1.1rem; }
+    .sec-lede.soft { color: var(--ink-soft); }
+    .sec-lede em { font-style: italic; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0; }
+    .chip { font-size: 0.9rem; font-weight: 500; padding: 0.45rem 0.95rem; border-radius: 999px; background: #fff; border: 1px solid var(--rule); }
+    .sec.alt .chip { background: var(--bg); }
+    .chip i { font-style: normal; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; background: var(--pink); }
+    .chip.c-cyan i { background: var(--cyan); } .chip.c-yellow i { background: var(--yellow); } .chip.c-ink i { background: var(--ink); }
+    .chip.muted { color: var(--ink-fade); border-style: dashed; }
+
+    .fig { margin: 1.6rem 0 0; }
+    .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
+    .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+
+    .note-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1.4rem; }
+    .ctx { background: rgba(242,201,74,0.14); border-radius: 12px; padding: 1.1rem 1.2rem; font-size: 0.95rem; line-height: 1.5; color: var(--ink); }
+    .ctx span { display: block; font-family: var(--hand); font-size: 1.05rem; color: #b8881a; margin-bottom: 0.35rem; }
+
+    /* goal × frequency list */
+    .goals { list-style: none; margin: 1.4rem 0 0; padding: 0; }
+    .goals li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1rem; padding: 0.85rem 0; border-top: 1px solid var(--rule); }
+    .goals li:first-child { border-top: 0; }
+    .goals .g { font-weight: 700; font-size: 1.08rem; letter-spacing: -0.01em; min-width: 12ch; }
+    .goals .freq { font-family: var(--hand); font-size: 1.15rem; color: var(--pink); }
+    .goals .desc { font-size: 0.92rem; color: var(--ink-soft); flex: 1 1 18ch; }
+
+    .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 30ch; margin: 1.6rem 0 0; }
+    .pull em { font-style: normal; color: var(--pink); }
+
+    /* landscape two-column */
+    .landscape { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 1.5rem; }
+    .land-col { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 1.4rem 1.5rem; }
+    .sec.alt .land-col { background: var(--bg); }
+    .land-col h4 { font-size: 1.1rem; margin: 0 0 0.9rem; letter-spacing: -0.01em; display: flex; align-items: center; gap: 0.5rem; }
+    .land-col h4::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--ink-fade); }
+    .land-col.now h4::before { background: var(--cyan); }
+    .land-col.next h4::before { background: var(--pink); }
+    .land-col ul { list-style: none; margin: 0; padding: 0; columns: 1; }
+    .land-col li { font-size: 0.93rem; line-height: 1.4; color: var(--ink-soft); padding: 0.32rem 0 0.32rem 1rem; position: relative; }
+    .land-col li::before { content: "–"; position: absolute; left: 0; color: var(--ink-fade); }
+
+    .cut-end { position: relative; overflow: hidden; padding: clamp(3.5rem, 9vh, 6rem) var(--x); border-top: 2px solid var(--ink); }
+    .cut-end-line { font-weight: 600; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.25; max-width: 26ch; margin: 0 0 1.6rem; position: relative; z-index: 2; }
+    .cut-end-line em { font-style: normal; color: var(--pink); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; position: relative; z-index: 2; }
+    .cta { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1rem; padding: 0.9rem 1.5rem; border-radius: 999px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s; }
+    .cta-primary { background: var(--pink); color: #fff; box-shadow: 0 6px 0 #9a1453; }
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+    .cta-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
+    .cta-ghost:hover { background: var(--ink); color: #fff; }
+
+    @media (max-width: 720px) { .note-row, .landscape { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="cg work-page" data-accent="pink">
+  <div class="thread"><div class="thread-fill" id="threadFill"></div></div>
+
+  <!--BEGIN:NAV-->
+<style>
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: var(--sans); }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav .nav-links a:hover { color: var(--pink); }
+  .nav .nav-links a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--pink); }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; } .nav-toggle span:nth-child(2) { top: 21px; } .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+  @media (max-width: 720px) {
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: var(--white); border-left: 4px solid var(--ink); box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: var(--ink); }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../workshops.html" data-nav="workshops">Workshops</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a href="../about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="../say-hi.html" data-nav="say-hi">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname; var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
+    if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active'); } }
+    var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <header class="cg-hero">
+    <span class="dot dot1 d-yellow"></span>
+    <span class="dot dot2 d-pink"></span>
+    <span class="dot dot3 d-cyan"></span>
+    <div class="cg-hero-inner">
+      <a class="back-link" href="convegenius.html">← ConveGenius case study</a>
+      <span class="cg-eyebrow">research cut · the discovery</span>
+      <h1>Before the reward system, <em>two rooms full of sticky notes</em>.</h1>
+      <p class="cg-deck">You can't reward behaviour you haven't mapped. Across two working sessions with the ConveGenius team, we did the unglamorous part first — <strong>who's on the app, what they come to do, and what already moves them</strong>. This is the discovery the gamification system was built on.</p>
+      <div class="cg-sessions">
+        <span>Feb 15 2024 · rewards session</span><span>Feb 16 2024 · activities session</span><span>with Shikhar, Divya, Shivangi, Aabhar</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- STUDENTS -->
+  <section class="sec alt reveal">
+    <span class="dot d-yellow" style="width:80px;height:80px;top:8%;left:-28px;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">who's on the app</span>
+      <h2 class="sec-title">We sorted students by <em>what moves them</em>, not what grade they're in.</h2>
+      <p class="sec-lede">The team knows its users from the inside. We pulled that knowledge onto the wall as motivation types — the achievement-driven, the social, the ones who only show up when a teacher says so, the explorers poking at every feature:</p>
+      <div class="chips">
+        <span class="chip"><i></i>Achievement seekers</span>
+        <span class="chip c-cyan"><i></i>Social learners</span>
+        <span class="chip c-yellow"><i></i>Practical experimenters</span>
+        <span class="chip c-ink"><i></i>Encouraged by the teacher</span>
+        <span class="chip"><i></i>Competitors — quizzers</span>
+        <span class="chip c-cyan"><i></i>Gamers / engagers</span>
+        <span class="chip c-yellow"><i></i>Explorers — features</span>
+        <span class="chip c-ink"><i></i>Discoverers — content</span>
+        <span class="chip"><i></i>Utility users</span>
+        <span class="chip c-cyan"><i></i>Focused on a target</span>
+      </div>
+      <p class="sec-lede soft">Those collapsed into five motivation types we could design against — and a mind-map of the motivators behind each:</p>
+      <div class="chips">
+        <span class="chip"><i></i>Achievement seekers</span>
+        <span class="chip c-cyan"><i></i>Social learners</span>
+        <span class="chip c-yellow"><i></i>Practical experimenters</span>
+        <span class="chip c-ink"><i></i>Authority-influenced</span>
+        <span class="chip"><i></i>Explorers &amp; discoverers</span>
+      </div>
+      <figure class="fig">
+        <img src="../images/work/convegenius/cg-motivations-map.png" alt="Mind-map: five student categories, each branching into the motivators that drive them." loading="lazy">
+        <figcaption>Student categories → motivators. The raw material the reward system draws on.</figcaption>
+      </figure>
+      <p class="sec-lede soft" style="margin-top:1.8rem;">Context the team flagged that changes the design — who you're really rewarding, and when:</p>
+      <div class="note-row">
+        <div class="ctx"><span>parents</span>right now unaware, and often indifferent or hostile to app time.</div>
+        <div class="ctx"><span>the AP effect</span>English is mandated in all schools — those students use it far more broadly.</div>
+        <div class="ctx"><span>own the hardware?</span>a student on their own device is a different category of use-case entirely.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES → GOALS → FREQUENCY -->
+  <section class="sec reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:12%;right:-20px;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">what they do, and how often</span>
+      <h2 class="sec-title">A sprawling activity list collapsed into <em>eight goals</em>.</h2>
+      <p class="sec-lede">We dumped every activity on the platform — current and proposed — then clustered them by the purpose they serve. Many activities, few underlying jobs:</p>
+      <ul class="goals">
+        <li><span class="g">Fun</span><span class="freq">2–3× weekly</span><span class="desc">games, puzzles, fun-fact / question of the day</span></li>
+        <li><span class="g">Discovery</span><span class="freq">daily</span><span class="desc">the Posts feed as the daily-changing surface</span></li>
+        <li><span class="g">Practice</span><span class="freq">2–3× weekly</span><span class="desc">quizzes, Learn-English, spellings</span></li>
+        <li><span class="g">Doubt clearance</span><span class="freq">daily / on-demand</span><span class="desc">AI doubt-solver bots — they come when stuck</span></li>
+        <li><span class="g">Social competition</span><span class="freq">wants daily</span><span class="desc">olympiads, live quizzes, competition zone</span></li>
+        <li><span class="g">Continuity</span><span class="freq">ongoing</span><span class="desc">a forward bet — future product hooks</span></li>
+        <li><span class="g">Broader impact</span><span class="freq">seasonal</span><span class="desc">varies by the age of the student</span></li>
+        <li><span class="g">Business / governance</span><span class="freq">on-demand</span><span class="desc">plus Assessment, roughly yearly</span></li>
+      </ul>
+      <p class="pull">The room's sharpest finding was a gap: they wanted <em>Social Competition every day</em> — but didn't have enough daily content to feed it. Discovery, via the Posts feed, became the daily lever instead.</p>
+    </div>
+  </section>
+
+  <!-- REWARD LANDSCAPE -->
+  <section class="sec alt reveal">
+    <span class="dot d-pink" style="width:80px;height:80px;bottom:-28px;right:6%;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the reward landscape</span>
+      <h2 class="sec-title">What already rewards students — and what could.</h2>
+      <p class="sec-lede">Before adding anything, we inventoried what the app already does, then opened up the field of what's possible. That gap is the design space.</p>
+      <div class="landscape">
+        <div class="land-col now">
+          <h4>Already in the system</h4>
+          <ul>
+            <li>Spin the wheel</li>
+            <li>Score cards for quizzes</li>
+            <li>Confetti on task completion</li>
+            <li>Lucky draw</li>
+            <li>Live-quiz leaderboard (top 1–10)</li>
+            <li>Certificates for competition-zone winners</li>
+            <li>Olympiad rank (AIR) notifications</li>
+            <li>Teacher rewards for best reel</li>
+            <li>Likes &amp; comments</li>
+            <li>Universal leaderboard / learning score</li>
+          </ul>
+        </div>
+        <div class="land-col next">
+          <h4>On the table</h4>
+          <ul>
+            <li>Badges &amp; points</li>
+            <li>Streaks</li>
+            <li>Collections — a Pokémon-card-style social ecosystem</li>
+            <li>Monetary — goodies, in-app economy</li>
+            <li>Scholarships &amp; loans</li>
+            <li>Recognised certifications</li>
+            <li>Premium feature unlocking</li>
+            <li>Celebration animations &amp; stickers</li>
+            <li>Teacher praise</li>
+            <li>Career counselling · fast-track for professionals</li>
+          </ul>
+        </div>
+      </div>
+      <p class="sec-lede soft" style="margin-top:1.5rem;">References we held in the room for what "good" feels like: <em>Duolingo</em> and <em>Brilliant</em>.</p>
+    </div>
+  </section>
+
+  <section class="cut-end">
+    <span class="dot d-yellow" style="width:60px;height:60px;bottom:14%;right:9%;opacity:0.5;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:30%;right:24%;"></span>
+    <p class="cut-end-line">This is the ground the <em>system stands on</em>.</p>
+    <div class="cta-row">
+      <a class="cta cta-primary" href="convegenius.html">see the full case study →</a>
+      <a class="cta cta-ghost" href="convegenius-cut-product.html">jump to the product cut →</a>
+    </div>
+  </section>
+
+  <!--BEGIN:FOOT-->
+<style>
+  .foot { position: relative; z-index: 20; background: var(--bg); padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-fade); letter-spacing: 0.05em; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    var fill = document.getElementById('threadFill');
+    window.addEventListener('scroll', function () { var total = document.body.scrollHeight - window.innerHeight; fill.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%'; }, { passive: true });
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+</body>
+</html>
