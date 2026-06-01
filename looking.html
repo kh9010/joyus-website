@@ -30,6 +30,8 @@
   .d-yellow { background: var(--yellow); }
   .d-ink    { background: var(--ink); }
 
+  /* Centered, matched to coming-soon.html — the headline echoes the search,
+     then we point them somewhere useful. */
   .lk {
     flex: 1;
     position: relative;
@@ -38,31 +40,30 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
   }
-  .lk-inner { max-width: 720px; position: relative; z-index: 2; }
-  .lk-quote {
-    font-family: var(--hand);
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
-    color: var(--pink);
-    line-height: 1.2;
-    transform: rotate(-1.5deg);
-    display: inline-block;
-    margin-bottom: 1rem;
-    max-width: 26ch;
-    word-break: break-word;
-  }
+  .lk-inner { max-width: 640px; position: relative; z-index: 2; width: 100%; }
+  .lk .hero-eyebrow { justify-content: center; margin-bottom: 1.1rem; }
   .lk h1 {
     font-weight: 700;
-    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-size: clamp(2.4rem, 7vw, 4.6rem);
     line-height: 1.0;
     letter-spacing: -0.04em;
     color: var(--ink);
     margin: 0;
+    word-break: break-word;
   }
   .lk h1 em { font-style: normal; color: var(--pink); }
-  /* Search box — same autocomplete + routing as the homepage, sized to sit
-     under the headline here rather than fill a hero. */
-  .lk-search { position: relative; max-width: 640px; margin-top: 1.75rem; }
+  .lk-kicker {
+    font-family: var(--hand);
+    font-size: clamp(1.35rem, 2.6vw, 1.9rem);
+    color: var(--pink);
+    line-height: 1.2;
+    margin: 1.1rem 0 0;
+  }
+  /* Retry search — subtle, centered under the results. */
+  .lk-search { position: relative; max-width: 440px; margin: 2.5rem auto 0; width: 100%; }
   .hero-fill { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4em; width: 100%; min-width: 0; }
   .hero-fill #intentInput {
     flex: 1 1 0; min-width: 0;
@@ -106,44 +107,54 @@
   .sug-text { font-size: 0.98rem; flex: 1; }
   .sug-dest { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-fade); white-space: nowrap; }
   .sug:hover .sug-dest { color: var(--pink); }
-  /* Near-miss stitch — soft recommendations built from what the visitor typed.
-     Populated by the ?n= payload the homepage hands over; stays hidden when
-     there's nothing close enough to suggest. */
-  .lk-near { margin-top: 2.25rem; }
-  .lk-near-intro {
-    font-size: clamp(1rem, 1.3vw, 1.12rem);
-    color: var(--ink-soft);
-    margin: 0 0 1rem;
-    max-width: 50ch;
-  }
+  /* Result cards — centered column. Populated from the ?n= payload. */
+  .lk-near { margin: 2.25rem auto 0; width: 100%; }
   .lk-near-list {
-    list-style: none; padding: 0; margin: 0;
-    display: grid; gap: 0.55rem;
-    max-width: 34rem;
+    list-style: none; padding: 0; margin: 0 auto;
+    display: grid; gap: 0.6rem;
+    max-width: 36rem; width: 100%;
+    text-align: left;
   }
   .lk-near-card {
-    display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
-    padding: 0.8rem 1rem;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.9rem 1.15rem;
     border: 1px solid var(--rule);
     border-radius: 14px;
-    background: rgba(255, 255, 255, 0.4);
+    background: #fff;
     text-decoration: none;
-    transition: border-color 0.2s, transform 0.2s, background 0.2s;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
   .lk-near-card:hover {
     border-color: var(--pink);
-    transform: translateX(2px);
-    background: rgba(255, 255, 255, 0.72);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(44, 53, 68, 0.10);
   }
-  .lk-near-card__text { color: var(--ink); font-weight: 500; font-size: 1.02rem; line-height: 1.3; }
+  .lk-near-card__text { color: var(--ink); font-weight: 500; font-size: 1.02rem; line-height: 1.3; flex: 1; }
+  .lk-near-card__meta { display: inline-flex; align-items: center; gap: 0.55rem; flex-shrink: 0; }
   .lk-near-card__dest { color: var(--ink-fade); font-size: 0.82rem; white-space: nowrap; }
   .lk-near-card:hover .lk-near-card__dest { color: var(--pink); }
+  .lk-near-card__soon {
+    font-size: 0.64rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--pink); background: rgba(233, 30, 123, 0.1);
+    padding: 0.22rem 0.55rem; border-radius: 999px; white-space: nowrap;
+  }
+  /* Always-present "talk to us" — the 4th option, solid. */
+  .lk-talk {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.95rem 1.15rem; border-radius: 14px; text-decoration: none;
+    background: var(--ink); color: #fff; border: 1px solid var(--ink);
+    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  }
+  .lk-talk:hover { background: var(--pink); border-color: var(--pink); transform: translateY(-2px); }
+  .lk-talk__text { font-weight: 600; font-size: 1.02rem; }
+  .lk-talk__dest { font-family: var(--hand); font-size: 1.15rem; opacity: 0.92; }
 
-  /* Loose dot cluster — no single giant corner dot. */
-  .lk .l1 { width: 20px; height: 20px; top: 28%; left: 8%; }
-  .lk .l2 { width: 58px; height: 58px; bottom: 18%; right: 14%; opacity: 0.5; }
-  .lk .l3 { width: 12px; height: 12px; top: 22%; right: 24%; }
-  .lk .l4 { width: 28px; height: 28px; bottom: 28%; left: 18%; opacity: 0.8; }
+  /* Balanced dot frame — matched to coming-soon.html. */
+  .lk .l1 { width: 90px; height: 90px; top: 18%; left: 8%; opacity: 0.9; }
+  .lk .l2 { width: 54px; height: 54px; bottom: 16%; right: 10%; opacity: 0.85; }
+  .lk .l3 { width: 16px; height: 16px; top: 28%; right: 16%; }
+  .lk .l4 { width: 22px; height: 22px; bottom: 24%; left: 14%; }
+  @media (max-width: 600px) { .lk .l1 { width: 60px; height: 60px; } .lk .l3 { display: none; } }
 </style>
 </head>
 <body data-accent="pink">
@@ -309,26 +320,17 @@
 
   <main id="main-content">
   <section class="lk">
-    <span class="dot l1 d-cyan"></span>
-    <span class="dot l2 d-pink"></span>
+    <span class="dot l1 d-pink"></span>
+    <span class="dot l2 d-cyan"></span>
     <span class="dot l3 d-yellow"></span>
     <span class="dot l4 d-yellow"></span>
 
     <div class="lk-inner">
-      <span class="hero-eyebrow">we read everything</span>
-      <p class="lk-quote" id="lk-quote" hidden></p>
-      <h1>We don't have a page like that <em>yet.</em></h1>
-
-      <div class="lk-search">
-        <form class="hero-fill" onsubmit="event.preventDefault();" aria-label="Try another search">
-          <input id="intentInput" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="Try something else" />
-          <button class="submit" type="submit" aria-label="Submit">→</button>
-        </form>
-        <div id="intentSuggestions" role="listbox"></div>
-      </div>
+      <span class="hero-eyebrow" id="lk-eyebrow">you need</span>
+      <h1 id="lk-head">Let's find it.</h1>
+      <p class="lk-kicker" id="lk-kicker">we think these might be interesting</p>
 
       <div class="lk-near" id="lk-near" hidden>
-        <p class="lk-near-intro">Here's a few things we've made that might be close to what you're pulling on:</p>
         <ul class="lk-near-list" id="lk-near-list"></ul>
       </div>
     </div>
@@ -373,28 +375,27 @@
   <script>
     (function () {
       var params = new URLSearchParams(window.location.search);
+      var q = (params.get('q') || '').trim();
+      var head = document.getElementById('lk-head');
+      var eyebrow = document.getElementById('lk-eyebrow');
+      var kicker = document.getElementById('lk-kicker');
 
-      // Echo back what the visitor typed (from ?q=), if anything.
-      try {
-        var q = params.get('q');
-        if (q && q.trim()) {
-          var el = document.getElementById('lk-quote');
-          el.textContent = '“' + q.trim() + '”';
-          el.hidden = false;
-        }
-      } catch (e) { /* no-op */ }
+      // Headline echoes what they searched — "you need" → their words.
+      if (q) {
+        head.textContent = '“' + q + '”';
+      } else {
+        head.textContent = "Let's find it.";
+        if (eyebrow) eyebrow.hidden = true;
+      }
 
-      // Stitch in the near-misses the homepage handed over (?n= is a JSON
-      // array of {d:display, u:url, t:dest}). Presented as soft "things you
-      // might be into" cards — not a search-results list. Absent / malformed →
-      // the near block stays hidden and only the search box shows.
-      try {
-        var raw = params.get('n');
-        if (!raw) return;
-        var near = JSON.parse(raw);
-        if (!Array.isArray(near) || !near.length) return;
+      var list = document.getElementById('lk-near-list');
+      var nearWrap = document.getElementById('lk-near');
+      var realCount = 0;
 
-        var list = document.getElementById('lk-near-list');
+      // Near-misses handed over from the homepage (?n= = JSON [{d,u,t}]).
+      var near = [];
+      try { var raw = params.get('n'); if (raw) near = JSON.parse(raw); } catch (e) { near = []; }
+      if (Array.isArray(near)) {
         near.forEach(function (item) {
           if (!item || !item.u || !item.d) return;
           var li = document.createElement('li');
@@ -405,31 +406,54 @@
           text.className = 'lk-near-card__text';
           text.textContent = item.d;
           a.appendChild(text);
+          var meta = document.createElement('span');
+          meta.className = 'lk-near-card__meta';
+          // Only unpublished case studies (→ coming-soon.html) carry the tag.
+          if (item.u === 'coming-soon.html') {
+            var soon = document.createElement('span');
+            soon.className = 'lk-near-card__soon';
+            soon.textContent = 'coming soon';
+            meta.appendChild(soon);
+          }
           if (item.t) {
             var dest = document.createElement('span');
             dest.className = 'lk-near-card__dest';
             dest.textContent = '→ ' + item.t;
-            a.appendChild(dest);
+            meta.appendChild(dest);
           }
+          if (meta.children.length) a.appendChild(meta);
           li.appendChild(a);
           list.appendChild(li);
+          realCount++;
         });
+      }
 
-        if (list.children.length) {
-          document.getElementById('lk-near').hidden = false;
-        }
-      } catch (e) { /* malformed payload — keep the near block hidden */ }
+      // Always offer "talk to us" as the final option.
+      var talkLi = document.createElement('li');
+      var talk = document.createElement('a');
+      talk.className = 'lk-talk';
+      talk.href = 'say-hi.html';
+      var tt = document.createElement('span');
+      tt.className = 'lk-talk__text';
+      tt.textContent = 'Talk to us';
+      var td = document.createElement('span');
+      td.className = 'lk-talk__dest';
+      td.textContent = 'we read everything →';
+      talk.appendChild(tt); talk.appendChild(td);
+      talkLi.appendChild(talk);
+      list.appendChild(talkLi);
+
+      nearWrap.hidden = false;
+
+      // Kicker copy depends on whether we actually found near-misses.
+      if (kicker) {
+        kicker.textContent = realCount
+          ? 'we think these might be interesting'
+          : "we haven't made exactly that — but tell us about it";
+      }
     })();
   </script>
 
-  <!-- Shared intent autocomplete: lets visitors try another search right here,
-       with the same suggestions + routing as the homepage. -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="intent-box.js"></script>
-  <script>
-    initIntentBox({ page: 'looking', placeholder: 'try saying it another way' });
-  </script>
 
 </body>
 </html>

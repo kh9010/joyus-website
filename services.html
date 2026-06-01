@@ -40,9 +40,9 @@
 
   /* ============ HERO — placeholder header (workshops-style) ============ */
   .hero {
-    min-height: 56vh;
+    min-height: 60vh;
     padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
-    display: flex; flex-direction: column; justify-content: center;
+    display: flex; flex-direction: column; justify-content: flex-start;
     position: relative; overflow: hidden;
   }
   .hero h1 {
@@ -62,12 +62,12 @@
     position: relative; z-index: 2;
   }
   .hero-lede em { color: var(--ink); font-style: italic; font-weight: 500; }
-  /* Large dot anchored low-right (not the rote top-right corner); smaller
-     dots scattered up the right margin. Colours + opacity unchanged. */
-  .hero .dh1 { width: 220px; height: 220px; bottom: -8%; right: 6%; opacity: 0.9; }
-  .hero .dh2 { width: 60px; height: 60px; top: 22%; right: 24%; }
-  .hero .dh3 { width: 22px; height: 22px; top: 14%; right: 10%; }
-  .hero .dh4 { width: 14px; height: 14px; top: 48%; right: 14%; }
+  /* Fully rescattered (size + placement + colour): big cyan low-left, pink + yellow
+     scattered up the right margin — no rote top-right pink cluster. */
+  .hero .dh1 { width: 200px; height: 200px; bottom: -8%; left: 3%; opacity: 0.6; }
+  .hero .dh2 { width: 50px; height: 50px; top: 22%; right: 10%; }
+  .hero .dh3 { width: 26px; height: 26px; top: 15%; right: 28%; }
+  .hero .dh4 { width: 14px; height: 14px; bottom: 26%; right: 22%; }
 
   /* ============ VERB ACCORDION ============ */
   .verbs {
@@ -308,7 +308,9 @@
   .related {
     grid-column: 2;
     position: relative;
-    min-height: 220px;
+    /* Reserve a fixed stage so the panel height never jumps between the
+       empty hint and a filled cluster, or from one question to another. */
+    min-height: clamp(300px, 34vh, 360px);
   }
   .related-empty {
     font-family: var(--hand);
@@ -356,7 +358,9 @@
     transition: transform 0.3s ease;
     animation: rel-in 0.34s ease both;
   }
-  .sb-card:hover { transform: translate(var(--nx, 0), calc(var(--ny, 0px) - 4px)) rotate(0deg); }
+  .sb-card { position: relative; }
+  /* Hovered bubble lifts AND jumps above its neighbours (the scatter overlaps them). */
+  .sb-card:hover { transform: translate(var(--nx, 0), calc(var(--ny, 0px) - 4px)) rotate(0deg); z-index: 5; }
   @keyframes rel-in {
     from { opacity: 0; transform: translate(var(--nx, 0), calc(var(--ny, 0px) + 6px)) rotate(var(--rot, 0deg)); }
     to   { opacity: 1; }
@@ -443,7 +447,7 @@
   }
 
   /* iOS Safari URL-bar safe height */
-  .hero { min-height: 56dvh; }
+  .hero { min-height: 60dvh; }
 
   /* ============ CLOSING ============
      .closing / .closing-label / .closing h3 / .closing .hint all come
@@ -630,9 +634,9 @@
   <main id="main-content">
   <!-- =========== HERO — placeholder header =========== -->
   <section class="hero">
-    <span class="dot dh1 d-pink"></span>
-    <span class="dot dh2 d-yellow"></span>
-    <span class="dot dh3 d-cyan"></span>
+    <span class="dot dh1 d-cyan"></span>
+    <span class="dot dh2 d-pink"></span>
+    <span class="dot dh3 d-yellow"></span>
     <span class="dot dh4 d-pink"></span>
 
     <span class="hero-eyebrow">ways to put us to work</span>
@@ -650,7 +654,7 @@
       <li class="verb-item" data-open="false" data-tone="pink">
         <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-1">
           <span class="verb-row-inner">
-            <span class="vj-head"><span class="vj-num">01</span><span class="vj-word">advise</span></span>
+            <span class="vj-head"><span class="vj-word">advise</span></span>
             <span class="vj-preview">You bring the problem. <em>We help you see it clearly enough to decide.</em></span>
             <span class="vj-toggle" aria-hidden="true"></span>
           </span>
@@ -678,7 +682,7 @@
       <li class="verb-item" data-open="false" data-tone="ink">
         <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-2">
           <span class="verb-row-inner">
-            <span class="vj-head"><span class="vj-num">02</span><span class="vj-word">design</span></span>
+            <span class="vj-head"><span class="vj-word">design</span></span>
             <span class="vj-preview">You don't have a solution yet. <em>We design what it should be.</em></span>
             <span class="vj-toggle" aria-hidden="true"></span>
           </span>
@@ -706,7 +710,7 @@
       <li class="verb-item" data-open="false" data-tone="yellow">
         <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-3">
           <span class="verb-row-inner">
-            <span class="vj-head"><span class="vj-num">03</span><span class="vj-word">show &amp; tell</span></span>
+            <span class="vj-head"><span class="vj-word">show &amp; tell</span></span>
             <span class="vj-preview">The story that unifies the team is usually <em>the one that lands with investors and customers.</em></span>
             <span class="vj-toggle" aria-hidden="true"></span>
           </span>
@@ -734,7 +738,7 @@
       <li class="verb-item" data-open="false" data-tone="cyan">
         <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-4">
           <span class="verb-row-inner">
-            <span class="vj-head"><span class="vj-num">04</span><span class="vj-word">synthesize</span></span>
+            <span class="vj-head"><span class="vj-word">synthesize</span></span>
             <span class="vj-preview">When the question is still open, <em>we go deep with you until it isn't.</em></span>
             <span class="vj-toggle" aria-hidden="true"></span>
           </span>
@@ -762,7 +766,7 @@
       <li class="verb-item" data-open="false" data-tone="pink">
         <button class="verb-row" type="button" aria-expanded="false" aria-controls="panel-5">
           <span class="verb-row-inner">
-            <span class="vj-head"><span class="vj-num">05</span><span class="vj-word">chart</span></span>
+            <span class="vj-head"><span class="vj-word">chart</span></span>
             <span class="vj-preview">Sometimes the question isn't what to do — <em>it's where to go.</em></span>
             <span class="vj-toggle" aria-hidden="true"></span>
           </span>
@@ -930,9 +934,9 @@
       // tidy row/grid alignment without changing the bubble design.
       function jitter(card, seed, slot) {
         const h = (hash(seed) + slot * 7919) & 0xffff;
-        const rot = ((h % 260) / 10 - 13).toFixed(2);                  // -13deg .. +13deg
-        const nx = (((h >> 3) % 84) - 36).toFixed(0);                  // -36px .. +47px
-        const ny = (((h >> 8) % 100) - 44).toFixed(0);                 // -44px .. +55px
+        const rot = ((h % 160) / 10 - 8).toFixed(2);                   // -8deg .. +8deg
+        const nx = (((h >> 3) % 38) - 12).toFixed(0);                  // -12px .. +25px (start-biased)
+        const ny = (((h >> 8) % 44) - 20).toFixed(0);                  // -20px .. +23px (kept tight so the cluster fits the reserved stage)
         const aligns = ['flex-start', 'center', 'flex-end'];
         card.style.alignSelf = aligns[(h >> 14) % 3];                  // staggers vertically in the line
         card.style.setProperty('--rot', rot + 'deg');
@@ -957,7 +961,7 @@
         cards.innerHTML = html;
         // Vary the whole cluster's horizontal distribution per question, so the
         // organisation differs question-to-question (not just bubble-to-bubble).
-        const dist = ['flex-start', 'center', 'space-between', 'flex-end'];
+        const dist = ['flex-start', 'flex-start', 'space-between', 'center'];
         cards.style.justifyContent = dist[hash(seed) % dist.length];
         cards.querySelectorAll('.sb-card').forEach((c, slot) => jitter(c, seed, slot));
         rel.setAttribute('data-state', 'filled');

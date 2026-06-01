@@ -224,14 +224,7 @@
       { display: "to read the doing serious things unseriously zine", terms: ["zine", "serious", "unserious", "unseriously", "serious play", "play", "playful", "whimsy", "doing serious things"], url: "comics/serious-zine.html", dest: "the unserious zine" },
       { display: "to read your comics", terms: ["comics", "all comics", "illustration"], url: "comics/index.html", dest: "comics" },
 
-      // Themed hubs
-      { display: "help finding my story", terms: ["story", "narrative", "finding", "voice", "message", "tell", "storytelling"], url: "hub-story.html", dest: "Finding Your Story" },
-      { display: "what it takes to build something real", terms: ["build", "matter", "mission", "startup", "founder", "purpose", "zero to", "continuing"], url: "hub-building.html", dest: "Building" },
-      { display: "how people actually decide and behave", terms: ["behavior", "behavioural", "psychology", "nudge", "people", "human", "decision", "bias", "friction"], url: "hub-behavior.html", dest: "Behavior" },
-      { display: "why play matters at work", terms: ["play", "fun", "joy", "whimsy", "playful", "delight", "serious unseriously", "making"], url: "hub-play.html", dest: "Play" },
-      { display: "game design thinking for products", terms: ["game", "game design", "gamification", "levels", "feedback loop", "progression", "onboarding"], url: "hub-games.html", dest: "Game Design" },
-      { display: "creativity at the edges", terms: ["creative", "creativity", "unconventional", "different", "outside", "art", "experiment", "code", "technology"], url: "hub-creative.html", dest: "Creative" },
-
+      // (Themed hub pages removed from search — old editorial-wing design, not linked.)
 
       // Contact / portfolio entry points
       { display: "to talk to someone", terms: ["talk", "chat", "call", "consultation", "consult", "advice", "discuss", "connect", "reach out", "contact", "email", "hello", "hi", "say hi"], url: "say-hi.html", dest: "say hi" },
@@ -369,6 +362,29 @@
     // everything >= 2 — this only governs what pressing Enter does.)
     var CONFIDENT_MATCH = 4;
 
+    // Core navigational pages — a strong match to one of these deep-links
+    // straight there; every other (content) match routes to the looking.html
+    // top-3 results page instead. See the submit handler below.
+    var NAV_URLS = {
+      'index.html': 1, 'work/index.html': 1, 'services.html': 1, 'workshops.html': 1,
+      'podcast.html': 1, 'about.html': 1, 'say-hi.html': 1, 'comics/index.html': 1,
+      'ai-workshops.html': 1
+    };
+
+    // Exact navigational keywords → straight to that page. The content scorer
+    // can let an episode/case-study outrank the umbrella page (many rows carry
+    // "podcast"/"work" in their terms), so these clear intents are handled first.
+    var NAV_KEYWORDS = {
+      'podcast': 'podcast.html', 'podcasts': 'podcast.html', 'the podcast': 'podcast.html',
+      'work': 'work/index.html', 'your work': 'work/index.html', 'portfolio': 'work/index.html',
+      'case studies': 'work/index.html', 'case study': 'work/index.html', 'projects': 'work/index.html',
+      'about': 'about.html', 'about us': 'about.html', 'who are you': 'about.html',
+      'services': 'services.html', 'service': 'services.html',
+      'workshop': 'workshops.html', 'workshops': 'workshops.html',
+      'say hi': 'say-hi.html', 'contact': 'say-hi.html', 'hello': 'say-hi.html', 'get in touch': 'say-hi.html',
+      'comics': 'comics/index.html', 'comic': 'comics/index.html'
+    };
+
     // Build the near-miss cards: the strict >= 2 cluster first (the things that
     // partially matched), topped up by the looser pass when that cluster is
     // thin. De-duped so the same destination doesn't repeat — case studies all
@@ -456,15 +472,24 @@
         e.preventDefault();
         var q = input.value.trim();
         if (!q) { input.focus(); return; }
+        // 1) Exact navigational keyword → straight to the page.
+        var navDirect = NAV_KEYWORDS[q.toLowerCase()];
+        if (navDirect) { logIntent(q, true, page); window.location.href = navDirect; return; }
         var scored = scoreEntries(q);
         var top = scored.length ? scored[0].score : 0;
-        var matched = top >= CONFIDENT_MATCH;
-        logIntent(q, matched, page);
-        if (matched) {
-          window.location.href = scored[0].entry.url;
+        var topEntry = scored.length ? scored[0].entry : null;
+        // Smart hybrid: a strong match to a CORE NAVIGATIONAL page deep-links
+        // straight there ("podcast", "about", "say hi", "work"…). Everything
+        // content-y (case studies, episodes, themes) lands on the looking.html
+        // results page with the top 3 "we think these might be interesting"
+        // cards — so we never force-route a vague content search to one page.
+        var navHit = topEntry && top >= CONFIDENT_MATCH && NAV_URLS[topEntry.url];
+        logIntent(q, !!navHit, page);
+        if (navHit) {
+          window.location.href = topEntry.url;
           return;
         }
-        var near = nearMisses(q, scored).map(function(en) {
+        var near = nearMisses(q, scored).slice(0, 3).map(function(en) {
           return { d: en.display, u: en.url, t: en.dest };
         });
         var dest = 'looking.html?q=' + encodeURIComponent(q);
