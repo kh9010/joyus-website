@@ -231,6 +231,8 @@ Create fresh off latest `main`: `git checkout main && git pull && git checkout -
 
 **When the user asks to merge:** first stash any unrelated working-tree changes (the parallel window's edits land here), `git checkout main`, `git pull origin main`, `git merge <branch> --no-ff`, push main, switch back to the working branch. Don't carry the parallel session's in-flight files through a merge.
 
+**Always clean up merged branches.** Once a feature branch is merged to `main` and `main` is pushed, delete that branch both locally and on origin (`git branch -d <branch>` && `git push origin --delete <branch>`). Don't let merged `kahran-*`/`ks-*` branches accumulate. Never delete Divya's `designmay*` branches or unmerged WIP. (Standing instruction from Kahran, 2026-05-31.)
+
 Each fix → its own commit on a `kahran-*` branch → wait for merge instruction → merge to main with `--no-ff` → push.
 
 ## Klydo cuts — three-version case study

@@ -377,9 +377,9 @@
     <span class="dot dh3 d-cyan"></span>
     <div class="hero-inner">
       <span class="hero-eyebrow">say hi</span>
-      <h1>Be our <em>friends</em></h1>
+      <h1>Being <em>friendly</em></h1>
       <p class="hero-lede">
-        Tell us what you're working on — or what's keeping you up at night. We read everything, and we <em>like</em> the half-formed questions. No pitch required.
+        Tell us what you're working on and what's keeping you up at night. <em>No pitch required.</em>
       </p>
     </div>
   </section>
@@ -394,7 +394,7 @@
           <div class="form-row">
             <div class="field">
               <label for="f-name">Your name</label>
-              <input type="text" id="f-name" name="name" placeholder="Divya / a studio / your dog" autocomplete="name" />
+              <input type="text" id="f-name" name="name" placeholder="you, a studio, your dog" autocomplete="name" />
             </div>
             <div class="field">
               <label for="f-email">Email</label>
@@ -406,7 +406,7 @@
             <textarea id="f-msg" name="message" placeholder="A brand that feels like me. A product to launch from zero. Or just a conversation worth having."></textarea>
           </div>
           <button class="send-btn" type="submit">Send it →</button>
-          <p class="send-note">This opens your email app with the note drafted — prototype, no data is stored.</p>
+          <p class="send-note">Hit send and your email app opens with the note drafted — it comes straight to the two of us.</p>
         </form>
 
         <!-- shown after submit -->
@@ -440,24 +440,22 @@
               <span class="way-arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <!-- TODO: replace href with the real Instagram URL -->
           <li>
-            <a class="way" data-kind="social" href="#" data-placeholder="instagram">
+            <a class="way" data-kind="social" href="https://www.instagram.com/joyus_studio/" target="_blank" rel="noopener">
               <span class="way-dot"></span>
               <span class="way-main">
                 <span class="way-name">Instagram</span>
-                <span class="way-sub">@joyus.studio — placeholder, add real link</span>
+                <span class="way-sub">@joyus_studio</span>
               </span>
               <span class="way-arrow" aria-hidden="true">→</span>
             </a>
           </li>
-          <!-- TODO: replace href with the real LinkedIn URL -->
           <li>
-            <a class="way" data-kind="social" href="#" data-placeholder="linkedin">
+            <a class="way" data-kind="social" href="https://www.linkedin.com/company/joyus-studio/" target="_blank" rel="noopener">
               <span class="way-dot"></span>
               <span class="way-main">
                 <span class="way-name">LinkedIn</span>
-                <span class="way-sub">Joyus Studio — placeholder, add real link</span>
+                <span class="way-sub">Joyus Studio</span>
               </span>
               <span class="way-arrow" aria-hidden="true">→</span>
             </a>
@@ -545,10 +543,6 @@
           encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
         form.hidden = true;
         thanks.hidden = false;
-      });
-      // Placeholder social links shouldn't navigate to "#"
-      document.querySelectorAll('.way[data-placeholder]').forEach(function (a) {
-        a.addEventListener('click', function (e) { e.preventDefault(); });
       });
     })();
   </script>
