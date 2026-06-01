@@ -31,11 +31,11 @@
 
   /* ============ HERO — bold + spacious ============ */
   .hero {
-    min-height: 64vh;
-    padding: clamp(7rem, 16vh, 11rem) var(--x) clamp(4rem, 8vh, 6rem);
+    min-height: 60vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     position: relative;
     overflow: hidden;
   }
@@ -47,7 +47,7 @@
     line-height: 0.95;
     letter-spacing: -0.04em;
     color: var(--ink);
-    max-width: 14ch;
+    max-width: none;       /* was 14ch — the cap forced "re-imagined" onto a 2nd line */
     position: relative; z-index: 2;
   }
   .hero h1 em {
@@ -197,9 +197,11 @@
   .card.is-coming-soon::after {
     inset: 0;
     height: auto;
-    background: rgba(20, 24, 32, 0.42);
-    -webkit-backdrop-filter: grayscale(1) brightness(0.92);
-    backdrop-filter: grayscale(1) brightness(0.92);
+    /* PERF: dropped backdrop-filter grayscale()+brightness() here. A backdrop-filter
+       on every coming-soon card, re-sampled each marquee frame as the track moves,
+       was the source of the lag. A flat dark veil reads the same "locked" state at
+       essentially zero GPU cost. */
+    background: rgba(16, 20, 28, 0.58);
   }
   .card.is-coming-soon::before {
     content: "Coming soon";
@@ -597,12 +599,12 @@
   <main id="main-content">
   <!-- =========== HERO =========== -->
   <section class="hero">
-    <span class="dot d-pink   drift"      style="bottom: -6%; right: 9%;  width: 220px; height: 220px; opacity: 1;"></span>
-    <span class="dot d-cyan   drift-slow" style="top: 20%; right: 20%; width: 38px; height: 38px;"></span>
-    <span class="dot d-yellow drift-fast" style="top: 14%; right: 30%; width: 16px; height: 16px;"></span>
-    <span class="dot d-pink   drift"      style="bottom: 12%; left: 12%; width: 12px; height: 12px;"></span>
-    <span class="dot d-yellow drift-slow" style="top: 58%; left: 4%; width: 8px; height: 8px;"></span>
-    <span class="dot d-ink    drift"      style="top: 12%; left: 22%; width: 6px; height: 6px;"></span>
+    <span class="dot d-cyan   drift"      style="bottom: -8%; left: 5%; width: 210px; height: 210px; opacity: 0.5;"></span>
+    <span class="dot d-pink   drift-slow" style="top: 24%; right: 8%; width: 48px; height: 48px;"></span>
+    <span class="dot d-yellow drift-fast" style="top: 14%; right: 26%; width: 20px; height: 20px;"></span>
+    <span class="dot d-pink   drift"      style="bottom: 22%; right: 12%; width: 13px; height: 13px;"></span>
+    <span class="dot d-cyan   drift-slow" style="top: 50%; left: 16%; width: 10px; height: 10px;"></span>
+    <span class="dot d-yellow drift"      style="bottom: 14%; left: 28%; width: 7px; height: 7px;"></span>
 
     <span class="hero-eyebrow">stories from the studio floor</span>
     <h1>A portfolio, <em>re-imagined</em></h1>
@@ -1348,11 +1350,26 @@
       let moved = false;
       let activePointerId = null;
 
+      let running = false;
+      let visible = true;
+      // Single-owner loop guard: start() never spins up a second rAF chain.
+      const start = () => { if (!running) { running = true; lastT = performance.now(); requestAnimationFrame(tick); } };
+
       const measure = () => { contentWidth = track.scrollWidth / 2; };
       const ready = () => {
         measure();
         offset = contentWidth * 0.5;
-        requestAnimationFrame(tick);
+        // Only animate while the band is on (or near) screen. Otherwise every
+        // band kept its own rAF loop running forever, compositing offscreen
+        // tracks each frame — the source of the scroll-time frame drops.
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            visible = entries[0].isIntersecting;
+            if (visible) start();
+          }, { rootMargin: '250px 0px' });
+          io.observe(section);
+        }
+        start();
       };
 
       if (document.readyState === 'complete') ready();
@@ -1434,8 +1451,12 @@
       }, { passive: false });
 
       function tick(t){
+        if (!visible) { running = false; return; }   // paused offscreen — IO restarts it
         const dt = Math.min((t - lastT) / 1000, 0.1);
         lastT = t;
+        // Reduced-motion + idle (not dragging): nothing moves, so skip the
+        // per-frame transform write but keep the loop cheap and responsive.
+        if (speed === 0 && !dragging) { requestAnimationFrame(tick); return; }
         if (!dragging && contentWidth > 0) {
           offset += speed * (hovered ? 0.25 : 1) * dt;
         }

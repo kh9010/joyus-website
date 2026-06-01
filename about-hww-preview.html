@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>How we work — 5 variants (preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; }
+  .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+  .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); }
+  .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
+
+  /* ---- preview chrome ---- */
+  .pv-bar {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+    padding: 0.9rem clamp(1.5rem, 4vw, 3rem);
+    background: rgba(250,247,242,0.92); backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .pv-bar strong { font-size: 0.8rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-fade); margin-right: 0.5rem; }
+  .pv-tab {
+    font-family: var(--sans); font-size: 0.9rem; font-weight: 500;
+    border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
+    padding: 0.4rem 0.9rem; border-radius: 999px; cursor: pointer; transition: all 0.18s;
+  }
+  .pv-tab:hover { color: var(--pink); border-color: var(--pink); }
+  .pv-tab[aria-selected="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .pv-note { font-family: var(--hand); font-size: 1.15rem; color: var(--ink-soft); margin-left: auto; }
+
+  .variant { display: none; position: relative; overflow: hidden;
+    padding: clamp(3.5rem, 8vh, 6rem) clamp(1.5rem, 4vw, 3rem) clamp(4rem, 10vh, 7rem); }
+  .variant.active { display: block; }
+  .v-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+  .v-label { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink); display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; }
+  .v-label::before { content:""; width: 11px; height: 11px; border-radius: 50%; background: var(--pink); }
+  .v-h2 { font-weight: 700; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; margin: 0 0 clamp(2rem,5vh,3.5rem); }
+  .v-h2 em { font-style: normal; color: var(--pink); }
+  .v-tag { font-family: var(--hand); font-size: 1.3rem; color: var(--ink-fade); margin: 2.5rem 0 0; }
+
+  /* ============ V1 — MANIFESTO LINES ============ */
+  .m-row { padding: clamp(1.6rem,3.5vh,2.6rem) 0; border-top: 1px solid var(--rule); }
+  .m-row:first-child { border-top: 0; }
+  .m-word { display: block; font-weight: 700; font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 0.9; letter-spacing: -0.04em; color: var(--vc); }
+  .m-line { display: block; font-size: clamp(1.05rem, 1.5vw, 1.35rem); color: var(--ink); margin-top: 0.6rem; max-width: 60ch; }
+  .m-line s { color: var(--ink-fade); text-decoration-thickness: 1.5px; }
+
+  /* ============ V2 — TENSION CARDS ============ */
+  .t-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+  .t-card { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--vc);
+    border-radius: 14px; padding: 1.5rem 1.3rem 1.6rem; box-shadow: 0 4px 16px rgba(44,53,68,0.05);
+    transition: transform 0.25s, box-shadow 0.25s; }
+  .t-card:hover { transform: translateY(-6px); box-shadow: 0 16px 34px rgba(44,53,68,0.16); }
+  .t-neg { font-size: 1rem; color: var(--ink-fade); }
+  .t-neg s { text-decoration-thickness: 2px; text-decoration-color: var(--vc); }
+  .t-arrow { display: block; color: var(--vc); font-size: 1.4rem; margin: 0.5rem 0; }
+  .t-word { display: block; font-weight: 700; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing: -0.03em; color: var(--vc); line-height: 1; }
+  .t-line { font-size: 0.98rem; color: var(--ink-soft); margin: 0.6rem 0 0; line-height: 1.5; }
+
+  /* ============ V3 — SCATTERED CHIPS ============ */
+  .c-stage { position: relative; display: flex; flex-wrap: wrap; gap: 1.2rem 1.6rem; align-items: flex-start; padding: 1.5rem 0 3rem; }
+  .c-chip { position: relative; border: 0; cursor: default; text-align: left;
+    background: color-mix(in srgb, var(--vc) 14%, #fff); border-radius: 18px 18px 18px 5px;
+    padding: 1rem 1.3rem; box-shadow: 0 8px 20px rgba(20,20,30,0.12);
+    transform: rotate(var(--rot)) translateY(var(--ty,0));
+    transition: transform 0.28s, box-shadow 0.28s; align-self: var(--al, flex-start); }
+  .c-chip:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 0 16px 32px rgba(20,20,30,0.2); z-index: 5; }
+  .c-word { display: block; font-weight: 700; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; color: var(--vc); line-height: 1; }
+  .c-line { display: block; font-size: 0.95rem; color: var(--ink); margin-top: 0; max-width: 30ch; line-height: 1.45;
+    max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.3s ease; }
+  .c-line s { color: var(--ink-fade); }
+  .c-chip:hover .c-line { max-height: 6rem; opacity: 1; margin-top: 0.5rem; }
+
+  /* ============ V4 — INDEX LEDGER ============ */
+  .l-row { display: grid; grid-template-columns: auto minmax(0,1fr); column-gap: clamp(1rem,3vw,2.5rem);
+    align-items: baseline; padding: clamp(1.4rem,3vh,2.2rem) 0; border-bottom: 1px solid var(--rule); }
+  .l-num { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; color: color-mix(in srgb, var(--vc) 35%, transparent); line-height: 0.9; letter-spacing: -0.04em; }
+  .l-word { font-weight: 700; font-size: clamp(2rem, 4.5vw, 3.4rem); letter-spacing: -0.035em; color: var(--vc); line-height: 0.95; }
+  .l-line { font-size: clamp(1rem,1.4vw,1.2rem); color: var(--ink-soft); margin: 0.45rem 0 0; max-width: 56ch; line-height: 1.55; }
+  .l-line s { color: var(--ink-fade); }
+
+  /* ============ V5 — DIPTYCH (don't / do) ============ */
+  .d-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,5vw,4rem); position: relative; }
+  .d-wrap::before { content:""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+  .d-head { font-family: var(--hand); font-size: 1.5rem; margin: 0 0 1.5rem; }
+  .d-col.dont .d-head { color: var(--ink-fade); }
+  .d-col.do .d-head { color: var(--pink); }
+  .d-col ul { list-style: none; margin: 0; padding: 0; }
+  .d-col li { padding: clamp(0.7rem,1.8vh,1.1rem) 0; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+  .d-col.dont li { font-size: clamp(1.4rem,3.2vw,2.4rem); color: var(--ink-fade); text-decoration: line-through; text-decoration-thickness: 2px; }
+  .d-col.do li { font-size: clamp(1.6rem,3.8vw,2.8rem); color: var(--vc); }
+  @media (max-width: 640px) { .d-wrap { grid-template-columns: 1fr; } .d-wrap::before { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="pv-bar">
+  <strong>how we work — variants</strong>
+  <button class="pv-tab" aria-selected="true" data-target="v1">1 · Manifesto</button>
+  <button class="pv-tab" aria-selected="false" data-target="v2">2 · Tension cards</button>
+  <button class="pv-tab" aria-selected="false" data-target="v3">3 · Scattered chips</button>
+  <button class="pv-tab" aria-selected="false" data-target="v4">4 · Index ledger</button>
+  <button class="pv-tab" aria-selected="false" data-target="v5">5 · Diptych</button>
+  <span class="pv-note">click through — tell me which →</span>
+</div>
+
+<!-- ============ V1 MANIFESTO ============ -->
+<section class="variant active" id="v1">
+  <span class="dot d-yellow" style="width:150px;height:150px;top:18%;left:-4%;opacity:0.5;"></span>
+  <span class="dot d-cyan" style="width:20px;height:20px;bottom:14%;right:12%;"></span>
+  <div class="v-inner">
+    <p class="v-label">how we work</p>
+    <h2 class="v-h2"><em>Five</em> things we choose</h2>
+    <div class="m-row" style="--vc:var(--pink)"><span class="m-word">wonder</span><span class="m-line"><s>instead of dread</s> — we walk towards the unknown.</span></div>
+    <div class="m-row" style="--vc:var(--cyan)"><span class="m-word">play</span><span class="m-line"><s>instead of paralysis</s> — we make things.</span></div>
+    <div class="m-row" style="--vc:var(--yellow)"><span class="m-word">curiosity</span><span class="m-line"><s>instead of defensiveness</s> — we go looking for what could have been missed.</span></div>
+    <div class="m-row" style="--vc:var(--pink)"><span class="m-word">emergence</span><span class="m-line"><s>instead of forcing a thesis onto the work</s> — we listen for what it's trying to be.</span></div>
+    <div class="m-row" style="--vc:var(--cyan)"><span class="m-word">wayfinding</span><span class="m-line"><s>instead of rigid control</s> — we keep one eye on the destination and the other on what the project keeps revealing.</span></div>
+  </div>
+</section>
+
+<!-- ============ V2 TENSION CARDS ============ -->
+<section class="variant" id="v2">
+  <span class="dot d-pink" style="width:130px;height:130px;bottom:-6%;left:3%;opacity:0.5;"></span>
+  <div class="v-inner">
+    <p class="v-label">how we work</p>
+    <h2 class="v-h2"><em>Five</em> things we choose</h2>
+    <div class="t-grid">
+      <article class="t-card" style="--vc:var(--pink)"><span class="t-neg"><s>dread</s></span><span class="t-arrow">↓</span><span class="t-word">wonder</span><p class="t-line">we walk towards the unknown.</p></article>
+      <article class="t-card" style="--vc:var(--cyan)"><span class="t-neg"><s>paralysis</s></span><span class="t-arrow">↓</span><span class="t-word">play</span><p class="t-line">we make things.</p></article>
+      <article class="t-card" style="--vc:var(--yellow)"><span class="t-neg"><s>defensiveness</s></span><span class="t-arrow">↓</span><span class="t-word">curiosity</span><p class="t-line">we go looking for what could have been missed.</p></article>
+      <article class="t-card" style="--vc:var(--pink)"><span class="t-neg"><s>forcing a thesis</s></span><span class="t-arrow">↓</span><span class="t-word">emergence</span><p class="t-line">we listen for what it's trying to be.</p></article>
+      <article class="t-card" style="--vc:var(--cyan)"><span class="t-neg"><s>rigid control</s></span><span class="t-arrow">↓</span><span class="t-word">wayfinding</span><p class="t-line">one eye on the destination, the other on what the project keeps revealing.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V3 SCATTERED CHIPS ============ -->
+<section class="variant" id="v3">
+  <span class="dot d-cyan" style="width:140px;height:140px;top:22%;right:-4%;opacity:0.4;"></span>
+  <div class="v-inner">
+    <p class="v-label">how we work</p>
+    <h2 class="v-h2"><em>Five</em> things we choose <span style="font-family:var(--hand);font-size:1.4rem;color:var(--ink-fade);font-weight:400;">— hover one</span></h2>
+    <div class="c-stage">
+      <button class="c-chip" style="--vc:var(--pink);--rot:-3deg;--al:flex-start"><span class="c-word">wonder</span><span class="c-line"><s>instead of dread,</s> we walk towards the unknown.</span></button>
+      <button class="c-chip" style="--vc:var(--cyan);--rot:2.5deg;--al:flex-end"><span class="c-word">play</span><span class="c-line"><s>instead of paralysis,</s> we make things.</span></button>
+      <button class="c-chip" style="--vc:var(--yellow);--rot:-1.5deg;--al:center"><span class="c-word">curiosity</span><span class="c-line"><s>instead of defensiveness,</s> we go looking for what could have been missed.</span></button>
+      <button class="c-chip" style="--vc:var(--pink);--rot:3deg;--al:flex-start"><span class="c-word">emergence</span><span class="c-line"><s>instead of forcing a thesis,</s> we listen for what it's trying to be.</span></button>
+      <button class="c-chip" style="--vc:var(--cyan);--rot:-2deg;--al:flex-end"><span class="c-word">wayfinding</span><span class="c-line"><s>instead of rigid control,</s> one eye on the destination, the other on what the project reveals.</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ V4 INDEX LEDGER ============ -->
+<section class="variant" id="v4">
+  <span class="dot d-yellow" style="width:130px;height:130px;bottom:8%;right:-4%;opacity:0.45;"></span>
+  <div class="v-inner">
+    <p class="v-label">how we work</p>
+    <h2 class="v-h2"><em>Five</em> things we choose</h2>
+    <ol style="list-style:none;margin:0;padding:0;">
+      <li class="l-row" style="--vc:var(--pink)"><span class="l-num">01</span><div><span class="l-word">wonder</span><p class="l-line"><s>instead of dread,</s> we walk towards the unknown.</p></div></li>
+      <li class="l-row" style="--vc:var(--cyan)"><span class="l-num">02</span><div><span class="l-word">play</span><p class="l-line"><s>instead of paralysis,</s> we make things.</p></div></li>
+      <li class="l-row" style="--vc:var(--yellow)"><span class="l-num">03</span><div><span class="l-word">curiosity</span><p class="l-line"><s>instead of defensiveness,</s> we go looking for what could have been missed.</p></div></li>
+      <li class="l-row" style="--vc:var(--pink)"><span class="l-num">04</span><div><span class="l-word">emergence</span><p class="l-line"><s>instead of forcing a thesis onto the work,</s> we listen for what it's trying to be.</p></div></li>
+      <li class="l-row" style="--vc:var(--cyan)"><span class="l-num">05</span><div><span class="l-word">wayfinding</span><p class="l-line"><s>instead of rigid control,</s> we keep one eye on the destination and the other on what the project keeps revealing.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============ V5 DIPTYCH ============ -->
+<section class="variant" id="v5">
+  <div class="v-inner">
+    <p class="v-label">how we work</p>
+    <h2 class="v-h2"><em>Five</em> things we choose</h2>
+    <div class="d-wrap">
+      <div class="d-col dont">
+        <p class="d-head">instead of…</p>
+        <ul>
+          <li>dread</li><li>paralysis</li><li>defensiveness</li><li>forcing</li><li>rigid control</li>
+        </ul>
+      </div>
+      <div class="d-col do">
+        <p class="d-head">we choose</p>
+        <ul>
+          <li style="--vc:var(--pink)">wonder</li>
+          <li style="--vc:var(--cyan)">play</li>
+          <li style="--vc:var(--yellow)">curiosity</li>
+          <li style="--vc:var(--pink)">emergence</li>
+          <li style="--vc:var(--cyan)">wayfinding</li>
+        </ul>
+      </div>
+    </div>
+    <p class="v-tag">left: what we skip. right: what we walk towards. (pairs line up row-for-row)</p>
+  </div>
+</section>
+
+<script>
+  (function(){
+    var tabs = document.querySelectorAll('.pv-tab');
+    var panels = document.querySelectorAll('.variant');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.setAttribute('aria-selected', t === tab ? 'true' : 'false'); });
+        panels.forEach(function(p){ p.classList.toggle('active', p.id === tab.dataset.target); });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  })();
+</script>
+</body>
+</html>

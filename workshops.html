@@ -39,7 +39,7 @@
   .hero {
     min-height: 60vh;
     padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
-    display: flex; flex-direction: column; justify-content: center;
+    display: flex; flex-direction: column; justify-content: flex-start;
     position: relative; overflow: hidden;
   }
   /* .hero-eyebrow styles come from styles.css */
@@ -82,10 +82,11 @@
   .hero-aside em { font-style: italic; color: var(--ink); font-weight: 500; }
   /* Asymmetric scatter down the right margin — big saturated pink high-ish,
      smaller cyan/yellow falling away below it. */
-  .hero .dh1 { width: 170px; height: 170px; top: 24%; right: 6%; opacity: 0.9; }
-  .hero .dh2 { width: 52px; height: 52px; top: 66%; right: 15%; }
-  .hero .dh3 { width: 26px; height: 26px; top: 14%; right: 24%; }
-  .hero .dh4 { width: 13px; height: 13px; top: 46%; right: 30%; }
+  /* Rescattered (size + placement + colour): big cyan low-left, the rest spread. */
+  .hero .dh1 { width: 180px; height: 180px; bottom: -6%; left: 4%; opacity: 0.55; }
+  .hero .dh2 { width: 50px; height: 50px; top: 20%; right: 8%; }
+  .hero .dh3 { width: 24px; height: 24px; top: 16%; left: 18%; }
+  .hero .dh4 { width: 14px; height: 14px; bottom: 26%; right: 22%; }
 
   /* ───── ARC BANDS (v1's saturated alternating bg energy) ───── */
   .arc {
@@ -297,10 +298,10 @@
   .arc-3 .poster { --accent: var(--yellow); }
 
   .arc .dot { opacity: 0.45; }
-  .arc-1 .ad1 { width: 160px; height: 160px; top: 12%; right: 8%; opacity: 0.85; }
-  .arc-1 .ad2 { width: 42px; height: 42px; top: 36%; right: 30%; }
-  .arc-1 .ad3 { width: 18px; height: 18px; bottom: 14%; left: 42%; }
-  .arc-1 .ad4 { width: 26px; height: 26px; top: 8%; left: 6%; }
+  .arc-1 .ad1 { width: 150px; height: 150px; bottom: 6%; left: -3%; opacity: 0.6; }
+  .arc-1 .ad2 { width: 42px; height: 42px; top: 16%; right: 9%; }
+  .arc-1 .ad3 { width: 18px; height: 18px; top: 30%; left: 16%; }
+  .arc-1 .ad4 { width: 26px; height: 26px; bottom: 22%; right: 26%; }
   .arc-2 .bd1 { width: 160px; height: 160px; top: 14%; left: 8%; opacity: 0.55; }
   .arc-2 .bd2 { width: 38px; height: 38px; top: 22%; left: 32%; }
   .arc-2 .bd3 { width: 18px; height: 18px; bottom: 16%; right: 28%; }
@@ -487,9 +488,9 @@
   <main id="main-content">
   <!-- =========== HERO =========== -->
   <section class="hero">
-    <span class="dot dh1 d-pink drift"></span>
-    <span class="dot dh2 d-yellow drift-slow"></span>
-    <span class="dot dh3 d-cyan drift-fast"></span>
+    <span class="dot dh1 d-cyan drift"></span>
+    <span class="dot dh2 d-pink drift-slow"></span>
+    <span class="dot dh3 d-yellow drift-fast"></span>
     <span class="dot dh4 d-pink drift"></span>
 
     <span class="hero-eyebrow">the offsite, redrawn</span>
@@ -501,10 +502,10 @@
 
   <!-- =========== ARC 1 — STRATEGY (paper bg, pink-led) =========== -->
   <article class="arc arc-1" id="rooms">
-    <span class="dot ad1 d-pink drift"></span>
-    <span class="dot ad2 d-yellow drift-slow"></span>
+    <span class="dot ad1 d-yellow drift"></span>
+    <span class="dot ad2 d-pink drift-slow"></span>
     <span class="dot ad3 d-cyan drift-fast"></span>
-    <span class="dot ad4 d-yellow drift-slow"></span>
+    <span class="dot ad4 d-pink drift-slow"></span>
     <div class="poster-grid">
 
       <a class="poster" href="say-hi.html?room=thesis">

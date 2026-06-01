@@ -37,7 +37,7 @@
     .hero {
       min-height: 60vh;
       padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
-      display: flex; flex-direction: column; justify-content: center;
+      display: flex; flex-direction: column; justify-content: flex-start;
       position: relative; overflow: hidden;
     }
     .hero-inner { max-width: 1200px; margin: 0; position: relative; z-index: 2; }
@@ -73,10 +73,10 @@
     }
     /* Large dot sits bottom-right here so each hero's cluster differs from
        the next; smaller dots ride up the right edge. Colours + opacity kept. */
-    .hero .dh1 { width: 140px; height: 140px; bottom: 8%; right: 7%; opacity: 0.9; }
-    .hero .dh2 { width: 60px; height: 60px; top: 20%; right: 26%; }
-    .hero .dh3 { width: 22px; height: 22px; top: 58%; right: 16%; }
-    .hero .dh4 { width: 14px; height: 14px; top: 18%; right: 9%; }
+    .hero .dh1 { width: 150px; height: 150px; top: 24%; left: -5%; opacity: 0.9; }
+    .hero .dh2 { width: 56px; height: 56px; bottom: 18%; right: 10%; }
+    .hero .dh3 { width: 22px; height: 22px; top: 16%; right: 18%; }
+    .hero .dh4 { width: 13px; height: 13px; bottom: 30%; left: 14%; }
 
     /* === SHARED section-h2 === */
     .section-h2 {
@@ -291,9 +291,9 @@
       transition: color 0.2s, border-color 0.2s;
     }
     .founder-bio a:hover { color: var(--ink); border-bottom-color: var(--ink); }
-    .founders .dq1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--cyan); opacity: 0.55; }
-    .founders .dq2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
-    .founders .dq3 { width: 14px; height: 14px; top: 18%; left: 4%; background: var(--pink); }
+    .founders .dq1 { width: 130px; height: 130px; bottom: -6%; left: 4%; background: var(--cyan); opacity: 0.55; }
+    .founders .dq2 { width: 22px; height: 22px; top: 14%; right: 10%; background: var(--yellow); }
+    .founders .dq3 { width: 14px; height: 14px; top: 42%; right: 22%; background: var(--pink); }
 
     /* === VALUES — alternating diptych: pair anchor + elaboration === */
     .values {
@@ -371,9 +371,40 @@
         grid-column: 1; grid-row: 2;
       }
     }
-    .values .dv1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--yellow); opacity: 0.5; }
-    .values .dv2 { width: 22px; height: 22px; bottom: 10%; left: 5%; background: var(--pink); }
-    .values .dv3 { width: 14px; height: 14px; top: 18%; left: 3%; background: var(--cyan); }
+    .values .dv1 { width: 130px; height: 130px; bottom: 10%; right: -4%; background: var(--yellow); opacity: 0.5; }
+    .values .dv2 { width: 22px; height: 22px; top: 14%; left: 6%; background: var(--pink); }
+    .values .dv3 { width: 14px; height: 14px; bottom: 24%; left: 22%; background: var(--cyan); }
+
+    /* TEMP — how-we-work A/B (chips ⇄ diptych) for Kahran to compare. Remove the
+       toggle + losing variant once a direction is picked. */
+    .hww-toggle { display: inline-flex; gap: 0.4rem; margin: 0.5rem 0 2rem; }
+    .hww-tab { font-family: var(--sans); font-size: 0.82rem; font-weight: 500; border: 1.5px solid var(--ink);
+      background: transparent; color: var(--ink); padding: 0.35rem 0.85rem; border-radius: 999px; cursor: pointer; transition: all .18s; }
+    .hww-tab:hover { color: var(--pink); border-color: var(--pink); }
+    .hww-tab.is-on { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .hww-variant[hidden] { display: none; }
+    /* chips */
+    .hww-chips { display: flex; flex-wrap: wrap; gap: 1.2rem 1.6rem; align-items: flex-start; padding: 0.5rem 0 1rem; }
+    .hww-chip { position: relative; border: 0; cursor: default; text-align: left; background: color-mix(in srgb, var(--vc) 14%, #fff);
+      border-radius: 18px 18px 18px 5px; padding: 1rem 1.3rem; box-shadow: 0 8px 20px rgba(20,20,30,0.12);
+      transform: rotate(var(--rot)); transition: transform .28s, box-shadow .28s; align-self: var(--al, flex-start); }
+    .hww-chip:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 0 16px 32px rgba(20,20,30,0.2); z-index: 5; }
+    .hww-cword { display: block; font-weight: 700; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.03em; color: var(--vc); line-height: 1; }
+    .hww-cline { display: block; font-size: 0.95rem; color: var(--ink); max-width: 30ch; line-height: 1.45;
+      max-height: 0; opacity: 0; overflow: hidden; transition: max-height .3s ease, opacity .25s ease, margin-top .3s ease; }
+    .hww-cline s { color: var(--ink-fade); }
+    .hww-chip:hover .hww-cline { max-height: 6rem; opacity: 1; margin-top: 0.5rem; }
+    /* diptych */
+    .hww-dip { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,5vw,4rem); position: relative; }
+    .hww-dip::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+    .hww-dhead { font-family: var(--hand); font-size: 1.5rem; margin: 0 0 1.2rem; }
+    .hww-dcol.dont .hww-dhead { color: var(--ink-fade); }
+    .hww-dcol.do .hww-dhead { color: var(--pink); }
+    .hww-dcol ul { list-style: none; margin: 0; padding: 0; }
+    .hww-dcol li { padding: clamp(0.6rem,1.6vh,1rem) 0; font-weight: 700; letter-spacing: -0.03em; line-height: 1; }
+    .hww-dcol.dont li { font-size: clamp(1.4rem,3.2vw,2.4rem); color: var(--ink-fade); text-decoration: line-through; text-decoration-thickness: 2px; }
+    .hww-dcol.do li { font-size: clamp(1.6rem,3.8vw,2.8rem); color: var(--vc); }
+    @media (max-width: 640px) { .hww-dip { grid-template-columns: 1fr; } .hww-dip::before { display: none; } }
 
     /* === CREATIONS — same .value/.poster card primitive, on cyan bg === */
     .creations {
@@ -459,9 +490,9 @@
       .chat-bubble { flex-basis: 100%; --tilt: 0deg !important; margin-top: 0 !important; }
       .chat-bubble img { width: 88px; height: 88px; }
     }
-    .creations .dc1 { width: 140px; height: 140px; top: 8%; right: 8%; background: var(--pink); opacity: 0.85; }
-    .creations .dc2 { width: 22px; height: 22px; bottom: 12%; left: 6%; background: var(--yellow); }
-    .creations .dc3 { width: 14px; height: 14px; top: 22%; left: 5%; background: var(--ink); }
+    .creations .dc1 { width: 135px; height: 135px; top: 30%; left: -5%; background: var(--pink); opacity: 0.85; }
+    .creations .dc2 { width: 22px; height: 22px; top: 12%; right: 12%; background: var(--yellow); }
+    .creations .dc3 { width: 14px; height: 14px; bottom: 16%; right: 24%; background: var(--ink); }
 
     /* === CLOSING — styles come from styles.css; page-local dot positions only === */
     .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; background: var(--pink); }
@@ -672,48 +703,42 @@
     <div class="values-inner">
       <p class="section-label">how we work</p>
       <h2 class="section-h2"><em>Five</em> things we choose</h2>
-      <ol class="values-list">
-        <li class="value-row">
-          <div class="vr-pair">
-            <h3 class="vr-word">wonder</h3>
+      <!-- TEMP A/B — Kahran: flip between layouts; pick one and we keep it. -->
+      <div class="hww-toggle" role="group" aria-label="How-we-work layout">
+        <button type="button" class="hww-tab is-on" data-hww="chips">Scattered chips</button>
+        <button type="button" class="hww-tab" data-hww="diptych">Diptych</button>
+      </div>
+
+      <!-- VARIANT: scattered chips -->
+      <div class="hww-variant" data-variant="chips">
+        <div class="hww-chips">
+          <button class="hww-chip" style="--vc:var(--pink);--rot:-3deg;--al:flex-start"><span class="hww-cword">wonder</span><span class="hww-cline"><s>instead of dread,</s> we walk towards the unknown.</span></button>
+          <button class="hww-chip" style="--vc:var(--cyan);--rot:2.5deg;--al:flex-end"><span class="hww-cword">play</span><span class="hww-cline"><s>instead of paralysis,</s> we make things.</span></button>
+          <button class="hww-chip" style="--vc:var(--yellow);--rot:-1.5deg;--al:center"><span class="hww-cword">curiosity</span><span class="hww-cline"><s>instead of defensiveness,</s> we go looking for what could have been missed.</span></button>
+          <button class="hww-chip" style="--vc:var(--pink);--rot:3deg;--al:flex-start"><span class="hww-cword">emergence</span><span class="hww-cline"><s>instead of forcing a thesis,</s> we listen for what it's trying to be.</span></button>
+          <button class="hww-chip" style="--vc:var(--cyan);--rot:-2deg;--al:flex-end"><span class="hww-cword">wayfinding</span><span class="hww-cline"><s>instead of rigid control,</s> one eye on the destination, the other on what the project reveals.</span></button>
+        </div>
+      </div>
+
+      <!-- VARIANT: diptych -->
+      <div class="hww-variant" data-variant="diptych" hidden>
+        <div class="hww-dip">
+          <div class="hww-dcol dont">
+            <p class="hww-dhead">instead of…</p>
+            <ul><li>dread</li><li>paralysis</li><li>defensiveness</li><li>forcing</li><li>rigid control</li></ul>
           </div>
-          <div class="vr-body">
-            <p>Instead of <span class="skip">dread</span>, we walk towards the unknown.</p>
+          <div class="hww-dcol do">
+            <p class="hww-dhead">we choose</p>
+            <ul>
+              <li style="--vc:var(--pink)">wonder</li>
+              <li style="--vc:var(--cyan)">play</li>
+              <li style="--vc:var(--yellow)">curiosity</li>
+              <li style="--vc:var(--pink)">emergence</li>
+              <li style="--vc:var(--cyan)">wayfinding</li>
+            </ul>
           </div>
-        </li>
-        <li class="value-row">
-          <div class="vr-pair">
-            <h3 class="vr-word">play</h3>
-          </div>
-          <div class="vr-body">
-            <p>Instead of <span class="skip">paralysis</span>, we make things.</p>
-          </div>
-        </li>
-        <li class="value-row">
-          <div class="vr-pair">
-            <h3 class="vr-word">curiosity</h3>
-          </div>
-          <div class="vr-body">
-            <p>Instead of <span class="skip">defensiveness</span>, we go looking for what could have been missed.</p>
-          </div>
-        </li>
-        <li class="value-row">
-          <div class="vr-pair">
-            <h3 class="vr-word">emergence</h3>
-          </div>
-          <div class="vr-body">
-            <p>Instead of <span class="skip">forcing</span> a thesis onto the work, we listen for what it's trying to be.</p>
-          </div>
-        </li>
-        <li class="value-row">
-          <div class="vr-pair">
-            <h3 class="vr-word">wayfinding</h3>
-          </div>
-          <div class="vr-body">
-            <p>Instead of <span class="skip">rigid control</span>, we keep one eye on the destination and the other on what the project keeps revealing.</p>
-          </div>
-        </li>
-      </ol>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -800,12 +825,12 @@
       <p class="section-label">things we make &amp; explore</p>
       <h2 class="section-h2">What keeps us <em>curious</em></h2>
       <div class="creations-chat">
-        <a class="chat-bubble left" data-cc="pink" href="https://www.instagram.com/joyus_studio/" target="_blank" rel="noopener noreferrer">
+        <a class="chat-bubble left" data-cc="pink" href="comics/index.html">
           <img src="images/comics/friend/page-1.png" alt="Hand-drawn comic — Mr Curl and friends" loading="lazy" width="86" height="86">
           <span class="chat-cap">
             <span class="chat-kind">comics</span>
             <span class="chat-title">Mr Curl &amp; friends</span>
-            <span class="chat-arrow">on Instagram →</span>
+            <span class="chat-arrow">read the comics →</span>
           </span>
         </a>
         <a class="chat-bubble right" data-cc="ink" href="podcast.html">
@@ -853,8 +878,9 @@
             <p class="founder-role">co-founder</p>
           </div>
           <div class="founder-bio">
-            <p>Kahran tends to find the insights that make sense three months later. A decade across consumer sectors — education, travel, CPG, tech — and across geographies. He's been trying to understand why we do what we do and how we can help find fulfillment in the doing.</p>
-            <p>An angel investor with ties in Seattle and India, he tends to sit closest to the founders — bringing clarity when things are vague, the move that ships, what to do with the doubt. Computer science from Tufts; MFA candidate in Creative Writing & Poetics at the Jack Kerouac School of Disembodied Poetics, 2027.</p>
+            <p>Kahran is the definition of creative brain meets analytical brain. With 15 years of experience spanning everything from product, marketing and consulting with companies large and small, as well as running an edtech company, he has seen the system from the inside — and as an investor he has seen what makes a business work from the outside.</p>
+            <p>Kahran has built a unique perspective on the problems that businesses face and what they need to solve them, and for him it all starts with the people and the experience. Everything to him is an experience that can be designed with intention, and he brings that intent and care to everything he does.</p>
+            <p>He has a Bachelor's in Computer Science from Tufts with a minor in photography, and is currently pursuing his MFA in Creative Writing &amp; Poetics at the Jack Kerouac School of Disembodied Poetics. <a href="https://kahransingh.com" target="_blank" rel="noopener">see more about him →</a></p>
           </div>
         </div>
 
@@ -867,7 +893,7 @@
           <div class="founder-bio">
             <p>Divya believes you can get better at anything — everything! — by chipping away at it, working on it day after day in manageable chunks you can keep doing, day after day. That lived belief has grown her skills from physics to philosophy, games to visual art, design to Claude Code.</p>
             <p>As a speaker and workshop facilitator she brings whimsy, clarity, and respect, while staying authentic to her polymathic talents. She challenges us to remember why — of all the things we could be doing on this blue planet, in this vast universe — we're choosing to do this one thing.</p>
-            <p>Master's in Physics from IIT Kharagpur. <a href="https://divyatak.art/about/" target="_blank" rel="noopener">See some of her talks &amp; workshops →</a></p>
+            <p>Master's in Physics from IIT Kharagpur. <a href="https://divyatak.art" target="_blank" rel="noopener">see more about her →</a></p>
           </div>
         </div>
       </div>
@@ -1067,6 +1093,24 @@
   <a href="say-hi.html">say hi · hello@joyus.studio</a>
 </footer>
 <!--END:FOOT-->
+
+<script>
+  /* TEMP — how-we-work layout toggle (chips ⇄ diptych). Remove with the toggle markup once picked. */
+  (function () {
+    var key = 'joyus_hww';
+    var tabs = document.querySelectorAll('.hww-tab');
+    var variants = document.querySelectorAll('.hww-variant');
+    if (!tabs.length) return;
+    function set(which) {
+      tabs.forEach(function (t) { t.classList.toggle('is-on', t.dataset.hww === which); });
+      variants.forEach(function (v) { v.hidden = v.dataset.variant !== which; });
+      try { localStorage.setItem(key, which); } catch (e) {}
+    }
+    tabs.forEach(function (t) { t.addEventListener('click', function () { set(t.dataset.hww); }); });
+    var saved; try { saved = localStorage.getItem(key); } catch (e) {}
+    if (saved) set(saved);
+  })();
+</script>
 
 </body>
 </html>

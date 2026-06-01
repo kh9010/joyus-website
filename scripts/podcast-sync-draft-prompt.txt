@@ -1,0 +1,66 @@
+PODCAST SYNC — DRAFTING PASS
+============================
+
+You are drafting the "voice" copy for one or more newly-published Thinking on
+Thinking episodes so podcast-sync.mjs can bake them into the site. The mechanical
+fields (page, links, date, duration, season/episode, counts, sitemap) are already
+handled by the tool — your job is ONLY the judgment fields.
+
+INPUT
+-----
+Read scripts/.podcast-sync-pending.json (written by `node scripts/podcast-sync.mjs --scan`).
+It is an array of episodes, each:
+
+  { "guid", "slug", "title", "se", "date", "duration", "link", "description": ["para", ...] }
+
+`description` is the show-notes blurb the hosts wrote — it is NOT a transcript.
+Draft only from it (plus the title). Do not invent quotes or facts that aren't
+supported by the description; if you can't ground a pull-quote, omit quotes.
+
+OUTPUT
+------
+Write a single JSON object to scripts/.podcast-sync-drafts.json, keyed by guid:
+
+{
+  "<guid>": {
+    "featuredTitle":   "Short punchy title for the homepage featured block. Often the
+                        topic, no guest name (e.g. 'Alternatives to Capitalism.'). <= ~40 chars.",
+    "featuredGuest":   "with <Guest Name>  — or \"\" if it's a Kahran & Divya solo episode",
+    "excerpt":         "2–3 sentences in JOYUS VOICE for the featured block. Lead with the
+                        hook, not a summary. You may wrap one phrase in <em>…</em> for emphasis.
+                        Conversational, curious, a little wry — match the existing featured copy.",
+    "summary":         ["1–3 paragraphs for the episode page body, in Joyus voice.",
+                        "Keep the host's framing; tighten, don't pad. Plain text, no HTML."],
+    "metaDescription": "<=157 chars, plain, for SEO + social. No trailing ellipsis.",
+    "quotes":          ["1–2 notable lines. ONLY if grounded in the description. Else []."],
+    "theme":           "exactly one of: creativity | why | growth | together | ai   (the backlog
+                        filter bucket). 'why' = understanding why / ideas / society. 'growth' =
+                        personal growth, founders, careers. 'together' = working with people you
+                        love, relationships. Pick the closest; if none fit well, use \"\".",
+    "tag":             "one lowercase word for the hero pill (e.g. 'ideas', 'business',
+                        'creativity', 'founders'). Keep it short. Or \"\" to omit.",
+    "topics":          ["3–6 lowercase topic tags for the search sidecar"],
+    "people":          ["Proper-cased names mentioned (guests + Kahran Singh / Divya Tak)"],
+    "places":          ["Places mentioned, if any — else []"],
+    "intents":         [
+      { "display": "to hear <a natural-language thing a visitor might be looking for>",
+        "terms":   ["lowercase","search","keywords","incl","guest first name"],
+        "dest":    "Short label, <= 22 chars, shown in the autocomplete (e.g. 'Nomaan X')" },
+      ... 2–4 intents per episode ...
+    ]
+  }
+}
+
+VOICE NOTES
+-----------
+- Joyus is an advisory & design studio; the podcast is two founders (Kahran & Divya)
+  thinking out loud with guests. Warm, intellectually curious, plainspoken, never corporate.
+- Founder spellings matter: "Kahran Singh", "Divya Tak" (no middle initials).
+- Don't "fix" the hosts' framing into marketese. Tighten and sharpen, keep the heart.
+
+THEN
+----
+Run:  node scripts/podcast-sync.mjs --drafts scripts/.podcast-sync-drafts.json
+
+The tool fills any field you omit from the raw feed, so partial drafts are fine —
+but `intents` is what puts the episode into homepage search, so include it.
