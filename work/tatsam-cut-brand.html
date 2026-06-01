@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="The brand cut of the Tatsam case study — the brand book for a wellbeing company that leads with strengths, not deficits. By Joyus Studio.">
+  <meta property="og:title" content="Tatsam — the brand cut — Joyus Studio">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/tatsam-cut-brand.html">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/tatsam-cut-brand.html">
+  <title>Tatsam — the brand cut — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; }
+    body.cg { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .cg img { max-width: 100%; display: block; }
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600; }
+    .thread-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow)); transition: width 0.1s linear; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
+
+    .cg-hero { position: relative; overflow: hidden; padding: clamp(6.5rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem); }
+    .cg-hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); margin-bottom: 1.6rem; }
+    .back-link:hover { color: var(--pink); }
+    .cg-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.2rem; }
+    .cg-eyebrow::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--pink); }
+    .cg-hero h1 { font-weight: 700; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.03; letter-spacing: -0.04em; max-width: 20ch; margin: 0; }
+    .cg-hero h1 em { font-style: normal; color: var(--pink); }
+    .cg-deck { font-size: clamp(1.05rem, 1.5vw, 1.28rem); line-height: 1.6; color: var(--ink-soft); max-width: 64ch; margin-top: 1.5rem; }
+    .cg-deck strong { color: var(--ink); font-weight: 600; }
+    .cg-hero .dot1 { width: 180px; height: 180px; bottom: -10%; right: 4%; background: var(--pink); opacity: 0.85; }
+    .cg-hero .dot2 { width: 40px; height: 40px; top: 30%; right: 16%; }
+    .cg-hero .dot3 { width: 16px; height: 16px; top: 22%; left: 10%; }
+
+    .sec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vh, 6rem) var(--x); }
+    .sec.alt { background: #fff; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+    .sec-eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); }
+    .sec-title { font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2.7rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 24ch; margin: 0 0 1.3rem; }
+    .sec-title em { font-style: normal; color: var(--pink); }
+    .sec-lede { font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.65; color: var(--ink); max-width: 64ch; margin: 0 0 1.1rem; }
+    .sec-lede.soft { color: var(--ink-soft); }
+    .sec-lede em { font-style: italic; }
+
+    .fig { margin: 1.6rem 0 0; }
+    .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
+    .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+    .fig-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 30ch; margin: 1.6rem 0 0; }
+    .pull em { font-style: normal; color: var(--pink); }
+
+    .cut-end { position: relative; overflow: hidden; padding: clamp(3.5rem, 9vh, 6rem) var(--x); border-top: 2px solid var(--ink); }
+    .cut-end-line { font-weight: 600; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.25; max-width: 26ch; margin: 0 0 1.6rem; position: relative; z-index: 2; }
+    .cut-end-line em { font-style: normal; color: var(--pink); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; position: relative; z-index: 2; }
+    .cta { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1rem; padding: 0.9rem 1.5rem; border-radius: 999px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s; }
+    .cta-primary { background: var(--pink); color: #fff; box-shadow: 0 6px 0 #9a1453; }
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+    .cta-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
+    .cta-ghost:hover { background: var(--ink); color: #fff; }
+
+    @media (max-width: 720px) { .fig-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="cg work-page" data-accent="pink">
+  <div class="thread"><div class="thread-fill" id="threadFill"></div></div>
+
+  <!--BEGIN:NAV-->
+<style>
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: var(--sans); }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav .nav-links a:hover { color: var(--pink); }
+  .nav .nav-links a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--pink); }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; } .nav-toggle span:nth-child(2) { top: 21px; } .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+  @media (max-width: 720px) {
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: var(--white); border-left: 4px solid var(--ink); box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: var(--ink); }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../workshops.html" data-nav="workshops">Workshops</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a href="../about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="../say-hi.html" data-nav="say-hi">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname; var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
+    if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active'); } }
+    var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <header class="cg-hero">
+    <span class="dot dot1 d-pink"></span>
+    <span class="dot dot2 d-yellow"></span>
+    <span class="dot dot3 d-cyan"></span>
+    <div class="cg-hero-inner">
+      <a class="back-link" href="tatsam.html">← Tatsam case study</a>
+      <span class="cg-eyebrow">brand cut · the brand book</span>
+      <h1>A wellbeing brand that <em>leads with what's strong in you</em>.</h1>
+      <p class="cg-deck">Most mental-health brands start from what's wrong. Tatsam starts from what's <strong>right</strong> — a calm, human identity built to meet a stressed professional gently. We built the whole book: logo, offering, beliefs, and voice.</p>
+    </div>
+  </header>
+
+  <section class="sec alt reveal">
+    <span class="dot d-pink" style="width:80px;height:80px;top:8%;left:-28px;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the identity</span>
+      <h2 class="sec-title">Logo, system, and what Tatsam offers.</h2>
+      <p class="sec-lede">The brand cover and the offering — the first things a person and a buyer meet. Considered, warm, unmistakably calm.</p>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-cover.png" alt="Tatsam brand book — cover." loading="lazy"><figcaption>The brand cover.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-offering.png" alt="Tatsam brand book — the offering." loading="lazy"><figcaption>The offering.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:12%;right:-20px;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">beliefs &amp; voice</span>
+      <h2 class="sec-title">What Tatsam believes — and how it talks.</h2>
+      <p class="sec-lede">A brand voice is a promise about how you'll be treated. Tatsam's is patient and strengths-first: it never shames, never clinical-cold — it sounds like someone who's glad you showed up.</p>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-believe.png" alt="Tatsam brand book — what we believe in." loading="lazy"><figcaption>What we believe in.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-voice.png" alt="Tatsam brand book — our voice." loading="lazy"><figcaption>Our voice.</figcaption></figure>
+      </div>
+      <p class="pull">The same voice then ran through <em>every screen and every slide</em> — the brand wasn't a cover, it was the spine.</p>
+    </div>
+  </section>
+
+  <section class="cut-end">
+    <span class="dot d-pink" style="width:60px;height:60px;bottom:14%;right:9%;opacity:0.85;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:30%;right:24%;"></span>
+    <p class="cut-end-line">A voice means nothing until <em>you can hold it in your hand</em>.</p>
+    <div class="cta-row">
+      <a class="cta cta-primary" href="tatsam.html">see the full case study →</a>
+      <a class="cta cta-ghost" href="tatsam-cut-product.html">jump to the product cut →</a>
+    </div>
+  </section>
+
+  <!--BEGIN:FOOT-->
+<style>
+  .foot { position: relative; z-index: 20; background: var(--bg); padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-fade); letter-spacing: 0.05em; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    var fill = document.getElementById('threadFill');
+    window.addEventListener('scroll', function () { var total = document.body.scrollHeight - window.innerHeight; fill.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%'; }, { passive: true });
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+</body>
+</html>

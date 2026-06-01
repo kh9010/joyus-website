@@ -3,600 +3,174 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Donor research, process creation and information flow design for PrathamUSA. By Joyus Studio.">
-  <meta property="og:title" content="pratham — Joyus Studio">
-  <meta property="og:description" content="Rebuilding the donor journey for PrathamUSA after a catastrophic drop in giving.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/pratham/logo.webp">
+  <meta name="description" content="Donor-behaviour research and service design for Pratham USA — turning one-off donations into deep, lasting relationships. A donor journey, a touchpoint audit, and where to invest next. By Joyus Studio.">
+  <meta property="og:title" content="Pratham USA — Joyus Studio">
+  <meta property="og:description" content="We studied why donors give to Pratham USA, mapped the journey from first gift to lifelong bond, and found where the relationship was leaking.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/pratham.html">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/pratham.html">
-  <title>pratham — Joyus Studio</title>
+  <title>Pratham USA — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="../styles.css?v=4">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"pratham","description":"Rebuilding the donor journey for PrathamUSA after a catastrophic drop in giving.","url":"https://kh9010.github.io/joyus-website/work/pratham.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
-</script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"Pratham USA","description":"Donor-behaviour research and service design for Pratham USA — a donor journey model, a touchpoint audit, and recommendations to deepen donor relationships.","url":"https://kh9010.github.io/joyus-website/work/pratham.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body.cg { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .cg img { max-width: 100%; display: block; }
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600; }
+    .thread-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan)); transition: width 0.1s linear; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
 
-<style>
-/* ─── Pratham rings — all .pr-* styles ─────────────────────────────────── */
+    .cg-hero { position: relative; overflow: hidden; padding: clamp(7rem, 15vh, 11rem) var(--x) clamp(3rem, 6vh, 5rem); }
+    .cg-hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .cg-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.4rem; }
+    .cg-eyebrow::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--pink); }
+    .cg-eyebrow .lens { color: var(--ink-fade); font-weight: 500; }
+    .cg-hero h1 { font-weight: 700; font-size: clamp(2.3rem, 5.2vw, 4.4rem); line-height: 1.02; letter-spacing: -0.04em; max-width: 20ch; margin: 0; }
+    .cg-hero h1 em { font-style: normal; color: var(--pink); }
+    .cg-deck { font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.6; color: var(--ink-soft); max-width: 64ch; margin-top: 1.6rem; }
+    .cg-deck strong { color: var(--ink); font-weight: 600; }
+    .cg-meta { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; align-items: flex-start; border-top: 1px solid var(--rule); padding-top: 1.6rem; }
+    .cg-services { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .cg-services li { font-size: 0.82rem; font-weight: 500; padding: 0.35rem 0.85rem; border: 1px solid var(--ink); border-radius: 999px; }
+    .cg-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.85rem; letter-spacing: 0.04em; color: var(--ink-fade); }
+    .cg-facts span + span::before { content: "·"; margin-right: 1.2rem; color: var(--rule); }
+    .cg-hero .dot1 { width: 200px; height: 200px; top: 22%; right: -4%; opacity: 0.9; }
+    .cg-hero .dot2 { width: 46px; height: 46px; bottom: 18%; left: 4%; }
+    .cg-hero .dot3 { width: 20px; height: 20px; top: 18%; right: 26%; }
+    .cg-hero .dot4 { width: 13px; height: 13px; bottom: 28%; right: 18%; }
 
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border: 0;
-}
+    .sec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vh, 6.5rem) var(--x); }
+    .sec.alt { background: #fff; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+    .sec-eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); }
+    .sec.lens-research .sec-eyebrow::before { background: var(--yellow); }
+    .sec.lens-story .sec-eyebrow::before { background: var(--pink); }
+    .sec-title { font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.035em; max-width: 22ch; margin: 0 0 1.4rem; }
+    .sec-title em { font-style: normal; color: var(--pink); }
+    .sec-lede { font-size: clamp(1.05rem, 1.4vw, 1.22rem); line-height: 1.65; color: var(--ink); max-width: 64ch; margin: 0 0 1.1rem; }
+    .sec-lede.soft { color: var(--ink-soft); }
+    .sec-lede strong { font-weight: 600; }
+    .sec-lede em { font-style: italic; color: var(--ink); }
 
-/* ── Section wrapper ── */
-.pr-rings-section {
-  padding: clamp(3rem, 6vw, 5rem) clamp(1rem, 4vw, 2rem);
-  max-width: 1080px;
-  margin: 0 auto;
-}
+    .bridge { text-align: center; font-family: var(--hand); font-size: clamp(1.4rem, 2.6vw, 1.9rem); color: var(--ink-fade); padding: clamp(1.5rem, 3vh, 2.5rem) var(--x); }
+    .bridge em { font-style: normal; color: var(--pink); }
 
-.pr-rings-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.9fr);
-  align-items: center;
-  gap: clamp(1.5rem, 4vw, 3rem);
-  min-width: 320px;
-}
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0; }
+    .chip { font-size: 0.9rem; font-weight: 500; padding: 0.45rem 0.95rem; border-radius: 999px; background: #fff; border: 1px solid var(--rule); }
+    .sec.alt .chip { background: var(--bg); }
+    .chip i { font-style: normal; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; background: var(--pink); }
+    .chip.c-cyan i { background: var(--cyan); } .chip.c-yellow i { background: var(--yellow); } .chip.c-ink i { background: var(--ink); }
 
-/* ── SVG ── */
-.pr-rings-svg {
-  width: 100%;
-  max-width: 600px;
-  height: auto;
-  aspect-ratio: 1 / 1;
-  display: block;
-  margin: 0 auto;
-}
+    .fig { margin: 1.6rem 0 0; }
+    .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
+    .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+    .fig-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
 
-/* ── Rings ── */
-.pr-ring {
-  cursor: pointer;
-  pointer-events: stroke;
-  transition: stroke 160ms ease, fill 160ms ease, stroke-width 180ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 180ms ease, filter 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
-}
+    .phases { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; margin-top: 1.5rem; }
+    .phase { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 1.5rem; }
+    .sec.alt .phase { background: var(--bg); }
+    .phase .ph-tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-fade); }
+    .phase h4 { font-size: 1.15rem; margin: 0.3rem 0 0.4rem; letter-spacing: -0.01em; }
+    .stage-list { list-style: none; margin: 0; padding: 0; }
+    .stage-list li { font-size: 0.95rem; padding: 0.5rem 0 0.5rem 1.4rem; position: relative; border-top: 1px dashed var(--rule); }
+    .stage-list li:first-child { border-top: 0; }
+    .stage-list li b { font-weight: 600; }
+    .stage-list li span { color: var(--ink-fade); }
+    .stage-list li::before { content: ""; position: absolute; left: 0; top: 0.95rem; width: 8px; height: 8px; border-radius: 50%; background: var(--pink); }
+    .phase.p2 .stage-list li::before { background: var(--cyan); }
 
-.pr-ring:focus { outline: none; }
+    .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 30ch; margin: 1.6rem 0 0; }
+    .pull em { font-style: normal; color: var(--pink); }
+    .cut-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.6rem; font-weight: 600; color: var(--ink); border-bottom: 2px solid var(--pink); padding-bottom: 2px; }
+    .cut-link:hover { color: var(--pink); }
 
-.pr-ring-group[data-ring-id="aware"] .pr-ring:hover       { stroke: #F2B705; }
-.pr-ring-group[data-ring-id="casual"] .pr-ring:hover      { stroke: #F2B705; }
-.pr-ring-group[data-ring-id="connected"] .pr-ring:hover   { stroke: #E8A500; }
-.pr-ring-group[data-ring-id="deepened"] .pr-ring:hover    { stroke: #D79400; }
-.pr-ring-group[data-ring-id="permanent"] .pr-ring:hover   { stroke: #B87800; }
+    .problems { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .prob { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--pink); border-radius: 14px; padding: 1.4rem; }
+    .sec.alt .prob { background: var(--bg); }
+    .prob .n { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-fade); }
+    .prob h4 { font-size: 1.05rem; line-height: 1.25; letter-spacing: -0.01em; margin: 0.3rem 0 0; }
 
-.pr-ring.is-active {
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.08));
-}
+    .takeaways { background: var(--ink); color: #fff; position: relative; overflow: hidden; padding: clamp(4rem, 9vh, 7rem) var(--x); }
+    .takeaways-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .takeaways .sec-eyebrow { color: var(--yellow); }
+    .takeaways .sec-eyebrow::before { background: var(--yellow); }
+    .takeaways h2 { font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.7rem); letter-spacing: -0.035em; line-height: 1.1; margin: 0 0 1.8rem; max-width: 20ch; }
+    .takeaways h2 em { font-style: normal; color: var(--pink); }
+    .takeaway-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 2.4rem; margin: 0 0 2.4rem; }
+    .takeaway-list .ti { font-size: 1.02rem; line-height: 1.55; color: rgba(255,255,255,0.85); padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.18); }
+    .takeaway-list .ti b { color: #fff; font-weight: 600; }
+    .cut-ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .cut-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--pink); color: #fff; font-weight: 600; font-size: 1rem; padding: 0.9rem 1.5rem; border-radius: 999px; box-shadow: 0 6px 0 #9a1453; transition: transform 0.2s, box-shadow 0.2s; }
+    .cut-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+    .cut-cta.is-research { background: var(--yellow); color: var(--ink); box-shadow: 0 6px 0 #c99a1f; }
+    .cut-cta.is-research:hover { box-shadow: 0 8px 0 #c99a1f; }
 
-.pr-ring-group[data-ring-id="aware"] .pr-ring.is-active       { stroke: #F2B705; stroke-width: 48; }
-.pr-ring-group[data-ring-id="casual"] .pr-ring.is-active      { stroke: #F2B705; stroke-width: 44; }
-.pr-ring-group[data-ring-id="connected"] .pr-ring.is-active   { stroke: #E8A500; stroke-width: 40; }
-.pr-ring-group[data-ring-id="deepened"] .pr-ring.is-active    { stroke: #D79400; stroke-width: 36; }
-.pr-ring-group[data-ring-id="permanent"] .pr-ring.is-active   { stroke: #B87800; stroke-width: 32; }
+    .cs-closing { position: relative; overflow: hidden; padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem); border-top: 2px solid var(--ink); }
+    .cs-closing-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; display: inline-flex; align-items: center; gap: 0.75rem; position: relative; z-index: 2; }
+    .cs-closing-label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); }
+    .cs-closing h3 { font-weight: 600; font-size: clamp(1.5rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.2; max-width: 22ch; position: relative; z-index: 2; margin: 0; }
+    .cs-closing h3 em { font-style: normal; color: var(--pink); }
+    .cs-closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
+    .cs-closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+    .cs-closing-hint { display: block; font-size: 0.9rem; color: var(--ink-fade); margin-top: 1.25rem; position: relative; z-index: 2; }
+    .cs-next { display: inline-block; margin-top: 2rem; font-weight: 600; color: var(--ink); position: relative; z-index: 2; }
+    .cs-next:hover { color: var(--pink); }
+    .cs-next .arrow { transition: transform 0.25s; display: inline-block; }
+    .cs-next:hover .arrow { transform: translateX(4px); }
 
-.pr-ring.is-dimmed {
-  opacity: 0.35;
-}
-.pr-ring.is-dimmed:hover {
-  opacity: 0.6;
-}
-
-/* ── Labels ── */
-.pr-label text {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 13px;
-  fill: #3a3228;
-}
-.pr-label line {
-  stroke: #b8a88a;
-  stroke-width: 1;
-}
-.pr-label circle {
-  fill: #b8a88a;
-}
-.pr-label.is-dimmed { opacity: 0.35; }
-
-/* ── Focus halo ── */
-.pr-ring-focus {
-  fill: none;
-  stroke: transparent;
-  stroke-width: 0;
-  pointer-events: none;
-  transition: stroke 160ms ease, stroke-width 160ms ease;
-}
-.pr-ring-group.is-focused .pr-ring-focus {
-  stroke: #E91E7B;
-  stroke-opacity: 0.55;
-}
-.pr-ring-group[data-ring-id="aware"].is-focused .pr-ring-focus    { stroke-width: 52; }
-.pr-ring-group[data-ring-id="casual"].is-focused .pr-ring-focus   { stroke-width: 48; }
-.pr-ring-group[data-ring-id="connected"].is-focused .pr-ring-focus { stroke-width: 44; }
-.pr-ring-group[data-ring-id="deepened"].is-focused .pr-ring-focus  { stroke-width: 40; }
-.pr-ring-group[data-ring-id="permanent"].is-focused .pr-ring-focus { stroke-width: 36; }
-
-/* ── Avatar ── */
-.pr-avatar {
-  cursor: pointer;
-}
-.pr-avatar:focus { outline: none; }
-.pr-avatar-hit { pointer-events: all; cursor: pointer; }
-.pr-avatar-caption {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  fill: #1F1A14;
-  letter-spacing: 0.02em;
-  pointer-events: none;
-}
-
-/* ── Ring-order numerals (01–05 at 12 o'clock of each ring) ── */
-.pr-ring-numerals text {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  fill: #FBECB3;
-  letter-spacing: 0.04em;
-  pointer-events: none;
-}
-.pr-ring-numerals g[data-ring-id] {
-  transition: opacity 180ms ease;
-}
-
-/* ── Tooltip ── */
-.pr-tooltip {
-  position: fixed;
-  pointer-events: none;
-  background: #1F1A14;
-  color: #fff;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.8rem;
-  line-height: 1.35;
-  padding: 0.35rem 0.65rem;
-  border-radius: 5px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 120ms ease-out;
-  z-index: 600;
-}
-.pr-tooltip.is-visible {
-  opacity: 1;
-}
-
-/* ── Legend (desktop side-rail + mobile stack) ── */
-.pr-legend {
-  display: block;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-.pr-legend li {
-  margin: 0;
-}
-.pr-legend button {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(31,26,20,0.08);
-  padding: 0.7rem 0.25rem;
-  cursor: pointer;
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  text-align: left;
-  color: #1F1A14;
-  transition: background 120ms ease;
-}
-.pr-legend button:hover { background: rgba(232,165,0,0.07); }
-.pr-legend button.is-active { font-weight: 600; }
-.pr-legend button.is-dimmed { opacity: 0.45; }
-
-.pr-legend-swatch {
-  flex-shrink: 0;
-  border-radius: 50%;
-  width: 14px;
-  height: 14px;
-  display: inline-block;
-}
-.pr-legend-name {
-  font-weight: 500;
-}
-.pr-legend-tagline {
-  color: #7a6a52;
-  font-size: 0.83rem;
-}
-
-/* ── Panel ── */
-.pr-panel {
-  max-width: 720px;
-  margin: 3rem auto 0;
-  padding: 1.5rem;
-  background: #fff;
-  border: 1px solid rgba(31,26,20,0.08);
-  border-radius: 12px;
-  transition: box-shadow 220ms ease;
-  scroll-margin-top: 96px;
-}
-.pr-panel.is-populated {
-  box-shadow: 0 8px 28px rgba(31,26,20,0.06);
-}
-
-.pr-panel-header { display: none; position: relative; margin-bottom: 1.25rem; }
-.pr-panel.is-populated .pr-panel-header { display: block; }
-.pr-panel.is-populated .pr-panel-prompt { display: none; }
-
-.pr-panel-eyebrow {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #b8a88a;
-  margin: 0 0 0.35rem;
-}
-.pr-panel-title {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.55rem;
-  color: #1F1A14;
-  margin: 0 0 0.25rem;
-  padding-right: 2.5rem;
-}
-.pr-panel-tagline {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  color: #5a4e3e;
-  margin: 0;
-  font-style: italic;
-}
-.pr-panel-close {
-  position: absolute;
-  top: 0; right: 0;
-  background: none;
-  border: none;
-  width: 28px; height: 28px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem;
-  color: #7a6a52;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background 120ms ease, color 120ms ease;
-  line-height: 1;
-}
-.pr-panel-close:hover { background: rgba(31,26,20,0.06); color: #1F1A14; }
-.pr-panel-close:focus-visible { outline: 2px solid #E91E7B; outline-offset: 2px; }
-
-.pr-panel-prompt {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  color: #9a8a72;
-  margin: 0;
-  font-style: italic;
-}
-
-/* ── Panel body fade ── */
-.pr-panel-fade { opacity: 1; transition: opacity 180ms ease-out; }
-.pr-panel-fade.is-swapping { opacity: 0; transition: opacity 120ms ease-in; }
-
-/* ── Block anatomy ── */
-.pr-block-eyebrow {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #7a6a52;
-  margin: 0 0 0.5rem;
-}
-
-.pr-block-meaning,
-.pr-block-ba,
-.pr-block-who,
-.pr-block-rec {
-  margin-bottom: 1.75rem;
-}
-.pr-block-meaning p:not(.pr-block-eyebrow),
-.pr-block-who p:not(.pr-block-eyebrow) {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 1rem;
-  line-height: 1.7;
-  color: #2e2820;
-  margin: 0;
-}
-.pr-block-who ul {
-  margin: 0.6rem 0 0;
-  padding-left: 1.3rem;
-}
-.pr-block-who ul li {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #3a3228;
-  margin-bottom: 0.2rem;
-}
-
-/* before/after grid */
-.pr-ba-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-top: 0.5rem;
-}
-.pr-ba-label {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #9a8a72;
-  margin: 0 0 0.5rem;
-}
-.pr-ba-col p {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.95rem;
-  line-height: 1.65;
-  color: #3a3228;
-  margin: 0;
-}
-.pr-ba-fig {
-  margin: 0.75rem 0 0;
-  padding: 0;
-  max-width: 340px;
-}
-.pr-ba-fig img {
-  width: 100%;
-  border-radius: 6px;
-  display: block;
-}
-.pr-ba-fig figcaption {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: #7a6a52;
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
-/* recommendation block */
-.pr-block-rec p:not(.pr-block-eyebrow) {
-  font-family: 'DM Sans', system-ui, sans-serif;
-  font-size: 0.97rem;
-  line-height: 1.7;
-  color: #2e2820;
-  margin: 0;
-  border-left: 3px solid #E91E7B;
-  background: #F5F3F0;
-  padding: 1rem 1.25rem;
-  border-radius: 4px;
-}
-
-/* ── Reduced motion ── */
-@media (prefers-reduced-motion: reduce) {
-  .pr-tooltip,
-  .pr-ring,
-  .pr-ring-focus,
-  .pr-panel,
-  .pr-panel-fade,
-  .pr-panel-fade.is-swapping {
-    transition: none !important;
-    opacity: 1 !important;
-  }
-}
-
-/* ── Tablet ≤960px — stack SVG and legend ── */
-@media (max-width: 960px) {
-  .pr-rings-stage {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-}
-
-/* ── Mobile ≤720px ── */
-@media (max-width: 720px) {
-  .pr-rings-svg {
-    width: min(92vw, 420px);
-    max-width: min(92vw, 420px);
-  }
-  .pr-tooltip { display: none !important; }
-  .pr-panel { padding: 1rem; }
-  .pr-ba-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .pr-panel-title { font-size: 1.25rem; }
-}
-
-@media (max-width: 520px) {
-  .pr-panel { padding: 0.75rem; }
-  .pr-block-meaning p:not(.pr-block-eyebrow),
-  .pr-ba-col p,
-  .pr-block-who ul li,
-  .pr-block-rec p:not(.pr-block-eyebrow) {
-    font-size: 0.93rem;
-  }
-}
-
-.pr-rings-stage { min-width: 320px; }
-
-/* cuts-switch pill — top-right, mirrors klydo/agemo pattern */
-.cuts-switch {
-  position: fixed;
-  top: 5.5rem; right: 1.25rem;
-  z-index: 480;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.4rem 0.55rem 0.4rem 0.85rem;
-  background: rgba(255, 255, 255, 0.92);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(44, 53, 68, 0.12);
-  border-radius: 999px;
-  box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
-  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
-}
-.cuts-switch-label {
-  font-family: 'Caveat', cursive;
-  font-size: 1rem;
-  color: #54606F;
-  margin-right: 0.25rem;
-}
-.cuts-switch-here {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #2C3544;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: #FFF3B8;
-  animation: prCutsHere 3.2s ease-in-out infinite;
-}
-@keyframes prCutsHere {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(242, 183, 5, 0); }
-  50%      { box-shadow: 0 0 0 6px rgba(242, 183, 5, 0.18); }
-}
-.cuts-switch-btn {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #2C3544;
-  text-decoration: none;
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: #FAF7F2;
-  transition: background 200ms ease, color 200ms ease;
-}
-.cuts-switch-btn:hover { background: #E8A500; color: #fff; }
-@media (max-width: 720px) {
-  .cuts-switch {
-    top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
-    box-shadow: 0 -8px 20px -8px rgba(44, 53, 68, 0.18), 0 10px 24px -10px rgba(44, 53, 68, 0.18);
-  }
-  .cuts-switch-label { display: none; }
-}
-</style>
+    @media (max-width: 720px) {
+      .phases, .fig-2, .problems, .takeaway-list { grid-template-columns: 1fr; }
+      .cg-hero .dot1 { width: 130px; height: 130px; }
+    }
+  </style>
 </head>
-<body class="work-page" data-accent="pink">
-
-  <!-- cuts switcher — quick jump to the process cut -->
-  <div class="cuts-switch">
-    <span class="cuts-switch-label">two cuts</span>
-    <span class="cuts-switch-here">main</span>
-    <a href="pratham-cut-process.html" class="cuts-switch-btn">process</a>
-  </div>
+<body class="cg work-page" data-accent="pink">
+  <div class="thread"><div class="thread-fill" id="threadFill"></div></div>
 
   <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../")
-     Colors use the tokens declared in styles.css :root. -->
 <style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    padding-top: max(1.25rem, env(safe-area-inset-top));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    font-family: var(--sans);
-  }
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: var(--sans); }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-links {
-    display: flex; gap: 1.75rem; align-items: center;
-    list-style: none; padding: 0; margin: 0;
-  }
-  .nav .nav-links a {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
   .nav .nav-links a:hover { color: var(--pink); }
-  .nav .nav-links a.active {
-    color: var(--ink);
-    font-weight: 500;
-    border-bottom-color: var(--pink);
-  }
+  .nav .nav-links a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--pink); }
   .nav .nav-cta { color: var(--ink); font-weight: 500; }
   .nav .nav-cta:hover { color: var(--pink); }
-
-  /* Hamburger button — hidden on desktop */
-  .nav-toggle {
-    display: none;
-    width: 44px; height: 44px;
-    background: transparent; border: 0; padding: 0;
-    cursor: pointer; position: relative; z-index: 510;
-    align-items: center; justify-content: center;
-  }
-  .nav-toggle span {
-    display: block; width: 24px; height: 2px;
-    background: var(--ink); border-radius: 2px;
-    position: absolute;
-    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
-  }
-  .nav-toggle span:nth-child(1) { top: 14px; }
-  .nav-toggle span:nth-child(2) { top: 21px; }
-  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; } .nav-toggle span:nth-child(2) { top: 21px; } .nav-toggle span:nth-child(3) { top: 28px; }
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-
   @media (max-width: 720px) {
-    .nav {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(250, 247, 242, 0.95);
-    }
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
     .nav-toggle { display: inline-flex; }
-    .nav .nav-links {
-      position: fixed;
-      inset: 0;
-      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
-      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 1.75rem;
-      background: var(--white);
-      border-left: 4px solid var(--ink);
-      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      z-index: 505;
-    }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: var(--white); border-left: 4px solid var(--ink); box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
     .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: var(--ink); }
     .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
@@ -608,324 +182,184 @@
 </nav>
 <script>
   (function(){
-    var path = window.location.pathname;
-    var active = null;
+    var path = window.location.pathname; var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
     else if (/say-hi\.html/.test(path)) active = 'say-hi';
-    if (active) {
-      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
-      }
-    }
-    // hamburger toggle
-    var toggle = document.querySelector('.nav-toggle');
-    var menu = document.querySelector('.nav .nav-links');
+    if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active'); } }
+    var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
-      var close = function() {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = menu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      // close on link tap
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', close);
-      });
-      // close on escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu.classList.contains('open')) close();
-      });
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
     }
   })();
 </script>
 <!--END:NAV-->
 
-  <header class="cs-cover-narrative">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:14%;right:8%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:62%;left:6%;"></span>
-      <span class="yellow" style="width:80px;height:80px;bottom:-30px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="inner">
-      <img class="logo-inset" src="../images/work/pratham/logo.webp" alt="PrathamUSA">
-      <p class="name">a case study — pratham</p>
-      <h1>Pratham&rsquo;s longest donors remembered the same shift &mdash; the day the org stopped being a cause and became a room of people doing the work.</h1>
-      <div class="lede">
-        <p>PrathamUSA had lost most of their $2K&ndash;$10K donor base in 2020. Galas were eviscerated; the feeder for the org&rsquo;s $10K-for-life donors was disappearing.</p>
-        <p>We took the question on: what moves a donor from a first check to a decades-long commitment? Talking to chapter organizers, retained majors, and lapsed donors, the same answer came back in different shapes &mdash; for one it was sitting with mothers making contextual math materials, for another watching a teacher work a one-room classroom, for another meeting a child. The vehicle was almost always a site visit. The thing that mattered wasn&rsquo;t the trip &mdash; it was finally being able to see the org work as a specific, human thing instead of a cause.</p>
-      </div>
-      <div class="meta-bar">
-        <ul class="cs-services">
+  <!-- HERO -->
+  <header class="cg-hero">
+    <span class="dot dot1 d-pink"></span>
+    <span class="dot dot2 d-yellow"></span>
+    <span class="dot dot3 d-cyan"></span>
+    <span class="dot dot4 d-pink"></span>
+    <div class="cg-hero-inner">
+      <span class="cg-eyebrow">Pratham USA · Case study <span class="lens">— research &amp; strategy → story</span></span>
+      <h1>A donation is a transaction. How do you turn it into a <em>relationship</em>?</h1>
+      <p class="cg-deck">Pratham USA raises funds in America for Pratham, one of India's largest education non-profits. Donors gave — but the relationship often stayed shallow, tied to whoever first brought them in, and Pratham's story wasn't reaching them in a way that mattered. We ran <strong>donor interviews, staff interviews and a donor survey</strong> to understand how people actually move from a first gift to a lifelong bond — and where that journey was leaking.</p>
+      <div class="cg-meta">
+        <ul class="cg-services">
           <li>Donor Research</li>
-          <li>Process Creation</li>
-          <li>Information Flow</li>
+          <li>Service Design</li>
+          <li>Strategy &amp; Recommendations</li>
         </ul>
-        <div class="cs-meta-row">
-          <span>USA</span>
-          <span>50–100 employees</span>
-          <span>$50M nonprofit</span>
+        <div class="cg-facts">
+          <span>USA &amp; India</span><span>Education non-profit</span><span>Donor base, coast to coast</span>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="cs-bridge">&#8595; <em>inside one picture</em></div>
-
-  <!-- Rings section -->
-  <section class="pr-rings-section" aria-label="Donor journey rings">
-
-    <nav class="sr-only" aria-label="Donor journey rings">
-      <a href="#pr-ring-aware">Aware (outermost)</a>
-      <a href="#pr-ring-casual">Casual Connection</a>
-      <a href="#pr-ring-connected">Connected</a>
-      <a href="#pr-ring-deepened">Deepened Connection</a>
-      <a href="#pr-ring-permanent">Permanent Bond (innermost)</a>
-      <a href="#pr-ring-center">Donor at the center</a>
-    </nav>
-
-    <div class="pr-rings-stage">
-
-      <svg viewBox="0 0 600 600"
-           class="pr-rings-svg"
-           role="img"
-           aria-labelledby="pr-rings-title pr-rings-desc">
-        <title id="pr-rings-title">Pratham donor journey: five rings of connection</title>
-        <desc id="pr-rings-desc">A smiling donor avatar at the center, surrounded by five concentric rings. From the outer edge inward: Aware, Casual Connection, Connected, Deepened Connection, Permanent Bond. Each ring is a button; activating it reveals a deep-dive panel below the diagram.</desc>
-
-        <g class="pr-rings" role="presentation">
-
-          <!-- Ring 5: Aware (outermost). r=270, stroke-width=44. -->
-          <g id="pr-ring-aware" class="pr-ring-group" data-ring-id="aware">
-            <circle class="pr-ring-focus" cx="300" cy="300" r="270" />
-            <circle class="pr-ring" data-ring-id="aware"
-                    cx="300" cy="300" r="270"
-                    fill="none" stroke="#FBECB3" stroke-width="44"
-                    tabindex="0" role="button" aria-pressed="false"
-                    aria-controls="pr-panel-body"
-                    aria-label="Aware. They've heard of Pratham, that's it. Ring 1 of 5 from the outer edge." />
-          </g>
-
-          <!-- Ring 4: Casual Connection. r=215, stroke-width=40. -->
-          <g id="pr-ring-casual" class="pr-ring-group" data-ring-id="casual">
-            <circle class="pr-ring-focus" cx="300" cy="300" r="215" />
-            <circle class="pr-ring" data-ring-id="casual"
-                    cx="300" cy="300" r="215"
-                    fill="none" stroke="#F9DE85" stroke-width="40"
-                    tabindex="0" role="button" aria-pressed="false"
-                    aria-controls="pr-panel-body"
-                    aria-label="Casual Connection. Curious enough to show up. Ring 2 of 5." />
-          </g>
-
-          <!-- Ring 3: Connected. r=165, stroke-width=36. -->
-          <g id="pr-ring-connected" class="pr-ring-group" data-ring-id="connected">
-            <circle class="pr-ring-focus" cx="300" cy="300" r="165" />
-            <circle class="pr-ring" data-ring-id="connected"
-                    cx="300" cy="300" r="165"
-                    fill="none" stroke="#F7CE55" stroke-width="36"
-                    tabindex="0" role="button" aria-pressed="false"
-                    aria-controls="pr-panel-body"
-                    aria-label="Connected. Pratham is their nonprofit now. Ring 3 of 5." />
-          </g>
-
-          <!-- Ring 2: Deepened Connection. r=120, stroke-width=32. -->
-          <g id="pr-ring-deepened" class="pr-ring-group" data-ring-id="deepened">
-            <circle class="pr-ring-focus" cx="300" cy="300" r="120" />
-            <circle class="pr-ring" data-ring-id="deepened"
-                    cx="300" cy="300" r="120"
-                    fill="none" stroke="#F2B705" stroke-width="32"
-                    tabindex="0" role="button" aria-pressed="false"
-                    aria-controls="pr-panel-body"
-                    aria-label="Deepened Connection. They've seen the schools, they know names. Ring 4 of 5." />
-          </g>
-
-          <!-- Ring 1: Permanent Bond (innermost). r=78, stroke-width=28. -->
-          <g id="pr-ring-permanent" class="pr-ring-group" data-ring-id="permanent">
-            <circle class="pr-ring-focus" cx="300" cy="300" r="78" />
-            <circle class="pr-ring" data-ring-id="permanent"
-                    cx="300" cy="300" r="78"
-                    fill="none" stroke="#E8A500" stroke-width="28"
-                    tabindex="0" role="button" aria-pressed="false"
-                    aria-controls="pr-panel-body"
-                    aria-label="Permanent Bond. Pratham is in their life, for good. Ring 5 of 5, closest to the center." />
-          </g>
-
-          <!-- Center avatar -->
-          <g id="pr-ring-center" class="pr-avatar"
-             tabindex="0" role="button" aria-pressed="false"
-             aria-controls="pr-panel-body"
-             aria-label="Pratham donor, at the center. Activate for an introduction to the rings.">
-            <!-- easel body -->
-            <path d="M280 282 L320 282 L324 318 L276 318 Z"
-                  fill="#F7CE55" stroke="#1F1A14" stroke-width="2"
-                  stroke-linejoin="round" />
-            <!-- smile -->
-            <path d="M288 298 Q300 308 312 298"
-                  fill="none" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
-            <!-- eyes -->
-            <circle cx="292" cy="292" r="1.4" fill="#1F1A14" />
-            <circle cx="308" cy="292" r="1.4" fill="#1F1A14" />
-            <!-- easel top pegs -->
-            <line x1="282" y1="282" x2="282" y2="276" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
-            <line x1="318" y1="282" x2="318" y2="276" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
-            <!-- legs -->
-            <line x1="282" y1="318" x2="276" y2="332" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
-            <line x1="300" y1="318" x2="300" y2="334" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
-            <line x1="318" y1="318" x2="324" y2="332" stroke="#1F1A14" stroke-width="2" stroke-linecap="round" />
-            <!-- cross-bar -->
-            <line x1="280" y1="325" x2="320" y2="325" stroke="#1F1A14" stroke-width="1.5" />
-            <!-- "the donor" caption under the easel -->
-            <text x="300" y="356" text-anchor="middle" class="pr-avatar-caption">the donor</text>
-            <!-- click target -->
-            <circle class="pr-avatar-hit" cx="300" cy="300" r="40" fill="transparent" />
-          </g>
-
-          <!-- Ring-order numerals at 12 o'clock on each ring. Outer = 01, inner = 05.
-               Deeper ring = higher stage of connection. Reinforces the thesis that
-               distance-from-center = depth-of-relationship. -->
-          <g class="pr-ring-numerals" aria-hidden="true">
-            <g data-ring-id="aware">
-              <circle cx="300" cy="30" r="13" fill="#1F1A14" />
-              <text x="300" y="34" text-anchor="middle">01</text>
-            </g>
-            <g data-ring-id="casual">
-              <circle cx="300" cy="85" r="12" fill="#1F1A14" />
-              <text x="300" y="89" text-anchor="middle">02</text>
-            </g>
-            <g data-ring-id="connected">
-              <circle cx="300" cy="135" r="11" fill="#1F1A14" />
-              <text x="300" y="138" text-anchor="middle">03</text>
-            </g>
-            <g data-ring-id="deepened">
-              <circle cx="300" cy="180" r="10" fill="#1F1A14" />
-              <text x="300" y="183" text-anchor="middle">04</text>
-            </g>
-            <g data-ring-id="permanent">
-              <circle cx="300" cy="222" r="10" fill="#1F1A14" />
-              <text x="300" y="225" text-anchor="middle">05</text>
-            </g>
-          </g>
-
-        </g>
-      </svg>
-
-      <!-- Mobile legend -->
-      <ol class="pr-legend" aria-label="Donor journey rings">
-        <li>
-          <button type="button" data-legend-id="aware" aria-pressed="false">
-            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#FBECB3" /></svg>
-            <span class="pr-legend-name">Aware</span>
-            <span class="pr-legend-tagline">They've heard of Pratham. That's it.</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" data-legend-id="casual" aria-pressed="false">
-            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F9DE85" /></svg>
-            <span class="pr-legend-name">Casual Connection</span>
-            <span class="pr-legend-tagline">Curious enough to show up.</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" data-legend-id="connected" aria-pressed="false">
-            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F7CE55" /></svg>
-            <span class="pr-legend-name">Connected</span>
-            <span class="pr-legend-tagline">Pratham is their nonprofit now.</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" data-legend-id="deepened" aria-pressed="false">
-            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F2B705" /></svg>
-            <span class="pr-legend-name">Deepened Connection</span>
-            <span class="pr-legend-tagline">They've seen the schools. They know names.</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" data-legend-id="permanent" aria-pressed="false">
-            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#E8A500" /></svg>
-            <span class="pr-legend-name">Permanent Bond</span>
-            <span class="pr-legend-tagline">Pratham is in their life, for good.</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" data-legend-id="center" aria-pressed="false">
-            <svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="7" fill="#F7CE55" stroke="#1F1A14" stroke-width="1.5" /></svg>
-            <span class="pr-legend-name">The donor</span>
-            <span class="pr-legend-tagline">Why Joyus rebuilt the dashboard around this human.</span>
-          </button>
-        </li>
-      </ol>
-
-    </div><!-- /.pr-rings-stage -->
-
-    <!-- Deep-dive panel -->
-    <div class="pr-panel" role="region" aria-label="Ring deep dive">
-      <div class="pr-panel-header">
-        <button type="button" class="pr-panel-close" aria-label="Clear selection" hidden>&#215;</button>
-        <p class="pr-panel-eyebrow">Deep dive</p>
-        <h2 class="pr-panel-title"></h2>
-        <p class="pr-panel-tagline"></p>
+  <!-- THE BRIEF -->
+  <section class="sec reveal">
+    <span class="dot d-yellow" style="width:64px;height:64px;bottom:-22px;right:6%;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the brief, examined</span>
+      <h2 class="sec-title">Donors weren't the problem. <em>The journey was un-designed.</em></h2>
+      <p class="sec-lede">Pratham USA didn't lack generous people. It lacked a <em>designed path</em> for them — so donors gave once and drifted, relationships stayed dependent on the person who introduced them, and the organisation couldn't see what made a donor go deep. Before recommending anything, we listened:</p>
+      <div class="chips">
+        <span class="chip"><i></i>Donor interviews</span>
+        <span class="chip c-cyan"><i></i>PUSA staff interviews</span>
+        <span class="chip c-yellow"><i></i>A donor survey</span>
       </div>
-      <div class="pr-panel-body" id="pr-panel-body" aria-live="polite" aria-atomic="true">
-        <p class="pr-panel-prompt">Click a ring to look inside.</p>
-      </div>
+      <p class="sec-lede soft">The brief we handed back was deliberately strategic: stop measuring donors by "amount donated in the last 12 months," and start understanding the <em>emotional needs</em> that move someone from curious to committed.</p>
     </div>
-
-    <!-- Tooltip (desktop only) -->
-    <div class="pr-tooltip" role="tooltip" aria-hidden="true"></div>
-
   </section>
 
+  <div class="bridge reveal">↓ so we mapped the whole arc — <em>curious stranger to lifelong patron</em></div>
+
+  <!-- DONOR JOURNEY (research lens) -->
+  <section class="sec alt lens-research reveal">
+    <span class="dot d-yellow" style="width:90px;height:90px;top:8%;left:-30px;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the donor journey</span>
+      <h2 class="sec-title">Six stages, in two halves.</h2>
+      <p class="sec-lede">The journey has two distinct parts that need different tactics. In <strong>Phase 1</strong>, Pratham is still outside the donor, trying to find a space in their life. In <strong>Phase 2</strong>, the donor has internalised Pratham — and now needs ways to <em>express</em> that. Each stage runs on a different emotional need.</p>
+      <div class="phases">
+        <div class="phase p1">
+          <span class="ph-tag">Phase 1 · finding a space</span>
+          <h4>From stranger to "I believe in this"</h4>
+          <ul class="stage-list">
+            <li><b>Unaware</b> — <span>curiosity, optimism, surprise</span></li>
+            <li><b>Testing the waters</b> — <span>trust, interest, excitement</span></li>
+            <li><b>Casual connection</b> — <span>belief, confidence, motivation</span></li>
+          </ul>
+        </div>
+        <div class="phase p2">
+          <span class="ph-tag">Phase 2 · becoming part of them</span>
+          <h4>From "I believe" to "this is my legacy"</h4>
+          <ul class="stage-list">
+            <li><b>Connected</b> — <span>motivation, agency, inspiration</span></li>
+            <li><b>Deepened connection</b> — <span>hope, connection, meaning</span></li>
+            <li><b>Permanent bond</b> — <span>self-actualisation, legacy, identity</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;"><img src="../images/work/pratham/pratham-journey-phase1.png" alt="Phase 1 of the donor journey — Unaware, Testing the waters, Casual connection — with states and emotional needs." loading="lazy"><figcaption>Phase 1 — Pratham finding a space in the donor's life.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/pratham/pratham-journey-phase2.png" alt="Phase 2 of the donor journey — Connected, Deepened connection, Permanent bond." loading="lazy"><figcaption>Phase 2 — the donor making Pratham part of who they are.</figcaption></figure>
+      </div>
+      <a class="cut-link" href="pratham-cut-research.html">See the research cut — the journey &amp; the touchpoint audit →</a>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ then we asked — <em>which touchpoints actually move people?</em></div>
+
+  <!-- TOUCHPOINT FINDING (research lens) -->
+  <section class="sec lens-research reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:10%;right:-20px;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the touchpoint audit</span>
+      <h2 class="sec-title">Email does everything — and that's the problem.</h2>
+      <p class="sec-lede">We scored every touchpoint on how often donors engage, how much impact it has, and the effort it costs Pratham. Email carries nearly all communication. But the touchpoints that actually deepen a donor — <strong>1:1 conversations, long-form publications, and site visits</strong> — were the most underused.</p>
+      <figure class="fig"><img src="../images/work/pratham/pratham-touchpoint-matrix.png" alt="Touchpoint evaluation matrix scoring email, social, long-form publications, 1:1 conversations, galas, salons and site visits across six questions." loading="lazy"><figcaption>Seven touchpoints scored across engagement, impact, motive and effort.</figcaption></figure>
+      <p class="pull">One survey finding pointed the way: <em>people who value Pratham's long-form publications tend to be higher-value donors.</em></p>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ and behind the touchpoints — <em>the story itself was leaking</em></div>
+
+  <!-- INFO FLOW (story lens) -->
+  <section class="sec alt lens-story reveal">
+    <span class="dot d-pink" style="width:80px;height:80px;bottom:-28px;left:6%;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">where the story leaks</span>
+      <h2 class="sec-title">Great stories start in India and lose energy on the way to the donor.</h2>
+      <p class="sec-lede">We mapped how information travels — from Pratham India and the chapters, through the marketing team, out to the donor — and found it leaking at every level: unclear roles, generic emails, unsupported chapter leaders, and the best storytelling from the field never making the trip.</p>
+      <figure class="fig"><img src="../images/work/pratham/pratham-info-flow.png" alt="Information flow mapping — incoming information, transformation by the marketing team, output to the donor." loading="lazy"><figcaption>Incoming information → transformed by marketing → out to donors. The leaks are in between.</figcaption></figure>
+      <a class="cut-link" href="pratham-cut-story.html">See the story cut — information flow &amp; the comms fixes →</a>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ which gave us three problems <em>worth solving next</em></div>
+
+  <!-- PROBLEMS -->
+  <section class="sec reveal">
+    <span class="dot d-yellow" style="width:60px;height:60px;top:12%;right:-18px;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the diagnosis</span>
+      <h2 class="sec-title">Three problems, each a place to build.</h2>
+      <div class="problems">
+        <div class="prob"><span class="n">Problem 01</span><h4>Donor journeys were never built with intention.</h4></div>
+        <div class="prob"><span class="n">Problem 02</span><h4>Pratham's processes are reactive, not leveraged.</h4></div>
+        <div class="prob"><span class="n">Problem 03</span><h4>One number — donations in 12 months — can't measure real engagement.</h4></div>
+      </div>
+      <p class="sec-lede soft" style="margin-top:1.5rem;">For each, we mapped directions and concrete next actions — from a "welcome to Pratham" email series and digital site visits, to a system that finally segments donors by depth, not just dollars.</p>
+    </div>
+  </section>
+
+  <!-- TAKEAWAYS -->
+  <section class="takeaways reveal">
+    <span class="dot d-pink" style="width:24px;height:24px;top:18%;right:12%;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:60%;left:8%;"></span>
+    <span class="dot d-yellow" style="width:70px;height:70px;bottom:-30px;right:6%;opacity:0.85;"></span>
+    <div class="takeaways-inner">
+      <span class="sec-eyebrow">what we left them with</span>
+      <h2>A map of the donor — <em>and where to invest to deepen the bond</em>.</h2>
+      <div class="takeaway-list">
+        <p class="ti"><b>A shared journey model.</b> Six stages and the emotional need behind each — language the whole team can use to talk about donors.</p>
+        <p class="ti"><b>An honest touchpoint audit.</b> Proof that email is overworked and the high-impact moments are underused.</p>
+        <p class="ti"><b>The leaks, named.</b> Exactly where Pratham's story loses energy between India and the donor.</p>
+        <p class="ti"><b>Three problems, scoped.</b> Each with directions and next actions for a focused build phase.</p>
+      </div>
+      <div class="cut-ctas">
+        <a class="cut-cta is-research" href="pratham-cut-research.html">the research cut →</a>
+        <a class="cut-cta" href="pratham-cut-story.html">the story cut →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
   <section class="cs-closing">
-    <span class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
-      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
-    </span>
+    <span class="dot d-pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+    <span class="dot d-yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
     <span class="cs-closing-label">your move</span>
-    <h3>Need to <em>rebuild a donor journey</em>? <em><a href="../say-hi.html">Be our friends.</a></em></h3>
+    <h3>Want people to <em>stay, not just give</em>? <em><a href="../say-hi.html">Be our friends.</a></em></h3>
     <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
-    <a class="cs-next" href="convegenius.html">next case study: convegenius <span class="arrow">&#8594;</span></a>
+    <a class="cs-next" href="rachna-nivas.html">next case study: rachna nivas <span class="arrow">→</span></a>
   </section>
 
   <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     Colors use the tokens declared in styles.css :root. -->
 <style>
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: var(--bg);
-    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
-    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-family: var(--sans);
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
+  .foot { position: relative; z-index: 20; background: var(--bg); padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-fade); letter-spacing: 0.05em; }
   .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: var(--pink); }
-  @media (max-width: 480px) {
-    .foot { justify-content: flex-start; }
-  }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
@@ -933,502 +367,15 @@
 </footer>
 <!--END:FOOT-->
 
-<script>
-(function() {
-
-  const RINGS = [
-    {
-      id: "aware",
-      label: "Aware",
-      radius: 270,
-      strokeWidth: 44,
-      fill: "#FBECB3",
-      hoverFill: "#F2B705",
-      tabOrder: 1,
-      shortTagline: "They've heard of Pratham. That's it.",
-      deepDive: {
-        meaning: "Someone has registered that Pratham exists — a friend mentioned it, they saw a social post, they came across a gala flyer. They couldn't tell you what Pratham does in any detail. They have no relationship yet, just a label in their head.",
-        before: "Pratham's national board saw \"list size\" — total people in the CRM, total newsletter subscribers, total Instagram followers. A growing number meant the top of the funnel was healthy.",
-        after: "Board could see which awareness sources were producing people who moved to the next ring within 12 months — and which were producing names that never moved at all. Gala invite lists did well. Paid social did not.",
-        whoIntro: "",
-        whoList: [
-          "Newsletter subscribers who never open.",
-          "Social-media followers with no other touchpoint.",
-          "Friends-of-donors who attended one event and left.",
-          "People who came in through a gala raffle."
-        ],
-        recommendation: "Stop reporting list size as a headline metric. Track progression rate — how many people in Ring 5 move to Ring 4 within 12 months — and report that instead. Reframe awareness-tier spending as \"what's the next-ring yield on this channel.\""
-      }
-    },
-    {
-      id: "casual",
-      label: "Casual Connection",
-      radius: 215,
-      strokeWidth: 40,
-      fill: "#F9DE85",
-      hoverFill: "#F2B705",
-      tabOrder: 2,
-      shortTagline: "Curious enough to show up.",
-      deepDive: {
-        meaning: "This donor has taken one deliberate action. They attended a gala, donated a small amount after a friend's ask, signed up to volunteer at an event. They know one specific thing about Pratham — probably the education mission, probably the India connection — and they're evaluating whether to go further. They are making small bets and watching what comes back.",
-        before: "Pratham's national board saw a \"new donor\" count and an average first-gift amount. Chapter leaders knew these people mostly by name-at-the-table. Beyond that, invisible.",
-        after: "Board could see who attended which event, what follow-up they got, and which chapter filtered the follow-up. This is where the broken-telephone problem showed up sharpest — the same new-donor list, three chapters, three materially different experiences of the org. Boston sent a warm handwritten card and a site-visit invite. NYC sent a generic tax-receipt email. Bay Area sent a renewal ask three weeks later. Same stage, same organization, three versions of Pratham.",
-        whoIntro: "",
-        whoList: [
-          "First-time gala attendees.",
-          "Small online donors from a friend's fundraiser.",
-          "People who showed up to a volunteer event once.",
-          "New donors acquired through a chapter's employer-matching drive."
-        ],
-        recommendation: "A shared 30-day post-event protocol, visible to HQ. Chapter leaders keep tonal autonomy, but the existence and cadence of follow-up gets standardized so no new donor falls into a chapter-level dead zone."
-      }
-    },
-    {
-      id: "connected",
-      label: "Connected",
-      radius: 165,
-      strokeWidth: 36,
-      fill: "#F7CE55",
-      hoverFill: "#E8A500",
-      tabOrder: 3,
-      shortTagline: "Pratham is their nonprofit now.",
-      deepDive: {
-        meaning: "This donor has internalized Pratham as theirs. They give regularly, not because they're asked, but because it's now part of how they think of themselves. They open the newsletter. They forward the annual report. They ask the chapter leader thoughtful questions. They have started to explain Pratham to their own friends in their own words.",
-        before: "Pratham's national board saw \"renewal rate\" and \"average annual gift.\" These donors looked like steady mid-tier revenue — reliable, not urgent, not a focus. The mid-tier was precisely where the 2020 collapse hurt most, but pre-engagement there was no stage-aware read on it; they were a dollar bucket.",
-        after: "Board could see the signals that distinguish a Connected donor who will deepen from one who will drift. Attendance patterns, correspondence depth, whether they had seen Pratham's India work firsthand. The mid-tier stopped being \"people who gave $2K-$10K\" and started being \"people in the stage right before Permanent Bond, if we don't lose them.\"",
-        whoIntro: "",
-        whoList: [
-          "Multi-year recurring donors.",
-          "Gala table hosts who come back each year.",
-          "Volunteers who've shown up more than twice.",
-          "Lapsed major donors from 2019 who are still on the list.",
-          "Chapter board members early in their tenure."
-        ],
-        recommendation: "Get every Connected donor into a room with the actual work — a site visit in India is the strongest vehicle, but the operative thing isn't the trip, it's the moment the org stops being a cause and becomes a specific room of people. This is where the information-flow breakdown was costing Pratham the most donors, and it's the ring where designed exposure to the real work moves people inward most reliably."
-      }
-    },
-    {
-      id: "deepened",
-      label: "Deepened Connection",
-      radius: 120,
-      strokeWidth: 32,
-      fill: "#F2B705",
-      hoverFill: "#D79400",
-      tabOrder: 4,
-      shortTagline: "They've seen the schools. They know names.",
-      deepDive: {
-        meaning: "Something unscalable happened. They visited a Pratham school in India, spent a day with a program leader, or had a long dinner with Rukmini Banerji. The abstraction became specific. They can name a village, a teacher, a program. They give at higher levels now, but that's a side effect — the ring is defined by the moment when Pratham stopped being a cause and became people they know.",
-        before: "Pratham's national board saw \"major donors\" — a dollar-defined bucket that mixed people who'd been to the ground with people who wrote checks from afar. The two groups had almost nothing in common as donors, but they were reported identically.",
-        after: "Board could separate site-visit alumni from check-writers-who-haven't-been. The first group retains at near-100% and grows their giving. The second group retains unpredictably. Treating them differently required knowing they were different — and the old dashboard did not know.",
-        whoIntro: "",
-        whoList: [
-          "Site-visit alumni.",
-          "Event hosts who've hosted multiple times.",
-          "Donors who have met Rukmini or senior India leadership in person.",
-          "Long-tenured chapter board members.",
-          "People who have brought their family into Pratham."
-        ],
-        recommendation: "Protect the unscalable experiences. There was internal pressure to reduce site-visit frequency on cost grounds. The recommendation was to do the opposite — invest in making these visits more frequent and more accessible to Ring 3 donors, because the ROI isn't the visit cost, it's the next 20 years of that donor's giving."
-      }
-    },
-    {
-      id: "permanent",
-      label: "Permanent Bond",
-      radius: 78,
-      strokeWidth: 28,
-      fill: "#E8A500",
-      hoverFill: "#B87800",
-      tabOrder: 5,
-      shortTagline: "Pratham is in their life, for good.",
-      deepDive: {
-        meaning: "Pratham has become part of how this donor thinks about their own life — their philanthropy, their identity, their annual rhythm. They will give for the rest of their lives. They recruit other donors without being asked. They show up not because they're invited but because they would feel strange not showing up. Many — but not all — are giving at the highest levels. A few are giving less than that, and they're no less in this ring for it.",
-        before: "Pratham's national board saw a \"top donors\" list sorted by annual gift size. The list reinforced the idea that dollar amount and depth-of-relationship were the same thing. Sometimes they are. Often they aren't. This is where the old Excel pie chart misled most directly — it labeled some of Pratham's deepest relationships as \"mid-tier\" because the annual number wasn't the biggest in the room.",
-        beforeFigure: {
-          src: "../images/work/pratham/slide11-card-bg.webp",
-          alt: "Pratham's pre-engagement donor-grouping pie chart with three dollar-based slices.",
-          caption: "Pratham's pre-engagement donor dashboard. Three dollar buckets — over $5,000, $1,000-$5,000, $100-$1,000. This was the chart Joyus's work replaced. The rings you're looking at now are what took its place."
-        },
-        after: "Board could see relational permanence as a distinct signal from current year's gift. A lapsed site-visit alum with a multi-decade history was no longer invisible just because last year's check was smaller. A board member who showed up to everything was legible as Permanent Bond even in a quiet giving year.",
-        whoIntro: "",
-        whoList: [
-          "Site-visit alumni with 10+ year histories.",
-          "Founding-era chapter board members.",
-          "Donors who bring their adult children into Pratham.",
-          "Long-form-publication readers — the survey insight: this audience skewed disproportionately into this ring.",
-          "Multi-decade recurring givers regardless of annual amount."
-        ],
-        recommendation: "Re-rank this ring independently of annual gift size. Track depth signals — site visits, multi-year retention, publication engagement, inter-chapter referrals, family-level involvement — and report them alongside dollars. Then ask the uncomfortable question the old dashboard was built to avoid: which of our \"top 50 donors by dollars\" are actually in this ring, and which are just having a good year?"
-      }
-    }
-  ];
-
-  const CENTER = {
-    id: "center",
-    label: "The person at the center",
-    shortTagline: "Why Joyus rebuilt the dashboard around this human.",
-    deepDive: {
-      meaning: "Pratham's donors come in at different levels, fall in love at different specifics, and stay for different reasons. Before this engagement, the org grouped them by annual gift size. After, by where they stood in this diagram — closer to the center meaning closer to the work, not closer to the biggest check.\n\nClick any ring to read who lives there, what Pratham could see about them before and after, and the one process change that moved them inward."
-    }
-  };
-
-  const ALL_ITEMS = RINGS.slice().sort(function(a, b) { return a.tabOrder - b.tabOrder; }).concat([CENTER]);
-
-  let activeRingId = null;
-  let swapTimeout = null;
-  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-  function isReduced() { return prefersReduced.matches; }
-
-  function escapeHTML(str) {
-    return str
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;");
-  }
-
-  function buildPanelHTML(data, ringId) {
-    const dd = data.deepDive;
-    const meaningParas = dd.meaning.split("\n\n").map(function(p) {
-      return "<p>" + escapeHTML(p) + "</p>";
-    }).join("");
-
-    let html = "<div class=\"pr-panel-fade\">";
-    html += "<h3 class=\"sr-only\">" + escapeHTML(data.label) + " — deep dive</h3>";
-
-    html += "<section class=\"pr-block-meaning\">";
-    html += "<p class=\"pr-block-eyebrow\">What this stage means</p>";
-    html += meaningParas;
-    html += "</section>";
-
-    if (ringId !== "center") {
-      html += "<section class=\"pr-block-ba\">";
-      html += "<p class=\"pr-block-eyebrow\">What Pratham's national board could see — before vs. after</p>";
-      html += "<div class=\"pr-ba-grid\">";
-
-      html += "<div class=\"pr-ba-col\">";
-      html += "<h4 class=\"pr-ba-label\">Before</h4>";
-      html += "<p>" + escapeHTML(dd.before) + "</p>";
-      if (dd.beforeFigure) {
-        const fig = dd.beforeFigure;
-        html += "<figure class=\"pr-ba-fig\">";
-        html += "<img src=\"" + escapeHTML(fig.src) + "\" alt=\"" + escapeHTML(fig.alt) + "\" loading=\"lazy\" onerror=\"this.parentElement.style.display='none'\">";
-        html += "<figcaption>" + escapeHTML(fig.caption) + "</figcaption>";
-        html += "</figure>";
-      }
-      html += "</div>";
-
-      html += "<div class=\"pr-ba-col\">";
-      html += "<h4 class=\"pr-ba-label\">After</h4>";
-      html += "<p>" + escapeHTML(dd.after) + "</p>";
-      html += "</div>";
-
-      html += "</div></section>";
-
-      html += "<section class=\"pr-block-who\">";
-      html += "<p class=\"pr-block-eyebrow\">Who lives in this ring</p>";
-      if (dd.whoIntro) html += "<p>" + escapeHTML(dd.whoIntro) + "</p>";
-      html += "<ul>";
-      dd.whoList.forEach(function(item) {
-        html += "<li>" + escapeHTML(item) + "</li>";
-      });
-      html += "</ul></section>";
-
-      html += "<section class=\"pr-block-rec\">";
-      html += "<p class=\"pr-block-eyebrow\">What Joyus recommended</p>";
-      html += "<p>" + escapeHTML(dd.recommendation) + "</p>";
-      html += "</section>";
-    }
-
-    html += "</div>";
-    return html;
-  }
-
-  function renderPanel(ringId) {
-    const panel = document.querySelector(".pr-panel");
-    const body = document.getElementById("pr-panel-body");
-    const titleEl = panel.querySelector(".pr-panel-title");
-    const taglineEl = panel.querySelector(".pr-panel-tagline");
-    const closeBtn = panel.querySelector(".pr-panel-close");
-
-    if (ringId === null) {
-      panel.classList.remove("is-populated");
-      body.innerHTML = "<p class=\"pr-panel-prompt\">Click a ring to look inside.</p>";
-      titleEl.textContent = "";
-      taglineEl.textContent = "";
-      closeBtn.hidden = true;
-      return;
-    }
-
-    const data = ringId === "center" ? CENTER : RINGS.find(function(r) { return r.id === ringId; });
-    const html = buildPanelHTML(data, ringId);
-
-    titleEl.textContent = data.label;
-    taglineEl.textContent = data.shortTagline;
-    closeBtn.hidden = false;
-
-    const existingFade = body.querySelector(".pr-panel-fade");
-
-    if (existingFade && !isReduced()) {
-      clearTimeout(swapTimeout);
-      existingFade.classList.add("is-swapping");
-      swapTimeout = setTimeout(function() {
-        body.innerHTML = html;
-        panel.classList.add("is-populated");
-        const newFade = body.querySelector(".pr-panel-fade");
-        if (newFade) {
-          newFade.classList.add("is-swapping");
-          requestAnimationFrame(function() {
-            requestAnimationFrame(function() {
-              newFade.classList.remove("is-swapping");
-            });
-          });
-        }
-        scrollPanelIntoView(body);
-      }, 120);
-    } else {
-      clearTimeout(swapTimeout);
-      body.innerHTML = html;
-      panel.classList.add("is-populated");
-      scrollPanelIntoView(body);
-    }
-  }
-
-  function scrollPanelIntoView(body) {
-    const rect = body.getBoundingClientRect();
-    if (rect.top < 80 || rect.top > window.innerHeight - 200) {
-      body.scrollIntoView({
-        behavior: isReduced() ? "auto" : "smooth",
-        block: "nearest"
-      });
-    }
-  }
-
-  function renderRings(newId) {
-    const rings = document.querySelectorAll(".pr-ring");
-    const labels = document.querySelectorAll(".pr-label");
-    const legendBtns = document.querySelectorAll(".pr-legend button");
-
-    rings.forEach(function(ring) {
-      const rid = ring.getAttribute("data-ring-id");
-      ring.classList.remove("is-active", "is-dimmed");
-      ring.setAttribute("aria-pressed", "false");
-      if (newId !== null) {
-        if (rid === newId) {
-          ring.classList.add("is-active");
-          ring.setAttribute("aria-pressed", "true");
-        } else {
-          ring.classList.add("is-dimmed");
-        }
-      }
-    });
-
-    labels.forEach(function(label) {
-      const rid = label.getAttribute("data-ring-id");
-      label.classList.remove("is-dimmed");
-      if (newId !== null && rid !== newId) {
-        label.classList.add("is-dimmed");
-      }
-    });
-
-    legendBtns.forEach(function(btn) {
-      const rid = btn.getAttribute("data-legend-id");
-      btn.classList.remove("is-active", "is-dimmed");
-      btn.setAttribute("aria-pressed", "false");
-      if (newId !== null) {
-        if (rid === newId) {
-          btn.classList.add("is-active");
-          btn.setAttribute("aria-pressed", "true");
-        } else {
-          btn.classList.add("is-dimmed");
-        }
-      }
-    });
-
-    const avatar = document.getElementById("pr-ring-center");
-    if (avatar) {
-      avatar.setAttribute("aria-pressed", newId === "center" ? "true" : "false");
-    }
-  }
-
-  function setActive(ringId) {
-    if (activeRingId === ringId) {
-      activeRingId = null;
-    } else {
-      activeRingId = ringId;
-    }
-    renderRings(activeRingId);
-    renderPanel(activeRingId);
-  }
-
-  function clearActive(returnFocusId) {
-    activeRingId = null;
-    renderRings(null);
-    renderPanel(null);
-    if (returnFocusId) {
-      const el = document.querySelector("[data-ring-id=\"" + returnFocusId + "\"].pr-ring") ||
-                 document.getElementById("pr-ring-center");
-      if (el) el.focus();
-    }
-  }
-
-  function getOrderedFocusables() {
-    const items = [];
-    ALL_ITEMS.forEach(function(item) {
-      if (item.id === "center") {
-        const el = document.getElementById("pr-ring-center");
-        if (el) items.push({ id: "center", el: el });
-      } else {
-        const el = document.querySelector(".pr-ring[data-ring-id=\"" + item.id + "\"]");
-        if (el) items.push({ id: item.id, el: el });
-      }
-    });
-    return items;
-  }
-
-  function getFocusedRingId() {
-    const focused = document.activeElement;
-    if (!focused) return null;
-    const ringId = focused.getAttribute("data-ring-id");
-    if (ringId) return ringId;
-    if (focused.id === "pr-ring-center") return "center";
-    return null;
-  }
-
-  function moveFocus(direction) {
-    const focusables = getOrderedFocusables();
-    const currentId = getFocusedRingId();
-    if (!currentId) return;
-    const idx = focusables.findIndex(function(f) { return f.id === currentId; });
-    if (idx === -1) return;
-
-    let nextIdx;
-    if (direction === "inward") {
-      nextIdx = idx < focusables.length - 1 ? idx + 1 : 0;
-    } else {
-      nextIdx = idx > 0 ? idx - 1 : focusables.length - 1;
-    }
-    focusables[nextIdx].el.focus();
-  }
-
-  // Wire ring clicks
-  document.querySelectorAll(".pr-ring").forEach(function(ring) {
-    ring.addEventListener("click", function() {
-      setActive(ring.getAttribute("data-ring-id"));
-    });
-
-    ring.addEventListener("keydown", function(e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        setActive(ring.getAttribute("data-ring-id"));
-      }
-      if (e.key === "ArrowRight" || e.key === "ArrowUp") {
-        e.preventDefault();
-        moveFocus("inward");
-      }
-      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
-        e.preventDefault();
-        moveFocus("outward");
-      }
-    });
-
-    ring.addEventListener("focus", function() {
-      const group = ring.closest(".pr-ring-group");
-      if (group) group.classList.add("is-focused");
-    });
-    ring.addEventListener("blur", function() {
-      const group = ring.closest(".pr-ring-group");
-      if (group) group.classList.remove("is-focused");
-    });
-  });
-
-  // Wire avatar
-  const avatarEl = document.getElementById("pr-ring-center");
-  if (avatarEl) {
-    avatarEl.addEventListener("click", function() { setActive("center"); });
-    avatarEl.addEventListener("keydown", function(e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        setActive("center");
-      }
-      if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
-        e.preventDefault();
-        moveFocus("outward");
-      }
-    });
-    avatarEl.addEventListener("focus", function() { avatarEl.classList.add("is-focused"); });
-    avatarEl.addEventListener("blur", function() { avatarEl.classList.remove("is-focused"); });
-  }
-
-  // Wire close button
-  const closeBtn = document.querySelector(".pr-panel-close");
-  if (closeBtn) {
-    closeBtn.addEventListener("click", function() {
-      const prevId = activeRingId;
-      clearActive(prevId);
-    });
-  }
-
-  // Wire legend buttons
-  document.querySelectorAll(".pr-legend button").forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      setActive(btn.getAttribute("data-legend-id"));
-    });
-  });
-
-  // Global Esc
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape" && activeRingId !== null) {
-      const prevId = activeRingId;
-      clearActive(prevId);
-    }
-  });
-
-  // Tooltip
-  const tooltip = document.querySelector(".pr-tooltip");
-  let tooltipHideTimer = null;
-
-  document.querySelectorAll(".pr-ring").forEach(function(ring) {
-    ring.addEventListener("mouseenter", function(e) {
-      if (!tooltip) return;
-      const data = RINGS.find(function(r) { return r.id === ring.getAttribute("data-ring-id"); });
-      if (!data) return;
-      clearTimeout(tooltipHideTimer);
-      tooltip.textContent = data.shortTagline;
-      tooltip.style.display = "block";
-      tooltip.style.left = (e.clientX + 14) + "px";
-      tooltip.style.top = (e.clientY + 14) + "px";
-      requestAnimationFrame(function() { tooltip.classList.add("is-visible"); });
-    });
-
-    ring.addEventListener("mousemove", function(e) {
-      if (!tooltip) return;
-      tooltip.style.left = (e.clientX + 14) + "px";
-      tooltip.style.top = (e.clientY + 14) + "px";
-    });
-
-    ring.addEventListener("mouseleave", function() {
-      if (!tooltip) return;
-      tooltip.classList.remove("is-visible");
-      tooltipHideTimer = setTimeout(function() { tooltip.style.display = "none"; }, 120);
-    });
-  });
-
-})();
-</script>
-<!-- Firebase / GA -->
-<script>
-  (function() {
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-K7PDLTYWF6';
-    document.head.appendChild(s);
-  })();
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-K7PDLTYWF6');
-</script>
-
+  <script>
+    var fill = document.getElementById('threadFill');
+    window.addEventListener('scroll', function () { var total = document.body.scrollHeight - window.innerHeight; fill.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%'; }, { passive: true });
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
 </body>
 </html>

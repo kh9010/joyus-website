@@ -3,131 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A first session, annotated — Tatsam's onboarding walkthrough with Bhavna, a fictional first-time user. Brand, visual language, product strategy and B2B research by Joyus Studio.">
-  <meta property="og:title" content="tatsam — A first session, annotated — Joyus Studio">
-  <meta property="og:description" content="We walk through Tatsam's onboarding with Bhavna — a fictional first-time user — while the design decisions behind each screen whisper from the margin.">
-  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/tatsam/cover.webp">
+  <meta name="description" content="Tatsam — holistic workplace wellbeing built on one belief: grow people's strengths, don't catalogue their deficits. Joyus built the whole company — research, brand, product and pitch.">
+  <meta property="og:title" content="Tatsam — Joyus Studio">
+  <meta property="og:description" content="A whole-company engagement for a workplace-wellbeing startup: a four-instrument diagnostic, a strengths-first brand, a code-ready product, and the pitch that framed a $50B problem.">
+  <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/tatsam.html">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/tatsam.html">
-  <title>tatsam — A first session, annotated — Joyus Studio</title>
+  <title>Tatsam — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="../styles.css?v=4">
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"tatsam","description":"A first session, annotated — Tatsam onboarding walkthrough with a fictional first-time user. Brand, visual language, product strategy and B2B research by Joyus Studio.","url":"https://kh9010.github.io/joyus-website/work/tatsam.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
-</script>
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"Tatsam","description":"A whole-company engagement for the workplace-wellbeing startup Tatsam — a four-instrument wellbeing diagnostic, a strengths-first brand, a code-ready product, and the investor pitch.","url":"https://kh9010.github.io/joyus-website/work/tatsam.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body.cg { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .cg img { max-width: 100%; display: block; }
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600; }
+    .thread-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan)); transition: width 0.1s linear; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
+
+    /* ---- HERO (canonical agemo/rachna pattern) ---- */
+    .hero { position: relative; overflow: hidden; padding: clamp(7rem, 15vh, 11rem) var(--x) clamp(3rem, 6vh, 5rem); }
+    .hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.6rem; }
+    .hero-eyebrow::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--pink); }
+    .hero h1 { font-weight: 700; font-size: clamp(2.6rem, 6.5vw, 5.2rem); line-height: 1.0; letter-spacing: -0.045em; max-width: 16ch; margin: 0; }
+    .hero h1 .strike { text-decoration: line-through; text-decoration-thickness: 3px; text-decoration-color: var(--ink-fade); color: var(--ink-fade); }
+    .hero h1 .accent, .hero h1 .replace { color: var(--pink); }
+    .hero-deck { font-size: clamp(1.08rem, 1.5vw, 1.32rem); line-height: 1.6; color: var(--ink-soft); max-width: 60ch; margin-top: 1.6rem; }
+    .hero-deck strong { color: var(--ink); font-weight: 600; }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 1.4rem 2.6rem; margin-top: 2.4rem; border-top: 1px solid var(--rule); padding-top: 1.6rem; }
+    .hero-meta span { display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-fade); }
+    .hero-meta strong { font-size: 0.98rem; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); }
+    .hero .hd1 { width: 200px; height: 200px; top: 20%; right: -4%; background: var(--pink); opacity: 0.9; }
+    .hero .hd2 { width: 46px; height: 46px; bottom: 16%; left: 4%; background: var(--cyan); }
+    .hero .hd3 { width: 20px; height: 20px; top: 16%; right: 26%; background: var(--yellow); }
+    .hero .hd4 { width: 13px; height: 13px; bottom: 26%; right: 18%; background: var(--pink); }
+
+    /* ---- BODY SECTIONS ---- */
+    .sec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vh, 6.5rem) var(--x); }
+    .sec.alt { background: #fff; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+    .sec-eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); }
+    .sec.lens-research .sec-eyebrow::before { background: var(--yellow); }
+    .sec.lens-brand .sec-eyebrow::before { background: var(--pink); }
+    .sec.lens-product .sec-eyebrow::before { background: var(--cyan); }
+    .sec.lens-story .sec-eyebrow::before { background: var(--ink); }
+    .sec-title { font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.035em; max-width: 24ch; margin: 0 0 1.4rem; }
+    .sec-title em { font-style: normal; color: var(--pink); }
+    .sec-deck { font-size: clamp(1.05rem, 1.4vw, 1.22rem); line-height: 1.65; color: var(--ink); max-width: 64ch; margin: 0 0 1.1rem; }
+    .sec-deck.soft { color: var(--ink-soft); }
+    .sec-deck strong { font-weight: 600; }
+    .sec-deck em { font-style: italic; color: var(--ink); }
+
+    .bridge { text-align: center; font-family: var(--hand); font-size: clamp(1.4rem, 2.6vw, 1.9rem); color: var(--ink-fade); padding: clamp(1.5rem, 3vh, 2.5rem) var(--x); }
+    .bridge em { font-style: normal; color: var(--pink); }
+
+    /* thesis quote */
+    .thesis { font-weight: 600; font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.3; letter-spacing: -0.02em; max-width: 26ch; }
+    .thesis mark { background: rgba(233,30,123,0.16); color: inherit; padding: 0 0.1em; }
+    .hero-construct { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .hero-construct .c { font-size: 0.9rem; font-weight: 500; padding: 0.45rem 0.95rem; border-radius: 999px; background: #fff; border: 1px solid var(--rule); }
+    .sec.alt .hero-construct .c { background: var(--bg); }
+    .hero-construct .c b { color: var(--pink); }
+
+    /* stat row */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0 0; }
+    .statcard { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--yellow); border-radius: 14px; padding: 1.3rem; }
+    .sec.alt .statcard { background: var(--bg); }
+    .statcard .big { font-weight: 700; font-size: clamp(1.7rem, 3.4vw, 2.4rem); letter-spacing: -0.03em; color: var(--pink); line-height: 1; }
+    .statcard p { font-size: 0.86rem; line-height: 1.4; color: var(--ink-soft); margin: 0.5rem 0 0; }
+
+    .fig { margin: 1.6rem 0 0; }
+    .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
+    .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+    .fig-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+    .phones { display: flex; gap: 1rem; overflow-x: auto; padding: 1.5rem 0 0.5rem; }
+    .phones img { width: 196px; flex: 0 0 auto; border-radius: 18px; border: 1px solid var(--rule); box-shadow: 0 10px 28px rgba(44,53,68,0.12); }
+
+    .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 30ch; margin: 1.6rem 0 0; }
+    .pull em { font-style: normal; color: var(--pink); }
+    .cut-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.6rem; font-weight: 600; color: var(--ink); border-bottom: 2px solid var(--pink); padding-bottom: 2px; }
+    .cut-link:hover { color: var(--pink); }
+
+    /* takeaways (dark) — numbered lessons */
+    .takeaways { background: var(--ink); color: #fff; position: relative; overflow: hidden; padding: clamp(4rem, 9vh, 7rem) var(--x); }
+    .takeaways-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .takeaways .sec-eyebrow { color: var(--yellow); }
+    .takeaways .sec-eyebrow::before { background: var(--yellow); }
+    .takeaways h2 { font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.7rem); letter-spacing: -0.035em; line-height: 1.1; margin: 0 0 1.8rem; max-width: 22ch; }
+    .takeaways h2 em { font-style: normal; color: var(--pink); }
+    .takeaway-list { counter-reset: t; list-style: none; margin: 0 0 2.4rem; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 2.4rem; }
+    .takeaway-list li { counter-increment: t; position: relative; padding-left: 2.6rem; font-size: 1.02rem; line-height: 1.55; color: rgba(255,255,255,0.85); }
+    .takeaway-list li::before { content: counter(t, decimal-leading-zero); position: absolute; left: 0; top: 0.1rem; font-weight: 700; font-size: 0.95rem; color: var(--yellow); letter-spacing: 0.05em; }
+    .takeaway-list li b { color: #fff; font-weight: 600; }
+    .cut-ctas { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+    .cut-cta { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 0.98rem; padding: 0.85rem 1.4rem; border-radius: 999px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; }
+    .cut-cta:hover { transform: translateY(-2px); }
+    .cc-research { background: var(--yellow); color: var(--ink); box-shadow: 0 6px 0 #c99a1f; }
+    .cc-brand { background: var(--pink); color: #fff; box-shadow: 0 6px 0 #9a1453; }
+    .cc-product { background: var(--cyan); color: var(--ink); box-shadow: 0 6px 0 #2d8b93; }
+    .cc-story { background: #fff; color: var(--ink); box-shadow: 0 6px 0 #b9b3a8; }
+
+    /* closing */
+    .cs-closing { position: relative; overflow: hidden; padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem); border-top: 2px solid var(--ink); }
+    .cs-closing-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; display: inline-flex; align-items: center; gap: 0.75rem; }
+    .cs-closing-label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); }
+    .cs-closing h3 { font-weight: 600; font-size: clamp(1.5rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.2; max-width: 22ch; margin: 0; }
+    .cs-closing h3 em { font-style: normal; color: var(--pink); }
+    .cs-closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
+    .cs-closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+    .cs-closing-hint { display: block; font-size: 0.9rem; color: var(--ink-fade); margin-top: 1.25rem; }
+    .cs-next { display: inline-block; margin-top: 2rem; font-weight: 600; color: var(--ink); }
+    .cs-next:hover { color: var(--pink); }
+    .cs-next .arrow { transition: transform 0.25s; display: inline-block; }
+    .cs-next:hover .arrow { transform: translateX(4px); }
+
+    @media (max-width: 720px) { .stats, .fig-2, .takeaway-list { grid-template-columns: 1fr; } .stats { grid-template-columns: 1fr 1fr; } .hero .hd1 { width: 130px; height: 130px; } }
+  </style>
 </head>
-<body class="work-page" data-accent="pink">
+<body class="cg work-page" data-accent="pink">
+  <div class="thread"><div class="thread-fill" id="threadFill"></div></div>
 
   <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../")
-     Colors use the tokens declared in styles.css :root. -->
 <style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    padding-top: max(1.25rem, env(safe-area-inset-top));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    font-family: var(--sans);
-  }
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: var(--sans); }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-links {
-    display: flex; gap: 1.75rem; align-items: center;
-    list-style: none; padding: 0; margin: 0;
-  }
-  .nav .nav-links a {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
   .nav .nav-links a:hover { color: var(--pink); }
-  .nav .nav-links a.active {
-    color: var(--ink);
-    font-weight: 500;
-    border-bottom-color: var(--pink);
-  }
+  .nav .nav-links a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--pink); }
   .nav .nav-cta { color: var(--ink); font-weight: 500; }
   .nav .nav-cta:hover { color: var(--pink); }
-
-  /* Hamburger button — hidden on desktop */
-  .nav-toggle {
-    display: none;
-    width: 44px; height: 44px;
-    background: transparent; border: 0; padding: 0;
-    cursor: pointer; position: relative; z-index: 510;
-    align-items: center; justify-content: center;
-  }
-  .nav-toggle span {
-    display: block; width: 24px; height: 2px;
-    background: var(--ink); border-radius: 2px;
-    position: absolute;
-    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
-  }
-  .nav-toggle span:nth-child(1) { top: 14px; }
-  .nav-toggle span:nth-child(2) { top: 21px; }
-  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; } .nav-toggle span:nth-child(2) { top: 21px; } .nav-toggle span:nth-child(3) { top: 28px; }
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-
   @media (max-width: 720px) {
-    .nav {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(250, 247, 242, 0.95);
-    }
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
     .nav-toggle { display: inline-flex; }
-    .nav .nav-links {
-      position: fixed;
-      inset: 0;
-      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
-      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 1.75rem;
-      background: var(--white);
-      border-left: 4px solid var(--ink);
-      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      z-index: 505;
-    }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: var(--white); border-left: 4px solid var(--ink); box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
     .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: var(--ink); }
     .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
@@ -139,362 +178,174 @@
 </nav>
 <script>
   (function(){
-    var path = window.location.pathname;
-    var active = null;
+    var path = window.location.pathname; var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
     else if (/say-hi\.html/.test(path)) active = 'say-hi';
-    if (active) {
-      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
-      }
-    }
-    // hamburger toggle
-    var toggle = document.querySelector('.nav-toggle');
-    var menu = document.querySelector('.nav .nav-links');
+    if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active'); } }
+    var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
-      var close = function() {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = menu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      // close on link tap
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', close);
-      });
-      // close on escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu.classList.contains('open')) close();
-      });
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
     }
   })();
 </script>
 <!--END:NAV-->
 
-<!-- SENSITIVITY-REVIEW-PENDING: mental-health case study. Bhavna's six interior lines
-     require one read-aloud approval by Kahran or Divya, plus one read-through by a
-     reviewer who has been through first-session anxiety. Do not publish until both
-     are logged in .site-rebuild/reviews/work-tatsam-sensitivity.md. See brief §6, §8. -->
-<main>
-
-  <header class="cs-cover">
-    <div class="cs-cover-image" style="background-image:url('../images/work/tatsam/cover.webp');" role="img" aria-label="Tatsam brand imagery — a dusk-mountain horizon with a teal rising sun, the tatsam wordmark at the lower-left"></div>
-    <div class="cs-cover-meta">
-      <p class="cs-eyebrow">a case study</p>
-      <h1>A first session, annotated.</h1>
-      <p class="cs-tagline">We walk through Tatsam's onboarding with Bhavna — a fictional first-time user — while the design decisions behind each screen whisper from the margin.</p>
-      <ul class="cs-services">
-        <li>Brand Building</li>
-        <li>Visual Language</li>
-        <li>Product Strategy</li>
-        <li>B2B Research Reports</li>
-      </ul>
-      <div class="cs-meta-row">
-        <span>India</span>
-        <span>10–50 employees</span>
-        <span>Seed funded</span>
+  <!-- HERO -->
+  <header class="hero">
+    <span class="dot hd1"></span>
+    <span class="dot hd2"></span>
+    <span class="dot hd3"></span>
+    <span class="dot hd4"></span>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Tatsam · Holistic workplace wellbeing · Case study</span>
+      <h1>We didn't fix what was <span class="strike">wrong</span>.<br/>We grew what was <span class="accent">strong</span>.</h1>
+      <p class="hero-deck">Tatsam is holistic wellbeing for the overwhelmed modern professional — built on a single bet: mental health improves faster when you grow people's <strong>strengths</strong> than when you catalogue their deficits. We worked across the whole company — the research that proved the need, the brand that gave it a voice, the product that made it real, and the pitch that took it to market.</p>
+      <div class="hero-meta">
+        <span>Engagement<strong>Tatsam &times; Joyus</strong></span>
+        <span>Discipline<strong>Research · Brand · Product · Story</strong></span>
+        <span>Year<strong>2021</strong></span>
       </div>
     </div>
   </header>
 
-  <section class="ts-promise" id="ts-promise" aria-label="About Bhavna">
-    <p class="ts-promise-body">
-      To show how the product feels to someone arriving for the first time, we've walked through it with <strong>Bhavna</strong> — a fictional user, based on the patterns Tatsam's team sees in real onboarding data. No real user's story is reproduced here. The screens on the left are what Bhavna sees. The notes on the right are the design decisions behind each one — written small, because the product's job is to disappear.
-    </p>
-    <p class="ts-promise-sig">— Joyus Studio</p>
-  </section>
-
-  <section class="ts-walk" aria-label="Bhavna's first session, with design notes">
-
-    <article class="ts-moment" data-ts-moment="1">
-      <header class="ts-moment-head">
-        <p class="ts-moment-num"><span aria-hidden="true">Moment 1 — </span></p>
-        <h2 id="moment-1">Opening the app</h2>
-      </header>
-
-      <figure class="ts-screen">
-        <img src="../images/work/tatsam/slide108-product-1.webp"
-             alt="Tatsam opening screen: a hand holds a pine sprig above a dusk-mountain horizon, with the tatsam wordmark and a plus-sign logo, and buttons labelled LET'S START and LOG IN"
-             width="820" height="1458"
-             loading="eager">
-        <figcaption class="ts-screen-cap">Opening screen — a photograph of a pine sprig held above a mountain at dusk; two buttons read LET'S START and LOG IN.</figcaption>
-      </figure>
-
-      <!-- KAHRAN-REVIEW: Bhavna monologue placeholder — Kahran/Divya to rewrite -->
-      <blockquote class="ts-interior" data-ts-hold="bhavna" cite="#ts-promise">
-        <p>A pine branch. A mountain. Two buttons. I don't know why I was bracing.</p>
-        <cite>— Bhavna</cite>
-      </blockquote>
-
-      <aside class="ts-note" role="note" aria-labelledby="ts-note-label-1">
-        <span class="ts-note-label" id="ts-note-label-1">design note</span>
-        <p class="ts-note-decision"><em>No checklist, no symptom intake, no medical imagery on first paint.</em></p>
-        <p class="ts-note-reason">Two photographs — a plant cradled in a hand, a horizon at dusk — and two verbs: LET'S START, LOG IN. No mood slider, no PHQ-9, no "how bad is it today?" Category convention pushes hard toward symptom-first intake; we threw it out. Someone opening this app for the first time is already carrying the feeling that something is wrong — a screen that confirms it before saying hello is the fastest way to close the app. The first paint shows evidence of care without asking for anything in return. Tradeoff: a new user doesn't immediately know what the app does. We decided ambiguity costs less than a medicalised welcome.</p>
-      </aside>
-    </article>
-
-    <article class="ts-moment" data-ts-moment="2">
-      <header class="ts-moment-head">
-        <p class="ts-moment-num"><span aria-hidden="true">Moment 2 — </span></p>
-        <h2 id="moment-2">The first question: what to call you</h2>
-      </header>
-
-      <figure class="ts-screen">
-        <img src="../images/work/tatsam/slide108-product-2.webp"
-             alt="Tatsam onboarding: &quot;Welcome to this journey! What should we call you?&quot; An input field shows placeholder text &quot;You can use your name or a nickname.&quot;"
-             width="820" height="1458"
-             loading="lazy">
-        <figcaption class="ts-screen-cap">Onboarding screen — "Welcome to this journey! What should we call you?" with an input field showing "You can use your name or a nickname."</figcaption>
-      </figure>
-
-      <!-- KAHRAN-REVIEW: Bhavna monologue placeholder — Kahran/Divya to rewrite -->
-      <blockquote class="ts-interior" data-ts-hold="bhavna" cite="#ts-promise">
-        <p>It said nickname. I wasn't ready for my real name. I typed the one my sister uses.</p>
-        <cite>— Bhavna</cite>
-      </blockquote>
-
-      <aside class="ts-note" role="note" aria-labelledby="ts-note-label-2">
-        <span class="ts-note-label" id="ts-note-label-2">design note</span>
-        <p class="ts-note-decision"><em>The first input is identity, and it's optional.</em></p>
-        <p class="ts-note-reason">One line of text — no last name, no email, no "please verify." We tested flows that front-loaded account creation; the drop-off between "What should we call you?" and "Enter your email" was the cliff everything fell off. Account data moves later, after the user has had a low-stakes exchange with the product first. The placeholder — "you can use your name or a nickname" — gives permission to lie. For someone whose relationship to their own name is loaded (a diagnosis attached, a family that uses it wrong), the nickname option isn't a cute touch, it's the reason they continue. Tradeoff: no verified identity on screen one. What we keep: the person.</p>
-      </aside>
-    </article>
-
-    <article class="ts-moment" data-ts-moment="3">
-      <header class="ts-moment-head">
-        <p class="ts-moment-num"><span aria-hidden="true">Moment 3 — </span></p>
-        <h2 id="moment-3">Five faces, not ten numbers</h2>
-      </header>
-
-      <figure class="ts-screen">
-        <img src="../images/work/tatsam/slide108-product-3.webp"
-             alt="Tatsam onboarding: &quot;Hi! Bhavna, we'd like to know a bit more about you. How are you feeling today?&quot; Five square face icons range from distressed on the left to content on the right."
-             width="820" height="1458"
-             loading="lazy">
-        <figcaption class="ts-screen-cap">Mood check-in screen — "How are you feeling today?" with five face icons from distressed to content.</figcaption>
-      </figure>
-
-      <!-- KAHRAN-REVIEW: Bhavna monologue placeholder — Kahran/Divya to rewrite -->
-      <blockquote class="ts-interior" data-ts-hold="bhavna" cite="#ts-promise">
-        <p>Five faces. Not a slider. I picked the one in the middle. I didn't have to decide if it was a three or a four.</p>
-        <cite>— Bhavna</cite>
-      </blockquote>
-
-      <aside class="ts-note" role="note" aria-labelledby="ts-note-label-3">
-        <span class="ts-note-label" id="ts-note-label-3">design note</span>
-        <p class="ts-note-decision"><em>Feeling isn't a score.</em></p>
-        <p class="ts-note-reason">The category default is a 0–10 slider — clean number, charts well, tracks against PHQ-9 / GAD-7. After a week with Tatsam's clinical advisors we walked away from it for the first check-in. A slider asks you to introspect and quantify in the same motion; five faces let you gesture at a state without committing to a rank you might not trust. The faces were redrawn three times — we pulled back expressiveness each round, because anything too cartoon-legible started to feel like it was telling you how to feel. The tradeoff: five buckets is a coarser signal than ten. We recovered that resolution in Moment 5, where rating has earned its place. Here, precision would be false precision.</p>
-      </aside>
-    </article>
-
-    <article class="ts-moment" data-ts-moment="4">
-      <header class="ts-moment-head">
-        <p class="ts-moment-num"><span aria-hidden="true">Moment 4 — </span></p>
-        <h2 id="moment-4">The follow-up, when the face is sad</h2>
-      </header>
-
-      <figure class="ts-screen">
-        <img src="../images/work/tatsam/slide108-product-4.webp"
-             alt="Tatsam onboarding: a sad-face glyph beside the line &quot;That is quite a long time to be dealing with this. Would you like to write about your feelings right now?&quot; A text field with a microphone icon sits above a DONE button."
-             width="820" height="1458"
-             loading="lazy">
-        <figcaption class="ts-screen-cap">Follow-up screen — a sad-face glyph with "Would you like to write about your feelings right now?" A text field with mic icon and a DONE button.</figcaption>
-      </figure>
-
-      <!-- KAHRAN-REVIEW: Bhavna monologue placeholder — Kahran/Divya to rewrite -->
-      <blockquote class="ts-interior" data-ts-hold="bhavna" cite="#ts-promise">
-        <p>It didn't tell me I was in crisis. It didn't offer me a hotline. It asked if I wanted to write about it. I didn't, and that was also fine.</p>
-        <cite>— Bhavna</cite>
-      </blockquote>
-
-      <aside class="ts-note" role="note" aria-labelledby="ts-note-label-4">
-        <span class="ts-note-label" id="ts-note-label-4">design note</span>
-        <p class="ts-note-decision"><em>When mood is low, the product offers — it doesn't insist.</em></p>
-        <p class="ts-note-reason">Tap a lower face: no crisis banner, no hotline, no pivot to a breathing exercise. Just a text field, a microphone, and a DONE button that exits cleanly. Most category leaders escalate here — a defensible liability posture, but one that trains users to under-report to avoid the interruption. The copy ("Would you like to write about your feelings right now?") is an offer with a real no: DONE isn't "skip," it's a full exit. The microphone exists because typing while low is hard. Genuine risk language does route through a separate safety layer, but that's a clinical pathway, not an onboarding screen. The tradeoff: some users who need more won't be pushed toward it. The product's position is that pushing here loses more people than it helps.</p>
-      </aside>
-    </article>
-
-    <article class="ts-moment" data-ts-moment="5">
-      <header class="ts-moment-head">
-        <p class="ts-moment-num"><span aria-hidden="true">Moment 5 — </span></p>
-        <h2 id="moment-5">Ranking life, not rating it — and then, carefully, rating it</h2>
-      </header>
-
-      <figure class="ts-screen ts-screen--pair">
-        <img src="../images/work/tatsam/slide108-product-6.webp"
-             alt="Tatsam onboarding: &quot;Let's prioritise these areas of your life.&quot; A drag-to-reorder list of eight areas — Family and friends, Personal Growth, Health, Career, Romance, Finances, Fun and recreation, Physical environment — with Family and friends currently at the top."
-             width="820" height="1458"
-             loading="lazy">
-        <img src="../images/work/tatsam/slide108-product-7.webp"
-             alt="Tatsam onboarding: &quot;How satisfied are you currently in each of these areas of life?&quot; Each of the eight areas has its own 1-to-5 slider, each currently resting at 3."
-             width="820" height="1458"
-             loading="lazy">
-        <figcaption class="ts-screen-cap">Two screens: first "Let's prioritise these areas of your life" (drag-to-reorder), then "How satisfied are you currently in each of these areas of life?" (1–5 sliders per area).</figcaption>
-      </figure>
-
-      <!-- KAHRAN-REVIEW: Bhavna monologue placeholder — Kahran/Divya to rewrite -->
-      <blockquote class="ts-interior" data-ts-hold="bhavna" cite="#ts-promise">
-        <p>First they asked me to put them in order. Family first. Work further down than I expected. Then, only after I'd ordered them, they asked how satisfied I was in each — one to five. By then I'd already decided which ones I cared about. The scores were for me, not for a diagnosis.</p>
-        <cite>— Bhavna</cite>
-      </blockquote>
-
-      <aside class="ts-note" role="note" aria-labelledby="ts-note-label-5">
-        <span class="ts-note-label" id="ts-note-label-5">design note</span>
-        <p class="ts-note-decision"><em>Ranking before rating.</em></p>
-        <p class="ts-note-reason">Two screens, deliberately in this order. First: drag-to-reorder eight life areas — no numbers, just "put these in the order that matters to you right now." Only once the ranking is committed does the second screen appear with a 1-to-5 slider per area. Most life-assessment instruments rate first and infer priority from the ratings. We inverted it because rating an area you haven't decided you care about is how people end up with a wheel-of-life score that feels like a diagnosis. Ranking is relational ("family before career, right now") and costs less than scoring ("my family life is a 2"). By the time sliders appear, the user has already told themselves what the list means — numbers land as self-knowledge, not self-audit. The 1–5 scale (not 1–10) keeps the cognitive weight of this moment below the threshold where new users close the app.</p>
-      </aside>
-    </article>
-
-    <article class="ts-moment" data-ts-moment="6">
-      <header class="ts-moment-head">
-        <p class="ts-moment-num"><span aria-hidden="true">Moment 6 — </span></p>
-        <h2 id="moment-6">The first practice, finished</h2>
-      </header>
-
-      <figure class="ts-screen">
-        <img src="../images/work/tatsam/slide108-product-11.webp"
-             alt="Tatsam: &quot;Awesome! You just finished your first practice!&quot; A circle shows a dusk mountain with a teal sun; the label reads &quot;Gratitude Journal&quot; and a HURRAY! button sits at the bottom."
-             width="820" height="1458"
-             loading="lazy">
-        <figcaption class="ts-screen-cap">Completion screen — "Awesome! You just finished your first practice!" with a dusk mountain illustration, Gratitude Journal label, and a HURRAY! button.</figcaption>
-      </figure>
-
-      <!-- KAHRAN-REVIEW: Bhavna monologue placeholder — Kahran/Divya to rewrite -->
-      <blockquote class="ts-interior" data-ts-hold="bhavna" cite="#ts-promise">
-        <p>Awesome. Hurray. It was a little too cheerful. But I noticed I wasn't bracing anymore.</p>
-        <cite>— Bhavna</cite>
-      </blockquote>
-
-      <aside class="ts-note" role="note" aria-labelledby="ts-note-label-6">
-        <span class="ts-note-label" id="ts-note-label-6">design note</span>
-        <p class="ts-note-decision"><em>The ending is light, almost childlike — the only moment the voice lifts.</em></p>
-        <p class="ts-note-reason">The whole onboarding is low-volume — no exclamation marks, no "great job," no emoji. On this screen alone the voice lifts: "Awesome! You just finished your first practice!" and a button that says HURRAY! We argued about it. The restrained register is what makes Tatsam feel adult; breaking it risks off-brand brightness. We kept the lift because the alternative — "Practice complete." — treats finishing a first gratitude journal as a transaction, and it isn't. For someone who spent six screens quietly wondering if they're the kind of person who can do this, the tonal shift is the signal that they did. The illustration echoes the opening photograph and closes the loop visually. Cost: the jump in register is noticeable — which is exactly what Bhavna notices. That was the point.</p>
-      </aside>
-    </article>
-
-  </section>
-
-  <section class="ts-coda" aria-label="What Joyus made">
-    <p class="ts-coda-eyebrow">what Joyus made</p>
-    <div class="ts-coda-body">
-
-      <div class="ts-coda-item">
-        <button class="ts-coda-trigger" aria-expanded="false" aria-controls="ts-coda-panel-brand">
-          <span class="ts-coda-label">Brand</span>
-          <span class="ts-coda-desc">a belief, a voice, and a logo whose plus-sign is a softer way of showing care.</span>
-          <span class="ts-coda-arrow" aria-hidden="true">↓</span>
-        </button>
-        <div class="ts-coda-panel" id="ts-coda-panel-brand" hidden>
-          <figure class="ts-coda-fig">
-            <img src="../images/work/tatsam/slide106-brand-1.webp"
-                 alt="Tatsam brand identity — logo with plus-sign mark and wordmark on deep indigo background"
-                 loading="lazy" width="820" height="1458">
-          </figure>
-        </div>
+  <!-- THE BET / THESIS -->
+  <section class="sec reveal">
+    <span class="dot d-pink" style="width:64px;height:64px;bottom:-22px;right:6%;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the bet</span>
+      <h2 class="sec-title">Mental health has always asked what's <em>wrong</em>. Tatsam asks what's <em>right</em>.</h2>
+      <p class="sec-deck">The whole company rests on one paradigm shift. As the pitch put it: <em>"mental-health interventions have historically focused on exploring what is wrong with people, not what is right. Tatsam shifts that paradigm"</em> — moving from a <strong>pathology model to a psychological-capital model</strong>, with tools that help people <em>flourish rather than just function</em>.</p>
+      <p class="thesis">It builds <mark>psychological capital</mark> — Hope, Efficacy, Resilience, Optimism — so stronger individuals <mark>compound into more resilient organisations.</mark></p>
+      <div class="hero-construct">
+        <span class="c"><b>Hope</b> — goal-setting, planning, action</span>
+        <span class="c"><b>Efficacy</b> — confidence to meet challenges</span>
+        <span class="c"><b>Resilience</b> — bounce back from stress &amp; change</span>
+        <span class="c"><b>Optimism</b> — reinforces self-efficacy &amp; hope</span>
       </div>
-
-      <div class="ts-coda-item">
-        <button class="ts-coda-trigger" aria-expanded="false" aria-controls="ts-coda-panel-visual">
-          <span class="ts-coda-label">Visual language</span>
-          <span class="ts-coda-desc">teals and deep indigo, cutout botanicals, dusk-mountain photography, hand-drawn overlays.</span>
-          <span class="ts-coda-arrow" aria-hidden="true">↓</span>
-        </button>
-        <div class="ts-coda-panel" id="ts-coda-panel-visual" hidden>
-          <figure class="ts-coda-fig">
-            <img src="../images/work/tatsam/slide107-visual-1.webp"
-                 alt="Tatsam visual language — teals and deep indigo palette with botanical photography in context"
-                 loading="lazy" width="820" height="1458">
-          </figure>
-        </div>
-      </div>
-
-      <div class="ts-coda-item">
-        <button class="ts-coda-trigger" aria-expanded="false" aria-controls="ts-coda-panel-product">
-          <span class="ts-coda-label">Product</span>
-          <span class="ts-coda-desc">the onboarding above, co-designed with psychologists: name, feeling, life-areas, a first practice.</span>
-          <span class="ts-coda-arrow" aria-hidden="true">↓</span>
-        </button>
-        <div class="ts-coda-panel" id="ts-coda-panel-product" hidden>
-          <figure class="ts-coda-fig">
-            <img src="../images/work/tatsam/slide108-product-11.webp"
-                 alt="Tatsam completion screen — first practice finished: HURRAY! button, Gratitude Journal label"
-                 loading="lazy" width="820" height="1458">
-          </figure>
-        </div>
-      </div>
-
-      <div class="ts-coda-item">
-        <button class="ts-coda-trigger" aria-expanded="false" aria-controls="ts-coda-panel-b2b">
-          <span class="ts-coda-label">B2B research reports</span>
-          <span class="ts-coda-desc">the dashboards Tatsam's employer clients read — analytical, quiet, never alarmist.</span>
-          <span class="ts-coda-arrow" aria-hidden="true">↓</span>
-        </button>
-        <div class="ts-coda-panel" id="ts-coda-panel-b2b" hidden>
-          <figure class="ts-coda-fig">
-            <img src="../images/work/tatsam/slide108-product-6.webp"
-                 alt="Tatsam life-areas prioritisation screen — analytical data structure underlying the B2B research layer"
-                 loading="lazy" width="820" height="1458">
-          </figure>
-        </div>
-      </div>
-
+      <p class="sec-deck soft" style="margin-top:1.4rem;">That belief is the through-line of everything below — it shows up in the brand voice, the product's logic, and the pitch's outcomes.</p>
     </div>
   </section>
 
-  <section class="cs-closing">
-    <span class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
-      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
-    </span>
-    <span class="cs-closing-label">your move</span>
-    <h3>Building something that needs to feel <em>calm and human</em>? <em><a href="../say-hi.html">Be our friends.</a></em></h3>
-    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
-    <a class="cs-next" href="agemo.html">next case study: agemo <span class="arrow">→</span></a>
+  <div class="bridge reveal">↓ first, is the need <em>even real?</em></div>
+
+  <!-- RESEARCH -->
+  <section class="sec alt lens-research reveal">
+    <span class="dot d-yellow" style="width:90px;height:90px;top:8%;left:-30px;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the evidence · research &amp; strategy</span>
+      <h2 class="sec-title">We measured wellbeing with <em>four validated instruments</em> — not a vibe.</h2>
+      <p class="sec-deck">For a real workforce (Urban Ladder), we ran a diagnostic on the PERMA Profiler, the Work Productivity &amp; Activity Impairment scale, the Stanford Presenteeism Scale, and the Flourishing Scale — then scored the org against global benchmarks. It came back below every one (Holistic Wellbeing <strong>32.2</strong>, Flourishing <strong>33.3</strong> vs a global mean of <strong>44.5</strong>).</p>
+      <div class="stats">
+        <div class="statcard"><div class="big">59.2%</div><p>of <strong>male executives</strong> scored below low or very low overall wellbeing.</p></div>
+        <div class="statcard"><div class="big">58.4%</div><p>of <strong>female executives</strong> too — seniority isn't protective.</p></div>
+        <div class="statcard"><div class="big">~76%</div><p>of low happiness explained <strong>work-performance impairment</strong>.</p></div>
+        <div class="statcard"><div class="big">24.4%</div><p>only — share of presenteeism from <strong>physical</strong> health. The rest is the mind.</p></div>
+      </div>
+      <p class="pull">The cost isn't people staying home. It's people <em>showing up depleted</em> — and the leaders steering the company are among the least well.</p>
+      <a class="cut-link" href="tatsam-cut-research.html">See the research cut — the full diagnostic →</a>
+    </div>
   </section>
 
-</main>
+  <div class="bridge reveal">↓ a real need earns <em>a real identity</em></div>
+
+  <!-- BRAND -->
+  <section class="sec lens-brand reveal">
+    <span class="dot d-pink" style="width:64px;height:64px;bottom:-22px;right:6%;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the voice · brand &amp; identity</span>
+      <h2 class="sec-title">A brand built on belief — and a voice that <em>never makes failure feel like failure</em>.</h2>
+      <p class="sec-deck">Tatsam stands on three beliefs: <strong>holistic health for all</strong> (mind, body, environment), <strong>wisdom from east and west</strong>, and <strong>tradition meets technology</strong>. Even the logo carries it — the medical "+" reflected into "a softer, more gentle way of showing care." And the voice has hard rules:</p>
+      <p class="thesis"><mark>"Agency not boundaries."</mark> Empathetic, empowering, liberating — <mark>never paternalistic, never making failure feel negative.</mark></p>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-cover.png" alt="Tatsam brand book cover." loading="lazy"><figcaption>The brand book.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-believe.png" alt="Tatsam — what we believe in." loading="lazy"><figcaption>What Tatsam believes.</figcaption></figure>
+      </div>
+      <a class="cut-link" href="tatsam-cut-brand.html">See the brand cut — beliefs, voice &amp; identity →</a>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ a belief is real only <em>once you can use it</em></div>
+
+  <!-- PRODUCT -->
+  <section class="sec alt lens-product reveal">
+    <span class="dot d-cyan" style="width:80px;height:80px;top:8%;right:-28px;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the thing itself · product &amp; interface</span>
+      <h2 class="sec-title">Psychological capital, turned into <em>an app you'd actually open</em>.</h2>
+      <p class="sec-deck">We designed the whole product surface, code-ready: onboarding that asks how you actually feel, two ways through — <strong>self-driven</strong> or <strong>guided</strong> — and a recommendation engine that hands you one doable thing instead of a library to feel guilty about. Plus the marketing site that lands it in a scroll.</p>
+      <div class="phones">
+        <img src="../images/work/tatsam/tatsam-app-opening.png" alt="Tatsam app — opening" loading="lazy">
+        <img src="../images/work/tatsam/tatsam-app-feeling.png" alt="Tatsam app — how you feel" loading="lazy">
+        <img src="../images/work/tatsam/tatsam-app-path.png" alt="Tatsam app — choosing a path" loading="lazy">
+        <img src="../images/work/tatsam/tatsam-app-play.png" alt="Tatsam app — a do-now exercise" loading="lazy">
+      </div>
+      <a class="cut-link" href="tatsam-cut-product.html">See the product cut — the app &amp; the website →</a>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ and a company has to <em>win the room</em></div>
+
+  <!-- STORY -->
+  <section class="sec lens-story reveal">
+    <span class="dot d-ink" style="width:64px;height:64px;bottom:-22px;left:6%;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the case · story &amp; narrative</span>
+      <h2 class="sec-title">A <em>$50&nbsp;billion</em> problem, framed for the person who signs the cheque.</h2>
+      <p class="sec-deck">Workplace mental ill-health costs an estimated <strong>$50B a year</strong> across India &amp; SE Asia, yet current solutions (EAPs) reach ~5% of staff at 1–2% adoption. The pitch frames Tatsam against that gap with a <strong>maturity model</strong> (tensed → flourishing), a 1,032-employee proof study, and three outcome pillars a buyer actually weighs:</p>
+      <div class="hero-construct">
+        <span class="c"><b>Business</b> — productivity, retention, revenue</span>
+        <span class="c"><b>Wellbeing</b> — self-efficacy, fewer sick days</span>
+        <span class="c"><b>Org behaviour</b> — culture, resilience, retention</span>
+      </div>
+      <figure class="fig"><img src="../images/work/tatsam/tatsam-pitch-outcomes.png" alt="Pitch — the three outcome pillars." loading="lazy"><figcaption>The pitch ties every intervention to business, wellbeing, and organisational-behaviour outcomes.</figcaption></figure>
+      <a class="cut-link" href="tatsam-cut-story.html">See the story cut — the pitch in full →</a>
+    </div>
+  </section>
+
+  <!-- TAKEAWAYS -->
+  <section class="takeaways reveal">
+    <span class="dot d-pink" style="width:24px;height:24px;top:18%;right:12%;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:60%;left:8%;"></span>
+    <span class="dot d-yellow" style="width:70px;height:70px;bottom:-30px;right:6%;opacity:0.85;"></span>
+    <div class="takeaways-inner">
+      <span class="sec-eyebrow">what mattered</span>
+      <h2>What we learned, that you can take into <em>any</em> company.</h2>
+      <ol class="takeaway-list">
+        <li><b>Lead with strengths, not deficits.</b> The pathology→psychological-capital flip is what made every downstream artifact cohere — research, brand, product and pitch all point the same way because the belief does.</li>
+        <li><b>Prove the need with instruments, not anecdotes.</b> Four validated scales turned "people seem stressed" into a board-ready diagnosis — including the finding that the executives presumed fine are the least well.</li>
+        <li><b>Presenteeism is the real cost.</b> People show up depleted; physical health explained only ~a quarter of it. Wellbeing is a productivity line, not a perk.</li>
+        <li><b>One belief has to run through everything.</b> "Agency not boundaries" in the voice, "one doable thing" in the product, "strengths" in the pitch — the same conviction, four times.</li>
+      </ol>
+      <div class="cut-ctas">
+        <a class="cut-cta cc-research" href="tatsam-cut-research.html">research cut →</a>
+        <a class="cut-cta cc-brand" href="tatsam-cut-brand.html">brand cut →</a>
+        <a class="cut-cta cc-product" href="tatsam-cut-product.html">product cut →</a>
+        <a class="cut-cta cc-story" href="tatsam-cut-story.html">story cut →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="cs-closing">
+    <span class="cs-closing-label">your move</span>
+    <h3>Building a company, <em>not just a screen</em>? <em><a href="../say-hi.html">Be our friends.</a></em></h3>
+    <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
+    <a class="cs-next" href="xtdb.html">next case study: xtdb <span class="arrow">→</span></a>
+  </section>
 
   <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     Colors use the tokens declared in styles.css :root. -->
 <style>
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: var(--bg);
-    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
-    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-family: var(--sans);
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
+  .foot { position: relative; z-index: 20; background: var(--bg); padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-fade); letter-spacing: 0.05em; }
   .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: var(--pink); }
-  @media (max-width: 480px) {
-    .foot { justify-content: flex-start; }
-  }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
@@ -502,112 +353,15 @@
 </footer>
 <!--END:FOOT-->
 
-<script>
-  (function () {
-    document.documentElement.classList.add('js-enabled');
-
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) {
-      document.querySelectorAll('.ts-moment').forEach(function (el) { el.classList.add('is-visible'); });
-      return;
-    }
-
-    if (!('IntersectionObserver' in window)) {
-      document.querySelectorAll('.ts-moment').forEach(function (el) { el.classList.add('is-visible'); });
-      return;
-    }
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
-
-    var moments = document.querySelectorAll('.ts-moment');
-    moments.forEach(function (el, i) {
-      if (i === 0) { el.classList.add('is-visible'); return; }
-      io.observe(el);
-    });
-  })();
-</script>
-
-<script>
-  (function () {
-    var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    function openPanel(panel) {
-      if (reducedMotion) {
-        panel.removeAttribute('hidden');
-        return;
-      }
-      panel.removeAttribute('hidden');
-      panel.style.height = '0px';
-      panel.style.overflow = 'hidden';
-      panel.offsetHeight;
-      panel.style.transition = 'height 280ms cubic-bezier(0.2, 0.8, 0.2, 1)';
-      panel.style.height = panel.scrollHeight + 'px';
-      panel.addEventListener('transitionend', function onEnd() {
-        panel.style.height = 'auto';
-        panel.removeEventListener('transitionend', onEnd);
-      }, { once: true });
-    }
-
-    function closePanel(panel, trigger) {
-      if (reducedMotion) {
-        panel.setAttribute('hidden', '');
-        trigger.setAttribute('aria-expanded', 'false');
-        return;
-      }
-      panel.style.height = panel.scrollHeight + 'px';
-      panel.offsetHeight;
-      panel.style.transition = 'height 280ms cubic-bezier(0.2, 0.8, 0.2, 1)';
-      panel.style.height = '0px';
-      trigger.setAttribute('aria-expanded', 'false');
-      panel.addEventListener('transitionend', function onEnd() {
-        panel.setAttribute('hidden', '');
-        panel.style.height = '';
-        panel.style.overflow = '';
-        panel.style.transition = '';
-        panel.removeEventListener('transitionend', onEnd);
-      }, { once: true });
-    }
-
-    var triggers = document.querySelectorAll('.ts-coda-trigger');
-
-    triggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function () {
-        var panelId = trigger.getAttribute('aria-controls');
-        var panel = document.getElementById(panelId);
-        var isOpen = trigger.getAttribute('aria-expanded') === 'true';
-
-        triggers.forEach(function (otherTrigger) {
-          if (otherTrigger === trigger) return;
-          if (otherTrigger.getAttribute('aria-expanded') === 'true') {
-            var otherPanel = document.getElementById(otherTrigger.getAttribute('aria-controls'));
-            closePanel(otherPanel, otherTrigger);
-          }
-        });
-
-        if (isOpen) {
-          closePanel(panel, trigger);
-        } else {
-          trigger.setAttribute('aria-expanded', 'true');
-          openPanel(panel);
-        }
-      });
-
-      trigger.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && trigger.getAttribute('aria-expanded') === 'true') {
-          var panel = document.getElementById(trigger.getAttribute('aria-controls'));
-          closePanel(panel, trigger);
-          trigger.focus();
-        }
-      });
-    });
-  })();
-</script>
+  <script>
+    var fill = document.getElementById('threadFill');
+    window.addEventListener('scroll', function () { var total = document.body.scrollHeight - window.innerHeight; fill.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%'; }, { passive: true });
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
 </body>
 </html>

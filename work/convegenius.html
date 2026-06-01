@@ -3,191 +3,205 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="User research, gamification and behavioral design for ConveGenius — an Indian education-technology platform. By Joyus Studio.">
-  <meta property="og:title" content="convegenius — Joyus Studio">
-  <meta property="og:description" content="Building a rewards system to deepen student engagement on a 100,000-MAU education platform.">
+  <meta name="description" content="ConveGenius came to us wanting a rewards layer. We gave them a gamification strategy — grounded in who their students are, what they do, and what actually moves behaviour. By Joyus Studio.">
+  <meta property="og:title" content="ConveGenius — Joyus Studio">
+  <meta property="og:description" content="Turning 'add rewards' into a gamification strategy for a 100,000-student Indian ed-tech platform — research, system, and a clean build handoff.">
   <meta property="og:image" content="https://kh9010.github.io/joyus-website/images/work/convegenius/logo.webp">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/convegenius.html">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/convegenius.html">
-  <title>convegenius — Joyus Studio</title>
+  <title>ConveGenius — Joyus Studio</title>
   <link rel="icon" href="../favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" href="../apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
-  <link rel="stylesheet" href="../styles.css?v=4">
+  <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"CreativeWork","name":"ConveGenius","description":"A gamification strategy for a 100,000-student Indian ed-tech platform — student research, a reward system, and a clean build handoff.","url":"https://kh9010.github.io/joyus-website/work/convegenius.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
+  </script>
   <style>
-    /* ─── R4-07: ConveGenius term tooltips ─── */
-    .cg-term {
-      display: inline;
-      background: none;
-      border: none;
-      padding: 0;
-      font: inherit;
-      color: inherit;
-      cursor: help;
-      border-bottom: 1.5px dashed currentColor;
-      opacity: 0.8;
-      position: relative;
-      line-height: inherit;
-    }
-    .cg-term:hover,
-    .cg-term:focus-visible {
-      opacity: 1;
-    }
-    .cg-term:focus-visible {
-      outline: 2px solid #E91E7B;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-    .cg-tip {
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 400;
-      background: #EDE8DF;
-      color: #111214;
-      border: 1px solid rgba(17,18,20,0.18);
-      border-radius: 4px;
-      padding: 0.5rem 0.75rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.8125rem;
-      line-height: 1.5;
-      max-width: 260px;
-      width: max-content;
-      box-shadow: 0 4px 12px rgba(17,18,20,0.10);
-      white-space: normal;
-      pointer-events: none;
-    }
-    .cg-tip[hidden] { display: none; }
-    .cg-tip.is-below {
-      bottom: auto;
-      top: calc(100% + 8px);
-    }
-    @media (pointer: coarse) {
-      .cg-term {
-        min-height: 44px;
-        display: inline-flex;
-        align-items: center;
-      }
-    }
-    @media (max-width: 480px) {
-      .cg-tip { left: 0; transform: none; max-width: 90vw; }
+    /* ===== ConveGenius case study — bespoke page (tokens from styles.css) ===== */
+    * { box-sizing: border-box; }
+    body.cg { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .cg img { max-width: 100%; display: block; }
+
+    /* scroll progress thread */
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600; background: transparent; }
+    .thread-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--cyan), var(--yellow)); transition: width 0.1s linear; }
+
+    /* reveal on scroll */
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); }
+    .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
+
+    /* ---------- HERO ---------- */
+    .cg-hero { position: relative; overflow: hidden; padding: clamp(7rem, 15vh, 11rem) var(--x) clamp(3rem, 6vh, 5rem); }
+    .cg-hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .cg-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.4rem; }
+    .cg-eyebrow::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--pink); }
+    .cg-eyebrow .lens { color: var(--ink-fade); font-weight: 500; }
+    .cg-hero h1 { font-weight: 700; font-size: clamp(2.3rem, 5.2vw, 4.4rem); line-height: 1.02; letter-spacing: -0.04em; max-width: 20ch; margin: 0; }
+    .cg-hero h1 em { font-style: normal; color: var(--pink); }
+    .cg-deck { font-size: clamp(1.05rem, 1.5vw, 1.3rem); line-height: 1.6; color: var(--ink-soft); max-width: 64ch; margin-top: 1.6rem; }
+    .cg-deck strong { color: var(--ink); font-weight: 600; }
+    .cg-meta { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem; align-items: flex-start; border-top: 1px solid var(--rule); padding-top: 1.6rem; }
+    .cg-services { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .cg-services li { font-size: 0.82rem; font-weight: 500; padding: 0.35rem 0.85rem; border: 1px solid var(--ink); border-radius: 999px; }
+    .cg-facts { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; font-size: 0.85rem; letter-spacing: 0.04em; color: var(--ink-fade); }
+    .cg-facts span + span::before { content: "·"; margin-right: 1.2rem; color: var(--rule); }
+    .cg-hero .dot1 { width: 200px; height: 200px; top: 22%; right: -4%; opacity: 0.9; }
+    .cg-hero .dot2 { width: 46px; height: 46px; bottom: 18%; left: 4%; }
+    .cg-hero .dot3 { width: 20px; height: 20px; top: 18%; right: 26%; }
+    .cg-hero .dot4 { width: 13px; height: 13px; bottom: 28%; right: 18%; }
+
+    /* ---------- SECTIONS ---------- */
+    .sec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vh, 6.5rem) var(--x); }
+    .sec.alt { background: #fff; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+    .sec-eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--cyan); }
+    .sec.lens-research .sec-eyebrow::before { background: var(--yellow); }
+    .sec.lens-product .sec-eyebrow::before { background: var(--cyan); }
+    .sec-title { font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.9rem); line-height: 1.08; letter-spacing: -0.035em; max-width: 22ch; margin: 0 0 1.4rem; }
+    .sec-title em { font-style: normal; color: var(--pink); }
+    .sec-lede { font-size: clamp(1.05rem, 1.4vw, 1.22rem); line-height: 1.65; color: var(--ink); max-width: 64ch; margin: 0 0 1.1rem; }
+    .sec-lede.soft { color: var(--ink-soft); }
+    .sec-lede strong { font-weight: 600; }
+    .sec-lede em { font-style: italic; color: var(--ink); }
+
+    /* bridge line */
+    .bridge { text-align: center; font-family: var(--hand); font-size: clamp(1.4rem, 2.6vw, 1.9rem); color: var(--ink-fade); padding: clamp(1.5rem, 3vh, 2.5rem) var(--x); }
+    .bridge em { font-style: normal; color: var(--pink); }
+
+    /* two-goal / growth-vs-engagement split */
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 1.5rem; }
+    .split-card { background: var(--bg); border: 1px solid var(--rule); border-top: 4px solid var(--pink); border-radius: 14px; padding: 1.5rem 1.6rem; }
+    .sec.alt .split-card { background: var(--bg); }
+    .split-card:nth-child(2) { border-top-color: var(--cyan); }
+    .split-card h4 { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 0.6rem; }
+    .split-card p { font-size: 0.96rem; line-height: 1.55; color: var(--ink-soft); margin: 0 0 0.9rem; }
+    .split-card .tag { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-fade); }
+    .split-card .reward-for { display: inline-block; font-family: var(--hand); font-size: 1.15rem; color: var(--pink); }
+    .split-card:nth-child(2) .reward-for { color: #2A8A92; }
+
+    /* chip rows (personas, reward types, goals) */
+    .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.2rem 0; }
+    .chip { font-size: 0.9rem; font-weight: 500; padding: 0.45rem 0.95rem; border-radius: 999px; background: #fff; border: 1px solid var(--rule); }
+    .sec.alt .chip { background: var(--bg); }
+    .chip i { font-style: normal; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 0.5rem; vertical-align: middle; background: var(--pink); }
+    .chip.c-cyan i { background: var(--cyan); } .chip.c-yellow i { background: var(--yellow); } .chip.c-ink i { background: var(--ink); }
+
+    /* figures */
+    .fig { margin: 1.6rem 0 0; }
+    .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
+    .fig figcaption, .note { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+    .fig-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+
+    /* process flow steps */
+    .flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.6rem; margin-top: 1.5rem; }
+    .flow-step { flex: 1 1 0; min-width: 140px; background: #fff; border: 1px solid var(--rule); border-radius: 12px; padding: 1rem 1.1rem; font-weight: 600; font-size: 0.98rem; line-height: 1.3; position: relative; }
+    .sec.alt .flow-step { background: var(--bg); }
+    .flow-step span { display: block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink); margin-bottom: 0.4rem; }
+    .recommend { margin-top: 1.2rem; background: rgba(233,30,123,0.07); border-left: 3px solid var(--pink); border-radius: 0 10px 10px 0; padding: 1.1rem 1.3rem; font-size: 1rem; line-height: 1.55; }
+    .recommend strong { color: var(--pink); }
+
+    /* journey stages */
+    .journey { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem; }
+    .stage { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 1.4rem 1.4rem 1.5rem; }
+    .sec.alt .stage { background: var(--bg); }
+    .stage h4 { font-size: 1.05rem; margin: 0 0 0.2rem; letter-spacing: -0.01em; }
+    .stage .goal { font-family: var(--hand); font-size: 1.25rem; color: var(--pink); display: block; margin-bottom: 0.8rem; }
+    .stage ul { list-style: none; margin: 0; padding: 0; }
+    .stage li { font-size: 0.92rem; line-height: 1.4; color: var(--ink-soft); padding: 0.4rem 0 0.4rem 1rem; position: relative; }
+    .stage li::before { content: ""; position: absolute; left: 0; top: 0.85rem; width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+
+    /* pull / tension callout */
+    .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 28ch; margin: 1.5rem 0 0; }
+    .pull em { font-style: normal; color: var(--pink); }
+
+    /* inline cut link */
+    .cut-link { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 1.6rem; font-weight: 600; color: var(--ink); border-bottom: 2px solid var(--pink); padding-bottom: 2px; }
+    .cut-link:hover { color: var(--pink); }
+
+    /* wireframe gallery */
+    .wires { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .wires img { border-radius: 10px; border: 1px solid var(--rule); background: #fff; }
+
+    /* ---------- TAKEAWAYS (dark) ---------- */
+    .takeaways { background: var(--ink); color: #fff; position: relative; overflow: hidden; padding: clamp(4rem, 9vh, 7rem) var(--x); }
+    .takeaways-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .takeaways .sec-eyebrow { color: var(--yellow); }
+    .takeaways .sec-eyebrow::before { background: var(--yellow); }
+    .takeaways h2 { font-weight: 700; font-size: clamp(1.7rem, 3.6vw, 2.7rem); letter-spacing: -0.035em; line-height: 1.1; margin: 0 0 1.8rem; max-width: 20ch; }
+    .takeaways h2 em { font-style: normal; color: var(--pink); }
+    .takeaway-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 2.4rem; margin: 0 0 2.4rem; }
+    .takeaway-list .ti { font-size: 1.02rem; line-height: 1.55; color: rgba(255,255,255,0.85); padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.18); }
+    .takeaway-list .ti b { color: #fff; font-weight: 600; }
+    .cut-ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .cut-cta { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--pink); color: #fff; font-weight: 600; font-size: 1rem; padding: 0.9rem 1.5rem; border-radius: 999px; box-shadow: 0 6px 0 #9a1453; transition: transform 0.2s, box-shadow 0.2s; }
+    .cut-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+    .cut-cta.is-research { background: var(--yellow); color: var(--ink); box-shadow: 0 6px 0 #c99a1f; }
+    .cut-cta.is-research:hover { box-shadow: 0 8px 0 #c99a1f; }
+
+    /* ---------- CLOSING ---------- */
+    .cs-closing { position: relative; overflow: hidden; padding: clamp(4rem, 10vh, 7rem) var(--x) clamp(3rem, 6vh, 5rem); border-top: 2px solid var(--ink); }
+    .cs-closing-label { font-size: 0.78rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.25rem; display: inline-flex; align-items: center; gap: 0.75rem; position: relative; z-index: 2; }
+    .cs-closing-label::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); }
+    .cs-closing h3 { font-weight: 600; font-size: clamp(1.5rem, 3.5vw, 2.4rem); letter-spacing: -0.02em; line-height: 1.2; max-width: 22ch; position: relative; z-index: 2; margin: 0; }
+    .cs-closing h3 em { font-style: normal; color: var(--pink); }
+    .cs-closing h3 a { border-bottom: 3px solid var(--pink); padding-bottom: 2px; color: var(--pink); }
+    .cs-closing h3 a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+    .cs-closing-hint { display: block; font-size: 0.9rem; color: var(--ink-fade); margin-top: 1.25rem; position: relative; z-index: 2; }
+    .cs-next { display: inline-block; margin-top: 2rem; font-weight: 600; color: var(--ink); position: relative; z-index: 2; }
+    .cs-next:hover { color: var(--pink); }
+    .cs-next .arrow { transition: transform 0.25s; display: inline-block; }
+    .cs-next:hover .arrow { transform: translateX(4px); }
+
+    @media (max-width: 720px) {
+      .split, .fig-2, .journey, .takeaway-list { grid-template-columns: 1fr; }
+      .cg-hero .dot1 { width: 130px; height: 130px; }
     }
   </style>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"CreativeWork","name":"convegenius","description":"Building a rewards system to deepen student engagement on a 100,000-MAU education platform.","url":"https://kh9010.github.io/joyus-website/work/convegenius.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://kh9010.github.io/joyus-website/"}}
-</script>
 </head>
-<body class="work-page" data-accent="pink">
+<body class="cg work-page" data-accent="pink">
+  <div class="thread"><div class="thread-fill" id="threadFill"></div></div>
 
   <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     ../ → path prefix to repo root (e.g. "" or "../")
-     Colors use the tokens declared in styles.css :root. -->
 <style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    padding-top: max(1.25rem, env(safe-area-inset-top));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    font-family: var(--sans);
-  }
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: var(--sans); }
   .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
   .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-links {
-    display: flex; gap: 1.75rem; align-items: center;
-    list-style: none; padding: 0; margin: 0;
-  }
-  .nav .nav-links a {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
   .nav .nav-links a:hover { color: var(--pink); }
-  .nav .nav-links a.active {
-    color: var(--ink);
-    font-weight: 500;
-    border-bottom-color: var(--pink);
-  }
+  .nav .nav-links a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--pink); }
   .nav .nav-cta { color: var(--ink); font-weight: 500; }
   .nav .nav-cta:hover { color: var(--pink); }
-
-  /* Hamburger button — hidden on desktop */
-  .nav-toggle {
-    display: none;
-    width: 44px; height: 44px;
-    background: transparent; border: 0; padding: 0;
-    cursor: pointer; position: relative; z-index: 510;
-    align-items: center; justify-content: center;
-  }
-  .nav-toggle span {
-    display: block; width: 24px; height: 2px;
-    background: var(--ink); border-radius: 2px;
-    position: absolute;
-    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
-  }
-  .nav-toggle span:nth-child(1) { top: 14px; }
-  .nav-toggle span:nth-child(2) { top: 21px; }
-  .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; } .nav-toggle span:nth-child(2) { top: 21px; } .nav-toggle span:nth-child(3) { top: 28px; }
   .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
   .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
   .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-
   @media (max-width: 720px) {
-    .nav {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(250, 247, 242, 0.95);
-    }
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
     .nav-toggle { display: inline-flex; }
-    .nav .nav-links {
-      position: fixed;
-      inset: 0;
-      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
-      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 1.75rem;
-      background: var(--white);
-      border-left: 4px solid var(--ink);
-      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      z-index: 505;
-    }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: var(--white); border-left: 4px solid var(--ink); box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
     .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: var(--ink); }
     .nav .nav-links a.active { border-bottom-color: var(--pink); }
     .nav .nav-cta { font-size: 1.6rem; }
   }
 </style>
 <nav class="nav">
   <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
   <div class="nav-links" id="navMenu">
     <a href="../work/" data-nav="work">Work</a>
     <a href="../services.html" data-nav="services">Services</a>
@@ -199,272 +213,215 @@
 </nav>
 <script>
   (function(){
-    var path = window.location.pathname;
-    var active = null;
+    var path = window.location.pathname; var active = null;
     if (/\/work(\/|$)/.test(path)) active = 'work';
     else if (/services\.html/.test(path)) active = 'services';
     else if (/workshops/.test(path)) active = 'workshops';
     else if (/podcast/.test(path)) active = 'podcast';
     else if (/about\.html/.test(path)) active = 'about';
     else if (/say-hi\.html/.test(path)) active = 'say-hi';
-    if (active) {
-      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
-      }
-    }
-    // hamburger toggle
-    var toggle = document.querySelector('.nav-toggle');
-    var menu = document.querySelector('.nav .nav-links');
+    if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active'); } }
+    var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links');
     if (toggle && menu) {
-      var close = function() {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = menu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      // close on link tap
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', close);
-      });
-      // close on escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu.classList.contains('open')) close();
-      });
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
     }
   })();
 </script>
 <!--END:NAV-->
 
-  <header class="cs-cover-narrative">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:14%;right:8%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:62%;left:6%;"></span>
-      <span class="yellow" style="width:80px;height:80px;bottom:-30px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="inner">
-      <p class="name">a case study — convegenius</p>
-      <!-- KAHRAN-REVIEW: tightened h1 from 21 to 17 words; kept the question framing -->
-      <h1>Gamification looks like an obvious fix for engagement. How do you turn it into a strategy?</h1>
-      <div class="lede">
-        <!-- KAHRAN-REVIEW: trimmed ~25%, cut "delivering value to..." bloat; kept scale + product depth -->
-        <p>ConveGenius is an Indian ed-tech company serving private schools and state governments. 100,000 monthly active students, a deep product across subjects and verticals.</p>
-        <!-- KAHRAN-REVIEW: trimmed ~20%, kept "homework" image, cut "find learning to be fun" soft phrasing -->
-        <p>But students treated the app like homework — only doing what was mandatory. The team wanted deeper engagement, and came to us with the idea of a rewards layer.</p>
-        <!-- KAHRAN-REVIEW: inserted partner-speed angle per brief (Placement A); kept "achievable segments" framework noun -->
-        <p>We broke rewards down into achievable segments, and shaped a structure their team could build. We've worked inside Indian ed-tech before — so instead of ramping up, we went straight to the work.</p>
-      </div>
-      <div class="meta-bar">
-        <ul class="cs-services">
+  <!-- ============ HERO ============ -->
+  <header class="cg-hero">
+    <span class="dot dot1 d-pink"></span>
+    <span class="dot dot2 d-cyan"></span>
+    <span class="dot dot3 d-yellow"></span>
+    <span class="dot dot4 d-pink"></span>
+    <div class="cg-hero-inner">
+      <span class="cg-eyebrow">ConveGenius · Case study <span class="lens">— research &amp; strategy → product</span></span>
+      <h1>Gamification looks like an obvious fix for engagement. How do you turn it into a <em>strategy</em>?</h1>
+      <p class="cg-deck">ConveGenius is an Indian ed-tech company serving private schools and state governments — <strong>100,000 monthly active students</strong> across a deep product. But students treated the app like homework: they did what was mandatory and left. The team wanted deeper engagement, and came to us with the idea of a <strong>rewards layer</strong>. We'd worked inside Indian ed-tech before, so instead of ramping up we went straight to the work — and turned "add rewards" into a system grounded in who their students actually are.</p>
+      <div class="cg-meta">
+        <ul class="cg-services">
           <li>User Research</li>
           <li>Gamification</li>
-          <li>Motivation &amp; Behavioral Design</li>
+          <li>Motivation &amp; Behavioural Design</li>
         </ul>
-        <div class="cs-meta-row">
-          <span>India</span>
-          <span>300+ employees</span>
-          <span>₹75 Cr revenue</span>
+        <div class="cg-facts">
+          <span>India</span><span>100,000 MAU</span><span>300+ employees</span><span>₹75 Cr revenue</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Slide 9 — Growth vs Engagement -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:18px;height:18px;top:8%;right:9%;"></span>
-      <span class="cyan" style="width:12px;height:12px;top:42%;left:5%;"></span>
-      <span class="yellow" style="width:64px;height:64px;bottom:-22px;right:-24px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">first — define what success means</p>
-      <h2 class="cs-slide-headline">Gamification is superficial — retention is a behaviour-change problem.</h2>
-
-      <!-- KAHRAN-REVIEW: cut circular "success is key to success" preamble; opened on the action per DO rule -->
-      <p class="cs-intro">Success here meant <strong>two goals</strong>: growth — pulling students into under-used features — and engagement, bringing them back to the ones they'd already found.</p>
-      <!-- KAHRAN-REVIEW: trimmed ~40%, cut "driving appropriate focus" prep-phrase stack; kept the "easy metrics" point -->
-      <p class="cs-sub">The split made measurement honest. Without it, features get judged on easy metrics — views, clicks — even when they're built for something bigger.</p>
-
-      <h4 style="font-family:var(--font-sans);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft);margin:2rem 0 1rem;font-weight:500;">Growth vs Engagement activities</h4>
-      <div class="cs-matrix">
-        <div class="cs-matrix-col">
-          <div class="cs-matrix-header"><button type="button" class="cg-term" aria-describedby="cg-tip-1" aria-expanded="false">Growth activities</button><div id="cg-tip-1" role="tooltip" class="cg-tip" hidden>Activities designed to bring new users into the app or expose existing users to features they haven't tried — broadly targeted, with relatively low execution cost.</div></div>
-          <!-- KAHRAN-REVIEW: trimmed ~25%, cut "catchy and easy to explain" filler -->
-          <div class="cs-matrix-body">
-            <span class="label">Traits</span>
-            Familiarise the user with the app. First-time usage gives a shiny reward. Prompts students to talk about it outside the product.
-          </div>
-          <div class="cs-matrix-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-3" aria-expanded="false">Ephemeral rewards</button><div id="cg-tip-3" role="tooltip" class="cg-tip" hidden>Transient, low-stakes rewards (e.g. a sticker or badge visible on a profile for a limited time) that surface the product socially and prompt word-of-mouth rather than building long-term habits.</div> · social rewards</div>
+  <!-- ============ THE BRIEF ============ -->
+  <section class="sec reveal">
+    <span class="dot d-yellow" style="width:64px;height:64px;bottom:-22px;right:6%;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the brief, examined</span>
+      <h2 class="sec-title">A rewards layer is a feature. <em>Engagement is a behaviour-change problem.</em></h2>
+      <p class="sec-lede">"Add rewards" is where most gamification starts and stops — points bolted onto whatever's already there. We took the brief apart first. Before deciding <em>what</em> to reward, we split the goal in two:</p>
+      <div class="split">
+        <div class="split-card">
+          <span class="tag">Goal one</span>
+          <h4>Growth</h4>
+          <p>Pull students into features they haven't found yet — broadly targeted, low cost to run, designed to spread.</p>
+          <span class="reward-for">rewarded with ephemeral &amp; social wins</span>
         </div>
-        <div class="cs-matrix-col">
-          <div class="cs-matrix-header"><button type="button" class="cg-term" aria-describedby="cg-tip-2" aria-expanded="false">Engagement activities</button><div id="cg-tip-2" role="tooltip" class="cg-tip" hidden>Activities aimed at deepening the habits of users who are already active — targeted to specific student personas, higher investment to execute well, longer payoff window.</div></div>
-          <!-- KAHRAN-REVIEW: trimmed ~20%, fixed "more catered specifically" redundancy -->
-          <div class="cs-matrix-body">
-            <span class="label">Traits</span>
-            Focused on one student's learning arc. The longer you do it, the more rewarding it gets. Requires investment, and is tuned to specific personas.
-          </div>
-          <div class="cs-matrix-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-5" aria-expanded="false">Collectibles</button><div id="cg-tip-5" role="tooltip" class="cg-tip" hidden>Persistent, accumulating items — badges, avatars, status symbols — that students display in the app. Unlike ephemeral rewards, collectibles stay and function as social signals within the community.</div> · <button type="button" class="cg-term" aria-describedby="cg-tip-6" aria-expanded="false">long-term achievement</button><div id="cg-tip-6" role="tooltip" class="cg-tip" hidden>Rewards tied to sustained effort over time — Expert Mentor Status, workshop access, title progression — that signal the system respects the user's long-term investment.</div></div>
+        <div class="split-card">
+          <span class="tag">Goal two</span>
+          <h4>Engagement</h4>
+          <p>Bring students back to the features they've already found — tuned to specific personas, higher investment, longer payoff.</p>
+          <span class="reward-for">rewarded with collectibles &amp; long-term achievement</span>
+        </div>
+      </div>
+      <p class="sec-lede soft" style="margin-top:1.4rem;">The split makes measurement honest. Without it, every feature gets judged on the same easy metrics — views, clicks — even when it was built for something bigger.</p>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ but you can't reward a student <em>you haven't mapped</em></div>
+
+  <!-- ============ RESEARCH GROUNDING ============ -->
+  <section class="sec alt lens-research reveal">
+    <span class="dot d-yellow" style="width:90px;height:90px;top:8%;left:-30px;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">first — the student</span>
+      <h2 class="sec-title">We started with motivation, not mechanics.</h2>
+      <p class="sec-lede">Across two working sessions with the ConveGenius team, we mapped the students before we touched the reward design — who's on the app, what they come to do, and what already nudges them. Five motivation types fell out:</p>
+      <div class="chips">
+        <span class="chip"><i></i>Achievement seekers</span>
+        <span class="chip c-cyan"><i></i>Social learners</span>
+        <span class="chip c-yellow"><i></i>Practical experimenters</span>
+        <span class="chip c-ink"><i></i>Authority-influenced</span>
+        <span class="chip"><i></i>Explorers &amp; discoverers</span>
+      </div>
+      <figure class="fig">
+        <img src="../images/work/convegenius/cg-motivations-map.png" alt="Mind-map of five student categories and the motivators that drive each — scores, awards, teamwork, curiosity, structure, praise, creativity and more." loading="lazy">
+        <figcaption>Each persona leans on different motivators — the raw vocabulary the reward system would later draw on.</figcaption>
+      </figure>
+      <p class="sec-lede" style="margin-top:2rem;">Then we mapped what students actually <em>do</em>. A long list of activities — olympiads, quizzes, live competitions, bots, educational games, the posts feed — collapsed into eight underlying goals, each wanting its own rhythm:</p>
+      <div class="chips">
+        <span class="chip"><i></i>Fun · 2–3× weekly</span>
+        <span class="chip c-cyan"><i></i>Discovery · daily</span>
+        <span class="chip c-yellow"><i></i>Practice · 2–3× weekly</span>
+        <span class="chip c-cyan"><i></i>Doubt clearance · daily</span>
+        <span class="chip"><i></i>Social competition · wants daily</span>
+        <span class="chip c-ink"><i></i>Broader impact · seasonal</span>
+        <span class="chip c-yellow"><i></i>Continuity · ongoing</span>
+        <span class="chip c-ink"><i></i>Business / governance · on-demand</span>
+      </div>
+      <p class="pull">The sharpest finding was a gap: the team wanted <em>Social Competition every day</em> — but didn't have enough daily content to sustain it.</p>
+      <a class="cut-link" href="convegenius-cut-research.html">See the research cut — students, activities &amp; the rewards landscape →</a>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ goals set, students mapped — <em>now, how do we reward them?</em></div>
+
+  <!-- ============ THE SYSTEM ============ -->
+  <section class="sec lens-product reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:10%;right:-20px;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the system</span>
+      <h2 class="sec-title">A repeatable way to gamify — <em>not a pile of features</em>.</h2>
+      <p class="sec-lede">We gave the team a process they could run on any activity, not a one-off feature spec:</p>
+      <div class="flow">
+        <div class="flow-step"><span>01</span>Decide on the activity</div>
+        <div class="flow-step"><span>02</span>Split it into components</div>
+        <div class="flow-step"><span>03</span>Determine motivation types</div>
+        <div class="flow-step"><span>04</span>Weigh effort vs frequency</div>
+        <div class="flow-step"><span>05</span>Create &amp; assign rewards</div>
+      </div>
+      <div class="recommend">For this version we recommended <strong>points tied to activities, with rewards unlocked by levels</strong> — so the more (and the more meaningful) the things a student does, the more they earn.</div>
+
+      <p class="sec-lede" style="margin-top:2.4rem;">Two taxonomies gave the framing a shared language — five student motivations on one axis, six reward types on the other. The team could now weigh a reward's <em>purpose</em> against the <em>student</em> it's for when discussing build cost.</p>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;">
+          <img src="../images/work/convegenius/cg-rewards-taxonomy.png" alt="Radial map of six reward categories — Social Approval, Monetary, Collectibles, Ephemeral, Long-term, Achievements — each branching into concrete examples." loading="lazy">
+          <figcaption>Six reward types, from ephemeral confetti to long-term mentorship.</figcaption>
+        </figure>
+        <figure class="fig" style="margin:0;">
+          <img src="../images/work/convegenius/cg-effort-frequency-matrix.png" alt="Effort by frequency 2x2 matrix placing ephemeral rewards, achievements, long-term, monetary and collectibles." loading="lazy">
+          <figcaption>Mapped on effort × frequency: which reward fits which activity — and vice versa.</figcaption>
+        </figure>
+      </div>
+
+      <p class="sec-lede" style="margin-top:2.4rem;">Rewards then change by where a student is in their journey — curiosity for newcomers, habit for regulars, loyalty for the long-haul:</p>
+      <div class="journey">
+        <div class="stage">
+          <h4>New user</h4><span class="goal">evoke curiosity</span>
+          <ul><li>Frequent ephemeral rewards</li><li>Surface unlockables in UI &amp; notifications</li></ul>
+        </div>
+        <div class="stage">
+          <h4>Regular user</h4><span class="goal">create habits</span>
+          <ul><li>Collectibles for regularity</li><li>Social rewards for reinforcement</li><li>A taste of monetary reward</li></ul>
+        </div>
+        <div class="stage">
+          <h4>Long-term user</h4><span class="goal">reward loyalty</span>
+          <ul><li>Monetary &amp; long-term rewards</li><li>Large-scale achievement &amp; social status</li></ul>
         </div>
       </div>
 
-      <div class="cs-cluster cols-2" style="margin-top:1rem;">
-        <figure class="cs-fig" style="background:transparent;">
-          <p class="cs-note">rewards for growth can be transient and low-stakes</p>
-        </figure>
-        <figure class="cs-fig" style="background:transparent;">
-          <!-- KAHRAN-REVIEW: trimmed ~40%, cut breathless "(and earn!)" parenthetical -->
-          <p class="cs-note">rewards for engagement support longer investment — higher stakes, deeper play</p>
-        </figure>
+      <figure class="fig" style="margin-top:2.4rem;">
+        <img src="../images/work/convegenius/cg-extrinsic-intrinsic.png" alt="Graph plotting motivation clusters from extrinsic to intrinsic against reward value." loading="lazy">
+        <figcaption>The north star underneath it all: use reward value to migrate students from extrinsic motivation toward intrinsic over time.</figcaption>
+      </figure>
+      <a class="cut-link" href="convegenius-cut-product.html">See the product cut — the full system &amp; build handoff →</a>
+    </div>
+  </section>
+
+  <div class="bridge reveal">↓ a system on paper — <em>where does it live in the app?</em></div>
+
+  <!-- ============ WHERE IT LIVES ============ -->
+  <section class="sec alt lens-product reveal">
+    <span class="dot d-pink" style="width:80px;height:80px;bottom:-28px;left:6%;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">from framework to screens</span>
+      <h2 class="sec-title">Concept agreed — then we drew where it actually lives.</h2>
+      <p class="sec-lede">An information architecture tied the theory to real moments in the app: the entry points students hit it from, the state checks behind it, and the reward outcomes that follow.</p>
+      <figure class="fig">
+        <img src="../images/work/convegenius/cg-ia-flow.png" alt="Information architecture flowchart for the gamification flow — from landing on the level screen through points, activities, sessions and rewards to levelling up." loading="lazy">
+        <figcaption>The gamification flow, end to end — entry points, state checks, reward outcomes.</figcaption>
+      </figure>
+      <p class="sec-lede" style="margin-top:2rem;">Low-fidelity wireframes gave design and dev a shared map before the graphics and animation came up — a clean handoff:</p>
+      <div class="wires">
+        <img src="../images/work/convegenius/slide69-wireframe-1.webp" alt="Wireframe — home view" loading="lazy">
+        <img src="../images/work/convegenius/slide69-wireframe-2.webp" alt="Wireframe — notification view" loading="lazy">
+        <img src="../images/work/convegenius/slide69-wireframe-3.webp" alt="Wireframe — level screen with activities" loading="lazy">
+        <img src="../images/work/convegenius/slide69-wireframe-4.webp" alt="Wireframe — reward pop-up" loading="lazy">
+        <img src="../images/work/convegenius/slide69-wireframe-5.webp" alt="Wireframe — rewards list" loading="lazy">
+        <img src="../images/work/convegenius/slide69-wireframe-6.webp" alt="Wireframe — profile" loading="lazy">
+        <img src="../images/work/convegenius/slide69-wireframe-7.webp" alt="Wireframe — badges view" loading="lazy">
       </div>
     </div>
   </section>
 
-  <div class="cs-bridge">↓ goals set — <em>now how do we hit them?</em></div>
-
-  <!-- Slide 12 — Motivations & rewards -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="cyan" style="width:22px;height:22px;top:11%;left:8%;"></span>
-      <span class="yellow" style="width:14px;height:14px;top:48%;right:7%;"></span>
-      <span class="pink" style="width:78px;height:78px;bottom:-30px;left:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">two axes — motivation × reward</p>
-      <h2 class="cs-slide-headline">With goals established, how do we achieve them?</h2>
-
-      <!-- KAHRAN-REVIEW: trimmed ~30%, kept framework nouns "motivations/rewards"; kept the keeper "weigh purpose against user" -->
-      <p class="cs-intro">Working from established theory on <strong>types of motivations</strong> and <strong>types of rewards</strong>, we drew up a feature list. The framing lets the team weigh the purpose (reward type) against the user (student type) when discussing build cost.</p>
-
-      <div class="cs-cluster">
-        <figure class="cs-fig">
-          <img src="../images/work/convegenius/slide12-motivations.webp" alt="Types of motivations" loading="lazy">
-          <!-- KAHRAN-REVIEW: trimmed ~30%, cut "additional layer to hone the system's efficacy" LLM-speak -->
-          <p class="cs-note">different students lean toward different rewards — another axis to tune against</p>
-        </figure>
-        <figure class="cs-fig">
-          <img src="../images/work/convegenius/slide12-rewards.webp" alt="Types of rewards" loading="lazy">
-          <!-- KAHRAN-REVIEW: trimmed ~15%, tightened parallel with motivations note -->
-          <p class="cs-note">rewards shift by goal — growth or engagement — and land differently with different students</p>
-        </figure>
+  <!-- ============ TAKEAWAYS ============ -->
+  <section class="takeaways reveal">
+    <span class="dot d-pink" style="width:24px;height:24px;top:18%;right:12%;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:60%;left:8%;"></span>
+    <span class="dot d-yellow" style="width:70px;height:70px;bottom:-30px;right:6%;opacity:0.85;"></span>
+    <div class="takeaways-inner">
+      <span class="sec-eyebrow">what we left them with</span>
+      <h2>A buildable system — <em>and a way to keep making decisions</em> after we left.</h2>
+      <div class="takeaway-list">
+        <p class="ti"><b>A strategy, not a feature.</b> Growth vs engagement as a lens, so every reward has a job and a way to be measured.</p>
+        <p class="ti"><b>Research the team owns.</b> Five student motivations and eight activity goals — the vocabulary their PMs now use to argue about build cost.</p>
+        <p class="ti"><b>A repeatable process.</b> Five steps to gamify any future activity, without coming back to us.</p>
+        <p class="ti"><b>A clean handoff.</b> An IA flow and wireframes that took design and dev straight to building.</p>
+      </div>
+      <div class="cut-ctas">
+        <a class="cut-cta is-research" href="convegenius-cut-research.html">the research cut →</a>
+        <a class="cut-cta" href="convegenius-cut-product.html">the product cut →</a>
       </div>
     </div>
   </section>
 
-  <div class="cs-bridge">↓ where does it <em>actually live in the app?</em></div>
-
-  <!-- Slide 59 — User flow diagram (simplified) -->
-  <section class="cs-slide">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="yellow" style="width:20px;height:20px;top:9%;right:11%;"></span>
-      <span class="pink" style="width:14px;height:14px;top:46%;left:6%;"></span>
-      <span class="cyan" style="width:72px;height:72px;bottom:-26px;right:-30px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">the flow, end to end</p>
-      <!-- KAHRAN-REVIEW: shortened headline from 16 to 9 words -->
-      <h2 class="cs-slide-headline">Concept set, goals agreed — where does it live?</h2>
-
-      <!-- KAHRAN-REVIEW: trimmed ~30%, cut passive-voice "both when new features will be interacted with" -->
-      <p class="cs-intro">Moving from concept to implementation means answering <strong>where the system fits in the app</strong> — when students run into it, and how often.</p>
-
-      <div class="cs-flow-diagram">
-        <p class="cs-flow-axis-label">Entry points</p>
-        <div class="cs-flow-row">
-          <div class="cs-pink-box">User lands on level screen</div>
-          <div class="cs-flow-arrow">→</div>
-          <div class="cs-pink-box">Clicks a point notification</div>
-          <div class="cs-flow-arrow">→</div>
-          <div class="cs-pink-box">Clicks the profile icon</div>
-        </div>
-
-        <p class="cs-flow-axis-label">State checks</p>
-        <div class="cs-flow-row">
-          <div class="cs-pink-box">User has uncashed points</div>
-          <div class="cs-flow-arrow">→</div>
-          <div class="cs-pink-box">Has available activities</div>
-          <div class="cs-flow-arrow">→</div>
-          <div class="cs-pink-box">Clicks on the rewards</div>
-        </div>
-
-        <p class="cs-flow-axis-label">Reward outcomes</p>
-        <div class="cs-flow-row">
-          <div class="cs-pink-box">User levels up</div>
-          <div class="cs-flow-arrow">→</div>
-          <div class="cs-pink-box">Point score increases</div>
-          <div class="cs-flow-arrow">→</div>
-          <div class="cs-pink-box">Gets rewards</div>
-        </div>
-
-        <p class="cs-flow-axis-label">By effort × frequency, the reward types are:</p>
-        <div class="cs-flow-pills">
-          <span class="cs-flow-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-3" aria-expanded="false">Ephemeral rewards</button></span>
-          <span class="cs-flow-pill">Achievements</span>
-          <span class="cs-flow-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-6" aria-expanded="false">Long-term</button></span>
-          <span class="cs-flow-pill">Monetary</span>
-          <span class="cs-flow-pill"><button type="button" class="cg-term" aria-describedby="cg-tip-5" aria-expanded="false">Collectibles</button></span>
-        </div>
-      </div>
-
-      <div class="cs-cluster cols-2" style="margin-top:1rem;">
-        <figure class="cs-fig" style="background:transparent;">
-          <!-- KAHRAN-REVIEW: trimmed ~30%, tightened effort-vs-reward phrasing -->
-          <p class="cs-note">each reward type has a target frequency and effort — adoption needs the two to balance</p>
-        </figure>
-        <figure class="cs-fig" style="background:transparent;">
-          <!-- KAHRAN-REVIEW: trimmed ~40%, split the two ideas down to one clean point -->
-          <p class="cs-note">mapping the user journey shows which screens need to change, and how existing paths shift</p>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <div class="cs-bridge">↓ then — <em>handed off, ready to build</em></div>
-
-  <!-- Slide 69 — Wireframes -->
-  <section class="cs-slide alt">
-    <div class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:24px;height:24px;top:10%;left:7%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:50%;right:8%;"></span>
-      <span class="yellow" style="width:90px;height:90px;bottom:-36px;left:-36px;opacity:0.85;"></span>
-    </div>
-    <div class="cs-slide-inner">
-      <p class="cs-slide-eyebrow">wireframes — clean handoff</p>
-      <h2 class="cs-slide-headline">Clean handoff for development</h2>
-
-      <!-- KAHRAN-REVIEW: trimmed ~30%, cut recursive "creates the space needed for clarity" loop -->
-      <p class="cs-intro">Low-fi wireframes, alongside the user-journey flows, give <strong>design and dev</strong> a shared map before the details — graphics, animations — come up.</p>
-
-      <div class="cs-cluster cols-4">
-        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-1.webp" alt="Wireframe 1" loading="lazy"></figure>
-        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-2.webp" alt="Wireframe 2" loading="lazy"></figure>
-        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-3.webp" alt="Wireframe 3" loading="lazy"></figure>
-        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-4.webp" alt="Wireframe 4" loading="lazy"></figure>
-      </div>
-      <div class="cs-cluster cols-3" style="margin-top:2rem;">
-        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-5.webp" alt="Wireframe 5" loading="lazy"></figure>
-        <figure class="cs-fig phone"><img src="../images/work/convegenius/slide69-wireframe-6.webp" alt="Wireframe 6" loading="lazy"></figure>
-        <figure class="cs-fig phone">
-          <img src="../images/work/convegenius/slide69-wireframe-7.webp" alt="Wireframe 7" loading="lazy">
-          <!-- KAHRAN-REVIEW: trimmed ~20%, kept the hi-fi mocks link -->
-          <p class="cs-note solid">once finalised, wireframes feed the hi-fi mocks</p>
-        </figure>
-      </div>
-    </div>
-  </section>
-
+  <!-- ============ CLOSING ============ -->
   <section class="cs-closing">
-    <span class="cs-dots" aria-hidden="true">
-      <span class="pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
-      <span class="cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
-      <span class="yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
-    </span>
+    <span class="dot d-pink" style="width:26px;height:26px;top:30%;right:18%;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:55%;right:30%;"></span>
+    <span class="dot d-yellow" style="width:60px;height:60px;bottom:18%;right:9%;"></span>
     <span class="cs-closing-label">your move</span>
     <h3>Need a <em>strategy, not just a feature</em>? <em><a href="../say-hi.html">Be our friends.</a></em></h3>
     <span class="cs-closing-hint">hello@joyus.studio · we read everything</span>
@@ -472,33 +429,11 @@
   </section>
 
   <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     Colors use the tokens declared in styles.css :root. -->
 <style>
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: var(--bg);
-    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
-    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-family: var(--sans);
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
+  .foot { position: relative; z-index: 20; background: var(--bg); padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-fade); letter-spacing: 0.05em; }
   .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
   .foot a:hover { color: var(--pink); }
-  @media (max-width: 480px) {
-    .foot { justify-content: flex-start; }
-  }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
@@ -506,77 +441,22 @@
 </footer>
 <!--END:FOOT-->
 
-  <noscript><p style="text-align:center;font-size:0.8rem;color:#8892A0;padding:0.5rem;">For term definitions, enable JavaScript.</p></noscript>
   <script>
-  (function() {
-    'use strict';
-    const terms = document.querySelectorAll('.cg-term');
-    if (!terms.length) return;
-
-    let active = null;
-    let hoverTimer = null;
-
-    function show(btn) {
-      hide();
-      const tip = document.getElementById(btn.getAttribute('aria-describedby'));
-      if (!tip) return;
-      tip.removeAttribute('hidden');
-      btn.setAttribute('aria-expanded', 'true');
-      const btnRect = btn.getBoundingClientRect();
-      if (btnRect.top < 120) {
-        tip.classList.add('is-below');
-      } else {
-        tip.classList.remove('is-below');
-      }
-      active = { btn, tip };
-    }
-
-    function hide() {
-      if (active) {
-        active.tip.setAttribute('hidden', '');
-        active.btn.setAttribute('aria-expanded', 'false');
-        active = null;
-      }
-      clearTimeout(hoverTimer);
-    }
-
-    terms.forEach(function(btn) {
-      btn.addEventListener('mouseenter', function() {
-        clearTimeout(hoverTimer);
-        hoverTimer = setTimeout(function() { show(btn); }, 200);
-      });
-      btn.addEventListener('mouseleave', function() {
-        clearTimeout(hoverTimer);
-        hide();
-      });
-      btn.addEventListener('click', function() {
-        if (active && active.btn === btn) {
-          hide();
-        } else {
-          show(btn);
-        }
-      });
-      btn.addEventListener('blur', function() {
-        clearTimeout(hoverTimer);
-        hide();
-      });
-    });
-
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && active) {
-        const prevBtn = active.btn;
-        hide();
-        prevBtn.focus();
-      }
-    });
-
-    document.addEventListener('click', function(e) {
-      if (active && !active.btn.contains(e.target) && !active.tip.contains(e.target)) {
-        hide();
-      }
-    }, true);
-  })();
+    // scroll progress thread
+    var fill = document.getElementById('threadFill');
+    window.addEventListener('scroll', function () {
+      var total = document.body.scrollHeight - window.innerHeight;
+      fill.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%';
+    }, { passive: true });
+    // reveal on scroll
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+      }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
   </script>
-
 </body>
 </html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="The story cut of the Pratham USA project — how information flows from the field to the donor, where it leaks, and the comms fixes to close the gaps. By Joyus Studio.">
+  <meta property="og:title" content="Pratham USA — the story cut — Joyus Studio">
+  <meta property="og:url" content="https://kh9010.github.io/joyus-website/work/pratham-cut-story.html">
+  <link rel="canonical" href="https://kh9010.github.io/joyus-website/work/pratham-cut-story.html">
+  <title>Pratham USA — the story cut — Joyus Studio</title>
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    * { box-sizing: border-box; }
+    body.cg { background: var(--bg); color: var(--ink); font-family: var(--sans); margin: 0; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+    .cg img { max-width: 100%; display: block; }
+    .thread { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 600; }
+    .thread-fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--pink), var(--yellow), var(--cyan)); transition: width 0.1s linear; }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2,0.8,0.2,1); }
+    .reveal.is-in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+    .dot { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
+
+    .cg-hero { position: relative; overflow: hidden; padding: clamp(6.5rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem); }
+    .cg-hero-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 500; color: var(--ink-soft); margin-bottom: 1.6rem; }
+    .back-link:hover { color: var(--pink); }
+    .cg-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink); margin-bottom: 1.2rem; }
+    .cg-eyebrow::before { content: ""; width: 11px; height: 11px; border-radius: 50%; background: var(--pink); }
+    .cg-hero h1 { font-weight: 700; font-size: clamp(2.2rem, 5vw, 4rem); line-height: 1.03; letter-spacing: -0.04em; max-width: 22ch; margin: 0; }
+    .cg-hero h1 em { font-style: normal; color: var(--pink); }
+    .cg-deck { font-size: clamp(1.05rem, 1.5vw, 1.28rem); line-height: 1.6; color: var(--ink-soft); max-width: 64ch; margin-top: 1.5rem; }
+    .cg-deck strong { color: var(--ink); font-weight: 600; }
+    .cg-hero .dot1 { width: 180px; height: 180px; bottom: -10%; right: 4%; background: var(--pink); opacity: 0.85; }
+    .cg-hero .dot2 { width: 40px; height: 40px; top: 30%; right: 16%; }
+    .cg-hero .dot3 { width: 16px; height: 16px; top: 22%; left: 10%; }
+
+    .sec { position: relative; overflow: hidden; padding: clamp(3.5rem, 8vh, 6rem) var(--x); }
+    .sec.alt { background: #fff; }
+    .sec-inner { max-width: 1000px; margin: 0 auto; position: relative; z-index: 2; }
+    .sec-eyebrow { display: inline-flex; align-items: center; gap: 0.55rem; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1rem; }
+    .sec-eyebrow::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); }
+    .sec-title { font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2.7rem); line-height: 1.1; letter-spacing: -0.035em; max-width: 24ch; margin: 0 0 1.3rem; }
+    .sec-title em { font-style: normal; color: var(--pink); }
+    .sec-lede { font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.65; color: var(--ink); max-width: 64ch; margin: 0 0 1.1rem; }
+    .sec-lede.soft { color: var(--ink-soft); }
+    .sec-lede em { font-style: italic; }
+
+    .fig { margin: 1.6rem 0 0; }
+    .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
+    .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+
+    /* source/leak/fix cards (4-up) */
+    .cards4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 1.4rem; }
+    .card4 { background: #fff; border: 1px solid var(--rule); border-radius: 14px; padding: 1.2rem 1.25rem; }
+    .sec.alt .card4 { background: var(--bg); }
+    .card4 h4 { font-size: 1rem; margin: 0 0 0.5rem; letter-spacing: -0.01em; display: flex; align-items: center; gap: 0.5rem; }
+    .card4 h4::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--pink); flex-shrink: 0; }
+    .card4.leak h4::before { background: #E0533F; }
+    .card4.fix h4::before { background: var(--cyan); }
+    .card4 p { font-size: 0.88rem; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+
+    .recs { list-style: none; margin: 1.4rem 0 0; padding: 0; display: grid; gap: 0.7rem; }
+    .recs li { background: rgba(233,30,123,0.06); border-left: 3px solid var(--pink); border-radius: 0 10px 10px 0; padding: 0.9rem 1.2rem; font-size: 0.98rem; line-height: 1.5; }
+    .recs li b { font-weight: 600; }
+
+    .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 32ch; margin: 1.6rem 0 0; }
+    .pull em { font-style: normal; color: var(--pink); }
+
+    .cut-end { position: relative; overflow: hidden; padding: clamp(3.5rem, 9vh, 6rem) var(--x); border-top: 2px solid var(--ink); }
+    .cut-end-line { font-weight: 600; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.25; max-width: 26ch; margin: 0 0 1.6rem; position: relative; z-index: 2; }
+    .cut-end-line em { font-style: normal; color: var(--pink); }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 1rem; position: relative; z-index: 2; }
+    .cta { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1rem; padding: 0.9rem 1.5rem; border-radius: 999px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s; }
+    .cta-primary { background: var(--pink); color: #fff; box-shadow: 0 6px 0 #9a1453; }
+    .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
+    .cta-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
+    .cta-ghost:hover { background: var(--ink); color: #fff; }
+
+    @media (max-width: 900px) { .cards4 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 560px) { .cards4 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body class="cg work-page" data-accent="pink">
+  <div class="thread"><div class="thread-fill" id="threadFill"></div></div>
+
+  <!--BEGIN:NAV-->
+<style>
+  .nav { position: fixed; top: 0; left: 0; right: 0; padding: 1.25rem clamp(1.5rem, 4vw, 3rem); padding-top: max(1.25rem, env(safe-area-inset-top)); display: flex; justify-content: space-between; align-items: center; z-index: 500; background: rgba(250, 247, 242, 0.88); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-family: var(--sans); }
+  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
+  .nav .nav-logo img { height: 32px; width: auto; display: block; }
+  .nav .nav-links { display: flex; gap: 1.75rem; align-items: center; list-style: none; padding: 0; margin: 0; }
+  .nav .nav-links a { font-size: 0.92rem; color: var(--ink-soft); text-decoration: none; font-weight: 400; padding-bottom: 2px; border-bottom: 1.5px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  .nav .nav-links a:hover { color: var(--pink); }
+  .nav .nav-links a.active { color: var(--ink); font-weight: 500; border-bottom-color: var(--pink); }
+  .nav .nav-cta { color: var(--ink); font-weight: 500; }
+  .nav .nav-cta:hover { color: var(--pink); }
+  .nav-toggle { display: none; width: 44px; height: 44px; background: transparent; border: 0; padding: 0; cursor: pointer; position: relative; z-index: 510; align-items: center; justify-content: center; }
+  .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--ink); border-radius: 2px; position: absolute; transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s; }
+  .nav-toggle span:nth-child(1) { top: 14px; } .nav-toggle span:nth-child(2) { top: 21px; } .nav-toggle span:nth-child(3) { top: 28px; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
+  @media (max-width: 720px) {
+    .nav { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(250, 247, 242, 0.95); }
+    .nav-toggle { display: inline-flex; }
+    .nav .nav-links { position: fixed; inset: 0; padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem; padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem)); flex-direction: column; align-items: flex-start; justify-content: flex-start; gap: 1.75rem; background: var(--white); border-left: 4px solid var(--ink); box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22); transform: translateX(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); z-index: 505; }
+    .nav .nav-links.open { transform: translateX(0); }
+    .nav .nav-links a { font-size: 1.6rem; font-weight: 500; color: var(--ink); }
+    .nav .nav-links a.active { border-bottom-color: var(--pink); }
+    .nav .nav-cta { font-size: 1.6rem; }
+  }
+</style>
+<nav class="nav">
+  <a class="nav-logo" href="../index.html"><img src="../images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu"><span></span><span></span><span></span></button>
+  <div class="nav-links" id="navMenu">
+    <a href="../work/" data-nav="work">Work</a>
+    <a href="../services.html" data-nav="services">Services</a>
+    <a href="../workshops.html" data-nav="workshops">Workshops</a>
+    <a href="../podcast.html" data-nav="podcast">Podcast</a>
+    <a href="../about.html" data-nav="about">About</a>
+    <a class="nav-cta" href="../say-hi.html" data-nav="say-hi">Say hi</a>
+  </div>
+</nav>
+<script>
+  (function(){
+    var path = window.location.pathname; var active = null;
+    if (/\/work(\/|$)/.test(path)) active = 'work';
+    else if (/services\.html/.test(path)) active = 'services';
+    else if (/workshops/.test(path)) active = 'workshops';
+    else if (/podcast/.test(path)) active = 'podcast';
+    else if (/about\.html/.test(path)) active = 'about';
+    else if (/say-hi\.html/.test(path)) active = 'say-hi';
+    if (active) { var links = document.querySelectorAll('.nav .nav-links a[data-nav]'); for (var i = 0; i < links.length; i++) { if (links[i].getAttribute('data-nav') === active) links[i].classList.add('active'); } }
+    var toggle = document.querySelector('.nav-toggle'); var menu = document.querySelector('.nav .nav-links');
+    if (toggle && menu) {
+      var close = function() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; };
+      toggle.addEventListener('click', function(e) { e.stopPropagation(); var open = menu.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); document.body.style.overflow = open ? 'hidden' : ''; });
+      menu.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', close); });
+      document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && menu.classList.contains('open')) close(); });
+    }
+  })();
+</script>
+<!--END:NAV-->
+
+  <header class="cg-hero">
+    <span class="dot dot1 d-pink"></span>
+    <span class="dot dot2 d-yellow"></span>
+    <span class="dot dot3 d-cyan"></span>
+    <div class="cg-hero-inner">
+      <a class="back-link" href="pratham.html">← Pratham USA case study</a>
+      <span class="cg-eyebrow">story cut · the comms</span>
+      <h1>The best stories start in the field — and <em>lose energy on the way to the donor</em>.</h1>
+      <p class="cg-deck">Pratham has extraordinary stories. The problem isn't the stories; it's the pipe. We traced how information travels from Pratham India and the chapters, through the marketing team, out to the donor — and found <strong>where it leaks, and how to seal it</strong>.</p>
+    </div>
+  </header>
+
+  <!-- SOURCES -->
+  <section class="sec alt reveal">
+    <span class="dot d-pink" style="width:80px;height:80px;top:8%;left:-28px;opacity:0.85;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">four sources, one donor</span>
+      <h2 class="sec-title">Information reaches donors from four very different places.</h2>
+      <p class="sec-lede">Each source has its own owner, rhythm and tone — and they rarely move in concert.</p>
+      <div class="cards4">
+        <div class="card4"><h4>Chapter &amp; city</h4><p>Local events and chapter-level fundraising. Most donor updates live here.</p></div>
+        <div class="card4"><h4>Donor-specific</h4><p>Receipts, and updates from the specific programs a donor chose to support — like a Digital Learning Village.</p></div>
+        <div class="card4"><h4>PUSA</h4><p>Org-level updates, usually about fundraising goals, from the PUSA core.</p></div>
+        <div class="card4"><h4>Pratham India</h4><p>Program updates and the real student &amp; community narratives — the gold, when it makes the trip.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLOW + LEAKS -->
+  <section class="sec reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:12%;right:-20px;opacity:0.6;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the flow, and the leaks</span>
+      <h2 class="sec-title">Incoming → transformed by marketing → out to the donor. It leaks at every joint.</h2>
+      <figure class="fig"><img src="../images/work/pratham/pratham-info-flow.png" alt="Information flow mapping — incoming, transformation, output to donor." loading="lazy"><figcaption>The pipe: four sources, one marketing team transforming it, three ways it reaches a donor.</figcaption></figure>
+      <figure class="fig"><img src="../images/work/pratham/pratham-info-leakages.png" alt="The major information leakages — at the RD level, donor level, local level, and from Pratham India." loading="lazy"></figure>
+      <div class="cards4" style="margin-top:1.4rem;">
+        <div class="card4 leak"><h4>At the RD level</h4><p>No clear ownership of who shares what → repetitive work and confusion.</p></div>
+        <div class="card4 leak"><h4>At the donor level</h4><p>Inundated with generic emails that give little reason to engage.</p></div>
+        <div class="card4 leak"><h4>At the local level</h4><p>Chapter leaders have fuzzy roles and no shareable material.</p></div>
+        <div class="card4 leak"><h4>From Pratham India</h4><p>No structure for inbound stories → the strongest motivators never arrive.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE FIXES -->
+  <section class="sec alt reveal">
+    <span class="dot d-yellow" style="width:80px;height:80px;bottom:-28px;right:6%;opacity:0.5;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">how to seal it</span>
+      <h2 class="sec-title">Four artifacts that close the gaps.</h2>
+      <figure class="fig"><img src="../images/work/pratham/pratham-helpful-artifacts.png" alt="Helpful artifacts — structured monthly updates, events calendar, onboarding emails, templated events." loading="lazy"></figure>
+      <div class="cards4" style="margin-top:1.4rem;">
+        <div class="card4 fix"><h4>Structured monthly updates</h4><p>Content straight from Pratham India to the PUSA core (and chapter presidents) to share locally.</p></div>
+        <div class="card4 fix"><h4>Events calendar</h4><p>Pre-planned, so resources are phased and donors aren't fatigued by email.</p></div>
+        <div class="card4 fix"><h4>Onboarding emails</h4><p>A multi-part welcome series introducing new donors to the mission, people and story.</p></div>
+        <div class="card4 fix"><h4>Templated events</h4><p>Most events fit a few types — templatise the artifacts so chapter volunteers move fast.</p></div>
+      </div>
+      <p class="sec-lede" style="margin-top:2rem;">And beyond the plumbing, ways to let donors carry the story themselves:</p>
+      <ul class="recs">
+        <li><b>A "welcome to Pratham" series</b> — build trust and depth from the very first gift.</li>
+        <li><b>A "humans of Pratham" series</b> — stories of people on the ground, of donors, of students.</li>
+        <li><b>Donor story-sharing</b> — platforms, online and off, for donors to share their own experience with Pratham, deepening it into part of their life story.</li>
+      </ul>
+      <p class="pull">Because the goal was never more emails. It was making people feel <em>like they belong to something</em>.</p>
+    </div>
+  </section>
+
+  <section class="cut-end">
+    <span class="dot d-pink" style="width:60px;height:60px;bottom:14%;right:9%;opacity:0.85;"></span>
+    <span class="dot d-cyan" style="width:14px;height:14px;top:30%;right:24%;"></span>
+    <p class="cut-end-line">Fix the pipe, and the <em>research has somewhere to land</em>.</p>
+    <div class="cta-row">
+      <a class="cta cta-primary" href="pratham.html">see the full case study →</a>
+      <a class="cta cta-ghost" href="pratham-cut-research.html">jump to the research cut →</a>
+    </div>
+  </section>
+
+  <!--BEGIN:FOOT-->
+<style>
+  .foot { position: relative; z-index: 20; background: var(--bg); padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem; padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem)); max-width: 1400px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: var(--sans); font-size: 0.78rem; color: var(--ink-fade); letter-spacing: 0.05em; }
+  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
+  .foot a:hover { color: var(--pink); }
+  @media (max-width: 480px) { .foot { justify-content: flex-start; } }
+</style>
+<footer class="foot">
+  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
+  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
+</footer>
+<!--END:FOOT-->
+
+  <script>
+    var fill = document.getElementById('threadFill');
+    window.addEventListener('scroll', function () { var total = document.body.scrollHeight - window.innerHeight; fill.style.width = (total > 0 ? (window.scrollY / total) * 100 : 0) + '%'; }, { passive: true });
+    (function () {
+      var els = document.querySelectorAll('.reveal');
+      if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('is-in'); }); return; }
+      var io = new IntersectionObserver(function (entries) { entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+      els.forEach(function (e) { io.observe(e); });
+    })();
+  </script>
+</body>
+</html>
