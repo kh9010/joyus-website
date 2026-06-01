@@ -239,15 +239,17 @@
   }
   .sug:hover .sug-dest { color: var(--pink); }
 
-  /* tagline pinned bottom-right of the hero */
+  /* tagline — sits just under the input box (anchored to the stage, not the
+     viewport) so it reads as a hand-note on the field. Absolute so it never
+     affects the stage height the suggestions dropdown anchors to. */
   .hero-tagline {
     position: absolute;
-    bottom: clamp(2.5rem, 5vh, 4rem);
-    right: var(--x);
+    top: calc(100% + 0.9rem);
+    right: 0;
     font-family: var(--hand);
     font-weight: 600;
-    font-size: clamp(1.7rem, 2.6vw, 2.4rem);
-    line-height: 1.1;
+    font-size: clamp(1.4rem, 2.2vw, 1.95rem);
+    line-height: 1.05;
     color: var(--ink);
     margin: 0;
     max-width: 22ch;
@@ -281,8 +283,8 @@
     .hero .dh1 { width: 220px; height: 220px; left: -30%; right: auto; opacity: 0.85; }
     .hero .dh2 { width: 36px; height: 36px; }
     .hero .dh3 { width: 18px; height: 18px; }
-    /* on mobile, tagline pinned to bottom-left */
-    .hero-tagline { transform: rotate(-1deg); right: auto; left: var(--x); text-align: left; }
+    /* on mobile, keep the note tucked under the input, left-aligned */
+    .hero-tagline { transform: rotate(-1deg); right: auto; left: 0; text-align: left; }
     .hero-inner { gap: 1.5rem; }
     .hero-eyebrow { font-size: 0.72rem; }
     /* dropdown: inline so it doesn't get covered by mobile keyboard, BUT
@@ -490,9 +492,8 @@
       </form>
 
       <div id="intentSuggestions" role="listbox"></div>
+      <p class="hero-tagline">tell us what's<br><em>pulling on you</em></p>
     </div>
-
-    <p class="hero-tagline">tell us<br>what's<br><em>pulling on you</em></p>
    </div>
   </section>
 
