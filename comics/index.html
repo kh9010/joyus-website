@@ -19,10 +19,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <style>
-    .comics-hero { padding: 8rem var(--x) 4rem; background: var(--bg); border-bottom: 1px solid var(--rule); }
-    .comics-hero .inner { max-width: 700px; margin: 0 auto; }
-    .comics-hero h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(2.6rem, 6vw, 3.8rem); line-height: 1.0; letter-spacing: -0.04em; margin-bottom: 1rem; color: var(--ink); }
-    .comics-hero p { font-size: 1.1rem; color: var(--ink-soft); line-height: 1.7; max-width: 560px; }
+    /* Hero matches the other page headers (work/podcast): eyebrow + big h1 + sub + drifting dots. */
+    .hero { position: relative; overflow: hidden; padding: clamp(7rem, 16vh, 11rem) var(--x) clamp(3rem, 7vh, 5rem); display: flex; flex-direction: column; justify-content: center; }
+    .hero-eyebrow::before { background: var(--yellow); }
+    .hero h1 { font-weight: 700; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 14ch; position: relative; z-index: 2; }
+    .hero h1 em { font-style: normal; color: var(--pink); }
+    .hero-sub { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.6; color: var(--ink-soft); max-width: 56ch; margin-top: 1.75rem; position: relative; z-index: 2; }
+    .dot { position: absolute; border-radius: 50%; z-index: 0; pointer-events: none; }
+    .d-pink { background: var(--pink); }
+    .d-cyan { background: var(--cyan); }
+    .d-yellow { background: var(--yellow); }
+    .d-ink { background: var(--ink); }
 
     .comics-grid-section { padding: 4rem var(--x) 2rem; }
     .comics-grid-section .inner { max-width: 960px; margin: 0 auto; }
@@ -210,11 +217,16 @@
 <!--END:NAV-->
 
   <main id="main-content">
-  <section class="comics-hero">
-    <div class="inner">
-      <h1>Comics</h1>
-      <p>Hand-drawn stories about friendship, connection, and the small absurdities of being human. Written by Kahran Singh, illustrated by Divya Tak.</p>
-    </div>
+  <section class="hero">
+    <span class="dot d-pink"   style="bottom: -6%; right: 8%; width: 200px; height: 200px; opacity: 0.95;"></span>
+    <span class="dot d-cyan"   style="top: 22%; right: 24%; width: 34px; height: 34px;"></span>
+    <span class="dot d-yellow" style="top: 16%; right: 34%; width: 14px; height: 14px;"></span>
+    <span class="dot d-yellow" style="bottom: 24%; left: 6%; width: 28px; height: 28px; opacity: 0.5;"></span>
+    <span class="dot d-ink"    style="top: 18%; left: 22%; width: 6px; height: 6px;"></span>
+
+    <span class="hero-eyebrow">off the clock</span>
+    <h1>Comics &amp; <em>zines</em></h1>
+    <p class="hero-sub">Hand-drawn stories about friendship, connection, and the small absurdities of being human. Written by Kahran Singh, illustrated by Divya Tak.</p>
   </section>
 
   <section class="comics-grid-section">
