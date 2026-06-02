@@ -664,10 +664,10 @@
             <div class="verb-panel-inner">
               <p class="manifesto">You bring the problem. <em>We help you see it clearly enough to decide.</em></p>
               <ul class="questions">
-                <li tabindex="0" data-related="klydo,ep14,pratham">Should we rebuild the brand, or just rename it?</li>
-                <li tabindex="0" data-related="pratham,ep42,klydo,tatsam">Is the product landing with the audience we think we're talking to?</li>
-                <li tabindex="0" data-related="tatsam,ep22,klydo">Do I have more options than I think I do?</li>
-                <li tabindex="0" data-related="agemo,ep56,klydo,pratham">Do I need a co-founder, or a hire?</li>
+                <li tabindex="0" data-related="klydo,xtdb,ep14">Should we rebuild the brand, or just rename it?</li>
+                <li tabindex="0" data-related="pratham,ep42,convegenius,agemo">Is the product landing with the audience we think we're talking to?</li>
+                <li tabindex="0" data-related="ep56,tomboyx,qn">Do I have more options than I think I do?</li>
+                <li tabindex="0" data-related="rachna,prem,lena">Do I need a co-founder, or a hire?</li>
               </ul>
               <div class="related" data-state="empty">
                 <div class="related-empty">Hover a question to see <em>related projects + episodes</em></div>
@@ -879,26 +879,27 @@
 
     // ---- Question hover/focus → reveal related cards (visual placeholder) ----
     (function () {
-      // PLACEHOLDER POOL — these are not yet curated mappings; the visual
-      // is real but the question→content mapping will be reviewed in a
-      // later pass against actual case studies + podcast episodes.
-      // PLACEHOLDER POOL — `quote` is a representative line FROM that work
-      // (made up for now; will be real lines pulled from each case study /
-      // podcast / essay in the curation pass).
+      // POOL — id → card data for the related reveal. The ADVISE questions are
+      // being curated against real case studies + episodes (in progress); the
+      // other verbs and the generic ep14–ep56 entries are still placeholder.
+      // No `quote` field — Divya's current card layout shows title + sub only.
       const POOL = {
-        klydo:        { type: 'project', title: 'Klydo',        sub: 'Brand & product rebuild', href: 'coming-soon.html',         quote: 'the brand wasn’t lost — the telling was.' },
-        pratham:      { type: 'project', title: 'Pratham',      sub: 'Brand strategy',          href: 'coming-soon.html',       quote: 'talk to who’s actually here, not who you wish was.' },
-        tomboyx:      { type: 'project', title: 'TomboyX',      sub: 'Repositioning',           href: 'coming-soon.html',       quote: 'we sold the body, not the body type.' },
-        tatsam:       { type: 'project', title: 'Tatsam',       sub: 'Quiet luxury brand',      href: 'coming-soon.html',        quote: 'quiet isn’t quiet. it’s confident.' },
-        agemo:        { type: 'project', title: 'Agemo',        sub: 'Product & research',      href: 'work/agemo.html',          quote: 'ship the smallest real version. then the next.' },
-        convegenius:  { type: 'project', title: 'ConveGenius',  sub: 'Gamification system',     href: 'coming-soon.html',   quote: 'the loop teaches. the score doesn’t.' },
-        rachna:       { type: 'project', title: 'Rachna Nivas', sub: 'Brand foundation',        href: 'work/rachna-nivas.html',  quote: 'every brand is a room you walk into.' },
-        xtdb:         { type: 'project', title: 'XTDB',         sub: 'Developer brand & story', href: 'coming-soon.html',          quote: 'let the docs tell the truth before marketing does.' },
-        ep14:         { type: 'podcast', title: 'Ep 14',        sub: 'Naming things',           href: 'podcast.html',            quote: 'naming things is most of strategy.' },
-        ep22:         { type: 'podcast', title: 'Ep 22',        sub: 'The founder’s voice',     href: 'podcast.html',            quote: 'the founder is the brand. for now.' },
-        ep31:         { type: 'podcast', title: 'Ep 31',        sub: 'Stories that land',       href: 'podcast.html',            quote: 'stories travel further than slides.' },
-        ep42:         { type: 'podcast', title: 'Ep 42',        sub: 'Talking to real users',   href: 'podcast.html',            quote: 'five real customers a week. for a year.' },
-        ep56:         { type: 'podcast', title: 'Ep 56',        sub: 'Strategy under pressure', href: 'podcast.html',            quote: 'when you don’t know what to do, slow down.' }
+        klydo:        { type: 'project', title: 'Klydo',        sub: 'Brand & product rebuild', href: 'coming-soon.html' },
+        pratham:      { type: 'project', title: 'Pratham',      sub: 'Brand strategy',          href: 'coming-soon.html' },
+        tomboyx:      { type: 'project', title: 'TomboyX',      sub: 'Repositioning',           href: 'coming-soon.html' },
+        tatsam:       { type: 'project', title: 'Tatsam',       sub: 'Quiet luxury brand',      href: 'coming-soon.html' },
+        agemo:        { type: 'project', title: 'Agemo',        sub: 'Product & research',      href: 'work/agemo.html' },
+        convegenius:  { type: 'project', title: 'ConveGenius',  sub: 'Gamification system',     href: 'coming-soon.html' },
+        rachna:       { type: 'project', title: 'Rachna Nivas', sub: 'Brand foundation',        href: 'work/rachna-nivas.html' },
+        xtdb:         { type: 'project', title: 'XTDB',         sub: 'Developer brand & story', href: 'coming-soon.html' },
+        ep14:         { type: 'podcast', title: 'Ep 14',        sub: 'Naming things',           href: 'podcast.html' },
+        ep22:         { type: 'podcast', title: 'Ep 22',        sub: 'The founder’s voice',     href: 'podcast.html' },
+        ep31:         { type: 'podcast', title: 'Ep 31',        sub: 'Stories that land',       href: 'podcast.html' },
+        ep42:         { type: 'podcast', title: 'Ep 42',        sub: 'Talking to real users',   href: 'podcast.html' },
+        ep56:         { type: 'podcast', title: 'Ep 56',        sub: 'Strategy under pressure', href: 'podcast.html' },
+        qn:           { type: 'podcast', title: 'On success & failure', sub: 'Spinning out QuizNext', href: 'podcast/thinking-on-confidence-feelings-of-success-failure-and-achievement.html' },
+        prem:         { type: 'podcast', title: 'Co-founder dynamics', sub: 'with Prem & Andrew', href: 'podcast/navigating-changing-dynamics-relationships-with-kahran-and-prem-andrew-co-founde.html' },
+        lena:         { type: 'podcast', title: 'Satisfaction & success', sub: 'with co-founder Lena', href: 'podcast/satisfaction-with-success-with-kahran-alva10-s-co-founder-lena-chaihorsky.html' }
       };
 
       // Hand-written intro phrases per type
