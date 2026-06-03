@@ -261,18 +261,19 @@
       // term-substring path below, which is more discriminating.
       var words = q.split(/\s+/).filter(function(w) { return w.length > 2; });
 
-      var scored = CONTENT_MAP.map(function(entry) {
+      var scored = CONTENT_MAP.map(function(entry, idx) {
         var score = 0;
         entry.terms.forEach(function(term) {
-          if (q.indexOf(term) !== -1) {
+          var t = term.toLowerCase();  // terms are authored lowercase; normalize defensively so a mixed-case term can't silently miss
+          if (q.indexOf(t) !== -1) {
             score += 3;
-          } else if (term.indexOf(' ') === -1) {
+          } else if (t.indexOf(' ') === -1) {
             // Word-in-term partial credit only for single-word terms.
             // Skipping multi-word terms ("ai workshop", "chatgpt workshop") prevents
             // a short word like "work" from substring-matching three of them at once
             // and inflating an unrelated entry past the true hit.
             words.forEach(function(word) {
-              if (term.indexOf(word) !== -1) score += 1;
+              if (t.indexOf(word) !== -1) score += 1;
             });
           }
         });
@@ -283,10 +284,12 @@
             if (entry.display.toLowerCase().indexOf(word) !== -1) score += 0.5;
           });
         }
-        return { entry: entry, score: score };
+        return { entry: entry, score: score, idx: idx };
       });
 
-      scored.sort(function(a, b) { return b.score - a.score; });
+      // Sort by score desc; break ties by CONTENT_MAP order so the ranking is
+      // stable/reproducible rather than depending on Array.sort tie behavior.
+      scored.sort(function(a, b) { return (b.score - a.score) || (a.idx - b.idx); });
       return scored;
     }
 

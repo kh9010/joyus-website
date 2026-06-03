@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="../styles.css">
   <style>
     /* Hero matches the other page headers (work/podcast): eyebrow + big h1 + sub + drifting dots. */
-    .hero { position: relative; overflow: hidden; padding: clamp(7rem, 16vh, 11rem) var(--x) clamp(3rem, 7vh, 5rem); display: flex; flex-direction: column; justify-content: center; }
+    .hero { position: relative; overflow: hidden; min-height: 50vh; padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(1.5rem, 3vh, 2.5rem); display: flex; flex-direction: column; justify-content: flex-start; }
     .hero-eyebrow::before { background: var(--yellow); }
     .hero h1 { font-weight: 700; font-size: clamp(3rem, 8vw, 6rem); line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 14ch; position: relative; z-index: 2; }
     .hero h1 em { font-style: normal; color: var(--pink); }
@@ -45,11 +45,11 @@
     .comic-card-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--pink); margin-bottom: 0.75rem; }
     .comic-card-body p { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 0; }
 
-    .comics-outro { padding: 3rem var(--x) 5rem; text-align: center; border-top: 1px solid var(--rule); }
-    .comics-outro .inner { max-width: 640px; margin: 0 auto; }
-    .comics-outro h2 { font-family: var(--hand); font-size: 2rem; color: var(--ink); margin-bottom: 0.5rem; }
-    .comics-outro p { color: var(--ink-soft); font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
-    .comics-outro-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
+    /* Standard site closing (.closing comes from styles.css); only the
+       decorative dot positions are page-local. */
+    .closing .dot-x1 { width: 26px; height: 26px; top: 30%; right: 18%; }
+    .closing .dot-x2 { width: 14px; height: 14px; top: 52%; right: 28%; }
+    .closing .dot-x3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
 
     @media (max-width: 480px) { .comics-grid { grid-template-columns: 1fr; } }
   </style>
@@ -291,16 +291,11 @@
     </div>
   </section>
 
-  <section class="comics-outro">
-    <div class="inner">
-      <h2>Want more?</h2>
-      <p>These comics come from the same advisory, design & storytelling studio that works with startups and mission-driven teams.</p>
-      <div class="comics-outro-actions">
-        <a class="j-pill j-pill--solid" href="../services.html">Work with us &rarr;</a>
-        <a class="j-pill" href="../podcast.html">Podcast</a>
-        <a class="j-pill" href="../work/index.html">Our work</a>
-      </div>
-    </div>
+  <section class="closing">
+    <span class="dot dot-x1 d-pink"></span>
+    <span class="dot dot-x2 d-cyan"></span>
+    <span class="dot dot-x3 d-yellow"></span>
+    <h2>Want more? <em><a href="../say-hi.html">Be our friends.</a></em></h2>
   </section>
   </main>
 
@@ -335,7 +330,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
+  <a href="../say-hi.html">say hi</a>
 </footer>
 <!--END:FOOT-->
 

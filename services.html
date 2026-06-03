@@ -40,8 +40,8 @@
 
   /* ============ HERO — placeholder header (workshops-style) ============ */
   .hero {
-    min-height: 60vh;
-    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
+    min-height: 50vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(1.5rem, 3vh, 2.5rem);
     display: flex; flex-direction: column; justify-content: flex-start;
     position: relative; overflow: hidden;
   }
@@ -71,7 +71,7 @@
 
   /* ============ VERB ACCORDION ============ */
   .verbs {
-    padding: 0 0 clamp(4rem, 8vh, 6rem);
+    padding: 0 0 clamp(1.5rem, 3vh, 2.5rem);
     position: relative;
     border-top: 1px solid var(--rule);
   }
@@ -262,6 +262,7 @@
   /* ---------- Left column: questions ---------- */
   .questions {
     grid-column: 1;
+    align-self: start;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -275,7 +276,7 @@
     font-weight: 400;
     color: var(--on-bg-soft, var(--ink-soft));
     cursor: pointer;
-    transition: color 0.2s ease, padding-left 0.25s ease;
+    transition: color 0.2s ease, transform 0.25s ease;
     position: relative;
   }
   .questions li:first-child { border-top: 0; }
@@ -294,7 +295,7 @@
   .questions li:focus,
   .questions li[data-active="true"] {
     color: var(--on-bg, var(--pink));
-    padding-left: 0.4em;
+    transform: translateX(0.4em);
   }
   .questions li:hover::before,
   .questions li:focus::before,
@@ -309,8 +310,12 @@
     grid-column: 2;
     position: relative;
     /* Reserve a fixed stage so the panel height never jumps between the
-       empty hint and a filled cluster, or from one question to another. */
-    min-height: clamp(300px, 34vh, 360px);
+       empty hint and a filled cluster, or from one question to another.
+       Must be a FIXED height (not min-height): with min-height a tall
+       cluster grows the grid row, which re-stretches the questions column
+       and shoves the last question (and the page below) down. A fixed
+       height keeps all the reserved space on the right-hand side only. */
+    height: clamp(320px, 36vh, 400px);
   }
   .related-empty {
     font-family: var(--hand);
@@ -437,9 +442,9 @@
     }
     .manifesto { max-width: none; }
     .questions, .related { grid-column: 1; }
-    .related { min-height: 0; margin-top: 0.5rem; }
+    .related { height: auto; margin-top: 0.5rem; }
     .questions li::before { display: none; }
-    .questions li:hover, .questions li[data-active="true"] { padding-left: 0; }
+    .questions li:hover, .questions li[data-active="true"] { transform: none; }
     /* On touch, no hover — so always show a compact card list under each question */
     .related-empty { display: none; }
     /* Calm the bubble jitter on small screens for readability */
@@ -447,7 +452,7 @@
   }
 
   /* iOS Safari URL-bar safe height */
-  .hero { min-height: 60dvh; }
+  .hero { min-height: 50dvh; }
 
   /* ============ CLOSING ============
      .closing / .closing-label / .closing h3 / .closing .hint all come
@@ -798,9 +803,7 @@
     <span class="dot dot-x1 d-pink"></span>
     <span class="dot dot-x2 d-cyan"></span>
     <span class="dot dot-x3 d-yellow"></span>
-    <span class="closing-label">your move</span>
     <h2>Pick a verb. <em><a href="say-hi.html">Be our friends.</a></em></h2>
-    <span class="hint">hello@joyus.studio · we read everything</span>
   </section>
   </main>
 
@@ -835,7 +838,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="say-hi.html">say hi · hello@joyus.studio</a>
+  <a href="say-hi.html">say hi</a>
 </footer>
 <!--END:FOOT-->
 

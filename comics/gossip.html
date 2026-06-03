@@ -23,11 +23,16 @@
   <style>
     .reading-progress { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: var(--pink); z-index: 200; transition: width 0.1s linear; }
 
-    .comic-hero { padding: 8rem var(--x) 3rem; background: var(--bg); border-bottom: 1px solid var(--rule); text-align: center; scroll-snap-align: start; }
-    .comic-hero .inner { max-width: 600px; margin: 0 auto; }
-    .comic-hero h1 { font-family: var(--sans); font-weight: 700; font-size: clamp(2.2rem, 5vw, 3.4rem); line-height: 1.02; letter-spacing: -0.035em; color: var(--ink); margin: 0 0 0.6rem; }
-    .comic-hero .comic-tagline { font-size: 1.05rem; color: var(--ink-soft); line-height: 1.7; margin-bottom: 1.4rem; }
-    .comic-hero .comic-meta { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-fade); }
+    /* Hero matches the site-standard header (index/work/podcast): eyebrow + big
+       h1 + sub + meta. scroll-snap-align keeps it as the first snap stop. */
+    .hero { position: relative; overflow: hidden; min-height: 50vh; padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(1.5rem, 3vh, 2.5rem); display: flex; flex-direction: column; justify-content: flex-start; border-bottom: 1px solid var(--rule); scroll-snap-align: start; }
+    .hero-eyebrow::before { background: var(--yellow); }
+    .hero h1 { font-weight: 700; font-size: clamp(2.6rem, 7vw, 5rem); line-height: 0.96; letter-spacing: -0.04em; color: var(--ink); margin: 0; max-width: 18ch; position: relative; z-index: 2; }
+    .hero h1 em { font-style: normal; color: var(--pink); }
+    .hero-sub { font-size: clamp(1.05rem, 1.4vw, 1.2rem); line-height: 1.6; color: var(--ink-soft); max-width: 56ch; margin-top: 1.5rem; position: relative; z-index: 2; }
+    .hero-meta { margin-top: 1.25rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ink-fade); position: relative; z-index: 2; }
+    .dot { position: absolute; border-radius: 50%; z-index: 0; pointer-events: none; }
+    .d-pink { background: var(--pink); } .d-cyan { background: var(--cyan); } .d-yellow { background: var(--yellow); } .d-ink { background: var(--ink); }
 
     .comic-reader { padding: 3rem var(--x) 5rem; background: var(--bg); }
     .comic-reader .reader-inner { max-width: 800px; margin: 0 auto; }
@@ -250,12 +255,14 @@
 </script>
 <!--END:NAV-->
 
-  <section class="comic-hero">
-    <div class="inner">
-      <h1>Gossip</h1>
-      <p class="comic-tagline">Two friends dissect someone else's relationship over dinner. It spirals. Why do we choose unhappiness?</p>
-      <div class="comic-meta">Written by Kahran Singh &middot; Illustrated by Divya Tak &middot; 4 pages</div>
-    </div>
+  <section class="hero">
+    <span class="dot d-pink"   style="bottom: -6%; right: 8%; width: 200px; height: 200px; opacity: 0.95;"></span>
+    <span class="dot d-cyan"   style="top: 22%; right: 24%; width: 34px; height: 34px;"></span>
+    <span class="dot d-yellow" style="top: 16%; right: 34%; width: 14px; height: 14px;"></span>
+    <span class="hero-eyebrow">off the clock</span>
+    <h1>Gossip</h1>
+    <p class="hero-sub">Two friends dissect someone else's relationship over dinner. It spirals. Why do we choose unhappiness?</p>
+    <p class="hero-meta">Written by Kahran Singh &middot; Illustrated by Divya Tak &middot; 4 pages</p>
   </section>
 
   <div class="keyboard-hint" id="keyboardHint">
@@ -285,25 +292,6 @@
         <div class="page-number">4 / 4</div>
       </div>
 
-    </div>
-  </section>
-
-  <div class="comic-end">
-    <span class="squiggle">~ end ~</span>
-    <p class="credits">Written by Kahran. Illustrated by Divya. Click any page above to zoom — or use the arrow keys.</p>
-  </div>
-
-  <section class="print-cta">
-    <div class="inner">
-      <span class="eyebrow">in print, coming soon</span>
-      <h2>Want this on <em>paper?</em></h2>
-      <p class="lede">Printed and shipped on demand. We're getting the proofs back from the printer now. Drop your email and we'll tell you when print orders open.</p>
-      <form class="print-cta-form" id="printCtaForm" novalidate>
-        <input type="email" name="email" placeholder="your@email.com" required aria-label="Your email">
-        <button type="submit">Tell me when</button>
-      </form>
-      <p class="print-cta-status" id="printCtaStatus" aria-live="polite"></p>
-      <p class="small-print">No spam — one email when print orders open. That's it.</p>
     </div>
   </section>
 
@@ -351,7 +339,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="../say-hi.html">say hi · hello@joyus.studio</a>
+  <a href="../say-hi.html">say hi</a>
 </footer>
 <!--END:FOOT-->
 
