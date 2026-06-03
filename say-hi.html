@@ -38,9 +38,9 @@
 
   /* ───── HERO (canonical: left-aligned, eyebrow + big h1 + lede) ───── */
   .hero {
-    min-height: 56vh;
-    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(3rem, 6vh, 5rem);
-    display: flex; flex-direction: column; justify-content: center;
+    min-height: 44vh;
+    padding: clamp(7rem, 14vh, 10rem) var(--x) clamp(1.5rem, 3vh, 2.5rem);
+    display: flex; flex-direction: column; justify-content: flex-start;
     position: relative; overflow: hidden;
   }
   .hero-inner { position: relative; z-index: 2; }
@@ -141,9 +141,6 @@
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
   .send-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(233, 30, 123, 0.28); }
-  .send-note {
-    font-size: 0.84rem; color: var(--ink-fade); margin-top: -0.4rem;
-  }
 
   /* thank-you state */
   .say-thanks {
@@ -174,24 +171,16 @@
   }
   .ways-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.2rem; }
   .way {
-    display: flex; align-items: baseline; gap: 0.65rem;
-    padding: 0.95rem 0;
-    border-top: 1px solid var(--rule);
+    display: block;
+    padding: 0.5rem 0;
     text-decoration: none;
     color: var(--ink);
-    transition: padding-left 0.25s ease, color 0.2s ease;
+    transition: color 0.2s ease;
   }
-  .ways-list li:first-child .way { border-top: 0; }
-  .way:hover { padding-left: 0.4rem; color: var(--pink); }
-  .way-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; position: relative; top: 0.55em; }
-  .way[data-kind="email"]    .way-dot { background: var(--pink); }
-  .way[data-kind="podcast"]  .way-dot { background: var(--cyan); }
-  .way[data-kind="social"]   .way-dot { background: var(--yellow); }
+  .way:hover { color: var(--pink); }
   .way-main { display: block; }
   .way-name { font-size: 1.1rem; font-weight: 600; line-height: 1.2; display: block; }
   .way-sub { font-size: 0.86rem; color: var(--ink-soft); display: block; margin-top: 0.15rem; }
-  .way-arrow { margin-left: auto; color: var(--ink-fade); transition: transform 0.25s ease, color 0.2s ease; align-self: center; }
-  .way:hover .way-arrow { transform: translateX(4px); color: var(--pink); }
 
   .ways-hand {
     font-family: var(--hand);
@@ -380,7 +369,7 @@
       <span class="hero-eyebrow">say hi</span>
       <h1>Being <em>friendly</em></h1>
       <p class="hero-lede">
-        Tell us what you're working on and what's keeping you up at night. <em>No pitch required.</em>
+        Tell us what you're working on and what's keeping you up at night.
       </p>
     </div>
   </section>
@@ -407,7 +396,6 @@
             <textarea id="f-msg" name="message" placeholder="A brand that feels like me. A product to launch from zero. Or just a conversation worth having."></textarea>
           </div>
           <button class="send-btn" type="submit">Send it →</button>
-          <p class="send-note">Hit send and your email app opens with the note drafted — it comes straight to the two of us.</p>
         </form>
 
         <!-- shown after submit -->
@@ -422,44 +410,28 @@
         <span class="ways-eyebrow"><span class="dot-mark"></span>other ways to find us</span>
         <ul class="ways-list">
           <li>
-            <a class="way" data-kind="email" href="mailto:hello@joyus.studio">
-              <span class="way-dot"></span>
-              <span class="way-main">
+            <a class="way" data-kind="email" href="mailto:hello@joyus.studio">              <span class="way-main">
                 <span class="way-name">Email</span>
-                <span class="way-sub">hello@joyus.studio · we read everything</span>
-              </span>
-              <span class="way-arrow" aria-hidden="true">→</span>
-            </a>
+                <span class="way-sub">hello@joyus.studio</span>
+              </span>            </a>
           </li>
           <li>
-            <a class="way" data-kind="podcast" href="podcast.html">
-              <span class="way-dot"></span>
-              <span class="way-main">
+            <a class="way" data-kind="podcast" href="podcast.html">              <span class="way-main">
                 <span class="way-name">The podcast</span>
                 <span class="way-sub">on Spotify, Apple Podcasts &amp; iHeart</span>
-              </span>
-              <span class="way-arrow" aria-hidden="true">→</span>
-            </a>
+              </span>            </a>
           </li>
           <li>
-            <a class="way" data-kind="social" href="https://www.instagram.com/joyus_studio/" target="_blank" rel="noopener">
-              <span class="way-dot"></span>
-              <span class="way-main">
+            <a class="way" data-kind="social" href="https://www.instagram.com/joyus_studio/" target="_blank" rel="noopener">              <span class="way-main">
                 <span class="way-name">Instagram</span>
                 <span class="way-sub">@joyus_studio</span>
-              </span>
-              <span class="way-arrow" aria-hidden="true">→</span>
-            </a>
+              </span>            </a>
           </li>
           <li>
-            <a class="way" data-kind="social" href="https://www.linkedin.com/company/joyus-studio/" target="_blank" rel="noopener">
-              <span class="way-dot"></span>
-              <span class="way-main">
+            <a class="way" data-kind="social" href="https://www.linkedin.com/company/joyus-studio/" target="_blank" rel="noopener">              <span class="way-main">
                 <span class="way-name">LinkedIn</span>
                 <span class="way-sub">Joyus Studio</span>
-              </span>
-              <span class="way-arrow" aria-hidden="true">→</span>
-            </a>
+              </span>            </a>
           </li>
         </ul>
         <span class="ways-hand">we're a <em>two-person</em> studio — you'll always reach a real one of us.</span>
@@ -499,7 +471,7 @@
 </style>
 <footer class="foot">
   <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="say-hi.html">say hi · hello@joyus.studio</a>
+  <a href="say-hi.html">say hi</a>
 </footer>
 <!--END:FOOT-->
 
