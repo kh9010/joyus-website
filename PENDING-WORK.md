@@ -28,9 +28,9 @@ Everything below is ours to build. Detail to be filled in as we scope each one.
 |---|------|--------|-------|
 | 2 | **Search logic re-check** — another round on the intent-box scoring/routing (`intent-box.js`) | ☑ | Full read-only audit done (agent + verified by hand). **Verdict: algorithm sound, no real bugs.** Hardening applied (lowercase term compare + stable tie-break). Coverage gaps (ux/ui, "how to price", logo, crisis/PR) still need intent→page mappings from K/D when wanted. |
 
-### ⛔ Blocked on Kahran — connect case studies everywhere
+### Post-launch — connect case studies everywhere (NOT a launch blocker)
 
-**8 case studies** (Klydo, Tatsam, Pratham USA, XTDB, Gliitch, ConveGenius, TomboyX, Secret Senses) — reachable via **21 intent rows** (2–3 search phrasings each) in `intent-box.js` — currently route to `coming-soon.html`, **not** their live `work/*.html` pages. **Per Divya (2026-06-03): leave as-is** — Kahran needs to review each case study and mark it done first. **Once he does, wire them up everywhere** (intent-box `coming-soon.html` → real `work/<slug>.html`, and surface case studies across the site, e.g. the About marquee which is currently just Rachna Nivas + Agemo). Tracking so this isn't forgotten.
+**8 case studies** (Klydo, Tatsam, Pratham USA, XTDB, Gliitch, ConveGenius, TomboyX, Secret Senses) — reachable via **21 intent rows** in `intent-box.js` — route to `coming-soon.html`, not their live `work/*.html` pages. **Per Kahran (2026-06-03): fine to go live without these wired — he'll review the case studies after launch.** Once he reviews & marks each ready, wire them up everywhere: intent-box `coming-soon.html` → real `work/<slug>.html`; the **Services verb examples** in `services.html` point at the same coming-soon pages (repoint those too); and surface case studies across the site, e.g. the About marquee (currently just Rachna Nivas + Agemo).
 | 3 | **Link audit** — find missing / broken / stale links across the codebase | ☑ | Found & fixed: dead `shape-echo.js` (deleted file) still loaded by 3 pages (thesis-workshop, klydo-cut-design, klydo-cut-strategy) → removed. Rest were false positives. Reusable checker at `scripts/link-audit.mjs`. External links not network-verified. |
 | 4 | **Footer edits** (`_partials/foot.html` → `sync-chrome.js`) | ☑ | Removed the email from the "say hi · hello@joyus.studio" link → now just "say hi". Synced to 156 pages + fixed the podcast episode template. |
 | 6 | **Rework the bottom of the home page — the "pulling" line** (`index.html`) | ☑ | Replaced the bottom-right "pulling on you" note with a browse path: "or start with what we do · who we are" → services / about (fades out while the suggestions dropdown is open). Done in the 2026-06-03 hero rework. |
@@ -62,7 +62,16 @@ Everything below is ours to build. Detail to be filled in as we scope each one.
 | Search hardening | ☑ | `intent-box.js`: lowercase each `term` before comparison (fixes the latent case bug — "don't leave buggy code"); added a stable tie-breaker (score desc, then CONTENT_MAP order) for reproducible ranking. Syntax-checked. |
 | Comics consistency | ☑ | Header + footer already uniform (partials). Converted all 5 readers' `.comic-hero` → site-standard hero (eyebrow "off the clock" + h1 + sub + credits meta). Removed the `.print-cta` print form + "~ end ~" block; reader bottom = back/next nav → footer. Index kept (it was the reference). Orphan print-cta JS (firebase, guarded) + CSS left for later cleanup. |
 
+## Longer-term (post-launch, no rush)
+
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| 19 | **Domain cutover to `joyus.studio`** | ☐ | The new site still lives at `kh9010.github.io/joyus-website/`. On cutover, update every `<link rel="canonical">`, `og:url`, the absolute URLs in JSON-LD, and `sitemap.xml` / `robots.txt`. |
+| 20 | **Migrate the remaining WIP pages** to the new design system | ☐ | Still on the old/unstyled system (wearing the yellow WIP banner): the 6 hubs, 15 `thinking/*` essays, `ai-workshops.html`, `services-old.html`, `404.html`. Migrate one at a time; swap nav/footer to the partial markers and run `scripts/sync-chrome.js`. |
+
+---
+
 ## Notes
 
 - Branch discipline: Divya works on `designmayNN` branches; Kahran/Claude sessions use `kahran-<date>-<task>`. Don't cross-commit.
-- This list is the source of truth across Claude sessions — update statuses here as items land.
+- **This file is the single source of truth for outstanding work** — across Divya, Kahran, and Claude sessions. Update statuses here as items land. (Claude: don't keep a parallel pending list in memory.)
