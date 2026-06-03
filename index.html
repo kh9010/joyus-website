@@ -127,7 +127,8 @@
      answer will appear. */
   .hero-field { position: relative; flex: 1 1 0; min-width: 0; }
   .hero-fill #intentInput,
-  .hero-fauxph {
+  .hero-fauxph,
+  .hero-caret {
     font-family: var(--sans);
     font-size: clamp(1.8rem, 3.6vw, 3rem);
     line-height: 1.15;
@@ -165,11 +166,37 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding-left: 0.55em;        /* clear the resting caret so they don't overlap */
     transition: opacity 0.34s ease, transform 0.34s ease;
   }
   .hero-fauxph.swap { opacity: 0; transform: translateY(6px); }
   .hero-field.active .hero-fauxph,
   .hero-field.filled .hero-fauxph { opacity: 0; }
+  /* Resting caret — a calm pink "you can type here" marker at the field start.
+     It stays PUT while the grey prompt crossfades, so it reads as a cursor, not
+     another moving thing. Hidden on focus (the real textarea caret takes over)
+     and once anything is typed. */
+  /* Caret container shares the field's exact line-box (font/line-height/padding
+     from the rule above) so the bar can sit on the SAME baseline as the text. */
+  .hero-caret {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    pointer-events: none;
+  }
+  .hero-caret i {
+    display: inline-block;
+    width: 0.07em;
+    height: 0.74em;
+    background: var(--pink);
+    vertical-align: baseline;     /* sits ON the text baseline, not floating */
+    animation: caretBlink 1.1s steps(1, end) infinite;
+  }
+  @keyframes caretBlink { 0%, 55% { opacity: 1; } 55.01%, 100% { opacity: 0; } }
+  .hero-field.active .hero-caret,
+  .hero-field.filled .hero-caret { display: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-caret i { animation: none; opacity: 1; }
+  }
   .hero-fill .submit {
     font-size: clamp(1.4rem, 2vw, 1.8rem);
     color: var(--ink-fade);
@@ -288,7 +315,8 @@
     /* keep the lead line small — DO NOT inflate it */
     .hero-h1 { font-size: 1.3rem !important; }
     .hero-fill #intentInput,
-    .hero-fauxph {
+    .hero-fauxph,
+    .hero-caret {
       font-size: clamp(1.7rem, 7.5vw, 2.5rem);
     }
     .hero-fill #intentInput { border-bottom-width: 4px; }
@@ -504,6 +532,7 @@
       <form class="hero-fill" onsubmit="event.preventDefault();">
         <span class="hero-field">
           <textarea id="intentInput" rows="1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="Tell us what you're needing"></textarea>
+          <span class="hero-caret" aria-hidden="true"><i></i></span>
           <span class="hero-fauxph" id="intentFaux" aria-hidden="true"></span>
         </span>
         <button class="submit" type="submit" aria-label="Submit">→</button>
