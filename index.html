@@ -117,38 +117,59 @@
   .hero-fill {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: flex-end;
     gap: 0.4em;
     width: 100%;
     min-width: 0;
   }
-  .hero-fill #intentInput {
-    flex: 1 1 0;
-    min-width: 0;
+  /* Field wraps the textarea + the grey faux-placeholder overlay; both share
+     IDENTICAL type metrics so the dummy prompt sits exactly where the typed
+     answer will appear. */
+  .hero-field { position: relative; flex: 1 1 0; min-width: 0; }
+  .hero-fill #intentInput,
+  .hero-fauxph {
     font-family: var(--sans);
-    font-weight: 700;
-    font-size: clamp(2rem, 4.7vw, 3.9rem);
-    line-height: 1.05;
+    font-size: clamp(1.8rem, 3.6vw, 3rem);
+    line-height: 1.15;
     letter-spacing: -0.04em;
+    padding: 0 0.15em 0.1em;
+  }
+  /* The input is a textarea so a long need WRAPS to a new line (auto-grown in
+     JS) instead of getting clipped on one line. */
+  .hero-fill #intentInput {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 1.3em;
+    resize: none;
+    overflow: hidden;
+    font-weight: 700;
     color: var(--pink);
     background: transparent;
     border: 0;
     border-bottom: 5px solid var(--ink);
     outline: none;
-    padding: 0 0.15em 0.1em;
     transition: border-color 0.25s;
   }
-  .hero-fill #intentInput::placeholder {
-    color: var(--ink-fade);
-    font-style: normal;
-    font-weight: 500;
-    opacity: 0.6;
-  }
-  /* blinking caret behind the placeholder when input is empty + unfocused */
-  .hero-fill #intentInput.typing::placeholder {
-    opacity: 0.85;
-  }
   .hero-fill #intentInput:focus { border-bottom-color: var(--pink); }
+  /* Grey "dummy" prompt overlaid on the empty field. Crossfades between prompts
+     (mirrors the services rel-in fade-up) — no typing caret, so it reads as
+     placeholder text you replace, not live typing. Hidden once you focus/type. */
+  .hero-fauxph {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    pointer-events: none;
+    font-weight: 500;
+    color: var(--ink-fade);
+    opacity: 0.6;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: opacity 0.34s ease, transform 0.34s ease;
+  }
+  .hero-fauxph.swap { opacity: 0; transform: translateY(6px); }
+  .hero-field.active .hero-fauxph,
+  .hero-field.filled .hero-fauxph { opacity: 0; }
   .hero-fill .submit {
     font-size: clamp(1.4rem, 2vw, 1.8rem);
     color: var(--ink-fade);
@@ -160,22 +181,10 @@
     font-family: var(--sans);
     font-weight: 500;
     flex-shrink: 0;
-    align-self: center;
+    align-self: flex-end;
+    padding-bottom: 0.12em;
   }
   .hero-fill .submit:hover { color: var(--pink); transform: translateX(4px); }
-  #intentInput {
-    flex: 1;
-    border: 0;
-    background: transparent;
-    padding: 1rem 0.5rem 1rem 0;
-    font-family: var(--sans);
-    font-size: 1.15rem;
-    color: var(--ink);
-    outline: none;
-    letter-spacing: -0.005em;
-    min-width: 0;
-  }
-  #intentInput::placeholder { color: var(--ink-fade); font-style: italic; }
 
   /* SUGGESTIONS — sits flush under the input, in the hero-stage frame.
      Lighter than a form dropdown — feels like a list of ideas opening up. */
@@ -239,28 +248,33 @@
   }
   .sug:hover .sug-dest { color: var(--pink); }
 
-  /* tagline — sits just under the input box (anchored to the stage, not the
-     viewport) so it reads as a hand-note on the field. Absolute so it never
-     affects the stage height the suggestions dropdown anchors to. */
-  .hero-tagline {
+  /* secondary entry — a hand-note under the field offering a browse path for
+     visitors who'd rather not type. Absolute (like the old tagline) so it never
+     changes the stage height the dropdown anchors to; fades out while the
+     suggestions are open so the two never collide. */
+  .hero-alt {
     position: absolute;
-    top: calc(100% + 0.9rem);
+    top: calc(100% + 1rem);
     right: 0;
+    margin: 0;
     font-family: var(--hand);
     font-weight: 600;
-    font-size: clamp(1.4rem, 2.2vw, 1.95rem);
+    font-size: clamp(1.25rem, 1.9vw, 1.65rem);
     line-height: 1.05;
-    color: var(--ink);
-    margin: 0;
-    max-width: 22ch;
-    transform: rotate(-1.5deg);
+    color: var(--ink-soft);
     text-align: right;
+    transform: rotate(-1.5deg);
+    transition: opacity 0.2s ease;
     z-index: 3;
   }
-  .hero-tagline em {
-    font-style: normal;
-    color: var(--pink);
+  .hero-alt a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 2px solid var(--pink);
+    white-space: nowrap;
   }
+  .hero-alt a:hover { color: var(--pink); }
+  #intentSuggestions.visible ~ .hero-alt { opacity: 0; pointer-events: none; }
 
   /* ============ CLOSING ============
      .closing family styles come from styles.css; page-local dots only. */
@@ -271,12 +285,13 @@
   /* foot comes from /_partials/foot.html */
 
   @media (max-width: 720px) {
-    /* keep "i need…" small — DO NOT inflate it */
+    /* keep the lead line small — DO NOT inflate it */
     .hero-h1 { font-size: 1.3rem !important; }
-    .hero-fill #intentInput {
-      font-size: clamp(2rem, 8.5vw, 3rem);
-      border-bottom-width: 4px;
+    .hero-fill #intentInput,
+    .hero-fauxph {
+      font-size: clamp(1.7rem, 7.5vw, 2.5rem);
     }
+    .hero-fill #intentInput { border-bottom-width: 4px; }
     /* declutter the dot scatter on mobile */
     .hero .dh9 { display: none; }
     .hero .dh4 { width: 60px; height: 60px; right: 4%; top: 38%; }
@@ -284,7 +299,7 @@
     .hero .dh2 { width: 36px; height: 36px; }
     .hero .dh3 { width: 18px; height: 18px; }
     /* on mobile, keep the note tucked under the input, left-aligned */
-    .hero-tagline { transform: rotate(-1deg); right: auto; left: 0; text-align: left; }
+    .hero-alt { transform: rotate(-1deg); right: auto; left: 0; text-align: left; }
     .hero-inner { gap: 1.5rem; }
     .hero-eyebrow { font-size: 0.72rem; }
     /* dropdown: inline so it doesn't get covered by mobile keyboard, BUT
@@ -485,14 +500,17 @@
     <span class="hero-eyebrow">a storytelling studio · based in BLR &amp; NYC</span>
 
     <div class="hero-stage">
-      <label class="hero-h1" for="intentInput">i need…</label>
+      <label class="hero-h1" for="intentInput">tell us what you're needing</label>
       <form class="hero-fill" onsubmit="event.preventDefault();">
-        <input id="intentInput" type="text" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="Tell us what you need" />
+        <span class="hero-field">
+          <textarea id="intentInput" rows="1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="Tell us what you're needing"></textarea>
+          <span class="hero-fauxph" id="intentFaux" aria-hidden="true"></span>
+        </span>
         <button class="submit" type="submit" aria-label="Submit">→</button>
       </form>
 
       <div id="intentSuggestions" role="listbox"></div>
-      <p class="hero-tagline">tell us what's<br><em>pulling on you</em></p>
+      <p class="hero-alt">or start with <a href="services.html">what we do</a> · <a href="about.html">who we are</a></p>
     </div>
    </div>
   </section>
@@ -546,10 +564,20 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="intent-box.js"></script>
   <script>
-    // Homepage intent box: full autocomplete + typewriter placeholder.
-    initIntentBox({
-      page: 'index',
-      prompts: [
+    // Autocomplete + Enter-routing live in intent-box.js. We pass NO `prompts`
+    // (so its typewriter stays off) and instead drive a cursor-free, crossfading
+    // grey "dummy" prompt over the field below — and let the field grow so a
+    // long need wraps instead of getting cut off.
+    initIntentBox({ page: 'index' });
+
+    (function () {
+      var ta    = document.getElementById('intentInput');
+      var faux  = document.getElementById('intentFaux');
+      var field = ta && ta.closest('.hero-field');
+      var form  = ta && ta.closest('.hero-fill');
+      if (!ta || !faux || !field) return;
+
+      var PROMPTS = [
         'to tell a better story',
         'to launch a product from zero',
         'a brand that feels like me',
@@ -560,8 +588,46 @@
         'to hear founders talk burnout',
         'to figure out where ai fits',
         'to question what success means'
-      ]
-    });
+      ];
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Auto-grow: the field's height follows the typed answer (wraps, never clips).
+      function grow() { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+      // The grey dummy text is gone the moment you're in the field or have typed.
+      function sync() {
+        field.classList.toggle('active', document.activeElement === ta);
+        field.classList.toggle('filled', ta.value.length > 0);
+      }
+      ta.addEventListener('input', function () { grow(); sync(); });
+      ta.addEventListener('focus', sync);
+      ta.addEventListener('blur', sync);
+
+      // Enter submits (a textarea would otherwise insert a newline). Shift+Enter = newline.
+      ta.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (form && form.requestSubmit) form.requestSubmit();
+          else if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        }
+      });
+
+      // Crossfade the grey prompt — fade out + 6px down, swap, fade back in
+      // (the services rel-in fade, no caret). Pauses while the field is in use.
+      var i = 0;
+      faux.textContent = PROMPTS[0];
+      grow();
+      if (!reduce) {
+        setInterval(function () {
+          if (document.activeElement === ta || ta.value) return;
+          faux.classList.add('swap');
+          setTimeout(function () {
+            i = (i + 1) % PROMPTS.length;
+            faux.textContent = PROMPTS[i];
+            faux.classList.remove('swap');
+          }, 340);
+        }, 2600);
+      }
+    })();
   </script>
 
 </body>
