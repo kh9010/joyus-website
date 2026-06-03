@@ -15,6 +15,8 @@ These need Kahran's hand — they're copy or editorial decisions, not implementa
 |---|------|--------|-------|
 | 1 | Rewrite the **"Tell us…"** copy on the home page intent box | ☐ | The typewriter / placeholder prompt copy on `index.html`. |
 | 5 | Rewrite the **subhead on the Work page** (`work/index.html`) | ☐ | |
+| 17 | **Write the Karuna case study** | ☐ | Current client who weighed a co-founder decision. No case study exists. Would suit Services **advise Q4** ("Do I need a co-founder, or a hire?"), which currently leans on podcast eps (prem/lena). When written, add a project + surface it there. |
+| 18 | **Finish the QuizNext case study** | ☐ | Kahran's spun-off quizzing tool (acquired by Lead School); case study never finished. Services **advise Q3** ("Do I have more options than I think I do?") currently links the podcast episode instead. When written, repoint `intent-box.js` POOL `qn` → the case-study page + flip its `type` from `podcast` to `project`. |
 
 ---
 
