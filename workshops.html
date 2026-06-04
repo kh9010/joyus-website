@@ -83,10 +83,9 @@
   /* Asymmetric scatter down the right margin — big saturated pink high-ish,
      smaller cyan/yellow falling away below it. */
   /* Rescattered (size + placement + colour): big cyan low-left, the rest spread. */
-  .hero .dh1 { width: 180px; height: 180px; bottom: -6%; left: 4%; opacity: 0.55; }
-  .hero .dh2 { width: 50px; height: 50px; top: 20%; right: 8%; }
-  .hero .dh3 { width: 24px; height: 24px; top: 16%; left: 18%; }
-  .hero .dh4 { width: 14px; height: 14px; bottom: 26%; right: 22%; }
+  .hero .dh1 { width: 180px; height: 180px; bottom: -8%; right: 6%; opacity: 1; }
+  .hero .dh3 { width: 24px; height: 24px; bottom: 26%; right: 22%; }
+  .hero .dh4 { width: 14px; height: 14px; top: 22%; right: 14%; }
 
   /* ───── ARC BANDS (v1's saturated alternating bg energy) ───── */
   .arc {
@@ -297,27 +296,27 @@
   }
   .arc-3 .poster { --accent: var(--yellow); }
 
-  .arc .dot { opacity: 0.45; }
-  .arc-1 .ad1 { width: 150px; height: 150px; bottom: 6%; left: -3%; opacity: 0.6; }
-  .arc-1 .ad2 { width: 42px; height: 42px; top: 16%; right: 9%; }
-  .arc-1 .ad3 { width: 18px; height: 18px; top: 30%; left: 16%; }
-  .arc-1 .ad4 { width: 26px; height: 26px; bottom: 22%; right: 26%; }
-  .arc-2 .bd1 { width: 160px; height: 160px; top: 14%; left: 8%; opacity: 0.55; }
-  .arc-2 .bd2 { width: 38px; height: 38px; top: 22%; left: 32%; }
-  .arc-2 .bd3 { width: 18px; height: 18px; bottom: 16%; right: 28%; }
-  .arc-2 .bd4 { width: 28px; height: 28px; bottom: 18%; right: 8%; }
-  .arc-3 .cd1 { width: 160px; height: 160px; top: 12%; right: 8%; opacity: 0.55; }
-  .arc-3 .cd2 { width: 36px; height: 36px; top: 60%; right: 32%; }
-  .arc-3 .cd3 { width: 22px; height: 22px; bottom: 12%; left: 8%; }
+  .arc .dot { opacity:1; }
+  .arc-1 .ad1 { width: 150px; height: 150px; top: 8%; right: -4%; opacity:1; }
+  .arc-1 .ad2 { width: 42px; height: 42px; bottom: 18%; left: 8%; }
+  .arc-1 .ad3 { width: 18px; height: 18px; top: 30%; right: 16%; }
+  .arc-1 .ad4 { width: 26px; height: 26px; bottom: 24%; left: 24%; }
+  .arc-2 .bd1 { width: 160px; height: 160px; bottom: 8%; right: 4%; opacity:1; }
+  .arc-2 .bd2 { width: 38px; height: 38px; bottom: 20%; right: 30%; }
+  .arc-2 .bd3 { width: 18px; height: 18px; top: 18%; left: 26%; }
+  .arc-2 .bd4 { width: 28px; height: 28px; top: 22%; left: 8%; }
+  .arc-3 .cd1 { width: 160px; height: 160px; bottom: 10%; left: 4%; opacity:1; }
+  .arc-3 .cd2 { width: 36px; height: 36px; top: 18%; left: 30%; }
+  .arc-3 .cd3 { width: 22px; height: 22px; top: 30%; right: 9%; }
 
   /* .closing styles come from styles.css; page-local dot positions stay. */
-  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
-  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
-  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+  .closing .dx1 { width: 26px; height: 26px; bottom: 26%; left: 16%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 28%; right: 24%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 18%; left: 10%; }
 
   @media (max-width: 880px) {
     .arc-head { grid-template-columns: 1fr; }
-    .hero .dh2, .hero .dh3 { display: none; }
+    .hero .dh3 { display: none; }
   }
   .hero { min-height: 60dvh; }
 </style>
@@ -489,7 +488,6 @@
   <!-- =========== HERO =========== -->
   <section class="hero">
     <span class="dot dh1 d-cyan drift"></span>
-    <span class="dot dh2 d-pink drift-slow"></span>
     <span class="dot dh3 d-yellow drift-fast"></span>
     <span class="dot dh4 d-pink drift"></span>
 
