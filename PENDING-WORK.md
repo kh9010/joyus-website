@@ -66,7 +66,7 @@ Everything below is ours to build. Detail to be filled in as we scope each one.
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 19 | **Domain cutover to `joyus.studio`** | ☐ | The new site still lives at `kh9010.github.io/joyus-website/`. On cutover, update every `<link rel="canonical">`, `og:url`, the absolute URLs in JSON-LD, and `sitemap.xml` / `robots.txt`. |
+| 19 | **Domain cutover to `joyus.studio`** | ☑ | LIVE 2026-06-04 — `https://joyus.studio` serves the GitHub Pages site over HTTPS; old `kh9010.github.io` URL 301-redirects. DNS (in Squarespace): apex A → GitHub IPs (185.199.108–111.153), `www` CNAME → `kh9010.github.io`; Google Workspace MX left intact. All absolute URLs swept to joyus.studio + `CNAME` file added. **Remaining manual (Kahran):** (a) GitHub repo → Settings → Pages → tick **Enforce HTTPS**; (b) cancel the Squarespace **website** plan — keep the domain, DNS & Google email; (c) optional: raise the new records' TTL back to 1–4 hrs once stable. |
 | 20 | **Migrate the remaining WIP pages** to the new design system | ☐ | Still on the old/unstyled system (wearing the yellow WIP banner): the 6 hubs, 15 `thinking/*` essays, `ai-workshops.html`, `services-old.html`, `404.html`. Migrate one at a time; swap nav/footer to the partial markers and run `scripts/sync-chrome.js`. |
 
 ---
