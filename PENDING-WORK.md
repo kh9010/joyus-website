@@ -13,8 +13,10 @@ These need Kahran's hand — they're copy or editorial decisions, not implementa
 
 | # | Item | Status | Notes |
 |---|------|--------|-------|
-| 1 | Rewrite the **"Tell us…"** copy on the home page intent box | ☐ | The typewriter / placeholder prompt copy on `index.html`. |
-| 5 | Rewrite the **subhead on the Work page** (`work/index.html`) | ☐ | |
+| 1 | Rewrite the **"Tell us…"** copy on the home page intent box | ☑ | Reworked hero (2026-06-03): lead line "tell us what you're needing", cursor-free crossfade grey prompts, resting blink caret, field wraps so long needs don't clip. |
+| 5 | Rewrite the **subhead on the Work page** (`work/index.html`) | ☑ | "One body of work, cut a few different ways so more kinds of people find their way in." |
+| 17 | **Write the Karuna case study** | ☐ | Current client who weighed a co-founder decision. No case study exists. Would suit Services **advise Q4** ("Do I need a co-founder, or a hire?"), which currently leans on podcast eps (prem/lena). When written, add a project + surface it there. |
+| 18 | **Finish the QuizNext case study** | ☐ | Kahran's spun-off quizzing tool (acquired by Lead School); case study never finished. Services **advise Q3** ("Do I have more options than I think I do?") currently links the podcast episode instead. When written, repoint `intent-box.js` POOL `qn` → the case-study page + flip its `type` from `podcast` to `project`. |
 
 ---
 
@@ -26,12 +28,12 @@ Everything below is ours to build. Detail to be filled in as we scope each one.
 |---|------|--------|-------|
 | 2 | **Search logic re-check** — another round on the intent-box scoring/routing (`intent-box.js`) | ☑ | Full read-only audit done (agent + verified by hand). **Verdict: algorithm sound, no real bugs.** Hardening applied (lowercase term compare + stable tie-break). Coverage gaps (ux/ui, "how to price", logo, crisis/PR) still need intent→page mappings from K/D when wanted. |
 
-### ⛔ Blocked on Kahran — connect case studies everywhere
+### Post-launch — connect case studies everywhere (NOT a launch blocker)
 
-**8 case studies** (Klydo, Tatsam, Pratham USA, XTDB, Gliitch, ConveGenius, TomboyX, Secret Senses) — reachable via **21 intent rows** (2–3 search phrasings each) in `intent-box.js` — currently route to `coming-soon.html`, **not** their live `work/*.html` pages. **Per Divya (2026-06-03): leave as-is** — Kahran needs to review each case study and mark it done first. **Once he does, wire them up everywhere** (intent-box `coming-soon.html` → real `work/<slug>.html`, and surface case studies across the site, e.g. the About marquee which is currently just Rachna Nivas + Agemo). Tracking so this isn't forgotten.
+**8 case studies** (Klydo, Tatsam, Pratham USA, XTDB, Gliitch, ConveGenius, TomboyX, Secret Senses) — reachable via **21 intent rows** in `intent-box.js` — route to `coming-soon.html`, not their live `work/*.html` pages. **Per Kahran (2026-06-03): fine to go live without these wired — he'll review the case studies after launch.** Once he reviews & marks each ready, wire them up everywhere: intent-box `coming-soon.html` → real `work/<slug>.html`; the **Services verb examples** in `services.html` point at the same coming-soon pages (repoint those too); and surface case studies across the site, e.g. the About marquee (currently just Rachna Nivas + Agemo).
 | 3 | **Link audit** — find missing / broken / stale links across the codebase | ☑ | Found & fixed: dead `shape-echo.js` (deleted file) still loaded by 3 pages (thesis-workshop, klydo-cut-design, klydo-cut-strategy) → removed. Rest were false positives. Reusable checker at `scripts/link-audit.mjs`. External links not network-verified. |
 | 4 | **Footer edits** (`_partials/foot.html` → `sync-chrome.js`) | ☑ | Removed the email from the "say hi · hello@joyus.studio" link → now just "say hi". Synced to 156 pages + fixed the podcast episode template. |
-| 6 | **Bottom-of-page rework** — the closing section pattern across pages | ☐ | Relates to 9, 11. |
+| 6 | **Rework the bottom of the home page — the "pulling" line** (`index.html`) | ☑ | Replaced the bottom-right "pulling on you" note with a browse path: "or start with what we do · who we are" → services / about (fades out while the suggestions dropdown is open). Done in the 2026-06-03 hero rework. |
 | 7 | **Question design** — adjust the design of the individual / specific questions | ☑ | Services advise panel jumped vertically on hover. Real cause: the right-hand `.related` panel used `min-height`, so a tall related-card cluster (cards get random vertical stagger via JS) grew the grid row and re-stretched the questions column. Fix: `.related` now a **fixed** `height` (reserved stage stays on the right only) + `.questions { align-self: start }`. Also switched the hover indent from `padding-left` to `transform` so long questions don't re-wrap. |
 | 8 | **Bottom spacing** on the Services page (`services.html`) | ☑ | Gap above the closing was too big (`.verbs` bottom padding + `.closing` top padding stacked to ~13rem). Cut `.verbs` bottom padding to `clamp(1.5rem, 3vh, 2.5rem)`. Shared `.closing` rule untouched. |
 | 9 | **Remove eyebrow** in the ending section | ☑ | Removed the `your move` closing eyebrow site-wide (93 files: 8 main pages + 85 podcast episodes + episode template). Orphaned `.closing-label` CSS rules left in place (harmless). |
@@ -60,7 +62,16 @@ Everything below is ours to build. Detail to be filled in as we scope each one.
 | Search hardening | ☑ | `intent-box.js`: lowercase each `term` before comparison (fixes the latent case bug — "don't leave buggy code"); added a stable tie-breaker (score desc, then CONTENT_MAP order) for reproducible ranking. Syntax-checked. |
 | Comics consistency | ☑ | Header + footer already uniform (partials). Converted all 5 readers' `.comic-hero` → site-standard hero (eyebrow "off the clock" + h1 + sub + credits meta). Removed the `.print-cta` print form + "~ end ~" block; reader bottom = back/next nav → footer. Index kept (it was the reference). Orphan print-cta JS (firebase, guarded) + CSS left for later cleanup. |
 
+## Longer-term (post-launch, no rush)
+
+| # | Item | Status | Notes |
+|---|------|--------|-------|
+| 19 | **Domain cutover to `joyus.studio`** | ☐ | The new site still lives at `kh9010.github.io/joyus-website/`. On cutover, update every `<link rel="canonical">`, `og:url`, the absolute URLs in JSON-LD, and `sitemap.xml` / `robots.txt`. |
+| 20 | **Migrate the remaining WIP pages** to the new design system | ☐ | Still on the old/unstyled system (wearing the yellow WIP banner): the 6 hubs, 15 `thinking/*` essays, `ai-workshops.html`, `services-old.html`, `404.html`. Migrate one at a time; swap nav/footer to the partial markers and run `scripts/sync-chrome.js`. |
+
+---
+
 ## Notes
 
 - Branch discipline: Divya works on `designmayNN` branches; Kahran/Claude sessions use `kahran-<date>-<task>`. Don't cross-commit.
-- This list is the source of truth across Claude sessions — update statuses here as items land.
+- **This file is the single source of truth for outstanding work** — across Divya, Kahran, and Claude sessions. Update statuses here as items land. (Claude: don't keep a parallel pending list in memory.)
