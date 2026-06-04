@@ -63,17 +63,17 @@
   /* The signature big dot used to sit top-right on every page; here it bleeds
      off the LEFT mid-edge so home doesn't repeat that top-right-accent structure.
      Size / colour / opacity unchanged. */
-  .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); top: 28%; left: -12%; opacity: 0.95; }
-  .hero .dh2 { width: 64px; height: 64px; top: 20%; right: 22%; }
-  .hero .dh3 { width: 28px; height: 28px; top: 14%; left: 28%; }
+  .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); bottom: -8%; left: -16%; opacity:1; }
+  .hero .dh2 { width: 64px; height: 64px; top: 66%; right: 16%; }
+  .hero .dh3 { width: 28px; height: 28px; top: 16%; right: 20%; }
   /* dh4 sat behind the bottom-right tagline; relocated to mid-right so the magenta
      in the tagline doesn't have to fight a cyan field behind it */
-  .hero .dh4 { width: 110px; height: 110px; top: 36%; right: 4%; }
-  .hero .dh5 { width: 38px; height: 38px; bottom: 22%; left: 14%; }
-  .hero .dh6 { width: 18px; height: 18px; top: 56%; left: 4%; }
-  .hero .dh7 { width: 22px; height: 22px; top: 64%; right: 6%; }
-  .hero .dh8 { width: 12px; height: 12px; top: 38%; right: 36%; }
-  .hero .dh9 { width: 88px; height: 88px; bottom: -20px; left: 18%; opacity: 0.8; }
+  .hero .dh4 { width: 110px; height: 110px; top: 12%; right: 6%; }
+  .hero .dh5 { width: 38px; height: 38px; top: 24%; left: 16%; }
+  .hero .dh6 { width: 18px; height: 18px; bottom: 26%; right: 34%; }
+  .hero .dh7 { width: 22px; height: 22px; top: 58%; left: 8%; }
+  .hero .dh8 { width: 12px; height: 12px; top: 38%; left: 30%; }
+  .hero .dh9 { width: 88px; height: 88px; top: -16px; left: 32%; opacity:1; }
 
   /* eyebrow pinned top-left of the hero (absolute so the stage can center
      in the full viewport, not between eyebrow and tagline) */
@@ -281,8 +281,10 @@
      suggestions are open so the two never collide. */
   .hero-alt {
     position: absolute;
-    top: calc(100% + 1rem);
-    right: 0;
+    /* mirror of .hero-eyebrow (top:clamp(5rem,10vh,8rem); left:var(--x)) so the
+       browse-note sits symmetric to the eyebrow, bottom-right corner of the hero */
+    bottom: clamp(5rem, 10vh, 8rem);
+    right: var(--x);
     margin: 0;
     font-family: var(--hand);
     font-weight: 600;
@@ -301,13 +303,15 @@
     white-space: nowrap;
   }
   .hero-alt a:hover { color: var(--pink); }
-  #intentSuggestions.visible ~ .hero-alt { opacity: 0; pointer-events: none; }
+  /* dimmed while the suggestions dropdown is open (toggled in JS — the dropdown
+     is no longer a DOM sibling now that .hero-alt is pinned to the hero corner) */
+  .hero-alt.dimmed { opacity: 0; pointer-events: none; }
 
   /* ============ CLOSING ============
      .closing family styles come from styles.css; page-local dots only. */
-  .closing .dx1 { width: 26px; height: 26px; top: 30%; right: 18%; }
-  .closing .dx2 { width: 14px; height: 14px; top: 52%; right: 28%; }
-  .closing .dx3 { width: 60px; height: 60px; bottom: 20%; right: 10%; }
+  .closing .dx1 { width: 26px; height: 26px; bottom: 28%; left: 16%; }
+  .closing .dx2 { width: 14px; height: 14px; top: 26%; right: 26%; }
+  .closing .dx3 { width: 60px; height: 60px; bottom: 16%; left: 8%; }
 
   /* foot comes from /_partials/foot.html */
 
@@ -323,11 +327,11 @@
     /* declutter the dot scatter on mobile */
     .hero .dh9 { display: none; }
     .hero .dh4 { width: 60px; height: 60px; right: 4%; top: 38%; }
-    .hero .dh1 { width: 220px; height: 220px; left: -30%; right: auto; opacity: 0.85; }
+    .hero .dh1 { width: 220px; height: 220px; left: -30%; right: auto; opacity:1; }
     .hero .dh2 { width: 36px; height: 36px; }
     .hero .dh3 { width: 18px; height: 18px; }
     /* on mobile, keep the note tucked under the input, left-aligned */
-    .hero-alt { transform: rotate(-1deg); right: auto; left: 0; text-align: left; }
+    .hero-alt { transform: rotate(-1deg); right: auto; left: var(--x); bottom: clamp(2.5rem, 5vh, 4rem); text-align: left; }
     .hero-inner { gap: 1.5rem; }
     .hero-eyebrow { font-size: 0.72rem; }
     /* dropdown: inline so it doesn't get covered by mobile keyboard, BUT
@@ -528,10 +532,10 @@
     <span class="hero-eyebrow">a storytelling studio · based in BLR &amp; NYC</span>
 
     <div class="hero-stage">
-      <label class="hero-h1" for="intentInput">tell us what you're needing</label>
+      <label class="hero-h1" for="intentInput">I need</label>
       <form class="hero-fill" onsubmit="event.preventDefault();">
         <span class="hero-field">
-          <textarea id="intentInput" rows="1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="Tell us what you're needing"></textarea>
+          <textarea id="intentInput" rows="1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="I need…"></textarea>
           <span class="hero-caret" aria-hidden="true"><i></i></span>
           <span class="hero-fauxph" id="intentFaux" aria-hidden="true"></span>
         </span>
@@ -539,9 +543,9 @@
       </form>
 
       <div id="intentSuggestions" role="listbox"></div>
-      <p class="hero-alt">or start with <a href="services.html">what we do</a> · <a href="about.html">who we are</a></p>
     </div>
    </div>
+   <p class="hero-alt">or start with <a href="services.html">what we do</a> · <a href="about.html">who we are</a></p>
   </section>
 
   <!-- =========== CLOSING =========== -->
@@ -598,6 +602,18 @@
     // grey "dummy" prompt over the field below — and let the field grow so a
     // long need wraps instead of getting cut off.
     initIntentBox({ page: 'index' });
+
+    // Fade the corner browse-note while the suggestions dropdown is open. It used
+    // to be a CSS sibling of #intentSuggestions; now that it's pinned to the hero
+    // corner we watch the dropdown's class and mirror it onto .hero-alt.
+    (function () {
+      var sug = document.getElementById('intentSuggestions');
+      var alt = document.querySelector('.hero-alt');
+      if (!sug || !alt || !window.MutationObserver) return;
+      new MutationObserver(function () {
+        alt.classList.toggle('dimmed', sug.classList.contains('visible'));
+      }).observe(sug, { attributes: true, attributeFilter: ['class'] });
+    })();
 
     (function () {
       var ta    = document.getElementById('intentInput');
