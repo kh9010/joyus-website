@@ -105,7 +105,7 @@ When a WIP page gets rebuilt, its nav and footer markup should be replaced with 
 
 ## Firebase
 
-Project `joyus-studio`, loaded via CDN compat SDKs (`firebase-app-compat.js`, `firebase-firestore-compat.js` v10.12.0). Config is duplicated inline in `index.html` and `shape-echo.js` (the latter is dormant — see above). The `measurementId` is `G-K7PDLTYWF6`.
+Project `joyus-studio`, loaded via CDN compat SDKs (`firebase-app-compat.js`, `firebase-firestore-compat.js` v10.12.0). Config is duplicated inline in `index.html` and `shape-echo.js` (the latter is dormant — see above). The Firebase config carries a `measurementId` of `G-K7PDLTYWF6`, but this is **inert** — the Firebase **Analytics** SDK is never loaded, so it sends nothing. It's a *separate* GA property Firebase auto-created; do NOT use it for site analytics. See the GA note under Gotchas.
 
 `experimentalAutoDetectLongPolling: true` is set on every Firestore instance — this works around CORS issues on GitHub Pages. Do not remove.
 
@@ -283,7 +283,7 @@ The April 2026 R4 pass shipped 12 releases to main rebuilding the `work/*.html` 
 
 ## Gotchas
 
-- **Do not add GA tag `G-H63H3KD6WQ`** anywhere. That's Kahran's personal site. Joyus uses `G-K7PDLTYWF6`.
+- **Google Analytics (GA4): the site's web tracking uses `G-74FZR7YY60`** — the GA property **"website joyus.studio"** (property 427004605, under the `joyus` account). The GA4 `gtag.js` snippet is in the `<head>` of every public page (added 2026-06-04). **Do NOT use `G-K7PDLTYWF6`** for web tracking — that's a separate, inert property Firebase auto-created (no Analytics SDK is loaded). **Do NOT add `G-H63H3KD6WQ`** — that's Kahran's personal site.
 - **Do not remove `experimentalAutoDetectLongPolling`** from any Firestore init — CORS on GitHub Pages breaks without it.
 - **Do not center-align editorial hero content** (hubs, services, `thinking/*`, blog posts) — they're left-aligned with a 640–680px column. Only grid/listing heroes (`work/`, `podcast.html`, `comics/`) are centered.
 - **Do not reformat minified `thinking/*.html` files** — they're intentionally single-line with inline styles. Edit content without expanding the formatting.
