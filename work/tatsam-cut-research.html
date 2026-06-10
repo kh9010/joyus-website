@@ -75,7 +75,9 @@
     .cta-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
     .cta-ghost:hover { background: var(--ink); color: #fff; }
 
-    @media (max-width: 720px) { .fig-2, .stats { grid-template-columns: 1fr; } }
+    .stats.five { grid-template-columns: repeat(5, 1fr); }
+    @media (max-width: 1000px) { .stats.five { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px) { .fig-2, .stats, .stats.five { grid-template-columns: 1fr; } }
   </style>
   <!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
@@ -275,6 +277,49 @@
   </section>
 
   <section class="sec reveal">
+    <span class="dot d-pink" style="width:70px;height:70px;bottom:-24px;right:8%;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the five domains · PERMA</span>
+      <h2 class="sec-title">Below average in <em>every domain that matters</em>.</h2>
+      <p class="sec-lede">The PERMA Profiler breaks wellbeing into five measurable domains. The share of people scoring below average, domain by domain:</p>
+      <div class="stats five">
+        <div class="statcard"><div class="big">52.4%</div><p><strong>Positive emotions</strong> — contentment &amp; joy</p></div>
+        <div class="statcard"><div class="big">66.7%</div><p><strong>Engagement</strong> — absorption in work &amp; life</p></div>
+        <div class="statcard"><div class="big">59.4%</div><p><strong>Relationships</strong> — satisfaction overall</p></div>
+        <div class="statcard"><div class="big">62.2%</div><p><strong>Meaning in life</strong> — purpose &amp; direction</p></div>
+        <div class="statcard"><div class="big">45.0%</div><p><strong>Accomplishment</strong> — the strongest of a weak field</p></div>
+      </div>
+      <p class="sec-lede soft" style="margin-top:1.4rem;">Two patterns under the numbers: health, flow and positive emotions connected significantly to <strong>presenteeism and absenteeism</strong> — and the lower engagement and accomplishment scores clustered in people with <strong>over five years of professional experience</strong>. The longer you'd been working, the worse it got.</p>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
+    <span class="dot d-cyan" style="width:80px;height:80px;top:10%;left:-26px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the social &amp; organisational picture</span>
+      <h2 class="sec-title">Lonely at work is a <em>line item</em>.</h2>
+      <p class="sec-lede">The social wellbeing and organisational happiness indices put texture on the headline:</p>
+      <div class="stats">
+        <div class="statcard"><div class="big">30%</div><p>reported flatly that they <strong>felt lonely</strong>.</p></div>
+        <div class="statcard"><div class="big">47%</div><p>scored below average when asked about <strong>feeling loved and supported</strong>.</p></div>
+        <div class="statcard"><div class="big">1 in 3</div><p>reported <strong>low social support</strong> — and low respect from colleagues.</p></div>
+      </div>
+      <p class="sec-lede" style="margin-top:1.6rem;">And the cost shows up in the org's behaviour, not just its mood. Low happiness alone accounted for a <strong>33.2% increase in presenteeism</strong>, a <strong>66.7% decrease</strong> in engagement and positive organisational behaviour, and a <strong>49.8% decrease</strong> across relationships, physical health and employee resilience. High stress, anxiety and low mood emerged as major drivers of <strong>76% work-performance impairment</strong> and <strong>56% presenteeism</strong>.</p>
+    </div>
+  </section>
+
+  <section class="sec reveal">
+    <span class="dot d-yellow" style="width:64px;height:64px;bottom:-20px;right:10%;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the upside · psychological capital</span>
+      <h2 class="sec-title">The same dataset held <em>the business case</em>.</h2>
+      <p class="sec-lede">Psychological capital — hope, efficacy, resilience, optimism — measured at <strong>32.2%</strong>, with a modelled headroom of <strong>+40%</strong>. Played through, that one gain reads as <strong>+63%</strong> work happiness &amp; satisfaction, <strong>+22%</strong> performance, and <strong>+36%</strong> positive organisational citizenship — with optimism alone carrying a <strong>+44%</strong> swing.</p>
+      <p class="sec-lede soft">There were bright spots to build on, not just deficits to fix: 40.6% scored themselves above average in positive emotions, 37.8% above average in meaningfulness. That's why Tatsam grows strengths instead of cataloguing what's wrong — <em>the upside was the largest number in the report</em>.</p>
+      <p class="pull">Diagnosis said: it's bad everywhere. The model said: <em>the fastest fix is growing what's already strong.</em></p>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
     <span class="dot d-cyan" style="width:64px;height:64px;top:12%;right:-20px;opacity:1;"></span>
     <div class="sec-inner">
       <span class="sec-eyebrow">the report</span>
