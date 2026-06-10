@@ -61,6 +61,15 @@
     .oc h4 { font-size: 1.05rem; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
     .oc p { font-size: 0.92rem; line-height: 1.45; color: var(--ink-soft); margin: 0; }
 
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0 0; }
+    .statcard { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--ink); border-radius: 14px; padding: 1.4rem; }
+    .sec.alt .statcard { background: var(--bg); }
+    .statcard .big { font-weight: 700; font-size: clamp(1.6rem, 3.2vw, 2.5rem); letter-spacing: -0.03em; color: var(--pink); line-height: 1; }
+    .statcard p { font-size: 0.9rem; line-height: 1.45; color: var(--ink-soft); margin: 0.6rem 0 0; }
+    .thesis { font-weight: 600; font-size: clamp(1.3rem, 2.5vw, 1.9rem); line-height: 1.3; letter-spacing: -0.02em; max-width: 28ch; margin: 1.4rem 0 0; }
+    .thesis mark { background: rgba(233,30,123,0.16); color: inherit; padding: 0 0.1em; }
+    @media (max-width: 1000px) { .stats { grid-template-columns: repeat(2, 1fr); } }
+
     .fig { margin: 1.6rem 0 0; }
     .fig img { width: 100%; border-radius: 12px; border: 1px solid var(--rule); box-shadow: 0 8px 28px rgba(44,53,68,0.08); background: #fff; }
     .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
@@ -78,7 +87,7 @@
     .cta-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
     .cta-ghost:hover { background: var(--ink); color: #fff; }
 
-    @media (max-width: 720px) { .fig-2, .outcomes { grid-template-columns: 1fr; } }
+    @media (max-width: 720px) { .fig-2, .outcomes, .stats { grid-template-columns: 1fr; } }
   
     /* cuts switcher — house pattern (klydo), persistent on cut pages */
     .cuts-switch { position: fixed; top: 5.5rem; right: 1.25rem; z-index: 480; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.55rem 0.4rem 0.85rem; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--rule, rgba(44,53,68,0.12)); border-radius: 999px; box-shadow: 0 10px 24px -10px rgba(44,53,68,0.18); font-family: var(--sans, 'Space Grotesk', sans-serif); }
@@ -276,12 +285,28 @@
       <a class="back-link" href="tatsam.html">← Tatsam case study</a>
       <span class="cg-eyebrow">story cut · the pitch deck</span>
       <h1>Making the case for wellbeing — <em>to the people who sign the cheque</em>.</h1>
-      <p class="cg-deck">A wellbeing product sells to a buyer who has to justify it. So we built Tatsam's pitch to speak to the head and the heart at once — the business case, the human case, and the belief underneath them both.</p>
+      <p class="cg-deck">A wellbeing product sells to a buyer who has to justify it. So we built Tatsam's pitch to speak to the head and the heart at once — the business case, the human case, and the belief underneath them both. And the same narrative discipline ran every B2B engagement after it: each client got a bespoke data story, built to tell the truth about their organisation <strong>without frightening it</strong>.</p>
     </div>
   </header>
 
   <section class="sec alt reveal">
     <span class="dot d-ink" style="width:80px;height:80px;top:8%;left:-28px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the frame · opening the room</span>
+      <h2 class="sec-title">A <em>$50&nbsp;billion</em> problem, and an incumbent that reaches almost no one.</h2>
+      <p class="sec-lede">The pitch was written for the person who signs the cheque, not the person who downloads the app. It opens on the size of the gap — and on how badly the existing answer (the corporate EAP) fails to close it:</p>
+      <div class="stats">
+        <div class="statcard"><div class="big">$50B</div><p>estimated yearly cost of workplace <strong>mental ill-health</strong> across India &amp; SE Asia.</p></div>
+        <div class="statcard"><div class="big">~5%</div><p>of staff actually reached by <strong>EAPs</strong> — the incumbent answer.</p></div>
+        <div class="statcard"><div class="big">1–2%</div><p>EAP <strong>adoption</strong>. A benefit nobody uses isn't a benefit.</p></div>
+        <div class="statcard"><div class="big">1,032</div><p>employees in the <strong>proof study</strong> placed at the centre of the deck.</p></div>
+      </div>
+      <p class="sec-lede" style="margin-top:1.6rem;">Against that gap, the pitch frames a <strong>maturity model</strong> — organisations move from <em>tensed</em> to <em>flourishing</em> — so a buyer can locate their company on a path instead of in a verdict. Then every intervention is tied to the three outcomes a buyer actually weighs.</p>
+    </div>
+  </section>
+
+  <section class="sec reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:10%;right:-20px;opacity:1;"></span>
     <div class="sec-inner">
       <span class="sec-eyebrow">the three outcomes</span>
       <h2 class="sec-title">Three outcomes a buyer actually weighs.</h2>
@@ -295,7 +320,39 @@
     </div>
   </section>
 
+  <section class="sec alt reveal">
+    <span class="dot d-yellow" style="width:80px;height:80px;top:10%;left:-26px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the b2b data stories</span>
+      <h2 class="sec-title">Every client got a bespoke data story — <em>informative without being alarmist</em>.</h2>
+      <p class="sec-lede">From the work deck, verbatim: <em>"Tatsam's B2B clients required in-depth research for each project, and the data story to be presented in a way to appropriately tell the current state of wellbeing in the organization."</em> That's a storytelling problem as much as a research one — a wellbeing report that frightens leadership gets shelved, and one that flatters them changes nothing. So each report follows the same narrative arc: an <strong>overview of the key areas of concern for the team</strong>, then the detailed indices, always <strong>highlighting the critical areas that require attention</strong> — and always ending on what there is to build on.</p>
+      <figure class="fig"><img src="../images/work/tatsam/slide109-bespoke-1.webp" alt="Holistic Wellbeing Index — overview panel of the bespoke client data story, with PERMA domain breakdowns." loading="lazy"><figcaption>The opening panel of a client data story — the Holistic Wellbeing Index, "an overview of the key areas of concern for the team."</figcaption></figure>
+      <p class="sec-lede" style="margin-top:1.8rem;">Under the headline, the indices put numbers a leadership team can act on: emotional issues accounted for <strong>62.2%</strong> of the impact on presenteeism and absenteeism, emotional and health issues together for <strong>73.9%</strong> of work impairment — and <strong>63%</strong> of the workforce reported moderate-to-low <em>meaning in life</em>. On the organisational side, negative emotions alone predicted <strong>9.2%</strong> of the variation in performance and productivity impairment.</p>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide109-bespoke-4.webp" alt="Social Wellbeing Index panel — relationships, anxiety, and the opportunities column." loading="lazy"><figcaption>The Social Wellbeing Index — note the right-hand column: <em>opportunities</em> before <em>concerns</em>.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide109-bespoke-5.webp" alt="Organisational Happiness panel — what low happiness costs in presenteeism, engagement and resilience." loading="lazy"><figcaption>Organisational Happiness — what low happiness mathematically accounts for.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
   <section class="sec reveal">
+    <span class="dot d-ink" style="width:64px;height:64px;bottom:-22px;right:8%;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the closing move · psychological capital</span>
+      <h2 class="sec-title">Every data story ends on <em>the upside</em>.</h2>
+      <p class="sec-lede">The last panel of every report turns the diagnosis into a buy decision. Psychological capital — <em>"a set of resources individuals can use to help improve their wellbeing, performance and success at work… proven to develop a competitive edge at an individual and organisational level"</em> — is broken into its four constructs, each with its modelled headroom at the client:</p>
+      <div class="stats">
+        <div class="statcard"><div class="big">+52%</div><p><strong>Hope</strong> — improves how employees generate pathways to accomplish goals.</p></div>
+        <div class="statcard"><div class="big">+44%</div><p><strong>Efficacy</strong> — mastery, social cohesion, and a positive, optimistic outlook.</p></div>
+        <div class="statcard"><div class="big">+30%</div><p><strong>Resilience</strong> — asset-focused strategies &amp; resourcefulness.</p></div>
+        <div class="statcard"><div class="big">+44%</div><p><strong>Optimism</strong> — a growth-lens on potential risks; consistent personal strengths.</p></div>
+      </div>
+      <figure class="fig"><img src="../images/work/tatsam/slide109-bespoke-3.webp" alt="Psychological Capital panel — current PsyCap, modelled headroom, and the four constructs hope, efficacy, resilience, optimism." loading="lazy"><figcaption>The Psychological Capital panel — current state, +40% modelled headroom, and the four constructs. The diagnosis becomes the pitch.</figcaption></figure>
+      <p class="pull">Tell the truth about the problem, then sell <em>the size of the upside</em>. That's the whole storytelling move.</p>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
     <span class="dot d-pink" style="width:64px;height:64px;top:12%;right:-20px;opacity:1;"></span>
     <div class="sec-inner">
       <span class="sec-eyebrow">the belief underneath</span>

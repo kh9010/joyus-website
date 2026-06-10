@@ -58,6 +58,34 @@
     .fig-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
     .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 30ch; margin: 1.6rem 0 0; }
     .pull em { font-style: normal; color: var(--pink); }
+    .thesis { font-weight: 600; font-size: clamp(1.3rem, 2.5vw, 1.9rem); line-height: 1.3; letter-spacing: -0.02em; max-width: 28ch; margin: 1.4rem 0 0; }
+    .thesis mark { background: rgba(233,30,123,0.16); color: inherit; padding: 0 0.1em; }
+
+    /* palette swatches — hexes verbatim from the visual-language page */
+    .palette { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.8rem; margin: 1.4rem 0 0; }
+    .swatch { background: #fff; border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+    .sec.alt .swatch { background: var(--bg); }
+    .swatch .sw { height: 52px; }
+    .swatch p { font-size: 0.76rem; font-weight: 600; letter-spacing: 0.06em; color: var(--ink-soft); margin: 0; padding: 0.5rem 0.65rem; }
+
+    /* voice / medium rule cards */
+    .rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0 0; }
+    .rulecard { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--pink); border-radius: 14px; padding: 1.3rem; }
+    .sec.alt .rulecard { background: var(--bg); }
+    .rulecard h4 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 0.5rem; }
+    .rulecard p { font-size: 0.92rem; line-height: 1.5; color: var(--ink-soft); margin: 0; }
+    .rulecard .never { display: block; font-style: italic; color: var(--ink-fade); border-top: 1px dashed var(--rule); margin-top: 0.8rem; padding-top: 0.8rem; }
+    .rules.media .rulecard { border-top-color: var(--cyan); }
+
+    .fig-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0 0; }
+    .duo .oc { background: #fff; border: 1px solid var(--rule); border-top: 4px solid var(--yellow); border-radius: 14px; padding: 1.4rem; }
+    .sec.alt .duo .oc { background: var(--bg); }
+    .duo .oc h4 { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin: 0 0 0.5rem; }
+    .duo .oc p { font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+
+    @media (max-width: 1000px) { .palette { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px) { .rules, .fig-3, .duo { grid-template-columns: 1fr; } .palette { grid-template-columns: repeat(2, 1fr); } }
 
     .cut-end { position: relative; overflow: hidden; padding: clamp(3.5rem, 9vh, 6rem) var(--x); border-top: 2px solid var(--ink); }
     .cut-end-line { font-weight: 600; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.25; max-width: 26ch; margin: 0 0 1.6rem; position: relative; z-index: 2; }
@@ -267,7 +295,7 @@
       <a class="back-link" href="tatsam.html">← Tatsam case study</a>
       <span class="cg-eyebrow">brand cut · the brand book</span>
       <h1>A wellbeing brand that <em>leads with what's strong in you</em>.</h1>
-      <p class="cg-deck">Most mental-health brands start from what's wrong. Tatsam starts from what's <strong>right</strong> — a calm, human identity built to meet a stressed professional gently. We built the whole book: logo, offering, beliefs, and voice.</p>
+      <p class="cg-deck">Most mental-health brands start from what's wrong. Tatsam starts from what's <strong>right</strong> — a calm, human identity built to meet a stressed professional gently. We built the whole book: the logo and what it means, the full colour system with its reasoning, the photography and iconography rules, a voice with three hard rules (each with its own <strong>never</strong>) — and recording rules for every audio and video file the company would ever ship. This page is the book, opened.</p>
     </div>
   </header>
 
@@ -275,8 +303,18 @@
     <span class="dot d-pink" style="width:80px;height:80px;top:8%;left:-28px;opacity:1;"></span>
     <div class="sec-inner">
       <span class="sec-eyebrow">the identity</span>
-      <h2 class="sec-title">Logo, system, and what Tatsam offers.</h2>
-      <p class="sec-lede">The brand cover and the offering — the first things a person and a buyer meet. Considered, warm, unmistakably calm.</p>
+      <h2 class="sec-title">A reflected "+" — the same mark, <em>made gentler</em>.</h2>
+      <p class="sec-lede">The guide covers presence, communication and philosophy, for internal and external audiences — and none of it was decreed from a studio. It came out of multiple deep brainstorming sessions and generative workshops with the founders and team. The logo carries the whole argument in one gesture. The brand book, verbatim:</p>
+      <p class="thesis"><mark>"+ is a sign associated with trusted healthcare. But this goes beyond that, there is a reflection.</mark> The idea of going from one side to the other. <mark>And a softer more gentler way of showing care."</mark></p>
+      <div class="fig fig-2">
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide106-brand-6.webp" alt="Tatsam brand book — Our Logo page: the reflected plus mark." loading="lazy"><figcaption>The logo page — the medical "+", reflected.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide106-brand-2.webp" alt="Tatsam brand book — the mission statement page." loading="lazy"><figcaption>The centre of the book: "Facilitate the journey to find, understand and grow one's inner self. This is the only journey that ultimately matters."</figcaption></figure>
+      </div>
+      <p class="sec-lede" style="margin-top:1.8rem;">Two offerings carry the belief to users — because, in the book's words, <em>"no singular solution can tackle all the problems associated with mental and holistic health."</em> Their definitions, verbatim:</p>
+      <div class="duo">
+        <div class="oc"><h4>Self care</h4><p>"We give recommendations that help on the path to self growth. A self paced path that goes beyond changing habits and focuses on changing mindset."</p></div>
+        <div class="oc"><h4>Coaching</h4><p>"Our curated selection of coaches in every domain from mental counselling to career, physical health and nutrition are there to give the needed guidance."</p></div>
+      </div>
       <div class="fig fig-2">
         <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-cover.png" alt="Tatsam brand book — cover." loading="lazy"><figcaption>The brand cover.</figcaption></figure>
         <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-offering.png" alt="Tatsam brand book — the offering." loading="lazy"><figcaption>The offering.</figcaption></figure>
@@ -285,14 +323,70 @@
   </section>
 
   <section class="sec reveal">
+    <span class="dot d-yellow" style="width:64px;height:64px;top:12%;right:-20px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the visual language</span>
+      <h2 class="sec-title">Colour, photography and iconography — <em>each with a reason on the page</em>.</h2>
+      <p class="sec-lede">As a mental-health company, Tatsam needed an inviting, calming and comforting visual language — colours and shapes that create <strong>a sense of camaraderie and intimacy that kickstarts the relationship even before a user speaks to a therapist</strong>. The emotional brief, verbatim from the book: <em>"A sense of calm, contentment, freshness and natural, uncontaminated existence is at the basis of the Tatsam brand. All visuals should support this basic emotional vocabulary."</em></p>
+      <p class="sec-lede soft">The primary palette — logo and primary colours chosen to "give a sense of energy &amp; vibrance while soothing":</p>
+      <div class="palette">
+        <div class="swatch"><div class="sw" style="background:#83E0DD;"></div><p>83E0DD</p></div>
+        <div class="swatch"><div class="sw" style="background:#2479A8;"></div><p>2479A8</p></div>
+        <div class="swatch"><div class="sw" style="background:#050155;"></div><p>050155</p></div>
+        <div class="swatch"><div class="sw" style="background:#ABAEB2;"></div><p>ABAEB2</p></div>
+        <div class="swatch"><div class="sw" style="background:#60666C;"></div><p>60666C</p></div>
+        <div class="swatch"><div class="sw" style="background:#111214;"></div><p>111214</p></div>
+      </div>
+      <p class="sec-lede soft" style="margin-top:1.6rem;">The secondary palette leans on greens — "supporting colors for the visual language use tones of nature for freshness &amp; calm" — backed by a run of soft blues:</p>
+      <div class="palette" style="grid-template-columns:repeat(3,1fr);max-width:520px;">
+        <div class="swatch"><div class="sw" style="background:#8EEE9E;"></div><p>8EEE9E</p></div>
+        <div class="swatch"><div class="sw" style="background:#3E9656;"></div><p>3E9656</p></div>
+        <div class="swatch"><div class="sw" style="background:#1D4636;"></div><p>1D4636</p></div>
+      </div>
+      <p class="sec-lede" style="margin-top:1.8rem;">Three more rules complete the system. Photography is <em>"based on nature and natural objects for grounding while communicating open possibility and the wide expanse of space."</em> Geometry is <em>"prominently placed geometric elements [that] are recognizable and feel expressively playful."</em> And iconography <em>"reinforces memorability with expressive linework &amp; cutout shapes"</em> — real botanical photography with hand-drawn line over it:</p>
+      <div class="fig fig-3">
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide107-visual-1.webp" alt="Tatsam iconography — flowers with expressive linework and cutout shapes." loading="lazy"><figcaption>Flowers, with linework.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide107-visual-2.webp" alt="Tatsam iconography — a leaf with expressive linework and geometric elements." loading="lazy"><figcaption>A leaf, traced.</figcaption></figure>
+        <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/slide107-visual-3.webp" alt="Tatsam iconography — a waterfall with expressive linework." loading="lazy"><figcaption>A waterfall, in motion.</figcaption></figure>
+      </div>
+      <figure class="fig"><img src="../images/work/tatsam/slide107-visual-4.webp" alt="Tatsam photography — misty mountain range used across the brand." loading="lazy"><figcaption>The mountain range that runs through the whole brand — nature photography for grounding, "communicating open possibility and the wide expanse of space."</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
     <span class="dot d-cyan" style="width:64px;height:64px;top:12%;right:-20px;opacity:1;"></span>
     <div class="sec-inner">
       <span class="sec-eyebrow">beliefs &amp; voice</span>
-      <h2 class="sec-title">What Tatsam believes — and how it talks.</h2>
-      <p class="sec-lede">A brand voice is a promise about how you'll be treated. Tatsam's is patient and strengths-first: it never shames, never clinical-cold — it sounds like someone who's glad you showed up.</p>
+      <h2 class="sec-title">Three voice rules — each with its own <em>never</em>.</h2>
+      <p class="sec-lede">A brand voice is a promise about how you'll be treated. The book opens it plainly: <em>"What one says is as important as how one says. Tatsam is focused on having a voice that aligns with our purpose and values."</em> Then it commits — three rules, each paired with the failure mode it forbids, verbatim:</p>
+      <div class="rules">
+        <div class="rulecard"><h4>Empathetic</h4><p>"We will always be non judgmental, understanding and come from a space of acceptance."<span class="never">Neither paternalistic nor enabling.</span></p></div>
+        <div class="rulecard"><h4>Empowering</h4><p>"We will always ensure that we empower with our words and with our methods, to make change not only possible but achievable."<span class="never">Never taunting or making failure feel like a negative.</span></p></div>
+        <div class="rulecard"><h4>Liberating</h4><p>"We will bring new knowledge forward in a way to liberate from misconceptions and percieved limitations."<span class="never">Agency not boundaries.</span></p></div>
+      </div>
       <div class="fig fig-2">
         <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-believe.png" alt="Tatsam brand book — what we believe in." loading="lazy"><figcaption>What we believe in.</figcaption></figure>
         <figure class="fig" style="margin:0;"><img src="../images/work/tatsam/tatsam-brand-voice.png" alt="Tatsam brand book — our voice." loading="lazy"><figcaption>Our voice.</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reveal">
+    <span class="dot d-pink" style="width:70px;height:70px;bottom:-24px;left:8%;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">voice across mediums</span>
+      <h2 class="sec-title">The voice holds in <em>audio and video</em>, too.</h2>
+      <p class="sec-lede">Most brand books stop at sentences. This one writes recording rules — so the user's experience aligns whether they consume visuals, audio or video. For every audio practice Tatsam ships:</p>
+      <div class="rules media">
+        <div class="rulecard"><h4>Clear voice</h4><p>Recordings done in a clear manner with proper enunciation, in whichever language is applicable.<span class="never">No over edited or artifical sounding voice.</span></p></div>
+        <div class="rulecard"><h4>No noise</h4><p>"Recording environment should be free of all noise."</p></div>
+        <div class="rulecard"><h4>No background music</h4><p>"Regardless of the calmness of music, we should keep focus on just the voice of instructor."<span class="never">No use of music to fill silence.</span></p></div>
+      </div>
+      <p class="sec-lede" style="margin-top:1.8rem;">And for every instruction video:</p>
+      <div class="rules media">
+        <div class="rulecard"><h4>Bright and well lit</h4><p>Always a well-lit room, "with a natural airy feeling to the environment."<span class="never">Embody the spirit of tatsam brand in instruction videos too.</span></p></div>
+        <div class="rulecard"><h4>Clear focus</h4><p>"Focus of videos should always be on the instructor, showing from multiple angles if the task requires clarity."<span class="never">No jerky, rapid or unnecesary camera movements.</span></p></div>
+        <div class="rulecard"><h4>To the point</h4><p>"Instruction videos should be as short as possible, and complete focus should be to provide the instructions."<span class="never">Short is better.</span></p></div>
       </div>
       <p class="pull">The same voice then ran through <em>every screen and every slide</em> — the brand wasn't a cover, it was the spine.</p>
     </div>

@@ -68,6 +68,10 @@
     .fig figcaption { font-size: 0.9rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
     .pull { font-weight: 600; font-size: clamp(1.2rem, 2.2vw, 1.6rem); line-height: 1.35; letter-spacing: -0.02em; max-width: 32ch; margin: 1.6rem 0 0; }
     .pull em { font-style: normal; color: var(--pink); }
+    .thesis { font-weight: 600; font-size: clamp(1.3rem, 2.5vw, 1.9rem); line-height: 1.3; letter-spacing: -0.02em; max-width: 28ch; margin: 1.4rem 0 0; }
+    .thesis mark { background: rgba(79,196,207,0.22); color: inherit; padding: 0 0.1em; }
+    .ui-quote { font-family: var(--hand); font-size: clamp(1.15rem, 2vw, 1.45rem); color: var(--ink-soft); margin: 1.2rem 0 0; max-width: 40ch; line-height: 1.4; }
+    .ui-quote b { color: var(--ink); font-weight: 600; }
 
     .cut-end { position: relative; overflow: hidden; padding: clamp(3.5rem, 9vh, 6rem) var(--x); border-top: 2px solid var(--ink); }
     .cut-end-line { font-weight: 600; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -0.02em; line-height: 1.25; max-width: 26ch; margin: 0 0 1.6rem; position: relative; z-index: 2; }
@@ -275,7 +279,7 @@
       <a class="back-link" href="tatsam.html">← Tatsam case study</a>
       <span class="cg-eyebrow">product cut · the app &amp; website</span>
       <h1>A wellbeing app that asks how you feel — <em>then hands you something to do</em>.</h1>
-      <p class="cg-deck">We designed Tatsam's whole product surface, code-ready: an onboarding that actually listens, two ways through (<strong>self-driven</strong> or <strong>guided</strong>), a recommendation engine, and a library of things to <em>play</em> and <em>do</em> — plus the marketing site that explains it in one scroll.</p>
+      <p class="cg-deck">We designed Tatsam's whole product surface, code-ready: an onboarding <strong>designed in collaboration with psychologists</strong> — four steps, every screen annotated below — two ways through (<strong>self-driven</strong> or <strong>guided</strong>), a recommendation engine, and a library of things to <em>play</em> and <em>do</em> — plus the marketing site that explains it in one scroll.</p>
     </div>
   </header>
 
@@ -295,16 +299,79 @@
       </div>
       <div class="phones">
         <figure><img src="../images/work/tatsam/tatsam-app-opening.png" alt="Opening screen" loading="lazy"><figcaption>Opening</figcaption></figure>
-        <figure><img src="../images/work/tatsam/tatsam-app-name.png" alt="Ask name" loading="lazy"><figcaption>Onboarding</figcaption></figure>
-        <figure><img src="../images/work/tatsam/tatsam-app-feeling.png" alt="Ask feeling" loading="lazy"><figcaption>How you feel</figcaption></figure>
-        <figure><img src="../images/work/tatsam/tatsam-app-path.png" alt="Choosing a path" loading="lazy"><figcaption>Your path</figcaption></figure>
+        <figure><img src="../images/work/tatsam/tatsam-app-path.png" alt="Choosing a path" loading="lazy"><figcaption>Your path — self-driven or guided</figcaption></figure>
         <figure><img src="../images/work/tatsam/tatsam-app-play.png" alt="A play / do-now exercise" loading="lazy"><figcaption>Play / do now</figcaption></figure>
       </div>
-      <p class="pull">The whole flow is built around one belief: <em>the smallest doable step beats the perfect plan.</em></p>
+      <p class="pull">The whole flow is built around one belief: <em>the smallest doable step beats the perfect plan.</em> The onboarding below is where that belief is earned.</p>
     </div>
   </section>
 
   <section class="sec reveal">
+    <span class="dot d-yellow" style="width:70px;height:70px;top:10%;right:-24px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">the onboarding · designed with psychologists</span>
+      <h2 class="sec-title">Four steps to intimacy, <em>without overwhelm</em>.</h2>
+      <p class="sec-lede">The product-strategy page describes it in one sentence: <em>"A research backed onboarding flow, designed in collaboration with psychologists to build intimacy with the client without overwhelming them."</em> The opening screen makes the promise — <strong>"Your complete wellness in your hands"</strong>, a subheading that "reinforces the promise to the user of autonomy and holistic wellness" — while playful visual elements "reinforce a sense of invitation with gentle animations." Then four moves, each annotated below exactly as we annotated them for the client.</p>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;top:12%;left:-20px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">step 01 · initial rapport</span>
+      <h2 class="sec-title">A space for feelings, <em>before any asks</em>.</h2>
+      <p class="sec-lede">The design note, verbatim: <em>"sign up starts with creating a space for feelings &amp; trust to build rapport with new users."</em> The app asks your name ("you can use your name or a nickname"), how you're feeling on a five-face scale — and then does the thing wellness apps never do: it responds.</p>
+      <p class="ui-quote">"That is quite a long time to be dealing with this. <b>Would you like to write about your feelings right now?</b>"</p>
+      <div class="phones">
+        <figure><img src="../images/work/tatsam/slide108-product-2.webp" alt="Onboarding — welcome screen asking what we should call you" loading="lazy"><figcaption>"What should we call you?"</figcaption></figure>
+        <figure><img src="../images/work/tatsam/slide108-product-3.webp" alt="Onboarding — how are you feeling today, five-face scale" loading="lazy"><figcaption>Five faces, no forms</figcaption></figure>
+        <figure><img src="../images/work/tatsam/slide108-product-4.webp" alt="Onboarding — would you like to write about your feelings" loading="lazy"><figcaption>The app responds — and offers space to write</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reveal">
+    <span class="dot d-pink" style="width:64px;height:64px;bottom:-20px;right:8%;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">step 02 · life details</span>
+      <h2 class="sec-title">Eight areas of a life, <em>seen and ranked</em>.</h2>
+      <p class="sec-lede">The note: <em>"gathering details on the user's life and what they might like to change or evolve helps them feel seen and understood."</em> Eight areas, each glossed in human terms — <strong>Career</strong> ("your job, business and aspirations"), <strong>Finances</strong> ("your relationship with money"), <strong>Health</strong> ("your body, sickness and wellness"), <strong>Family and friends</strong> ("relationships in your life"), <strong>Romance</strong> ("romantic love and partnership"), <strong>Personal growth</strong> ("aims, goals and aspirations"), <strong>Fun and recreation</strong> ("entertainment and leisure"), and <strong>Physical environment</strong> ("your surroundings"). The user reorders them by what matters, then rates satisfaction in each on a 1–5 slider.</p>
+      <div class="phones">
+        <figure><img src="../images/work/tatsam/slide108-product-5.webp" alt="Onboarding — the eight areas of your life, each with a one-line gloss" loading="lazy"><figcaption>The eight areas</figcaption></figure>
+        <figure><img src="../images/work/tatsam/slide108-product-6.webp" alt="Onboarding — drag to prioritise the areas of your life" loading="lazy"><figcaption>Drag to prioritise</figcaption></figure>
+        <figure><img src="../images/work/tatsam/slide108-product-7.webp" alt="Onboarding — satisfaction sliders for each life area" loading="lazy"><figcaption>Satisfaction, 1 to 5</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
+    <span class="dot d-yellow" style="width:64px;height:64px;top:14%;right:-20px;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">step 03 · goal selection</span>
+      <h2 class="sec-title">The user picks the goals — <em>not the app</em>.</h2>
+      <p class="sec-lede">The note: <em>"giving a sense of agency in deciding on goals aligns incentives and increases motivation."</em> Agency was a brand rule ("agency not boundaries") before it was a feature. And the goals on offer are deliberately humble — <strong>better sleep</strong> ("I want to sleep better. More, restful, deeper sleep for my mind and my body."), <strong>less overwhelm</strong>, <strong>reducing stress</strong>, <strong>better relationships</strong> — each wearing the brand's botanical iconography.</p>
+      <div class="phones">
+        <figure><img src="../images/work/tatsam/slide108-product-8.webp" alt="Onboarding — what would you like to focus on, better sleep goal card" loading="lazy"><figcaption>"What would you like to focus on for now?"</figcaption></figure>
+        <figure><img src="../images/work/tatsam/slide108-product-9.webp" alt="Onboarding — what else would you like to focus on, goal grid" loading="lazy"><figcaption>Add more — or be done</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reveal">
+    <span class="dot d-cyan" style="width:64px;height:64px;bottom:-20px;left:8%;opacity:1;"></span>
+    <div class="sec-inner">
+      <span class="sec-eyebrow">step 04 · plan creation</span>
+      <h2 class="sec-title">Day one <em>starts easy, on purpose</em>.</h2>
+      <p class="sec-lede">The note: <em>"create an achievable plan that leverages users' initial enthusiasm to start the behavior change."</em> The plan promises "each day you will have new activities that address each area of your life" — and Day 1 is labelled, in the interface itself, <strong>"Starting easy."</strong> The first practice is a gratitude journal, and the completion screen explains why: <em>"Understanding yourself starts with small steps. With regular practices, you will start seeing a positive shift in your mind."</em></p>
+      <div class="phones">
+        <figure><img src="../images/work/tatsam/slide108-product-10.webp" alt="Onboarding — Your Plan, Day 1 starting easy" loading="lazy"><figcaption>Your Plan — Day 1, "Starting easy"</figcaption></figure>
+        <figure><img src="../images/work/tatsam/slide108-product-11.webp" alt="Onboarding — Awesome, you just finished your first practice: Gratitude Journal" loading="lazy"><figcaption>The first win — "Hurray!"</figcaption></figure>
+      </div>
+      <p class="pull">Four steps: feel heard, feel seen, choose your goal, win on day one. <em>That's psychological capital as an interface.</em></p>
+    </div>
+  </section>
+
+  <section class="sec alt reveal">
     <span class="dot d-pink" style="width:64px;height:64px;top:12%;right:-20px;opacity:1;"></span>
     <div class="sec-inner">
       <span class="sec-eyebrow">the website</span>
