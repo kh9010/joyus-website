@@ -19,6 +19,244 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Serif+Display:ital@0;1&family=Caveat:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <link rel="stylesheet" href="../styles.css?v=4">
+  <style>
+    /* ── tomboyx page-local composition (tx-*) ──────────────
+       The tx-* family lives here, not styles.css — page-local
+       per CLAUDE.md to avoid shared-file merges. */
+    .tx-sub-hero {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: clamp(3rem, 7vw, 5rem) var(--x) 1.5rem;
+      text-align: left;
+    }
+    .tx-sub-hero p {
+      font-size: clamp(1.15rem, 2.2vw, 1.45rem);
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0 0 1rem;
+    }
+    .tx-kicker {
+      font-family: var(--hand);
+      font-size: 1.35rem !important;
+      color: var(--pink) !important;
+    }
+
+    /* KPI spine */
+    .tx-kpis {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.5rem var(--x) 2.5rem;
+    }
+    .tx-kpis-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-fade);
+      margin: 0 0 1rem;
+    }
+    .tx-stats {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.9rem;
+    }
+    .tx-statcard {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-top: 4px solid var(--pink);
+      border-radius: 14px;
+      padding: 1.1rem 1rem;
+    }
+    .tx-statcard .big {
+      font-weight: 700;
+      font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+      letter-spacing: -0.03em;
+      color: var(--pink);
+      line-height: 1;
+    }
+    .tx-statcard p {
+      font-size: 0.84rem;
+      line-height: 1.4;
+      color: var(--ink-soft);
+      margin: 0.45rem 0 0;
+    }
+    .tx-statcard .mkt {
+      display: block;
+      margin-top: 0.35rem;
+      font-size: 0.76rem;
+      color: var(--ink-fade);
+    }
+    .tx-kpis-note {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      margin: 1.2rem 0 0;
+      max-width: 680px;
+    }
+    @media (max-width: 1000px) { .tx-stats { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 720px)  { .tx-stats { grid-template-columns: 1fr 1fr; } }
+
+    /* deck strip */
+    .tx-deck-strip {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem var(--x) 2rem;
+    }
+    .tx-deck-strip-kicker {
+      font-family: var(--hand);
+      font-size: 1.3rem;
+      color: var(--ink-soft);
+      margin: 0 0 0.8rem;
+    }
+    .tx-deck-strip-inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .tx-deck-thumb { margin: 0; }
+    .tx-deck-thumb img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .tx-deck-thumb figcaption {
+      font-size: 0.8rem;
+      color: var(--ink-fade);
+      margin-top: 0.45rem;
+      letter-spacing: 0.04em;
+    }
+    .tx-deck-strip-note {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      margin: 1.2rem 0 0;
+    }
+    @media (max-width: 900px) { .tx-deck-strip-inner { grid-template-columns: 1fr 1fr; } }
+
+    /* audience toggle */
+    .tx-toggle-fallback {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 var(--x) 1rem;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+    }
+    .tx-toggle-sentinel { height: 1px; }
+    .tx-toggle {
+      position: sticky;
+      top: max(4.5rem, calc(env(safe-area-inset-top) + 4rem));
+      z-index: 400;
+      display: flex;
+      justify-content: center;
+      padding: 0.6rem var(--x);
+    }
+    .tx-toggle-inner {
+      display: inline-flex;
+      gap: 0.35rem;
+      background: rgba(250, 247, 242, 0.92);
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--rule);
+      border-radius: 999px;
+      padding: 0.35rem;
+      transition: box-shadow 0.25s;
+    }
+    .tx-toggle.is-stuck .tx-toggle-inner {
+      box-shadow: 0 10px 30px rgba(44, 53, 68, 0.14);
+    }
+    .tx-tab {
+      font-family: var(--sans);
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--ink-soft);
+      background: transparent;
+      border: 0;
+      border-radius: 999px;
+      padding: 0.55rem 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .tx-tab:hover { color: var(--ink); }
+    .tx-tab[aria-selected="true"] {
+      background: var(--pink);
+      color: #fff;
+    }
+
+    /* beats */
+    .tx-main { max-width: 1100px; margin: 0 auto; padding: 1rem var(--x) 3rem; }
+    .tx-beat { padding: clamp(2.5rem, 6vw, 4.5rem) 0 0; }
+    .tx-beat-head { max-width: 680px; }
+    .tx-beat-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin: 0 0 0.5rem;
+    }
+    .tx-beat-subject {
+      font-size: clamp(1.5rem, 3.4vw, 2.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin: 0;
+      color: var(--ink);
+    }
+    .tx-stage { margin-top: 1.6rem; outline: none; }
+    .tx-variant {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      gap: clamp(1.2rem, 3vw, 2.5rem);
+      align-items: start;
+    }
+    .tx-variant[hidden] { display: none; }
+    .tx-variant-lens {
+      grid-column: 1 / -1;
+      font-family: var(--hand);
+      font-size: 1.3rem;
+      color: var(--pink);
+      margin: 0;
+    }
+    .tx-note-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-left: 4px solid var(--pink);
+      border-radius: 14px;
+      padding: 1.4rem 1.5rem;
+    }
+    .tx-note {
+      font-size: 1rem;
+      line-height: 1.65;
+      color: var(--ink);
+      margin: 0;
+    }
+    .tx-support { margin: 0; }
+    .tx-support img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .tx-deck-caption {
+      font-size: 0.8rem;
+      color: var(--ink-fade);
+      margin-top: 0.45rem;
+      letter-spacing: 0.04em;
+    }
+    .tx-support-quote {
+      font-family: var(--hand);
+      font-size: 1.3rem;
+      line-height: 1.35;
+      color: var(--ink-soft);
+      border: 0;
+      margin: 0.9rem 0 0;
+      padding: 0;
+    }
+    @media (max-width: 860px) {
+      .tx-variant { grid-template-columns: 1fr; }
+      .tx-toggle { top: max(4rem, calc(env(safe-area-inset-top) + 3.6rem)); }
+    }
+  </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"CreativeWork","name":"tomboyx","description":"A refreshed story for tomboyx, a beloved underwear company raising re-capitalization in a down round.","url":"https://joyus.studio/work/tomboyx.html","creator":{"@type":"Organization","name":"Joyus Studio","url":"https://joyus.studio/"}}
 </script>
@@ -204,37 +442,52 @@
       <div class="cs-meta-row">
         <span>United States</span>
         <span>10–20 employees</span>
-        <span>$22M+ annual revenue</span>
+        <span>$25M annual revenue</span>
       </div>
     </div>
   </header>
 
   <section class="tx-sub-hero">
-    <p>One company. Three decks. We wrote the same story for the operator who reads a P&amp;L, the believer who funds values, and the syndicate who forwards to LPs.</p>
+    <p>A down round is an honest place to start. TomboyX had the metrics of a category winner and the cap table of a company that needed to be re-capitalized — so the job wasn't to invent a story, it was to decide which true one each investor needed. One company, three decks: for the operator who reads a P&amp;L, the believer who funds values, and the syndicate that forwards PDFs to LPs.</p>
     <p class="tx-kicker">pick an audience →</p>
+  </section>
+
+  <!-- The KPI spine — every deck stood on the same numbers.
+       source: Joyus work deck-mar26 · pp.7, 10 (Outstanding KPIs / Best in class premium basics KPIs) -->
+  <section class="tx-kpis" aria-label="TomboyX KPIs versus market standards">
+    <p class="tx-kpis-eyebrow">the raw material — same six numbers under every deck</p>
+    <div class="tx-stats">
+      <div class="tx-statcard"><div class="big">2.5%</div><p>return rates<span class="mkt">market standard: 30%</span></p></div>
+      <div class="tx-statcard"><div class="big">72%</div><p>product margins<span class="mkt">market standard: 53%</span></p></div>
+      <div class="tx-statcard"><div class="big">4.3%</div><p>conversion rate<span class="mkt">market standard: 3%</span></p></div>
+      <div class="tx-statcard"><div class="big">3.1</div><p>LTV:CAC ratio<span class="mkt">3&times; is the golden standard</span></p></div>
+      <div class="tx-statcard"><div class="big">50%</div><p>repeat customer rate<span class="mkt">market standard: 30%</span></p></div>
+      <div class="tx-statcard"><div class="big">76</div><p>NPS<span class="mkt">market standard: 50</span></p></div>
+    </div>
+    <p class="tx-kpis-note">All of it — plus 55,000+ five-star reviews — on just 9% spend on brand. The numbers were never the problem. The story carrying them was.</p>
   </section>
 
   <section class="tx-deck-strip" aria-label="The decks we built for TomboyX">
     <p class="tx-deck-strip-kicker">what we built ↓</p>
     <div class="tx-deck-strip-inner">
       <figure class="tx-deck-thumb">
-        <img src="../images/work/tomboyx/angels-14.webp" alt="The operator deck: Apr 2025 confident deck, data-forward, Proudly Premium and Basic" loading="lazy" decoding="async">
-        <figcaption>the operator deck</figcaption>
+        <img src="../images/work/tomboyx/angels-14.webp" alt="Operator deck market slide: intimates market growing at 8-10% CAGR, $3.46B in 2022 to $6.55B expected by 2030, Victoria's Secret down from 65% to 20% share" loading="lazy" decoding="async">
+        <figcaption>the operator deck — market math</figcaption>
       </figure>
       <figure class="tx-deck-thumb">
-        <img src="../images/work/tomboyx/story-5.webp" alt="The believer deck: Feb 2025 warm meeting-getter, opens with customer quotes" loading="lazy" decoding="async">
-        <figcaption>the believer deck</figcaption>
+        <img src="../images/work/tomboyx/story-5.webp" alt="Believer deck: black brand-manifesto slide — vulnerable and brave, comfortable and non-conforming — signed tomboyx, Fit for You" loading="lazy" decoding="async">
+        <figcaption>the believer deck — the manifesto</figcaption>
       </figure>
       <figure class="tx-deck-thumb">
-        <img src="../images/work/tomboyx/pitch-10.webp" alt="The syndicate deck: Feb 2025 sendable deck with named committed investors" loading="lazy" decoding="async">
-        <figcaption>the syndicate deck</figcaption>
+        <img src="../images/work/tomboyx/pitch-10.webp" alt="A shifting market slide: Victoria's Secret 65% to 20% share, 28% of Gen Z identify as LGBTQ+, why tomboyx is the brand of the future" loading="lazy" decoding="async">
+        <figcaption>the down-round case — a shifting market</figcaption>
       </figure>
       <figure class="tx-deck-thumb">
-        <img src="../images/work/tomboyx/story-8.webp" alt="Closing slide: three very different asks, one company" loading="lazy" decoding="async">
-        <figcaption>the close</figcaption>
+        <img src="../images/work/tomboyx/story-8.webp" alt="Brand equities slide: Original, Resolute, Intimate, Fearless, Ready — the five words every deck stood on" loading="lazy" decoding="async">
+        <figcaption>the brand equities — every deck's spine</figcaption>
       </figure>
     </div>
-    <p class="tx-deck-strip-note">Three decks. Three audiences. Same Tomboy. Flip between them below.</p>
+    <p class="tx-deck-strip-note">Three audiences, one set of facts. Same Tomboy. Flip between the framings below.</p>
   </section>
 
   <!-- No-JS fallback: visible by default, hidden when JS boots -->
@@ -279,7 +532,7 @@
     <!-- ═══════════════════════════════════════════════
          BEAT 01 — How each deck opened.
     ════════════════════════════════════════════════ -->
-    <!-- source: Birthing-tomboyx-anew-Apr-25 · slides 1-3 -->
+    <!-- source: Joyus work deck-mar26 · pp.8, 10 -->
     <section class="tx-beat" id="beat-opener" aria-labelledby="beat-opener-h">
       <header class="tx-beat-head">
         <p class="tx-beat-eyebrow">beat 01 — how each deck opened</p>
@@ -293,50 +546,50 @@
            tabindex="0">
 
         <!-- OPERATOR variant — active by default -->
-        <!-- source: Birthing-tomboyx-anew-Apr-25 · slides 1-3 -->
+        <!-- source: Joyus work deck-mar26 · p.10 (angels & operator-angels) -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Operators read an opener like a P&amp;L header. We led with the category-leader claim — first to launch boxer briefs for women — then stacked concrete numbers: 76 NPS, 55,000+ five-star reviews, one-third of units in extended sizes. The pitch was: this isn't a turnaround. It's a company that's been operating at top-decile metrics the whole time.
+              Operators read an opener like a P&amp;L header, so the operator deck opened with the comparison already done: tomboyx in colour, the market in grey, four bubbles deep. Returns at 2.5% against a 30% market standard. Margins at 72% against 53%. Conversion at 4.3% against 3% — all of it on a 9% brand spend where the market burns 20%. The claim wasn't "trust us." It was: this isn't a turnaround, it's a mispriced company.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/angels-13.webp" alt="Operator deck opener: category pioneer headline with 76 NPS and 55,000 five-star review highlights" loading="lazy" decoding="async">
+            <img src="../images/work/tomboyx/angels-13.webp" alt="Operator deck opener: best-in-class KPI bubbles — 2.5% returns vs 30% market, 72% margins vs 53%, 4.3% conversion vs 3%, 9% brand spend vs 20%" loading="lazy" decoding="async">
             <figcaption class="tx-deck-caption">from the deck we built · the operator</figcaption>
-            <blockquote class="tx-support-quote">"Category pioneer. 76 NPS. 55,000 five-star reviews. One-third of units in extended sizes."</blockquote>
+            <blockquote class="tx-support-quote">"Incredible margins &amp; return rates — despite running with a very lean, cash-focused team."</blockquote>
           </figure>
         </article>
 
         <!-- BELIEVER variant -->
-        <!-- source: Birthing-tomboyx-anew-Feb-25 · slide 3; TomboyX-All-up-in-our-undies · slide 10 -->
+        <!-- source: customer cohort working file behind the believer narrative -->
         <article class="tx-variant" data-audience="believer" hidden>
           <p class="tx-variant-lens">for the believer</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Believers need to feel the company before they can fund it. We moved the customer quotes from appendix-candy to slide 3 — so the first thing the investor saw after "who we are" was what it meant to be seen. Then the B-Corp badge and the timeline, to prove the feeling was backed by a decade of scrappy execution.
+              Believers get told "community" by every brand deck ever made, usually with a mood board attached. We opened the believer narrative from the working file instead — three years of customers, split by income band and by generation, from poverty line to top wealth, Silent Generation to Gen&nbsp;Z. The feeling investors had about tomboyx was real; this was the spreadsheet underneath it. Every band buys. Every generation comes back.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/believer-community.webp" alt="Six TomboyX customers in pride-striped underwear, orange wall backdrop, every body type represented" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the believer</figcaption>
-            <blockquote class="tx-support-quote">"I didn't expect to cry when I put them on — but I did."</blockquote>
+            <img src="../images/work/tomboyx/believer-community.webp" alt="Customer cohort table from the working file: revenue split by income band and by generation, quarter by quarter, 2021-2023" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the working file · the believer</figcaption>
+            <blockquote class="tx-support-quote">"The community wasn't a mood board. It was three years of cohort data."</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- source: TomboyX-Fundraiser-All-up-in-our-undies-(sendable-deck) · slides 1-2 -->
+        <!-- source: Joyus work deck-mar26 · p.8 (brand manifesto slide) -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              The syndicate deck had to work without a voice next to it. We opened with a title that was the pitch ("All up in our undies" — no business-as-usual, we're being real) and a single-sentence identity: queer-owned, women-founded, every body. If an LP scrolled past just the cover, that one line did the job. No math yet; the promise first.
+              A sendable deck works with nobody talking next to it, so the opener had to carry the whole identity in one slide. We used the brand manifesto — black slide, plain type: absolute comfort in your skin is what gives you the confidence to make your mark on the world. If an LP read only this far, the sign-off did the job of a tagline and a thesis at once: <em>Fit for You.</em>
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/story-5.webp" alt="Syndicate deck opener: single-sentence identity slide — queer owned, women founded, premium basics for every body" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the syndicate</figcaption>
-            <blockquote class="tx-support-quote">"Queer owned, women founded. Premium basics for every body."</blockquote>
+            <img src="../images/work/tomboyx/story-5.webp" alt="The brand manifesto slide: black background, tomboyx wordmark, Fit for You — we champion those who know they can be both vulnerable and brave" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">the brand manifesto · the syndicate</figcaption>
+            <blockquote class="tx-support-quote">"We champion those who know they can be both vulnerable and brave. Comfortable and non-conforming."</blockquote>
           </figure>
         </article>
 
@@ -346,7 +599,7 @@
     <!-- ═══════════════════════════════════════════════
          BEAT 02 — How each deck handled the numbers.
     ════════════════════════════════════════════════ -->
-    <!-- source: Birthing-tomboyx-anew-Apr-25 · slides 9, 18-19 -->
+    <!-- source: Joyus work deck-mar26 · pp.9, 11 + operator deck DTC metrics slide -->
     <section class="tx-beat" id="beat-numbers" aria-labelledby="beat-numbers-h">
       <header class="tx-beat-head">
         <p class="tx-beat-eyebrow">beat 02 — how each deck handled the numbers</p>
@@ -360,50 +613,50 @@
            tabindex="0">
 
         <!-- OPERATOR variant -->
-        <!-- source: Birthing-tomboyx-anew-Apr-25 · slides 9, 18-19 -->
+        <!-- source: operator deck DTC transaction metrics slide -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Operators want the comparison. Every row on the KPI table had a market benchmark to the left and TomboyX to the right — so the investor's eye did its own math. Return rates 2.5% vs 30% market. NPS 76 vs 36. CAC $23 vs $45. A 50% repeat rate on half the brand spend. That's the unit-economics story an operator moves on.
+              Operators don't want the rounded version — they want the mechanics. So the numbers slide read like a working model: 2.6% return rate and 4.33% conversion for 2023, CAC cut from $49 to $23 in a year, first orders already profitable at 1.5&times; on a gross-profit basis, and the share of customers arriving through organic channels climbing from 58% to 66%. Footnotes included, because an operator always reads the footnotes.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/operator-numbers.webp" alt="Operator deck numbers slide: DTC transaction metrics — 2.6% return rate, 4.33% conversion, $49 to $23 CAC reduction" loading="lazy" decoding="async">
+            <img src="../images/work/tomboyx/operator-numbers.webp" alt="Operator deck numbers slide: DTC transaction metrics — 2.6% return rate, 4.33% conversion, CAC down from $49 to $23, 1.5x first-order profitability, 58% to 66% organic" loading="lazy" decoding="async">
             <figcaption class="tx-deck-caption">from the deck we built · the operator</figcaption>
-            <blockquote class="tx-support-quote">"76 NPS. 2.5% returns. $23 CAC. 50% repeat rate on half the brand spend."</blockquote>
+            <blockquote class="tx-support-quote">"$49 to $23 CAC in a year. First orders profitable at 1.5&times;. Footnotes included."</blockquote>
           </figure>
         </article>
 
         <!-- BELIEVER variant -->
-        <!-- source: Birthing-tomboyx-anew-Feb-25 · slides 9-10 -->
+        <!-- source: Joyus work deck-mar26 · p.9 ("The opportunity") -->
         <article class="tx-variant" data-audience="believer" hidden>
           <p class="tx-variant-lens">for the believer</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Believers needed permission to believe. We put the same numbers in the middle of the deck — after the community had been established, before the team. The framing language ("despite running with a very lean, cash-focused team") invited the investor to read every metric as proof the team delivered under constraint. Same table, warmer wrap.
+              For the believer, the numbers became a fairness argument. A $93B lingerie market growing 6–8% through 2030 — and in it, Meundies raised $50M, ThirdLove $55M, Adore Me was acquired for $400M. The asterisk on the slide did the editorial work: <em>male founded = well funded; tomboyx has been underfunded.</em> Then the yellow banner that turned grievance into pitch: we can do it better and more authentically.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/pitch-9.webp" alt="Believer deck numbers slide: KPI comparison table framed around customer loyalty built on a lean team" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">adapted from market benchmark data · the believer</figcaption>
-            <blockquote class="tx-support-quote">"Top-decile metrics, on a cash-starved team. Imagine what they'd do funded."</blockquote>
+            <img src="../images/work/tomboyx/pitch-9.webp" alt="The opportunity slide: $93B lingerie market growing 6-8% to 2030; Meundies raised $50M, ThirdLove $55M, Adore Me acquired for $400M — male founded = well funded, tomboyx has been underfunded" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">from the deck we built · the believer</figcaption>
+            <blockquote class="tx-support-quote">"Male founded = well funded. tomboyx has been underfunded. We can do it better and more authentically."</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- source: TomboyX-Fundraiser-All-up-in-our-undies-(sendable-deck) · slides 4-5 -->
+        <!-- source: Joyus work deck-mar26 · p.11 ("Honored to have an extended family") -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Syndicates forward slides to LPs. A single KPI table is too much to skim on a phone. We split it across two slides with separate takeaways — so a partner could screenshot either slide and have a standalone argument. The first slide handled efficiency (return rates, margins, conversion, brand spend). The second handled loyalty (NPS, CAC, repeat rate). Both lived or died alone.
+              The syndicate deck held its KPIs to a single highlights slide and spent the saved slide budget on evidence no spreadsheet carries: wedding invitations addressed to the company, a 2025 graduation announcement, a mother's letter about her trans daughter who only wears TomboyX, a handwritten note on orange paper. When your NPS is 76 and the market's is 50, this is what the gap looks like as physical mail.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/syndicate-15.webp" alt="Syndicate deck numbers: KPI table split across two slides for LP forwarding, each with its own standalone takeaway" loading="lazy" decoding="async">
+            <img src="../images/work/tomboyx/syndicate-15.webp" alt="Honored to have an extended family slide: real wedding invitations, a 2025 graduation announcement, a mother's letter about her trans daughter, and a handwritten note from a customer" loading="lazy" decoding="async">
             <figcaption class="tx-deck-caption">from the deck we built · the syndicate</figcaption>
-            <blockquote class="tx-support-quote">"One table, two slides. Because LPs skim in screenshots."</blockquote>
+            <blockquote class="tx-support-quote">"Your underwear is very comfy and helps me feel like myself." — handwritten, on the slide</blockquote>
           </figure>
         </article>
 
@@ -413,7 +666,7 @@
     <!-- ═══════════════════════════════════════════════
          BEAT 03 — How each deck framed the broken years.
     ════════════════════════════════════════════════ -->
-    <!-- source: TomboyX-Fundraiser-All-up-in-our-undies-(sendable-deck) · slides 7-8, 12 -->
+    <!-- source: Joyus work deck-mar26 · pp.7, 8, 11 -->
     <section class="tx-beat" id="beat-problem" aria-labelledby="beat-problem-h">
       <header class="tx-beat-head">
         <p class="tx-beat-eyebrow">beat 03 — how each deck framed the broken years</p>
@@ -427,50 +680,50 @@
            tabindex="0">
 
         <!-- OPERATOR variant -->
-        <!-- source: TomboyX-Fundraiser-All-up-in-our-undies-(sendable-deck) · slide 8; Birthing-tomboyx-anew-Apr-25 · slide 15 -->
+        <!-- source: Joyus work deck-mar26 · p.7 ("Addressing the issues head-on") + use-of-funds chart -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Operators respect a diagnosis. We laid the issues down flat — no softening — and paired each one with its solution on the same slide. Four named problems: misalignment between ownership and management, crushing debt and lack of working capital, CPG playbook from majority owners, distractions from inconsistent board priorities. Four solutions, already started. Reading left-to-right, the investor could see every scar and every patch in one breath.
+              Operators respect a diagnosis with a price tag. The operator deck named the issues head-on — misalignment between VC owners and management since 2020, starved working capital, debt service running over a million dollars a year, a board without clear priorities — and gave each its fix on the same slide, arrows left to right. Then it showed where the new money actually goes: 56.3% to demand generation, 28.2% to product development, 9.9% cash buffer, 5.6% market activations. The scar, the patch, and the invoice — one breath.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/operator-ask.webp" alt="Operator deck: use-of-funds pie chart showing 56% demand generation, 28% product development, 10% cash buffer, 6% activations" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the operator</figcaption>
-            <blockquote class="tx-support-quote">"Four broken things. Four fixes, already started."</blockquote>
+            <img src="../images/work/tomboyx/operator-ask.webp" alt="Use-of-funds pie chart: 56.3% demand generation, 28.2% product development, 9.9% cash buffer, 5.6% market activations" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">the fix, priced — use of funds · the operator</figcaption>
+            <blockquote class="tx-support-quote">"Four named problems, four fixes — and a pie chart that says demand gen first."</blockquote>
           </figure>
         </article>
 
         <!-- BELIEVER variant -->
-        <!-- source: Birthing-tomboyx-anew-Feb-25 · slides 5-6; TomboyX-Underwear-for-Every-Body-Feb-25 · slide 21 -->
+        <!-- source: Joyus work deck-mar26 · p.8 (early-investor framing note) -->
         <article class="tx-variant" data-audience="believer" hidden>
           <p class="tx-variant-lens">for the believer</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Believers don't want a postmortem. We softened the diagnosis into redemption — each issue followed by "SOLVED by..." in plain type. The tone said: yes, it was hard, it's behind us, we're a company with a soul that got institutionalized and is walking back. The structure was the same as the operator slide; the voice was warmer by about 15 degrees.
+              This was the framing decision the whole engagement turned on. Many believers were early investors — people who might read the broken years and assign blame to past leadership, or to decisions they'd contextualize very differently from a new investor. So the deck chose its villain deliberately: <em>market forces drove tomboyx to the breaking point — not past leadership, not decisions anyone in the room had backed.</em> No postmortem, no culprits. And where the operator got a pie chart, the believer got this: a customer with the logo tattooed on her arm. The thing that didn't break.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/believer-issues.webp" alt="Believer deck: three TomboyX customers laughing together on a couch, black-and-white, used to restore warmth between the issues and the redemption" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the believer</figcaption>
-            <blockquote class="tx-support-quote">"Getting out of a bad couple years. Every one of them, SOLVED."</blockquote>
+            <img src="../images/work/tomboyx/believer-issues.webp" alt="A smiling customer with smiley-face stickers on her cheeks and a tomboyx tattoo on her upper arm, wearing a rainbow-check bralette" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">what didn't break · the believer</figcaption>
+            <blockquote class="tx-support-quote">"Market forces drove tomboyx to the breaking point — not the people in this room."</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- source: TomboyX-Fundraiser-All-up-in-our-undies-(sendable-deck) · slides 7-8, 12 -->
+        <!-- source: Joyus work deck-mar26 · p.11 ("Run by a strong team") -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Syndicates need the awkward answer on the page — there's no founder in the room to soften it. We moved the "broken years" slide up before the market context and put the plain valuation rationale directly on the ask slide: revenues stagnated, ownership needs to change. No hedging. LPs trust a deck that owns its own weaknesses before they can ask.
+              An LP reading a forwarded PDF doesn't want the history — they want to know who's holding the wheel now. So the syndicate deck answered "what went wrong" with a team slide: Fran, co-founder and former CEO, back in the pitch; Leslie running it as CEO with Stanford, Starbucks, REI and T-Mobile behind her; Ryan on CFO/COO from Stanley and ZipWhip; Katrine as chief merchant out of Nordstrom and Eddie Bauer. The layout is deliberately spare — minimal focus on the past, all the attention on the team rather than any individual player.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/syndicate-17.webp" alt="Syndicate deck problem framing: issues slide placed before market context, valuation rationale stated plainly on the ask slide" loading="lazy" decoding="async">
+            <img src="../images/work/tomboyx/syndicate-17.webp" alt="Run by a strong team slide: Fran, co-founder and former CEO; Leslie, CEO (Stanford, Starbucks, REI, T-Mobile); Ryan, CFO/COO (Stanley, ZipWhip); Katrine, chief merchant (Nordstrom, Eddie Bauer)" loading="lazy" decoding="async">
             <figcaption class="tx-deck-caption">from the deck we built · the syndicate</figcaption>
-            <blockquote class="tx-support-quote">"Why the $3M valuation? Because the ownership has to change. We said it first."</blockquote>
+            <blockquote class="tx-support-quote">"The past gets a sentence. The people fixing it get the spread."</blockquote>
           </figure>
         </article>
 
@@ -480,7 +733,7 @@
     <!-- ═══════════════════════════════════════════════
          BEAT 04 — How each deck asked for money.
     ════════════════════════════════════════════════ -->
-    <!-- source: Birthing-tomboyx-anew-Apr-25 · slide 13; TomboyX-Fundraiser-(sendable-deck) · slides 12-13 -->
+    <!-- source: Joyus work deck-mar26 · pp.9, 10, 11 -->
     <section class="tx-beat" id="beat-close" aria-labelledby="beat-close-h">
       <header class="tx-beat-head">
         <p class="tx-beat-eyebrow">beat 04 — how each deck asked for money</p>
@@ -494,50 +747,50 @@
            tabindex="0">
 
         <!-- OPERATOR variant -->
-        <!-- source: Birthing-tomboyx-anew-Apr-25 · slide 13; TomboyX-Fundraiser-(sendable-deck) · slides 12-13 -->
+        <!-- source: Joyus work deck-mar26 · pp.7, 10 (market slide + five-year plan) -->
         <article class="tx-variant" data-audience="operator" data-active="true">
           <p class="tx-variant-lens">for the operator</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Operators want the math, the allocation, and the sequenced plan. We put all three on the ask: $3M at $3M pre (50% stake, clean), over 40% already committed, and a pie chart showing 56.3% of the raise goes to demand gen — the thing that actually unblocks growth. The 3-horizon roadmap mapped the first 6 months onto concrete unlocks: debt, CEO, cash. The close wasn't a story. It was a sequence.
+              Operators don't fund stories; they fund gaps. So the operator ask sat on a market argument: intimates growing at 8–10% CAGR, $3.46B in 2022 to an expected $6.55B by 2030, while the former category leader gave up 45 points of share — Victoria's Secret from 65% to just 20%. Under it, a five-year plan with EBITDA milestones: a $700K bridge in 2025, $1.8M in 2026, $2.5M+ in 2027, $3.3M+ in 2028, and $30–40M revenue with $5M+ EBITDA by 2029 — exploring roll-up or sale. The ask, in operator terms: buy the gap, hold five years.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/angels-14.webp" alt="Operator deck close: $3M raise at $3M pre-money, 40% committed, use-of-funds allocation with 3-horizon roadmap" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the operator</figcaption>
-            <blockquote class="tx-support-quote">"$3M at $3M pre. 40% committed. 56% of the raise goes to demand gen."</blockquote>
+            <img src="../images/work/tomboyx/angels-14.webp" alt="Operator deck market slide: intimates market CAGR 8-10%, $3.46B in 2022 to $6.55B expected in 2030; dwindling former leader panel — Victoria's Secret from 65% to 20% share" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">the market argument under the ask · the operator</figcaption>
+            <blockquote class="tx-support-quote">"The market grows 8–10% a year. The former leader gave up 45 points of share. Do the math."</blockquote>
           </figure>
         </article>
 
         <!-- BELIEVER variant -->
-        <!-- source: Birthing-tomboyx-anew-Feb-25 · slide 14; TomboyX-Fundraiser-(sendable-deck) · slide 14; TomboyX-All-up-in-our-undies · slide 13 -->
+        <!-- source: Joyus work deck-mar26 · p.9 (The Ask: Join a Syndicate of Like-Minded Investors) -->
         <article class="tx-variant" data-audience="believer" hidden>
           <p class="tx-variant-lens">for the believer</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Believers close with a moral question, not a term sheet. We put Fran's signed manifesto as the final slide — "we fight for every woman told she's too much or not enough, for every trans person told they don't belong." The valuation math lived on the previous slide, deliberately. The ask wasn't "will you invest." It was "which side are you on."
+              The believer ask wasn't a term sheet — it was an invitation: <em>join a syndicate of like-minded investors.</em> $5M for a one-third stake, and instead of a fund logo, the slide named the people already committed, LinkedIn links and all. Two of those names are ours — Kahran Singh is on the committed list, alongside Pradeep Singh. We don't write asks we wouldn't answer. At deck time the tally read: commitments so far, $2M of $5M.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/pitch-11.webp" alt="Believer deck close: Fran's signed manifesto — On a Crusade in a Hostile World — as the final slide" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the believer</figcaption>
-            <blockquote class="tx-support-quote">"For every woman told she's too much. For every trans person told they don't belong. Join us."</blockquote>
+            <img src="../images/work/tomboyx/pitch-11.webp" alt="The Ask slide: Join a Syndicate of Like-Minded Investors — $5M for one-third stake, commitments so far $2M, Kahran Singh and Pradeep Singh named with LinkedIn links, five next steps" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">the ask · the believer</figcaption>
+            <blockquote class="tx-support-quote">"Commitments so far: $2M. The first names on the list helped write the deck."</blockquote>
           </figure>
         </article>
 
         <!-- SYNDICATE variant -->
-        <!-- source: TomboyX-Fundraiser-(sendable-deck) · slides 12, 19-20; Birthing-tomboyx-anew-Feb-25 · slide 15 -->
+        <!-- source: Joyus work deck-mar26 · p.11 (Key highlights) -->
         <article class="tx-variant" data-audience="syndicate" hidden>
           <p class="tx-variant-lens">for the syndicate</p>
           <div class="tx-note-card">
             <p class="tx-note">
-              Syndicates close with peers. We named six committed participants on the ask slide — Tres Monos Capital, AK Holdings, Matterhorn Enterprises, Tau Investment Management, Gaingels, Fran Dunaway — so an LP reading this knew who else had already written the check. The "$1M remaining" created urgency without pressure. The appendix gave the deck legs after the pitch ended, because LPs always ask two questions: who else is in, and show me the data. We put both in the same deck.
+              A syndicate close has to survive being screenshot at a red light. So it closed on one slide that holds the entire investment case: product leader — first to launch boxer briefs for women; category pioneer — one-third of units sold in 2X+ extended sizes, certified B Corp, on shelves at Kohl's, REI Co-op, Nordstrom and Amazon; outstanding KPIs — 76 NPS, 55,000+ five-star reviews, 50% repeat rate, returns under 5%, 227k on Instagram. All of it over a strip of customers actually wearing the product. One screenshot, whole argument.
             </p>
           </div>
           <figure class="tx-support with-image">
-            <img src="../images/work/tomboyx/syndicate-16.webp" alt="Syndicate deck close: named committed investors — Tres Monos, AK Holdings, Matterhorn, Tau, Gaingels, Fran Dunaway — with $1M remaining allocation" loading="lazy" decoding="async">
-            <figcaption class="tx-deck-caption">from the deck we built · the syndicate</figcaption>
-            <blockquote class="tx-support-quote">"Tres Monos. AK Holdings. Matterhorn. Tau. Gaingels. Fran. $1M left."</blockquote>
+            <img src="../images/work/tomboyx/syndicate-16.webp" alt="Key highlights slide: product leader, category pioneer, outstanding KPIs — 76 NPS, 55,000+ five-star reviews, 50% repeat rate, returns under 5%, 227k Instagram followers — over a strip of customer photos" loading="lazy" decoding="async">
+            <figcaption class="tx-deck-caption">the close · the syndicate</figcaption>
+            <blockquote class="tx-support-quote">"76 NPS. 55,000+ five-star reviews. One-third of units in extended sizes. One screenshot."</blockquote>
           </figure>
         </article>
 
