@@ -7,6 +7,31 @@ _Last updated: 2026-06-03_
 
 ---
 
+## 🔎 FOR DIVYA — review branch `kahran-jun09-tatsam-story` before merge (2026-06-10)
+
+One branch, ~30 commits, held for your eyes before it touches main. What's on it:
+- **All 10 case-study mains + all 12 cuts** through a deepening pass (deck-sourced density,
+  decisions-with-antagonists, verbatim artifacts). Tatsam + TomboyX set the bar; everything
+  else was leveled to it. Each commit message documents its page's changes.
+- **Cuts navigation unified**: the klydo-style switcher pill (count label + current-cut
+  highlight) on every page of every family; legacy proto-tags removed; pratham's orphaned
+  process cut wired in ("four cuts"); next-case-study chain is now one full 10-page cycle.
+- **CSS resurrections**: secret-senses (ss-* + cs-* — the real cause of the April blank-page
+  P0), klydo-cut-design (kl-* + sr-only/keyframes patches), tomboyx (tx-* — never existed),
+  shared cs-* chrome restored into styles.css.
+- **about.html rebuilt as the V6 brand-story arc** (Sam's deck): pattern → joy → origin +
+  optimistic-nihilists → founders (moved up) → the five choices (rewritten with Kahran,
+  "instead of X" foils removed) → wonderland close.
+
+Wants your specific eyes:
+1. Kahran's bio opener on about.html — reworked, flagged in-file; bless or revert (you wrote it)
+2. tomboyx's new tx-* CSS — functional default, may want your design pass
+3. secret-senses content — your project; outcomes footnote currently honest-but-empty
+4. klydo-cut-design empty-wall-at-load — works, but reads broken; auto-play-on-scroll vs
+   start-full-with-replay, pick one
+5. tatsam brand cut secondary-blue swatches — deck export has a hex typo (3 identical);
+   needs true values from Figma
+
 ## Kahran's items (copy / writing)
 
 These need Kahran's hand — they're copy or editorial decisions, not implementation.
