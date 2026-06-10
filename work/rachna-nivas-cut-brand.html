@@ -41,26 +41,9 @@
   }
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
 
-  /* short-cut tag — same pattern as agemo cuts (a link back to the main case study) */
-  .proto-tag {
-    position: fixed;
-    top: 5.5rem; right: 1.25rem;
-    z-index: 480;
-    font-family: var(--hand);
-    font-size: 1.05rem;
-    color: var(--pink);
-    background: var(--paper);
-    border: 1.5px solid var(--pink);
-    border-radius: 999px;
-    padding: 0.3rem 0.95rem;
-    transform: rotate(2deg);
-    box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
-    transition: transform 200ms ease, box-shadow 200ms ease;
-  }
-  .proto-tag:hover { transform: rotate(2deg) translate(-2px, -2px); box-shadow: 4px 4px 0 var(--pink), 0 10px 24px -10px rgba(44, 53, 68, 0.18); }
-  @media (max-width: 720px) {
-    .proto-tag { top: auto; bottom: 1rem; right: 1rem; }
-  }
+  /* (proto-tag retired 2026-06-10 — it sat at the same fixed position as the
+     unified cuts-switch and the two overlapped; the switcher carries the link
+     back to main now, same as the tatsam cuts) */
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -151,6 +134,32 @@
   .value-row .label { flex-shrink: 0; width: 78px; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--pink); padding-top: 0.05rem; }
   .value-row.never .label { color: var(--ink-fade); }
   .value-row p { color: var(--ink-soft); }
+
+  /* beliefs — verbatim from the brand book */
+  .beliefs { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .beliefs li {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 4px solid var(--pink);
+    border-radius: 6px;
+    padding: 1.2rem 1.3rem;
+    font-size: 1.05rem;
+    line-height: 1.45;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .beliefs li:nth-child(2) { border-left-color: var(--cyan); }
+  .beliefs li:nth-child(3) { border-left-color: var(--yellow); }
+  .beliefs li:nth-child(4) { border-left-color: var(--ink); }
+  @media (max-width: 720px) { .beliefs { grid-template-columns: 1fr; } }
+  .hand-note {
+    font-family: var(--hand);
+    font-size: 1.25rem;
+    color: var(--ink-soft);
+    margin-top: 1.5rem;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
 
   /* conversion table */
   .conv {
@@ -244,8 +253,6 @@
   </script>
 </head>
 <body class="work-page" data-accent="pink">
-
-<a class="proto-tag" href="rachna-nivas.html">brand cut · v1</a>
 
 <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
@@ -458,6 +465,20 @@
   </div>
 </section>
 
+<!-- ============ beliefs — verbatim from the brand book ============ -->
+<section class="sec">
+  <div class="reveal">
+    <span class="sec-eyebrow">above the values</span>
+    <h2 class="sec-title">Four beliefs sit over the whole book. <em>Verbatim.</em></h2>
+  </div>
+  <ul class="beliefs reveal delay-1">
+    <li>No shortcuts. No dilution.</li>
+    <li>Collaboration and solitude are both sacred drives.</li>
+    <li>Dance is not entertainment &mdash; it is philosophy, power, liberation.</li>
+    <li>Audiences will be elevated; content will never be made mediocre.</li>
+  </ul>
+</section>
+
 <section class="sec">
   <div class="reveal">
     <span class="sec-eyebrow">behavior &rarr; direction</span>
@@ -485,6 +506,7 @@
       <div class="conv-to">No dark, moody, blurred. No pastels or vintage faded.</div>
     </div>
   </div>
+  <p class="hand-note reveal delay-2">simple rules let rachna hand the work off to assistants and contractors for her social media &mdash; the whole point of the book.</p>
 
 </section>
 

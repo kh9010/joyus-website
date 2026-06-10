@@ -41,26 +41,9 @@
   }
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
 
-  /* short-cut tag — same pattern as agemo cuts (a link back to the main case study) */
-  .proto-tag {
-    position: fixed;
-    top: 5.5rem; right: 1.25rem;
-    z-index: 480;
-    font-family: var(--hand);
-    font-size: 1.05rem;
-    color: var(--pink);
-    background: var(--paper);
-    border: 1.5px solid var(--pink);
-    border-radius: 999px;
-    padding: 0.3rem 0.95rem;
-    transform: rotate(2deg);
-    box-shadow: 0 10px 24px -10px rgba(44, 53, 68, 0.18);
-    transition: transform 200ms ease, box-shadow 200ms ease;
-  }
-  .proto-tag:hover { transform: rotate(2deg) translate(-2px, -2px); box-shadow: 4px 4px 0 var(--pink), 0 10px 24px -10px rgba(44, 53, 68, 0.18); }
-  @media (max-width: 720px) {
-    .proto-tag { top: auto; bottom: 1rem; right: 1rem; }
-  }
+  /* (proto-tag retired 2026-06-10 — it sat at the same fixed position as the
+     unified cuts-switch and the two overlapped; the switcher carries the link
+     back to main now, same as the tatsam cuts) */
 
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -107,6 +90,33 @@
     max-width: 1100px;
     margin: 0 auto;
   }
+  .sec-eyebrow {
+    font-size: 0.74rem; font-weight: 700;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 1rem;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .sec-eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--pink); }
+  .sec-title {
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.6vw, 2.4rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+    max-width: 26ch;
+  }
+  .sec-title em { font-style: normal; color: var(--pink); }
+  .cut-p {
+    font-size: 1.02rem;
+    color: var(--ink);
+    line-height: 1.6;
+    max-width: 38rem;
+    margin-bottom: 1.2rem;
+  }
+  .cut-p em { color: var(--ink); }
+  .cut-p strong { font-weight: 600; }
 
   .blocks-grid {
     display: grid;
@@ -229,8 +239,6 @@
   </script>
 </head>
 <body class="work-page" data-accent="pink">
-
-<a class="proto-tag" href="rachna-nivas.html">story cut · v1</a>
 
 <!--BEGIN:NAV-->
 <!-- Single source of truth for the top nav.
@@ -430,6 +438,16 @@
       <h3 class="block-h">No shared vocabulary with collaborators</h3>
       <p class="block-d">Her photographer, her video editor, her apprentices &mdash; they were all working from descriptions in her head. There was no document anyone could open and act from. Her voice stopped at the edge of the room she was in.</p>
     </article>
+  </div>
+</section>
+
+<!-- ============ where the diagnosis showed first ============ -->
+<section class="sec">
+  <div class="reveal">
+    <span class="sec-eyebrow">where it showed first</span>
+    <h2 class="sec-title">The bio doing the applying <em>wasn&rsquo;t her</em>.</h2>
+    <p class="cut-p">The diagnostic had a test case from week one. She was applying for new fellowships and residencies, and the bio carrying those applications read like a case being made &mdash; credentials stacked, critics quoted, her voice obscured under the weight of the tradition she embodied.</p>
+    <p class="cut-p">The rewrite that came out of the work opens <em>&ldquo;Rooted in Kathak, one of India&rsquo;s classical dance forms, my work begins in joy, play, and rhythmic pleasure&rdquo;</em> &mdash; first person, her cadence, showing why she belonged instead of making a case for it. She didn&rsquo;t need help writing better copy. She needed the skills she&rsquo;d honed in person brought to the written form.</p>
   </div>
 </section>
 
