@@ -41,19 +41,6 @@
   img { max-width: 100%; display: block; }
 
   /* prototype tag */
-  .proto-tag {
-    position: fixed;
-    top: 1.25rem; right: 1.25rem;
-    z-index: 600;
-    font-family: var(--hand);
-    font-size: 1.05rem;
-    color: var(--cyan);
-    background: var(--paper);
-    border: 1.5px solid var(--cyan);
-    border-radius: 999px;
-    padding: 0.3rem 0.85rem;
-    transform: rotate(2deg);
-  }
 
   /* ============ HERO — slot machine ============ */
   .hero {
@@ -237,6 +224,120 @@
   @keyframes progressBar {
     from { transform: scaleX(0); }
     to   { transform: scaleX(1); }
+  }
+
+  /* ============ FRONT DOOR — before / after ============ */
+  .ba-section {
+    padding: 7rem var(--x);
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+  }
+  .ba-inner { max-width: 1280px; margin: 0 auto; }
+  .ba-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--pink);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .ba-title {
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+  .ba-title em { font-style: italic; color: var(--cyan); }
+  .ba-deck {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 42rem;
+    line-height: 1.5;
+    margin-bottom: 3rem;
+  }
+  .ba-grid {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    margin-bottom: 2.5rem;
+  }
+  .ba-col { display: flex; flex-direction: column; }
+  .ba-label {
+    font-family: var(--hand);
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    transform: rotate(-1deg);
+    display: inline-block;
+  }
+  .ba-label.before { color: var(--ink-fade); }
+  .ba-label.after { color: var(--pink); }
+  .ba-old {
+    flex: 1;
+    background: var(--bg);
+    border: 1.5px solid var(--rule);
+    border-radius: 14px;
+    padding: clamp(1.5rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+  .ba-old-brand { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em; color: var(--ink-soft); margin-bottom: 1.75rem; }
+  .ba-old-brand sup { font-size: 0.6em; color: var(--ink-fade); }
+  .ba-old-h { font-weight: 700; font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.1; letter-spacing: -0.02em; }
+  .ba-old-h span { color: var(--ink-fade); font-weight: 400; display: block; }
+  .ba-old-b { font-size: 0.85rem; color: var(--ink-soft); line-height: 1.5; margin-top: 1rem; max-width: 34ch; }
+  .ba-old-cta {
+    display: inline-block;
+    margin-top: 1.5rem;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 0.6rem 1.1rem;
+    align-self: flex-start;
+  }
+  .ba-new {
+    flex: 1;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1.5px solid var(--rule);
+    box-shadow: 0 30px 60px -28px rgba(44, 53, 68, 0.22);
+    background: var(--paper);
+  }
+  .ba-new img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
+  .ba-why {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .ba-why-item {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    padding: 1.1rem 1.15rem;
+  }
+  .ba-why-item h3 { font-size: 0.95rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 0.35rem; }
+  .ba-why-item h3::before { content: "→ "; color: var(--cyan); }
+  .ba-why-item p { font-size: 0.85rem; line-height: 1.45; color: var(--ink-soft); }
+  .ba-foot {
+    margin-top: 2.25rem;
+    font-family: var(--hand);
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    color: var(--ink);
+    max-width: 34ch;
+    transform: rotate(-0.5deg);
+  }
+  @media (max-width: 880px) {
+    .ba-grid { grid-template-columns: 1fr; }
+    .ba-why { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 540px) {
+    .ba-why { grid-template-columns: 1fr; }
   }
 
   /* ============ THREE SURFACES — scroll-snap ============ */
@@ -450,6 +551,7 @@
     .cuts-switch-btn:hover { background: var(--pink, #E91E7B); color: #fff; }
     .cuts-switch-here { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); background: #FFE3F0; padding: 0.35rem 0.7rem; border-radius: 999px; }
     @media (max-width: 720px) { .cuts-switch { top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); box-shadow: 0 -8px 20px -8px rgba(44,53,68,0.18), 0 10px 24px -10px rgba(44,53,68,0.18); } .cuts-switch-label { display: none; } }
+    /* proto-tag removed 2026-06-10: legacy v1 badge occupied the cuts-switch position (same fixed top/right/z-index) */
   </style>
   <!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
@@ -683,12 +785,58 @@
   </div>
 </section>
 
+<!-- ============ FRONT DOOR — before / after ============ -->
+<section class="ba-section">
+  <div class="ba-inner reveal">
+    <span class="ba-eyebrow">the decision behind the front door</span>
+    <h2 class="ba-title">The original landing assumed an expert with a focused need. <em>Almost nobody is one.</em></h2>
+    <p class="ba-deck">The research put fewer than 10% of users — probably 2–5% — at the "creates solution" state the old page was built for. So the landing was redone for the other 95%: the user promise rewritten to create space to find inspiration and refine their thinking about the problem <em>before</em> starting. The headline itself does the work — a bracket that rotates through real supported workflows, so the page demonstrates breadth instead of asserting it.</p>
+
+    <div class="ba-grid">
+      <div class="ba-col">
+        <span class="ba-label before">before — "Generate tools with plain english"</span>
+        <div class="ba-old" role="img" aria-label="Reconstruction of the original Codewords landing page: headline 'Generate tools with plain english' and a single 'Start With A Prompt' button.">
+          <div class="ba-old-brand">✳ CodeWords<sup>beta</sup></div>
+          <div class="ba-old-h">Generate tools <span>with plain english</span></div>
+          <p class="ba-old-b">CodeWords lets you create back-end functions without writing any code. Run them via a simple UI or an API request, and combine them into more complex functions &amp; systems.</p>
+          <span class="ba-old-cta">Start With A Prompt</span>
+        </div>
+      </div>
+      <div class="ba-col">
+        <span class="ba-label after">after — "Outsource to AI."</span>
+        <div class="ba-new"><img src="../images/work/agemo/lens-product/landing-page.png" alt="The revised Codewords landing — 'Outsource to AI.' headline with a rotating bracket of supported workflows, a grid of community-built function cards, and a low-stakes 'Describe Your Tool' field." loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="ba-why">
+      <div class="ba-why-item">
+        <h3>Rotating workflows</h3>
+        <p>The bracket cycles through specific supported workflows — freshness and product depth in one headline.</p>
+      </div>
+      <div class="ba-why-item">
+        <h3>Low-stakes CTA</h3>
+        <p>"Describe Your Tool…" replaces "Start With A Prompt" — a lower barrier into the product flow than committing to a blank page.</p>
+      </div>
+      <div class="ba-why-item">
+        <h3>Functions on display</h3>
+        <p>Community-built function cards showcase the breadth and depth of the tool — answering "what can I even do here?" before anyone asks it.</p>
+      </div>
+      <div class="ba-why-item">
+        <h3>Persistent left nav</h3>
+        <p>Create / My Library / Explore stay pinned from the first screen — grounding and context never disappear.</p>
+      </div>
+    </div>
+
+    <p class="ba-foot">Refining the pages to support curiosity brings more kinds of people into the experience — even when they don't have an articulated need yet.</p>
+  </div>
+</section>
+
 <!-- ============ THREE SURFACES ============ -->
 <section class="surfaces-section">
   <div class="surfaces-head reveal">
-    <span class="surfaces-eyebrow">three surfaces, one logic</span>
-    <h2 class="surfaces-title">Landing. Architect. Run. <em>Same grammar throughout.</em></h2>
-    <p class="surfaces-deck">Every screen earns its density. Every interaction respects the user's emotional state. The architect chat is the soul; landing and run are the front door and the proof.</p>
+    <span class="surfaces-eyebrow">four surfaces, one logic</span>
+    <h2 class="surfaces-title">Landing. Architect. Explore. Run. <em>Same grammar throughout.</em></h2>
+    <p class="surfaces-deck">Every screen earns its density. Every interaction respects the user's emotional state. The architect chat is the soul; landing and run are the front door and the proof — and Explore is the room where trust gets built. The visual grammar carries one set of values across all four: space, flexibility, and play.</p>
   </div>
 
   <div class="surfaces-strip">
@@ -705,7 +853,15 @@
       <div class="surface-meta">
         <span class="surface-tag">the soul</span>
         <h3 class="surface-name">Architect</h3>
-        <p class="surface-cap">A conversational spec editor. The AI proposes; the user disposes. The interface is the onboarding.</p>
+        <p class="surface-cap">A conversational spec editor. The AI proposes; the user disposes. The interface is the onboarding. The chat coaches users through initial creation — and the UX holds them through the final refinement, after the solution is generated.</p>
+      </div>
+    </div>
+    <div class="surface">
+      <div class="surface-frame"><img src="../images/work/agemo/slide103-interface-2.webp" alt="Explore — the Codewords library: 'Functions. Pipelines. Tools. Generators.' with sort, domain and industry filters over community-built function cards" /></div>
+      <div class="surface-meta">
+        <span class="surface-tag">the trust-builder</span>
+        <h3 class="surface-name">Explore</h3>
+        <p class="surface-cap">"Functions. Pipelines. Tools. Generators." A browsable library of community-built tools — it shows the value of the product and gives more starting points for adapting a use case. This is the "refines need" middle the journey was missing, made into a page.</p>
       </div>
     </div>
     <div class="surface">

@@ -46,19 +46,6 @@
   a { color: inherit; text-decoration: none; transition: color 0.2s; }
 
   /* prototype tag */
-  .proto-tag {
-    position: fixed;
-    top: 1.25rem; right: 1.25rem;
-    z-index: 600;
-    font-family: var(--hand);
-    font-size: 1.05rem;
-    color: var(--pink);
-    background: var(--paper);
-    border: 1.5px solid var(--pink);
-    border-radius: 999px;
-    padding: 0.3rem 0.85rem;
-    transform: rotate(2deg);
-  }
 
   /* ============ HERO — TICKING COUNTER ============ */
   .hero {
@@ -381,6 +368,134 @@
   }
   .cta-ghost:hover { border-color: var(--ink); }
 
+  /* ============ EVOLUTION MAP — the board's four states ============ */
+  .evo-section {
+    padding: 7rem var(--x);
+    background: var(--bg);
+  }
+  .evo-inner { max-width: 1280px; margin: 0 auto; }
+  .evo-eyebrow {
+    font-family: var(--hand);
+    font-size: 1.5rem;
+    color: var(--pink);
+    transform: rotate(-1.5deg);
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+  .evo-title {
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 1.25rem;
+    max-width: 24ch;
+  }
+  .evo-title em { font-style: italic; color: var(--pink); }
+  .evo-deck {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 42rem;
+    line-height: 1.5;
+    margin-bottom: 2.5rem;
+  }
+  .evo-deck strong { color: var(--ink); font-weight: 600; }
+  .evo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+    counter-reset: evo;
+  }
+  .evo-stage {
+    background: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: 14px;
+    padding: 1.4rem 1.25rem;
+    position: relative;
+    counter-increment: evo;
+  }
+  .evo-stage::before {
+    content: "0" counter(evo);
+    font-family: var(--hand);
+    font-size: 1.6rem;
+    color: var(--pink);
+    transform: rotate(-3deg);
+    display: inline-block;
+    margin-bottom: 0.35rem;
+  }
+  .evo-stage.assumed { border-color: rgba(233, 30, 123, 0.45); background: rgba(233, 30, 123, 0.04); }
+  .evo-stage-name { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.01em; margin-bottom: 0.35rem; }
+  .evo-stage-q { font-size: 0.85rem; font-style: italic; color: var(--ink-soft); margin-bottom: 0.75rem; line-height: 1.4; }
+  .evo-stage-b { font-size: 0.88rem; line-height: 1.45; color: var(--ink); }
+  .evo-stage-flag {
+    position: absolute;
+    top: -0.95rem; right: 0.9rem;
+    font-family: var(--hand);
+    font-size: 1.05rem;
+    color: var(--pink);
+    background: var(--paper);
+    border: 1.5px solid var(--pink);
+    border-radius: 999px;
+    padding: 0.1rem 0.7rem;
+    transform: rotate(2deg);
+    white-space: nowrap;
+  }
+  .evo-stage-flag.ink { color: var(--ink-soft); border-color: rgba(44, 53, 68, 0.35); }
+  .evo-stickies {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+    margin-bottom: 2.5rem;
+  }
+  .evo-sticky {
+    background: var(--sticky-blue);
+    border-radius: 4px;
+    padding: 1.25rem 1.35rem;
+    box-shadow: 0 6px 14px rgba(44, 53, 68, 0.1);
+    transform: rotate(-1deg);
+  }
+  .evo-sticky:last-child { background: var(--sticky-yellow); transform: rotate(1.2deg); }
+  .evo-sticky p { font-style: italic; font-size: 0.98rem; line-height: 1.45; color: var(--ink); }
+  .evo-sticky .evo-sticky-attrib { font-style: normal; font-size: 0.74rem; color: var(--ink-soft); margin-top: 0.6rem; letter-spacing: 0.05em; }
+  .evo-checklist {
+    background: var(--paper);
+    border: 1.5px dashed rgba(44, 53, 68, 0.25);
+    border-radius: 14px;
+    padding: 1.75rem 1.75rem 1.5rem;
+    max-width: 46rem;
+  }
+  .evo-checklist h3 {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--pink);
+    margin-bottom: 0.85rem;
+  }
+  .evo-checklist ul { list-style: none; padding: 0; margin: 0; }
+  .evo-checklist li { padding: 0.35rem 0; font-size: 0.94rem; line-height: 1.45; color: var(--ink); }
+  .evo-checklist li::before { content: "→ "; color: var(--pink); font-weight: 700; }
+  .evo-checklist li ul { padding-left: 1.4rem; }
+  .evo-checklist li li { font-size: 0.88rem; color: var(--ink-soft); padding: 0.2rem 0; }
+  .evo-checklist li li::before { content: "· "; }
+  .evo-fig { margin-top: 2.5rem; }
+  .evo-fig img {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--rule);
+    box-shadow: 0 24px 44px -24px rgba(44, 53, 68, 0.2);
+    background: var(--paper);
+  }
+  .evo-fig figcaption { font-size: 0.85rem; color: var(--ink-fade); margin-top: 0.7rem; line-height: 1.5; }
+  @media (max-width: 880px) {
+    .evo-grid { grid-template-columns: 1fr 1fr; }
+    .evo-stickies { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 540px) {
+    .evo-grid { grid-template-columns: 1fr; }
+  }
+
   /* ============ REVEAL ============ */
   .reveal { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(0.2, 0.8, 0.2, 1), transform 700ms cubic-bezier(0.2, 0.8, 0.2, 1); }
   .reveal.in { opacity: 1; transform: translateY(0); }
@@ -399,6 +514,7 @@
     .cuts-switch-btn:hover { background: var(--pink, #E91E7B); color: #fff; }
     .cuts-switch-here { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); background: #FFE3F0; padding: 0.35rem 0.7rem; border-radius: 999px; }
     @media (max-width: 720px) { .cuts-switch { top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); box-shadow: 0 -8px 20px -8px rgba(44,53,68,0.18), 0 10px 24px -10px rgba(44,53,68,0.18); } .cuts-switch-label { display: none; } }
+    /* proto-tag removed 2026-06-10: legacy v1 badge occupied the cuts-switch position (same fixed top/right/z-index) */
   </style>
   <!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
@@ -654,6 +770,72 @@
         <p class="sticky-attrib">anonymous</p>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ============ EVOLUTION MAP — the research centerpiece ============ -->
+<section class="evo-section">
+  <div class="evo-inner reveal">
+    <span class="evo-eyebrow">the map that reframed the brief</span>
+    <h2 class="evo-title">Where the team assumed users start vs. <em>where they actually start</em>.</h2>
+    <p class="evo-deck">The research's headline finding was a missing step: <strong>space for refinement</strong> — of the idea, before starting, and of the solution, after feedback. The team had been designing for a user who arrives ready to create. The "state of user evolution" board mapped what users actually do — four states, each with a journey question and the verbatim phrases users say while they're in it. The twelve user types feeding it were triaged the same way: every persona tagged <strong>high- or low-intent</strong> and sorted <strong>Must / Could / Not</strong> before a single wireframe existed.</p>
+
+    <div class="evo-grid">
+      <div class="evo-stage">
+        <span class="evo-stage-flag">← users actually start here</span>
+        <div class="evo-stage-name">Pre-discovery</div>
+        <p class="evo-stage-q">Curiosity, low intent — "What does this do?"</p>
+        <p class="evo-stage-b">No model of the product at all. "How do I&nbsp;…" / "Can I use a tool to let me&nbsp;…"</p>
+      </div>
+      <div class="evo-stage">
+        <div class="evo-stage-name">Learn capabilities</div>
+        <p class="evo-stage-q">"When and how can this do something for me?"</p>
+        <p class="evo-stage-b">Starts on the marketing / starting page. "Does this work for&nbsp;…" / "Could this integrate or replace my existing&nbsp;…"</p>
+      </div>
+      <div class="evo-stage">
+        <div class="evo-stage-name">Refines need</div>
+        <p class="evo-stage-q">The missing middle — the board literally reads "Explore / Remix pages???"</p>
+        <p class="evo-stage-b">"Can I try this for something simple&nbsp;…" / "Can I trust this to be consistent for&nbsp;…"</p>
+      </div>
+      <div class="evo-stage assumed">
+        <span class="evo-stage-flag ink">team assumed users start here →</span>
+        <div class="evo-stage-name">Creates solution</div>
+        <p class="evo-stage-q">High intent — "What of my problems can be consistently solved?"</p>
+        <p class="evo-stage-b">The board's definition of who makes it: an evangelist, familiar with 70%+ of features, creating functions for fun, with Codewords in their pipeline.</p>
+      </div>
+    </div>
+
+    <div class="evo-stickies">
+      <div class="evo-sticky">
+        <p>"At the moment we need to extend the middle part of the journey, to get the user into a place where they are able to create with the product. For that we need the user to have answers to some specific questions."</p>
+        <p class="evo-sticky-attrib">— sticky on the board, verbatim</p>
+      </div>
+      <div class="evo-sticky">
+        <p>"A small percentage of users will make it here. &lt;10% at steady state, probably closer to 2–5%."</p>
+        <p class="evo-sticky-attrib">— sticky on the Creates Solution node. Written before anyone could pretend otherwise.</p>
+      </div>
+    </div>
+
+    <div class="evo-checklist">
+      <h3>What the "middle step" needs to accomplish — straight off the board</h3>
+      <ul>
+        <li>Show the system as accessible</li>
+        <li>Show the user why it's worth investing time — faster, easier to update, more stable, more extensible</li>
+        <li>Build trust: show consistent value being added; let the user feel they've created or found something of value for the time invested</li>
+        <li>Avoid damaging trust
+          <ul>
+            <li>Losing information or context the user has shared</li>
+            <li>Doing something that seems illogical</li>
+            <li>"Wasting" the user's time</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="evo-fig">
+      <img src="../images/work/agemo/lens-research/user-journey.png" alt="The state-of-user-evolution board — four user states with verbatim phrases, annotated with where the team assumed users start versus where they actually start." loading="lazy" />
+      <figcaption>The board itself. Purple circles are states, pink circles are the words users say in them — and two hand-drawn arrows mark the gap between assumption and reality.</figcaption>
+    </figure>
   </div>
 </section>
 
