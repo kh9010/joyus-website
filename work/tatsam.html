@@ -138,6 +138,7 @@
     .cuts-switch { position: fixed; top: 5.5rem; right: 1.25rem; z-index: 480; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.55rem 0.4rem 0.85rem; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--rule); border-radius: 999px; box-shadow: 0 10px 24px -10px rgba(44,53,68,0.18); font-family: var(--sans); }
     .cuts-switch-label { font-family: var(--hand); font-size: 1rem; color: var(--ink-soft); margin-right: 0.25rem; }
     .cuts-switch-btn { font-size: 0.78rem; font-weight: 600; color: var(--ink); padding: 0.35rem 0.7rem; border-radius: 999px; background: var(--bg); transition: background 200ms ease, color 200ms ease; }
+    .cuts-switch-here { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); background: #FFE3F0; padding: 0.35rem 0.7rem; border-radius: 999px; }
     .cuts-switch-btn:hover { background: var(--pink); color: #fff; }
     @media (max-width: 720px) { .cuts-switch { top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); box-shadow: 0 -8px 20px -8px rgba(44,53,68,0.18), 0 10px 24px -10px rgba(44,53,68,0.18); } .cuts-switch-label { display: none; } }
   </style>
@@ -311,12 +312,13 @@
 </script>
 <!--END:NAV-->
 
-  <div class="cuts-switch" id="cutsSwitch">
-    <span class="cuts-switch-label">prefer one discipline?</span>
-    <a class="cuts-switch-btn" href="tatsam-cut-research.html">research</a>
-    <a class="cuts-switch-btn" href="tatsam-cut-brand.html">brand</a>
-    <a class="cuts-switch-btn" href="tatsam-cut-product.html">product</a>
-    <a class="cuts-switch-btn" href="tatsam-cut-story.html">story</a>
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">five cuts</span>
+    <span class="cuts-switch-here">main</span>
+    <a href="tatsam-cut-research.html" class="cuts-switch-btn">research</a>
+    <a href="tatsam-cut-brand.html" class="cuts-switch-btn">brand</a>
+    <a href="tatsam-cut-product.html" class="cuts-switch-btn">product</a>
+    <a href="tatsam-cut-story.html" class="cuts-switch-btn">story</a>
   </div>
 
 

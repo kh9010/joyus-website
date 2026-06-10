@@ -82,7 +82,8 @@
     background: var(--bg);
     transition: background 200ms ease, color 200ms ease;
   }
-  .cuts-switch-btn:hover { background: var(--pink); color: #fff; }
+  .cuts-switch-here { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); background: #FFE3F0; padding: 0.35rem 0.7rem; border-radius: 999px; }
+    .cuts-switch-btn:hover { background: var(--pink); color: #fff; }
   @media (max-width: 720px) {
     .cuts-switch {
       top: auto; bottom: 1rem; right: 50%; transform: translateX(50%);
@@ -1202,6 +1203,14 @@
   })();
 </script>
 <!--END:NAV-->
+
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">three cuts</span>
+    <span class="cuts-switch-here">main</span>
+    <a href="agemo-cut-research.html" class="cuts-switch-btn">research</a>
+    <a href="agemo-cut-interface.html" class="cuts-switch-btn">interface</a>
+  </div>
+
 
 <!-- ============ HERO ============ -->
 <section class="hero">

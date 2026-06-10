@@ -148,6 +148,7 @@
     .cuts-switch { position: fixed; top: 5.5rem; right: 1.25rem; z-index: 480; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.55rem 0.4rem 0.85rem; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--rule); border-radius: 999px; box-shadow: 0 10px 24px -10px rgba(44,53,68,0.18); font-family: var(--sans); }
     .cuts-switch-label { font-family: var(--hand); font-size: 1rem; color: var(--ink-soft); margin-right: 0.25rem; }
     .cuts-switch-btn { font-size: 0.78rem; font-weight: 600; color: var(--ink); padding: 0.35rem 0.7rem; border-radius: 999px; background: var(--bg); transition: background 200ms ease, color 200ms ease; }
+    .cuts-switch-here { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); background: #FFE3F0; padding: 0.35rem 0.7rem; border-radius: 999px; }
     .cuts-switch-btn:hover { background: var(--pink); color: #fff; }
     @media (max-width: 720px) { .cuts-switch { top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); box-shadow: 0 -8px 20px -8px rgba(44,53,68,0.18), 0 10px 24px -10px rgba(44,53,68,0.18); } .cuts-switch-label { display: none; } }
   </style>
@@ -321,10 +322,11 @@
 </script>
 <!--END:NAV-->
 
-  <div class="cuts-switch" id="cutsSwitch">
-    <span class="cuts-switch-label">prefer the short version?</span>
-    <a class="cuts-switch-btn" href="pratham-cut-research.html">research cut</a>
-    <a class="cuts-switch-btn" href="pratham-cut-story.html">story cut</a>
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">three cuts</span>
+    <span class="cuts-switch-here">main</span>
+    <a href="pratham-cut-research.html" class="cuts-switch-btn">research</a>
+    <a href="pratham-cut-story.html" class="cuts-switch-btn">story</a>
   </div>
 
 
@@ -367,7 +369,7 @@
         <div class="statcard"><div class="big">$50M</div><p>Pratham USA's scale — a 50–100 person non-profit funding one of India's largest education NGOs.</p></div>
         <div class="statcard"><div class="big">$2–10K</div><p>the donor band <strong>eviscerated with the galas</strong> in 2020–21 — gone with the room that made them.</p></div>
         <div class="statcard"><div class="big">$10K+</div><p>the super-committed tier those donors <strong>feed</strong>. Lose the band below, and this one starves in a few years.</p></div>
-        <div class="statcard"><div class="big">$100K+</div><p>annual level of many donors at the journey's final stage — the <strong>permanent bond</strong> we set out to map.</p></div>
+        <div class="statcard"><div class="big">2020</div><p>the year the rooms closed — donations dropped catastrophically into 2021, and the gala model never came back.</p></div>
       </div>
       <p class="sec-lede soft" style="margin-top:1.5rem;">The brief we handed back was deliberately strategic: stop measuring donors by "amount donated in the last 12 months," and start understanding the <em>emotional needs</em> that move someone from curious to committed — needs that exist with or without a ballroom.</p>
     </div>

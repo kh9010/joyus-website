@@ -78,6 +78,14 @@
     .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #9a1453; }
     .cta-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
     .cta-ghost:hover { background: var(--ink); color: #fff; }
+  
+    /* cuts switcher — house pattern (klydo), persistent on cut pages */
+    .cuts-switch { position: fixed; top: 5.5rem; right: 1.25rem; z-index: 480; display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.4rem 0.55rem 0.4rem 0.85rem; background: rgba(255,255,255,0.92); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border: 1px solid var(--rule, rgba(44,53,68,0.12)); border-radius: 999px; box-shadow: 0 10px 24px -10px rgba(44,53,68,0.18); font-family: var(--sans, 'Space Grotesk', sans-serif); }
+    .cuts-switch-label { font-family: var(--hand, 'Caveat', cursive); font-size: 1rem; color: var(--ink-soft, #54606F); margin-right: 0.25rem; }
+    .cuts-switch-btn { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); text-decoration: none; padding: 0.35rem 0.7rem; border-radius: 999px; background: var(--bg, #FAF7F2); transition: background 200ms ease, color 200ms ease; }
+    .cuts-switch-btn:hover { background: var(--pink, #E91E7B); color: #fff; }
+    .cuts-switch-here { font-size: 0.78rem; font-weight: 600; color: var(--ink, #2C3544); background: #FFE3F0; padding: 0.35rem 0.7rem; border-radius: 999px; }
+    @media (max-width: 720px) { .cuts-switch { top: auto; bottom: 1rem; right: 50%; transform: translateX(50%); box-shadow: 0 -8px 20px -8px rgba(44,53,68,0.18), 0 10px 24px -10px rgba(44,53,68,0.18); } .cuts-switch-label { display: none; } }
   </style>
   <!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
@@ -248,6 +256,16 @@
   })();
 </script>
 <!--END:NAV-->
+
+  <div class="cuts-switch">
+    <span class="cuts-switch-label">five cuts</span>
+    <a href="tatsam.html" class="cuts-switch-btn">main</a>
+    <a href="tatsam-cut-research.html" class="cuts-switch-btn">research</a>
+    <a href="tatsam-cut-brand.html" class="cuts-switch-btn">brand</a>
+    <span class="cuts-switch-here">product</span>
+    <a href="tatsam-cut-story.html" class="cuts-switch-btn">story</a>
+  </div>
+
 
   <header class="cg-hero">
     <span class="dot dot1 d-cyan"></span>
