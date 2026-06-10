@@ -511,6 +511,16 @@
       .card-name { font-size: 1.25rem; }
       .marquee { gap: 1.25rem; padding: 0 1.25rem; }
     }
+  
+    /* === THE TURN — Act II of the V6 arc (added 2026-06-10) === */
+    .turn { position: relative; padding: clamp(2.5rem, 5vh, 4rem) var(--x); overflow: hidden; }
+    .turn-inner { max-width: 720px; margin: 0 auto; position: relative; z-index: 3; }
+    .turn-p { font-size: clamp(1.02rem, 1.4vw, 1.18rem); line-height: 1.7; color: var(--ink-soft); margin: 0 0 1.3rem; }
+    .turn-p strong { color: var(--ink); font-weight: 600; }
+    .turn-note { font-family: var(--hand); font-size: 1.15rem; color: var(--ink-fade); transform: rotate(-1.2deg); margin: 0.4rem 0 0; }
+    .values-lede { font-family: var(--hand); font-size: clamp(1.15rem, 1.8vw, 1.4rem); color: var(--ink-soft); margin: 0.6rem 0 0; }
+    .closing .wonderland { font-size: clamp(1.02rem, 1.4vw, 1.2rem); line-height: 1.7; color: var(--ink-soft); max-width: 56ch; margin: 0 auto 1.6rem; position: relative; z-index: 3; }
+    .closing .wonderland em { font-style: normal; color: var(--pink); font-weight: 600; }
   </style>
   <!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
@@ -694,11 +704,70 @@
       <p class="hero-eyebrow">who we are when no one's watching</p>
       <h1>About <em>Joyus</em></h1>
       <p class="hero-lede">
-        Through collaboration, a polymathic mindset, creativity, and playful inquiry, we help teams uncover new ways of seeing, thinking, and building together.
+        Most teams begin with energy. People care deeply about what they're building. But as complexity and pressure increase, things start to narrow &mdash; toward speed, certainty, efficiency, constant execution. Everyone works harder. And slowly, something disappears: curiosity, play, hopefulness. The joy of the work itself.
       </p>
       <p class="hero-lede">
-        Based in Bangalore and New York City, we work across design, storytelling, behavioral science, system creation, business and culture, revenue and creativity.
+        Most consulting treats that as a problem to fix. <strong>We think something else is possible.</strong>
       </p>
+    </div>
+  </section>
+
+
+  <!-- THE TURN — why joy, who we are (V6 brand story, Sam Arni; arc rebuilt 2026-06-10) -->
+  <section class="turn">
+    <div class="turn-inner">
+      <p class="section-label">why joy</p>
+      <h2 class="section-h2">Seriousness and lightness, <em>at the same time</em></h2>
+      <p class="turn-p">
+        Joy, for us, is a way of holding both at once. Staying thoughtful without becoming heavy. Approaching complexity not as something to dread but as a source of wonder &mdash; the place where new patterns live. When that happens, confusion becomes clarity.
+      </p>
+      <p class="turn-p">
+        Joyus is a two-person studio built around friendship, shared curiosity, and a love of connecting ideas. When Kahran and Divya first met, they bonded over conversations that moved easily between design, storytelling, behavioural science, systems, business, culture, creativity &mdash; whatever they happened to go deep with that week. The more they explored, the more they realized: <strong>connecting ideas is fun.</strong> It creates energy. It opens things up. It helps people see differently. Now they do it from Bangalore and New York City, for teams everywhere.
+      </p>
+      <p class="turn-p">
+        At our core, we're optimistic nihilists. The world ends someday anyway &mdash; which is exactly why the time between now and then should go to the best, most alive work we can do. And since everything takes about the same amount of time to build, you might as well build the thing that feels coolest.
+      </p>
+      <p class="turn-note">everything takes about the same amount of time &mdash; Divya's law</p>
+    </div>
+  </section>
+
+  <!-- FOUNDERS — side-by-side, project chips -->
+  <section class="founders">
+    <span class="dot dq1 drift"></span>
+    <span class="dot dq2 drift-slow"></span>
+    <span class="dot dq3 drift-fast"></span>
+    <div class="founders-inner">
+      <p class="section-label">our founders</p>
+      <h2 class="section-h2">The two of <em>us</em></h2>
+
+      <div class="founders-grid">
+        <div class="founder">
+          <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo" loading="lazy" width="800" height="800">
+          <div>
+            <h3 class="founder-name">Kahran Singh</h3>
+            <p class="founder-role">co-founder</p>
+          </div>
+          <div class="founder-bio">
+            <!-- Opener reworked 2026-06-10 per Kahran; Divya wrote this bio — Divya, bless or revert the first sentence. -->
+            <p>Kahran is what happens when a creative brain and an analytical brain refuse to pick a lane. With 15 years of experience spanning product, marketing and consulting with companies large and small, as well as running an edtech company, he has seen the system from the inside — and seen as an investor what makes business work from the outside.</p>
+            <p>Kahran has built a unique perspective on the problems that businesses face and what they need to solve them. It all starts with the people and the experience. To him, everything is an experience that can be designed with intention, and he brings that intent and care to everything he does.</p>
+            <p>He has a BSc in Computer Science from Tufts with a minor in Economics, and is currently pursuing his MFA in Creative Writing &amp; Poetics at the Jack Kerouac School of Disembodied Poetics. <a href="https://kahransingh.com/about.html" target="_blank" rel="noopener">see more about him →</a></p>
+          </div>
+        </div>
+
+        <div class="founder">
+          <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo" loading="lazy" width="800" height="800">
+          <div>
+            <h3 class="founder-name">Divya Tak</h3>
+            <p class="founder-role">co-founder</p>
+          </div>
+          <div class="founder-bio">
+            <p>Divya believes you can get better at anything — everything! — by chipping away at it, working on it day after day in manageable chunks you can keep doing, day after day. That lived belief has grown her skills from physics to philosophy, games to visual art, design to Claude Code.</p>
+            <p>As a speaker and workshop facilitator she brings whimsy, clarity, and respect, while staying authentic to her polymathic talents. She challenges us to remember why — of all the things we could be doing on this blue planet, in this vast universe — we're choosing to do this one thing.</p>
+            <p>Master's in Physics from IIT Kharagpur. <a href="https://divyatak.art" target="_blank" rel="noopener">see more about her →</a></p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -710,26 +779,27 @@
     <div class="values-inner">
       <p class="section-label">how we work</p>
       <h2 class="section-h2"><em>Five</em> things we choose</h2>
+      <p class="values-lede">over and over, on purpose:</p>
       <ol class="hww-lines">
         <li class="hww-line" style="--vc:var(--pink)">
           <span class="hww-word">wonder</span>
-          <p class="hww-say"><span class="hww-foil">instead of dread,</span> we walk towards the unknown.</p>
+          <p class="hww-say">we walk towards the unknown.</p>
         </li>
         <li class="hww-line" style="--vc:var(--cyan)">
           <span class="hww-word">play</span>
-          <p class="hww-say"><span class="hww-foil">instead of paralysis,</span> we make things.</p>
+          <p class="hww-say">we think with our hands.</p>
         </li>
         <li class="hww-line" style="--vc:var(--yellow)">
           <span class="hww-word">curiosity</span>
-          <p class="hww-say"><span class="hww-foil">instead of defensiveness,</span> we go looking for what could have been missed.</p>
+          <p class="hww-say">we go looking for what could have been missed.</p>
         </li>
         <li class="hww-line" style="--vc:var(--pink)">
           <span class="hww-word">emergence</span>
-          <p class="hww-say"><span class="hww-foil">instead of forcing a thesis,</span> we listen for what it's trying to be.</p>
+          <p class="hww-say">we listen for what it&rsquo;s trying to be.</p>
         </li>
         <li class="hww-line" style="--vc:var(--cyan)">
           <span class="hww-word">wayfinding</span>
-          <p class="hww-say"><span class="hww-foil">instead of rigid control,</span> one eye on the destination, the other on what the project reveals.</p>
+          <p class="hww-say">we find the path that&rsquo;s made by walking.</p>
         </li>
       </ol>
     </div>
@@ -801,50 +871,13 @@
     </div>
   </section>
 
-  <!-- FOUNDERS — side-by-side, project chips -->
-  <section class="founders">
-    <span class="dot dq1 drift"></span>
-    <span class="dot dq2 drift-slow"></span>
-    <span class="dot dq3 drift-fast"></span>
-    <div class="founders-inner">
-      <p class="section-label">our founders</p>
-      <h2 class="section-h2">The two of <em>us</em></h2>
-
-      <div class="founders-grid">
-        <div class="founder">
-          <img src="images/kahran.jpg" alt="Kahran Singh" class="founder-photo" loading="lazy" width="800" height="800">
-          <div>
-            <h3 class="founder-name">Kahran Singh</h3>
-            <p class="founder-role">co-founder</p>
-          </div>
-          <div class="founder-bio">
-            <p>Kahran defines creative brain meets analytical brain. With 15 years of experience spanning product, marketing and consulting with companies large and small, as well as running an edtech company, he has seen the system from the inside — and seen as an investor what makes business work from the outside.</p>
-            <p>Kahran has built a unique perspective on the problems that businesses face and what they need to solve them. It all starts with the people and the experience. To him, everything is an experience that can be designed with intention, and he brings that intent and care to everything he does.</p>
-            <p>He has a BSc in Computer Science from Tufts with a minor in Economics, and is currently pursuing his MFA in Creative Writing &amp; Poetics at the Jack Kerouac School of Disembodied Poetics. <a href="https://kahransingh.com/about.html" target="_blank" rel="noopener">see more about him →</a></p>
-          </div>
-        </div>
-
-        <div class="founder">
-          <img src="images/divya.jpg" alt="Divya Tak" class="founder-photo" loading="lazy" width="800" height="800">
-          <div>
-            <h3 class="founder-name">Divya Tak</h3>
-            <p class="founder-role">co-founder</p>
-          </div>
-          <div class="founder-bio">
-            <p>Divya believes you can get better at anything — everything! — by chipping away at it, working on it day after day in manageable chunks you can keep doing, day after day. That lived belief has grown her skills from physics to philosophy, games to visual art, design to Claude Code.</p>
-            <p>As a speaker and workshop facilitator she brings whimsy, clarity, and respect, while staying authentic to her polymathic talents. She challenges us to remember why — of all the things we could be doing on this blue planet, in this vast universe — we're choosing to do this one thing.</p>
-            <p>Master's in Physics from IIT Kharagpur. <a href="https://divyatak.art" target="_blank" rel="noopener">see more about her →</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- CLOSING -->
   <section class="closing">
     <span class="dot dx1 drift"></span>
     <span class="dot dx2 drift-fast"></span>
     <span class="dot dx3 drift-slow"></span>
+    <p class="wonderland">As new connections emerge, people see patterns and possibilities they couldn&rsquo;t see before. Ideas spark. The vantage point changes. And when the place you view from changes, the world becomes a <em>wonderland</em> of far more possibilities than you imagined.</p>
     <h2>Let's figure something out together. <em><a href="say-hi.html">Be our friends.</a></em></h2>
   </section>
 
