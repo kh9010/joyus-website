@@ -999,6 +999,51 @@
     font-size: 1.45rem;
   }
 }
+
+/* ── Verify-pass patches, 2026-06-10 — rules the recovered snapshot lost ── */
+
+/* sr-only utility — page uses it heavily (chip "type:" labels + keyboard
+   instructions) but neither styles.css nor the snapshot defines it.
+   Without this, "type: " text renders visibly inside every chip. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* kl-pulse keyframes — .kl-tl-wall.playing::after references this animation
+   but the snapshot carried no @keyframes for it. */
+@keyframes kl-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.8); }
+}
+
+/* Hide the "press play" zero-state caption once playback starts — JS sets
+   aria-hidden but the snapshot only had the hide rule for .kl-tl-caption-live. */
+.kl-tl-caption-zero[aria-hidden="true"] { display: none; }
+
+/* kl-cap-type — the type chip inside the live caption bar. JS hook class;
+   had no rule anywhere. Slightly larger than the wall-card chips so it
+   reads at caption-bar size. */
+.kl-cap-type {
+  font-size: 0.7rem;
+  padding: 0.3em 0.6em;
+  border-radius: 3px;
+}
+
+/* The visibility-mode block above forces display:block on caption + legend,
+   flattening their flex layouts (scrub already had its grid re-override —
+   these two lost theirs in the snapshot). */
+.kl-tl:not(.no-js):not(.reduced) .kl-tl-caption,
+.kl-tl:not(.no-js):not(.reduced) .kl-tl-legend {
+  display: flex;
+}
   </style>
 </head>
 <body class="work-page" data-accent="pink">
