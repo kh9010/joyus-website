@@ -7,7 +7,31 @@ _Last updated: 2026-06-03_
 
 ---
 
-## 🔎 FOR DIVYA — review branch `kahran-jun09-tatsam-story` before merge (2026-06-10)
+## 🧱 THE QUARRY — branch `kahran-jun09-tatsam-story` (NEVER merge wholesale)
+
+**Kahran's decision 2026-06-11:** this branch is a *staging quarry*, not a merge candidate.
+It holds machine-deepened drafts of all 22 case-study pages + fixes + a rebuilt about page.
+Launch model: **one case study a week** — pull ONE family off the quarry onto a fresh
+`kahran-<mmmDD>-<case>` branch off main, Kahran does his full language pass (same as the
+rest of the site), THEN that family merges and launches. The about-page rebuild stays on
+the quarry for a future launch.
+
+**Per-family launch recipe:**
+1. `git checkout main && git pull && git checkout -b kahran-<date>-<case>-launch`
+2. `git checkout kahran-jun09-tatsam-story -- work/<case>*.html`
+3. **Dependency check**: xtdb / tomboyx / gliitch / secret-senses use the shared `.cs-*`
+   cover/closing chrome restored into styles.css ON THE QUARRY (commit f2d7d27) — pull that
+   styles.css block too the first time one of those four launches. Also mind the
+   next-case-study chain links (they reference neighbors that may not be launched yet —
+   point cs-next at an already-live page until the cycle completes).
+4. Kahran's language pass → his word-by-word edit.
+5. Divya wires it: intent-box coming-soon → real page, services.html verb examples.
+6. Merge --no-ff, push, delete the launch branch. The quarry stays.
+
+(original pre-merge review note below, now superseded — Divya's five review items still stand,
+just per-family as each launches)
+
+### 🔎 FOR DIVYA — review branch `kahran-jun09-tatsam-story` before merge (2026-06-10)
 
 One branch, ~30 commits, held for your eyes before it touches main. What's on it:
 - **All 10 case-study mains + all 12 cuts** through a deepening pass (deck-sourced density,
