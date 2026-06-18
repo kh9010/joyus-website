@@ -229,11 +229,11 @@ Create fresh off latest `main`: `git checkout main && git pull && git checkout -
 
 **Verify with `git branch --show-current` before EVERY commit.** The Claude Code session on this machine silently shifts branches between turns — this has happened repeatedly. Don't assume the branch from the previous turn is still checked out. If the wrong branch is checked out, `git checkout` to the correct one BEFORE committing.
 
-**When the user asks to merge:** first stash any unrelated working-tree changes (the parallel window's edits land here), `git checkout main`, `git pull origin main`, `git merge <branch> --no-ff`, push main, switch back to the working branch. Don't carry the parallel session's in-flight files through a merge.
+**When the user asks to merge: merge on the REMOTE, never locally** (Kahran + Divya discussed and agreed on 2026-06-18 that remote-PR merge beats local merge). Push the branch, then merge it via a GitHub PR (`gh pr create -B main` → `gh pr merge --merge --delete-branch`). Do NOT `git checkout main && git merge <branch> --no-ff && push main` — this repo is shared (Divya + the mini + parallel windows), and local merging caused diverged-`main` / a stranded branch on 2026-06-18. After the remote merge, only if you need local `main` current: stash the parallel window's unrelated working-tree changes first, then `git checkout main && git pull`.
 
 **Always clean up merged branches.** Once a feature branch is merged to `main` and `main` is pushed, delete that branch both locally and on origin (`git branch -d <branch>` && `git push origin --delete <branch>`). Don't let merged `kahran-*`/`ks-*` branches accumulate. Never delete Divya's `designmay*` branches or unmerged WIP. (Standing instruction from Kahran, 2026-05-31.)
 
-Each fix → its own commit on a `kahran-*` branch → wait for merge instruction → merge to main with `--no-ff` → push.
+Each fix → its own commit on a `kahran-*` branch → push → wait for merge instruction → merge on the remote via PR (never local `git merge` + push main).
 
 ## Klydo cuts — three-version case study
 
