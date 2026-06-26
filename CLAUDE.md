@@ -281,6 +281,37 @@ The April 2026 R4 pass shipped 12 releases to main rebuilding the `work/*.html` 
 
 **Don't ship without browser-verified fix:** secret-senses + agemo. Investigate root cause via console output Kahran can paste, not via guesswork.
 
+## Old-URL redirects (Squarespace → new site)
+
+The site moved off Squarespace; the old structure used different paths that now
+404 (and GitHub Pages can't issue real HTTP 301s). The old shapes were:
+
+- `/thinking-on-thinking` → `/podcast.html` (podcast index)
+- `/thinking-on-thinking/<NNN>-<slug>` → `/podcast/<slug>.html` (episodes; `<NNN>` = season·100+episode)
+- `/our-work/<slug>` → `/work/<slug>.html` (case studies)
+- `/musings/<slug>` → `/thinking/<slug>.html` (essays)
+- a few old root pages (`/agemo.html`, `/klydo.html`, `/about-us`, `/joyus-services-and-offerings`, …)
+- legacy `/joyus-website/...` (pre-cutover GitHub Pages project path) → same path at root
+
+**`scripts/gen-redirects.mjs` is the single source of truth.** It (1) reads live
+files to index current podcast/thinking/work slugs, (2) writes `redirects.js`
+(the baked data the 404 page reads at runtime), and (3) writes redirect **stub
+files** (200 + `<link rel=canonical>` + meta-refresh, the same pattern as the
+older `divya-tak.html`/`our-work/*` stubs) for the finite, exactly-known old URLs.
+Re-run after adding episodes/case studies: `node scripts/gen-redirects.mjs`.
+
+Two layers work together:
+1. **Stub files** at the exactly-known old paths — cleanest SEO signal (real 200 + canonical).
+2. **Smart `404.html`** — GitHub Pages serves `/404.html` for *any* unknown path, so
+   it loads `redirects.js` and pattern-redirects the long tail (incl. ~150 episodes
+   Google indexed but nobody's clicked) by fuzzy-matching the slug. No match → the
+   normal "oops" page shows. It is NOT the `looking.html` search page — `looking.html`
+   stays dedicated to homepage near-miss/search results; don't repurpose it for 404s.
+
+**`404.html` must use root-absolute links** (it carries `<base href="/">`) because it
+renders at the *failed* URL, often many levels deep — relative links would resolve
+against the bad path. Keep `<base href="/">`; don't reintroduce `/joyus-website/` paths.
+
 ## Gotchas
 
 - **Google Analytics (GA4): the site's web tracking uses `G-74FZR7YY60`** — the GA property **"website joyus.studio"** (property 427004605, under the `joyus` account). The GA4 `gtag.js` snippet is in the `<head>` of every public page (added 2026-06-04). **Do NOT use `G-K7PDLTYWF6`** for web tracking — that's a separate, inert property Firebase auto-created (no Analytics SDK is loaded). **Do NOT add `G-H63H3KD6WQ`** — that's Kahran's personal site.
