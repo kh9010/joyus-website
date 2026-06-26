@@ -300,6 +300,14 @@ files** (200 + `<link rel=canonical>` + meta-refresh, the same pattern as the
 older `divya-tak.html`/`our-work/*` stubs) for the finite, exactly-known old URLs.
 Re-run after adding episodes/case studies: `node scripts/gen-redirects.mjs`.
 
+> **Note for future sessions:** some old URLs currently redirect to a *fallback*
+> because their real page doesn't exist yet — notably `/our-work/quiznext`,
+> `/our-work/pathfinder`, `/our-work/misplaced-game`,
+> `/our-work/immersive-inclusive-audio-institute` all point at `/work/` (the
+> index). **When one of those case studies is actually built** (e.g. QuizNext —
+> it's in PENDING-WORK), re-run `node scripts/gen-redirects.mjs`: the fuzzy
+> matcher will repoint the old URL straight at the new `/work/<slug>.html`.
+
 Two layers work together:
 1. **Stub files** at the exactly-known old paths — cleanest SEO signal (real 200 + canonical).
 2. **Smart `404.html`** — GitHub Pages serves `/404.html` for *any* unknown path, so
