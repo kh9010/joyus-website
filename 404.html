@@ -19,7 +19,8 @@
     var raw = window.location.pathname;
     var hasPrefix = raw === R.legacyPrefix || raw.indexOf(R.legacyPrefix + '/') === 0;
     var p = hasPrefix ? (raw.slice(R.legacyPrefix.length) || '/') : raw;
-    var clean = decodeURIComponent(p).replace(/\/+$/, '') || '/';
+    var decoded; try { decoded = decodeURIComponent(p); } catch (e) { decoded = p; }
+    var clean = decoded.replace(/\/+$/, '') || '/';
     function go(t) { if (t && t !== raw) window.location.replace(t); }
     function norm(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''); }
     // Fuzzy-match an old slug to a current one: exact, then truncation-prefix
