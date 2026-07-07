@@ -406,10 +406,18 @@
       if (Array.isArray(near)) {
         near.forEach(function (item) {
           if (!item || !item.u || !item.d) return;
+          // Guard the handed-over URL: allow only same-origin relative paths or
+          // http(s) targets — never javascript:/data: (?n= is attacker-mintable).
+          var safeUrl;
+          try {
+            var probe = new URL(String(item.u), window.location.href);
+            if (probe.protocol !== 'http:' && probe.protocol !== 'https:') return;
+            safeUrl = item.u === 'coming-soon.html' ? item.u : probe.href;
+          } catch (e) { return; }
           var li = document.createElement('li');
           var a = document.createElement('a');
           a.className = 'lk-near-card';
-          a.href = item.u;
+          a.href = safeUrl;
           var text = document.createElement('span');
           text.className = 'lk-near-card__text';
           text.textContent = item.d;

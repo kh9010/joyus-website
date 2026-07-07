@@ -10,7 +10,7 @@ The nav and footer are the **only** things that go through a sync step:
 - Canonical source: `_partials/nav.html` and `_partials/foot.html`
 - Pages mark insertion points with `<!--BEGIN:NAV-->...<!--END:NAV-->` and `<!--BEGIN:FOOT-->...<!--END:FOOT-->`
 - Run `node scripts/sync-chrome.js` after editing either partial to propagate to all marker-bearing pages
-- Pages without markers (legacy hubs, thinking essays, comics, about, ai-workshops, 404, services-old) carry the older `<nav class="nav-bar">` + 4-col `.footer` markup hand-copied — these are the "editorial wing" and are not yet on the partial system
+- **~156 pages now carry the markers** (verified 2026-07-06), including the whole former "editorial wing" — all 6 hubs, all 15 thinking essays, all comics, `about.html`, `ai-workshops.html`, `404.html` — whose chrome byte-matches the current partials (0 drift). The ONLY pages still on the old hand-copied `<nav class="nav-bar">` + 4-col `.footer` markup are the archived predecessors `home-old.html`, `podcast-old.html`, `services-old.html`, `work/index-old.html`, and `thesis-workshop.html` (an orphan that should be migrated to markers). A page's WIP-banner / unstyled-*body* status is a separate axis from its chrome — a page can carry modern marker chrome while its body is still WIP.
 
 ## Local dev
 
@@ -37,7 +37,7 @@ Subdirectories:
 - `thinking/` — 15 long-form essays drawn from podcast transcripts
 - `comics/` — `index.html` + 5 comics: `the-friend-comic.html`, `gossip.html`, `plant-comic.html`, `phone-comic.html`, `serious-zine.html` (migrated to the new design system 2026-05-29; the comic pages source from the joyus.studio Creations PDFs, rendered to `images/comics/<slug>/page-N.{png,jpg}`). The reader (scroll-snap, lightbox, page indicator, print-interest form) is shared across all five.
 
-`sitemap.xml` currently lists ~124 URLs (60 podcast episodes, 15 thinking essays, 11 case studies, 6 hubs, plus core pages — not every podcast episode is in the sitemap; many are intentional dead drops). `robots.txt` allows everything.
+`sitemap.xml` currently lists **99 URLs** (verified 2026-07-06). The 2026-05-29/06-01 launch trim deliberately dropped the 15 thinking essays, the 6 hubs, and all case studies except **agemo + rachna-nivas** (the two "live" ones) — the other 9 case studies show as coming-soon cards on `work/index.html` and are NOT in the sitemap. Not every podcast episode is listed either; many are intentional dead drops. **Note (audit 2026-07-06):** the de-listed case studies + essays are still fully indexable (no `noindex`) — a limbo state pending a decision (see WEBSITE-DIRECTION.md pending questions). `robots.txt` allows everything.
 
 ## index.html — typewriter intent box
 
@@ -99,7 +99,7 @@ If you see `<script src="shape-echo.js">` (or `../shape-echo.js`) in a page, it 
 At the HTML level, two nav/footer shapes still coexist; the **visual** system is unified by `styles.css`.
 
 - **Modern partial** (`<nav class="nav">` + `.foot`): synced from `_partials/nav.html` and `_partials/foot.html`. Used by `index.html`, `services.html`, `podcast.html`, all `work/*`, all `podcast/*`, plus concept/prototype pages. To propagate partial changes: edit the partial, run `node scripts/sync-chrome.js`.
-- **Legacy hand-copied** (`<nav class="nav-bar">` + 4-column `<footer class="footer">`): on the ~28 WIP pages. These markup shapes no longer have CSS in `styles.css`, so they render as plain lists. The WIP banner says that's expected.
+- **Legacy hand-copied** (`<nav class="nav-bar">` + 4-column `<footer class="footer">`): now only on 5 pages — `home-old.html`, `podcast-old.html`, `services-old.html`, `work/index-old.html` (all archived predecessors), and `thesis-workshop.html`. These markup shapes no longer have CSS in `styles.css`, so they render as plain lists. (Corrected 2026-07-06: the hubs/thinking/comics/about/ai-workshops/404 pages were migrated to markers — they are NOT on legacy chrome anymore, even where their bodies are still WIP.)
 
 When a WIP page gets rebuilt, its nav and footer markup should be replaced with the partial markers (`<!--BEGIN:NAV--><!--END:NAV-->`, `<!--BEGIN:FOOT--><!--END:FOOT-->`); then re-run `sync-chrome.js` to inject the modern chrome.
 
@@ -326,8 +326,8 @@ against the bad path. Keep `<base href="/">`; don't reintroduce `/joyus-website/
 - **Do not remove `experimentalAutoDetectLongPolling`** from any Firestore init — CORS on GitHub Pages breaks without it.
 - **Do not center-align editorial hero content** (hubs, services, `thinking/*`, blog posts) — they're left-aligned with a 640–680px column. Only grid/listing heroes (`work/`, `podcast.html`, `comics/`) are centered.
 - **Do not reformat minified `thinking/*.html` files** — they're intentionally single-line with inline styles. Edit content without expanding the formatting.
-- **Canonical URLs currently point to `kh9010.github.io`**. When migrating to `joyus.studio`, update every `<link rel="canonical">`, every `og:url`, every absolute URL in JSON-LD, and the `sitemap.xml` / `robots.txt`.
+- **Canonical URLs now point to `joyus.studio`** (migration done — verified 2026-07-06, 0 `kh9010.github.io` canonicals remain). `CNAME` = `joyus.studio`. If you add a page, use `https://joyus.studio/…` for its `<link rel="canonical">`, `og:url`, and any JSON-LD absolute URLs.
 - **After editing `_partials/nav.html` or `_partials/foot.html`, run `node scripts/sync-chrome.js`** to propagate to all marker-bearing pages. The partials use `{{P}}` as the relative-path-to-root token; the script substitutes it per page based on directory depth.
-- **If you add a new page on the modern chrome system**, include `<!--BEGIN:NAV--><!--END:NAV-->` and `<!--BEGIN:FOOT--><!--END:FOOT-->` markers and run `sync-chrome.js`. If you add a legacy "editorial wing" page (hub, thinking essay, comic), copy the nav + footer markup verbatim from a sibling and update relative paths.
+- **Every new page should use the marker system**: include `<!--BEGIN:NAV--><!--END:NAV-->` and `<!--BEGIN:FOOT--><!--END:FOOT-->` and run `sync-chrome.js`. (The old advice to hand-copy `nav-bar`/4-col `.footer` markup for "editorial wing" pages is retired — that markup has no CSS and renders as plain lists. The editorial wing is on markers now; don't reintroduce legacy chrome.)
 - **Add new sitemap entries** to `sitemap.xml` for any new public page.
 - **Splash/shape classifier is archived** at `index-old.html`. Don't link it without restoring the full flow (see "shape-echo.js" section).

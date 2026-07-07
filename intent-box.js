@@ -39,7 +39,7 @@
     if (!intentDb) return;
     try {
       intentDb.collection('intents').add({
-        text: text,
+        text: String(text).slice(0, 280),
         matched: matched,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         page: page || 'index'

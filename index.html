@@ -229,12 +229,17 @@
     opacity: 0;
     transform: translateY(-8px);
     pointer-events: none;
-    transition: opacity 0.25s ease, transform 0.25s ease;
+    /* visibility:hidden keeps the (invisible) default suggestion links out of
+       the keyboard tab order at rest; delayed 0.25s so the fade-out still plays. */
+    visibility: hidden;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
   }
   #intentSuggestions.visible {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
+    visibility: visible;
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
   }
   .sug {
     display: flex;
@@ -543,7 +548,7 @@
       <label class="hero-h1" for="intentInput">what brings you here?</label>
       <form class="hero-fill" onsubmit="event.preventDefault();">
         <span class="hero-field">
-          <textarea id="intentInput" rows="1" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="What brings you here?"></textarea>
+          <textarea id="intentInput" rows="1" maxlength="280" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="What brings you here?"></textarea>
           <span class="hero-caret" aria-hidden="true"><i></i></span>
           <span class="hero-fauxph" id="intentFaux" aria-hidden="true"></span>
         </span>

@@ -457,6 +457,16 @@
         p.addEventListener('click', (e) => {
           if (e.target.tagName === 'IMG') openLightbox(idx);
         });
+        // Keyboard access: make each page image a focusable, Enter/Space-activated zoom control.
+        var pImg = p.querySelector('img');
+        if (pImg) {
+          pImg.setAttribute('tabindex', '0');
+          pImg.setAttribute('role', 'button');
+          pImg.setAttribute('aria-label', 'Zoom page ' + (idx + 1));
+          pImg.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(idx); }
+          });
+        }
       });
       if (lightbox) {
         // Only close on backdrop click (not when tapping the image)
