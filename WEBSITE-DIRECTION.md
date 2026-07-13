@@ -62,6 +62,21 @@ The site feels un-anchored because its structure (Work / Services / Workshops / 
 
 ---
 
+## Anchor decision — lead with desire, understanding is the spine
+
+_Kahran's direction, 2026-07-13 (to confirm with Divya before it's final)._
+
+The fork we'd been sitting on — does the site **lead** with "one understanding, many facets," or with "projects that'll haunt you until they're made"? — resolves into **both, at different layers:**
+
+- **Desire leads the surface.** "Projects that'll haunt you until they're made" is what a visitor meets first — the voice, the hook, the emotional door. We open with *want*, not with competence. It's the more alive, more provocative line, and it belongs at the front.
+- **Understanding is the spine.** "One understanding, many facets" stops being the headline and becomes the **architecture** — the organizing principle underneath. It's the *reason* Work / Services / Workshops collapse out of separate destinations into facets of one thing: they genuinely are faces of a single act of understanding (see the realization above). A visitor may never read the word "understanding," but it's the load-bearing wall every page hangs off.
+
+So: **the haunting line is the entrance; understanding is the structure.** This gives the Phase-2 page merges a *principled* basis instead of a cosmetic one — pages combine because they're facets of one understanding, while the front-of-house voice leads with the desire that makes someone want to walk in.
+
+_Next: Divya to confirm / refine, then this is the brief the Phase-2 page rebuild executes against._
+
+---
+
 ## Open questions from the audit (2026-07-06)
 
 _An ultracode audit of the whole site ran 2026-07-06. The **mechanical fixes** (XSS guard on `looking.html`, focus-ring contrast, intent-input length cap, truncated theme-music URLs on 19 episode pages, comics-lightbox keyboard access, sitemap canonical-form, a stale-CLAUDE.md refresh) were applied on branch `kahran-jul06-audit-fixes`. The items below are **design / content / link decisions** — they need Kahran + Divya to choose, ideally folded into the rebuild rather than patched piecemeal. Several tie directly to the anchor above: the site currently spends crawl budget and design attention on pages that contradict the "two live case studies, one understanding" positioning._
