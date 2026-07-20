@@ -19,6 +19,17 @@ _Working doc. Sandbox branch `kahran-jul20-moments-positioning`. Not for `main`,
 - **Not deliverables.** "Branding," "a strategy," "a deck" are the *forms* the work takes. Sell those and you're a vendor priced against other vendors.
 - We sell **leverage on decisive work, delivered by a two-person unit that holds the whole thing.** The unit of sale is *a decisive thing, handled end to end, by two people who can both see the move and make it real.*
 
+### How we work — the container (settled 2026-07-20)
+
+There is **one shape of work and one relationship state.** That's the whole commercial model.
+
+- **The Intensive is the only shape of work.** An immersive burst — days, sometimes up to ~3 weeks — that both *decides the move and makes the thing.* The craft comes out the other end of the same burst; it is not deferred to a long production tail. Go in hard, deliver the whole decisive thing, leave. Intensity is the unit, **not duration** — and this immersive making is the work Kahran and Divya both love, not a compromise the model tolerates.
+- **There is no "Cycle."** No long, humming, retainer-shaped engagement runs in the background. Even the big things are done as an intensive (or a few of them, stacked).
+- **The Stake is ownership, not labor.** When we believe in something we take a piece — and *that piece* is what keeps us around. "Staying in touch" is *ownership*, not being on call: we're owners watching it grow, not a vendor doing ongoing tasks. This is what preserves the intermittent life-shape — the relationship rides on the stake, the *work* stays spiky.
+- **The relationship is a portfolio, not a client list.** One company might buy four intensives over four years — the raise, the launch, the next raise, the sale — and between them we just hold a piece and stay warm. We don't graduate a client *up in scope*; we convert them *from paid to owned.*
+
+**The whole model on a napkin:** one way we work (come in hard, make the thing, leave) × one variable (do we get paid, or do we take a piece).
+
 ### How we price
 
 Price tracks **how much the moment is worth to you**, not the craft or the hours. One ruler, cash at one end, a share of the upside at the other:
