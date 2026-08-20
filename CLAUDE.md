@@ -103,6 +103,30 @@ At the HTML level, two nav/footer shapes still coexist; the **visual** system is
 
 When a WIP page gets rebuilt, its nav and footer markup should be replaced with the partial markers (`<!--BEGIN:NAV--><!--END:NAV-->`, `<!--BEGIN:FOOT--><!--END:FOOT-->`); then re-run `sync-chrome.js` to inject the modern chrome.
 
+## /site-read/ — the site-read tool (soft launch)
+
+A self-serve diagnostic: a practitioner drops a URL and gets a read of what a
+stranger meets on their site. Page at `site-read/`, backend at
+`site-read-worker/` (excluded from the Pages build by `_config.yml` — see that
+file and `site-read-worker/README.md`; do not publish the analysis prompt).
+
+- **The reader is off until the Worker is deployed.** `site-read/site-read.js`
+  has `API_BASE = null`; while it is null a typed URL gets an honest "the reader
+  isn't switched on yet" state. It must never render fixture content for a real
+  URL — the sample read is reachable only through an explicit `?demo=` param.
+- **Demo states**: `?demo=1` (the sample read), `?demo=analyzing`,
+  `?demo=decline_product_company|decline_thin|decline_unfetchable|decline_incomplete`,
+  `?demo=offline`. Any `demo` param also reveals the preview pills.
+- **`decline_incomplete` is pipeline-only** — the Worker's fail-safe status, not
+  in the model's schema. The page branches on it as a warm decline. Any front end
+  reading `read.status` needs that branch.
+- **`site-read/fixture-data.js` is GENERATED** from `site-read/fixture.json` by
+  `node scripts/gen-site-read-fixture.mjs` (`--check` fails if stale). The
+  fixture is a fictional practice at an unregistered domain, on purpose: never
+  ship a sample read of a real person's site.
+- Deliberately **not in the nav** yet. It is in `sitemap.xml` and the intent-box
+  `CONTENT_MAP`; add the nav link when the Worker is live.
+
 ## Firebase
 
 Project `joyus-studio`, loaded via CDN compat SDKs (`firebase-app-compat.js`, `firebase-firestore-compat.js` v10.12.0). Config is duplicated inline in `index.html` and `shape-echo.js` (the latter is dormant — see above). The Firebase config carries a `measurementId` of `G-K7PDLTYWF6`, but this is **inert** — the Firebase **Analytics** SDK is never loaded, so it sends nothing. It's a *separate* GA property Firebase auto-created; do NOT use it for site analytics. See the GA note under Gotchas.

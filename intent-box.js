@@ -226,6 +226,12 @@
 
       // (Themed hub pages removed from search — old editorial-wing design, not linked.)
 
+      // The site read — self-serve diagnostic at /site-read/ (soft launch:
+      // reachable by search, deliberately not in the nav until the reader
+      // Worker is deployed — see site-read-worker/).
+      { display: "a read of my own website", terms: ["site read", "read my site", "read my website", "website review", "site review", "site audit", "website audit", "critique", "feedback on my site", "diagnostic"], url: "site-read/index.html", dest: "the site read" },
+      { display: "to know what a stranger sees on my site", terms: ["stranger", "first impression", "how my site reads", "what people see", "positioning", "legible", "confusing site"], url: "site-read/index.html", dest: "the site read" },
+
       // Contact / portfolio entry points
       { display: "to talk to someone", terms: ["talk", "chat", "call", "consultation", "consult", "advice", "discuss", "connect", "reach out", "contact", "email", "hello", "hi", "say hi"], url: "say-hi.html", dest: "say hi" },
       { display: "to see examples of your work", terms: ["work", "example", "portfolio", "case stud", "projects", "clients", "past work", "show me"], url: "work/index.html", dest: "all work" },

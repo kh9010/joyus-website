@@ -1,0 +1,15 @@
+# Jekyll config for GitHub Pages.
+#
+# This site is hand-written HTML; Jekyll only copies files through, and no
+# Jekyll feature is in use. This file exists for one reason:
+#
+#   site-read-worker/ is SOURCE, not pages. It holds the Cloudflare Worker for
+#   /site-read/ and — inside it — the v4 analysis prompt, which is the thing
+#   the tool actually is. Without this exclude, GitHub Pages would publish it
+#   at https://joyus.studio/site-read-worker/... for anyone who guessed the URL.
+#
+# Directories starting with `_` (e.g. _partials) are already excluded by Jekyll
+# and do not need listing here.
+
+exclude:
+  - site-read-worker

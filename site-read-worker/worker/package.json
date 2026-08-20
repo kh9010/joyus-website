@@ -1,0 +1,20 @@
+{
+  "name": "joyus-site-read-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Joyus site-read: fetch a practitioner's site, compute a fact sheet, and turn it into one diagnostic read.",
+  "main": "src/worker.js",
+  "scripts": {
+    "test": "node test/run-all.mjs",
+    "test:offline": "node test/run-all.mjs --offline",
+    "test:sites": "node test/test-real-sites.mjs",
+    "embed-prompt": "node scripts/embed-prompt.mjs",
+    "typecheck": "tsc --noEmit --allowJs --checkJs --target es2022 --module esnext --moduleResolution bundler src/*.js",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "engines": { "node": ">=18" },
+  "dependencies": {},
+  "devDependencies": {}
+}

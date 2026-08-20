@@ -1,0 +1,36 @@
+# Joyus site-read worker.
+#
+# Deploy is attended — see README.md. Nothing here creates or funds anything on
+# its own; `wrangler deploy` is the only step that publishes, and it needs an
+# authenticated session, a real KV namespace id, and the API key already set as
+# a secret.
+
+name = "joyus-site-read"
+main = "src/worker.js"
+compatibility_date = "2026-08-01"
+
+# No build step: src/ is plain ES-module JavaScript with no dependencies, so
+# wrangler ships it as-is.
+
+[observability]
+enabled = true
+
+# The read store: permalink payloads (read:<slug>), per-IP counters (rl:*) and
+# the daily spend total (spend:<date>). Replace the id with the one
+# `wrangler kv namespace create READS` prints — the placeholder below will not
+# deploy.
+[[kv_namespaces]]
+binding = "READS"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+# "true" adds fetch diagnostics to the POST /read response. Leave off in prod.
+DEBUG = "false"
+# "true" prints the Firestore document the submission-log stub would write.
+SUBMISSION_LOG_DEBUG = "false"
+
+# Secrets (never in this file — `wrangler secret put NAME`):
+#   ANTHROPIC_API_KEY   required
+#
+# Optional override, if you ever need to pin a different model without a deploy:
+#   wrangler secret put MODEL      (defaults to claude-sonnet-5)
