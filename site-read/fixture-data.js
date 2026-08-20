@@ -15,13 +15,13 @@ window.JOYUS_SITE_READ_FIXTURE = {
   },
   "decline": null,
   "opening": {
-    "text": "Your front door works the way a market table works — nine photographs of pots, three sentences about who fired them, and a menu where buying and reading are the same size.",
+    "text": "Your front door works like a market table — nine photographs of pots, three sentences about the firing, and a menu where buying and reading are the same size.",
     "shape": "front_door_function"
   },
   "skim_read": {
     "first_screen_headline_used": "Slow pots for daily use",
     "positioning_legibility": {
-      "observation": "Slow pots for daily use names the work and how you expect it to be lived with. Someone landing cold knows inside a second what you make.",
+      "observation": "Slow pots for daily use tells a cold visitor, in one second, what you make and how you expect it to be lived with.",
       "exhibit": {
         "page": "homepage",
         "quote": "Slow pots for daily use",
@@ -32,7 +32,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       }
     },
     "tangibles": {
-      "observation": "Thrown, fired and packed by me is the most concrete line on the first screen, and it’s all about your labour. None of it describes an object anyone could own, at a size and a sum.",
+      "observation": "Thrown, fired and packed by me is the most concrete line on the first screen, and it describes your labour, not an object with a size and a sum.",
       "exhibit": {
         "page": "homepage",
         "quote": "Everything here is thrown, fired and packed by me in a workshop behind the house in Bridnall.",
@@ -43,7 +43,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       }
     },
     "entry_point": {
-      "observation": "Five doors sit in the menu at the same weight, and the one that sells pots looks exactly like the one that explains you. Nothing on the page is marked as the place to start.",
+      "observation": "Five doors sit in the menu at one weight, the one that sells pots looks like the one that explains you, and nothing is marked as the place to start.",
       "exhibit": {
         "page": "homepage",
         "quote": null,
@@ -54,7 +54,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       }
     },
     "delivered_vs_handheld": {
-      "observation": "A visitor leaves this page holding a feeling about ash and wood fire. They don’t leave holding a size, a date, or a way to pay you.",
+      "observation": "A visitor leaves holding a feeling about ash and wood fire. They don’t leave holding a size, a date, or a way to pay you.",
       "exhibit": {
         "page": "homepage",
         "quote": null,
@@ -66,8 +66,8 @@ window.JOYUS_SITE_READ_FIXTURE = {
     }
   },
   "gap": {
-    "what_you_have": "A wood kiln lit since 2011, five months at the Fennhollow residency, and a shelf at Marrow and Grain in Ellisford since 2019.",
-    "what_a_stranger_gets": "Someone who never meets you gets the pots and the town, and there’s nobody but you saying the work is any good.",
+    "what_you_have": "A wood kiln lit since 2011, five months at the Fennhollow residency, and a shelf at Marrow and Grain since 2019.",
+    "what_a_stranger_gets": "The pots and the town, and there’s nobody but you saying the work is any good.",
     "named_facts": [
       {
         "fact": "The wood kiln has been lit since 2011",
@@ -131,7 +131,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       },
       "buried_on": null,
       "searched": null,
-      "evidence": "One kiln, lit since 2011, still the only one you use, and it is on the front page in your own words before anyone scrolls. That single sentence makes the pots make sense before a sum is ever named. You have told this once, properly, and the rest of the site inherits it.",
+      "evidence": "One kiln, lit since 2011, still the only one you use, and it’s on the front page in your own words before anyone scrolls.",
       "bold_line": "Your front page already carries the reason to trust the pots."
     },
     {
@@ -147,7 +147,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       },
       "buried_on": "your About page",
       "searched": null,
-      "evidence": "Fennhollow and the shelf at Marrow and Grain are the two facts here that settle a nervous buyer, and both of them sit on your About page. The front page carries the making and nothing that vouches for it. A shop that has stocked you since 2019 is the closest thing you have to a second voice, and it speaks only to whoever thinks to look.",
+      "evidence": "Fennhollow and the shelf at Marrow and Grain are the two facts that settle a nervous buyer, and both sit on your About page. That shop is your only second voice, and it speaks to whoever thinks to look.",
       "bold_line": null
     },
     {
@@ -163,7 +163,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       },
       "buried_on": "your Workshops page",
       "searched": null,
-      "evidence": "Your Workshops page is the one place where something ends with a person holding an object: a Saturday, a wheel, and pots posted after the next firing. The homepage opens on the headline, runs the three sentences, then the nine photographs, then the footer. You sequence a workshop day better than you sequence the room a visitor walks into.",
+      "evidence": "Your Workshops page is the one place where something ends with a person holding an object: a Saturday, a wheel, and pots posted after the next firing. You sequence a workshop day better than you sequence the room a visitor walks into.",
       "bold_line": null
     },
     {
@@ -187,7 +187,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
         "the footer",
         "the photograph captions"
       ],
-      "evidence": "No sentence on the site explains what you learned at that kiln, only what comes out of it. The nearest thing is one line on the Shop page about ash falling differently on every shelf, and it is there to excuse a mismatch.",
+      "evidence": "No sentence here explains what you learned at that kiln, only what comes out of it.",
       "bold_line": "Everything you know about wood firing lives in conversation with you."
     }
   ],
@@ -198,11 +198,11 @@ window.JOYUS_SITE_READ_FIXTURE = {
     "not_examined": [
       {
         "lane": "short_form_social",
-        "reason": "Instagram sits in the footer; no grid renders on any page"
+        "reason": "Instagram sits in the footer; no grid renders"
       },
       {
         "lane": "publishing_rhythm",
-        "reason": "Two class dates ahead, nothing dated behind them"
+        "reason": "Two class dates ahead, nothing dated behind"
       }
     ],
     "unfetched_pages": [
@@ -216,7 +216,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
     "rests_on_quote": false
   },
   "bridge": {
-    "text": "A visitor cannot buy a mug from you today, cannot see what one costs, and cannot put a name against a firing date without sending an email and waiting. The Workshops page already knows how to end with someone holding an object, and nothing else on your site does.",
+    "text": "A visitor cannot buy a mug, see what one costs, or put a name against a firing date without emailing you and waiting. The Workshops page already knows how to end with someone holding an object; nothing else on your site does.",
     "move": "what_a_stranger_cannot_do",
     "concrete_anchor": "The Workshops page"
   },

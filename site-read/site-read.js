@@ -29,13 +29,12 @@
   var FIXTURE = window.JOYUS_SITE_READ_FIXTURE || null;
 
   var PERCEPTION_NOTES = [
-    'reading the front screen — headline, first invitation, what’s above the fold',
-    'checking whether the story is told once, or explained live every time',
-    'following every link a stranger would actually click',
-    'looking for where the credentials and history really live',
-    'scanning footers, feeds, and image blocks — not just body text',
-    'comparing what’s dated, what isn’t, and what that means',
-    'writing the read — second person, no scores, every line anchored'
+    'reading the front screen',
+    'following the links a stranger would click',
+    'looking for where the credentials live',
+    'checking footers, feeds, image blocks',
+    'weighing what’s dated and what isn’t',
+    'writing the read'
   ];
 
   var IDLE_PROMPTS = [
@@ -56,20 +55,20 @@
      shapes can be previewed before the worker is live. */
   var DECLINE_DEMOS = {
     decline_product_company: {
-      observation: 'What you have built here reads like a product — a roadmap, a pricing table, a team behind it — not a person or a small studio whose presence is the thing being sold.',
-      redirect: 'This read is built for practitioners, coaches, artists, and small studios. For a product, the sharper conversation is a direct one.'
+      observation: 'This reads like a product — a roadmap, a pricing table, a team behind it.',
+      redirect: 'Built for practitioners, artists and small studios. For a product, come talk to us.'
     },
     decline_thin: {
-      observation: 'A single link stack does not give a stranger enough to meet you by, and there is nothing here yet for a read to hold onto.',
-      redirect: 'Build one real page — your name, your work, one way to reach you — and this read will have something to work with.'
+      observation: 'A link stack is not enough to meet you by.',
+      redirect: 'Build one real page: name, work, one way to reach you.'
     },
     decline_unfetchable: {
-      observation: 'This one did not come through on this pass.',
-      redirect: 'Try the address again in a minute, or drop the URL you meant to give us.'
+      observation: 'This one did not come through.',
+      redirect: 'Try the address again in a minute.'
     },
     decline_incomplete: {
-      observation: 'Your pages came back and were read, but the write-up built from them did not clear the accuracy checks this tool runs on itself before anything goes out.',
-      redirect: 'Nothing on your end needs changing. Running it again in a few minutes usually clears it.'
+      observation: 'Your pages were read; the write-up did not clear our accuracy checks.',
+      redirect: 'Nothing on your end. Try again in a few minutes.'
     }
   };
 
@@ -118,8 +117,8 @@
       .then(function (out) {
         if (!out.res.ok || !out.body || !out.body.read) {
           renderDecline('decline_unfetchable', {
-            observation: 'That link does not point at a read we still hold.',
-            redirect: 'Run the address again and you will get a fresh one.'
+            observation: 'That link no longer points at a read.',
+            redirect: 'Run the address again.'
           });
           return;
         }
@@ -127,7 +126,7 @@
       })
       .catch(function () {
         renderDecline('decline_unfetchable', {
-          observation: 'That saved read did not come back this time.',
+          observation: 'That saved read did not come back.',
           redirect: 'Try the link again in a minute.'
         });
       });
@@ -145,10 +144,10 @@
         '<span class="dot dh4 d-cyan"></span>' +
         '<span class="dot dh5 d-yellow"></span>' +
         '<div class="hero-inner">' +
-          '<p class="hero-eyebrow">a read for people &amp; small studios — not product companies</p>' +
+          '<p class="hero-eyebrow">for people &amp; small studios</p>' +
           '<h1 class="hero-h1">What does your site do when you’re <em>not</em> in the room?</h1>' +
           '<div class="hero-stage">' +
-            '<label class="hero-lede" for="urlInput">Drop your URL. We’ll read it the way a stranger would.</label>' +
+            '<label class="hero-lede" for="urlInput">Drop your URL.</label>' +
             '<form class="hero-fill" id="readForm" autocomplete="off">' +
               '<span class="hero-field" id="urlField">' +
                 '<input id="urlInput" type="text" inputmode="url" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" aria-label="Your website URL" />' +
@@ -166,10 +165,10 @@
             '<div class="hero-isnt">' +
               '<span class="hero-isnt-label">what this isn’t</span>' +
               '<ul>' +
-                '<li><b>Not a grade</b> — every generic site-grader online already does that.</li>' +
-                '<li><b>Not generic advice</b> — every line points at something that is actually on your site.</li>' +
-                '<li><b>Not for product companies</b> — this is for practitioners, coaches, artists, and small studios. If you have a roadmap and a pricing table, we will say so, gently.</li>' +
-                '<li><b>Not instant</b> — reading properly takes about a minute, because we read the pages rather than count the tags.</li>' +
+                '<li><b>Not a grade.</b></li>' +
+                '<li><b>Not generic advice.</b></li>' +
+                '<li><b>Not for product companies.</b></li>' +
+                '<li><b>Not instant</b> — about a minute.</li>' +
               '</ul>' +
             '</div>' +
             demoPillsHtml() +
@@ -213,14 +212,14 @@
       e.preventDefault();
       var val = input.value.trim();
       if (!val) {
-        errorEl.textContent = 'Drop a URL in first — yourname.com is enough.';
+        errorEl.textContent = 'A URL first — yourname.com is enough.';
         errorEl.classList.add('show');
         input.focus();
         return;
       }
       var email = document.getElementById('emailInput').value.trim();
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        errorEl.textContent = 'That email looks off — fix it, or leave it empty.';
+        errorEl.textContent = 'That email looks off.';
         errorEl.classList.add('show');
         document.getElementById('emailInput').focus();
         return;
@@ -271,13 +270,13 @@
   // ANALYZING
   // ────────────────────────────────────────────────────────────────
   function renderAnalyzing(url, pending) {
-    announce('Reading ' + url + '. This takes about a minute.');
+    announce('Reading ' + url + '. About a minute.');
     root.innerHTML = '' +
       '<section class="analyzing">' +
         '<p class="analyzing-target">reading <b>' + escapeHtml(url) + '</b>…</p>' +
         '<div class="analyzing-bar"><div class="analyzing-bar-fill" id="abarFill"></div></div>' +
         '<div class="analyzing-list" id="pnoteList"></div>' +
-        '<p class="analyzing-promise"><strong>We’ll send it to your email the moment it’s done — you don’t have to keep this tab open.</strong> It takes about a minute. We read slower than a grader because we are actually reading: every page, not the homepage meta tags.</p>' +
+        '<p class="analyzing-promise"><strong>We’ll email it when it’s done.</strong> About a minute.</p>' +
       '</section>';
 
     var list = document.getElementById('pnoteList');
@@ -322,8 +321,8 @@
     }).catch(function () {
       settled = true;
       renderDecline('decline_unfetchable', {
-        observation: 'The read did not come back this time, and the fault is on our side rather than yours.',
-        redirect: 'Give it a minute and try the same address again.'
+        observation: 'The read did not come back. Our fault.',
+        redirect: 'Try the same address in a minute.'
       });
     });
   }
@@ -331,15 +330,15 @@
   function handleResponse(res, body, url) {
     if (res.status === 429) {
       renderDecline('decline_incomplete', {
-        observation: 'You have run a few reads in the last hour, which is as many as this tool gives one person at a time.',
-        redirect: 'Come back in an hour and the next one will run.'
+        observation: 'One person gets a few reads an hour.',
+        redirect: 'Come back in an hour.'
       });
       return;
     }
     if (!res.ok || !body || !body.read) {
       renderDecline('decline_incomplete', {
-        observation: 'Your pages were fetched, but the read did not come back whole.',
-        redirect: 'Nothing on your end needs changing. Running it again in a few minutes usually clears it.'
+        observation: 'The read did not come back whole.',
+        redirect: 'Nothing on your end. Try again in a few minutes.'
       });
       return;
     }
@@ -364,9 +363,9 @@
     announce('The reader is not switched on yet.');
     root.innerHTML = '' +
       '<div class="decline-wrap">' +
-        '<span class="decline-kicker">before you wonder what happened</span>' +
+        '<span class="decline-kicker">not yet</span>' +
         '<p class="decline-observation">The reader isn’t switched on yet.</p>' +
-        '<p class="decline-redirect">Nothing read your site, and we would rather say that than hand you something that looks like a read and isn’t one. The engine is built; it is not plugged in. Come back in a few days and it will run for real.</p>' +
+        '<p class="decline-redirect">Built, not plugged in. We would rather say that than hand you a read that isn’t one.</p>' +
         '<a class="decline-back" href="./" data-nav-home>← back</a>' +
       '</div>' +
       (state.demo ? demoPillsWrapped() : '');
@@ -473,7 +472,7 @@
         '<p>' + escapeHtml(fx.bridge.text) + '</p>' +
         '<div class="rd-cta-row">' +
           '<a class="rd-cta-btn" href="/services.html">the Articulation Intensive <span class="arrow">→</span></a>' +
-          '<span class="rd-cta-hint">a few days, together — the story articulated once, 2–3 artifacts made</span>' +
+          '<span class="rd-cta-hint">a few days together — 2–3 artifacts made</span>' +
         '</div></div>';
     }
 
@@ -498,7 +497,7 @@
     }
 
     if (isSample) {
-      html += '<p class="rd-samplenote">This is the sample read — a fictional ceramics practice at a domain that does not exist, written to show how the finished piece reads. Your own read is generated from your own pages.</p>';
+      html += '<p class="rd-samplenote">Sample read. Fictional pottery, invented domain.</p>';
     }
 
     html += demoPillsHtml();
@@ -511,7 +510,7 @@
       '<span class="dot d-pink" style="width:22px;height:22px;top:6%;right:9%;"></span>' +
       '<span class="dot d-cyan" style="width:12px;height:12px;top:16%;right:22%;"></span>' +
       '<span class="closing-label">your move</span>' +
-      '<h3>Ready for the version a stranger can’t miss? <em><a href="/say-hi.html">Be our friends.</a></em></h3>' +
+      '<h3>Now the version a stranger cannot miss. <em><a href="/say-hi.html">Be our friends.</a></em></h3>' +
       '<span class="hint">hello@joyus.studio · we read everything</span></section>';
 
     root.innerHTML = html;
