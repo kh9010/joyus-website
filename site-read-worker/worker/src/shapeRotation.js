@@ -1,8 +1,8 @@
 // ---------------------------------------------------------------------------
-// SHAPE ROTATION — the opening, the one cut and the bridge move are assigned
-// here, not chosen by the model.
+// SHAPE ROTATION — the opening shape and the bridge move are assigned here,
+// not chosen by the model. (The cut was removed in 5.2, and its shape with it.)
 //
-// v4: "Left to choose, a model picks the same shape every time, and two
+// The writer prompt: "Left to choose, a model picks the same shape every time, and two
 // practitioners who compare notes see the machine." So the pipeline rolls the
 // dice and hands the model a directive it must echo back.
 //
@@ -12,7 +12,7 @@
 // same read. Rotation across the enum space comes from the spread of URLs.
 // ---------------------------------------------------------------------------
 
-import { OPENING_SHAPES, CUT_SHAPES, BRIDGE_MOVES } from './types.js';
+import { OPENING_SHAPES, BRIDGE_MOVES } from './types.js';
 
 export function fnv1a(str) {
   let h = 0x811c9dc5;
@@ -23,8 +23,8 @@ export function fnv1a(str) {
   return h >>> 0;
 }
 
-/** mulberry32 — three independent draws from one seed, so the three enums are
- *  not locked together by reusing `hash % N` three times. */
+/** mulberry32 — independent draws from one seed, so the enums are not locked
+ *  together by reusing `hash % N` twice. */
 function mulberry32(seed) {
   let a = seed >>> 0;
   return function next() {
@@ -45,13 +45,12 @@ function normalizeForSeed(url) {
   }
 }
 
-/** @returns {{opening_shape:string,cut_shape:string,bridge_move:string,seed:number}} */
+/** @returns {{opening_shape:string,bridge_move:string,seed:number}} */
 export function computeShapeDirective(siteUrl) {
   const seed = fnv1a(normalizeForSeed(siteUrl));
   const rnd = mulberry32(seed);
   return {
     opening_shape: OPENING_SHAPES[Math.floor(rnd() * OPENING_SHAPES.length)],
-    cut_shape: CUT_SHAPES[Math.floor(rnd() * CUT_SHAPES.length)],
     bridge_move: BRIDGE_MOVES[Math.floor(rnd() * BRIDGE_MOVES.length)],
     seed,
   };

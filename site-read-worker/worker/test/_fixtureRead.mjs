@@ -1,230 +1,122 @@
-// A hand-written read that is supposed to PASS every deterministic check.
+// The writer's half of the fixture: prose fields only, rendering the outline's
+// render_plan entry by entry, in its order, with nothing added.
 //
-// Writing one by hand is the real test of the validator: if a careful human
-// cannot satisfy the rules, the model cannot either, and every request ends at
-// the fail-safe. Every string quoted here is a character-exact substring of the
-// fixture site's page text.
+// `buildWriterProse` is what a passing pass-2 tool call looks like — exactly the
+// fields the read schema annotates `x_source: "writer"`. `buildPassingRead`
+// grafts it onto the outline the same way the pipeline does, so the validator
+// tests run against the same object production assembles rather than a
+// hand-written stand-in.
+//
+// Every proper noun below appears in the outline. Every number below appears in
+// the outline. There is no sentence here without a plan entry, no bold line
+// beside the designated one, and nothing after the bridge.
 
-export function buildPassingRead(fs) {
-  const d = fs.shape_directive;
+import { assembleRead } from '../src/assemble.js';
+import { buildPassingOutline } from './_fixtureOutline.mjs';
+
+export function buildWriterProse() {
   return {
-    schema_version: '4.0',
-    site_url: fs.site_url,
     status: 'read',
-    shape_directive_used: {
-      opening_shape: d.opening_shape,
-      cut_shape: d.cut_shape,
-      bridge_move: d.bridge_move,
-    },
-    decline: null,
+
+    // seq 1 — opening
     opening: {
-      text: "Your front page gives a visitor one line about sound and four menu words of the same weight, and that's the whole of it.",
-      shape: d.opening_shape,
+      text: "Your front door hands whoever lands there a claim about quality, and never names a thing you'd be hired to make.",
     },
+
     skim_read: {
-      first_screen_headline_used: 'Sound that carries a room',
+      // seq 2 — skim.positioning_legibility
       positioning_legibility: {
         observation:
-          'Sound that carries a room sits at the top. It names a quality, not a service, so someone landing cold cannot tell what you would be hired to make.',
-        exhibit: {
-          page: 'homepage',
-          quote: 'Sound that carries a room',
-          reference: null,
-          speaker: 'owner',
-          block_index: fs.first_screen_headline ? fs.first_screen_headline.block_index : null,
-          location: 'first_screen',
-        },
+          'Sound that carries a room sits at the top, naming a quality of the work rather than something somebody could hire you to build.',
       },
-      tangibles: {
-        observation:
-          "Theatre, installation and score are concrete words, and they're the only concrete words here. What a client ends up holding is never named.",
-        exhibit: {
-          page: 'homepage',
-          quote: 'Mara Feldt designs sound for theatre and installation work.',
-          reference: null,
-          speaker: 'owner',
-          block_index: null,
-          location: 'first_screen',
-        },
-      },
-      entry_point: {
-        observation:
-          'One marked button sits under the text and it outranks the four flat menu words. Someone who wants to hire you has somewhere to press.',
-        exhibit: {
-          page: 'homepage',
-          quote: 'Start a conversation',
-          reference: null,
-          speaker: 'owner',
-          block_index: null,
-          location: 'body',
-        },
-      },
+      // seq 3 — skim.delivered_vs_handheld
       delivered_vs_handheld: {
         observation:
-          'A visitor leaves knowing you make sound for rooms. They leave holding no recording, no clip and no sample of the work itself.',
-        exhibit: {
-          page: 'homepage',
-          reference: null,
-          quote: 'Recent work includes a score for the Vaults Festival and a commission from Site Gallery.',
-          speaker: 'owner',
-          block_index: null,
-          location: 'body',
-        },
+          'The Vaults Festival score and the Site Gallery commission are told to whoever lands here, and not one second of either one plays.',
       },
     },
+
     gap: {
+      // seq 4 — gap.named_facts, recited, asserting nothing
       what_you_have:
-        'A studio running since 2014 out of a converted mill, a score for the Vaults Festival, a commission from Site Gallery, and a teaching post at Leeds Arts University.',
+        "You've run the studio since 2014 out of a converted mill in Leeds. You trained at the Royal Northern College of Music, and you've taught sound design at Leeds Arts University since 2019.",
+      // seq 5 — gap.what_a_stranger_gets
       what_a_stranger_gets:
-        'A visitor who never gets you in a room comes away with a handful of sentences and a menu.',
-      named_facts: [
-        {
-          fact: 'The studio has run since 2014',
-          page: 'homepage',
-          source_sentence: 'The studio has run since 2014 out of a converted mill in Leeds.',
-        },
-        {
-          fact: 'A score for the Vaults Festival and a commission from Site Gallery',
-          page: 'homepage',
-          source_sentence:
-            'Recent work includes a score for the Vaults Festival and a commission from Site Gallery.',
-        },
-        {
-          fact: 'Teaching at Leeds Arts University since 2019',
-          page: 'About',
-          source_sentence: 'She has taught sound design at Leeds Arts University since 2019.',
-        },
-      ],
+        'Someone who never gets you into a room comes away holding a handful of sentences and a menu, and that is the whole of what your pages hand over.',
     },
-    lane_selection: {
-      chosen: ['credibility_surface', 'spine_story', 'long_form_writing'],
-      rejected: [
-        {
-          lane: 'website_sequencing',
-          reason: 'Two pages, one menu and one button; too little built to judge sequence.',
-          surfaces_searched: ['the menu', 'the homepage', 'the About page'],
-        },
-        {
-          lane: 'short_form_social',
-          reason: 'One Instagram link in the footer, with no posts rendering on either page.',
-          surfaces_searched: ['the footer', 'the homepage'],
-        },
-        {
-          lane: 'publishing_rhythm',
-          reason: 'Two years appear, 2014 and 2019, and neither sits on a dated item.',
-          surfaces_searched: ['the homepage', 'the About page'],
-        },
-      ],
-    },
+
     lane_verdicts: [
       {
-        lane: 'credibility_surface',
-        verdict: 'DOCUMENTATION',
-        exhibit: {
-          page: 'About',
-          quote: 'She has taught sound design at Leeds Arts University since 2019.',
-          reference: null,
-          speaker: 'the page copy, written about the owner in the third person',
-          block_index: null,
-          location: 'body',
-        },
-        buried_on: 'the About page',
-        searched: null,
+        finding_id: 'f1',
+        // seq 6 — f1.claim
         evidence:
-          'The teaching post and the training both sit on the About page, written about you rather than by you. Your front page carries the studio and two commissions and stops there. Someone deciding whether to trust you with a room has to open a second page to learn you teach.',
-        bold_line: 'Your credentials are one page away from the person deciding.',
+          'The teaching post sits on your About page, in copy that speaks about you in the third person. Your front page carries the studio and the two commissions, then stops. The strongest thing anyone could check sits one click behind a door.',
+        // seq 7 — f1.consequence, the one entry the plan marks bold
+        bold_line: 'Your credentials sit one page away from the person deciding.',
       },
       {
-        lane: 'spine_story',
-        verdict: 'DOCUMENTATION',
-        exhibit: {
-          page: 'homepage',
-          quote: 'The studio has run since 2014 out of a converted mill in Leeds.',
-          reference: null,
-          speaker: 'owner',
-          block_index: null,
-          location: 'body',
-        },
-        buried_on: 'the homepage',
-        searched: null,
+        finding_id: 'f2',
+        // seq 8 — f2.claim
         evidence:
-          'A decade in a converted mill is the strongest sentence you have, and it sits third, under a line about sound. The About page adds the training and the range but never joins them into one story. The story exists in parts; it has not been told once, properly, anywhere.',
+          'A decade in a converted mill is the strongest sentence you have written down anywhere, and it lands third on the page, underneath a line about sound.',
         bold_line: null,
       },
       {
-        lane: 'long_form_writing',
-        verdict: 'ABSENT',
-        exhibit: {
-          page: 'homepage',
-          quote: null,
-          reference: 'the four-word menu, which offers Home, Work, About and Contact and no writing',
-          speaker: 'not_applicable',
-          block_index: null,
-          location: 'first_screen',
-        },
-        buried_on: null,
-        searched: ['the menu', 'the footer', 'the homepage', 'the About page'],
+        finding_id: 'f3',
+        // seq 9 — f3.claim
         evidence:
-          'Nothing you have written about the work appears anywhere on either page. The menu offers four doors and none of them opens onto writing. How you think about sound in a room lives entirely in conversation with you.',
+          'Nothing you have written about the work renders on either page. The menu offers four doors and none of them opens onto writing, so how you think about a room stays in conversation with you.',
         bold_line: null,
       },
     ],
+
+    // seq 10 — strongest_true_thing
     strongest_true_thing: {
-      text: 'The mill sentence does real work: it puts a decade and a place into one line a visitor can hold.',
-      exhibit: {
-        page: 'homepage',
-        quote: null,
-        reference: 'the line naming the converted mill in Leeds',
-        speaker: 'not_applicable',
-        block_index: null,
-        location: 'body',
-      },
+      text:
+        'One marked button under the text outranks every flat word in the menu, so somebody who has decided to hire you has somewhere to press.',
     },
-    coverage: {
-      lanes_examined: 3,
-      lanes_total: 6,
-      not_examined: [
-        { lane: 'website_sequencing', reason: 'Two pages only; nothing sequenced to read' },
-        { lane: 'short_form_social', reason: 'One footer link, no posts on the pages' },
-        { lane: 'publishing_rhythm', reason: 'No dated items on either page' },
-      ],
-      unfetched_pages: ['Work'],
-    },
-    one_cut: {
-      text: 'A decade of sound made in a converted mill reaches a visitor as one adjective and a menu.',
-      shape: d.cut_shape,
-      contradiction_scan_done: true,
-      rests_on_quote: false,
-    },
+
+    // seq 11 — bridge. Nothing follows it.
     bridge: {
-      text: 'What a visitor cannot do here is hear you. Not one second of sound plays on the page that sells sound, and until it does the Vaults Festival score is a name rather than a thing anyone has heard.',
-      move: d.bridge_move,
-      concrete_anchor: 'the Vaults Festival score',
+      text:
+        'What nobody can do here is hear you, and until a second of the Vaults Festival score plays on this page it stays a name rather than a thing anyone has heard.',
+      concrete_anchor: 'the Vaults Festival',
     },
+
     self_check: {
-      quotes_speaker_checked: true,
-      quotes_character_matched: true,
-      negative_claims: [
-        {
-          claim: 'Nothing written about the work appears on either page',
-          pages_scanned: ['homepage', 'About'],
-          search_terms: ['writing', 'notes', 'journal', 'essay', 'blog'],
-          surfaces_scanned: ['the menu', 'the footer', 'both pages'],
-          counterexample_found: false,
-        },
-        {
-          claim: 'No sound plays on the page',
-          pages_scanned: ['homepage', 'About'],
-          search_terms: ['audio', 'listen', 'player', 'embed'],
-          surfaces_scanned: ['both pages', 'the embedded feeds'],
-          counterexample_found: false,
-        },
-      ],
-      placement_claims_from_block_order: true,
-      numbers_copied_from_fact_sheet: true,
       prompt_leak_scan_done: true,
+      no_new_facts_introduced: true,
+      findings_used_once: true,
+      plan_rendered_exactly: true,
+      nothing_after_bridge: true,
+      bold_only_where_planned: true,
+      ledger_claims_used_once: true,
+      no_derived_numbers: true,
+      dates_rendered_whole: true,
+      no_inferred_destinations: true,
+      labels_rendered_verbatim: true,
+      site_quantifiers_preserved: true,
+      sentence_gate: {
+        sentence_count: 14,
+        word_count: 300,
+        average_words_per_sentence: 21.4,
+        sentences_over_30: 1,
+      },
+      frames_declared: {
+        opening_frame: 'your <surface> hands <person> <a claim> and never names <object>',
+        bridge_frame: 'what <person> cannot do is <verb>, and until <event> it stays <noun>',
+      },
       shape_conflict: null,
-      unverified_items_removed: [],
+      ledger_override: null,
     },
   };
 }
+
+/** The assembled read: the writer's prose grafted onto the outline, exactly as
+ *  the pipeline does it. */
+export function buildPassingRead(fs) {
+  const outline = buildPassingOutline(fs);
+  return assembleRead(outline, buildWriterProse(), fs.shape_directive, fs.site_url);
+}
+
+export { buildPassingOutline };

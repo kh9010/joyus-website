@@ -1,10 +1,15 @@
 // ---------------------------------------------------------------------------
 // MODEL CALL — Anthropic Messages API, structured output via a strict tool.
 //
-// The read comes back as a `tool_use` block whose `input` is already the v4
-// object: `strict: true` plus a forced `tool_choice` means the API validates
-// the shape before we ever see it, so the validator only has to argue about
-// content. A text block is still parsed as a fallback, because a refusal or a
+// Each stage's output comes back as a `tool_use` block whose `input` is already
+// the right shape: `strict: true` plus a forced `tool_choice` means the API
+// validates the shape before we ever see it, so the validators only have to
+// argue about content.
+//
+// v5 makes the tool per-call rather than per-module: the same caller runs the
+// outline stage and the writer stage, with different names, schemas and token
+// budgets. Everything else here — the refusal branch, the text-block fallback,
+// the cache breakpoint, the cost estimate — is shared by both. A text block is still parsed as a fallback, because a refusal or a
 // max_tokens truncation can leave us without a tool_use block and we would
 // rather record that as a violation than throw.
 //
@@ -18,10 +23,24 @@
 // and `temperature`/`top_p` are rejected — none of them appear below.
 // ---------------------------------------------------------------------------
 
-import { TOOL_INPUT_SCHEMA } from './analysisPrompt.js';
-
 export const MODEL = 'claude-sonnet-5';
 export const MAX_TOKENS = 16000;
+
+// The outline is the big object — findings, ledger, plan, truth pass. The
+// writer emits 250-400 words of prose plus a thin wrapper.
+export const OUTLINE_MAX_TOKENS = 16000;
+export const WRITER_MAX_TOKENS = 4000;
+
+export const OUTLINE_CALL = {
+  toolName: 'emit_outline',
+  description: 'Emit the structured outline. Claims only, no rendered prose.',
+  maxTokens: OUTLINE_MAX_TOKENS,
+};
+export const WRITER_CALL = {
+  toolName: 'emit_prose',
+  description: 'Emit the rendered prose. Every field here is text the reader will see.',
+  maxTokens: WRITER_MAX_TOKENS,
+};
 
 // Standard Sonnet 5 rates, $/MTok. Used only to estimate spend against the
 // daily cap — deliberately the standard rate, not the promotional one, so the
@@ -29,8 +48,6 @@ export const MAX_TOKENS = 16000;
 const PRICE_IN = 3.0;
 const PRICE_OUT = 15.0;
 const PRICE_CACHE_READ = 0.3;
-
-const TOOL_NAME = 'emit_read';
 
 export function estimateCostUsd(usage) {
   if (!usage) return 0;
@@ -52,13 +69,14 @@ function stripFence(raw) {
 }
 
 /**
- * @returns {(system:string,user:string)=>Promise<{output:object|null,raw:string,parseError:string|null,usage:object|null,stopReason:string|null}>}
+ * @returns {(system:string,user:string,call:{toolName:string,description:string,schema:object,maxTokens?:number})
+ *   =>Promise<{output:object|null,raw:string,parseError:string|null,usage:object|null,stopReason:string|null}>}
  */
 export function makeClaudeCaller(apiKey, options = {}) {
   const model = options.model || MODEL;
   const fetchImpl = options.fetchImpl || fetch;
 
-  return async function callModel(system, user) {
+  return async function callModel(system, user, call) {
     const res = await fetchImpl('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -68,22 +86,22 @@ export function makeClaudeCaller(apiKey, options = {}) {
       },
       body: JSON.stringify({
         model,
-        max_tokens: MAX_TOKENS,
-        // The 39KB analysis prompt is byte-identical on every request and on
-        // both repair attempts, so it is worth a cache breakpoint.
+        max_tokens: call.maxTokens || MAX_TOKENS,
+        // Each system prompt is byte-identical across its own attempts, and the
+        // outline prompt is byte-identical across every read, so the breakpoint
+        // earns more here than it did with one call.
         system: [{ type: 'text', text: system, cache_control: { type: 'ephemeral' } }],
         thinking: { type: 'adaptive' },
         output_config: { effort: 'high' },
         tools: [
           {
-            name: TOOL_NAME,
-            description:
-              'Emit the finished read as structured data. This is the only way to return a result; do not write the JSON as prose.',
+            name: call.toolName,
+            description: call.description,
             strict: true,
-            input_schema: TOOL_INPUT_SCHEMA,
+            input_schema: call.schema,
           },
         ],
-        tool_choice: { type: 'tool', name: TOOL_NAME },
+        tool_choice: { type: 'tool', name: call.toolName },
         messages: [{ role: 'user', content: user }],
       }),
     });
@@ -103,7 +121,7 @@ export function makeClaudeCaller(apiKey, options = {}) {
       return { output: null, raw: '', parseError: 'model declined the request (stop_reason: refusal)', usage, stopReason };
     }
 
-    const toolBlock = (data.content || []).find((b) => b.type === 'tool_use' && b.name === TOOL_NAME);
+    const toolBlock = (data.content || []).find((b) => b.type === 'tool_use' && b.name === call.toolName);
     if (toolBlock) {
       return { output: toolBlock.input, raw: JSON.stringify(toolBlock.input), parseError: null, usage, stopReason };
     }

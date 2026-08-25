@@ -1,0 +1,814 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "joyus_site_read_v5_3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "site_url",
+    "status",
+    "self_check"
+  ],
+  "description": "THE ASSEMBLED READ - what the front end receives. It is v4-shaped on purpose so site-read.js needs no change. It is NOT what the writer model emits. The writer emits prose only (the properties marked x_source: 'writer'); everything marked x_source: 'graft' is copied into this object by the pipeline straight from the pass-1 outline, which is what guarantees the evidence cards say exactly what perception said they say. Structural facts (fetch record, link inventory, block order, embedded feeds, first-screen headline) are pass-1 INPUTS and are never re-emitted here. Truth checks (speaker, character-exact quotes, the absence gate, proper-noun and number grounding) live in the OUTLINE's truth_check, because perception owns truth. NEW IN 5.2 - the writer renders outline.render_plan[] EXACTLY: one prose unit per plan entry, in plan order, and a sentence not traceable to an entry is deleted. 5.1 ledgered the analysis nodes and still shipped reads stating their core claim four to five times, because the writer's template carried three slots the ledger never saw: a bolded consequence line, a penultimate synthesis line, and a closing kicker. Consequently one_cut is REMOVED (a slot that synthesizes findings is recap by construction), there is no closing unit (the read ends on the bridge's named change), the bold line is the plan's designated entry rather than a free sentence, and lane_verdicts[].evidence renders one plan entry rather than a claim plus an always-present consequence. shape_directive_used drops cut_shape and gains a fourth opening shape, 'named_fact', so at least one read in a batch opens on an exhibit. self_check gains the batch-level frame ledger (three unrelated reads shipped one opener frame and one closer frame between them) and a COMPUTED sentence-gate record, because a read shipped at an average of 19.44 words against an 18-word ceiling.",
+  "x_writer_emits": [
+    "status",
+    "opening.text",
+    "skim_read.positioning_legibility.observation",
+    "skim_read.tangibles.observation",
+    "skim_read.entry_point.observation",
+    "skim_read.delivered_vs_handheld.observation",
+    "gap.what_you_have",
+    "gap.what_a_stranger_gets",
+    "lane_verdicts[].finding_id",
+    "lane_verdicts[].evidence",
+    "lane_verdicts[].bold_line",
+    "strongest_true_thing.text",
+    "bridge.text",
+    "bridge.concrete_anchor",
+    "decline.observation",
+    "decline.redirect",
+    "self_check.prompt_leak_scan_done",
+    "self_check.no_new_facts_introduced",
+    "self_check.findings_used_once",
+    "self_check.plan_rendered_exactly",
+    "self_check.nothing_after_bridge",
+    "self_check.bold_only_where_planned",
+    "self_check.ledger_claims_used_once",
+    "self_check.no_derived_numbers",
+    "self_check.dates_rendered_whole",
+    "self_check.no_inferred_destinations",
+    "self_check.labels_rendered_verbatim",
+    "self_check.site_quantifiers_preserved",
+    "self_check.sentence_gate",
+    "self_check.frames_declared",
+    "self_check.shape_conflict",
+    "self_check.ledger_override"
+  ],
+  "definitions": {
+    "exhibit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page",
+        "speaker"
+      ],
+      "description": "GRAFTED FROM THE OUTLINE, never authored by the writer. One piece of evidence, attributed to a page and a speaker. Exactly one of quote or reference is non-null. A menu label, section heading, URL slug, image filename, or alt text is never a valid exhibit.",
+      "properties": {
+        "page": {
+          "type": "string",
+          "description": "Page label from the fetch record with fetched=true. Skim exhibits carry the homepage label."
+        },
+        "quote": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 300,
+          "description": "Character-for-character substring of that page's text, verified in pass 1."
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 300,
+          "description": "Concrete named reference used when no verbatim quote is available."
+        },
+        "speaker": {
+          "type": "string",
+          "description": "Who says this on the page, established in pass 1 from the twenty words before the quote. 'owner' only when the surrounding text establishes it."
+        },
+        "block_index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "first_screen",
+            "body",
+            "footer",
+            "embedded_feed",
+            "image_block",
+            null
+          ]
+        }
+      }
+    },
+    "skim_item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation",
+        "exhibit"
+      ],
+      "properties": {
+        "observation": {
+          "type": "string",
+          "maxLength": 240,
+          "x_source": "writer",
+          "description": "ONE observation rendering ONE render_plan entry: a single sentence, UNDER THIRTY WORDS, free-standing second person prose. Fact and consequence in the SAME sentence - splitting them into two rebuilds the consequence slot 5.2 removed. Never two claims fused into one element: the renderer breaks elements into paragraphs and a fused element renders as an unskimmable run-on. No label prefix, and no grade on its own dimension ('legible', 'unclear', 'vibes-only')."
+        },
+        "exhibit": {
+          "$ref": "#/definitions/exhibit",
+          "x_source": "graft"
+        }
+      }
+    },
+    "lane_name": {
+      "type": "string",
+      "enum": [
+        "spine_story",
+        "website_sequencing",
+        "credibility_surface",
+        "short_form_social",
+        "long_form_writing",
+        "publishing_rhythm"
+      ]
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "5.3",
+      "x_source": "graft"
+    },
+    "site_url": {
+      "type": "string",
+      "x_source": "graft"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "read",
+        "decline_product_company",
+        "decline_thin",
+        "decline_unfetchable"
+      ],
+      "x_source": "writer",
+      "description": "Copied from the outline's status. The writer never re-gates — it has not seen the site."
+    },
+    "shape_directive_used": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "x_source": "graft",
+      "description": "REQUIRED (non-null) when status is 'read'. Grafted from the pipeline's own shape_directive input rather than echoed by the model, which removes the entire class of echo-mismatch repairs v4 spent retries on. cut_shape is GONE in 5.2 along with the cut itself. opening_shape gains 'named_fact' - the exhibit-first opener - because an audit of three reads found all three opening on a description of the front page in one shared frame; at least one read per batch should be assigned it. The writer still records a shape_conflict when a directed shape could not be made true by the outline.",
+      "required": [
+        "opening_shape",
+        "bridge_move"
+      ],
+      "properties": {
+        "opening_shape": {
+          "type": "string",
+          "enum": [
+            "stranger_result",
+            "first_screen_quote",
+            "front_door_function",
+            "named_fact"
+          ],
+          "description": "'first_screen_quote' is valid ONLY when outline.first_screen.headline_on_first_screen is true; when that flag is false the first heading sits in a lower section and is not what a visitor meets. 'named_fact' opens on the strongest concrete thing the site names, from outline.gap.named_facts[], then the arrival claim."
+        },
+        "bridge_move": {
+          "type": "string",
+          "enum": [
+            "scale_of_change",
+            "page_that_must_move",
+            "what_a_stranger_cannot_do"
+          ]
+        }
+      }
+    },
+    "decline": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "Populated ONLY when status is a decline. A decline is never a dead end: one true observation, one honest redirect, second person from the first sentence. TOTAL 25-50 WORDS. No pitch, no engagement named, no verdicts. For decline_unfetchable specifically: no status codes, no server behaviour, no firewall or bot-blocker language, no configuration advice — nothing technical and nothing implying the owner's site did something wrong.",
+      "required": [
+        "observation",
+        "redirect"
+      ],
+      "properties": {
+        "observation": {
+          "type": "string",
+          "x_source": "writer",
+          "description": "Rendered from outline.decline_material.observation_claim."
+        },
+        "redirect": {
+          "type": "string",
+          "x_source": "writer",
+          "description": "Rendered from outline.decline_material.redirect_claim. Never a CTA, never an invitation to book, never a diagnosis."
+        },
+        "exhibit": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/exhibit"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "x_source": "graft"
+        }
+      }
+    },
+    "opening": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED (non-null) when status is 'read'. Renders render_plan entry 'opening'. Sentence one of the rendered read IS this field - never a skim label, never a dimension name. Nothing precedes it. 'you' or 'your' MUST appear in it. It states the ARRIVAL CLAIM, once, and no later sentence may restate it. BANNED FRAMES, every read: any variant of 'your homepage opens on' / 'your front page opens on' / 'your site opens on', and any variant of 'fifteen seconds on your homepage buys'. Both shipped across unrelated practitioners. The opening must also avoid every frame listed in the input's frames_in_use.opening_frames[], and its own frame is declared abstracted in self_check.frames_declared.",
+      "required": [
+        "text",
+        "shape"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "x_source": "writer"
+        },
+        "shape": {
+          "type": "string",
+          "enum": [
+            "stranger_result",
+            "first_screen_quote",
+            "front_door_function",
+            "named_fact"
+          ],
+          "x_source": "graft",
+          "description": "Equals shape_directive_used.opening_shape."
+        }
+      }
+    },
+    "skim_read": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. TWO OR THREE populated keys, never four — the read lands at 250-400 words and each observation costs about thirty. One key per outline skim claim, matched by dimension. Every claim was scored against the homepage alone in pass 1; the writer may not move one onto another page.",
+      "required": [
+        "first_screen_headline_used",
+        "positioning_legibility"
+      ],
+      "properties": {
+        "first_screen_headline_used": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x_source": "graft",
+          "description": "Grafted from outline.first_screen.headline_verbatim. Null only when pass 1 reported a wordless first screen, in which case positioning_legibility names what is actually there."
+        },
+        "positioning_legibility": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/skim_item"
+            }
+          ],
+          "description": "Required, never null. Its observation must contain the verbatim first_screen_headline_used string when that field is non-null AND outline.first_screen.headline_on_first_screen is true. When that flag is false the heading sits in a lower section: the observation names what is actually on the first screen and may refer to the heading only as the page's first heading, in its own section."
+        },
+        "tangibles": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/skim_item"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "entry_point": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/skim_item"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "delivered_vs_handheld": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/skim_item"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "gap": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. Renders two render_plan entries: 'gap.named_facts' (CLAIM-FREE CHROME - the names, recited, the one unit in the read that may state facts without drawing a consequence) and 'gap.what_a_stranger_gets'. Appears exactly ONCE, between the skim read and the verdicts. The have/get pairing is never repeated per finding.",
+      "required": [
+        "what_you_have",
+        "what_a_stranger_gets",
+        "named_facts"
+      ],
+      "properties": {
+        "what_you_have": {
+          "type": "string",
+          "x_source": "writer",
+          "description": "Built ONLY from the grafted named_facts. Unlabeled second person. Must NOT open on 'You have' — open on the strongest named fact itself. If the outline gave few names, say so plainly rather than padding."
+        },
+        "what_a_stranger_gets": {
+          "type": "string",
+          "x_source": "writer",
+          "description": "Rendered from outline.gap.what_a_stranger_gets_claim."
+        },
+        "named_facts": {
+          "type": "array",
+          "minItems": 0,
+          "x_source": "graft",
+          "description": "GRAFTED WHOLE from outline.gap.named_facts. Proof-of-work against invention, verified in pass 1: one fact, one sentence, each traceable to a single verbatim sentence on a single page. The writer never adds to this array and never joins two entries into one credential.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "fact",
+              "page",
+              "source_sentence"
+            ],
+            "properties": {
+              "fact": {
+                "type": "string"
+              },
+              "page": {
+                "type": "string"
+              },
+              "source_sentence": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "lane_selection": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "x_source": "graft",
+      "description": "GRAFTED WHOLE from the outline. chosen[] is the findings' lanes in finding order; rejected[] names every lane not run with a site-specific reason. Two practitioners in different fields receiving the same lanes in the same order is the signature of a template.",
+      "required": [
+        "chosen",
+        "rejected"
+      ],
+      "properties": {
+        "chosen": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/definitions/lane_name"
+          },
+          "description": "Ordered by strength of evidence, strongest first. Must match lane_verdicts order exactly."
+        },
+        "rejected": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "lane",
+              "reason",
+              "surfaces_searched"
+            ],
+            "properties": {
+              "lane": {
+                "$ref": "#/definitions/lane_name"
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "surfaces_searched": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "lane_verdicts": {
+      "type": "array",
+      "description": "3-5 entries when status is 'read'; empty array otherwise. ONE ENTRY PER OUTLINE FINDING, in outline order - none missing, none doubled. Order must match lane_selection.chosen. In 5.2 each entry renders the finding's 'f<N>.claim' plan entry into evidence, plus - ONLY where the plan carries an 'f<N>.consequence' entry - that entry as a second sentence, or as bold_line where the plan marked it bold. Most findings have no consequence entry: the outline ran the entailment test and deleted every consequence its own claim already contained, because rendering those produced a second sentence saying the first sentence again.",
+      "minItems": 0,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "lane",
+          "verdict",
+          "evidence"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "pattern": "^f[1-5]$",
+            "x_source": "writer",
+            "description": "The outline finding this unit renders. The pipeline grafts lane, verdict, exhibit, buried_on and searched by this id, so a wrong id is a wrong evidence card and is caught by the containment check."
+          },
+          "lane": {
+            "$ref": "#/definitions/lane_name",
+            "x_source": "graft"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "TRANSMISSION",
+              "DOCUMENTATION",
+              "ABSENT"
+            ],
+            "x_source": "graft",
+            "description": "Decided in pass 1. TRANSMISSION requires the exhibit on the homepage or one deliberate click from it. A lane whose only support is a menu label, section heading, or alt text is ABSENT. ABSENT is a first-class verdict, never loose prose and never a dropped row."
+          },
+          "exhibit": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/exhibit"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "x_source": "graft",
+            "description": "Null only when verdict is ABSENT."
+          },
+          "buried_on": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "x_source": "graft",
+            "description": "Present when verdict is DOCUMENTATION: the page the material sits on. The writer names it by its EXACT label, plainly and once, never as a description ('Learning', not 'the page built for field notes'), and never builds the sentence around how far away it is."
+          },
+          "searched": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "x_source": "graft",
+            "description": "Present when verdict is ABSENT: the surfaces searched in pass 1, which the writer restates in the reader's terms."
+          },
+          "evidence": {
+            "type": "string",
+            "maxLength": 400,
+            "x_source": "writer",
+            "description": "Renders this finding's 'f<N>.claim' plan entry - ONE sentence, second person, prose that sounds like a person noticing something rather than a row being read out. A SECOND sentence is permitted only when the plan carries an 'f<N>.consequence' entry that is not marked bold. Introduces no fact, quote, number, label or proper noun that is not in the outline, and never paraphrases a page label the outline gave literally. No house cadences (see the writer prompt's VOICE section)."
+          },
+          "bold_line": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "x_source": "writer",
+            "description": "The line that lands - and in 5.2 it is NOT a free sentence. It renders the single render_plan entry with bold:true, which is always an 'f<N>.consequence' entry named by outline.bold_designation.claim_owner. Standalone second-person sentence, never inline in evidence, under fifteen words where possible. Null on every other finding. The writer never bolds an entry the plan did not mark and never writes a second bold sentence: a free slot beside a finding fills itself with that finding restated in heavier type, which is louder than the duplicate it repeats and therefore worse."
+          }
+        }
+      }
+    },
+    "strongest_true_thing": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED (non-null) when NO lane verdict is TRANSMISSION; null otherwise, and present exactly when the outline carries one. Renders INSIDE the body of the read, not as a footnote and not as a hidden field. One sentence naming the strongest thing the site genuinely does carry. Not a compliment and not a cushion. A read that only ever finds fault stops reading like perception and starts reading like a funnel.",
+      "required": [
+        "text",
+        "exhibit"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "x_source": "writer"
+        },
+        "exhibit": {
+          "$ref": "#/definitions/exhibit",
+          "x_source": "graft"
+        }
+      }
+    },
+    "coverage": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "x_source": "graft",
+      "description": "GRAFTED WHOLE from the outline. CHROME, NOT PROSE — the page renders this as one line beneath the read and it does not count toward the word budget. No sentence anywhere in the rendered prose may take another part of the read as its subject.",
+      "required": [
+        "lanes_examined",
+        "lanes_total",
+        "not_examined"
+      ],
+      "properties": {
+        "lanes_examined": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 5
+        },
+        "lanes_total": {
+          "const": 6
+        },
+        "not_examined": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "lane",
+              "reason"
+            ],
+            "properties": {
+              "lane": {
+                "$ref": "#/definitions/lane_name"
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 80
+              }
+            }
+          }
+        },
+        "unfetched_pages": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "bridge": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read', and THE LAST SENTENCE OF THE READ. Renders the 'bridge' plan entry: ONE sentence naming a change, built from the field in outline.bridge_material matching the assigned move. Nothing follows it - no summary, no reprise, no closing line, no sentence returning to the opening. A bridge that only restates a finding is rejected: that is the kicker 5.2 removed, wearing the bridge's name. Never CTA copy. Names no package, duration, price, deliverable count, or the word Joyus. Banned shapes: 'the difference between a site that X and one that Y'; 'you already have X - what is missing is Y'; the 'it means' pivot in every variation; the self-announcing scale line; and '[nobody / a visitor] cannot X without Y', which shipped as the closer of three unrelated reads. The bridge must also avoid every frame in the input's frames_in_use.bridge_frames[].",
+      "required": [
+        "text",
+        "move",
+        "concrete_anchor"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "x_source": "writer"
+        },
+        "move": {
+          "type": "string",
+          "enum": [
+            "scale_of_change",
+            "page_that_must_move",
+            "what_a_stranger_cannot_do"
+          ],
+          "x_source": "graft",
+          "description": "Equals shape_directive_used.bridge_move. Rotated precisely because 'page_that_must_move' is the move every model drifts into; a bridge containing any variant of moving something to the front page while that move was not assigned is returned for repair."
+        },
+        "concrete_anchor": {
+          "type": "string",
+          "x_source": "writer",
+          "description": "One string chosen from outline.bridge_material.concrete_anchor_candidates. This exact string MUST appear literally inside bridge.text; a bridge naming nothing concrete is rejected."
+        }
+      }
+    },
+    "self_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "ONLY what the WRITER can honestly assert. Truth checks - speaker, character-exact quotes, the absence gate, proper-noun and number grounding, one-credential-one-sentence - are deliberately absent: they belong to pass 1, the only pass that saw the site. What is here is the class of check no validator can make - whether a number was derived or moved onto another noun, whether a ledger claim was restated in fresh vocabulary, whether a date lost a component, whether a label was paraphrased - plus three things 5.2 added because they failed in production: plan_rendered_exactly (the un-ledgered sentence slots), frames_declared (three reads, one opener frame and one closer frame between them), and sentence_gate. The sentence gate numbers are NOT trusted as a report: the validator recomputes them and a mismatch is itself a failure. They are required as a forcing function, because a read shipped at an average of 19.44 words against an 18-word ceiling and 'it reads fine' was the only check that had been run.",
+      "required": [
+        "prompt_leak_scan_done",
+        "no_new_facts_introduced",
+        "findings_used_once",
+        "plan_rendered_exactly",
+        "ledger_claims_used_once",
+        "no_derived_numbers",
+        "dates_rendered_whole",
+        "no_inferred_destinations",
+        "labels_rendered_verbatim",
+        "site_quantifiers_preserved",
+        "sentence_gate",
+        "frames_declared",
+        "nothing_after_bridge",
+        "bold_only_where_planned"
+      ],
+      "properties": {
+        "prompt_leak_scan_done": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "The rendered prose was scanned against the writer instructions for any run of five or more consecutive words, and every hit was rewritten from the outline."
+        },
+        "no_new_facts_introduced": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "Every proper noun, number, date, page label and quoted string in the prose was located in the outline. Anything else was deleted or replaced with the generic version the outline supports."
+        },
+        "findings_used_once": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "One prose unit per outline finding, in outline order, none missing and none doubled; the bridge restates none of them. Superseded in strictness by plan_rendered_exactly, which covers every unit rather than only the findings."
+        },
+        "shape_conflict": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "x_source": "writer",
+          "description": "Null in the normal case. Non-null ONLY when an assigned shape could not be made true by the outline - a first-screen-quote opening where outline.first_screen.headline_on_first_screen is false, or where the front door is wordless. The strongest true version was written anyway; this exists so the rotation can be corrected upstream and is never a licence to substitute a preferred shape. A cut omitted is no longer possible: there is no cut in 5.2.",
+          "required": [
+            "slot",
+            "assigned",
+            "why_it_could_not_be_made_true"
+          ],
+          "properties": {
+            "slot": {
+              "type": "string",
+              "enum": [
+                "opening",
+                "bridge"
+              ]
+            },
+            "assigned": {
+              "type": "string"
+            },
+            "why_it_could_not_be_made_true": {
+              "type": "string"
+            }
+          }
+        },
+        "ledger_claims_used_once": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "Every claim in the outline's claim_ledger[] appears in exactly one sentence - the sentence rendering its owner plan entry - or in none, where that entry was not rendered. Restating sentences were DELETED, not rephrased: rephrasing is what produced five sentences in five vocabularies saying one thing. The test applied was entailment, not shared vocabulary, and it was run hardest on ADJACENT sentences - a finding and the bold line beside it, the bridge and the finding above it - because that is where every shipped duplicate lived."
+        },
+        "no_derived_numbers": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "No number in the prose was produced by combining outline facts - no summing, subtracting, averaging or spanning two durations into a third - AND no number was moved onto a different noun than the outline attached it to ('five works, each with its funders named' is not 'five funded residencies'), AND no number was counted by the writer, pages included ('not on any of its five pages' is the writer counting nav labels; write 'not on any page'). This is the fabrication that looks like a credential and the owner catches first, because they know their own history."
+        },
+        "dates_rendered_whole": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "Every date carries every component the outline supplied, years included — 'May 10' where the outline said 'May 10, 2026' asserts something different. No sentence frames a date set as forward-running (upcoming, coming, still to come, out to, running forward through the year) unless every date named in it is in the future."
+        },
+        "ledger_override": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "x_source": "writer",
+          "description": "Null in the normal case. Non-null when the claim ledger and the render plan disagreed - two plan entries landed on one claim, the later sentence was deleted, and an entry therefore went unrendered. The ledger wins that contest and this records it so the outline pass can be corrected upstream, because a strict bijection between ledger and plan means this should be unreachable.",
+          "required": [
+            "node_not_rendered",
+            "claim",
+            "why"
+          ],
+          "properties": {
+            "node_not_rendered": {
+              "type": "string",
+              "description": "The finding id or node name whose paragraph was deleted."
+            },
+            "claim": {
+              "type": "string",
+              "description": "The ledger claim both nodes landed on."
+            },
+            "why": {
+              "type": "string"
+            }
+          }
+        },
+        "plan_rendered_exactly": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "THE 5.2 CHECK. The draft was walked SENTENCE BY SENTENCE and each sentence was matched to the render_plan entry it renders. Every sentence has an entry; every entry has a sentence, in plan order, none doubled and none merged. Any sentence without an entry was DELETED, not reworded or relocated - that is what catches the consequence line restored by habit, the synthesis slipped in before the close, and the closing line that felt necessary. The last sentence of the read renders the 'bridge' entry and nothing follows it. The entry marked bold:true is in bold_line and no other sentence is bold."
+        },
+        "no_inferred_destinations": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "No sentence states where a link or button goes unless the outline supplied that destination. 'Learn More' was not mapped to an about page; three button labels did not become three destinations."
+        },
+        "labels_rendered_verbatim": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "Every page label, button label and offer name in the prose matches the outline's literal string. No descriptive paraphrase stands in for a label the outline gave ('Learning', never 'the page built for field notes'). The owner named that page, and a tool that renames it reads as one that did not look."
+        },
+        "site_quantifiers_preserved": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "No assertion carried from the site was softened or stripped of a quantifier. 'A decades-long lag between the rate of technological evolution and population-scale digital literacy' was not rewritten as 'the lag between how fast technology moves and how slowly people learn to use it'."
+        },
+        "sentence_gate": {
+          "type": "object",
+          "additionalProperties": false,
+          "x_source": "writer",
+          "description": "COMPUTED on the final draft, not estimated. Count the sentences, count the words, divide. Average must be 18 or fewer and at most one sentence may exceed 30 words. The only legal fix is SPLITTING AT THE APPOSITIVE into two sentences rendering the same one claim - never deleting a plan entry, never adding short sentences (which adds unplanned claims), never simplifying vocabulary. The validator recomputes these three numbers; a mismatch is a failure in its own right.",
+          "required": [
+            "sentence_count",
+            "word_count",
+            "average_words_per_sentence",
+            "sentences_over_30"
+          ],
+          "properties": {
+            "sentence_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "word_count": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Words in the rendered read. Coverage is chrome and does not count. Budget 250-400."
+            },
+            "average_words_per_sentence": {
+              "type": "number",
+              "maximum": 18,
+              "description": "word_count divided by sentence_count. Hard ceiling 18. A shipped read hit 19.44."
+            },
+            "sentences_over_30": {
+              "type": "integer",
+              "maximum": 1,
+              "description": "At most one. Not two, not three."
+            }
+          }
+        },
+        "frames_declared": {
+          "type": "object",
+          "additionalProperties": false,
+          "x_source": "writer",
+          "description": "THE BATCH-LEVEL LEDGER. The claim ledger stops one read repeating itself and does nothing about three reads repeating each other: an audit of three unrelated sites found one opener frame three times out of three and one closer frame three times out of three. The writer reads frames_in_use on input, may not reuse a frame listed there, and declares its own here so the pipeline can accumulate them across the batch. Declare the ABSTRACTED syntactic frame - the construction with content nouns replaced by placeholders. 'Your homepage opens on X and Y' becomes 'your <page> opens on <X> and <Y>'. 'A visitor cannot check a project without asking' becomes '<person> cannot <verb> <object> without <gerund>'. A frame declared with its nouns left in is a frame the next read will reuse.",
+          "required": [
+            "opening_frame",
+            "bridge_frame"
+          ],
+          "properties": {
+            "opening_frame": {
+              "type": "string",
+              "maxLength": 160,
+              "description": "Abstracted syntactic frame of sentence one."
+            },
+            "bridge_frame": {
+              "type": "string",
+              "maxLength": 160,
+              "description": "Abstracted syntactic frame of the final sentence."
+            }
+          }
+        },
+        "nothing_after_bridge": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "The last sentence of the rendered read renders the plan's 'bridge' entry, and NOTHING follows it — no summary, no reprise, no kicker, no line returning to the opening. Checked by walking the draft from the end, not from memory."
+        },
+        "bold_only_where_planned": {
+          "type": "boolean",
+          "const": true,
+          "x_source": "writer",
+          "description": "Bold formatting appears in exactly one place in the whole read: the bold_line of the finding whose consequence entry carries bold:true in the plan. No other sentence, clause or phrase anywhere in the prose is bolded, and no restatement of the bolded claim was added beside it."
+        }
+      }
+    }
+  }
+}

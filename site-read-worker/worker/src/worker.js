@@ -12,15 +12,17 @@
 //   4. fetch + extract           — deterministic, no model involved
 //   5. pre-model gate            — unfetchable and thin are answers we already
 //                                  have; paying a model to reach them is waste
-//   6. model + validate + repair — the only step that can fail expensively
-//   7. store under a slug        — every outcome gets a permalink, declines too
+//   6. outline + validate + repair — perception; a broken outline never
+//                                   reaches the writer
+//   7. writer + validate + contain  — prose, off the frozen outline alone
+//   8. store under a slug        — every outcome gets a permalink, declines too
 //
 // Bindings: READS (KV namespace), ANTHROPIC_API_KEY (secret).
 // ---------------------------------------------------------------------------
 
 import { buildFactSheet, normalizeInputUrl } from './factSheet.js';
 import { makeClaudeCaller, estimateCostUsd } from './model.js';
-import { runWithRepair } from './repairLoop.js';
+import { runTwoPass } from './repairLoop.js';
 import { checkRateLimit, checkSpendCap, recordSpend, putRead, getRead, newSlug } from './store.js';
 import { logSubmission } from './submissionLog.js';
 import { SCHEMA_VERSION } from './types.js';
@@ -125,13 +127,19 @@ async function handleRead(request, env, ctx) {
     meta = { attempts: 0, outcome: 'gated_before_model', gate, gate_signals: gateSignals, fetch_record: factSheet.fetch_record };
   } else {
     const callModel = makeClaudeCaller(env.ANTHROPIC_API_KEY, { model: env.MODEL });
-    const result = await runWithRepair(factSheet, callModel);
+    // The directive is already folded into the fact sheet for the operator log,
+    // but stage B needs it as its own value: the writer's user turn carries the
+    // directive and never the fact sheet.
+    const shapeDirective = factSheet.shape_directive;
+    const result = await runTwoPass(factSheet, shapeDirective, callModel);
     const cost = result.usages.reduce((n, u) => n + estimateCostUsd(u), 0);
     ctx.waitUntil(recordSpend(env.READS, cost));
 
     read = result.output;
     meta = {
       attempts: result.attempts,
+      outline_attempts: result.outlineAttempts,
+      writer_attempts: result.writerAttempts,
       outcome: result.status,
       gate,
       gate_signals: gateSignals,
@@ -140,10 +148,21 @@ async function handleRead(request, env, ctx) {
       estimated_cost_usd: Math.round(cost * 10000) / 10000,
     };
     if (result.status === 'fail_safe') {
-      // Never shown to the visitor; this is the operator's copy of why.
+      // Never shown to the visitor; this is the operator's copy of why. The
+      // stage is named because a broken outline and a broken paragraph are
+      // different problems with different fixes.
+      const codesOf = (list) => list.map((d) => ({ attempt: d.attempt, codes: d.violations.map((x) => x.code) }));
       console.log(
         '[fail-safe]',
-        JSON.stringify({ site_url: siteUrl, violations: result.finalViolations, diagnostics: result.internalDiagnostics.map((d) => ({ attempt: d.attempt, codes: d.violations.map((x) => x.code) })) }),
+        JSON.stringify({
+          site_url: siteUrl,
+          failed_stage: result.failedStage,
+          violations: result.finalViolations,
+          diagnostics: {
+            outline: codesOf(result.internalDiagnostics.outline),
+            prose: codesOf(result.internalDiagnostics.prose),
+          },
+        }),
       );
     }
   }

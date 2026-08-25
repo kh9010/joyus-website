@@ -1,9 +1,15 @@
 // ---------------------------------------------------------------------------
 // VALIDATOR — deterministic, post-model. Nothing here is a judgment call.
 // Every check is a count, a set comparison, or a literal substring test, and
-// each maps to a specific line of v4-analysis-prompt.md.
+// each maps to a specific line of ../analysis-prompt-writer.md.
 //
-// v4 splits the labour explicitly: "Mechanical limits on your output — quote
+// In v5 this validates the ASSEMBLED read — the writer's prose grafted onto the
+// outline's evidence. Everything about the outline is checked in
+// outlineValidator.js against the fact sheet, before the writer ever runs, and
+// everything about the prose against the outline is checked in containment.js.
+// This file owns the mechanical limits on the rendered prose.
+//
+// The prompt splits the labour explicitly: "Mechanical limits on your output — quote
 // counts, sentence lengths, antithesis caps, banned strings, word count — are
 // checked by a validator after you emit." This file is that validator, so the
 // model can spend its whole final pass on whether the sentences are TRUE.
@@ -56,7 +62,7 @@ const BANNED_IN_BRIDGE = [
   'it is the difference between', "it's the difference between", 'you already have',
 ];
 
-const NUMBER_WORDS = {
+export const NUMBER_WORDS = {
   three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10,
   eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16,
   seventeen: 17, eighteen: 18, nineteen: 19, twenty: 20,
@@ -111,9 +117,12 @@ function isRead(out) {
 }
 
 // --- rendered prose ---------------------------------------------------------
-// Exactly what v4's LENGTH section says renders: opening, skim observations,
-// gap block, lane evidence, strongest_true_thing, bold line, one cut, bridge.
-// Coverage is chrome and is deliberately NOT included.
+// Exactly what the render plan lists: opening, skim observations, gap block,
+// lane evidence, the one bold line, strongest_true_thing, bridge — in plan
+// order, and NOTHING after the bridge. Coverage is chrome and is deliberately
+// not included. There is no one_cut: the synthesis slot was removed in 5.2,
+// because a sentence built to draw together what came before cannot do anything
+// but repeat it.
 
 export function assembleRenderedProse(out) {
   if (!out) return '';
@@ -137,7 +146,6 @@ export function assembleRenderedProse(out) {
     if (lv.bold_line) parts.push(lv.bold_line);
   }
   if (out.strongest_true_thing && out.strongest_true_thing.text) parts.push(out.strongest_true_thing.text);
-  if (out.one_cut && out.one_cut.text) parts.push(out.one_cut.text);
   if (out.bridge && out.bridge.text) parts.push(out.bridge.text);
   return parts.join(' ');
 }
@@ -147,7 +155,7 @@ export function assembleRenderedProse(out) {
 function checkStatusAndPresence(out, violations) {
   // 'decline_incomplete' is pipeline-only: it is not in the model's tool schema,
   // so the model cannot emit it. It is the fail-safe's status, and it is
-  // validated here so the fail-safe copy is held to the same 40-70 word rule.
+  // validated here so the fail-safe copy is held to the same 25-50 word rule.
   const valid = ['read', 'decline_product_company', 'decline_thin', 'decline_unfetchable', 'decline_incomplete'];
   if (!out || typeof out !== 'object') {
     v(violations, 'not_an_object', 'Model output is not a JSON object.');
@@ -170,8 +178,8 @@ function checkStatusAndPresence(out, violations) {
       return;
     }
     const wc = wordCount(`${out.decline.observation} ${out.decline.redirect}`);
-    if (wc < 40 || wc > 70) {
-      v(violations, 'decline_word_count_out_of_range', `Decline is ${wc} words; must be 40-70.`, 'decline');
+    if (wc < 25 || wc > 50) {
+      v(violations, 'decline_word_count_out_of_range', `Decline is ${wc} words; must be 25-50.`, 'decline');
     }
     if (out.status === 'decline_unfetchable') {
       const diag = /\b(status code|http|403|404|500|firewall|bot|blocker|server|dns|ssl|certificate|cloudflare|robots)\b/i;
@@ -182,7 +190,7 @@ function checkStatusAndPresence(out, violations) {
     return;
   }
 
-  for (const field of ['opening', 'skim_read', 'gap', 'lane_selection', 'coverage', 'one_cut', 'bridge', 'self_check']) {
+  for (const field of ['opening', 'skim_read', 'gap', 'lane_selection', 'coverage', 'bridge', 'self_check']) {
     if (out[field] === null || out[field] === undefined) {
       v(violations, 'missing_required_block', `"${field}" is required when status is "read".`, field);
     }
@@ -202,7 +210,7 @@ function checkShapeDirective(out, fs, violations) {
   if (!used) {
     v(violations, 'missing_shape_directive_used', 'shape_directive_used must echo the assigned directive.', 'shape_directive_used');
   } else {
-    for (const key of ['opening_shape', 'cut_shape', 'bridge_move']) {
+    for (const key of ['opening_shape', 'bridge_move']) {
       if (used[key] !== want[key]) {
         v(violations, 'shape_directive_not_echoed', `shape_directive_used.${key} is "${used[key]}"; assigned "${want[key]}".`, 'shape_directive_used');
       }
@@ -211,9 +219,6 @@ function checkShapeDirective(out, fs, violations) {
   const conflictSlot = out.self_check && out.self_check.shape_conflict ? out.self_check.shape_conflict.slot : null;
   if (out.opening && out.opening.shape !== want.opening_shape && conflictSlot !== 'opening') {
     v(violations, 'opening_shape_mismatch', `opening.shape is "${out.opening.shape}"; the assigned opening shape is "${want.opening_shape}".`, 'opening');
-  }
-  if (out.one_cut && out.one_cut.shape !== want.cut_shape && conflictSlot !== 'one_cut') {
-    v(violations, 'cut_shape_mismatch', `one_cut.shape is "${out.one_cut.shape}"; the assigned cut shape is "${want.cut_shape}".`, 'one_cut');
   }
   if (out.bridge && out.bridge.move !== want.bridge_move && conflictSlot !== 'bridge') {
     v(violations, 'bridge_move_mismatch', `bridge.move is "${out.bridge.move}"; the assigned bridge move is "${want.bridge_move}".`, 'bridge');
@@ -277,6 +282,13 @@ function checkEvidence(out, fs, violations) {
   }
 
   if (out.skim_read) {
+    // Three thirty-word observations plus four forty-five-word finding units
+    // plus the fixed blocks does not fit inside 400 words at four.
+    const populated = ['positioning_legibility', 'tangibles', 'entry_point', 'delivered_vs_handheld']
+      .filter((k) => out.skim_read[k]);
+    if (populated.length > 3) {
+      v(violations, 'too_many_skim_observations', `${populated.length} skim observations; at most three at this budget.`, 'skim_read');
+    }
     for (const key of ['positioning_legibility', 'tangibles', 'entry_point', 'delivered_vs_handheld']) {
       const item = out.skim_read[key];
       if (!item) continue;
@@ -284,8 +296,8 @@ function checkEvidence(out, fs, violations) {
         required: key === 'positioning_legibility',
         homepageOnly: true,
       });
-      if (item.observation && wordCount(item.observation) > 40) {
-        v(violations, 'skim_observation_too_long', `skim_read.${key} is ${wordCount(item.observation)} words; each skim observation stays under 40.`, `skim_read.${key}`);
+      if (item.observation && wordCount(item.observation) > 30) {
+        v(violations, 'skim_observation_too_long', `skim_read.${key} is ${wordCount(item.observation)} words; each skim observation stays under 30.`, `skim_read.${key}`);
       }
     }
 
@@ -326,7 +338,13 @@ function checkEvidence(out, fs, violations) {
   }
 
   for (const [i, lv] of (out.lane_verdicts || []).entries()) {
-    checkExhibit(lv.exhibit, `lane_verdicts[${i}].exhibit`, maps, violations, { required: true });
+    // The schema allows a null exhibit on an ABSENT lane and the validator used
+    // to demand one on every lane — the two disagreed, and the schema is right.
+    // An ABSENT verdict that names the surfaces it searched has said everything
+    // it can: there is no sentence to quote, because that is the finding.
+    const absentWithSurfaces =
+      lv.verdict === 'ABSENT' && Array.isArray(lv.searched) && lv.searched.length > 0;
+    checkExhibit(lv.exhibit, `lane_verdicts[${i}].exhibit`, maps, violations, { required: !absentWithSurfaces });
   }
   if (out.strongest_true_thing) {
     checkExhibit(out.strongest_true_thing.exhibit, 'strongest_true_thing.exhibit', maps, violations, { required: true });
@@ -339,8 +357,8 @@ function checkLanes(out, violations) {
   const sel = out.lane_selection || {};
   const chosen = Array.isArray(sel.chosen) ? sel.chosen : [];
 
-  if (verdicts.length < 3 || verdicts.length > 4) {
-    v(violations, 'lane_count_out_of_range', `${verdicts.length} lanes returned; v4 allows three or four.`, 'lane_verdicts');
+  if (verdicts.length < 3 || verdicts.length > 5) {
+    v(violations, 'lane_count_out_of_range', `${verdicts.length} lanes returned; three to five.`, 'lane_verdicts');
   }
   const seen = new Set();
   for (const lv of verdicts) {
@@ -392,7 +410,9 @@ function checkLanes(out, violations) {
 
   const bold = verdicts.filter((lv) => lv.bold_line).map((lv) => lv.bold_line);
   if (bold.length < 1) v(violations, 'missing_bold_line', 'A read with zero bold lines is incomplete.', 'lane_verdicts');
-  if (bold.length > 2) v(violations, 'too_many_bold_lines', `${bold.length} bold lines; at most two.`, 'lane_verdicts');
+  if (bold.length > 1) {
+    v(violations, 'too_many_bold_lines', `${bold.length} bold lines; the plan marks exactly one entry bold and that entry's own sentence is it.`, 'lane_verdicts');
+  }
   if (bold.length && !bold.some((b) => wordCount(b) < 15)) {
     v(violations, 'no_short_bold_line', 'At least one bold line must be a standalone sentence under fifteen words.', 'lane_verdicts');
   }
@@ -444,10 +464,12 @@ function checkCoverage(out, fs, violations) {
   }
 }
 
-/** Every number in rendered prose must be re-derivable from the fact sheet.
- *  Grounded set = the explicit counts v4 tells the model to copy, plus years
- *  literally present in page text. Never the model's own self_check. */
-function checkNumbers(out, fs, prose, violations) {
+/** The set of numbers a claim may carry: the explicit counts the prompt tells
+ *  the model to copy, plus years literally present in page text. Never the
+ *  model's own self_check — folding self-reported counts into the whitelist
+ *  means a model that writes "nine doors" in prose and 9 in self_check passes
+ *  its own fabrication guard. Shared with outlineValidator.js. */
+export function groundedNumbers(fs) {
   const inv = fs.link_inventory || {};
   const grounded = new Set();
   const add = (n) => { if (Number.isFinite(n)) grounded.add(Number(n)); };
@@ -467,6 +489,12 @@ function checkNumbers(out, fs, prose, violations) {
     for (const b of p.blocks || []) if (b.item_count !== undefined) add(b.item_count);
     for (const y of (p.text || '').match(/\b(19|20)\d{2}\b/g) || []) add(Number(y));
   }
+  return grounded;
+}
+
+/** Every number in rendered prose must be re-derivable from the fact sheet. */
+function checkNumbers(out, fs, prose, violations) {
+  const grounded = groundedNumbers(fs);
 
   const digits = (prose.match(/\b\d+\b/g) || []).map(Number);
   for (const n of digits) {
@@ -577,11 +605,6 @@ function checkCaps(out, prose, violations) {
         v(violations, 'opening_not_second_person', 'The opening sentence must address the owner as "you" or "your".', 'opening');
       }
     }
-    if (out.one_cut && out.one_cut.text) {
-      const terminal = count(out.one_cut.text, /[.!?]/g);
-      if (terminal !== 1) v(violations, 'one_cut_not_one_sentence', `one_cut has ${terminal} terminal punctuation marks; exactly one.`, 'one_cut');
-      if (/\n/.test(out.one_cut.text)) v(violations, 'one_cut_has_line_break', 'one_cut must be a single sentence with no line break.', 'one_cut');
-    }
     if (out.bridge && out.bridge.text) {
       if (!out.bridge.concrete_anchor) {
         v(violations, 'bridge_missing_anchor', 'bridge.concrete_anchor is required.', 'bridge');
@@ -589,35 +612,34 @@ function checkCaps(out, prose, violations) {
         v(violations, 'bridge_anchor_not_in_text', 'bridge.concrete_anchor must appear literally inside bridge.text.', 'bridge');
       }
     }
-    if (words < 350 || words > 600) {
-      v(violations, 'word_count_out_of_range', `The rendered read is ${words} words; it must land between 350 and 600.`);
+    if (words < 250 || words > 400) {
+      v(violations, 'word_count_out_of_range', `The rendered read is ${words} words; it must land between 250 and 400.`);
     }
   }
 }
 
-function checkSelfCheck(out, prose, violations) {
+function checkSelfCheck(out, violations) {
   if (!isRead(out)) return;
   const sc = out.self_check || {};
-  for (const key of ['quotes_speaker_checked', 'quotes_character_matched', 'placement_claims_from_block_order', 'numbers_copied_from_fact_sheet', 'prompt_leak_scan_done']) {
+  // The v4 keys about perception (quotes, speakers, placement, numbers) are
+  // gone from the read: the writer never saw the site and cannot attest to
+  // them. They live in the outline's truth_check and are checked there, against
+  // the fact sheet. What is left is what the writer alone can attest to.
+  //
+  // `negative_claims` is deliberately DELETED rather than ported. The absence
+  // gate ran in pass 1, against the CLAIM. Re-gating it here against a field
+  // the read does not carry is how a check quietly becomes a no-op that still
+  // looks like a check.
+  for (const key of [
+    'prompt_leak_scan_done',
+    'no_new_facts_introduced',
+    'findings_used_once',
+    'plan_rendered_exactly',
+    'nothing_after_bridge',
+    'bold_only_where_planned',
+  ]) {
     if (sc[key] === false) {
       v(violations, 'self_check_failed', `self_check.${key} is false; every one of these must be run before emitting.`, 'self_check');
-    }
-  }
-  if (ABSENCE_MARKERS.test(prose)) {
-    const claims = Array.isArray(sc.negative_claims) ? sc.negative_claims : [];
-    if (claims.length === 0) {
-      v(violations, 'absence_claim_without_scan', 'The read makes an absence claim with no scan record in self_check.negative_claims.', 'self_check.negative_claims');
-    }
-    for (const [i, c] of claims.entries()) {
-      if (!Array.isArray(c.pages_scanned) || c.pages_scanned.length === 0) {
-        v(violations, 'negative_claim_missing_pages', `negative_claims[${i}] names no pages scanned.`, 'self_check.negative_claims');
-      }
-      if (!Array.isArray(c.search_terms) || c.search_terms.length === 0) {
-        v(violations, 'negative_claim_missing_terms', `negative_claims[${i}] names no search terms.`, 'self_check.negative_claims');
-      }
-      if (c.counterexample_found === true) {
-        v(violations, 'negative_claim_contradicted', `negative_claims[${i}] found a counterexample; the claim must be rewritten as a bounded observation or deleted.`, 'self_check.negative_claims');
-      }
     }
   }
 }
@@ -627,7 +649,9 @@ function checkSelfCheck(out, prose, violations) {
 /**
  * @param {object} out       Parsed model output.
  * @param {import('./types.js').FactSheet} fs
- * @param {string} promptText  The analysis prompt, for the exemplar-leak sweep.
+ * @param {string} promptText  The WRITER prompt, for the exemplar-leak sweep.
+ *                             Passing the outline prompt too would flag five-grams
+ *                             the writer never saw.
  * @returns {{ok:boolean, violations:import('./types.js').Violation[]}}
  */
 export function validate(out, fs, promptText) {
@@ -646,7 +670,7 @@ export function validate(out, fs, promptText) {
     checkBanned(out, prose, violations);
     checkPromptOverlap(prose, promptText, violations);
     checkCaps(out, prose, violations);
-    checkSelfCheck(out, prose, violations);
+    checkSelfCheck(out, violations);
   } catch (err) {
     v(violations, 'validator_crash', String((err && err.message) || err));
   }

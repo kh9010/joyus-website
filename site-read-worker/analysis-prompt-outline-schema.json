@@ -1,0 +1,970 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "joyus_site_read_outline_v5_3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "site_url",
+    "status",
+    "truth_check"
+  ],
+  "description": "PASS 1 OUTPUT - perception, not prose. Everything here is a CLAIM: one clause, flat, unstyled, no second person, no rhetorical shape. The writer pass receives this object and NOTHING ELSE (plus a shape directive, a batch frame ledger and a word budget), so anything omitted here cannot appear in the read and anything included here must be used. Perception owns truth: speaker checks, character-exact quotes, the absence gate, proper-noun grounding and number grounding all live in this schema's truth_check, because the writer never sees the site and cannot catch a false claim. NEW IN 5.2 - render_plan[]: the ordered list of output units, each bound to exactly one claim_ledger claim or explicitly marked claim-free chrome. 5.1 ledgered the ANALYSIS nodes and still shipped reads that stated their core claim four to five times, because the writer's template carried three sentence slots the ledger never saw: a bolded consequence line, a penultimate synthesis line, and a closing kicker. Every ledger entry came back 'unique' because the duplicating sentences were not ledger entries at all - the same shape, on three unrelated sites. render_plan closes it: the writer renders exactly this list and a sentence not traceable to an entry is deleted. Consequently one_cut_idea is REMOVED (a slot that synthesizes findings is recap by construction), the kicker is REMOVED (the read ends on the bridge's named change), findings[].why_it_matters is now NULLABLE and null whenever it is entailed by its own claim, and the bold line is a designated ledger claim's ONE occurrence rather than a free sentence. Carried forward from 5.1 unchanged: the entailment ledger, one-object-one-count with both nodes losing a disputed number, dates that carry their years, and empty inventory arrays read as missing data rather than as zero. Also new in 5.2: one-count-one-object (a count may not be re-attached to a different noun), labels used verbatim rather than paraphrased, no destination inferred from a button label, the site's own quantifiers preserved, no exhibit from a page that is not fetched:true, and headline_on_first_screen, which separates 'the page's first heading' from 'a heading on the first screen'.",
+  "definitions": {
+    "exhibit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "page",
+        "speaker"
+      ],
+      "description": "One piece of evidence, always attributed to a page and a speaker. Exactly one of quote or reference is non-null. A menu label, section heading, URL slug, image filename, or alt text is NEVER a valid exhibit. Exhibits are grafted into the final read by the pipeline verbatim — the writer never authors one. Every exhibit carrying a QUOTE also carries source_span: the full sentence that quote was lifted out of, verbatim. A quote is checkable only against the sentence it came from — a date range, an appointment, a title or a credential quoted as a fragment can be true of the fragment and false of the sentence, and nothing downstream can see the difference.",
+      "properties": {
+        "page": {
+          "type": "string",
+          "description": "Exact page label from the input fetch_record with fetched=true. Skim exhibits must use the homepage label."
+        },
+        "quote": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 300,
+          "description": "Character-for-character substring of that page's text. Never paraphrased, never reconstructed, never a slug or filename. Null when using reference."
+        },
+        "source_span": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 600,
+          "description": "REQUIRED (non-null) whenever quote is non-null; null when using reference. The COMPLETE SENTENCE on that page's text that the quote was taken out of, copied character for character, from its first word to its terminal punctuation. The quote must be a literal substring of it, and it must be a literal substring of the page's text. This is what makes a quoted fragment checkable. A date range quoted as '10-12 May' inside a sentence reading 'Applications for the 10-12 May intensive close on 3 April' asserts one thing as a fragment and another as a sentence, and only the sentence says which. Where the quote already IS the whole sentence, repeat it here whole — that is a valid span, not a redundancy. Never a reconstruction, never two sentences joined, never trimmed to the interesting half."
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "maxLength": 300,
+          "description": "Concrete named reference when no verbatim quote is available — a named offer, credential, venue, dated item, gallery, or section on that page. Null when using quote."
+        },
+        "speaker": {
+          "type": "string",
+          "description": "Who says this on the page. 'owner' ONLY when the surrounding twenty words establish the owner as the speaker. Otherwise name the third party ('a named teacher quoted on the page', 'a client testimonial'). 'not_applicable' for a reference. A quote whose speaker cannot be established may not be used at all."
+        },
+        "block_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Copied from pages[].blocks[]. Every placement claim derives from this number, never from where a string appears in page text."
+        },
+        "location": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "first_screen",
+            "body",
+            "footer",
+            "embedded_feed",
+            "image_block",
+            null
+          ],
+          "description": "Derived from block order. A navigation strip late in block order is 'footer'. 'menu' is not a location because a menu label is never an exhibit."
+        }
+      }
+    },
+    "lane_name": {
+      "type": "string",
+      "enum": [
+        "spine_story",
+        "website_sequencing",
+        "credibility_surface",
+        "short_form_social",
+        "long_form_writing",
+        "publishing_rhythm"
+      ]
+    },
+    "claim": {
+      "type": "string",
+      "maxLength": 200,
+      "description": "ONE CLAUSE. No second person, no 'you', no warmth, no antithesis, no em-dash construction, no grade on a named dimension. If it needs a semicolon or a second verb phrase it is two claims."
+    }
+  },
+  "properties": {
+    "schema_version": {
+      "const": "5.3-outline"
+    },
+    "site_url": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "read",
+        "decline_product_company",
+        "decline_thin",
+        "decline_unfetchable"
+      ],
+      "description": "The gate. A decline ends the pass: emit decline_material and nothing else."
+    },
+    "gate_signals": {
+      "type": "array",
+      "description": "Which gate signals fired, each naming the literal fact-sheet string or field that triggered it. A gate you cannot evidence is a gate you did not pass. Present on every status, including 'read' (where it records what was checked and did not fire).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "signal",
+          "evidence"
+        ],
+        "properties": {
+          "signal": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "string",
+            "description": "The literal string or field from the fact sheet."
+          }
+        }
+      }
+    },
+    "decline_material": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "Populated ONLY on a decline. Two clauses the writer renders at 25-50 words total. For decline_unfetchable specifically: no status codes, no server behaviour, no firewall or bot-blocker language, no configuration advice — nothing technical and nothing implying the owner's site did something wrong.",
+      "required": [
+        "observation_claim",
+        "redirect_claim"
+      ],
+      "properties": {
+        "observation_claim": {
+          "$ref": "#/definitions/claim",
+          "description": "One clause naming what WAS there, anchored to a real string in the fact sheet. Not a compliment, not a lane diagnosis."
+        },
+        "redirect_claim": {
+          "$ref": "#/definitions/claim",
+          "description": "One clause naming the thing that would actually work. Never a CTA, never an invitation to book, never a diagnosis."
+        },
+        "exhibit": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/exhibit"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "first_screen": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. Filled COMPLETELY, not selectively: the writer is assigned one of FOUR opening shapes that this outline does not know, and this block is the only material it has for all four. meets_in_order[] is the ONLY authority for what is on the first screen.",
+      "required": [
+        "headline_verbatim",
+        "headline_on_first_screen",
+        "page",
+        "meets_in_order",
+        "front_door_function",
+        "stranger_result"
+      ],
+      "properties": {
+        "headline_verbatim": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "The exact input first_screen_headline string, copied. This is THE PAGE'S FIRST HEADING, which is not the same as a heading on the first screen - see headline_on_first_screen. Null ONLY when the input reports a wordless first screen (image, GIF, or video block). Never a substituted headline, site name, domain, or tagline from further down."
+        },
+        "page": {
+          "type": "string"
+        },
+        "block_index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "meets_in_order": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "description": "The first three blocks IN block.index ORDER, each named by what it is: 'full-width image, no text', 'heading', 'mailing-list form', 'button labelled Register'. Block type plus the shortest true description. This is what makes a wordless front door writable, and it is the only authority for first-screen placement."
+        },
+        "front_door_function": {
+          "$ref": "#/definitions/claim",
+          "description": "What the front door DOES, as a function: 'collects an email address', 'plays a showreel', 'lists nine menu entries and no sentence', 'shows two banner images and two buttons'."
+        },
+        "stranger_result": {
+          "$ref": "#/definitions/claim",
+          "description": "What fifteen seconds on this page buys someone, flat. OWNS THE ARRIVAL CLAIM absolutely: it is the read's first sentence and no skim claim, finding or bridge field may restate it."
+        },
+        "headline_on_first_screen": {
+          "type": [
+            "boolean",
+            "null"
+          ],
+          "description": "COMPUTED, never assumed: true only when first_screen_headline.block_index is at or below the highest block.index in meets_in_order[]. Null when headline_verbatim is null. When FALSE the heading sits in a lower section and may NEVER be described as what the front page opens on - positioning_legibility then names what is actually on the first screen from meets_in_order[] and may reference the heading only as the page's first heading, in its own section. A read once told a practitioner their homepage opened on a heading; it opened on two banner images and two buttons."
+        }
+      }
+    },
+    "skim_claims": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "minItems": 2,
+      "maxItems": 3,
+      "description": "REQUIRED when status is 'read'. TWO OR THREE, never four — the rendered budget is 250-400 words and each costs the writer roughly thirty. Every claim is scored against the HOMEPAGE ALONE; evidence from any other page belongs in a finding. positioning_legibility is always present. A skim claim may not restate a finding's claim.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "dimension",
+          "claim",
+          "exhibit"
+        ],
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "positioning_legibility",
+              "tangibles",
+              "entry_point",
+              "delivered_vs_handheld"
+            ],
+            "description": "Each used at most once. positioning_legibility is required."
+          },
+          "claim": {
+            "$ref": "#/definitions/claim",
+            "description": "For positioning_legibility: must contain the verbatim first_screen.headline_verbatim string when first_screen.headline_on_first_screen is TRUE; when that flag is false or the headline is null, it names what is actually on the first screen from meets_in_order[]. For entry_point: numbers copied from link_inventory, labels copied verbatim, and a destination named ONLY where body_ctas[].destination supplies one - a button's label is never its destination. For tangibles: scoped to the homepage in words whenever an offer-surface page sits in coverage.unfetched_pages."
+          },
+          "exhibit": {
+            "$ref": "#/definitions/exhibit",
+            "description": "Homepage only."
+          }
+        }
+      }
+    },
+    "gap": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. The block where the owner is shown they are known before they are told what is not working. Built from names, and names cannot be invented.",
+      "required": [
+        "named_facts",
+        "what_a_stranger_gets_claim"
+      ],
+      "properties": {
+        "named_facts": {
+          "type": "array",
+          "minItems": 0,
+          "description": "Proof-of-work against invention. ONE FACT, ONE SENTENCE: each fact supported by a single sentence on a single page, recorded verbatim in source_sentence. Joining a degree from one sentence to an institution in another is inventing. NEVER padded — if the pages give few names, emit few; an empty-handed gap is a true finding and a fabricated credential ends the read. In the render plan this array is CLAIM-FREE CHROME: it is recited, not asserted, and it is the one unit in the read that may state facts without drawing a consequence.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "fact",
+              "page",
+              "source_sentence"
+            ],
+            "properties": {
+              "fact": {
+                "type": "string",
+                "description": "The named fact alone. Any figure carried over must be legible on its own — name the thing instead of an unexplained percentage or internal shorthand."
+              },
+              "page": {
+                "type": "string"
+              },
+              "source_sentence": {
+                "type": "string",
+                "description": "The single verbatim sentence from that page's text that states this fact whole."
+              }
+            }
+          }
+        },
+        "what_a_stranger_gets_claim": {
+          "$ref": "#/definitions/claim"
+        }
+      }
+    },
+    "findings": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "minItems": 2,
+      "maxItems": 5,
+      "description": "THE CENTRE OF THE PASS. 3-5 at STEP 4, ORDERED STRONGEST FIRST; 3-4 is the working range and a fifth only survives when all five are unusually tight. TWO is valid ONLY when the claim ledger (STEP 7) removed a duplicate - claim_ledger must then carry an action_taken of 'node_dropped' naming that finding. Do not reinflate a cut finding and do not promote a skim claim to refill the slot. Fewer, sharper findings beat coverage. DISTINCTNESS IS ABSOLUTE: no two findings may share an exhibit (same page plus same quote, or same page plus same reference) and no two may make the same claim, where a generalization of another claim counts as the same claim. No two findings may share a lane. Every exhibit page must be fetched:true. Each finding contributes ONE render_plan entry for its claim, plus a SECOND entry for its consequence only where why_it_matters is non-null.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "claim",
+          "lane",
+          "verdict",
+          "why_it_matters"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^f[1-5]$",
+            "description": "f1, f2, f3... in emitted order. The writer refers back by this id and the pipeline grafts the exhibit by it."
+          },
+          "claim": {
+            "$ref": "#/definitions/claim"
+          },
+          "lane": {
+            "$ref": "#/definitions/lane_name"
+          },
+          "verdict": {
+            "type": "string",
+            "enum": [
+              "TRANSMISSION",
+              "DOCUMENTATION",
+              "ABSENT"
+            ],
+            "description": "TRANSMISSION requires the exhibit to sit on the homepage or one deliberate click from it via a link a visitor has reason to follow; strong material parked deeper is DOCUMENTATION. A lane whose only support is a menu label, section heading, or alt text is ABSENT, never DOCUMENTATION. ABSENT is a first-class verdict and is often the strongest thing available."
+          },
+          "exhibit": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/exhibit"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Required for TRANSMISSION and DOCUMENTATION. May be null ONLY when verdict is ABSENT. The page MUST appear in fetch_record with fetched:true - a page that 404'd, timed out or was never attempted supplies no quote, no reference and no characterization of its contents."
+          },
+          "why_it_matters": {
+            "anyOf": [
+              {
+                "$ref": "#/definitions/claim"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "NULLABLE IN 5.2, AND NULL IS THE COMMON CASE. One clause naming the COST to a first-time visitor of the claim being true - emitted ONLY when it survives the entailment test against its own claim in BOTH directions. If a reader who accepted the claim would already have accepted the consequence, there is no consequence: set this null and the finding renders as one sentence. This is the 5.2 fix at its source. In 5.1 every finding carried a consequence, the writer rendered every one as a sentence, and those sentences - especially the bolded one - were where the duplication lived: 'the case studies name no client' followed by 'so nothing can be verified' is one proposition said twice. A non-null value becomes its own ledger claim and its own render_plan entry."
+          },
+          "buried_on": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "REQUIRED when verdict is DOCUMENTATION: the page the material sits on, named by its EXACT label from the fact sheet, never a descriptive paraphrase ('Learning', not 'the page built for field notes'). Null otherwise."
+          },
+          "searched": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "REQUIRED when verdict is ABSENT: the surfaces actually searched, in the reader's terms, including embedded feeds, image blocks and footers. Null otherwise."
+          },
+          "dates_cited": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            },
+            "description": "REQUIRED when the finding asserts a cadence, series, or recurrence: at least two separately dated items, with their dates. A cadence inferred from one dated item — or from the page's own prose claiming it recurs — is not a finding."
+          }
+        }
+      }
+    },
+    "strongest_true_thing": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED (non-null) when NO finding is TRANSMISSION; null otherwise. One claim naming the strongest thing this site genuinely does carry. Not a compliment and not a cushion — the strongest true observation available, stated flat, usually already sitting unused in the evidence. Subject to the distinctness rule: may not reuse a finding's exhibit.",
+      "required": [
+        "claim",
+        "exhibit"
+      ],
+      "properties": {
+        "claim": {
+          "$ref": "#/definitions/claim"
+        },
+        "exhibit": {
+          "$ref": "#/definitions/exhibit"
+        }
+      }
+    },
+    "bold_designation": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED (non-null) when status is 'read'. REPLACES one_cut_idea, which was REMOVED in 5.2. The cut was defined as a claim that 'synthesizes two or more findings' and placed second from the end - recap by construction, arriving at the moment the reader was most likely to notice. A sentence built to draw together what came before cannot do anything but repeat it. What survives is the bold line, and it is no longer a free sentence: it is a DESIGNATION. One claim already in this outline is named here, and the writer renders that claim's ONE occurrence in bold. The designated unit must be a finding's consequence unit, and that finding's why_it_matters must be non-null - that is the sentence being bolded. A bold line that restates the sentence beside it is the exact failure 5.2 removed, and it shipped identically on three unrelated sites.",
+      "required": [
+        "claim_owner",
+        "why_this_one"
+      ],
+      "properties": {
+        "claim_owner": {
+          "type": "string",
+          "pattern": "^f[1-5]\\.consequence$",
+          "description": "The render_plan unit whose sentence is rendered bold: 'f1.consequence' .. 'f5.consequence'. Must name a finding whose why_it_matters is non-null, must match exactly one render_plan entry, and that entry must be the only one in the plan with bold:true. Repaired after the ledger renumbers findings."
+        },
+        "why_this_one": {
+          "$ref": "#/definitions/claim",
+          "description": "One clause: what makes this the line that lands. Working note, never prose."
+        }
+      }
+    },
+    "bridge_material": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. All three moves filled, because the writer is assigned one and this outline does not know which. Each is one clause built from something already named in findings or gap facts, and each NAMES A CHANGE — none may paraphrase a finding's claim.",
+      "required": [
+        "scale_of_change",
+        "page_that_must_move",
+        "what_a_stranger_cannot_do",
+        "concrete_anchor_candidates"
+      ],
+      "properties": {
+        "scale_of_change": {
+          "$ref": "#/definitions/claim",
+          "description": "What would have to change, and how far that is from a copy edit."
+        },
+        "page_that_must_move": {
+          "$ref": "#/definitions/claim",
+          "description": "The specific page that would have to move, and where to."
+        },
+        "what_a_stranger_cannot_do": {
+          "$ref": "#/definitions/claim",
+          "description": "The one thing a visitor currently cannot do."
+        },
+        "concrete_anchor_candidates": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "description": "Exact strings already present in the findings, gap facts, or first_screen block — a page label, offer name, credential, or button. The writer plants one LITERALLY inside its bridge sentence, so each must survive being dropped into prose whole."
+        }
+      }
+    },
+    "claim_ledger": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "minItems": 1,
+      "description": "REQUIRED when status is 'read'. THE DEDUPE. Every ATOMIC CLAIM the outline makes, each tagged with the ONE RENDER_PLAN UNIT licensed to state it. Distinctness (STEP 4) catches identical claims; this catches ENTAILMENT, where two claims sharing no vocabulary are one proposition at different altitudes. In 5.2 the ledger and render_plan are in STRICT ONE-TO-ONE correspondence: every ledger claim has exactly one plan entry and every claim-bearing plan entry has exactly one ledger claim. A ledger claim with no plan entry is never going to be said - delete it. Ownership order: first_screen.stranger_result owns the arrival claim absolutely; a finding's claim unit owns any claim its exhibit evidences; a finding's consequence unit owns ONLY what its own claim unit does not, and is deleted with why_it_matters set null when it does not; a skim claim loses every contest; a bridge field names a change, not a state; strongest_true_thing loses to any finding. Run the entailment test hardest on ADJACENT pairs - a claim against its own consequence, a bridge field against the finding it grew from - because a sentence written right after another is written out of it. A ledger whose entries are all 'unique' across a full outline was not run.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "claim",
+          "owner",
+          "also_claimed_by",
+          "action_taken"
+        ],
+        "properties": {
+          "claim": {
+            "$ref": "#/definitions/claim",
+            "description": "One atomic proposition - one thing asserted about one object. Not a node and not a sentence: a node asserting two things produces two entries, and five nodes asserting one thing produce one entry with four losers."
+          },
+          "owner": {
+            "type": "string",
+            "description": "The single RENDER_PLAN UNIT licensed to state this claim: 'opening', 'skim.<dimension>', 'gap.what_a_stranger_gets', 'f1.claim'..'f5.claim', 'f1.consequence'..'f5.consequence', 'strongest_true_thing', or 'bridge'. No claim may have two owners. Claim-free chrome units (gap.named_facts, coverage) never own a claim.",
+            "pattern": "^(opening|skim\\.(positioning_legibility|tangibles|entry_point|delivered_vs_handheld)|gap\\.what_a_stranger_gets|f[1-5]\\.(claim|consequence)|strongest_true_thing|bridge)$"
+          },
+          "also_claimed_by": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Every other unit that encoded this same proposition before it was resolved, by the same unit names. Empty is normal and good; a long array is the repetition this step exists to catch."
+          },
+          "action_taken": {
+            "type": "string",
+            "enum": [
+              "unique",
+              "stripped",
+              "node_dropped"
+            ],
+            "description": "'unique' - nothing contested it. 'stripped' - the losing nodes were rewritten so they no longer carry it. 'node_dropped' - a losing node had nothing left once the claim was removed and was deleted from the outline; findings were then renumbered and synthesizes[]/chosen[] repaired."
+          }
+        }
+      }
+    },
+    "render_plan": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "minItems": 6,
+      "maxItems": 16,
+      "description": "REQUIRED when status is 'read'. THE 5.2 FIX, and the step that makes every other rule enforceable. The complete ORDERED list of output units - the writer renders exactly this list, in this order, one prose unit per entry, and a sentence not traceable to an entry is DELETED. The ledger says which unit is LICENSED to state each claim; this says WHICH SENTENCES EXIST AT ALL. Without it the writer's template supplies its own slots - a consequence line here, a synthesis line there, a closing kicker - and every one of them is an un-ledgered sentence with nothing to say, which is why it says something the read already said. ORDER: opening, the skim units in outline order, gap.named_facts, gap.what_a_stranger_gets, then for each finding in order its claim unit followed by its consequence unit where one exists, then strongest_true_thing where present, then bridge. coverage is last and is never prose. THE PLAN ENDS ON 'bridge' - there is no one_cut unit, no synthesis unit, no kicker unit and no closing unit, and a unit name outside the vocabulary is invalid. SIZING: each claim-bearing entry costs the writer roughly 25-35 words, so 8-11 entries lands the read in the 250-400 budget. A plan projecting under 250 gains one entry built from an UNUSED VERIFIED EXHIBIT already held - a footer copyright year, a dated item, an unspent credential - or is emitted short. It is never padded, and it never gains an entry that restates a fact already used.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "seq",
+          "unit",
+          "renders_claim",
+          "claim_free",
+          "bold",
+          "source_node"
+        ],
+        "properties": {
+          "seq": {
+            "type": "integer",
+            "minimum": 1,
+            "description": "Render order. Runs 1..N with no gaps and no repeats."
+          },
+          "unit": {
+            "type": "string",
+            "pattern": "^(opening|skim\\.(positioning_legibility|tangibles|entry_point|delivered_vs_handheld)|gap\\.(named_facts|what_a_stranger_gets)|f[1-5]\\.(claim|consequence)|strongest_true_thing|bridge|coverage)$",
+            "description": "The output slot. Fixed vocabulary: 'opening', 'skim.positioning_legibility', 'skim.tangibles', 'skim.entry_point', 'skim.delivered_vs_handheld', 'gap.named_facts', 'gap.what_a_stranger_gets', 'f1.claim'..'f5.claim', 'f1.consequence'..'f5.consequence', 'strongest_true_thing', 'bridge', 'coverage'. Each unit appears at most once in the plan."
+          },
+          "renders_claim": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "maxLength": 200,
+            "description": "The EXACT claim_ledger[].claim string this unit is licensed to state, character for character. Null ONLY when claim_free is true. No claim string may appear on two entries - the bijection with claim_ledger is strict and is checked in both directions."
+          },
+          "claim_free": {
+            "type": "boolean",
+            "description": "True ONLY for 'gap.named_facts' (grafted names, recited, asserting nothing) and 'coverage' (the chrome line beneath the read). False on every other unit. A claim-bearing entry with no ledger claim is the un-ledgered sentence this whole mechanism exists to remove: delete the entry, or add its proposition to the ledger and resolve it against everything already there - nine times in ten another unit already owns it."
+          },
+          "bold": {
+            "type": "boolean",
+            "description": "True on EXACTLY ONE entry across the whole plan: the one named by bold_designation.claim_owner, which is always a consequence unit. Its sentence is the read's bold line and goes in that finding's bold_line field rather than its evidence. The writer never bolds an entry the plan did not mark and never writes a second bold sentence."
+          },
+          "source_node": {
+            "type": "string",
+            "maxLength": 60,
+            "description": "Where the writer gets its material: 'first_screen', 'skim_claims[i]', 'gap.named_facts', 'gap.what_a_stranger_gets_claim', 'findings[i].claim', 'findings[i].why_it_matters', 'strongest_true_thing', 'bridge_material', 'coverage'. The opening's source varies with the assigned shape, which this pass does not know, so it is recorded as 'first_screen' and the arrival claim is the same either way."
+          }
+        }
+      }
+    },
+    "lane_selection": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. chosen[] is DERIVED from findings, not decided a second time.",
+      "required": [
+        "chosen",
+        "rejected"
+      ],
+      "properties": {
+        "chosen": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/definitions/lane_name"
+          },
+          "description": "The lanes of the findings, in finding order. Must equal findings[].lane element-for-element. If this order matches the order the six lanes are listed in the prompt, the pass defaulted and is returned for reordering by strength of evidence."
+        },
+        "rejected": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Every lane not run, each with a site-specific reason naming what was actually looked at. 'Not enough material' is not a reason.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "lane",
+              "reason",
+              "surfaces_searched"
+            ],
+            "properties": {
+              "lane": {
+                "$ref": "#/definitions/lane_name"
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 200
+              },
+              "surfaces_searched": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Pages, footers, image blocks, embedded feeds actually checked before rejecting the lane."
+              }
+            }
+          }
+        }
+      }
+    },
+    "coverage": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "description": "REQUIRED when status is 'read'. CHROME, NOT PROSE — grafted into the final read by the pipeline and rendered as one line beneath it. Does not count toward the word budget and is never written as sentences.",
+      "required": [
+        "lanes_examined",
+        "lanes_total",
+        "not_examined"
+      ],
+      "properties": {
+        "lanes_examined": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 5
+        },
+        "lanes_total": {
+          "const": 6
+        },
+        "not_examined": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "lane",
+              "reason"
+            ],
+            "properties": {
+              "lane": {
+                "$ref": "#/definitions/lane_name"
+              },
+              "reason": {
+                "type": "string",
+                "maxLength": 80,
+                "description": "Twelve words at most, naming where you looked. No apology, no tease."
+              }
+            }
+          }
+        },
+        "unfetched_pages": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Pages present in the input link inventory and not retrieved, named plainly by their link label. Any offer-surface page here forces the tangibles skim claim to be scoped to the homepage in words."
+        },
+        "extractor_gaps": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Every inventory field that came back EMPTY while another field or block contradicted it, named plainly: 'nav_door_labels empty while footer_door_count is 5'. An empty array is missing data, never a zero, and an absence claim was never built on one. Pipeline chrome, never shown to the reader - this is how a broken extractor gets found instead of shipping as a false absence about someone's nav."
+        }
+      }
+    },
+    "truth_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "PERCEPTION OWNS TRUTH. These are the checks no downstream code can make and the writer cannot catch, because it never sees the site — a false claim that leaves this pass ships. Mechanical limits on the RENDERED prose (word count, quote pairs, sentence lengths, antithesis, bold lines, person discipline, banned strings) are deliberately absent: they belong to the writer pass and its validator.",
+      "required": [
+        "quotes_speaker_checked",
+        "quotes_character_matched",
+        "proper_nouns_located",
+        "numbers_copied_from_fact_sheet",
+        "placement_claims_from_block_order",
+        "negative_claims",
+        "distinctness_checked",
+        "unverified_items_removed",
+        "claim_ledger_run",
+        "counts_single_sourced",
+        "count_conflicts",
+        "dates_carry_years",
+        "empty_fields_not_read_as_zero",
+        "counts_attached_to_source_object",
+        "labels_verbatim",
+        "no_destination_inference",
+        "site_quantifiers_preserved",
+        "unfetched_pages_uncharacterized",
+        "first_screen_placement_computed",
+        "render_plan_check",
+        "consequence_entailment_run",
+        "exhibit_source_spans_recorded"
+      ],
+      "properties": {
+        "quotes_speaker_checked": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every quoted string had the twenty words before it read and its speaker established. A quote whose speaker could not be established was dropped, not attributed by default to the owner."
+        },
+        "quotes_character_matched": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every exhibit.quote passed a literal character-by-character substring test against its page's text. Anything that differed by one word was moved to reference."
+        },
+        "proper_nouns_located": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every proper noun anywhere in the outline was located as an exact string in a page's text. Anything unlocatable was deleted or replaced with the supportable generic fact."
+        },
+        "numbers_copied_from_fact_sheet": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every number in the outline was copied from a link_inventory or blocks[] field, or is a four-digit year present in a page's text. Nothing was counted by the model."
+        },
+        "placement_claims_from_block_order": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every above/below/first-screen/quieter/marked/buried claim derives from block indices, not from where a string appears in page text, and no two such claims disagree."
+        },
+        "negative_claims": {
+          "type": "array",
+          "description": "THE ABSENCE GATE. Every claim of absence or uniqueness kept anywhere in the outline — findings, skim claims, the cut idea, bridge material — each with the pages scanned and the literal terms searched. A claim with no scan record is deleted, not softened. The single most damaging error this read makes is telling someone no feed, grid, or post renders on their site when their front page is a wall of it, so a claim of that class MUST record embedded_feeds and gallery/embed blocks among the surfaces scanned.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "claim",
+              "pages_scanned",
+              "search_terms",
+              "surfaces_scanned",
+              "counterexample_found"
+            ],
+            "properties": {
+              "claim": {
+                "type": "string"
+              },
+              "pages_scanned": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "search_terms": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                },
+                "description": "The literal strings or patterns searched, specific to the claim: four-digit years for a dating claim; the name plus every image alt and the wordmark for a naming claim; every link to the destination for a routing claim; every gallery and embed block plus embedded_feeds for a no-posts claim."
+              },
+              "surfaces_scanned": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "page_text",
+                    "image_alt",
+                    "wordmark_or_title",
+                    "gallery_blocks",
+                    "embedded_feeds",
+                    "footer",
+                    "link_inventory",
+                    "buttons"
+                  ]
+                },
+                "description": "A wordmark, logo alt text, or page title naming the owner counts as naming them and kills a naming claim. A rendered grid is a counterexample even when it contains zero words."
+              },
+              "counterexample_found": {
+                "type": "boolean",
+                "const": false
+              }
+            }
+          }
+        },
+        "distinctness_checked": {
+          "type": "boolean",
+          "const": true,
+          "description": "Exhibits were listed and no page-plus-string pair appears twice; claims were listed and none is a restatement or a generalization of another. strongest_true_thing, the skim claims and the cut idea were included in the comparison."
+        },
+        "unverified_items_removed": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Proper nouns, numbers, quotes, misattributed speakers, absence claims, person-to-company links, and attributed activities dropped in the truth pass because they could not be matched to the fact sheet."
+        },
+        "claim_ledger_run": {
+          "type": "boolean",
+          "const": true,
+          "description": "STEP 7 was run as an OPERATION, not recorded as an intention - nodes changed while it ran. claim_ledger[] accounts for every claim-bearing render_plan unit as an owner; no claim has two owners and no unit owns a claim another unit also states; the entailment test was run in BOTH directions on every finding's claim against its own why_it_matters, and on every bridge field against every finding. Every count appears once, on one unit, attached to the noun the fact sheet gave it. A ledger whose every entry is 'unique' across a full outline was run on vocabulary rather than on propositions and must be run again."
+        },
+        "counts_single_sourced": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every count in the outline appears once, on one node, describing one object; every other node naming that object names it without a number. No number was produced by combining two facts - summing, subtracting, or spanning two durations - which is the fabrication that looks most like a credential."
+        },
+        "count_conflicts": {
+          "type": "array",
+          "description": "Counts that two nodes disagreed on. BOTH NODES LOSE THE NUMBER - not the larger, not the smaller, not the one written first, because there is no way to know which is right and the writer, handed two, silently picks one and ships it as fact. Both nodes were rewritten to name the object without a number. Empty is the normal case.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "object",
+              "values_seen",
+              "resolution"
+            ],
+            "properties": {
+              "object": {
+                "type": "string",
+                "description": "The thing counted: the nav strip, the logo rows, the gallery items."
+              },
+              "values_seen": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": [
+                    "integer",
+                    "string"
+                  ]
+                }
+              },
+              "resolution": {
+                "type": "string",
+                "description": "How both nodes now name the object without a number."
+              }
+            }
+          }
+        },
+        "dates_carry_years": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every date in the outline carries its year - month-and-day alone is a different assertion, and the writer renders exactly what it is handed. No date set is described as forward-running (upcoming, running forward, still to come, out to) unless the fact sheet supplied the current date and every date named is later than it."
+        },
+        "empty_fields_not_read_as_zero": {
+          "type": "boolean",
+          "const": true,
+          "description": "No absence claim rests on an empty inventory array. Every empty field was checked against the other fields and the page's own blocks for a contradiction; where one was found the extractor failed, the claim was scoped to a surface actually visible, and the field was logged in coverage.extractor_gaps[]. A read once told a practitioner their nav carried no doors while their live nav carried two."
+        },
+        "counts_attached_to_source_object": {
+          "type": "boolean",
+          "const": true,
+          "description": "ONE COUNT, ONE OBJECT - the reverse of one-object-one-count, and the one that shipped. Every number is still attached to the noun the fact sheet gave it. 'Five works, each with its funders named' did not become 'five funded residencies': a funded work is not a residency, the noun was swapped under the number, and the result collided with the single real residency named elsewhere. Re-labelling a count is inventing a fact that looks like a credential, and it is deleted rather than reconciled. Page counts, section counts and screen counts assembled by counting nav labels are deleted too."
+        },
+        "labels_verbatim": {
+          "type": "boolean",
+          "const": true,
+          "description": "Where the fact sheet supplies a literal label - a nav door, a button, a page title - that exact string is what the outline carries. No descriptive paraphrase stands in for a label that exists ('Learning', never 'the page built for field notes'). The owner named that page and reads a renamed one as the tool not having looked."
+        },
+        "no_destination_inference": {
+          "type": "boolean",
+          "const": true,
+          "description": "No claim states where a link or button goes unless link_inventory resolved that destination. 'Learn More' was not mapped to an about page; three labels did not become three destinations."
+        },
+        "site_quantifiers_preserved": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every assertion carried over from the site keeps its own nouns and its own quantifiers, or is quoted as an exhibit. 'A decades-long lag between the rate of technological evolution and population-scale digital literacy' was not softened into 'the lag between how fast technology moves and how slowly people learn' - that drops a quantity the site asserted and replaces its terms with the reader's."
+        },
+        "unfetched_pages_uncharacterized": {
+          "type": "boolean",
+          "const": true,
+          "description": "fetch_record was walked for every entry that is not fetched:true, and each such page's label was searched across the outline: nothing beyond the bare label survives. No exhibit, no contents, no legibility judgment. A read once described three open questions on a page that returned 404."
+        },
+        "first_screen_placement_computed": {
+          "type": "boolean",
+          "const": true,
+          "description": "first_screen.headline_on_first_screen was COMPUTED from block indices rather than assumed, and no heading outside meets_in_order[] is described anywhere in the outline as what the front page opens on."
+        },
+        "render_plan_check": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "T13 - the check that catches what every previous version missed. Run it entry by entry, not from memory. In 5.3 it also carries the cross-node entailment sweep over the final plan.",
+          "required": [
+            "entry_count",
+            "projected_words",
+            "bijection_holds",
+            "no_banned_units",
+            "ends_on_bridge",
+            "bold_entries",
+            "sequence_contiguous",
+            "cross_node_entailment_swept"
+          ],
+          "properties": {
+            "entry_count": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Number of render_plan entries. 8-11 lands the read in the 250-400 word budget."
+            },
+            "projected_words": {
+              "type": "integer",
+              "description": "Roughly 25-35 words per claim-bearing entry, 25 for gap.named_facts, 0 for coverage. A projection under 250 was fixed by adding one entry built on an unused verified exhibit, or accepted short - never by padding."
+            },
+            "bijection_holds": {
+              "type": "boolean",
+              "const": true,
+              "description": "Checked in BOTH directions: every claim_ledger claim has exactly one plan entry, every non-claim_free plan entry has exactly one ledger claim, and no renders_claim string appears twice."
+            },
+            "no_banned_units": {
+              "type": "boolean",
+              "const": true,
+              "description": "No 'one_cut', no 'synthesis', no 'kicker', no 'closing', and no unit outside the fixed vocabulary."
+            },
+            "ends_on_bridge": {
+              "type": "boolean",
+              "const": true,
+              "description": "The last prose entry is 'bridge'. 'coverage' follows it as unrendered chrome. Nothing else may be last: a read that ends on its bridge is finished, a read that ends on its own opening is a loop."
+            },
+            "bold_entries": {
+              "type": "integer",
+              "const": 1,
+              "description": "Exactly one entry carries bold:true, it is a consequence unit, it matches bold_designation.claim_owner, and its finding's why_it_matters is non-null."
+            },
+            "sequence_contiguous": {
+              "type": "boolean",
+              "const": true,
+              "description": "seq runs 1..N with no gaps, no repeats, and matches the canonical order."
+            },
+            "cross_node_entailment_swept": {
+              "type": "boolean",
+              "const": true,
+              "description": "THE 5.3 SWEEP. After the plan was FINAL, every ordered PAIR of claim-bearing entries in it was tested for entailment in both directions — not just adjacent pairs, and not just pairs inside one finding. No two entries survive carrying claims where one is true whenever the other is. The ledger runs before the plan is fixed and resolves claims as they are written; this runs after, over the exact list of sentences that will exist, and it is the only check that sees the read as the reader will. A plan whose entries all passed on a first sweep of a full outline was swept on vocabulary rather than on propositions."
+            }
+          }
+        },
+        "consequence_entailment_run": {
+          "type": "boolean",
+          "const": true,
+          "description": "The entailment test was run in BOTH directions on every finding's claim against its own why_it_matters. Every pair that passed in either direction has why_it_matters set to null and NO consequence unit in the render plan. This is the single highest-yield check in 5.2: a consequence written immediately after a claim is written out of that claim, and rendering it produced a second sentence saying the first sentence again - in bold."
+        },
+        "exhibit_source_spans_recorded": {
+          "type": "boolean",
+          "const": true,
+          "description": "Every exhibit carrying a quote also carries source_span — the full verbatim sentence that quote sits inside — and both the quote and the span passed a literal substring test against that page's text. An exhibit whose span could not be located whole was downgraded to reference or dropped. This is what makes date ranges, appointment times, titles and credentials checkable rather than merely quoted."
+        }
+      }
+    }
+  }
+}

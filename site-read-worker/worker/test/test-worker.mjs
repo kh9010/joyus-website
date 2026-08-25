@@ -8,7 +8,7 @@
 import http from 'node:http';
 import { describe, ok, eq, report } from './_harness.mjs';
 import worker from '../src/worker.js';
-import { buildPassingRead } from './_fixtureRead.mjs';
+import { buildPassingOutline, buildWriterProse } from './_fixtureRead.mjs';
 import { LIMITS } from '../src/store.js';
 
 const HOME = `<!doctype html><html><body>
@@ -61,28 +61,45 @@ const base = `http://127.0.0.1:${site.address().port}`;
 const realFetch = globalThis.fetch;
 let anthropicCalls = [];
 let anthropicMode = 'good';
+let outlineCalls = 0;
+let proseCalls = 0;
 globalThis.fetch = async (url, init) => {
   const href = typeof url === 'string' ? url : url.url;
   if (!href.startsWith('https://api.anthropic.com/')) return realFetch(url, init);
 
   const body = JSON.parse(init.body);
   anthropicCalls.push(body);
+  const toolName = body.tools[0].name;
   const userTurn = body.messages[0].content;
-  const factSheet = JSON.parse(userTurn.slice(userTurn.indexOf('```json') + 7, userTurn.lastIndexOf('```')));
+  // Both stages fence their input the same way; which object it is depends on
+  // which tool the pipeline forced.
+  const firstFence = JSON.parse(userTurn.slice(userTurn.indexOf('```json') + 7, userTurn.indexOf('```', userTurn.indexOf('```json') + 7)));
 
   if (anthropicMode === 'error') {
     return new Response('overloaded', { status: 529 });
   }
-  const read = buildPassingRead(factSheet);
-  if (anthropicMode === 'badThenGood' && anthropicCalls.length === 1) {
-    read.one_cut.text = 'A decade of sound made across 47 rooms reaches a visitor as one adjective.';
+
+  let output;
+  if (toolName === 'emit_outline') {
+    outlineCalls++;
+    output = buildPassingOutline(firstFence);
+  } else {
+    proseCalls++;
+    output = buildWriterProse();
+    if (anthropicMode === 'badThenGood' && proseCalls === 1) {
+      // An ungrounded number: a writer failure, which must re-run the WRITER
+      // and not re-perceive the site.
+      output.strongest_true_thing.text =
+        'One marked button outranks all 47 of the words above it, so anyone deciding has somewhere to press.';
+    }
   }
+
   return new Response(
     JSON.stringify({
       id: 'msg_test',
       stop_reason: 'tool_use',
-      content: [{ type: 'tool_use', id: 'toolu_1', name: 'emit_read', input: read }],
-      usage: { input_tokens: 14000, output_tokens: 1800 },
+      content: [{ type: 'tool_use', id: 'toolu_1', name: toolName, input: output }],
+      usage: { input_tokens: toolName === 'emit_outline' ? 14000 : 1200, output_tokens: 1800 },
     }),
     { status: 200, headers: { 'content-type': 'application/json' } },
   );
@@ -113,37 +130,58 @@ function post(body, headers = {}) {
 describe('POST /read — the happy path');
 let env = fakeEnv();
 anthropicCalls = [];
+outlineCalls = 0;
+proseCalls = 0;
 let res = await worker.fetch(post({ url: base, email: 'mara@example.com' }), env, ctx);
 eq(res.status, 200, 'returns 200');
 let payload = await res.json();
 eq(payload.read.status, 'read', 'a read comes back');
 eq(payload.meta.outcome, 'ok', 'validated on the first attempt');
-eq(payload.meta.attempts, 1, 'one model call');
+eq(payload.meta.attempts, 2, 'two model calls — one outline, one writer');
+eq(payload.meta.outline_attempts, 1, 'one outline attempt');
+eq(payload.meta.writer_attempts, 1, 'one writer attempt');
+eq(outlineCalls, 1, 'the outline stage ran once');
+eq(proseCalls, 1, 'the writer stage ran once');
 ok(/^[a-z0-9]{8}$/.test(payload.slug), `a slug was minted (${payload.slug})`);
 ok(payload.meta.estimated_cost_usd > 0, `spend was estimated ($${payload.meta.estimated_cost_usd})`);
 ok(payload.meta.shape_directive.opening_shape, 'the assigned shape directive is recorded');
 eq(res.headers.get('Access-Control-Allow-Origin'), '*', 'CORS is open for the front end');
 
-describe('the request the model actually receives');
-const call = anthropicCalls[0];
-eq(call.model, 'claude-sonnet-5', 'model id');
-eq(call.max_tokens, 16000, 'max_tokens leaves room for the whole object');
-eq(call.tool_choice, { type: 'tool', name: 'emit_read' }, 'the read is forced through the tool');
-eq(call.tools[0].strict, true, 'strict tool use is on');
-eq(call.thinking, { type: 'adaptive' }, 'adaptive thinking, the only on-mode for Sonnet 5');
-ok(!('temperature' in call), 'no temperature — Sonnet 5 rejects it');
-ok(!('budget_tokens' in (call.thinking || {})), 'no budget_tokens — Sonnet 5 rejects it');
-eq(call.system[0].cache_control, { type: 'ephemeral' }, 'the 39KB prompt is cached across attempts');
-ok(call.system[0].text.startsWith('# JOYUS SITE READ — ANALYSIS PROMPT v4'), 'the system turn is the v4 prompt');
-ok(call.messages[0].content.includes('"link_inventory"'), 'the user turn carries the fact sheet');
-ok(call.messages[0].content.includes('"shape_directive"'), 'including the assigned shape directive');
+describe('the two requests the model actually receives');
+const outlineCall = anthropicCalls[0];
+const proseCall = anthropicCalls[1];
+eq(outlineCall.model, 'claude-sonnet-5', 'model id');
+eq(outlineCall.max_tokens, 16000, 'the outline gets room for the whole object');
+eq(proseCall.max_tokens, 4000, 'the writer gets room for 250-400 words and a thin wrapper');
+eq(outlineCall.tool_choice, { type: 'tool', name: 'emit_outline' }, 'pass 1 is forced through emit_outline');
+eq(proseCall.tool_choice, { type: 'tool', name: 'emit_prose' }, 'pass 2 through emit_prose');
+eq(outlineCall.tools[0].strict, true, 'strict tool use is on');
+eq(proseCall.tools[0].strict, true, 'on both calls');
+eq(outlineCall.thinking, { type: 'adaptive' }, 'adaptive thinking, the only on-mode for Sonnet 5');
+ok(!('temperature' in outlineCall), 'no temperature — Sonnet 5 rejects it');
+ok(!('budget_tokens' in (outlineCall.thinking || {})), 'no budget_tokens — Sonnet 5 rejects it');
+eq(outlineCall.system[0].cache_control, { type: 'ephemeral' }, 'the outline prompt is cached across every read');
+eq(proseCall.system[0].cache_control, { type: 'ephemeral' }, 'and the writer prompt across its attempts');
+ok(outlineCall.system[0].text.startsWith('# JOYUS SITE READ — PASS 1'), 'the first system turn is the outline prompt');
+ok(proseCall.system[0].text.startsWith('# JOYUS SITE READ — PASS 2'), 'the second is the writer prompt');
+ok(outlineCall.messages[0].content.includes('"link_inventory"'), 'the outline turn carries the fact sheet');
+ok(!outlineCall.messages[0].content.includes('"shape_directive"'), 'and NOT the shape directive, which is assigned to the writer');
+
+describe('the writer is walled off from the site');
+ok(!proseCall.messages[0].content.includes('"link_inventory"'), 'THE WRITER TURN CARRIES NO FACT SHEET');
+ok(!proseCall.messages[0].content.includes('"fetch_record"'), 'no fetch record either');
+ok(proseCall.messages[0].content.includes('"render_plan"'), 'it carries the outline and its render plan');
+ok(proseCall.messages[0].content.includes('"opening_shape"'), 'and the assigned shape directive');
+ok(!proseCall.messages[0].content.includes('"negative_claims"'), "and NOT pass 1's bookkeeping — truth_check never reaches the writer");
+ok(!proseCall.messages[0].content.includes('"truth_check"'), 'the writer is handed the writer view of the outline');
 
 describe('GET /read/:slug — the permalink');
 res = await worker.fetch(new Request(`https://reader.example/read/${payload.slug}`), env, ctx);
 eq(res.status, 200, 'the stored read is served');
 const stored = await res.json();
 eq(stored.slug, payload.slug, 'the payload knows its own slug');
-eq(stored.read.one_cut.text, payload.read.one_cut.text, 'the stored read is the read that was returned');
+eq(stored.read.bridge.text, payload.read.bridge.text, 'the stored read is the read that was returned');
+ok(!('one_cut' in stored.read), 'and it carries no one_cut');
 ok(!JSON.stringify(stored).includes('mara@example.com'), 'the permalink payload carries no email address');
 res = await worker.fetch(new Request('https://reader.example/read/zzzzzzzz'), env, ctx);
 eq(res.status, 404, 'an unknown slug is a 404');
@@ -151,22 +189,29 @@ eq(res.status, 404, 'an unknown slug is a 404');
 describe('the repair loop, end to end');
 env = fakeEnv();
 anthropicCalls = [];
+outlineCalls = 0;
+proseCalls = 0;
 anthropicMode = 'badThenGood';
 res = await worker.fetch(post({ url: base, email: 'mara@example.com' }), env, ctx);
 payload = await res.json();
-eq(payload.meta.outcome, 'ok_after_repair', 'a failing read is repaired, not shipped');
-eq(anthropicCalls.length, 2, 'exactly one retry');
-ok(/number_not_grounded/.test(anthropicCalls[1].messages[0].content), 'the retry names the violation');
+eq(payload.meta.outcome, 'ok_after_repair', 'failing prose is repaired, not shipped');
+eq(proseCalls, 2, 'exactly one writer retry');
+eq(outlineCalls, 1, 'and PASS 1 WAS NOT RE-RUN — a prose repair may only change words');
+ok(/number_not_grounded/.test(anthropicCalls[2].messages[0].content), 'the retry names the violation');
+ok(/outline is unchanged/.test(anthropicCalls[2].messages[0].content), 'and tells the writer its material has not moved');
 
 describe('the fail-safe, end to end');
 env = fakeEnv();
 anthropicCalls = [];
+outlineCalls = 0;
+proseCalls = 0;
 anthropicMode = 'error';
 res = await worker.fetch(post({ url: base, email: 'mara@example.com' }), env, ctx);
 payload = await res.json();
 eq(res.status, 200, 'a model outage is still a 200 to the visitor');
 eq(payload.meta.outcome, 'fail_safe', 'the outcome is recorded honestly');
 eq(payload.read.status, 'decline_incomplete', 'the honest decline is what ships');
+eq(proseCalls, 0, 'and the writer never ran, because the outline never came back');
 ok(!/API|529|error|failed/i.test(JSON.stringify(payload.read)), 'the visitor is never shown the machinery');
 anthropicMode = 'good';
 

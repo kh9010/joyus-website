@@ -440,13 +440,18 @@
       html += '</div>';
     }
 
+    // The plan marks exactly ONE entry bold, and that entry's own sentence is
+    // the read's arrival. It is not an extra line: it renders in place, after
+    // the finding it belongs to, and it gets the centred-between-hairlines
+    // treatment the one cut used to have. There is no cut any more — a sentence
+    // built to draw together what came before could only repeat it.
+    var arrivalString = '';
     html += '<div class="rd-block rd-lanes" id="rdLanes">';
     (fx.lane_verdicts || []).forEach(function (lv) {
       html += '<div class="rd-lane" data-verdict="' + escapeHtml(lv.verdict) + '">' +
         '<div class="rd-lane-head"><span class="rd-lane-name">' + escapeHtml(LANE_LABELS[lv.lane] || lv.lane) + '</span>' +
         '<span class="rd-verdict-pill" data-v="' + escapeHtml(lv.verdict) + '">' + escapeHtml(lv.verdict) + '</span></div>' +
         '<p class="rd-lane-evidence">' + escapeHtml(lv.evidence) + '</p>';
-      if (lv.bold_line) html += '<p class="rd-bold-line">' + escapeHtml(lv.bold_line) + '</p>';
       if (lv.verdict === 'DOCUMENTATION' && lv.buried_on) {
         html += '<p class="rd-lane-meta">buried on ' + escapeHtml(lv.buried_on) + '</p>';
       }
@@ -454,6 +459,10 @@
         html += '<p class="rd-lane-meta">searched: ' + lv.searched.map(escapeHtml).join(', ') + '</p>';
       }
       html += '</div>';
+      if (lv.bold_line && !arrivalString) {
+        arrivalString = lv.bold_line;
+        html += '<div class="rd-block rd-arrival" id="rdArrival"><p id="rdArrivalText"></p></div>';
+      }
     });
     html += '</div>';
 
@@ -462,10 +471,6 @@
         '<span class="rd-strongest-label">the strongest true thing</span>' +
         '<p>' + escapeHtml(fx.strongest_true_thing.text) + '</p></div>';
     }
-
-    html += '<div class="rd-block rd-cut" id="rdCut">' +
-      '<span class="rd-cut-label">the one cut</span>' +
-      '<p id="rdCutText"></p></div>';
 
     if (fx.bridge) {
       html += '<div class="rd-block rd-bridge" id="rdBridge">' +
@@ -515,24 +520,33 @@
 
     root.innerHTML = html;
 
-    // reveal the body, then type the one cut — the only typed line here
-    var blocks = ['rdSkim', 'rdGap', 'rdLanes', 'rdStrongest', 'rdBridge']
+    // Reveal the read, then type the arrival — the only typed line here. The
+    // arrival is the pivot: everything before it reveals, it lands, and the
+    // bridge follows it. Nothing follows the bridge.
+    var before = ['rdSkim', 'rdGap', 'rdLanes']
       .map(function (id) { return document.getElementById(id); })
       .filter(Boolean);
-    var cutBlock = document.getElementById('rdCut');
-    var cutText = document.getElementById('rdCutText');
-    var cutString = fx.one_cut ? fx.one_cut.text : '';
+    var after = ['rdStrongest', 'rdBridge']
+      .map(function (id) { return document.getElementById(id); })
+      .filter(Boolean);
+    var arrivalBlock = document.getElementById('rdArrival');
+    var arrivalText = document.getElementById('rdArrivalText');
 
-    if (reduce) {
-      blocks.forEach(function (b) { b.classList.add('in'); });
-      cutBlock.classList.add('in', 'done');
-      cutText.textContent = cutString;
+    if (reduce || !arrivalBlock) {
+      before.concat(after).forEach(function (b) { b.classList.add('in'); });
+      if (arrivalBlock) {
+        arrivalBlock.classList.add('in', 'done');
+        arrivalText.textContent = arrivalString;
+      }
     } else {
-      blocks.forEach(function (b, i) { setTimeout(function () { b.classList.add('in'); }, i * 220); });
+      before.forEach(function (b, i) { setTimeout(function () { b.classList.add('in'); }, i * 220); });
       setTimeout(function () {
-        cutBlock.classList.add('in');
-        typeInto(cutText, cutString, 20, function () { cutBlock.classList.add('done'); });
-      }, blocks.length * 220 + 400);
+        arrivalBlock.classList.add('in');
+        typeInto(arrivalText, arrivalString, 20, function () {
+          arrivalBlock.classList.add('done');
+          after.forEach(function (b, i) { setTimeout(function () { b.classList.add('in'); }, i * 220); });
+        });
+      }, before.length * 220 + 400);
     }
 
     var copyBtn = document.getElementById('copyLink');

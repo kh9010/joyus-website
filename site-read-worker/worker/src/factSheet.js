@@ -139,25 +139,27 @@ export function buildLinkInventory(pages, homeLabel) {
   };
 }
 
+// Captions are carried verbatim and never truncated mid-string; only the
+// number of them is bounded.
+const FEED_CAPTION_LIMIT = 6;
+
+// A rendered feed's captions are the only words it has. v5.3 records them
+// VERBATIM, under the name the outline prompt uses (`sample_captions`), with the
+// block index so a caption can be cited as an exhibit. The previous field name
+// (`captions`) did not match the prompt's spec, so a lane could be called empty
+// while the captions naming its evidence sat one key away.
 function buildEmbeddedFeeds(pages) {
   const feeds = [];
   for (const p of pages) {
     for (const b of p.blocks) {
-      if (b.type === 'embed') {
-        feeds.push({
-          page: p.page,
-          type: b.platform || 'embed',
-          item_count: b.item_count || 1,
-          captions: b.sample_captions || [],
-        });
-      } else if (b.type === 'gallery') {
-        feeds.push({
-          page: p.page,
-          type: 'gallery',
-          item_count: b.item_count || 0,
-          captions: b.sample_captions || [],
-        });
-      }
+      if (b.type !== 'embed' && b.type !== 'gallery') continue;
+      feeds.push({
+        page: p.page,
+        type: b.type === 'embed' ? b.platform || 'embed' : 'gallery',
+        block_index: b.index,
+        item_count: b.item_count || (b.type === 'embed' ? 1 : 0),
+        sample_captions: (b.sample_captions || []).slice(0, FEED_CAPTION_LIMIT),
+      });
     }
   }
   return feeds;

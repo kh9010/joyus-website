@@ -5,23 +5,22 @@
    The sample read rendered at /site-read/?demo=1. A fictional practice at a
    domain that does not exist — no real person's site is ever rendered here. */
 window.JOYUS_SITE_READ_FIXTURE = {
-  "schema_version": "4.0",
+  "schema_version": "5.3",
   "site_url": "bridnallpottery.com",
   "status": "read",
   "shape_directive_used": {
     "opening_shape": "front_door_function",
-    "cut_shape": "parallel_clauses",
     "bridge_move": "what_a_stranger_cannot_do"
   },
   "decline": null,
   "opening": {
-    "text": "Your front door works like a market table — nine photographs of pots, three sentences about the firing, and a menu where buying and reading are the same size.",
+    "text": "Your front door works like a market table: nine photographs of pots, three sentences about the firing, and five doors where buying and reading are the same size.",
     "shape": "front_door_function"
   },
   "skim_read": {
     "first_screen_headline_used": "Slow pots for daily use",
     "positioning_legibility": {
-      "observation": "Slow pots for daily use tells a cold visitor, in one second, what you make and how you expect it to be lived with.",
+      "observation": "Slow pots for daily use tells somebody in one second what you make and how you expect it to be lived with.",
       "exhibit": {
         "page": "homepage",
         "quote": "Slow pots for daily use",
@@ -32,10 +31,10 @@ window.JOYUS_SITE_READ_FIXTURE = {
       }
     },
     "tangibles": {
-      "observation": "Thrown, fired and packed by me is the most concrete line on the first screen, and it describes your labour, not an object with a size and a sum.",
+      "observation": "The most concrete line up there is thrown, fired and packed by me, and it describes your labour rather than an object with a size and a sum.",
       "exhibit": {
         "page": "homepage",
-        "quote": "Everything here is thrown, fired and packed by me in a workshop behind the house in Bridnall.",
+        "quote": "thrown, fired and packed by me",
         "reference": null,
         "speaker": "owner",
         "block_index": 4,
@@ -43,7 +42,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
       }
     },
     "entry_point": {
-      "observation": "Five doors sit in the menu at one weight, the one that sells pots looks like the one that explains you, and nothing is marked as the place to start.",
+      "observation": "Five doors sit across the top at one weight, and nothing among them is marked as the place to start.",
       "exhibit": {
         "page": "homepage",
         "quote": null,
@@ -53,21 +52,11 @@ window.JOYUS_SITE_READ_FIXTURE = {
         "location": "first_screen"
       }
     },
-    "delivered_vs_handheld": {
-      "observation": "A visitor leaves holding a feeling about ash and wood fire. They don’t leave holding a size, a date, or a way to pay you.",
-      "exhibit": {
-        "page": "homepage",
-        "quote": null,
-        "reference": "the nine photographs of pots below the text, and the footer under them",
-        "speaker": "not_applicable",
-        "block_index": 7,
-        "location": "image_block"
-      }
-    }
+    "delivered_vs_handheld": null
   },
   "gap": {
-    "what_you_have": "A wood kiln lit since 2011, five months at the Fennhollow residency, and a shelf at Marrow and Grain since 2019.",
-    "what_a_stranger_gets": "The pots and the town, and there’s nobody but you saying the work is any good.",
+    "what_you_have": "A wood kiln lit since 2011, five months at the Fennhollow residency in 2018, and a shelf at Marrow and Grain since 2019.",
+    "what_a_stranger_gets": "What a buyer gets is the pots and the town, and there's nobody but you saying the work is any good.",
     "named_facts": [
       {
         "fact": "The wood kiln has been lit since 2011",
@@ -75,12 +64,12 @@ window.JOYUS_SITE_READ_FIXTURE = {
         "source_sentence": "The wood kiln has been lit since 2011, and it is still the only one I use."
       },
       {
-        "fact": "Five months at the Fennhollow residency in 2018",
+        "fact": "five months at the Fennhollow residency in 2018",
         "page": "About",
         "source_sentence": "In 2018 I spent five months at the Fennhollow residency in Cumbria, learning to fire with wood."
       },
       {
-        "fact": "Stocked by Marrow and Grain in Ellisford since 2019",
+        "fact": "stocked by Marrow and Grain in Ellisford since 2019",
         "page": "About",
         "source_sentence": "My mugs and jars are stocked by Marrow and Grain in Ellisford, and have been since 2019."
       }
@@ -101,12 +90,13 @@ window.JOYUS_SITE_READ_FIXTURE = {
           "the footer on all four pages",
           "the homepage photographs",
           "the Shop photographs",
-          "embedded feeds"
+          "embedded_feeds",
+          "gallery_blocks"
         ]
       },
       {
         "lane": "publishing_rhythm",
-        "reason": "The two Saturdays on the Workshops page are both still ahead; nothing dated sits behind them on the homepage, the Shop page or the About page.",
+        "reason": "The two Saturdays on the Workshops page are both still ahead; nothing dated sits behind them on the other pages.",
         "surfaces_searched": [
           "the Workshops page",
           "the Shop page",
@@ -119,6 +109,7 @@ window.JOYUS_SITE_READ_FIXTURE = {
   },
   "lane_verdicts": [
     {
+      "finding_id": "f1",
       "lane": "spine_story",
       "verdict": "TRANSMISSION",
       "exhibit": {
@@ -131,26 +122,28 @@ window.JOYUS_SITE_READ_FIXTURE = {
       },
       "buried_on": null,
       "searched": null,
-      "evidence": "One kiln, lit since 2011, still the only one you use, and it’s on the front page in your own words before anyone scrolls.",
-      "bold_line": "Your front page already carries the reason to trust the pots."
+      "evidence": "One kiln, lit since 2011, still the only one you use, and it's on the front page in your own words before anyone scrolls.",
+      "bold_line": null
     },
     {
+      "finding_id": "f2",
       "lane": "credibility_surface",
       "verdict": "DOCUMENTATION",
       "exhibit": {
         "page": "About",
-        "quote": "My mugs and jars are stocked by Marrow and Grain in Ellisford, and have been since 2019.",
+        "quote": "stocked by Marrow and Grain in Ellisford",
         "reference": null,
         "speaker": "owner",
         "block_index": 6,
         "location": "body"
       },
-      "buried_on": "your About page",
+      "buried_on": "the About page",
       "searched": null,
       "evidence": "Fennhollow and the shelf at Marrow and Grain are the two facts that settle a nervous buyer, and both sit on your About page. That shop is your only second voice, and it speaks to whoever thinks to look.",
       "bold_line": null
     },
     {
+      "finding_id": "f3",
       "lane": "website_sequencing",
       "verdict": "DOCUMENTATION",
       "exhibit": {
@@ -161,12 +154,13 @@ window.JOYUS_SITE_READ_FIXTURE = {
         "block_index": 7,
         "location": "body"
       },
-      "buried_on": "your Workshops page",
+      "buried_on": "the Workshops page",
       "searched": null,
-      "evidence": "Your Workshops page is the one place where something ends with a person holding an object: a Saturday, a wheel, and pots posted after the next firing. You sequence a workshop day better than you sequence the room a visitor walks into.",
+      "evidence": "Your Workshops page is the one place where something ends with a person holding an object: a Saturday, a wheel, and pots posted after the next firing.",
       "bold_line": null
     },
     {
+      "finding_id": "f4",
       "lane": "long_form_writing",
       "verdict": "ABSENT",
       "exhibit": {
@@ -209,120 +203,35 @@ window.JOYUS_SITE_READ_FIXTURE = {
       "Contact"
     ]
   },
-  "one_cut": {
-    "text": "The kiln made it onto your front page; the shop that has sold your mugs since 2019 did not.",
-    "shape": "parallel_clauses",
-    "contradiction_scan_done": true,
-    "rests_on_quote": false
-  },
   "bridge": {
-    "text": "A visitor cannot buy a mug, see what one costs, or put a name against a firing date without emailing you and waiting. The Workshops page already knows how to end with someone holding an object; nothing else on your site does.",
+    "text": "Nobody can buy a mug or find out what one costs without emailing you and waiting, and the Workshops page already knows how to end with someone holding an object.",
     "move": "what_a_stranger_cannot_do",
-    "concrete_anchor": "The Workshops page"
+    "concrete_anchor": "the Workshops page"
   },
   "self_check": {
-    "quotes_speaker_checked": true,
-    "quotes_character_matched": true,
-    "negative_claims": [
-      {
-        "claim": "Nothing on the homepage is marked as the place to start.",
-        "pages_scanned": [
-          "homepage"
-        ],
-        "search_terms": [
-          "shop now",
-          "buy",
-          "order",
-          "book",
-          "email",
-          "get in touch",
-          "start here"
-        ],
-        "surfaces_scanned": [
-          "page_text",
-          "buttons",
-          "link_inventory",
-          "footer"
-        ],
-        "counterexample_found": false
-      },
-      {
-        "claim": "The front page carries nothing that vouches for the work.",
-        "pages_scanned": [
-          "homepage"
-        ],
-        "search_terms": [
-          "stocked",
-          "Marrow and Grain",
-          "Fennhollow",
-          "residency",
-          "review",
-          "press",
-          "as seen"
-        ],
-        "surfaces_scanned": [
-          "page_text",
-          "image_alt",
-          "wordmark_or_title",
-          "footer"
-        ],
-        "counterexample_found": false
-      },
-      {
-        "claim": "No sentence on the site explains what was learned at the kiln.",
-        "pages_scanned": [
-          "homepage",
-          "Shop",
-          "Workshops",
-          "About"
-        ],
-        "search_terms": [
-          "journal",
-          "notes",
-          "writing",
-          "essay",
-          "why",
-          "learned",
-          "process"
-        ],
-        "surfaces_scanned": [
-          "page_text",
-          "image_alt",
-          "link_inventory",
-          "gallery_blocks",
-          "embedded_feeds",
-          "footer"
-        ],
-        "counterexample_found": false
-      },
-      {
-        "claim": "No grid or caption from Instagram renders on the site itself.",
-        "pages_scanned": [
-          "homepage",
-          "Shop",
-          "Workshops",
-          "About"
-        ],
-        "search_terms": [
-          "instagram",
-          "@",
-          "follow",
-          "feed"
-        ],
-        "surfaces_scanned": [
-          "gallery_blocks",
-          "embedded_feeds",
-          "footer",
-          "link_inventory",
-          "page_text"
-        ],
-        "counterexample_found": false
-      }
-    ],
-    "placement_claims_from_block_order": true,
-    "numbers_copied_from_fact_sheet": true,
     "prompt_leak_scan_done": true,
+    "no_new_facts_introduced": true,
+    "findings_used_once": true,
+    "plan_rendered_exactly": true,
+    "nothing_after_bridge": true,
+    "bold_only_where_planned": true,
+    "ledger_claims_used_once": true,
+    "no_derived_numbers": true,
+    "dates_rendered_whole": true,
+    "no_inferred_destinations": true,
+    "labels_rendered_verbatim": true,
+    "site_quantifiers_preserved": true,
+    "sentence_gate": {
+      "sentence_count": 13,
+      "word_count": 288,
+      "average_words_per_sentence": 22.2,
+      "sentences_over_30": 0
+    },
+    "frames_declared": {
+      "opening_frame": "your <surface> works like <a comparison>: <list of three>",
+      "bridge_frame": "nobody can <verb> without <gerund>, and <page> already knows how to <verb>"
+    },
     "shape_conflict": null,
-    "unverified_items_removed": []
+    "ledger_override": null
   }
 };

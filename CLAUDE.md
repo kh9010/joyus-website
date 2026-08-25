@@ -124,6 +124,15 @@ file and `site-read-worker/README.md`; do not publish the analysis prompt).
   `node scripts/gen-site-read-fixture.mjs` (`--check` fails if stale). The
   fixture is a fictional practice at an unregistered domain, on purpose: never
   ship a sample read of a real person's site.
+- **The sample read is written in two passes, like production.**
+  `site-read/fixture-outline.json` is pass 1; `fixture.json` is the prose
+  written from it. The generator runs the shipped containment check of the read
+  against that outline, so a sample that grows a proper noun, a number, a second
+  bold line or a sentence after the bridge fails the build.
+- **The read ends on its bridge and has no `one_cut`** (removed in v5.2 — a
+  synthesis slot is a recap by construction). The visual arrival is the one
+  sentence the render plan marks bold: `.rd-arrival`, centred between hairlines,
+  typed. Any front end reading a read needs that branch, not a cut branch.
 - Deliberately **not in the nav** yet. It is in `sitemap.xml` and the intent-box
   `CONTENT_MAP`; add the nav link when the Worker is live.
 

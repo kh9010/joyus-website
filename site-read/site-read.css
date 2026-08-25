@@ -507,11 +507,6 @@ body { overflow-x: hidden; }
 .rd-verdict-pill[data-v="ABSENT"] { background: transparent; color: var(--ink-fade); border: 1.5px dashed var(--ink-fade); }
 .rd-lane-evidence { font-size: 1.02rem; line-height: 1.65; color: var(--ink); margin-bottom: 0.5rem; }
 .rd-lane-meta { font-size: 0.85rem; color: var(--ink-fade); font-style: italic; overflow-wrap: anywhere; }
-.rd-bold-line {
-  font-weight: 600; font-size: 1.18rem; line-height: 1.4; color: var(--ink);
-  margin: 0.9rem 0 0.4rem; padding-left: 1rem; border-left: 3px solid var(--yellow);
-}
-
 .rd-strongest {
   margin: 0 0 3rem;
   padding: 1.4rem 1.5rem;
@@ -525,16 +520,20 @@ body { overflow-x: hidden; }
 }
 .rd-strongest p { font-size: 1.02rem; line-height: 1.6; color: var(--ink); }
 
-/* the one cut — the only typed line on the page */
-.rd-cut {
-  margin: 4rem 0;
+/* the arrival — the one sentence the render plan marks bold, and the only
+   typed line on the page. It replaced the one cut, which was a synthesis slot
+   and therefore a recap by construction. */
+.rd-arrival {
+  /* It sits inside .rd-lanes, whose flex `gap` already contributes 2.25rem on
+     each side and does not collapse with these margins. 1.75rem lands the same
+     ~4rem of air the one cut had as a sibling of the lanes block. */
+  margin: 1.75rem 0;
   padding: 3rem 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   text-align: center;
 }
-.rd-cut-label { font-family: var(--hand); font-size: 1.1rem; color: var(--ink-fade); display: block; margin-bottom: 1rem; }
-.rd-cut p {
+.rd-arrival p {
   font-weight: 600;
   font-size: clamp(1.4rem, 3.4vw, 2.05rem);
   line-height: 1.35;
@@ -544,12 +543,12 @@ body { overflow-x: hidden; }
   margin: 0 auto;
   min-height: 1.35em;
 }
-.rd-cut .caret {
+.rd-arrival .caret {
   display: inline-block; width: 0.05em; height: 0.85em;
   background: var(--pink); vertical-align: -0.05em;
   animation: caretBlink 1s steps(1, end) infinite;
 }
-.rd-cut.done .caret { display: none; }
+.rd-arrival.done .caret { display: none; }
 
 .rd-bridge { margin-bottom: 1rem; }
 .rd-bridge p { font-size: 1.06rem; line-height: 1.7; color: var(--ink-soft); }
@@ -611,7 +610,7 @@ body { overflow-x: hidden; }
 }
 
 @media (max-width: 640px) {
-  .rd-cut { padding: 2.2rem 0; margin: 3rem 0; }
+  .rd-arrival { padding: 2.2rem 0; margin: 0.75rem 0; }
   .rd-lane-head { gap: 0.5rem; }
 }
 

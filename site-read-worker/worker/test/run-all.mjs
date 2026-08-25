@@ -13,9 +13,11 @@ const offline = process.argv.includes('--offline');
 const SUITES = [
   ['extractor  (offline)', 'test-extractor.mjs'],
   ['fetcher    (local server)', 'test-fetcher.mjs'],
+  ['outline    (offline)', 'test-outline-validator.mjs'],
+  ['containment(offline)', 'test-containment.mjs'],
   ['validator  (offline)', 'test-validator.mjs'],
   ['plumbing   (offline)', 'test-plumbing.mjs'],
-  ['worker     (local server + stubbed model)', 'test-worker.mjs'],
+  ['worker     (local server + stubbed two-pass model)', 'test-worker.mjs'],
   ['real sites (network)', 'test-real-sites.mjs'],
 ];
 

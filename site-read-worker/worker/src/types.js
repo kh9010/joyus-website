@@ -2,7 +2,7 @@
 // TYPES + SHARED ENUMS
 //
 // The fact-sheet contract below is not ours to invent: it is transcribed from
-// the "INPUT — THE FACT SHEET" section of v4-analysis-prompt.md, which is the
+// the "INPUT — THE FACT SHEET" section of ../analysis-prompt-outline.md, which is the
 // authority. Field names here must match that document exactly — the model is
 // told to copy numbers out of `link_inventory` verbatim, so a renamed field is
 // a silently wrong read, not a compile error.
@@ -24,14 +24,19 @@ export const LANES = [
   'publishing_rhythm',
 ];
 
-export const OPENING_SHAPES = ['stranger_result', 'first_screen_quote', 'front_door_function'];
-export const CUT_SHAPES = ['named_thing_consequence', 'parallel_clauses', 'x_not_y'];
+// FOUR opening shapes. `named_fact` was added with the frame ledger: at least
+// one read in a batch has to open on an exhibit — a quoted line, a named
+// credential — rather than on a description of the front page.
+export const OPENING_SHAPES = ['stranger_result', 'first_screen_quote', 'front_door_function', 'named_fact'];
+// CUT_SHAPES is gone with the cut itself (5.2). The synthesis sentence was
+// recap by construction: a line whose job is to draw together what came before
+// can do nothing but say it again. Two shapes are assigned now, not three.
 export const BRIDGE_MOVES = ['scale_of_change', 'page_that_must_move', 'what_a_stranger_cannot_do'];
 
 /** Block types v4 enumerates for `pages[].blocks[].type`. */
 export const BLOCK_TYPES = ['heading', 'text', 'image', 'gallery', 'embed', 'button', 'form', 'nav', 'footer'];
 
-export const SCHEMA_VERSION = '4.0';
+export const SCHEMA_VERSION = '5.3';
 
 /**
  * @typedef {Object} Block
@@ -80,10 +85,10 @@ export const SCHEMA_VERSION = '4.0';
 /**
  * @typedef {Object} FactSheet
  * @property {string} site_url
- * @property {{opening_shape:string,cut_shape:string,bridge_move:string,seed:number}} shape_directive
+ * @property {{opening_shape:string,bridge_move:string,seed:number}} shape_directive
  * @property {FetchRecordEntry[]} fetch_record
  * @property {PageFacts[]} pages
- * @property {{page:string,type:string,item_count:number,captions:string[]}[]} embedded_feeds
+ * @property {{page:string,type:string,block_index:number|undefined,item_count:number,sample_captions:string[]}[]} embedded_feeds
  * @property {{text:string,page:string,block_index:number}|null} first_screen_headline
  * @property {LinkInventory} link_inventory
  */

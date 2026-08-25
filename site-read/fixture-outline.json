@@ -1,0 +1,381 @@
+{
+  "_comment": "PASS 1 for the sample read. The demo read at /site-read/?demo=1 is written FROM this outline and from nothing else, the same way production works: perception here, prose there. scripts/gen-site-read-fixture.mjs runs the shipped containment check of fixture.json against this file, so a sample read that drifts from its own evidence fails the build. A fictional practice at a domain that does not exist.",
+  "schema_version": "5.3-outline",
+  "site_url": "bridnallpottery.com",
+  "status": "read",
+
+  "first_screen": {
+    "headline_verbatim": "Slow pots for daily use",
+    "headline_on_first_screen": true,
+    "page": "homepage",
+    "block_index": 3,
+    "meets_in_order": [
+      "five-door menu",
+      "heading",
+      "text naming the maker's own hands"
+    ],
+    "front_door_function": "shows nine photographs of pots, three sentences about the firing, and five menu doors at one weight",
+    "stranger_result": "the front page reads as a market table, with buying and reading the same size"
+  },
+
+  "skim_claims": [
+    {
+      "dimension": "positioning_legibility",
+      "claim": "the heading Slow pots for daily use names both the object and the way it expects to be lived with",
+      "exhibit": {
+        "page": "homepage",
+        "quote": "Slow pots for daily use",
+        "source_span": "Slow pots for daily use",
+        "reference": null,
+        "speaker": "owner",
+        "block_index": 3,
+        "location": "first_screen"
+      }
+    },
+    {
+      "dimension": "tangibles",
+      "claim": "the most concrete line on the first screen describes labour rather than an object with a size and a sum",
+      "exhibit": {
+        "page": "homepage",
+        "quote": "thrown, fired and packed by me",
+        "source_span": "Everything here is thrown, fired and packed by me in a workshop behind the house in Bridnall.",
+        "reference": null,
+        "speaker": "owner",
+        "block_index": 4,
+        "location": "first_screen"
+      }
+    },
+    {
+      "dimension": "entry_point",
+      "claim": "the five menu doors carry one weight and none is marked as the place to start",
+      "exhibit": {
+        "page": "homepage",
+        "quote": null,
+        "source_span": null,
+        "reference": "the five-door menu across the top, running Home, Shop, Workshops, About, Contact",
+        "speaker": "not_applicable",
+        "block_index": 2,
+        "location": "first_screen"
+      }
+    }
+  ],
+
+  "gap": {
+    "named_facts": [
+      {
+        "fact": "The wood kiln has been lit since 2011",
+        "page": "homepage",
+        "source_sentence": "The wood kiln has been lit since 2011, and it is still the only one I use."
+      },
+      {
+        "fact": "five months at the Fennhollow residency in 2018",
+        "page": "About",
+        "source_sentence": "In 2018 I spent five months at the Fennhollow residency in Cumbria, learning to fire with wood."
+      },
+      {
+        "fact": "stocked by Marrow and Grain in Ellisford since 2019",
+        "page": "About",
+        "source_sentence": "My mugs and jars are stocked by Marrow and Grain in Ellisford, and have been since 2019."
+      }
+    ],
+    "what_a_stranger_gets_claim": "the pots and the town arrive with nobody but the maker vouching for the work"
+  },
+
+  "findings": [
+    {
+      "id": "f1",
+      "claim": "one kiln, lit since 2011 and still the only one used, is stated on the front page in the maker's own words",
+      "lane": "spine_story",
+      "verdict": "TRANSMISSION",
+      "exhibit": {
+        "page": "homepage",
+        "quote": "The wood kiln has been lit since 2011, and it is still the only one I use.",
+        "source_span": "The wood kiln has been lit since 2011, and it is still the only one I use.",
+        "reference": null,
+        "speaker": "owner",
+        "block_index": 5,
+        "location": "first_screen"
+      },
+      "buried_on": null,
+      "searched": null,
+      "why_it_matters": null
+    },
+    {
+      "id": "f2",
+      "claim": "the residency and the shop that stocks the work both sit on the About page",
+      "lane": "credibility_surface",
+      "verdict": "DOCUMENTATION",
+      "exhibit": {
+        "page": "About",
+        "quote": "stocked by Marrow and Grain in Ellisford",
+        "source_span": "My mugs and jars are stocked by Marrow and Grain in Ellisford, and have been since 2019.",
+        "reference": null,
+        "speaker": "owner",
+        "block_index": 6,
+        "location": "body"
+      },
+      "buried_on": "the About page",
+      "searched": null,
+      "why_it_matters": null
+    },
+    {
+      "id": "f3",
+      "claim": "the Workshops page is the one surface that ends with a person holding an object",
+      "lane": "website_sequencing",
+      "verdict": "DOCUMENTATION",
+      "exhibit": {
+        "page": "Workshops",
+        "quote": "Your pots go into the next wood firing and arrive by post about a month later.",
+        "source_span": "Your pots go into the next wood firing and arrive by post about a month later.",
+        "reference": null,
+        "speaker": "owner",
+        "block_index": 7,
+        "location": "body"
+      },
+      "buried_on": "the Workshops page",
+      "searched": null,
+      "why_it_matters": null
+    },
+    {
+      "id": "f4",
+      "claim": "no sentence anywhere explains what was learned at the kiln, only what comes out of it",
+      "lane": "long_form_writing",
+      "verdict": "ABSENT",
+      "exhibit": {
+        "page": "Shop",
+        "quote": null,
+        "source_span": null,
+        "reference": "the single line about ash falling differently on every shelf of the kiln",
+        "speaker": "not_applicable",
+        "block_index": 5,
+        "location": "body"
+      },
+      "buried_on": null,
+      "searched": [
+        "the homepage",
+        "the Shop page",
+        "the Workshops page",
+        "the About page",
+        "the menu",
+        "the footer",
+        "the photograph captions"
+      ],
+      "why_it_matters": "everything the maker knows about wood firing reaches a buyer only in conversation"
+    }
+  ],
+
+  "strongest_true_thing": null,
+
+  "lane_selection": {
+    "chosen": ["spine_story", "credibility_surface", "website_sequencing", "long_form_writing"],
+    "rejected": [
+      {
+        "lane": "short_form_social",
+        "reason": "The one Instagram link sits in the footer of every page, and no grid or caption from it renders anywhere on the site itself.",
+        "surfaces_searched": [
+          "the footer on all four pages",
+          "the homepage photographs",
+          "the Shop photographs",
+          "embedded_feeds",
+          "gallery_blocks"
+        ]
+      },
+      {
+        "lane": "publishing_rhythm",
+        "reason": "The two Saturdays on the Workshops page are both still ahead; nothing dated sits behind them on the other pages.",
+        "surfaces_searched": [
+          "the Workshops page",
+          "the Shop page",
+          "the About page",
+          "the homepage",
+          "the footer"
+        ]
+      }
+    ]
+  },
+
+  "bridge_material": {
+    "scale_of_change": "putting a price and a size beside a pot is a change to the Shop page rather than to the whole site",
+    "page_that_must_move": "the Workshops page has to move up to the front door",
+    "what_a_stranger_cannot_do": "nobody can buy a mug or learn what one costs without sending an email and waiting",
+    "concrete_anchor_candidates": [
+      "the Workshops page",
+      "Marrow and Grain",
+      "the wood kiln"
+    ]
+  },
+
+  "coverage": {
+    "lanes_examined": 4,
+    "lanes_total": 6,
+    "not_examined": [
+      { "lane": "short_form_social", "reason": "Instagram sits in the footer; no grid renders" },
+      { "lane": "publishing_rhythm", "reason": "Two class dates ahead, nothing dated behind" }
+    ],
+    "unfetched_pages": ["Contact"],
+    "extractor_gaps": []
+  },
+
+  "bold_designation": {
+    "claim_owner": "f4.consequence",
+    "why_this_one": "it names what the buyer never gets, and it is the only consequence that survived the entailment test"
+  },
+
+  "claim_ledger": [
+    {
+      "claim": "the front page reads as a market table, with buying and reading the same size",
+      "owner": "opening",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "the heading Slow pots for daily use names both the object and the way it expects to be lived with",
+      "owner": "skim.positioning_legibility",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "the most concrete line on the first screen describes labour rather than an object with a size and a sum",
+      "owner": "skim.tangibles",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "the five menu doors carry one weight and none is marked as the place to start",
+      "owner": "skim.entry_point",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "the pots and the town arrive with nobody but the maker vouching for the work",
+      "owner": "gap.what_a_stranger_gets",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "one kiln, lit since 2011 and still the only one used, is stated on the front page in the maker's own words",
+      "owner": "f1.claim",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "the residency and the shop that stocks the work both sit on the About page",
+      "owner": "f2.claim",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "the Workshops page is the one surface that ends with a person holding an object",
+      "owner": "f3.claim",
+      "also_claimed_by": ["bridge"],
+      "action_taken": "stripped"
+    },
+    {
+      "claim": "no sentence anywhere explains what was learned at the kiln, only what comes out of it",
+      "owner": "f4.claim",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "everything the maker knows about wood firing reaches a buyer only in conversation",
+      "owner": "f4.consequence",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    },
+    {
+      "claim": "nobody can buy a mug or learn what one costs without sending an email and waiting",
+      "owner": "bridge",
+      "also_claimed_by": [],
+      "action_taken": "unique"
+    }
+  ],
+
+  "render_plan": [
+    { "seq": 1, "unit": "opening", "renders_claim": "the front page reads as a market table, with buying and reading the same size", "claim_free": false, "bold": false, "source_node": "first_screen" },
+    { "seq": 2, "unit": "skim.positioning_legibility", "renders_claim": "the heading Slow pots for daily use names both the object and the way it expects to be lived with", "claim_free": false, "bold": false, "source_node": "skim_claims[0]" },
+    { "seq": 3, "unit": "skim.tangibles", "renders_claim": "the most concrete line on the first screen describes labour rather than an object with a size and a sum", "claim_free": false, "bold": false, "source_node": "skim_claims[1]" },
+    { "seq": 4, "unit": "skim.entry_point", "renders_claim": "the five menu doors carry one weight and none is marked as the place to start", "claim_free": false, "bold": false, "source_node": "skim_claims[2]" },
+    { "seq": 5, "unit": "gap.named_facts", "renders_claim": null, "claim_free": true, "bold": false, "source_node": "gap.named_facts" },
+    { "seq": 6, "unit": "gap.what_a_stranger_gets", "renders_claim": "the pots and the town arrive with nobody but the maker vouching for the work", "claim_free": false, "bold": false, "source_node": "gap.what_a_stranger_gets_claim" },
+    { "seq": 7, "unit": "f1.claim", "renders_claim": "one kiln, lit since 2011 and still the only one used, is stated on the front page in the maker's own words", "claim_free": false, "bold": false, "source_node": "findings[0].claim" },
+    { "seq": 8, "unit": "f2.claim", "renders_claim": "the residency and the shop that stocks the work both sit on the About page", "claim_free": false, "bold": false, "source_node": "findings[1].claim" },
+    { "seq": 9, "unit": "f3.claim", "renders_claim": "the Workshops page is the one surface that ends with a person holding an object", "claim_free": false, "bold": false, "source_node": "findings[2].claim" },
+    { "seq": 10, "unit": "f4.claim", "renders_claim": "no sentence anywhere explains what was learned at the kiln, only what comes out of it", "claim_free": false, "bold": false, "source_node": "findings[3].claim" },
+    { "seq": 11, "unit": "f4.consequence", "renders_claim": "everything the maker knows about wood firing reaches a buyer only in conversation", "claim_free": false, "bold": true, "source_node": "findings[3].why_it_matters" },
+    { "seq": 12, "unit": "bridge", "renders_claim": "nobody can buy a mug or learn what one costs without sending an email and waiting", "claim_free": false, "bold": false, "source_node": "bridge_material" },
+    { "seq": 13, "unit": "coverage", "renders_claim": null, "claim_free": true, "bold": false, "source_node": "coverage" }
+  ],
+
+  "gate_signals": [],
+  "decline_material": null,
+
+  "truth_check": {
+    "quotes_speaker_checked": true,
+    "quotes_character_matched": true,
+    "exhibit_source_spans_recorded": true,
+    "proper_nouns_located": true,
+    "numbers_copied_from_fact_sheet": true,
+    "placement_claims_from_block_order": true,
+    "negative_claims": [
+      {
+        "claim": "the five menu doors carry one weight and none is marked as the place to start",
+        "pages_scanned": ["homepage"],
+        "search_terms": ["shop now", "buy", "order", "book", "email", "get in touch", "start here"],
+        "surfaces_scanned": ["page_text", "buttons", "link_inventory", "footer"],
+        "counterexample_found": false
+      },
+      {
+        "claim": "the pots and the town arrive with nobody but the maker vouching for the work",
+        "pages_scanned": ["homepage"],
+        "search_terms": ["stocked", "Marrow and Grain", "Fennhollow", "residency", "review", "press", "as seen"],
+        "surfaces_scanned": ["page_text", "image_alt", "wordmark_or_title", "footer"],
+        "counterexample_found": false
+      },
+      {
+        "claim": "no sentence anywhere explains what was learned at the kiln, only what comes out of it",
+        "pages_scanned": ["homepage", "Shop", "Workshops", "About"],
+        "search_terms": ["journal", "notes", "writing", "essay", "why", "learned", "process"],
+        "surfaces_scanned": ["page_text", "image_alt", "link_inventory", "gallery_blocks", "embedded_feeds", "footer"],
+        "counterexample_found": false
+      },
+      {
+        "claim": "no grid or caption from Instagram renders on the site itself",
+        "pages_scanned": ["homepage", "Shop", "Workshops", "About"],
+        "search_terms": ["instagram", "@", "follow", "feed"],
+        "surfaces_scanned": ["gallery_blocks", "embedded_feeds", "footer", "link_inventory", "page_text"],
+        "counterexample_found": false
+      },
+      {
+        "claim": "nobody can buy a mug or learn what one costs without sending an email and waiting",
+        "pages_scanned": ["homepage", "Shop"],
+        "search_terms": ["£", "price", "add to cart", "checkout", "basket", "buy"],
+        "surfaces_scanned": ["page_text", "buttons", "link_inventory", "gallery_blocks"],
+        "counterexample_found": false
+      }
+    ],
+    "distinctness_checked": true,
+    "unverified_items_removed": [],
+    "claim_ledger_run": true,
+    "counts_single_sourced": true,
+    "count_conflicts": [],
+    "dates_carry_years": true,
+    "empty_fields_not_read_as_zero": true,
+    "counts_attached_to_source_object": true,
+    "labels_verbatim": true,
+    "no_destination_inference": true,
+    "site_quantifiers_preserved": true,
+    "unfetched_pages_uncharacterized": true,
+    "first_screen_placement_computed": true,
+    "consequence_entailment_run": true,
+    "render_plan_check": {
+      "entry_count": 13,
+      "projected_words": 330,
+      "bijection_holds": true,
+      "no_banned_units": true,
+      "ends_on_bridge": true,
+      "bold_entries": 1,
+      "sequence_contiguous": true,
+      "cross_node_entailment_swept": true
+    }
+  }
+}
