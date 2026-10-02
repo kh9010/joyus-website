@@ -1,0 +1,98 @@
+{
+  "_": "Study 03 data. Every clickable thing on the round-4 wireframe, where it goes, and the pages that fall out. check.cjs tests this against rev4.html. Statuses: decided = Divya said so; proposed = my call, open to change; open = needs Kahran + Divya.",
+
+  "clickables": [
+    { "id": "wordmark", "block": "nav", "label": "wordmark", "count": 1, "to": "home", "status": "proposed", "why": "Convention. Every page's way back." },
+    { "id": "nav-work", "block": "nav", "label": "work", "count": 1, "to": "work-index", "status": "proposed", "why": "The only place every piece is visible at once. The homepage shows one at a time." },
+    { "id": "nav-about", "block": "nav", "label": "about", "count": 1, "to": "about", "status": "decided", "why": "Rev 4 notes: who we are lives at about, off the homepage." },
+    { "id": "nav-sayhi", "block": "nav", "label": "say hi", "count": 1, "to": "say-hi", "status": "decided", "why": "Rev 4 notes: the contact form lives at say hi." },
+
+    { "id": "blank", "block": "hero", "label": "the ___ in \"We reimagine ___\"", "count": 1, "to": null, "status": "proposed", "why": "Not a link. It changes every 5 s; a moving target is a bad button, and it already mirrors the pill." },
+    { "id": "news-heading", "block": "hero", "label": "Newsletter", "count": 1, "to": "newsletter", "status": "proposed", "why": "Someone deciding whether to subscribe wants to see an issue first. The heading is the natural door to past issues." },
+    { "id": "subscribe", "block": "hero", "label": "subscribe", "count": 1, "to": "subscribed-state", "status": "proposed", "why": "Stays on the page: the form turns into a thank-you line. A whole page for 'thanks' sends them away from the work." },
+    { "id": "privacy", "block": "hero", "label": "privacy line", "count": 1, "to": "privacy", "status": "proposed", "why": "Collecting emails needs a policy one click away." },
+
+    { "id": "pill", "block": "pills", "label": "the five pills", "count": 5, "to": null, "status": "decided", "why": "Rev 4 behaviour: a pill switches the panel, it does not leave the page. The same five reappear as filters on the work index." },
+    { "id": "panel", "block": "panel", "label": "the whole panel (image + sentence)", "count": 1, "to": "piece", "or": "experiment", "status": "decided", "why": "An experiment page when the Experiments pill is showing. Divya, round 3: no 'see the work'; the panel is the link. One page per piece, round 3." },
+    { "id": "panel-tags", "block": "panel", "label": "tags in the panel", "count": 1, "to": null, "status": "proposed", "why": "Plain text on the homepage. They sit inside the panel, which is already one big link; a link inside a link is invalid HTML and a mis-tap on a phone. They become links on the piece page." },
+    { "id": "panel-client", "block": "panel", "label": "client logo + name in the panel", "count": 1, "to": null, "status": "proposed", "why": "Same reason as the tags: inside the panel link. The client page is reached from the piece page and the logo wall." },
+
+    { "id": "logo", "block": "logos", "label": "each client logo", "count": 12, "to": "client", "status": "proposed", "why": "A visitor who recognises a name wants everything we did for them. Klydo alone is seven pieces." },
+
+    { "id": "foot-wordmark", "block": "footer", "label": "wordmark", "count": 1, "to": "home", "status": "proposed", "why": "Convention." },
+    { "id": "foot-email", "block": "footer", "label": "hello@joyus.studio", "count": 1, "to": "mailto", "status": "proposed", "why": "Opens their mail app. Not a page." },
+    { "id": "foot-contact", "block": "footer", "label": "contact", "count": 1, "to": "say-hi", "status": "proposed", "why": "Same destination as nav 'say hi'. Two labels for one page; worth renaming 'contact' to 'say hi' so they match." },
+    { "id": "foot-kahran", "block": "footer", "label": "Kahran", "count": 1, "to": "person", "status": "proposed", "why": "The map gives each founder history, current interests and find me: enough for a page." },
+    { "id": "foot-divya", "block": "footer", "label": "Divya", "count": 1, "to": "person", "status": "proposed", "why": "As above." },
+    { "id": "foot-podcast", "block": "footer", "label": "podcast", "count": 1, "to": "podcast-existing", "status": "proposed", "why": "The podcast already exists (podcast.html + ~80 episodes) and is outside this rebuild." }
+  ],
+
+  "pages": [
+    { "type": "home", "title": "Homepage", "count": 1, "url": "/", "study": "02", "note": "Round 4. Gains real links in the final study." },
+    { "type": "piece", "title": "Piece page", "count": 27, "url": "/work/<client>/<piece>.html", "study": "04", "note": "One piece of client work. The core page: every panel on the homepage lands here." },
+    { "type": "experiment", "title": "Experiment page", "count": 10, "url": "/experiments/<slug>.html", "study": "05", "note": "One experiment. No client; often something to play with." },
+    { "type": "client", "title": "Client page", "count": 12, "url": "/work/<client>/", "study": "06", "note": "Everything we did for one client, in the order we did it." },
+    { "type": "work-index", "title": "Work index", "count": 1, "url": "/work/", "study": "07", "note": "All 37 pieces. Pills and tags become filters here (/work/?pill=strategy, /work/?tag=investor-storytelling)." },
+    { "type": "about", "title": "About", "count": 1, "url": "/about.html", "study": "08", "note": "The Joyus story: artistic, strategic, innovative (from the map)." },
+    { "type": "person", "title": "Person page", "count": 2, "url": "/kahran.html, /divya.html", "study": "09", "note": "History, currently, find me (from the map)." },
+    { "type": "say-hi", "title": "Say hi", "count": 1, "url": "/say-hi.html", "study": "10", "note": "The contact form (the map's 'Contact form')." },
+    { "type": "newsletter", "title": "Newsletter", "count": 1, "url": "/newsletter/", "study": "11", "note": "Past issues + the signup. Includes the subscribed state." },
+    { "type": "privacy", "title": "Privacy", "count": 1, "url": "/privacy.html", "study": "11", "note": "Short. Wireframed alongside the newsletter, which is the reason it exists." },
+    { "type": "subscribed-state", "title": "Subscribed (state, not a page)", "count": 0, "url": null, "study": "11", "note": "The form's thank-you state." },
+    { "type": "podcast-existing", "title": "Podcast (existing)", "count": 1, "url": "/podcast.html", "study": null, "note": "Kept as is. Outside this rebuild." },
+    { "type": "mailto", "title": "Email (not a page)", "count": 0, "url": "mailto:hello@joyus.studio", "study": null, "note": "" }
+  ],
+
+  "pieces": [
+    { "pill": "Brand & Identity", "client": "Klydo", "piece": "branding", "url": "/work/klydo/branding.html", "source": ["work/klydo-cut-design.html"], "have": "partial", "note": "Brand artifacts on the 120-day wall: logo exploration (day 15), type + colour (17), voice card (19), launch screen (40), brand system v2 (78)." },
+    { "pill": "Brand & Identity", "client": "Secret Senses", "piece": "identity + packaging", "url": "/work/secret-senses/identity-packaging.html", "source": ["work/secret-senses.html"], "have": "page" },
+    { "pill": "Brand & Identity", "client": "Tatsam", "piece": "brand", "url": "/work/tatsam/brand.html", "source": ["work/tatsam-cut-brand.html"], "have": "page" },
+    { "pill": "Brand & Identity", "client": "Gliitch", "piece": "identity", "url": "/work/gliitch/identity.html", "source": ["work/gliitch.html"], "have": "page" },
+    { "pill": "Brand & Identity", "client": "XTDB", "piece": "visual identity", "url": "/work/xtdb/visual-identity.html", "source": ["work/xtdb.html"], "have": "page" },
+    { "pill": "Brand & Identity", "client": "Agemo / Codewords", "piece": "brand voice", "url": "/work/agemo/brand-voice.html", "source": [], "have": "none", "note": "agemo.html's 'voice' section is user research, not brand voice." },
+
+    { "pill": "Website & Product", "client": "EWC", "piece": "website", "url": "/work/ewc/website.html", "source": [], "have": "none", "note": "Nothing in the repo. Name unconfirmed." },
+    { "pill": "Website & Product", "client": "Klydo", "piece": "product", "url": "/work/klydo/product.html", "source": ["work/klydo-cut-design.html"], "have": "partial", "note": "UX + flow artifacts on the wall." },
+    { "pill": "Website & Product", "client": "Agemo / Codewords", "piece": "product design", "url": "/work/agemo/product-design.html", "source": ["work/agemo-cut-interface.html"], "have": "page" },
+    { "pill": "Website & Product", "client": "Klydo", "piece": "design", "url": "/work/klydo/design.html", "source": ["work/klydo-cut-design.html"], "have": "page" },
+    { "pill": "Website & Product", "client": "Tatsam", "piece": "product", "url": "/work/tatsam/product.html", "source": ["work/tatsam-cut-product.html"], "have": "page" },
+    { "pill": "Website & Product", "client": "ConveGenius", "piece": "gamification", "url": "/work/convegenius/gamification.html", "source": ["work/convegenius-cut-product.html"], "have": "page" },
+    { "pill": "Website & Product", "client": "Shapeshifter", "piece": "AI system + automation", "url": "/work/shapeshifter/ai-system.html", "source": [], "have": "none" },
+    { "pill": "Website & Product", "client": "Rachna Nivas", "piece": "website (soon)", "url": "/work/rachna-nivas/website.html", "source": [], "have": "none", "note": "Not built yet; 'soon' on the map." },
+
+    { "pill": "Strategy", "client": "Pratham USA", "piece": "reactivation & retention strategy", "url": "/work/pratham/retention-strategy.html", "source": ["work/pratham.html", "work/pratham-cut-process.html"], "have": "page" },
+    { "pill": "Strategy", "client": "Klydo", "piece": "strategy", "url": "/work/klydo/strategy.html", "source": ["work/klydo-cut-strategy.html"], "have": "page" },
+    { "pill": "Strategy", "client": "Pratham USA", "piece": "donor research", "url": "/work/pratham/donor-research.html", "source": ["work/pratham-cut-research.html"], "have": "page" },
+    { "pill": "Strategy", "client": "Klydo", "piece": "pivot support", "url": "/work/klydo/pivot-support.html", "source": ["work/klydo-cut-strategy.html"], "have": "partial", "note": "Chapter 02 of the strategy cut." },
+    { "pill": "Strategy", "client": "ConveGenius", "piece": "strategy", "url": "/work/convegenius/strategy.html", "source": ["work/convegenius.html", "work/convegenius-cut-research.html"], "have": "partial" },
+    { "pill": "Strategy", "client": "Agemo / Codewords", "piece": "product strategy", "url": "/work/agemo/product-strategy.html", "source": ["work/agemo-cut-research.html"], "have": "partial" },
+    { "pill": "Strategy", "client": "Klydo", "piece": "marketing", "url": "/work/klydo/marketing.html", "source": ["work/klydo-cut-strategy.html"], "have": "partial", "note": "Only the closing line: 3 Instagram experiments in 14 days." },
+    { "pill": "Strategy", "client": "Rachna Nivas", "piece": "consulting", "url": "/work/rachna-nivas/consulting.html", "source": ["work/rachna-nivas.html"], "have": "page" },
+
+    { "pill": "Storytelling", "client": "TomboyX", "piece": "investor storytelling", "url": "/work/tomboyx/investor-storytelling.html", "source": ["work/tomboyx.html"], "have": "page" },
+    { "pill": "Storytelling", "client": "Rachna Nivas", "piece": "brand storytelling", "url": "/work/rachna-nivas/brand-storytelling.html", "source": ["work/rachna-nivas-cut-story.html", "work/rachna-nivas-cut-brand.html"], "have": "page" },
+    { "pill": "Storytelling", "client": "EWC", "piece": "branding storytelling", "url": "/work/ewc/brand-story.html", "source": [], "have": "none" },
+    { "pill": "Storytelling", "client": "Klydo", "piece": "storytelling", "url": "/work/klydo/storytelling.html", "source": ["work/klydo.html"], "have": "partial" },
+    { "pill": "Storytelling", "client": "Tatsam", "piece": "pitch", "url": "/work/tatsam/pitch.html", "source": ["work/tatsam-cut-story.html"], "have": "page" },
+
+    { "pill": "Experiments", "client": "Metro Museum of the Forgotten", "piece": "game", "url": "/experiments/metro-museum.html", "source": [], "have": "none", "note": "Exists as its own project (metro-museum), not in this repo." },
+    { "pill": "Experiments", "client": "Poetic lineage explorer", "piece": "tool", "url": "/experiments/poetic-lineage.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "Comics", "piece": "comics", "url": "/experiments/comics.html", "source": ["comics/index.html"], "have": "page", "note": "Five comics with a reader already live at /comics/. The experiment page can simply point there." },
+    { "pill": "Experiments", "client": "Projection mapper", "piece": "tool", "url": "/experiments/projection-mapper.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "AI videos for poetry", "piece": "film", "url": "/experiments/ai-poetry-videos.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "Brand Studio", "piece": "tool", "url": "/experiments/brand-studio.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "Art stager", "piece": "tool", "url": "/experiments/art-stager.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "AI personal automation", "piece": "tool", "url": "/experiments/personal-automation.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "Line before", "piece": "?", "url": "/experiments/line-before.html", "source": [], "have": "none" },
+    { "pill": "Experiments", "client": "Everything Bazaar", "piece": "advertising research", "url": "/experiments/everything-bazaar.html", "source": [], "have": "none", "note": "Local-only board site; Divya has said not to publish it. The experiment page would need its own selection." }
+  ],
+
+  "orphans": [
+    { "file": "services.html", "now": "in the nav", "proposal": "Retire. The pills do its job. Redirect to /work/." },
+    { "file": "workshops.html, ai-workshops.html, workshops-investing-c.html", "now": "Workshops in the nav; all three in the sitemap", "proposal": "Open. Not in the brief or the map. Either a pill-less footer link or a piece under Strategy." },
+    { "file": "work/*-cut-*.html, work/<client>.html", "now": "two in the sitemap, the rest unlisted", "proposal": "Become sources for the piece pages; old URLs redirect via gen-redirects.mjs." },
+    { "file": "comics/", "now": "in the sitemap", "proposal": "Kept. The Comics experiment page points into it." },
+    { "file": "index.html (intent box), looking.html, intent-box.js", "now": "the homepage", "proposal": "Open question 5 from Study 02. Replaced by the rotating homepage." },
+    { "file": "thinking/*, hub-*.html", "now": "already de-listed", "proposal": "No change; outside this rebuild." }
+  ]
+}

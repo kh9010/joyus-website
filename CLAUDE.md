@@ -22,6 +22,22 @@ Then open `http://localhost:8000/`. The homepage (`index.html`) is the typewrite
 
 There is nothing to lint or test. Changes are verified by loading pages in a browser.
 
+## Studies (homepage rebuild, since 2026-10-01)
+
+The homepage rebuild is worked as numbered **studies**, the same pattern as `ueno-underground` / `nid-paper`: `node studies/server.cjs` → http://localhost:8794/studies/ (a rail of `studies/iterations/NN`, newest first). The server's root is the whole repo, so a study can link to live pages with `../../../`.
+
+- **Snapshot rule:** never edit an old study beyond a copy fix; a new idea is a new study (`iterations/NN+1`, add it to the top of the rail and point the rail's iframe at it).
+- **`node studies/verify.cjs` before every commit.** It checks the rail, every local reference, `noindex` on every study page (the repo is public, so `studies/` deploys if the branch merges), real PNGs, that `02/rev4.html` is still byte-identical to commit `2c3e0d6`, and that committed older studies are unchanged.
+- **Start with `studies/HANDOFF.md`** (status, the studies, what is waiting on Divya/Kahran).
+- **Study 01** = the starting point (Divya's brief verbatim, her mind map, the current homepage, the April concepts). **Study 02** = the wireframe, all four rounds of 22 Sep with the note behind each; `rev4.html` + `CONTENT-NEEDS.md` are what used to live in `wireframe/`.
+- **Study 03** = the IA: every clickable on rev4 and where it goes (`ia.json`, tested against rev4 by `check.cjs`). **Studies 04–11** = one page type each (piece, experiment, client, work index, about, person, say hi, newsletter + privacy), each built two ways (A/B) with real content, a recommendation, and a `check.cjs`. **Study 12** = the recommended versions wired into one clickable prototype at `studies/iterations/12/site/`.
+- **Later studies amend Study 03** without editing it (2+ pieces to get a client page; "soon" pieces unlinked; person pages at `/kahran-singh.html` + `/divya-tak.html`; say-hi links carry `?from=`; new page types `external` and `issue`). Study 12's page lists them all, plus every open question.
+- `studies/wirecheck.cjs` = shared checks for subpage wireframes (every `<a>` carries `data-to` naming a Study 03 page type; nav + footer match rev4). Studies 04+ call it from their own `check.cjs`.
+- **Study 12's test needs a browser:** `node studies/iterations/12/crawl.mjs` (Chrome + the studies server running) writes `crawl-report.json`; its `check.cjs` fails if the report is older than the site files. After touching `12/site/`, re-crawl before `verify.cjs`. `12/build-data.cjs` regenerates `site/site-data.js` from Study 07's data.
+- Kahran's copy in wireframes is checked verbatim against the live pages (`about.html`, `say-hi.html`), paragraph-level for the founders' bios: never split his sentences or paragraphs (see memory `feedback_dont_restructure_kahran_copy`).
+- Don't pass regexes through `node -e '…'` in bash: the backslashes get eaten (bit this session three times, once as a check that silently passed over zero pages). Write the script to a file.
+- Screenshots: headless Chrome `--window-size` can't go below ~500px wide, so phone-width shots taken that way are silently cropped. Use DevTools device emulation (`Emulation.setDeviceMetricsOverride`) for phone widths. Block `www.googletagmanager.com`, `*.google-analytics.com`, `firestore.googleapis.com` with `--host-resolver-rules` when screenshotting live pages so they don't log fake GA visits.
+
 ## Page inventory
 
 Root-level pages:

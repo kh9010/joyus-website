@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prototype — client page</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 06, A (by time), as a template: ?c=klydo. Only clients with 2+ pieces have one. */
+  .head{padding:clamp(48px,8vh,96px) var(--x) 48px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px}.crumb a{border-bottom:1px solid var(--line)}
+  .head .logo{width:140px;height:56px;margin-bottom:26px}
+  .head h1{font:600 clamp(3rem,8vw,7rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 20px}
+  .head .line{font:500 clamp(1.2rem,2vw,1.6rem)/1.25 var(--sans);margin:0;max-width:30ch}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .chap{display:grid;grid-template-columns:180px minmax(0,1fr);gap:40px;padding:56px var(--x) 8px}
+  .chap-h .no{font:14px var(--mono);color:var(--mute)}
+  .chap-h h2{margin:4px 0 6px;font-size:1.6rem;font-weight:600;letter-spacing:-.025em}
+  .chap-h p{margin:0;font:12px var(--mono);color:var(--mute)}
+  .rail{border-left:1.5px solid var(--ink);padding-left:28px}
+  .pc{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:24px;padding:22px 0;border-bottom:1px solid var(--line);position:relative}
+  .pc::before{content:"";position:absolute;left:-35px;top:30px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink)}
+  .pc:hover{text-decoration:none}.pc:hover b{text-decoration:underline}
+  .pc .gbox{aspect-ratio:16/9}
+  .pc small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:8px}
+  .pc b{display:block;font:500 1.15rem/1.3 var(--sans);margin-bottom:10px}
+  .pc .when{font:12px var(--mono);color:var(--mute)}
+  .pc.soon{opacity:.55}
+  .gap{margin:28px var(--x) 0 calc(var(--x) + 220px);padding:14px 0;font:13px var(--mono);color:var(--mute);border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+  .more{padding:72px var(--x) 8px}.more h2{margin:0 0 16px;font-size:1.1rem}
+  .more ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .more a{display:flex;height:64px}
+  .closing{padding:88px var(--x)}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  .missing{padding:96px var(--x)}.missing a{border-bottom:1px solid var(--ink)}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:28px} .chap{grid-template-columns:1fr;gap:18px} .pc{grid-template-columns:1fr;gap:12px} .gap{margin-left:var(--x)} .more ul{grid-template-columns:repeat(3,1fr)} }
+</style>
+</head>
+<body>
+<header id="nav"></header>
+<main id="page"></main>
+<footer id="foot"></footer>
+<script src="site-data.js"></script>
+<script src="chrome.js"></script>
+<script>
+(function () {
+  const c = new URLSearchParams(location.search).get('c'), cl = SITE.clients[c];
+  const page = document.getElementById('page');
+  if (!cl || !cl.page) { page.innerHTML = `<section class="missing"><h1>${cl ? 'One piece, so no client page.' : 'No such client.'}</h1><p>${cl ? `<a href="${clientHref(c)}">Go to the piece</a>` : '<a href="work.html">See all the work</a>'}</p></section>`; return; }
+  document.title = 'Prototype — ' + cl.name;
+  const P = (s) => SITE.pieces.find(p => p.slug === s);
+  const card = (p) => p.soon
+    ? `<div class="pc soon"><div class="gbox gbox--img"><span>soon</span></div><div><small>${esc(pillName(p.pill))} · soon</small><b>${esc(p.s)}</b></div></div>`
+    : `<a class="pc" href="${pieceHref(p)}"><div class="gbox gbox--img"><span>image</span></div><div><small>${esc(pillName(p.pill))}</small><b>${esc(p.s)}</b><span class="when">${esc((cl.when || {})[p.slug] || '[dates]')}</span></div></a>`;
+  // by time where the dates exist (Klydo, Study 06); otherwise homepage order, said plainly
+  const body = cl.chapters
+    ? cl.chapters.map(ch => (ch.gap ? `<p class="gap">${esc(ch.gap)}</p>` : '') + `<section class="chap"><div class="chap-h"><span class="no">${ch.no}</span><h2>${esc(ch.name)}</h2><p>${esc(ch.span)}</p></div><div class="rail">${ch.pieces.map(s => card(P(s))).join('')}</div></section>`).join('')
+    : `<section class="chap"><div class="chap-h"><span class="no">—</span><h2>[not yet dated]</h2><p>homepage order until the dates are gathered</p></div><div class="rail">${cl.pieces.map(s => card(P(s))).join('')}</div></section>`;
+  const others = ['klydo', 'tomboyx', 'agemo', 'pratham', 'convegenius', 'rachna-nivas', 'tatsam', 'xtdb', 'gliitch', 'secret-senses', 'ewc', 'shapeshifter'].filter(x => x !== c);
+  page.innerHTML = `
+  <section class="head"><div>
+    <p class="crumb"><a href="work.html">Work</a> / client</p>
+    <div class="gbox logo">${esc(cl.name)} logo</div>
+    <h1>${esc(cl.name)}</h1>
+    <p class="line ${cl.line ? '' : 'lorem'}">${esc(cl.line || '[one line, as Klydo has]')}</p>
+  </div><dl class="facts"><div><dt>who they are</dt><dd>${esc(cl.who || '[who they are]')}</dd></div><div><dt>with us since</dt><dd>${esc(cl.since || '[when]')}</dd></div><div><dt>pieces</dt><dd>${cl.pieces.length}</dd></div></dl></section>
+  ${body}
+  <section class="more"><h2>More clients</h2><ul>${others.map(o => `<li><a class="gbox" href="${clientHref(o)}">${esc(SITE.clients[o].name)}</a></li>`).join('')}</ul></section>
+  <section class="closing"><p>Something you want reimagined?</p><a href="say-hi.html">say hi</a></section>`;
+})();
+</script>
+</body>
+</html>

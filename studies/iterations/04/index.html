@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>04 / The piece page — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start }
+.pair figure { margin: 0 }
+.pair h3 { margin: 0 0 4px }
+.pair .shot { width: 100% }
+.phones { display: grid; grid-template-columns: repeat(2, 220px); gap: 28px }
+.phones .shot { width: 220px }
+.cost td:first-child { width: 22% }
+@media (max-width: 900px) { .pair { grid-template-columns: 1fr } .phones { grid-template-columns: 1fr 1fr } .phones .shot { width: 100% } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 04 · 1 October 2026</p>
+<h1>The piece page</h1>
+<p class="lede">Where every homepage panel lands: 27 of these, one per piece of client work. One decision here: how a piece is told. Two versions, built with the same real content (Klydo · branding, from the 120-day wall in <code>work/klydo-cut-design.html</code>), identical everywhere except that one part.</p>
+
+<h2>What both versions share, and where each part leads</h2>
+<table>
+<thead><tr><th style="width:20%">Part</th><th>What it is</th><th style="width:22%">Leads to</th><th style="width:30%">Why</th></tr></thead>
+<tbody>
+<tr><td><strong>Crumb</strong></td><td><em>Brand &amp; Identity / Klydo</em></td><td>Work index filtered to the pill · Client page</td><td>The two ways up: the kind of work, and the client. The pill doesn't navigate on the homepage (Study 03); here it can.</td></tr>
+<tr><td><strong>Headline</strong></td><td>The homepage sentence, word for word.</td><td>—</td><td>The click lands on what was clicked. A visitor who tapped "For Klydo, we built the brand…" reads the same line arriving.</td></tr>
+<tr><td><strong>Tags</strong></td><td>The panel's tags, now links.</td><td>Work index filtered by tag</td><td>On the homepage they were text inside the panel link (Study 03). Here they're free to be the fine axis: every piece tagged <em>identity</em>.</td></tr>
+<tr><td><strong>Facts</strong></td><td>Client (linked), when, and one line on the body's shape.</td><td>Client page</td><td>Answers "who, when" before the body, so the body can be about the work.</td></tr>
+<tr><td><strong>Hero image</strong></td><td>The same still as the homepage panel.</td><td>—</td><td>Continuity again: the picture they clicked is the picture they get.</td></tr>
+<tr><td><strong>Body</strong></td><td colspan="3"><strong>The decision. See below.</strong></td></tr>
+<tr><td><strong>Also for Klydo</strong></td><td>The other six Klydo pieces, each with its own pill, plus "All seven Klydo pieces →".</td><td>Six piece pages · Client page</td><td>Klydo is seven pieces across four pills. Someone who liked the brand may want the strategy. On a phone these become text rows (below).</td></tr>
+<tr><td><strong>Next</strong></td><td>The next piece in the same pill, with its homepage sentence.</td><td>Piece page</td><td>The homepage's rotation, continued by hand: Klydo · branding is followed by Secret Senses, as it is on the homepage.</td></tr>
+<tr><td><strong>Closing</strong></td><td>"Something you want reimagined?" + say hi.</td><td>Say hi</td><td>Picks up the homepage's verb. Placeholder copy; it's Kahran's and Divya's to write.</td></tr>
+</tbody></table>
+
+<h2>The decision: how a piece is told</h2>
+<div class="pair">
+<figure>
+<h3>A · Rounds</h3>
+<p class="source">Five dated rounds, oldest first, each an image and a short title; nothing replaced. <a href="piece-a-rounds.html" target="_blank">Open A</a></p>
+<a href="piece-a-rounds.html" target="_blank"><img class="shot" src="img/piece-a-rounds.png" alt="Piece page A: headline, facts, hero, then five numbered rounds each with a title, date, caption and image, then Also for Klydo, Next, closing"></a>
+</figure>
+<figure>
+<h3>B · Case study</h3>
+<p class="source">Three labelled rows: the brief, what we made, where it landed. <a href="piece-b-case.html" target="_blank">Open B</a></p>
+<a href="piece-b-case.html" target="_blank"><img class="shot" src="img/piece-b-case.png" alt="Piece page B: same header, then The brief, What we made as a four-image grid, Where it landed as four numbers with a yellow flag, then the same Also, Next, closing"></a>
+</figure>
+</div>
+
+<h3>Where A comes from</h3>
+<p>Divya's "historical layers" (Study 01), after the Everything Bazaar board site: every round is a numbered entry, oldest to newest, an image and a short title with its date, and a new round never replaces an old one. A brings that to a piece of client work. The Klydo wall already holds exactly this material: each artifact has a day, a date, a title, a one-line caption and, for four of the five brand artifacts, an image.</p>
+<p class="source">No screenshot of Everything Bazaar here on purpose: that site is local-only by Divya's instruction, and this repo is public.</p>
+
+<h3>What each one costs</h3>
+<table class="cost">
+<thead><tr><th></th><th>A · Rounds</th><th>B · Case study</th></tr></thead>
+<tbody>
+<tr><td>Needs, per piece</td><td>Dated artifacts with a one-line caption each.</td><td>A brief, a set of deliverables, and an outcome specific to the piece.</td></tr>
+<tr><td>For Klydo · branding</td><td><span class="status done">have</span> 5 dated artifacts on the wall, 4 with images.</td><td><span class="status done">have</span> brief + deliverables. <span class="status no">missing</span> outcome: the only numbers (4 / 30 / 120 / 150) are the whole engagement, so B has to borrow them. The yellow flag on B shows where.</td></tr>
+<tr><td>Fails how</td><td>A piece with one finished deliverable becomes a one-round page.</td><td>A piece with no number gets a "where it landed" with nothing in it, or a borrowed one.</td></tr>
+<tr><td>Reads as</td><td>How the work moved. Joyus as a studio that thinks in rounds.</td><td>What was delivered. Joyus as a vendor with outputs: the thing the July positioning warns against.</td></tr>
+</tbody></table>
+<p><strong>Recommendation: A.</strong> It's Divya's idea, the Klydo material already has its shape, and it doesn't need an outcome number most pieces don't have. B's weak row is visible in its own wireframe. Not yet known: how many of the other 26 pieces have dated material. That's a content audit, and it's the thing that could overturn this.</p>
+
+<h2>On a phone</h2>
+<div class="phones">
+<figure><img class="shot" src="img/piece-a-rounds-phone.png" alt="Piece page A at phone width"><figcaption>A · 390 px</figcaption></figure>
+<figure><img class="shot" src="img/piece-b-case-phone.png" alt="Piece page B at phone width"><figcaption>B · 390 px</figcaption></figure>
+</div>
+<p>Rounds stack: number and title, then the image full width. Both pages measured at 390 px wide: page width 390, no element past the edge.</p>
+
+<h2>Found on the way</h2>
+<p class="wrong"><strong>The source contradicts itself.</strong> On the wall, "Logo exploration" is day 15, week three, and its caption says "Jumped in at week six when their brand hire quit". <code>work/klydo.html</code> also says week six. Kept exactly as written (it's Kahran's copy); either the day or the week is wrong, and only Kahran knows which.</p>
+<p class="wrong"><strong>Six image cards made the phone page 1,250 px longer.</strong> "Also for Klydo" stacked six 16:9 cards at 390 px. Now text rows on phones: A went from 5,626 to 4,372 px tall.</p>
+<p class="wrong"><strong>A false alarm, measured rather than eyeballed.</strong> The downscaled phone screenshot looked like it clipped "say hi" in the nav. The screenshot script now measures page width against screen width and lists any element past the edge: nothing was.</p>
+
+<h2>What every piece page needs</h2>
+<ul>
+<li>The homepage sentence and tags (already drafted for all 37, Study 02).</li>
+<li>One hero still, the same one the homepage panel shows.</li>
+<li>Its rounds: dated artifacts, one-line caption each, an image where one exists.</li>
+<li>Its date range.</li>
+</ul>
+
+<h2>The test</h2>
+<p><code>node studies/iterations/04/check.cjs</code>, run by <code>verify.cjs</code>. For both versions: every link names a Study 03 page type; the nav and footer match round 4; the headline is the homepage sentence word for word; every homepage tag is a link to its filter; the pill links to its filter; the siblings are exactly the other six Klydo pieces under their own pills; "next" is the next piece in the pill in homepage order. Then: A and B are identical outside the body (so the comparison is fair), and every round's date agrees with its day number counted from day 1 = 10 Sep 2025.</p>
+<p>Broken on purpose to prove it bites: a sibling under the wrong pill and a round dated 20 Oct instead of 19 Oct. Three failures (the third: A no longer matched B outside the body). Restored, passes.</p>
+</main>
+</body>
+</html>

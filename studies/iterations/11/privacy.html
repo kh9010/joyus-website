@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — privacy</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 32px;max-width:900px}
+  h1{font:600 clamp(2.4rem,6vw,4.8rem)/1 var(--sans);letter-spacing:-.04em;margin:0 0 16px}
+  .head p{margin:0;color:var(--mute);max-width:56ch}
+  .draft{display:inline-block;margin-top:14px;background:#fff6c9;border:1px solid #e6d27a;padding:6px 12px;font-size:14px}
+  /* one row per thing we collect: what, where it goes, why, how to stop it */
+  .rows{margin:24px var(--x) 0;border-top:1px solid var(--ink)}
+  .row{display:grid;grid-template-columns:minmax(0,3fr) repeat(3,minmax(0,3fr));gap:24px;padding:22px 0;border-bottom:1px solid var(--line)}
+  .row h2{margin:0;font:500 1.15rem/1.3 var(--sans)}
+  .row h2 small{display:block;font:12px var(--mono);color:var(--mute);font-weight:400;margin-top:4px}
+  .row dl{margin:0;display:contents}
+  .row div dt{font:12px var(--mono);color:var(--mute);margin-bottom:4px}
+  .row div dd{margin:0;font-size:15px}
+  .ask{padding:48px var(--x) 72px}
+  .ask a{border-bottom:1px solid var(--ink)}
+  @media (max-width:900px){ .row{grid-template-columns:1fr;gap:10px} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <h1>Privacy</h1>
+  <p>What this site collects, where it goes, and how to stop it. Four things, no more.</p>
+  <span class="draft">Draft: every fact below was read out of the site's own code on 1 Oct 2026. Not legal text; needs a real review.</span>
+</section>
+
+<section class="rows">
+  <div class="row" data-fact="ga"><h2>Which pages you visit<small>every page</small></h2>
+    <div><dt>what</dt><dd>Pages viewed, rough location, device and browser.</dd></div>
+    <div><dt>where it goes</dt><dd>Google Analytics 4 (property G-74FZR7YY60).</dd></div>
+    <div><dt>to stop it</dt><dd>Any tracker blocker; [a consent banner? decide].</dd></div></div>
+  <div class="row" data-fact="intents"><h2>What you type in the homepage box<small>only while the intent box exists</small></h2>
+    <div><dt>what</dt><dd>The words (up to 280 characters), whether they matched a page, the time, the page. Not your email, not your name.</dd></div>
+    <div><dt>where it goes</dt><dd>Google Firestore, project joyus-studio, collection "intents".</dd></div>
+    <div><dt>to stop it</dt><dd>Don't type in it. Goes away if the rotating homepage replaces the box (open question 5).</dd></div></div>
+  <div class="row" data-fact="newsletter"><h2>Your email, if you subscribe<small>the newsletter</small></h2>
+    <div><dt>what</dt><dd>Your email address, nothing else.</dd></div>
+    <div><dt>where it goes</dt><dd>[platform], only to send the newsletter, four times a year.</dd></div>
+    <div><dt>to stop it</dt><dd>The unsubscribe link in every issue.</dd></div></div>
+  <div class="row" data-fact="sayhi"><h2>Your note, if you say hi<small>the say hi form</small></h2>
+    <div><dt>what</dt><dd>Your name, email and note, plus which piece you came from (Study 10, B).</dd></div>
+    <div><dt>where it goes</dt><dd>Today: your own mail app sends it to hello@joyus.studio. The site stores nothing.</dd></div>
+    <div><dt>to stop it</dt><dd>Don't send it. Ask us to delete the thread.</dd></div></div>
+</section>
+
+<section class="ask">
+  <p>Questions, or want something deleted? <a href="#" data-to="mailto">hello@joyus.studio</a> · <a href="#" data-to="say-hi">say hi</a></p>
+  <p class="mono">last updated: [date]</p>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+</body>
+</html>

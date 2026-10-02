@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — Joyus homepage (Sep 2026)</title>
+<style>
+  /* Wireframe. No styles.css on purpose. Grey = placeholder. Notes live in CONTENT-NEEDS.md, not on the page. */
+  :root{
+    --paper:#f5f5f3; --box:#e2e2df; --box2:#cfcfcb; --line:#a3a39e; --ink:#1f1f1f; --mute:#6f6f6a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 var(--sans)}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  .gbox{background:var(--box);border:1px dashed var(--line);display:flex;align-items:center;justify-content:center;text-align:center;font:12px var(--mono);color:var(--mute);padding:8px;position:relative;overflow:hidden}
+  .gbox--img::before,.gbox--img::after{content:"";position:absolute;left:-10%;right:-10%;top:50%;border-top:1px solid var(--line)}
+  .gbox--img::before{transform:rotate(22deg)}.gbox--img::after{transform:rotate(-22deg)}
+  .gbox--img span{position:relative;z-index:1;background:var(--box);padding:3px 8px}
+  .tline{height:11px;background:var(--box2);border-radius:5px;margin:8px 0}
+  .tline--h{height:26px;width:55%}.tline--s{width:82%}.tline--xs{width:40%}
+  h2{margin:0;font-size:1.35rem;letter-spacing:-.02em;font-weight:600}
+
+  /* nav */
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
+  .nav .gbox{height:34px;width:104px}
+  .nav ul{display:flex;gap:26px;list-style:none;margin:0;padding:0;font-size:15px}
+
+  /* hero + showcase = one screen */
+  .hero{padding:48px 0 0}
+  .hero h1{font:600 clamp(2.6rem,7vw,5.6rem)/.95 var(--sans);letter-spacing:-.035em;margin:0 0 22px}
+  .hero p{max-width:600px;margin:0;color:var(--mute);font-size:1.05rem}
+  .tabs{display:flex;gap:34px;margin:44px 0 30px;border-bottom:1px solid var(--line);overflow-x:auto}
+  .tabs button{border:0;background:none;padding:0 0 14px;margin-bottom:-1px;font:500 clamp(1.15rem,2.2vw,1.6rem)/1.1 var(--sans);letter-spacing:-.02em;color:var(--mute);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+  .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+  .panel{display:none;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:40px;align-items:start;padding-bottom:72px}
+  .panel.is-on{display:grid}
+  .panel .gbox--img{aspect-ratio:4/3}
+  .panel h3{margin:6px 0 4px;font-size:1.6rem;letter-spacing:-.02em}
+  .panel .who{font:12px var(--mono);color:var(--mute);margin:0 0 16px}
+  .panel .line{font-size:1.1rem;margin:0 0 20px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;padding:0;list-style:none}
+  .tags li{border:1px solid var(--ink);border-radius:999px;padding:5px 12px;font:13px var(--mono)}
+  .tags li.kind{background:var(--ink);color:#fff}
+  .more{font-size:15px;text-decoration:underline;text-underline-offset:4px}
+  .view{font:12px var(--mono);color:var(--mute);margin-left:auto;align-self:center;padding-bottom:14px}
+  .view button{border:0;background:none;font:inherit;color:inherit;cursor:pointer;padding:0 4px}
+  .view button[aria-pressed="true"]{color:var(--ink);text-decoration:underline;text-underline-offset:4px}
+
+  /* by time */
+  .chrono{display:none;grid-template-columns:220px 1fr;gap:40px;padding-bottom:72px}
+  .chrono.is-on{display:grid}
+  .rail{font:13px/1.6 var(--mono);border-right:1px solid var(--line);padding-right:18px}
+  .rail h4{margin:18px 0 4px;font:12px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+  .rail h4:first-child{margin-top:0}
+  .rail ol{list-style:none;margin:0;padding:0}
+  .rail li{color:var(--mute)}.rail li b{color:var(--ink);font-weight:500;margin-right:8px}
+  .layers{display:grid;gap:12px}
+  .layer{display:grid;grid-template-columns:44px 112px 1fr auto;gap:16px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+  .layer .n,.layer .d,.layer .k{font:12px var(--mono);color:var(--mute)}
+  .layer .gbox{height:64px}.layer .t{margin:0 0 3px;font-weight:600}
+
+  /* logos */
+  .logos-sec{padding:64px 0}
+  .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:22px}
+  .logos .gbox{height:80px}
+
+  /* newsletter */
+  .news{padding:64px 0 72px;border-top:1px solid var(--line);display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+  .news p{color:var(--mute);margin:10px 0 20px;max-width:480px}
+  .form{display:flex;gap:8px;max-width:480px}
+  .form .gbox{flex:1;height:46px}
+  .form button{height:46px;padding:0 20px;border:0;background:var(--ink);color:#fff;border-radius:4px;font:inherit}
+  .fine{font:12px var(--mono);color:var(--mute);margin-top:10px}
+  .issue{border:1px dashed var(--line);padding:18px;background:var(--box)}
+  .issue .tl{font:12px var(--mono);color:var(--mute);margin-bottom:8px}
+
+  /* footer */
+  .foot{border-top:1px solid var(--line);display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;padding:40px 0 64px;font-size:14px;color:var(--mute)}
+  .foot ul{list-style:none;margin:8px 0 0;padding:0;line-height:1.9}
+  .foot .gbox{width:104px;height:30px}
+
+  @media (max-width:760px){
+    .nav ul{gap:16px;font-size:14px}
+    .tabs{gap:22px}
+    .panel,.chrono,.news{grid-template-columns:1fr}
+    .rail{border-right:0;border-bottom:1px solid var(--line);padding:0 0 12px}
+    .logos{grid-template-columns:repeat(3,1fr)}
+    .foot{grid-template-columns:1fr}
+    .layer{grid-template-columns:36px 1fr auto}.layer .gbox{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="nav">
+    <div class="gbox">wordmark</div>
+    <ul><li><a href="#">work</a></li><li><a href="#">about</a></li><li><a href="#">say hi</a></li></ul>
+  </header>
+
+  <section class="hero">
+    <h1>joyus studio</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, quis nostrud exercitation.</p>
+
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="brand">Brand &amp; Identity</button>
+      <button role="tab" aria-selected="false" data-tab="product">Website &amp; Product Strategy</button>
+      <button role="tab" aria-selected="false" data-tab="story">Storytelling</button>
+      <button role="tab" aria-selected="false" data-tab="exp">Experimental</button>
+      <div class="view"><button type="button" data-view="kind" aria-pressed="true">by kind</button> / <button type="button" data-view="time" aria-pressed="false">by time</button></div>
+    </div>
+
+    <div id="view-kind">
+      <div class="panel is-on" role="tabpanel" data-panel="brand">
+        <div class="gbox gbox--img"><span>image</span></div>
+        <div>
+          <h3>Klydo</h3>
+          <p class="who">client work · in joyus · 20XX</p>
+          <p class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          <ul class="tags"><li class="kind">client work</li><li>branding</li><li>design</li><li>product</li><li>marketing</li><li>pivot support</li></ul>
+          <a class="more" href="#">see the work</a>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" data-panel="product">
+        <div class="gbox gbox--img"><span>image</span></div>
+        <div>
+          <h3>Agemo / Codewords</h3>
+          <p class="who">client work · in joyus · 20XX</p>
+          <p class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          <ul class="tags"><li class="kind">client work</li><li>product strategy</li><li>product design</li><li>brand voice</li></ul>
+          <a class="more" href="#">see the work</a>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" data-panel="story">
+        <div class="gbox gbox--img"><span>image</span></div>
+        <div>
+          <h3>TomboyX</h3>
+          <p class="who">client work · in joyus · 20XX</p>
+          <p class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          <ul class="tags"><li class="kind">client work</li><li>investor storytelling</li><li>strategy</li></ul>
+          <a class="more" href="#">see the work</a>
+        </div>
+      </div>
+      <div class="panel" role="tabpanel" data-panel="exp">
+        <div class="gbox gbox--img"><span>image</span></div>
+        <div>
+          <h3>Metro Museum of the Forgotten</h3>
+          <p class="who">artistic project · 20XX</p>
+          <p class="line">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+          <ul class="tags"><li class="kind">artistic project</li><li>game</li><li>data</li><li>Delhi</li></ul>
+          <a class="more" href="#">see it</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-time" class="chrono">
+      <aside class="rail">
+        <h4>Before joyus</h4>
+        <ol><li><b>01</b> Secret Senses</li><li><b>02</b> Gliitch</li><li><b>03</b> Tatsam</li><li><b>04</b> XTDB</li></ol>
+        <h4>In joyus</h4>
+        <ol><li><b>05</b> Klydo</li><li><b>06</b> Agemo</li><li><b>07</b> TomboyX</li><li><b>08</b> ConveGenius</li><li><b>09</b> Pratham USA</li><li><b>10</b> Rachna Nivas</li><li><b>11</b> EWC</li><li><b>12</b> Shapeshifter</li></ol>
+        <h4>Alongside</h4>
+        <ol><li><b>·</b> comics</li><li><b>·</b> Metro Museum</li><li><b>·</b> Poetic lineage</li><li><b>·</b> Everything Bazaar</li></ol>
+      </aside>
+      <div class="layers">
+        <div class="layer"><span class="n">01</span><div class="gbox">img</div><div><p class="t">Secret Senses</p><span class="k">identity · illustration · packaging</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">02</span><div class="gbox">img</div><div><p class="t">Gliitch</p><span class="k">identity</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">03</span><div class="gbox">img</div><div><p class="t">Tatsam</p><span class="k">research · brand · product · pitch</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">04</span><div class="gbox">img</div><div><p class="t">XTDB</p><span class="k">visual identity</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">05</span><div class="gbox">img</div><div><p class="t">Klydo</p><span class="k">strategy · product · design · branding · storytelling · marketing · pivot support</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">06</span><div class="gbox">img</div><div><p class="t">Agemo</p><span class="k">product strategy · product design · brand voice</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">07</span><div class="gbox">img</div><div><p class="t">TomboyX</p><span class="k">investor storytelling</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">08</span><div class="gbox">img</div><div><p class="t">ConveGenius</p><span class="k">gamification · strategy</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">09</span><div class="gbox">img</div><div><p class="t">Pratham USA</p><span class="k">donor research · reactivation and retention</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">10</span><div class="gbox">img</div><div><p class="t">Rachna Nivas</p><span class="k">brand storytelling · consulting · website</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">11</span><div class="gbox">img</div><div><p class="t">EWC</p><span class="k">branding storytelling · website · funnel + artifacts</span></div><span class="d">20XX</span></div>
+        <div class="layer"><span class="n">12</span><div class="gbox">img</div><div><p class="t">Shapeshifter proposal maker</p><span class="k">AI system building + automation</span></div><span class="d">20XX</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="logos-sec">
+    <h2>Who we've worked with</h2>
+    <div class="logos">
+      <div class="gbox">Klydo</div><div class="gbox">TomboyX</div><div class="gbox">Agemo</div><div class="gbox">Pratham USA</div><div class="gbox">ConveGenius</div><div class="gbox">Rachna Nivas</div>
+      <div class="gbox">Tatsam</div><div class="gbox">XTDB</div><div class="gbox">Gliitch</div><div class="gbox">Secret Senses</div><div class="gbox">EWC</div><div class="gbox">logo</div>
+    </div>
+  </section>
+
+  <section class="news">
+    <div>
+      <h2>Newsletter</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Every quarter, sed do eiusmod tempor.</p>
+      <div class="form"><div class="gbox">email</div><button type="button">subscribe</button></div>
+      <p class="fine">Lorem ipsum privacy line.</p>
+    </div>
+    <div class="issue">
+      <div class="tl">latest issue · 20XX</div>
+      <div class="tline tline--h"></div><div class="tline"></div><div class="tline tline--s"></div><div class="tline tline--xs"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div><div class="gbox">wordmark</div><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+    <div>say hi<ul><li>hello@joyus.studio</li><li>contact</li></ul></div>
+    <div>find us<ul><li>Kahran</li><li>Divya</li><li>podcast</li></ul></div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('[role=tab]'),panels=document.querySelectorAll('[role=tabpanel]');
+  tabs.forEach(function(t){t.addEventListener('click',function(){
+    setView('kind');
+    tabs.forEach(function(x){x.setAttribute('aria-selected',x===t?'true':'false')});
+    panels.forEach(function(p){p.classList.toggle('is-on',p.dataset.panel===t.dataset.tab)});
+  })});
+  var vk=document.getElementById('view-kind'),vt=document.getElementById('view-time'),vb=document.querySelectorAll('[data-view]');
+  function setView(v){
+    vk.style.display=v==='kind'?'':'none';vt.classList.toggle('is-on',v==='time');
+    vb.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.view===v?'true':'false')});
+  }
+  vb.forEach(function(b){b.addEventListener('click',function(){setView(b.dataset.view)})});
+})();
+</script>
+</body>
+</html>

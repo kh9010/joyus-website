@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — the one-pager</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* round 4's homepage (Study 02), unchanged in layout; Study 03's links made real */
+  .hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(280px,3fr);gap:64px;align-items:end;padding:clamp(72px,12vh,140px) var(--x) clamp(56px,8vh,96px)}
+  .hero h1{font:600 clamp(2.6rem,7vw,6.8rem)/1.02 var(--sans);letter-spacing:-.04em;margin:0}
+  .hero h1 .blank{display:inline-block;border-bottom:.06em solid var(--ink);padding:0 .08em;color:var(--mute);font-weight:500;transition:opacity .35s ease,transform .35s ease}
+  .hero h1 .blank.is-out{opacity:0;transform:translateY(.25em)}
+  .hero p{max-width:520px;margin:28px 0 0;color:var(--mute);font-size:1.05rem}
+  .news h2{font-size:1.05rem;margin:0}
+  .news h2 a{border-bottom:1px solid var(--line)}
+  .news p{color:var(--mute);margin:6px 0 14px;font-size:.95rem}
+  .form{display:flex;gap:8px}
+  .form input{flex:1;height:44px;font:inherit;padding:0 12px;border:1px solid var(--line);background:#fff}
+  .form button{height:44px;padding:0 18px;border:0;background:var(--ink);color:#fff;border-radius:4px;font:inherit;cursor:pointer}
+  .fine{font:12px var(--mono);color:var(--mute);margin-top:8px}
+  .fine a{border-bottom:1px solid var(--line)}
+  .st{display:none;font-size:.95rem;padding:12px 14px;border:1px solid var(--line);background:#fff}
+  [data-state="sending"] .st-sending,[data-state="done"] .st-done,[data-state="error"] .st-error{display:block}
+  [data-state="done"] .form{display:none}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;padding:0 var(--x) 32px}
+  .pills .pill{cursor:pointer;position:relative;overflow:hidden;font-size:1rem;padding:10px 20px}
+  .pills .pill[aria-selected="true"]{background:var(--ink);color:#fff}
+  .pills .pill i{position:absolute;left:0;bottom:0;height:3px;width:0;background:#fff;opacity:.5}
+  .pills .pill[aria-selected="true"] i{animation:fill var(--dwell,5s) linear forwards}
+  @keyframes fill{to{width:100%}}
+  .paused .pills .pill i{animation-play-state:paused}
+  /* the panel is one link (Study 03); a "soon" piece has nowhere to go, so it isn't (Study 07) */
+  .panel{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:40px;align-items:stretch;margin:0 var(--x) 80px}
+  a.panel:hover{text-decoration:none}a.panel:hover h3{text-decoration:underline;text-underline-offset:4px}
+  .panel .gbox--img{aspect-ratio:16/9;transition:opacity .35s ease}
+  .panel .body{display:flex;flex-direction:column;transition:opacity .35s ease,transform .35s ease}
+  .panel.is-out .body,.panel.is-out .gbox--img{opacity:0}
+  .panel h3{margin:0 0 20px;font:500 clamp(1.3rem,2.1vw,1.8rem)/1.25 var(--sans);letter-spacing:-.02em}
+  .tags li{border:1px solid var(--line);border-radius:999px;padding:4px 11px;font:13px var(--mono);color:var(--mute)}
+  .client{margin-top:auto;padding-top:28px;display:flex;align-items:center;gap:12px;font:13px var(--mono);color:var(--mute)}
+  .client .gbox{width:88px;height:32px;flex:none}
+  .soonmark{font:12px var(--mono);color:var(--mute);margin-top:10px}
+  .logos-sec{padding:56px var(--x) 72px;border-top:1px solid var(--line)}
+  .logos-sec h2{margin:0;font-size:1.35rem;font-weight:600}
+  .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:22px}
+  .logos .gbox{height:80px}
+  .logos a:hover{border-color:var(--ink);color:var(--ink);text-decoration:none}
+  @media (prefers-reduced-motion:reduce){ .hero h1 .blank,.panel .body,.panel .gbox--img{transition:none} .pills .pill i{display:none} }
+  @media (max-width:820px){ .hero{grid-template-columns:1fr;gap:36px;align-items:start;padding-top:56px} .panel{grid-template-columns:1fr;gap:24px} .logos{grid-template-columns:repeat(3,1fr)} }
+  .sec{padding:88px var(--x);border-top:1px solid var(--line);scroll-margin-top:0}
+  .sec-h{margin:0 0 18px;font-size:1.35rem;font-weight:600}
+  .big{font:500 clamp(1.6rem,3.2vw,2.8rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 40px;max-width:24ch}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:28px;max-width:560px}
+  .who .gbox{aspect-ratio:4/5;margin-bottom:12px}
+  .who b{font:500 1.2rem var(--sans)}.who p{margin:4px 0 0}
+  .hi{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:760px}
+  .hi input,.hi textarea{font:inherit;padding:12px 14px;border:1px solid var(--line);background:#fff}
+  .hi textarea{grid-column:1/-1;min-height:140px}
+  .hi button{justify-self:start;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:12px 26px;font:500 1rem var(--sans)}
+  @media (max-width:820px){ .two,.hi{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header class="nav"><a class="gbox" href="onepager.html">wordmark</a><ul><li><a href="onepager.html#work">work</a></li><li><a href="onepager.html#about">about</a></li><li><a href="onepager.html#say-hi">say hi</a></li></ul></header>
+
+<section class="hero">
+  <div>
+    <h1>We reimagine <span class="blank" id="blank"></span></h1>
+    <p class="lorem">[the two-line description: still to write, CONTENT-NEEDS §3]</p>
+  </div>
+  <div class="news" id="sign" data-state="ready">
+    <h2>Newsletter</h2>
+    <p>Once a quarter. <span class="lorem">[the line]</span></p>
+    <form class="form" id="form"><input type="email" placeholder="you@something.com" aria-label="email"><button type="submit">subscribe</button></form>
+    <div class="st st-sending" role="status">sending…</div>
+    <div class="st st-done" role="status"><b>You're in.</b></div>
+    <div class="st st-error" role="alert">That didn't go through. <a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div>
+    <p class="fine">We only use your email for this.</p>
+  </div>
+</section>
+
+<div id="work" style="scroll-margin-top:20px"></div>
+<div class="pills" role="tablist" id="pills"></div>
+
+<a class="panel" id="panel" aria-live="polite">
+  <div class="gbox gbox--img"><span id="img">image</span></div>
+  <div class="body">
+    <h3 id="sentence"></h3>
+    <ul class="tags" id="tags"></ul>
+    <p class="soonmark" id="soon" hidden>soon: no page yet</p>
+    <div class="client"><div class="gbox">logo</div><span id="client"></span></div>
+  </div>
+</a>
+
+<section class="logos-sec">
+  <h2>Who we've worked with</h2>
+  <div class="logos" id="logos"></div>
+</section>
+
+<section class="sec" id="about">
+  <h2 class="sec-h">About</h2>
+  <p class="big lorem">[who we are, in one or two lines]</p>
+  <div class="two">
+    <div class="who"><div class="gbox gbox--img"><span>photo</span></div><b>Kahran Singh</b><p class="lorem">[one line]</p></div>
+    <div class="who"><div class="gbox gbox--img"><span>photo</span></div><b>Divya Tak</b><p class="lorem">[one line]</p></div>
+  </div>
+</section>
+
+<section class="sec" id="say-hi">
+  <h2 class="sec-h">Say hi</h2>
+  <p class="big lorem">[one line]</p>
+  <form class="hi" onsubmit="event.preventDefault();this.outerHTML='<p class=big>Thanks. Talk soon.</p>'">
+    <input placeholder="name" aria-label="name"><input type="email" placeholder="email" aria-label="email">
+    <textarea placeholder="what's on your mind" aria-label="message"></textarea>
+    <button type="submit">send</button>
+  </form>
+</section>
+
+<footer class="foot"><div><a class="gbox" href="onepager.html">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div><div>say hi<ul><li><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></li></ul></div><div>find us<ul><li><a href="../../../podcast.html">podcast</a></li></ul></div></footer>
+
+<script src="site-data.js"></script>
+<script>
+// logo wall: round 4's eleven names, in its order; each leads by Study 06's rule
+const WALL = ['klydo', 'tomboyx', 'agemo', 'pratham', 'convegenius', 'rachna-nivas', 'tatsam', 'xtdb', 'gliitch', 'secret-senses', 'ewc'];
+document.getElementById('logos').innerHTML = WALL.map(c => `<div class="gbox">${esc(SITE.clients[c].name)}</div>`).join('') + '<div class="gbox">logo</div>';
+
+// the rotation: round 4's, unchanged, except the panel's href follows the piece
+(function () {
+  const DWELL = 5000, RESUME = 15000, FADE = 350;
+  const P = SITE.pills.map(p => ({ ...p, blank: { brand: 'brand & identity', web: 'websites & products', strategy: 'strategy', story: 'stories', exp: 'whatever we’re curious about' }[p.id], pieces: SITE.pieces.filter(x => x.pill === p.id), cursor: 0 }));
+  const pillsEl = document.getElementById('pills'), panel = document.getElementById('panel'), blank = document.getElementById('blank');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur = 0, timer = null, resumeTimer = null;
+  document.documentElement.style.setProperty('--dwell', DWELL + 'ms');
+  P.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.className = 'pill'; b.setAttribute('role', 'tab'); b.innerHTML = p.label + '<i></i>';
+    b.addEventListener('click', () => { if (i === cur) advance(p); show(i); pause(); });
+    pillsEl.appendChild(b);
+  });
+  const btns = pillsEl.querySelectorAll('.pill');
+  const params = new URLSearchParams(location.search);
+  function advance(p) { p.cursor = (p.cursor + 1) % p.pieces.length; }
+  function render(i) {
+    const p = P[i], w = p.pieces[p.cursor];
+    btns.forEach((b, k) => b.setAttribute('aria-selected', k === i ? 'true' : 'false'));
+    const bar = btns[i].querySelector('i'); bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = '';
+    blank.textContent = p.blank;
+    document.getElementById('img').textContent = 'image · ' + w.client + ' · ' + w.piece;
+    document.getElementById('sentence').textContent = w.s;
+    document.getElementById('tags').innerHTML = w.tags.map(t => '<li>' + esc(t) + '</li>').join('');
+    document.getElementById('client').textContent = w.client + ' · ' + w.piece;
+    document.getElementById('soon').hidden = !w.soon;
+    if (w.soon) panel.removeAttribute('href'); else panel.setAttribute('href', pieceHref(w));
+  }
+  function show(i) { cur = i; if (reduce) return render(i); blank.classList.add('is-out'); panel.classList.add('is-out'); setTimeout(() => { render(i); blank.classList.remove('is-out'); panel.classList.remove('is-out'); }, FADE); }
+  function tick() { const next = (cur + 1) % P.length; if (next === 0) P.forEach(advance); show(next); }
+  function play() { document.body.classList.remove('paused'); clearInterval(timer); timer = setInterval(tick, DWELL); }
+  function pause() { document.body.classList.add('paused'); clearInterval(timer); clearTimeout(resumeTimer); resumeTimer = setTimeout(play, RESUME); }
+  // ?pill=web&n=7 parks the rotation on one piece (for the crawl and for screenshots)
+  if (params.get('pill')) { const i = P.findIndex(p => p.id === params.get('pill')); P[i].cursor = +(params.get('n') || 0); cur = i; render(i); }
+  else { render(0); play(); }
+})();
+
+// signup: in place (Study 03), four states (Study 11)
+const sign = document.getElementById('sign');
+document.getElementById('form').addEventListener('submit', (e) => { e.preventDefault(); sign.dataset.state = 'sending'; setTimeout(() => sign.dataset.state = 'done', 700); });
+</script>
+</body>
+</html>

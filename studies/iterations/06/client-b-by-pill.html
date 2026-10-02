@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — client page, B: by pill (Klydo)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 48px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head .logo{width:140px;height:56px;margin-bottom:26px}
+  .head h1{font:600 clamp(3rem,8vw,7rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 20px}
+  .head .line{font:500 clamp(1.2rem,2vw,1.6rem)/1.25 var(--sans);letter-spacing:-.015em;margin:0;max-width:30ch}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+
+  /* piece card: the homepage panel, shrunk. Image, pill, sentence, dates */
+  .pc{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:24px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line)}
+  .pc:hover{text-decoration:none}.pc:hover b{text-decoration:underline;text-underline-offset:3px}
+  .pc .gbox{aspect-ratio:16/9}
+  .pc small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:8px}
+  .pc b{display:block;font:500 1.15rem/1.3 var(--sans);letter-spacing:-.01em;margin-bottom:10px}
+  .pc .when{font:12px var(--mono);color:var(--mute)}
+
+  /* <!--BODY-CSS--> B: the client cut by the homepage pills, in homepage order */
+  .grp{padding:48px var(--x) 8px}
+  .grp-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:10px}
+  .grp-h h2{margin:0;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+  .grp .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0 24px}
+  .grp .pc{grid-template-columns:1fr;gap:12px;align-content:start}
+  .more{padding:72px var(--x) 8px}
+  .more h2{margin:0 0 16px;font-size:1.1rem;font-weight:600}
+  .more ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .more a{display:flex;height:64px}
+  .closing{padding:88px var(--x)}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  @media (max-width:820px){
+    .head{grid-template-columns:1fr;gap:28px}
+    .grp .grid{grid-template-columns:1fr}
+    .pc{grid-template-columns:1fr;gap:12px}
+    .more ul{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index">Work</a> / client</p>
+    <div class="gbox logo">Klydo logo</div>
+    <h1>Klydo</h1>
+    <p class="line">From four people to a million orders to a thesis.</p>
+  </div>
+  <dl class="facts">
+    <div><dt>who they are</dt><dd>15-minute fashion delivery, India</dd></div>
+    <div><dt>with us since</dt><dd>September 2025</dd></div>
+    <div><dt>pieces</dt><dd>7, across four pills</dd></div>
+  </dl>
+</section>
+
+<!--BODY-->
+<section class="grp" aria-labelledby="g0">
+  <div class="grp-h"><h2 id="g0">Brand &amp; Identity</h2><span class="mono">1</span></div>
+  <div class="grid">
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · branding" data-start="2025-09-24"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we built the brand for a 15-minute fashion-delivery startup, from name to launch, while the company went from four people to a million orders.</b><span class="when">24 Sep – 26 Nov 2025 · 4 brand artifacts + launch screen</span></div></a>
+  </div>
+</section>
+<section class="grp" aria-labelledby="g1">
+  <div class="grp-h"><h2 id="g1">Website &amp; Product</h2><span class="mono">2</span></div>
+  <div class="grid">
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · product" data-start="2025-09-14"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we designed the product that carried the 15-minute promise from a pitch deck to a million orders.</b><span class="when">14 Sep – 14 Dec 2025 · 10 UX + flow artifacts</span></div></a>
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · design" data-start="2025-09-10"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we ran design across 120 days and 30 artifacts, from the packaging to the app.</b><span class="when">10 Sep 2025 – 7 Jan 2026 · the whole wall</span></div></a>
+  </div>
+</section>
+<section class="grp" aria-labelledby="g2">
+  <div class="grp-h"><h2 id="g2">Strategy</h2><span class="mono">3</span></div>
+  <div class="grid">
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · strategy" data-start="2026"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we ran the leadership offsite that found the thesis underneath the delivery channel.</b><span class="when">2026 · "eight months in"</span></div></a>
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · pivot support" data-start="2026"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we stayed through the pivot, helping the team decide what to keep and what to let go.</b><span class="when">after the offsite · [dates]</span></div></a>
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · marketing" data-start="2026"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we ran marketing as experiments, three Instagram tests in fourteen days, to learn what the brand could say.</b><span class="when">the 14 days after the offsite</span></div></a>
+  </div>
+</section>
+<section class="grp" aria-labelledby="g3">
+  <div class="grp-h"><h2 id="g3">Storytelling</h2><span class="mono">1</span></div>
+  <div class="grid">
+    <a class="pc" href="#" data-to="piece" data-piece="Klydo · storytelling" data-start="2025-12-26"><div class="gbox gbox--img"><span>image</span></div><div><b>For Klydo, we wrote the story the team told itself, then investors, then a million customers.</b><span class="when">26 Dec 2025 · Series A deck v1 · [the rest undated]</span></div></a>
+  </div>
+</section>
+<!--/BODY-->
+
+<section class="more" aria-labelledby="mh">
+  <h2 id="mh">More clients</h2>
+  <ul>
+    <li><a class="gbox" href="#" data-to="piece" title="one piece: straight to it">TomboyX</a></li><li><a class="gbox" href="#" data-to="client">Agemo</a></li><li><a class="gbox" href="#" data-to="client">Pratham USA</a></li><li><a class="gbox" href="#" data-to="client">ConveGenius</a></li><li><a class="gbox" href="#" data-to="client">Rachna Nivas</a></li><li><a class="gbox" href="#" data-to="client">Tatsam</a></li>
+    <li><a class="gbox" href="#" data-to="piece" title="one piece: straight to it">XTDB</a></li><li><a class="gbox" href="#" data-to="piece" title="one piece: straight to it">Gliitch</a></li><li><a class="gbox" href="#" data-to="piece" title="one piece: straight to it">Secret Senses</a></li><li><a class="gbox" href="#" data-to="client">EWC</a></li><li><a class="gbox" href="#" data-to="piece" title="one piece: straight to it">Shapeshifter</a></li>
+  </ul>
+</section>
+
+<section class="closing">
+  <p>Something you want reimagined?</p>
+  <a href="#" data-to="say-hi">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+</body>
+</html>

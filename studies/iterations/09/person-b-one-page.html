@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — person, B: one page, two people</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 40px;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 16px}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:600 clamp(2.8rem,7vw,6rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 10px}
+  .head .role{font:13px var(--mono);color:var(--mute);margin:0}
+  /* two columns, the map's branches as shared rows: read across to compare, down to read one person */
+  .duo{display:grid;grid-template-columns:200px 1fr 1fr;gap:0 40px;padding:0 var(--x)}
+  .duo > *{padding:32px 0;border-bottom:1px solid var(--line)}
+  .who{display:grid;grid-template-columns:96px 1fr;gap:16px;align-items:end}
+  .who .gbox{aspect-ratio:4/5}
+  .who b{display:block;font:600 1.8rem/1 var(--sans);letter-spacing:-.03em}
+  .who small{font:12px var(--mono);color:var(--mute)}
+  .row-h{font-size:1.1rem;font-weight:600;margin:0}
+  .row-h small{display:block;font:12px var(--mono);color:var(--mute);font-weight:400;margin-top:6px}
+  .duo p{margin:0 0 12px}
+  .finds{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .finds a{border-bottom:1px solid var(--ink)}
+  .closing{padding:88px var(--x)}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:22ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  /* phone: two columns can't hold, so it becomes Kahran's three rows, then Divya's: two pages stacked */
+  @media (max-width:820px){
+    .duo{grid-template-columns:1fr}
+    .duo > .sp{display:none}
+    .k{order:1}.d{order:2}
+    .duo > .row-h{display:none}
+    .duo .ml{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:8px}
+  }
+  .ml{display:none}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <p class="crumb"><a href="#" data-to="about">About</a> / founders</p>
+  <h1>The two of us</h1>
+  <p class="role">our founders · /people.html; the old /kahran-singh.html and /divya-tak.html point to #kahran and #divya</p>
+</section>
+
+<section class="duo" aria-label="Kahran and Divya">
+  <span class="sp"></span>
+  <div class="who k" id="kahran"><div class="gbox gbox--img"><span>photo</span></div><div><b>Kahran Singh</b><small>co-founder</small></div></div>
+  <div class="who d" id="divya"><div class="gbox gbox--img"><span>photo</span></div><div><b>Divya Tak</b><small>co-founder</small></div></div>
+
+  <h2 class="row-h">History</h2>
+  <div class="k"><span class="ml">history</span>
+    <p>Kahran defines creative brain meets analytical brain. With 15 years of experience spanning product, marketing and consulting with companies large and small, as well as running an edtech company, he has seen the system from the inside — and seen as an investor what makes business work from the outside.</p>
+    <p>Kahran has built a unique perspective on the problems that businesses face and what they need to solve them. It all starts with the people and the experience. To him, everything is an experience that can be designed with intention, and he brings that intent and care to everything he does.</p>
+    <p>He has a BSc in Computer Science from Tufts with a minor in Economics, and is currently pursuing his MFA in Creative Writing &amp; Poetics at the Jack Kerouac School of Disembodied Poetics.</p>
+  </div>
+  <div class="d"><span class="ml">history</span>
+    <p>Divya believes you can get better at anything — everything! — by chipping away at it, working on it day after day in manageable chunks you can keep doing, day after day. That lived belief has grown her skills from physics to philosophy, games to visual art, design to Claude Code.</p>
+    <p>As a speaker and workshop facilitator she brings whimsy, clarity, and respect, while staying authentic to her polymathic talents. She challenges us to remember why — of all the things we could be doing on this blue planet, in this vast universe — we're choosing to do this one thing.</p>
+    <p>Master's in Physics from IIT Kharagpur.</p>
+  </div>
+
+  <h2 class="row-h">Now<small>map: "current interests" (Kahran) · "currently" (Divya)</small></h2>
+  <div class="k"><span class="ml">current interests</span><p class="lorem">[not written]</p></div>
+  <div class="d"><span class="ml">currently</span><p class="lorem">[not written]</p></div>
+
+  <h2 class="row-h">Find me</h2>
+  <div class="k"><span class="ml">find me</span><ul class="finds"><li><a href="#" data-to="external">kahransingh.com ↗</a></li><li><a href="#" data-to="podcast-existing">Thinking on Thinking, the podcast</a></li><li class="lorem">[others]</li></ul></div>
+  <div class="d"><span class="ml">find me</span><ul class="finds"><li><a href="#" data-to="external">divyatak.art ↗</a></li><li><a href="#" data-to="podcast-existing">Thinking on Thinking, the podcast</a></li><li class="lorem">[others]</li></ul></div>
+</section>
+
+<section class="closing">
+  <p>Let's figure something out together. Be our friends.</p>
+  <a href="#" data-to="say-hi">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+</body>
+</html>

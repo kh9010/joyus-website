@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>05 / The experiment page — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start }
+.pair figure { margin: 0 } .pair h3 { margin: 0 0 4px } .pair .shot { width: 100% }
+.phones { display: grid; grid-template-columns: repeat(2, 220px); gap: 28px } .phones .shot { width: 220px }
+@media (max-width: 900px) { .pair { grid-template-columns: 1fr } .phones { grid-template-columns: 1fr 1fr } .phones .shot { width: 100% } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 05 · 1 October 2026</p>
+<h1>The experiment page</h1>
+<p class="lede">Where the homepage panel lands when the Experiments pill is up: 10 of these. They differ from client work in two ways: there is no client, and the thing itself can often be used. One decision: does the page tell the story of the experiment, or hand you the experiment? Built with Metro Museum of the Forgotten, the first piece in the pill, from its own git history.</p>
+
+<h2>What changes from the piece page (Study 04), and why</h2>
+<table>
+<thead><tr><th style="width:22%">Part</th><th>On a piece page</th><th>On an experiment page</th><th style="width:32%">Why</th></tr></thead>
+<tbody>
+<tr><td><strong>Crumb</strong></td><td>Pill / Client</td><td>Experiments / <em>for ourselves</em> (not a link)</td><td>There's no client page to go up to. "For ourselves" is the sentence's own opening.</td></tr>
+<tr><td><strong>Facts</strong></td><td>client · when · shape</td><td>made by · since · <strong>status</strong></td><td>Experiments are often unfinished. Metro Museum is mid-flight: a Steam build began on 30 Sep. Saying so is more honest than a date range with no end.</td></tr>
+<tr><td><strong>Also for &lt;client&gt;</strong></td><td>the client's other pieces</td><td>gone</td><td>The family is the pill. "Next in Experiments" plus "All ten experiments →" covers it without a third list.</td></tr>
+<tr><td><strong>Links out</strong></td><td>none</td><td>"open full screen ↗", "Steam ↗"</td><td>A live build and a store page are off the site. <strong>Study 03 had no page type for that</strong>; this study adds <code>external</code>.</td></tr>
+</tbody></table>
+
+<h2>The decision: the story of it, or the thing</h2>
+<div class="pair">
+<figure>
+<h3>A · Like a piece</h3>
+<p class="source">A still, then seven rounds with images, as Study 04's A. <a href="exp-a-like-piece.html" target="_blank">Open A</a></p>
+<a href="exp-a-like-piece.html" target="_blank"><img class="shot" src="img/exp-a-like-piece.png" alt="Experiment page A: headline, facts with status, a still, then seven rounds with images"></a>
+</figure>
+<figure>
+<h3>B · The thing first</h3>
+<p class="source">The game in the hero slot, playable; the rounds shrink to a one-line log. <a href="exp-b-thing-first.html" target="_blank">Open B</a></p>
+<a href="exp-b-thing-first.html" target="_blank"><img class="shot" src="img/exp-b-thing-first.png" alt="Experiment page B: headline, facts, a dark playable stage with controls and links out, then a compact log of seven rounds"></a>
+</figure>
+</div>
+
+<h3>Does B work beyond Metro Museum?</h3>
+<p>B only holds up if every experiment has <em>something</em> to put in the stage. Going through all ten:</p>
+<table>
+<thead><tr><th>Experiment</th><th>What the stage would hold</th><th>Exists today?</th></tr></thead>
+<tbody>
+<tr><td>Metro Museum of the Forgotten</td><td>the web build, playable</td><td><span class="status open">partly</span> a Netlify build folder exists; no live URL found</td></tr>
+<tr><td>Poetic lineage explorer</td><td>the tool, usable</td><td><span class="status open">unknown</span></td></tr>
+<tr><td>Comics</td><td>the first page of the reader, linking into <code>/comics/</code></td><td><span class="status done">yes</span> five comics, reader live</td></tr>
+<tr><td>Projection mapper</td><td>a video of it on a real wall: the tool alone needs a projector</td><td><span class="status open">unknown</span></td></tr>
+<tr><td>AI videos for poetry</td><td>a video</td><td><span class="status open">unknown</span></td></tr>
+<tr><td>Brand Studio · Art stager</td><td>[don't know what they are: open question 3]</td><td><span class="status no">blank</span></td></tr>
+<tr><td>AI personal automation</td><td>screens or a video: the real thing runs on private data</td><td><span class="status open">unknown</span></td></tr>
+<tr><td>Line before</td><td>[unknown]</td><td><span class="status no">blank</span></td></tr>
+<tr><td>Everything Bazaar</td><td>a chosen set of stills</td><td><span class="status no">not without Divya</span> the board site is local-only by her instruction</td></tr>
+</tbody></table>
+<p>So the stage is four kinds of thing (playable, video, reader, stills), and when there's nothing yet, B falls back to a still with one line. That fallback is already designed: it's what B shows on a phone (below).</p>
+
+<p><strong>Recommendation: B.</strong> An experiment made "for ourselves" earns its place by being tried, not described. Client work is different: there the process <em>is</em> what's on offer, which is why Study 04 keeps the rounds large and here they shrink to a log. The same rounds, the same dates, different weight. B's cost: each experiment needs its stage made (a hosted build, a video). Until then it shows the still, which is no worse than A.</p>
+
+<h2>On a phone</h2>
+<div class="phones">
+<figure><img class="shot" src="img/exp-a-like-piece-phone.png" alt="Experiment page A at phone width"><figcaption>A · 390 px</figcaption></figure>
+<figure><img class="shot" src="img/exp-b-thing-first-phone.png" alt="Experiment page B at phone width: a still and 'Walk through it on a computer: it needs a keyboard.'"><figcaption>B · 390 px: no keyboard, so no game</figcaption></figure>
+</div>
+<p>Both measured at 390 px: no element past the edge.</p>
+
+<h2>Found on the way</h2>
+<p class="wrong"><strong>The IA had no way to leave the site.</strong> Study 03 typed every destination as a page on joyus.studio. A live build and a Steam page aren't. This study adds <code>external</code>; Study 03 stays as it was, and the shared check accepts types a later study declares.</p>
+<p class="wrong"><strong>B described its phone version instead of showing it.</strong> The first draft carried a note, "on a phone the stage shows the still", while the phone screenshot showed the dark game box. Now the phone gets the still and "Walk through it on a computer: it needs a keyboard." The first fix also put the Steam link above the still; moved below.</p>
+<p class="wrong"><strong>Who made it isn't recorded here.</strong> "made by" reads <em>[who: Divya? both?]</em>. Not guessed.</p>
+
+<h2>The test</h2>
+<p><code>node studies/iterations/05/check.cjs</code>: for both versions, every link names a page type (Study 03's, or <code>external</code>); the nav and footer match; the headline is the homepage sentence; the tags link to their filters; <strong>no link points at a client page</strong>; "next" is Poetic lineage explorer, the next experiment in homepage order; "All ten experiments" matches the data's count. Then A and B are identical outside the body and tell the same seven rounds in the same order, oldest first. Finally, <strong>every round's date is a day something was committed</strong> to <code>metro-museum</code> or <code>metro-museum-unity</code>, read from their git logs.</p>
+<p>Broken on purpose: round 04 moved from 18 to 19 Jul. Two failures: A and B no longer agree, and 19 Jul has no commit. Restored, passes.</p>
+</main>
+</body>
+</html>

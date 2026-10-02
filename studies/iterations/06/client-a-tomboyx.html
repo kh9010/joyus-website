@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — client page, A: by time, a one-piece client (TomboyX)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 48px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head .logo{width:140px;height:56px;margin-bottom:26px}
+  .head h1{font:600 clamp(3rem,8vw,7rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 20px}
+  .head .line{font:500 clamp(1.2rem,2vw,1.6rem)/1.25 var(--sans);letter-spacing:-.015em;margin:0;max-width:30ch}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+
+  /* piece card: the homepage panel, shrunk. Image, pill, sentence, dates */
+  .pc{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:24px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line)}
+  .pc:hover{text-decoration:none}.pc:hover b{text-decoration:underline;text-underline-offset:3px}
+  .pc .gbox{aspect-ratio:16/9}
+  .pc small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:8px}
+  .pc b{display:block;font:500 1.15rem/1.3 var(--sans);letter-spacing:-.01em;margin-bottom:10px}
+  .pc .when{font:12px var(--mono);color:var(--mute)}
+
+  /* <!--BODY-CSS--> A: two chapters on a time rail; each piece sits at its start date */
+  .chap{display:grid;grid-template-columns:180px minmax(0,1fr);gap:40px;padding:56px var(--x) 8px}
+  .chap-h{position:sticky;top:16px;align-self:start}
+  .chap-h .no{font:14px var(--mono);color:var(--mute)}
+  .chap-h h2{margin:4px 0 6px;font-size:1.6rem;font-weight:600;letter-spacing:-.025em}
+  .chap-h p{margin:0;font:12px var(--mono);color:var(--mute)}
+  .rail{border-left:1.5px solid var(--ink);padding-left:28px}
+  .rail .pc{position:relative}
+  .rail .pc::before{content:"";position:absolute;left:-35px;top:30px;width:12px;height:12px;border-radius:50%;background:var(--paper);border:1.5px solid var(--ink)}
+  .gap{margin:28px var(--x) 0 calc(var(--x) + 220px);padding:14px 0;font:13px var(--mono);color:var(--mute);border-top:1px dashed var(--line);border-bottom:1px dashed var(--line)}
+
+  .more{padding:72px var(--x) 8px}
+  .more h2{margin:0 0 16px;font-size:1.1rem;font-weight:600}
+  .more ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .more a{display:flex;height:64px}
+  .closing{padding:88px var(--x)}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  @media (max-width:820px){
+    .head{grid-template-columns:1fr;gap:28px}
+    .chap{grid-template-columns:1fr;gap:18px}
+    .chap-h{position:static}
+    .pc{grid-template-columns:1fr;gap:12px}
+    .gap{margin-left:var(--x)}
+    .more ul{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index">Work</a> / client</p>
+    <div class="gbox logo">TomboyX logo</div>
+    <h1>TomboyX</h1>
+    <p class="line">[one line, as Klydo has]</p>
+  </div>
+  <dl class="facts">
+    <div><dt>who they are</dt><dd>a beloved underwear company, raising in a down round</dd></div>
+    <div><dt>with us since</dt><dd>April 2025 · from the deck title</dd></div>
+    <div><dt>pieces</dt><dd>1</dd></div>
+  </dl>
+</section>
+
+<!--BODY-->
+<section class="chap" aria-label="The one piece">
+  <div class="chap-h"><span class="no">01</span><h2>[chapter?]</h2><p>Apr 2025</p></div>
+  <div class="rail">
+    <a class="pc" href="#" data-to="piece" data-piece="TomboyX · investor storytelling" data-start="2025-04"><div class="gbox gbox--img"><span>image</span></div><div><small>Storytelling</small><b>For TomboyX, we rewrote the story of a beloved underwear brand for three different investor rooms, in a down round.</b><span class="when">April 2025</span></div></a>
+  </div>
+</section>
+<!--/BODY-->
+
+<section class="more" aria-labelledby="mh">
+  <h2 id="mh">More clients</h2>
+  <ul>
+    <li><a class="gbox" href="#" data-to="client">Klydo</a></li><li><a class="gbox" href="#" data-to="client">Agemo</a></li><li><a class="gbox" href="#" data-to="client">Pratham USA</a></li><li><a class="gbox" href="#" data-to="client">ConveGenius</a></li><li><a class="gbox" href="#" data-to="client">Rachna Nivas</a></li><li><a class="gbox" href="#" data-to="client">Tatsam</a></li>
+    <li><a class="gbox" href="#" data-to="client">XTDB</a></li><li><a class="gbox" href="#" data-to="client">Gliitch</a></li><li><a class="gbox" href="#" data-to="client">Secret Senses</a></li><li><a class="gbox" href="#" data-to="client">EWC</a></li><li><a class="gbox" href="#" data-to="client">Shapeshifter</a></li>
+  </ul>
+</section>
+
+<section class="closing">
+  <p>Something you want reimagined?</p>
+  <a href="#" data-to="say-hi">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+</body>
+</html>

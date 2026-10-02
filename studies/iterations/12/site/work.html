@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prototype — work index, B: index list</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 28px}
+  .head h1{font:600 clamp(3rem,8vw,7rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 14px}
+  .head p{margin:0;color:var(--mute)}
+  /* filters: the homepage pills, now filters; an active tag shows as a chip with × */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:0 var(--x) 18px}
+  .filters .pill:hover{text-decoration:none;background:var(--box)}
+  .filters .pill.is-on:hover{background:var(--ink)}
+  .status-line{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:12px var(--x);border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:13px var(--mono);color:var(--mute)}
+  .chip{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--ink);border-radius:999px;padding:3px 6px 3px 11px;color:var(--ink)}
+  .chip a{display:inline-block;width:20px;height:20px;line-height:18px;text-align:center;border-radius:50%;background:var(--ink);color:#fff}
+  .empty{padding:56px var(--x);font-size:1.1rem}
+  .empty a{border-bottom:1px solid var(--ink)}
+
+  /* <!--LIST-CSS--> B: an index. A row is not one link, so its parts can each be one:
+     the piece (its sentence), the client (if it has a page), every tag */
+  .rows{list-style:none;margin:0;padding:8px var(--x) 64px}
+  .rows>li{display:grid;grid-template-columns:150px 170px minmax(0,1fr) 260px;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+  .rows .pl{font:12px var(--mono);color:var(--mute)}
+  .rows .cl{font-weight:500}
+  .rows .cl a{border-bottom:1px solid var(--line)}
+  .rows .s{font:500 1.05rem/1.3 var(--sans);letter-spacing:-.01em}
+  .rows .s small{display:block;font:12px var(--mono);color:var(--mute);margin-top:4px;font-weight:400;letter-spacing:0}
+  .rows .tags{justify-content:flex-end}
+  .rows>li.soon{opacity:.55}
+  @media (max-width:1000px){ .rows>li{grid-template-columns:120px minmax(0,1fr)} .rows .s{grid-column:2} .rows .tags{grid-column:2;justify-content:flex-start} .rows .pl{grid-row:1/3} }
+  @media (max-width:560px){ .rows>li{grid-template-columns:1fr;gap:6px} .rows .s,.rows .tags,.rows .pl{grid-column:1;grid-row:auto} }
+  /* <!--/LIST-CSS--> */
+</style>
+</head>
+<body>
+
+<header id="nav"></header>
+
+<section class="head">
+  <h1>Work</h1>
+  <p>37 pieces · 27 for clients · 10 for ourselves</p>
+</section>
+
+<nav class="filters" aria-label="Filter by pill">
+  <a class="pill" href="work.html">All</a>
+  <a class="pill" href="work.html?pill=brand">Brand &amp; Identity</a>
+  <a class="pill" href="work.html?pill=web">Website &amp; Product</a>
+  <a class="pill" href="work.html?pill=strategy">Strategy</a>
+  <a class="pill" href="work.html?pill=story">Storytelling</a>
+  <a class="pill" href="work.html?pill=exp">Experiments</a>
+</nav>
+<div class="status-line" id="status" aria-live="polite"></div>
+
+<main id="list"></main>
+
+<section class="closing" style="padding:64px var(--x)">
+  <p style="font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch">Something you want reimagined?</p>
+  <a href="say-hi.html" style="display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500">say hi</a>
+</section>
+
+<footer id="foot"></footer>
+
+<script src="site-data.js"></script>
+<script>
+// Study 07's data and filter, now reading the site's data
+globalThis.WORK = { pills: SITE.pills, pieces: SITE.pieces };
+globalThis.slug = slugTag;
+globalThis.filterWork = (data, params) => { const pill = params.get('pill'), tag = params.get('tag'); return data.pieces.filter(p => (!pill || p.pill === pill) && (!tag || p.tags.some(t => slug(t) === tag))); };
+</script>
+<script src="chrome.js"></script>
+<script id="render">
+// B: one row per piece. The sentence links to the piece; the client links to its
+// page when it has one (Study 06's rule); every tag links to its filter.
+function render(rows) {
+  const pillName = Object.fromEntries(WORK.pills.map(p => [p.id, p.label]));
+  return '<ol class="rows">' + rows.map(p => {
+    const client = p.clientPage ? `<a href="client.html?c=${p.clientSlug}">${p.client}</a>` : p.client;
+    const s = p.soon ? `${p.s}<small>soon</small>` : `<a href="${pieceHref(p)}">${p.s}</a><small>${p.piece}</small>`;
+    const tags = p.tags.filter(t => t !== 'soon').map(t => `<li><a href="work.html?tag=${slug(t)}">${t}</a></li>`).join('');
+    return `<li class="${p.soon ? 'soon' : ''}" data-row="${p.client} · ${p.piece}"><span class="pl">${pillName[p.pill]}</span><span class="cl">${client}</span><span class="s">${s}</span><ul class="tags">${tags}</ul></li>`;
+  }).join('') + '</ol>';
+}
+</script>
+<script>
+// shared boot: read the URL, filter, render, mark the active pill, describe the state
+(function () {
+  const params = new URLSearchParams(location.search);
+  const rows = filterWork(WORK, params);
+  const pill = params.get('pill'), tag = params.get('tag');
+  document.querySelectorAll('.filters .pill').forEach(a => a.classList.toggle('is-on', (a.dataset.filter || '') === (pill ? 'pill=' + pill : '') && !tag));
+  const tagName = tag && (WORK.pieces.flatMap(p => p.tags).find(t => slug(t) === tag) || tag);
+  const pillName = pill && (WORK.pills.find(p => p.id === pill) || {}).label;
+  document.getElementById('status').innerHTML =
+    `<span>${rows.length} of ${WORK.pieces.length}</span>` +
+    (pillName ? `<span class="chip">${pillName}<a href="work.html" aria-label="clear">×</a></span>` : '') +
+    (tagName ? `<span class="chip">tagged “${tagName}”<a href="work.html" aria-label="clear">×</a></span>` : '');
+  document.getElementById('list').innerHTML = rows.length ? render(rows)
+    : `<p class="empty">Nothing tagged “${tagName}” yet. <a href="work.html">See all 37</a></p>`;
+})();
+</script>
+</body>
+</html>

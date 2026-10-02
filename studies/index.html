@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Joyus homepage — Studies</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<style>
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 Montserrat,system-ui,sans-serif;color:#222;background:white}.shell{display:grid;grid-template-columns:250px 1fr;height:100dvh}aside{padding:30px 22px;background:#fafafa;border-right:1px solid #e6e6e6;display:flex;flex-direction:column;overflow:auto}h1{font-size:18px;line-height:1.2;margin:0 0 6px;font-weight:600}small{font-size:12px;color:#636363}.history{margin-top:36px;display:grid;gap:10px}.history a{display:block;border-left:3px solid #ddd;color:#222;text-decoration:none;padding:11px 12px;background:white;font-size:13.5px}.history a[aria-current]{border-left-color:#222}.history strong,.history small{display:block}.history strong{font-weight:600}.history small{margin-top:6px;line-height:1.45}iframe{width:100%;height:100%;border:0}a:focus-visible{outline:3px solid #315da8;outline-offset:3px}aside footer{margin-top:auto;padding-top:24px;font-size:12px;color:#999;line-height:1.5}
+@media(max-width:700px){.shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}aside{padding:14px 18px}.history{margin:12px 0 0;grid-template-columns:1fr 1fr}h1{font-size:16px}aside footer{display:none}}
+</style></head><body><div class="shell"><aside><div><h1>Joyus homepage</h1><small>The rebuild · studies</small></div>
+<nav class="history" aria-label="Study history">
+<a href="iterations/15/index.html" target="study" aria-current="page"><strong>15 / Work pages</strong><small>1 October 2026<br>Twenty ways to show a body of work</small></a>
+<a href="iterations/14/index.html" target="study"><strong>14 / About pages</strong><small>1 October 2026<br>Twenty ways to say who you are</small></a>
+<a href="iterations/13/index.html" target="study"><strong>13 / One page</strong><small>1 October 2026<br>Work, about, say hi on one page; pieces get their own</small></a>
+<a href="iterations/12/index.html" target="study"><strong>12 / Clicking through</strong><small>1 October 2026<br>Every page wired from the homepage; crawled in a real browser</small></a>
+<a href="iterations/11/index.html" target="study"><strong>11 / Newsletter and privacy</strong><small>1 October 2026<br>Issues assembled from rounds; on the site vs at the platform; privacy from the code</small></a>
+<a href="iterations/10/index.html" target="study"><strong>10 / Say hi</strong><small>1 October 2026<br>An open note vs one that knows which piece you came from</small></a>
+<a href="iterations/09/index.html" target="study"><strong>09 / The person page</strong><small>1 October 2026<br>A page each vs both on one; Kahran's copy kept whole</small></a>
+<a href="iterations/08/index.html" target="study"><strong>08 / About</strong><small>1 October 2026<br>The map's three sides vs Kahran's five things</small></a>
+<a href="iterations/07/index.html" target="study"><strong>07 / The work index</strong><small>1 October 2026<br>Cards vs index; pills and tags as working filters</small></a>
+<a href="iterations/06/index.html" target="study"><strong>06 / The client page</strong><small>1 October 2026<br>By time vs by pill, Klydo; one-piece clients get no page</small></a>
+<a href="iterations/05/index.html" target="study"><strong>05 / The experiment page</strong><small>1 October 2026<br>The story of it, or the thing itself: Metro Museum</small></a>
+<a href="iterations/04/index.html" target="study"><strong>04 / The piece page</strong><small>1 October 2026<br>Rounds vs case study, built with Klydo · branding</small></a>
+<a href="iterations/03/index.html" target="study"><strong>03 / What can be clicked</strong><small>1 October 2026<br>Every target on the homepage, where it goes, nine page types</small></a>
+<a href="iterations/02/index.html" target="study"><strong>02 / The wireframe, four rounds</strong><small>22 September 2026<br>Four notes, four revisions; rev 4 is the one committed</small></a>
+<a href="iterations/01/index.html" target="study"><strong>01 / Where we started</strong><small>22 September 2026<br>The brief in Divya's words, her map, the homepage today, what was tried before</small></a>
+</nav>
+<footer>Studies are snapshots. A change beyond a copy fix is a new study; earlier ones stay as they were. <code>node studies/verify.cjs</code> before every commit.</footer></aside>
+<iframe title="Study" name="study" src="iterations/15/index.html"></iframe></div>
+<script>document.querySelectorAll('.history a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.history a').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','page');}));</script></body></html>

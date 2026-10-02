@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>12 / Clicking through — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.start{display:inline-block;font:600 16px var(--font);background:#222;color:#fff;padding:12px 22px;text-decoration:none;margin:6px 0 24px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}.pair figure{margin:0}.pair .shot{width:100%}
+.tall{max-height:640px;overflow:hidden;border:1px solid var(--line)}.tall img{border:0}
+@media(max-width:900px){.pair{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 12 · 1 October 2026</p>
+<h1>Clicking through</h1>
+<p class="lede">Studies 04–11, wired together. 12 page types, 3,837 links, none dead.</p>
+<a class="start" href="site/index.html" target="_blank">Open the prototype →</a>
+<div class="pair">
+<figure><div class="tall"><a href="site/piece.html?p=klydo/branding" target="_blank"><img class="shot" src="img/piece-klydo.png" alt="Klydo branding piece page"></a></div><figcaption>a piece with rounds</figcaption></figure>
+<figure><div class="tall"><a href="site/piece.html?p=tomboyx/investor-storytelling" target="_blank"><img class="shot" src="img/piece-tomboyx.png" alt="TomboyX piece page, no rounds yet"></a></div><figcaption>the same template, no rounds yet</figcaption></figure>
+</div>
+<p><strong>Superseded by Study 13:</strong> most of these pages fold into one.</p>
+<details class="notes"><summary>Found on the way</summary><div class="body"><ul>
+<li>A check passed over zero pages (a shell ate its regex). It now fails on empty input.</li>
+<li>6 of 7 client pages can't be "by time" yet: only Klydo is dated.</li>
+</ul></div></details>
+<p class="source">Test: <code>crawl.mjs</code> clicks through everything in a real browser; <code>check.cjs</code> judges the report.</p>
+</main>
+</body>
+</html>

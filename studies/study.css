@@ -1,0 +1,81 @@
+/* The study pages are the mat around the material: white, ink, Montserrat,
+   sharp corners, full width. Same mat as ueno-underground, so
+   the studies never compete with the Joyus design they are showing. */
+:root {
+  --ink: #222; --ink-2: #636363; --ink-3: #999;
+  --line: #e6e6e6; --surface: #fafafa; --surface-2: #f2f2f2;
+  --font: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+}
+* { box-sizing: border-box }
+html { font-synthesis: none }
+body { margin: 0; font: 15px/1.55 var(--font); color: var(--ink); background: #fff }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px }
+a:focus-visible { outline: 3px solid #315da8; outline-offset: 3px }
+main { padding: 36px 40px 80px }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 6px }
+h1 { font-size: 34px; line-height: 1.15; letter-spacing: -.5px; font-weight: 500; margin: 0 0 10px }
+h2 { font-size: 20px; font-weight: 600; margin: 40px 0 12px; padding-top: 16px; border-top: 1px solid var(--line) }
+h3 { font-size: 15px; font-weight: 600; margin: 18px 0 6px }
+p { margin: 0 0 12px; max-width: 80ch }
+.lede { font-size: 17px; color: var(--ink-2); max-width: 80ch }
+blockquote { margin: 18px 0; padding: 14px 20px; background: var(--surface); border-left: 3px solid var(--ink); font-family: var(--serif); font-size: 18px; line-height: 1.5; max-width: 90ch }
+blockquote p { max-width: none }
+blockquote cite { display: block; font: 12px var(--font); color: var(--ink-2); margin-top: 8px; font-style: normal }
+ul, ol { padding-left: 22px; margin: 0 0 14px; max-width: 80ch }
+li { margin: 4px 0 }
+li > ul { margin-top: 4px }
+strong { font-weight: 600 }
+code { font-family: ui-monospace, 'Cascadia Mono', Consolas, monospace; font-size: 13px; background: var(--surface-2); padding: 1px 5px }
+table { border-collapse: collapse; width: 100%; margin: 12px 0 20px; font-size: 13.5px }
+th, td { text-align: left; vertical-align: top; padding: 8px 10px; border-bottom: 1px solid var(--line) }
+th { font-weight: 600; background: var(--surface) }
+hr { border: 0; border-top: 1px solid var(--line); margin: 30px 0 }
+img { max-width: 100%; height: auto; display: block }
+figure { margin: 18px 0 }
+figcaption { font-size: 12.5px; color: var(--ink-2); line-height: 1.45; margin-top: 6px }
+.grid { display: grid; grid-template-columns: repeat(var(--cols, 4), 1fr); gap: 14px; margin: 14px 0 22px }
+.grid figure { margin: 0 }
+.grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border: 1px solid var(--line); background: var(--surface) }
+.grid.tall img { aspect-ratio: 3 / 4 }
+.grid.wide img { aspect-ratio: 16 / 9 }
+.map { width: 100%; height: 520px; border: 1px solid var(--line); background: var(--surface) }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px }
+.three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 28px }
+.status { display: inline-block; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; padding: 3px 8px; margin-left: 8px; vertical-align: middle }
+.status.open { background: #ece4f4; color: #715b94 }
+.status.done { background: #e3f0e8; color: #2e7350 }
+.status.no { background: #f7e3eb; color: #b3365e }
+.toc { font-size: 13.5px; color: var(--ink-2); padding: 14px 18px; background: var(--surface); margin: 18px 0 8px; columns: 3; column-gap: 24px }
+.toc a { display: block; padding: 2px 0; break-inside: avoid }
+.source { font-size: 12.5px; color: var(--ink-2) }
+.card { padding: 16px 18px; background: var(--surface) }
+.card h3 { margin-top: 0 }
+.card p, .card li { font-size: 14px }
+/* the full note sits behind a toggle; the page shows the reading, the note keeps the sources */
+details.notes { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 12px }
+details.notes summary { cursor: pointer; font-weight: 600; font-size: 15px; padding: 8px 0; list-style: none }
+details.notes summary::before { content: '+ '; color: var(--ink-3) }
+details.notes[open] summary::before { content: '− ' }
+details.notes .body { max-width: 90ch }
+@media (max-width: 1100px) { .grid { --cols: 3 } .three { grid-template-columns: 1fr } .toc { columns: 2 } }
+@media (max-width: 720px) {
+  main { padding: 24px 16px 60px }
+  h1 { font-size: 26px }
+  .grid { --cols: 2 }
+  .two { grid-template-columns: 1fr }
+  .map { height: 340px }
+  .toc { columns: 1 }
+}
+/* joyus additions: a screenshot sits in a hairline frame; a revision is
+   note on the left, picture on the right */
+.shot { border: 1px solid var(--line); background: var(--surface) }
+.rev { display: grid; grid-template-columns: minmax(280px, 1fr) 1.4fr; gap: 28px; align-items: start; margin: 8px 0 18px }
+.rev .shot { max-height: 720px; object-fit: cover; object-position: top }
+.rev blockquote { font-size: 16px; margin-top: 0 }
+.changed { list-style: none; padding: 0 }
+.changed li { padding-left: 18px; position: relative }
+.changed li::before { content: '→'; position: absolute; left: 0; color: var(--ink-3) }
+.wrong { border-left: 3px solid #b3365e; background: #f7e3eb; padding: 10px 14px; font-size: 14px; max-width: 90ch }
+.live { width: 100%; height: 820px; border: 1px solid var(--line) }
+@media (max-width: 900px) { .rev { grid-template-columns: 1fr } .live { height: 600px } }

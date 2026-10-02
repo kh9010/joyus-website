@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — work index, B: index list</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 28px}
+  .head h1{font:600 clamp(3rem,8vw,7rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 14px}
+  .head p{margin:0;color:var(--mute)}
+  /* filters: the homepage pills, now filters; an active tag shows as a chip with × */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:0 var(--x) 18px}
+  .filters .pill:hover{text-decoration:none;background:var(--box)}
+  .filters .pill.is-on:hover{background:var(--ink)}
+  .status-line{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:12px var(--x);border-top:1px solid var(--line);border-bottom:1px solid var(--line);font:13px var(--mono);color:var(--mute)}
+  .chip{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--ink);border-radius:999px;padding:3px 6px 3px 11px;color:var(--ink)}
+  .chip a{display:inline-block;width:20px;height:20px;line-height:18px;text-align:center;border-radius:50%;background:var(--ink);color:#fff}
+  .empty{padding:56px var(--x);font-size:1.1rem}
+  .empty a{border-bottom:1px solid var(--ink)}
+
+  /* <!--LIST-CSS--> B: an index. A row is not one link, so its parts can each be one:
+     the piece (its sentence), the client (if it has a page), every tag */
+  .rows{list-style:none;margin:0;padding:8px var(--x) 64px}
+  .rows>li{display:grid;grid-template-columns:150px 170px minmax(0,1fr) 260px;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--line)}
+  .rows .pl{font:12px var(--mono);color:var(--mute)}
+  .rows .cl{font-weight:500}
+  .rows .cl a{border-bottom:1px solid var(--line)}
+  .rows .s{font:500 1.05rem/1.3 var(--sans);letter-spacing:-.01em}
+  .rows .s small{display:block;font:12px var(--mono);color:var(--mute);margin-top:4px;font-weight:400;letter-spacing:0}
+  .rows .tags{justify-content:flex-end}
+  .rows>li.soon{opacity:.55}
+  @media (max-width:1000px){ .rows>li{grid-template-columns:120px minmax(0,1fr)} .rows .s{grid-column:2} .rows .tags{grid-column:2;justify-content:flex-start} .rows .pl{grid-row:1/3} }
+  @media (max-width:560px){ .rows>li{grid-template-columns:1fr;gap:6px} .rows .s,.rows .tags,.rows .pl{grid-column:1;grid-row:auto} }
+  /* <!--/LIST-CSS--> */
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <h1>Work</h1>
+  <p>37 pieces · 27 for clients · 10 for ourselves</p>
+</section>
+
+<nav class="filters" aria-label="Filter by pill">
+  <a class="pill" href="?" data-to="work-index" data-filter="">All</a>
+  <a class="pill" href="?pill=brand" data-to="work-index" data-filter="pill=brand">Brand &amp; Identity</a>
+  <a class="pill" href="?pill=web" data-to="work-index" data-filter="pill=web">Website &amp; Product</a>
+  <a class="pill" href="?pill=strategy" data-to="work-index" data-filter="pill=strategy">Strategy</a>
+  <a class="pill" href="?pill=story" data-to="work-index" data-filter="pill=story">Storytelling</a>
+  <a class="pill" href="?pill=exp" data-to="work-index" data-filter="pill=exp">Experiments</a>
+</nav>
+<div class="status-line" id="status" aria-live="polite"></div>
+
+<main id="list"></main>
+
+<section class="closing" style="padding:64px var(--x)">
+  <p style="font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch">Something you want reimagined?</p>
+  <a href="#" data-to="say-hi" style="display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+<script src="work-data.js"></script>
+<script id="render">
+// B: one row per piece. The sentence links to the piece; the client links to its
+// page when it has one (Study 06's rule); every tag links to its filter.
+function render(rows) {
+  const pillName = Object.fromEntries(WORK.pills.map(p => [p.id, p.label]));
+  return '<ol class="rows">' + rows.map(p => {
+    const client = p.clientPage ? `<a href="#" data-to="client">${p.client}</a>` : p.client;
+    const s = p.soon ? `${p.s}<small>soon</small>` : `<a href="#" data-to="${p.to}" data-piece="${p.client} · ${p.piece}">${p.s}</a><small>${p.piece}</small>`;
+    const tags = p.tags.filter(t => t !== 'soon').map(t => `<li><a href="?tag=${slug(t)}" data-to="work-index" data-filter="tag=${slug(t)}">${t}</a></li>`).join('');
+    return `<li class="${p.soon ? 'soon' : ''}" data-row="${p.client} · ${p.piece}"><span class="pl">${pillName[p.pill]}</span><span class="cl">${client}</span><span class="s">${s}</span><ul class="tags">${tags}</ul></li>`;
+  }).join('') + '</ol>';
+}
+</script>
+<script>
+// shared boot: read the URL, filter, render, mark the active pill, describe the state
+(function () {
+  const params = new URLSearchParams(location.search);
+  const rows = filterWork(WORK, params);
+  const pill = params.get('pill'), tag = params.get('tag');
+  document.querySelectorAll('.filters .pill').forEach(a => a.classList.toggle('is-on', (a.dataset.filter || '') === (pill ? 'pill=' + pill : '') && !tag));
+  const tagName = tag && (WORK.pieces.flatMap(p => p.tags).find(t => slug(t) === tag) || tag);
+  const pillName = pill && (WORK.pills.find(p => p.id === pill) || {}).label;
+  document.getElementById('status').innerHTML =
+    `<span>${rows.length} of ${WORK.pieces.length}</span>` +
+    (pillName ? `<span class="chip">${pillName}<a href="?" data-to="work-index" data-filter="" aria-label="clear">×</a></span>` : '') +
+    (tagName ? `<span class="chip">tagged “${tagName}”<a href="?" data-to="work-index" data-filter="" aria-label="clear">×</a></span>` : '');
+  document.getElementById('list').innerHTML = rows.length ? render(rows)
+    : `<p class="empty">Nothing tagged “${tagName}” yet. <a href="?" data-to="work-index" data-filter="">See all 37</a></p>`;
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — say hi, B: knows where you came from</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* head + form copy: say-hi.html's, verbatim */
+  .wrap{display:grid;grid-template-columns:minmax(0,6fr) minmax(260px,4fr);gap:72px;padding:clamp(48px,8vh,96px) var(--x) 72px;align-items:start}
+  .eyebrow{font:13px var(--mono);color:var(--mute);margin:0 0 14px}
+  h1{font:600 clamp(3rem,8vw,6.5rem)/.95 var(--sans);letter-spacing:-.045em;margin:0 0 22px}
+  .lede{font:500 clamp(1.2rem,2vw,1.6rem)/1.3 var(--sans);letter-spacing:-.015em;margin:0 0 40px;max-width:28ch}
+  .lab{font:13px var(--mono);color:var(--mute);margin:0 0 14px}
+  form{display:grid;gap:18px;max-width:640px}
+  label{display:grid;gap:6px;font-size:14px}
+  input,textarea{font:inherit;font-size:1.05rem;padding:12px 14px;border:1px solid var(--line);background:#fff;border-radius:2px}
+  textarea{min-height:150px;resize:vertical}
+  .send{justify-self:start;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:12px 26px;font:500 1rem var(--sans);cursor:pointer}
+  .sent{display:none;max-width:640px;border:1.5px solid var(--ink);padding:24px;background:#fff}
+  .sent b{display:block;font:500 1.5rem var(--sans);margin-bottom:8px}
+  .sent p{margin:0}
+  .sent a{border-bottom:1px solid var(--ink)}
+  body.is-sent form{display:none} body.is-sent .sent{display:block}
+  .note{font:12px var(--mono);color:var(--mute);margin-top:12px}
+  aside h2{font:13px var(--mono);color:var(--mute);font-weight:400;margin:0 0 14px}
+  aside ul{list-style:none;margin:0;padding:0;display:grid;gap:18px}
+  aside li{border-top:1px solid var(--line);padding-top:12px}
+  aside b{display:block;font-weight:500}
+  aside a{border-bottom:1px solid var(--ink)}
+  aside small{display:block;color:var(--mute);font-size:14px}
+  /* <!--CTX-CSS--> B: the piece you came from, and the five pills, both editable <!--/CTX-CSS--> */
+  .ctx{display:grid;gap:10px;padding:14px 16px;background:#fff;border:1px solid var(--line)}
+  .ctx[hidden]{display:none}
+  .ctx .re{display:flex;gap:10px;align-items:start;justify-content:space-between}
+  .ctx .re small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:4px}
+  .ctx .re b{font-weight:500}
+  .ctx .x{border:0;background:var(--ink);color:#fff;border-radius:50%;width:22px;height:22px;line-height:20px;cursor:pointer;flex:none}
+  .about{display:grid;gap:8px;font-size:14px}
+  .about .opts{display:flex;flex-wrap:wrap;gap:8px}
+  .about input{position:absolute;opacity:0;pointer-events:none}
+  .about label{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:6px 14px;font-size:.92rem;cursor:pointer}
+  .about input:checked+label{background:var(--ink);color:#fff}
+  .about input:focus-visible+label{outline:3px solid #315da8;outline-offset:2px}
+  @media (max-width:820px){ .wrap{grid-template-columns:1fr;gap:48px} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="wrap">
+  <div>
+    <p class="eyebrow">say hi</p>
+    <h1>Being friendly</h1>
+    <p class="lede">Tell us what you're working on and what's keeping you up at night.</p>
+    <p class="lab">drop us a line</p>
+    <form id="f" novalidate>
+      <!--CTX-->
+      <div class="ctx" id="ctx" hidden><div class="re"><div><small>you were looking at</small><b id="ctx-s"></b></div><button class="x" type="button" id="ctx-x" aria-label="not about this">×</button></div></div>
+      <fieldset class="about" style="border:0;padding:0;margin:0"><legend style="padding:0;margin-bottom:8px">What's it about? <span class="mono">optional · pick any</span></legend><div class="opts" id="opts"></div></fieldset>
+      <label>Your name<input type="text" name="name" placeholder="you, a studio, your dog"></label>
+      <label>Email<input type="email" name="email" placeholder="you@something.com"></label>
+      <label>What's on your mind?<textarea name="message" placeholder="A brand that feels like me. A product to launch from zero. Or just a conversation worth having."></textarea></label>
+      <button class="send" type="submit">Send it →</button>
+    </form>
+    <div class="sent" role="status">
+      <b>talk soon →</b>
+      <p>Your email app should be opening with the note ready to send. If it didn't, write us directly at <a href="#" data-to="mailto">hello@joyus.studio</a> — we read everything.</p>
+      <p class="note">wireframe: no mail app opens here</p>
+    </div>
+  </div>
+  <aside>
+    <h2>other ways to find us</h2>
+    <ul>
+      <li><b>Email</b><a href="#" data-to="mailto">hello@joyus.studio</a></li>
+      <li><b>The podcast</b><a href="#" data-to="podcast-existing">on Spotify, Apple Podcasts &amp; iHeart</a></li>
+    </ul>
+  </aside>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+<script src="work-data.js"></script>
+<script id="ctx">
+// B: ?from=<client>/<piece> (the piece page's say-hi link) names the piece and
+// preselects its pill. Both can be undone: the × drops the piece, pills toggle.
+let FROM = null;
+function findFrom(params) {
+  const f = params.get('from');
+  return f ? WORK.pieces.find(p => p.url.replace(/^\/(work|experiments)\//, '').replace(/\.html$/, '') === f) || null : null;
+}
+function initCtx(params) {
+  FROM = findFrom(params);
+  document.getElementById('opts').innerHTML = WORK.pills.map(p => '<input type="checkbox" id="o-' + p.id + '" value="' + p.id + '"' + (FROM && FROM.pill === p.id ? ' checked' : '') + '><label for="o-' + p.id + '">' + p.label + '</label>').join('');
+  if (FROM) {
+    document.getElementById('ctx').hidden = false;
+    document.getElementById('ctx-s').textContent = FROM.s;
+    document.getElementById('ctx-x').onclick = () => { FROM = null; document.getElementById('ctx').hidden = true; };
+  }
+}
+function subject(params) {
+  const picked = typeof document !== 'undefined' ? [...document.querySelectorAll('#opts input:checked')].map(i => WORK.pills.find(p => p.id === i.value).label) : [];
+  return 'say hi' + (FROM ? ' · re: ' + FROM.client + ' · ' + FROM.piece : '') + (picked.length ? ' · ' + picked.join(', ') : '');
+}
+</script>
+<script>
+// shared: send shows the sent state (the real page opens mailto with subject()); ?sent=1 shows it for a screenshot
+(function () {
+  const params = new URLSearchParams(location.search);
+  if (typeof initCtx === 'function') initCtx(params);
+  document.getElementById('f').addEventListener('submit', (e) => { e.preventDefault(); document.body.classList.add('is-sent'); document.querySelector('.note').textContent = 'wireframe: the real page opens mail with subject "' + subject(params) + '"'; });
+  if (params.get('sent')) document.getElementById('f').dispatchEvent(new Event('submit', { cancelable: true }));
+})();
+</script>
+</body>
+</html>

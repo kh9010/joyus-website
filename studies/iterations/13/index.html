@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>13 / One page — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.map { display: grid; grid-template-columns: 1fr 60px 1fr; gap: 20px; align-items: center; max-width: 900px; margin: 24px 0 40px }
+.map .arrow { font-size: 32px; text-align: center; color: var(--ink-3) }
+.boxes { display: flex; flex-wrap: wrap; gap: 6px }
+.boxes span { border: 1.5px solid var(--ink); padding: 6px 10px; font-size: 13px; background: #fff }
+.boxes span.gone { border-color: var(--line); color: var(--ink-3); text-decoration: line-through; background: none }
+.boxes span.big { font-weight: 600 }
+.shots { display: grid; grid-template-columns: 2fr 1fr 2fr; gap: 24px; align-items: start }
+.shots figure { margin: 0 } .shots .shot { width: 100% }
+@media (max-width: 900px) { .map, .shots { grid-template-columns: 1fr } .map .arrow { transform: rotate(90deg) } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 13 · 1 October 2026</p>
+<h1>One page</h1>
+<p class="lede">Work, about and say hi on one page. Each piece gets its own page.</p>
+
+<div class="map">
+  <div class="boxes"><span>home</span><span>piece</span><span>experiment</span><span>work index</span><span>client</span><span>about</span><span>Kahran</span><span>Divya</span><span>say hi</span><span>newsletter</span><span>issue</span><span>privacy</span></div>
+  <div class="arrow">→</div>
+  <div class="boxes"><span class="big">one page: work · about · say hi</span><span class="big">piece / experiment</span></div>
+</div>
+
+<div class="shots">
+  <figure><a href="onepager.html" target="_blank"><img class="shot" src="img/onepager.png" alt="The one-pager: hero with newsletter, pills and panel, logos, About with two founders, Say hi form"></a><figcaption><a href="onepager.html" target="_blank">open the one-pager</a></figcaption></figure>
+  <figure><img class="shot" src="img/onepager-phone.png" alt="The one-pager at phone width"><figcaption>phone</figcaption></figure>
+  <figure><a href="piece.html?p=klydo/branding" target="_blank"><img class="shot" src="img/piece.png" alt="A piece page, Klydo branding"></a><figcaption><a href="piece.html?p=klydo/branding" target="_blank">a piece page</a></figcaption></figure>
+</div>
+
+<h2>Notes</h2>
+<ul>
+<li>About and Say hi are blank on purpose: new words, not the old pages'.</li>
+<li>Logos are just logos. Tags are just tags.</li>
+<li>Still to place: newsletter archive, privacy line.</li>
+</ul>
+<p class="source">Test: <code>check.cjs</code>, every link lands on the one page, a piece, or the podcast.</p>
+</main>
+</body>
+</html>

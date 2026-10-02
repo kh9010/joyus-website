@@ -1,6 +1,6 @@
 # Homepage rebuild — what I understood, and the content it needs
 
-_Divya + Claude, 2026-09-22 (rev 4). Branch `divya-sep22-home-wireframe`. Wireframe at `wireframe/index.html` (open `http://localhost:8000/wireframe/` after `python -m http.server 8000`). Nothing here touches the live site._
+_Divya + Claude, 2026-09-22 (rev 4). Branch `divya-sep22-home-wireframe`. Wireframe at `studies/iterations/02/rev4.html` (moved 1 October from `wireframe/index.html`; open Study 02 via `node studies/server.cjs` → http://localhost:8794/studies/). Nothing here touches the live site._
 
 ---
 

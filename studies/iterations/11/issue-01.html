@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — newsletter issue 01 (A only)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  .head{padding:clamp(48px,8vh,96px) var(--x) 40px;max-width:980px}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 16px}
+  .crumb a{border-bottom:1px solid var(--line)}
+  h1{font:600 clamp(2.4rem,6vw,4.8rem)/1 var(--sans);letter-spacing:-.04em;margin:0 0 16px}
+  .intro{font:500 clamp(1.15rem,1.8vw,1.45rem)/1.35 var(--sans);margin:0;max-width:44ch}
+  .from{font:12px var(--mono);color:var(--mute);margin-top:14px}
+  /* the issue body is the quarter's rounds, grouped by piece, oldest first */
+  .group{padding:36px var(--x);border-top:1px solid var(--line);display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr);gap:40px}
+  .group h2{margin:0;font:500 1.4rem/1.2 var(--sans);letter-spacing:-.02em}
+  .group h2 a{border-bottom:1px solid var(--ink)}
+  .group h2 small{display:block;font:12px var(--mono);color:var(--mute);margin-top:6px}
+  .group ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px}
+  .group li .gbox{aspect-ratio:4/3}
+  .group li b{display:block;font-weight:500;margin-top:8px}
+  .group li span{font:12px var(--mono);color:var(--mute)}
+  .end{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin:40px var(--x) 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .end a{border-bottom:1px solid var(--ink)}
+  .again{padding:64px var(--x)}
+  .again p{font:500 clamp(1.4rem,2.6vw,2.2rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0 0 16px;max-width:24ch}
+  .again a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  @media (max-width:820px){ .group{grid-template-columns:1fr;gap:16px} .group ol{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <p class="crumb"><a href="news-a-on-site.html?issues=1" data-to="newsletter">[Newsletter name]</a> / 01 · Q3 2026</p>
+  <h1>Metro Museum, seven rounds in</h1>
+  <p class="intro lorem">[a short note from Kahran and Divya: what the quarter was like. To write.]</p>
+  <p class="from" id="from"></p>
+</section>
+
+<div id="body"></div>
+
+<div class="end"><a href="news-a-on-site.html?issues=1" data-to="newsletter">← all issues</a><span class="mono">next issue: Q4 2026</span></div>
+
+<section class="again">
+  <p>Get the next one.</p>
+  <a href="news-a-on-site.html" data-to="newsletter">subscribe</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+<script src="rounds.js"></script>
+<script id="issue">
+// the body is every round dated in the quarter, grouped by piece. Nothing typed.
+function issueBody(q) {
+  const rs = inQuarter(q), by = {};
+  rs.forEach(r => (by[r.piece] = by[r.piece] || []).push(r));
+  // fixed month names: en-GB writes September as "Sept"
+  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const fmt = (d) => +d.slice(8) + ' ' + M[+d.slice(5, 7) - 1];
+  return Object.entries(by).map(([piece, list]) =>
+    `<section class="group"><h2><a href="#" data-to="${list[0].to}">${piece}</a><small>${list.length} new round${list.length > 1 ? 's' : ''}</small></h2><ol>` +
+    list.map(r => `<li><div class="gbox gbox--img"><span>round image</span></div><b>${r.title}</b><span>${fmt(r.date)}</span></li>`).join('') + '</ol></section>').join('');
+}
+</script>
+<script>
+document.getElementById('body').innerHTML = issueBody('2026-Q3');
+document.getElementById('from').textContent = 'assembled from the ' + inQuarter('2026-Q3').length + ' rounds dated Jul–Sep 2026 · what issue 01 would hold if it went out today';
+</script>
+</body>
+</html>

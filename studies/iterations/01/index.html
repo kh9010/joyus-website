@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>01 / Where we started — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 01 · 22 September 2026 · written up 1 October</p>
+<h1>Where we started</h1>
+<p class="lede">The baseline for the homepage rebuild: what Divya asked for, the map she drew, the homepage as it stands, and what has been tried before. Nothing on this page is a decision beyond what Divya said.</p>
+
+<h2>The brief, in Divya's words</h2>
+<blockquote>
+<p>Hi, what I'm thinking is I want a website change. I don't think our current website really reflects who we are but I don't want to directly deploy it so let's start working on a branch.</p>
+<p>For the core website I want, at the top, a name and some description of what we do. Almost before the fold itself I want there to be these big buttons or whatever that say: Brand and Identity · Website and Product Strategy · Storytelling. Right now we have those sections.</p>
+<p>I want you to see the projects that we have currently and I want you to pick one item in each. I'll like the screenshot that is attached, which has what work we did for each client. Certain clients might be there 4 or 5 times.</p>
+<p>Imagine that we have all of these options and then there is one image and that's from Tomboy X. It can have strategy and story but those can have a deeper description, like investor storytelling. It still falls under story, right?</p>
+<p>There are these tabs at the top: one option, one image on the left, some one-line description, and some tabs under it.</p>
+<p>We have: the intro section; this section; the next section can be Who We Have Worked With and it can have just a bunch of logos; a newsletter that posts at whatever frequency, like quarterly, where we share all of the interesting things that we have up to.</p>
+<p>One of the tags, not the tab at the top. I feel like one tab should be Experimental and then we can have some tags that say client work, personal exploration, artistic project, or stuff like that as well.</p>
+<cite>Divya, 22 September 2026, 16:42 IST. Dictated; trimmed only where she asked "does that make sense?"</cite>
+</blockquote>
+<blockquote>
+<p>Also what I want is for you to tell me from this what you understand. I don't want you to make it. We're going to start with just a wireframe… It doesn't have to have the content in it, just something which is there.</p>
+<p>But I do want you to also have a design wireframe and we should have content, like a document that says, "Okay we need this content, and this content, and this content." First we start with wireframes. Also you can have this in sort of historical layers of how work is done. If you see in Everything Bazaar, I've just recently made this file, which is basically a historical account of everything chronologically.</p>
+<cite>Divya, same message, two follow-ups</cite>
+</blockquote>
+
+<h3>What that sets</h3>
+<ul>
+<li><strong>Process.</strong> A branch, no deploy. Understanding first, then a wireframe, then a content document. No design yet.</li>
+<li><strong>Page.</strong> Four parts: intro (name + what we do), the work section, logos, newsletter.</li>
+<li><strong>Work section.</strong> Coarse options at the top; one image, a line, and tags underneath. One pick per option.</li>
+<li><strong>Two axes.</strong> Options are broad (Storytelling); tags are the specific (investor storytelling, client work, personal exploration, artistic project).</li>
+<li><strong>Experimental</strong> is an option of its own.</li>
+<li><strong>Historical layers</strong>, after Everything Bazaar: offered as an idea, not placed.</li>
+</ul>
+
+<h2>The map she attached</h2>
+<p>"What should go on the website." Three branches: who we are, what we can do, contact. Under client work, each client splits into the separate pieces of work Joyus did for them: Klydo into seven, EWC into four. This is the source for the 37 pieces in Study 02.</p>
+<figure>
+<a href="img/joyus-website-flow.png" target="_blank"><img class="shot" src="img/joyus-website-flow.png" alt="Mind map titled What should go on the website: Who are we (Kahran, Divya, Joyus story), What can we do (client work before and in Joyus, technical experiments, artistic explorations, proof of credibility), Contact form" style="max-width:720px"></a>
+<figcaption>Joyus Website flow.png, 4384 × 7264, from Divya's Downloads, 22 September 2026. Click for full size.</figcaption>
+</figure>
+
+<h2>The homepage today</h2>
+<p>A sparse stage with one input. The visitor types what they want; the box suggests matches from 151 hand- and transcript-written intents; pressing Enter with a strong match (score ≥ 4) jumps straight to that page, and anything weaker lands on <code>looking.html</code> with near-misses. No work is visible until someone types. Last changed 6 July 2026 (Kahran, audit fixes); the lead line became "what brings you here?" on 4 June.</p>
+<div class="two">
+<figure><img class="shot" src="img/home-desktop.png" alt="Current homepage at desktop width: eyebrow 'A storytelling studio · based in BLR & NYC', the prompt 'what brings you here?', a typewriter input reading 'to launch a product from zero', decorative pink, cyan and yellow dots"><figcaption>Desktop, 1440 × 900.</figcaption></figure>
+<figure><img class="shot" src="img/home-mobile.png" alt="Current homepage at phone width" style="max-width:300px"><figcaption>Phone, 390 × 844 at 2×, through device emulation.</figcaption></figure>
+</div>
+<p class="source">Live file: <a href="../../../index.html" target="_blank">index.html</a> (opens the real page; typing in it logs to Firestore). Title: "Joyus Studio — Stories, Strategy, Serious Play". Logic in <code>intent-box.js</code>.</p>
+
+<h2>What was tried before</h2>
+<p>Four homepage concepts from 17 April 2026, Divya's, last touched 28 May. None shipped. All four keep the "type what you need" input at the centre; they differ in what sits around it. Shown here because the rebuild is the first direction that drops the input.</p>
+<div class="grid wide" style="--cols:2">
+<figure><img src="img/concept-x-gallery.png" alt="Concept X Gallery: big 'I need...' headline, input, a stack of paper cards on the right"><figcaption><strong>X · Gallery.</strong> "I need…" with a stack of work cards beside it. <a href="../../../home-concept-x-gallery.html" target="_blank">open</a></figcaption></figure>
+<figure><img src="img/concept-y-pinboard.png" alt="Concept Y Pinboard: a studio wall of pinned cards around a yellow sticky with the input"><figcaption><strong>Y · Pinboard.</strong> The studio wall: pinned work, podcast, comic, around a sticky with the input. <a href="../../../home-concept-y-pinboard.html" target="_blank">open</a></figcaption></figure>
+<figure><img src="img/concept-a-atelier.png" alt="Concept A Atelier: 'We think with everyone. We build with a few.' headline, then a numbered list of needs linked to case studies"><figcaption><strong>A · Atelier.</strong> The positioning line as headline, then needs as a numbered index, each linked to a case study. <a href="../../../concept-a.html" target="_blank">open</a></figcaption></figure>
+<figure><img src="img/concept-b.png" alt="Concept B: 'I need...' headline and input, nothing else"><figcaption><strong>B.</strong> "I need…" and the input, nothing else. <a href="../../../concept-b.html" target="_blank">open</a></figcaption></figure>
+</div>
+
+<h2>What already sits in the repo and bears on this</h2>
+<table>
+<tbody>
+<tr><td style="width:28%"><code>POSITIONING-2026-07-20-moments.md</code></td><td>"<strong>Do NOT organize by service</strong> ("Branding / Strategy / Fundraising") — that's a menu; makes us a vendor." Also rules out organising by audience and by moment. The brief's options are services. This is a live tension, not a reason to stop; it is open question 1 in Study 02.</td></tr>
+<tr><td><code>WEBSITE-DIRECTION.md</code></td><td>"Projects that'll haunt you until they're made" as the line a visitor meets first. A candidate for the intro's description.</td></tr>
+<tr><td><code>CLAUDE.md</code> · positioning</td><td>"We think with everyone. We build with a few." Homepage tagline "Advisory &amp; Design Studio."</td></tr>
+<tr><td><code>work/</code></td><td>Case studies for 11 clients; only agemo and rachna-nivas are in the sitemap. The map's pieces mostly have no page of their own yet.</td></tr>
+</tbody>
+</table>
+
+<h2>Open at the start</h2>
+<ul>
+<li>Which one piece leads each option <span class="status open">open</span></li>
+<li>Whether "historical layers" lives on the homepage or somewhere else <span class="status open">open</span></li>
+<li>What happens to the intent box and <code>looking.html</code> <span class="status open">open</span></li>
+<li>Newsletter: name, platform <span class="status open">open</span> · frequency, quarterly <span class="status done">said</span></li>
+</ul>
+</main>
+</body>
+</html>

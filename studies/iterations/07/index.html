@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>07 / The work index — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>.pair{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}.pair figure{margin:0}.pair .shot{width:100%}.tall{max-height:760px;overflow:hidden;border:1px solid var(--line)}.tall img{border:0}@media(max-width:900px){.pair{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 07 · 1 October 2026</p>
+<h1>The work index</h1>
+<p class="lede">All 37 pieces on one page. Pills and tags filter it.</p>
+<div class="pair">
+<figure><div class="tall"><a href="work-a-cards.html" target="_blank"><img class="shot" src="img/work-a-cards.png" alt="Work index as image cards"></a></div><figcaption><strong>A · cards</strong> · 14,103 px tall on a phone · <a href="work-a-cards.html" target="_blank">open</a></figcaption></figure>
+<figure><div class="tall"><a href="work-b-index.html" target="_blank"><img class="shot" src="img/work-b-index.png" alt="Work index as a text list"></a></div><figcaption><strong>B · index</strong> · 8,343 px · tags and clients are links · <a href="work-b-index.html" target="_blank">open</a></figcaption></figure>
+</div>
+<div class="pair" style="margin-top:28px">
+<figure><img class="shot" src="img/work-b-index-tag.png" alt="Filtered to identity, 4 of 37"><figcaption><a href="work-b-index.html?tag=identity" target="_blank">?tag=identity</a> → 4 of 37</figcaption></figure>
+<figure><img class="shot" src="img/work-b-index-empty.png" alt="A tag that matches nothing"><figcaption>nothing matches → says so</figcaption></figure>
+</div>
+<p><strong>Pick: B.</strong></p>
+<details class="notes"><summary>Found on the way</summary><div class="body"><ul>
+<li><code>.rows li</code> also styled each tag's <code>&lt;li&gt;</code>: lines ran through the sentences. Scoped to <code>.rows &gt; li</code>.</li>
+<li>My check read code inside <code>render()</code> as links. It now runs <code>render()</code> instead.</li>
+<li>"client work" is on 27 of 37 rows.</li>
+</ul></div></details>
+<p class="source">Test: <code>check.cjs</code>, every pill and all 37 tags filter correctly; both renders run.</p>
+</main>
+</body>
+</html>

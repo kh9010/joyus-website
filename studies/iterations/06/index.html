@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>06 / The client page — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start }
+.pair figure { margin: 0 } .pair h3 { margin: 0 0 4px } .pair .shot { width: 100% }
+.phones { display: grid; grid-template-columns: repeat(2, 220px); gap: 28px } .phones .shot { width: 220px }
+.counts td:nth-child(2), .counts th:nth-child(2) { text-align: center; width: 80px }
+@media (max-width: 900px) { .pair { grid-template-columns: 1fr } .phones { grid-template-columns: 1fr 1fr } .phones .shot { width: 100% } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 06 · 1 October 2026</p>
+<h1>The client page</h1>
+<p class="lede">Everything Joyus did for one client. Reached from the logo wall, from a piece page's crumb and client fact, and from "Also for &lt;client&gt;". One decision: in what order the pieces appear. It's round 1's "by kind / by time" toggle again, which Divya cut from the homepage, here asked where it matters and answered once, without a toggle. Built with Klydo, seven pieces. Then a second finding: most clients shouldn't have this page at all.</p>
+
+<h2>The parts</h2>
+<table>
+<thead><tr><th style="width:20%">Part</th><th>What it is</th><th style="width:20%">Leads to</th><th style="width:32%">Why</th></tr></thead>
+<tbody>
+<tr><td><strong>Name + one line</strong></td><td>"Klydo", then <em>From four people to a million orders to a thesis.</em></td><td>—</td><td>The line is Kahran's, verbatim from <code>work/klydo.html</code>. The old case study's job, in one sentence.</td></tr>
+<tr><td><strong>Facts</strong></td><td>who they are · with us since · how many pieces</td><td>—</td><td>Orientation before the list.</td></tr>
+<tr><td><strong>Piece cards</strong></td><td>image, pill, the homepage sentence, dates</td><td>Piece pages</td><td>The homepage panel, shrunk. Same sentence everywhere: the homepage, the piece page's headline, this card.</td></tr>
+<tr><td><strong>More clients</strong></td><td>the other eleven logos</td><td>Client pages, or straight to a piece (the rule below)</td><td>Sideways, client to client, without going back to the homepage.</td></tr>
+</tbody></table>
+
+<h2>The decision: by time, or by pill</h2>
+<div class="pair">
+<figure>
+<h3>A · By time</h3>
+<p class="source">A rail, oldest first, in two chapters. <a href="client-a-by-time.html" target="_blank">Open A</a></p>
+<a href="client-a-by-time.html" target="_blank"><img class="shot" src="img/client-a-by-time.png" alt="Client page A: Klydo, then chapter 01 The build with four pieces on a time rail, a gap marked eight months in, chapter 02 The shift with three pieces"></a>
+</figure>
+<figure>
+<h3>B · By pill</h3>
+<p class="source">Four groups, in homepage pill order. <a href="client-b-by-pill.html" target="_blank">Open B</a></p>
+<a href="client-b-by-pill.html" target="_blank"><img class="shot" src="img/client-b-by-pill.png" alt="Client page B: Klydo, then Brand & Identity with one card, Website & Product with two, Strategy with three, Storytelling with one"></a>
+</figure>
+</div>
+<p><strong>A found Kahran's structure on its own.</strong> Sorting the seven pieces by their start dates (taken from the wall's day numbers) splits them cleanly: product, design, branding and storytelling between Sep 2025 and Jan 2026; strategy, marketing and pivot support "eight months in". That is exactly the two chapters <code>work/klydo.html</code> already tells, "01 The build" and "02 The shift", so A uses his chapter names, whole. The client page becomes the historical layer at the scale of a relationship: what Joyus did first, what it was asked back for.</p>
+<p><strong>B repeats the homepage.</strong> Grouping by pill re-sorts Klydo by the axis the homepage already offers, and with seven pieces across four pills, two groups hold a single card. It also puts the offsite next to the pivot and marketing work without saying they came eight months after everything else.</p>
+<p><strong>Recommendation: A.</strong> It's the only view of the work no other page gives. The pill each piece belongs to is still on every card.</p>
+
+<h2>Most clients don't need this page</h2>
+<p>Counted from the data (Study 03's 27 pieces of client work):</p>
+<table class="counts">
+<thead><tr><th>Client</th><th>Pieces</th><th>Gets a client page?</th></tr></thead>
+<tbody>
+<tr><td>Klydo</td><td>7</td><td><span class="status done">yes</span></td></tr>
+<tr><td>Tatsam · Agemo / Codewords · Rachna Nivas</td><td>3 each</td><td><span class="status done">yes</span></td></tr>
+<tr><td>EWC · ConveGenius · Pratham USA</td><td>2 each</td><td><span class="status done">yes</span></td></tr>
+<tr><td>Secret Senses · Gliitch · XTDB · TomboyX · Shapeshifter</td><td>1 each</td><td><span class="status no">no</span> logo goes straight to the piece</td></tr>
+</tbody></table>
+<figure style="max-width:720px">
+<a href="client-a-tomboyx.html" target="_blank"><img class="shot" src="img/client-a-tomboyx.png" alt="TomboyX client page: a big name, a placeholder line, one chapter titled [chapter?] holding a single card"></a>
+<figcaption>What a one-piece client page is: TomboyX in style A. One card, a chapter with nothing to call itself, and a whole page whose only job is to link to one other page. <a href="client-a-tomboyx.html" target="_blank">Open it</a>.</figcaption>
+</figure>
+<p><strong>The rule:</strong> a client gets a page only with two or more pieces. Seven client pages, not twelve. On the logo wall and in "More clients", the five one-piece logos link straight to their piece; the piece page's client fact for them is plain text. <strong>This changes Study 03</strong> (it said 12 client pages, every logo to a client page); Study 03 stays as written and this study records the change.</p>
+
+<h2>On a phone</h2>
+<div class="phones">
+<figure><img class="shot" src="img/client-a-by-time-phone.png" alt="Client page A at phone width"><figcaption>A · 390 px: the chapter heading sits above its rail</figcaption></figure>
+<figure><img class="shot" src="img/client-b-by-pill-phone.png" alt="Client page B at phone width"><figcaption>B · 390 px</figcaption></figure>
+</div>
+
+<h2>Found on the way</h2>
+<p class="wrong"><strong>Four of the seven pieces are barely dated.</strong> Klydo · storytelling has one dated artifact (Series A deck v1, 26 Dec 2025); Klydo · strategy, marketing and pivot support have only "eight months in". The first draft gave those three a start of May 2026, worked out from "eight months". That's arithmetic, not a source; it now says 2026 and the offsite month is marked as missing.</p>
+<p class="wrong"><strong>"Marketing" may be two different things.</strong> The homepage sentence is the 2026 Instagram experiments. But the 2025 wall has six GTM artifacts too: CAC:LTV models, an acquisition plan, the Diwali launch plan, a holiday campaign. Either they belong in Klydo · marketing or they're an eighth piece. Kahran's call.</p>
+<p class="wrong"><strong>B's cards didn't line up.</strong> In a row, shorter cards' text sat lower: each card's inner grid stretched to the tallest card. Fixed with <code>align-content: start</code>.</p>
+
+<h2>The test</h2>
+<p><code>node studies/iterations/06/check.cjs</code>: for A and B, all seven Klydo pieces appear once, each with its homepage sentence unchanged, each linking to a piece page; the eleven other clients are listed, and <strong>each links by the rule</strong> (two or more pieces → client page, one → the piece). For A: pieces run in start-date order, and the three start dates the wall can prove (design, product, branding) equal their first artifact's day on the wall; Kahran's line and chapter names are found verbatim in <code>work/klydo.html</code>. For B: groups in homepage pill order, pieces in homepage order inside them. A and B are identical outside the body. The TomboyX page has one card because the data has one piece.</p>
+<p>Broken on purpose: branding moved a day later, and XTDB's logo pointed at a client page. Three failures (the two, plus A no longer matching B). Restored, passes.</p>
+</main>
+</body>
+</html>

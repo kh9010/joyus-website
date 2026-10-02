@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Prototype — piece page</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 04, A (rounds), as a template: ?p=klydo/branding */
+  .head{padding:clamp(48px,8vh,96px) var(--x) 36px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 22px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.9rem,3.6vw,3.2rem)/1.15 var(--sans);letter-spacing:-.025em;margin:0 0 24px;max-width:22ch}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .facts a{border-bottom:1px solid var(--line)}
+  .hero-img{margin:0 var(--x);aspect-ratio:16/9}
+  .rounds{padding:72px var(--x) 24px}
+  .rounds-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
+  .rounds-h h2{margin:0;font-size:1.35rem;letter-spacing:-.02em;font-weight:600}
+  .round{display:grid;grid-template-columns:64px minmax(0,3fr) minmax(0,7fr);gap:28px;padding:32px 0;border-bottom:1px solid var(--line);align-items:start}
+  .round .no{font:14px var(--mono);color:var(--mute);padding-top:4px}
+  .round h3{margin:0 0 6px;font-size:1.25rem;font-weight:500}
+  .round .when{font:12px var(--mono);color:var(--mute);margin:0}
+  .round .gbox--img{aspect-ratio:16/9}
+  .none{border:1.5px dashed var(--line);padding:24px;margin-top:20px;max-width:640px}
+  .also{padding:64px var(--x) 24px}
+  .also-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+  .also-h h2{margin:0;font-size:1.35rem;font-weight:600}
+  .also-h a{font-size:14px;border-bottom:1px solid var(--ink)}
+  .sib{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sib a{display:grid;gap:10px;background:#fff;border:1px solid var(--line);padding:12px 12px 16px}
+  .sib a:hover{border-color:var(--ink);text-decoration:none}
+  .sib .gbox{aspect-ratio:16/9}
+  .sib small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:4px}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:56px var(--x) 0;padding:28px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.2rem,2.2vw,1.7rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .closing{padding:88px var(--x)}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  .missing{padding:96px var(--x)}
+  .missing a{border-bottom:1px solid var(--ink)}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:28px} .round{grid-template-columns:40px 1fr;gap:14px} .round figure{grid-column:1/-1} .sib{grid-template-columns:1fr 1fr} }
+  @media (max-width:480px){ .sib{grid-template-columns:1fr;gap:0} .sib a{background:none;border-width:0 0 1px;padding:12px 0} .sib .gbox{display:none} }
+</style>
+</head>
+<body>
+<header id="nav"></header>
+<main id="page"></main>
+<footer id="foot"></footer>
+<script src="site-data.js"></script>
+<script src="rounds.js"></script>
+<script src="chrome.js"></script>
+<script>
+(function () {
+  const slug = new URLSearchParams(location.search).get('p');
+  const me = SITE.pieces.find(p => p.slug === slug && p.pill !== 'exp');
+  const page = document.getElementById('page');
+  if (!me || me.soon) { page.innerHTML = `<section class="missing"><h1>${me ? 'Not yet.' : 'No such piece.'}</h1><p>${me ? esc(me.s) : ''}</p><p><a href="work.html">See all the work</a></p></section>`; document.title = 'Prototype — piece not found'; return; }
+  document.title = 'Prototype — ' + me.client + ' · ' + me.piece;
+  const cl = SITE.clients[me.clientSlug];
+  const clientLink = cl.page ? `<a href="client.html?c=${me.clientSlug}">${esc(cl.name)}</a>` : esc(cl.name); // Study 06: one-piece clients have no page
+  const facts = (SITE.facts[me.slug] || [['when', '[dates]']]);
+  const rs = ROUNDS.filter(r => r.piece === me.client + ' · ' + me.piece);
+  const M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'], fmt = (d) => +d.slice(8) + ' ' + M[+d.slice(5, 7) - 1] + ' ' + d.slice(0, 4);
+  const sibs = SITE.pieces.filter(p => p.clientSlug === me.clientSlug && p !== me);
+  // next live piece in the pill, homepage order, wrapping; a "soon" piece is skipped, not a dead end
+  const inPill = SITE.pieces.filter(p => p.pill === me.pill && (!p.soon || p === me)), nxt = inPill[(inPill.indexOf(me) + 1) % inPill.length];
+  page.innerHTML = `
+  <section class="head"><div>
+    <p class="crumb"><a href="work.html?pill=${me.pill}">${esc(pillName(me.pill))}</a><span>/</span>${clientLink}</p>
+    <h1>${esc(me.s)}</h1>
+    <ul class="tags">${me.tags.map(t => `<li><a href="work.html?tag=${slugTag(t)}">${esc(t)}</a></li>`).join('')}</ul>
+  </div><dl class="facts"><div><dt>client</dt><dd>${clientLink}</dd></div>${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></section>
+  <div class="gbox gbox--img hero-img"><span>image · the same still as the homepage panel</span></div>
+  <section class="rounds"><div class="rounds-h"><h2>How it got made</h2><span class="mono">oldest first · nothing replaced</span></div>
+    ${rs.length ? rs.map((r, i) => `<article class="round"><span class="no">${String(i + 1).padStart(2, '0')}</span><div><h3>${esc(r.title)}</h3><p class="when">${fmt(r.date)}</p></div><figure style="margin:0"><div class="gbox gbox--img"><span>round image</span></div></figure></article>`).join('')
+      : `<div class="none"><b>No rounds yet.</b> This piece's dated material hasn't been gathered (Study 04: the content audit).</div>`}
+  </section>
+  ${sibs.length ? `<section class="also"><div class="also-h"><h2>Also for ${esc(cl.name)}</h2>${cl.page ? `<a href="client.html?c=${me.clientSlug}">All ${sibs.length + 1} ${esc(cl.name)} pieces →</a>` : ''}</div><div class="sib">${sibs.map(s => s.soon
+      ? `<div style="opacity:.55;padding:12px"><small>${esc(pillName(s.pill))} · soon</small><b>${esc(s.client)} · ${esc(s.piece)}</b></div>`
+      : `<a href="${pieceHref(s)}"><div class="gbox gbox--img"><span>image</span></div><div><small>${esc(pillName(s.pill))}</small><b>${esc(s.client)} · ${esc(s.piece)}</b></div></a>`).join('')}</div></section>` : ''}
+  ${nxt === me ? '' : `<a class="next" href="${pieceHref(nxt)}"><span><small>next in ${esc(pillName(me.pill))}</small><b>${esc(nxt.s)}</b></span><span style="font-size:2rem">→</span></a>`}
+  <section class="closing"><p>Something you want reimagined?</p><a href="say-hi.html?from=${me.slug}">say hi</a></section>`;
+})();
+</script>
+</body>
+</html>

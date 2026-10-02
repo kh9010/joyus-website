@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — Joyus homepage (Sep 2026)</title>
+<style>
+  /* ------------------------------------------------------------------
+     WIREFRAME ONLY. Deliberately does NOT link styles.css so nobody
+     mistakes this for a design. Grey boxes, dashed borders, mono labels.
+     Content is placeholder except the four showcase picks, which are
+     real so the tab/tag mechanic can be judged.
+     ------------------------------------------------------------------ */
+  :root{
+    --paper:#f4f4f2; --box:#e3e3e0; --box2:#d2d2ce; --line:#9a9a95;
+    --ink:#222; --mute:#6b6b66; --note:#fff7c2; --noteline:#d9c45a;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.45 var(--sans)}
+  a{color:inherit}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+
+  /* section frame + annotation */
+  .sec{border-top:2px dashed var(--line);padding:40px 0 56px;position:relative}
+  .sec__tag{font:12px/1 var(--mono);color:var(--mute);letter-spacing:.06em;text-transform:uppercase;margin:0 0 20px;display:flex;gap:12px;align-items:center}
+  .sec__tag b{background:var(--ink);color:#fff;padding:4px 7px;border-radius:3px;font-weight:600}
+  .note{background:var(--note);border:1px solid var(--noteline);border-radius:4px;padding:10px 12px;font:13px/1.4 var(--mono);color:#4a4200;margin-top:24px}
+  .note strong{display:block;margin-bottom:4px}
+  .note ul{margin:6px 0 0 18px;padding:0}
+
+  /* grey primitives */
+  .gbox{background:var(--box);border:1px dashed var(--line);border-radius:4px;display:flex;align-items:center;justify-content:center;text-align:center;font:13px var(--mono);color:var(--mute);padding:8px}
+  .gbox--img{position:relative}
+  .gbox--img::before,.gbox--img::after{content:"";position:absolute;inset:8px;border-top:1px solid var(--line);transform-origin:center}
+  .gbox--img::before{transform:rotate(19deg);top:50%;bottom:auto}
+  .gbox--img::after{transform:rotate(-19deg);top:50%;bottom:auto}
+  .gbox--img span{position:relative;z-index:1;background:var(--box);padding:4px 8px}
+  .tline{height:12px;background:var(--box2);border-radius:6px;margin:8px 0}
+  .tline--h{height:34px;width:60%}
+  .tline--s{width:80%}.tline--xs{width:45%}
+
+  /* 00 nav */
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px dashed var(--line)}
+  .nav .gbox{height:36px;width:110px}
+  .nav ul{display:flex;gap:22px;list-style:none;margin:0;padding:0;font:14px var(--mono);color:var(--mute)}
+
+  /* 01 intro */
+  .intro{min-height:70vh;display:grid;align-content:center;gap:28px}
+  .intro h1{font:600 clamp(2.4rem,7vw,5.5rem)/1 var(--sans);letter-spacing:-.03em;margin:0}
+  .intro p{max-width:640px;margin:0;color:var(--mute)}
+  .doors{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .door{display:block;text-align:left;background:var(--box);border:2px solid var(--ink);border-radius:8px;padding:26px 20px;min-height:132px;cursor:pointer;font:inherit;color:inherit}
+  .door small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:10px}
+  .door strong{font-size:1.25rem;letter-spacing:-.01em}
+  .door em{display:block;font-style:normal;color:var(--mute);font-size:.9rem;margin-top:8px}
+
+  /* 02 showcase */
+  .show__head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:20px}
+  .show__head h2{margin:0;font-size:1.6rem;letter-spacing:-.02em}
+  .toggle{display:inline-flex;border:1px solid var(--ink);border-radius:999px;overflow:hidden;font:13px var(--mono)}
+  .toggle button{border:0;background:transparent;padding:8px 14px;cursor:pointer;font:inherit;color:inherit}
+  .toggle button[aria-pressed="true"]{background:var(--ink);color:#fff}
+  .tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:22px;overflow-x:auto}
+  .tabs button{border:0;background:transparent;padding:12px 16px;font:15px var(--sans);cursor:pointer;color:var(--mute);border-bottom:3px solid transparent;margin-bottom:-1px;white-space:nowrap}
+  .tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+  .panel{display:none;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:32px;align-items:start}
+  .panel.is-on{display:grid}
+  .panel .gbox--img{aspect-ratio:4/3}
+  .panel h3{margin:0 0 6px;font-size:1.5rem;letter-spacing:-.02em}
+  .panel .who{font:13px var(--mono);color:var(--mute);margin:0 0 14px}
+  .panel .line{font-size:1.05rem;margin:0 0 18px}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px;padding:0;list-style:none}
+  .tags li{border:1px solid var(--ink);border-radius:999px;padding:5px 11px;font:13px var(--mono)}
+  .tags li.kind{background:var(--ink);color:#fff}
+  .tags__label{font:12px var(--mono);color:var(--mute);margin:0 0 6px;text-transform:uppercase;letter-spacing:.06em}
+  .more{font:14px var(--mono)}
+  .alts{margin-top:14px;font:12px var(--mono);color:var(--mute)}
+
+  /* 02b chronology (Everything Bazaar-style rail) */
+  .chrono{display:none;grid-template-columns:260px 1fr;gap:32px}
+  .chrono.is-on{display:grid}
+  .rail{border-right:1px solid var(--line);padding-right:16px;font:13px/1.5 var(--mono)}
+  .rail h4{margin:16px 0 6px;font:12px var(--mono);color:var(--mute);text-transform:uppercase;letter-spacing:.08em}
+  .rail h4:first-child{margin-top:0}
+  .rail ol{list-style:none;margin:0;padding:0}
+  .rail li{padding:3px 0;color:var(--mute)}
+  .rail li b{color:var(--ink);font-weight:500;margin-right:6px}
+  .layers{display:grid;gap:14px}
+  .layer{display:grid;grid-template-columns:52px 120px 1fr auto;gap:14px;align-items:center;border:1px dashed var(--line);border-radius:4px;padding:12px;background:var(--box)}
+  .layer .n{font:13px var(--mono)}
+  .layer .gbox{height:64px;background:var(--box2)}
+  .layer .d{font:12px var(--mono);color:var(--mute)}
+  .layer .t{margin:0 0 4px;font-weight:600}
+  .layer .k{font:12px var(--mono);color:var(--mute)}
+
+  /* 03 logos */
+  .logos{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .logos .gbox{height:76px}
+
+  /* 04 newsletter */
+  .news{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:start}
+  .news h2{margin:0 0 10px;font-size:1.6rem;letter-spacing:-.02em}
+  .news p{color:var(--mute);margin:0 0 18px}
+  .form{display:flex;gap:8px}
+  .form .gbox{flex:1;height:46px}
+  .form button{height:46px;padding:0 18px;border:2px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;font:inherit}
+  .issue{border:1px dashed var(--line);border-radius:4px;padding:16px;background:var(--box)}
+  .issue .tl{font:12px var(--mono);color:var(--mute);margin-bottom:8px}
+
+  /* 05 footer */
+  .foot{display:grid;grid-template-columns:2fr 1fr 1fr;gap:24px;padding:36px 0 60px;font:14px var(--mono);color:var(--mute)}
+  .foot ul{list-style:none;margin:8px 0 0;padding:0}
+
+  /* legend */
+  .legend{position:fixed;right:14px;bottom:14px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px 12px;font:12px var(--mono);color:var(--mute);max-width:260px;box-shadow:0 2px 10px rgba(0,0,0,.08)}
+  .legend b{color:var(--ink)}
+
+  @media (max-width:760px){
+    .doors{grid-template-columns:1fr}
+    .panel,.chrono,.news{grid-template-columns:1fr}
+    .rail{border-right:0;border-bottom:1px solid var(--line);padding:0 0 12px}
+    .logos{grid-template-columns:repeat(3,1fr)}
+    .foot{grid-template-columns:1fr}
+    .layer{grid-template-columns:40px 1fr;grid-auto-rows:auto}
+    .layer .gbox{grid-column:1/-1}
+    .legend{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 00 ------------------------------------------------------------- -->
+  <header class="nav" aria-label="00 nav">
+    <div class="gbox">logo / wordmark</div>
+    <ul><li>work</li><li>about</li><li>say hi</li></ul>
+  </header>
+  <div class="note" style="margin-top:12px"><strong>00 · nav — OPEN</strong>Divya's list has four sections and nothing else. Whether a nav exists at all, and whether "about" is a page or a footer line, is undecided. Kept minimal here so the page reads as one scroll.</div>
+
+  <!-- 01 ------------------------------------------------------------- -->
+  <section class="sec" id="intro">
+    <p class="sec__tag"><b>01</b> intro · above the fold</p>
+    <div class="intro">
+      <h1>joyus studio</h1>
+      <p>[one short paragraph: what Joyus does, in plain words. Two lines, not five. Written by Kahran + Divya together. See CONTENT-NEEDS.md §01]</p>
+      <div class="doors" role="group" aria-label="What we do">
+        <button class="door" data-go="brand"><small>01</small><strong>Brand &amp; Identity</strong><em>[one-line gloss]</em></button>
+        <button class="door" data-go="product"><small>02</small><strong>Website &amp; Product Strategy</strong><em>[one-line gloss]</em></button>
+        <button class="door" data-go="story"><small>03</small><strong>Storytelling</strong><em>[one-line gloss]</em></button>
+      </div>
+    </div>
+    <div class="note"><strong>01 · intro</strong>
+      <ul>
+        <li>Name + description + three big buttons all sit in the first screen (the "almost before the fold" ask).</li>
+        <li>The three buttons are the SAME three objects as the tabs in 02. Clicking one scrolls to 02 and selects that tab. One idea, two placements.</li>
+        <li>Experimental is deliberately NOT a door up here (Divya: "one tab, not a button"). It only appears as the 4th tab below.</li>
+        <li>Flag: Kahran's July positioning doc says "do NOT organise by service". These buttons organise by service. Needs a conversation, not a silent choice — see CONTENT-NEEDS.md "Open questions".</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 02 ------------------------------------------------------------- -->
+  <section class="sec" id="show">
+    <p class="sec__tag"><b>02</b> showcase · one pick per segment</p>
+    <div class="show__head">
+      <h2>What we've made</h2>
+      <div class="toggle" role="group" aria-label="View">
+        <button type="button" data-view="kind" aria-pressed="true">by kind</button>
+        <button type="button" data-view="time" aria-pressed="false">by time</button>
+      </div>
+    </div>
+
+    <!-- by kind -->
+    <div id="view-kind">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-tab="brand">Brand &amp; Identity</button>
+        <button role="tab" aria-selected="false" data-tab="product">Website &amp; Product Strategy</button>
+        <button role="tab" aria-selected="false" data-tab="story">Storytelling</button>
+        <button role="tab" aria-selected="false" data-tab="exp">Experimental</button>
+      </div>
+
+      <div class="panel is-on" role="tabpanel" data-panel="brand">
+        <div class="gbox gbox--img"><span>image · Klydo (one hero still)</span></div>
+        <div>
+          <h3>Klydo</h3>
+          <p class="who">client work · in joyus · [year]</p>
+          <p class="line">[one line: what we did and what changed for them]</p>
+          <p class="tags__label">what this covered</p>
+          <ul class="tags"><li class="kind">client work</li><li>branding</li><li>design</li><li>product</li><li>marketing</li><li>pivot support</li></ul>
+          <a class="more" href="#">see the work →</a>
+          <p class="alts">alternates for this slot: Tatsam · Secret Senses · Gliitch · XTDB · Rachna Nivas</p>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" data-panel="product">
+        <div class="gbox gbox--img"><span>image · Agemo / Codewords (one product screen)</span></div>
+        <div>
+          <h3>Agemo / Codewords</h3>
+          <p class="who">client work · in joyus · [year]</p>
+          <p class="line">[one line: what we did and what changed for them]</p>
+          <p class="tags__label">what this covered</p>
+          <ul class="tags"><li class="kind">client work</li><li>product strategy</li><li>product design</li><li>brand voice</li></ul>
+          <a class="more" href="#">see the work →</a>
+          <p class="alts">alternates for this slot: EWC (website + funnel, no page yet) · ConveGenius · Pratham USA · Klydo</p>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" data-panel="story">
+        <div class="gbox gbox--img"><span>image · TomboyX (one deck slide)</span></div>
+        <div>
+          <h3>TomboyX</h3>
+          <p class="who">client work · in joyus · [year]</p>
+          <p class="line">[one line: what we did and what changed for them]</p>
+          <p class="tags__label">what this covered</p>
+          <ul class="tags"><li class="kind">client work</li><li>investor storytelling</li><li>strategy</li></ul>
+          <a class="more" href="#">see the work →</a>
+          <p class="alts">alternates for this slot: Rachna Nivas (brand storytelling) · EWC (branding storytelling) · Klydo · Agemo (brand voice)</p>
+        </div>
+      </div>
+
+      <div class="panel" role="tabpanel" data-panel="exp">
+        <div class="gbox gbox--img"><span>image · Metro Museum of the Forgotten (one game still)</span></div>
+        <div>
+          <h3>Metro Museum of the Forgotten</h3>
+          <p class="who">artistic project · [year]</p>
+          <p class="line">[one line: what it is and why we made it]</p>
+          <p class="tags__label">what kind of thing this is</p>
+          <ul class="tags"><li class="kind">artistic project</li><li>game</li><li>data</li><li>Delhi</li></ul>
+          <a class="more" href="#">see it →</a>
+          <p class="alts">Experimental tags are a different axis from the client tags: <b>client work · personal exploration · artistic project</b>. Alternates: Poetic lineage explorer · Projection mapper · Brand Studio · Art stager · Line before · comics · AI videos for poetry · Shapeshifter proposal maker</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- by time (the Everything Bazaar rail) -->
+    <div id="view-time" class="chrono">
+      <aside class="rail" aria-label="chronology">
+        <h4>Before joyus</h4>
+        <ol><li><b>01</b> Secret Senses</li><li><b>02</b> Gliitch</li><li><b>03</b> Tatsam</li><li><b>04</b> XTDB</li></ol>
+        <h4>In joyus</h4>
+        <ol><li><b>05</b> Klydo</li><li><b>06</b> Agemo</li><li><b>07</b> TomboyX</li><li><b>08</b> ConveGenius</li><li><b>09</b> Pratham USA</li><li><b>10</b> Rachna Nivas</li><li><b>11</b> EWC</li><li><b>12</b> Shapeshifter</li></ol>
+        <h4>Alongside</h4>
+        <ol><li><b>·</b> comics</li><li><b>·</b> Metro Museum</li><li><b>·</b> Poetic lineage</li><li><b>·</b> Everything Bazaar</li></ol>
+      </aside>
+      <div class="layers">
+        <div class="layer"><span class="n">01</span><div class="gbox">img</div><div><p class="t">Secret Senses</p><span class="k">identity · illustration · packaging</span></div><span class="d">[year]</span></div>
+        <div class="layer"><span class="n">02</span><div class="gbox">img</div><div><p class="t">Gliitch</p><span class="k">identity</span></div><span class="d">[year]</span></div>
+        <div class="layer"><span class="n">03</span><div class="gbox">img</div><div><p class="t">Tatsam</p><span class="k">research · brand · product · pitch</span></div><span class="d">[year]</span></div>
+        <div class="layer"><span class="n">04</span><div class="gbox">img</div><div><p class="t">XTDB</p><span class="k">visual identity</span></div><span class="d">[year]</span></div>
+        <div class="layer"><span class="n">05</span><div class="gbox">img</div><div><p class="t">Klydo</p><span class="k">strategy · product · design · branding · storytelling · marketing · pivot support</span></div><span class="d">[year]</span></div>
+        <div class="layer"><span class="n">…</span><div class="gbox">img</div><div><p class="t">[each project, one row, in order]</p><span class="k">tags</span></div><span class="d">[year]</span></div>
+      </div>
+    </div>
+
+    <div class="note"><strong>02 · showcase</strong>
+      <ul>
+        <li>Mechanic: tabs at top → one image left → one line + tags right. Exactly the shape Divya described. One pick per tab; the rest of the portfolio lives behind "see the work".</li>
+        <li>Tags carry the depth ("investor storytelling" still sits under Storytelling). Tags are the second axis; tabs are the first. A project can sit under one tab and wear tags from another.</li>
+        <li>Picks I made: Klydo (most layers, so tags show best) · Agemo (only shipped product page) · TomboyX (Divya's own example) · Metro Museum (has a repo + GDD, so an image exists). Alternates listed in each panel.</li>
+        <li>"by time" = the historical-layers idea from Everything Bazaar: a numbered rail, nothing ever replaced, new work appended. Before joyus / In joyus split comes straight off the mind map. Needs a year per project — none of the case studies state one reliably.</li>
+        <li>OPEN: is "by time" a toggle here, a separate page, or dropped? Kept as a toggle so both can be judged side by side.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 03 ------------------------------------------------------------- -->
+  <section class="sec" id="logos">
+    <p class="sec__tag"><b>03</b> who we've worked with</p>
+    <h2 style="margin:0 0 18px;font-size:1.6rem;letter-spacing:-.02em">Who we've worked with</h2>
+    <div class="logos">
+      <div class="gbox">Klydo</div><div class="gbox">TomboyX</div><div class="gbox">Agemo</div><div class="gbox">Pratham USA</div><div class="gbox">ConveGenius</div><div class="gbox">Rachna Nivas</div>
+      <div class="gbox">Tatsam</div><div class="gbox">XTDB</div><div class="gbox">Gliitch</div><div class="gbox">Secret Senses</div><div class="gbox">EWC</div><div class="gbox">[+ any others]</div>
+    </div>
+    <div class="note"><strong>03 · logos</strong>
+      <ul>
+        <li>Just logos, no copy. Names only in the wireframe. No logo files exist in the repo today (only Joyus's own) — every one has to be sourced. See CONTENT-NEEDS.md §03.</li>
+        <li>OPEN: include "before joyus" clients (Tatsam, Secret Senses, Gliitch, XTDB)? They're on the mind map, so yes here. Also whether permission is needed per logo.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04 ------------------------------------------------------------- -->
+  <section class="sec" id="newsletter">
+    <p class="sec__tag"><b>04</b> newsletter · quarterly</p>
+    <div class="news">
+      <div>
+        <h2>[Newsletter name]</h2>
+        <p>[one line: what it is + how often. e.g. "Every quarter, the interesting things we've been up to."]</p>
+        <div class="form"><div class="gbox">email</div><button type="button">subscribe</button></div>
+        <p style="font:12px var(--mono);color:var(--mute);margin-top:10px">[privacy one-liner]</p>
+      </div>
+      <div class="issue">
+        <div class="tl">latest issue · [date]</div>
+        <div class="tline tline--h"></div><div class="tline"></div><div class="tline tline--s"></div><div class="tline tline--xs"></div>
+      </div>
+    </div>
+    <div class="note"><strong>04 · newsletter</strong>
+      <ul>
+        <li>Nothing exists yet: no platform, no list, no name, no issue #1. The right-hand "latest issue" card only works once an issue exists; until then drop it or show "first issue: [quarter]".</li>
+        <li>Static site + GitHub Pages → the form has to post to a third party (Buttondown / Substack embed / Mailchimp) or write to Firestore the way the intent box does. Decision needed.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 05 ------------------------------------------------------------- -->
+  <footer class="sec foot" id="foot">
+    <div><div class="gbox" style="width:110px;height:32px">wordmark</div><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+    <div>say hi<ul><li>email</li><li>[contact form? — on the mind map, not in Divya's four sections]</li></ul></div>
+    <div>find us<ul><li>Kahran →</li><li>Divya →</li><li>podcast →</li></ul></div>
+  </footer>
+  <div class="note" style="margin-bottom:60px"><strong>05 · footer — OPEN</strong>"Who we are" (Kahran / Divya / Joyus story) and "Contact form" are on the mind map but not in the four homepage sections. Assumed here: they live off-page (about, say-hi) and the footer just points at them.</div>
+
+</div>
+
+<div class="legend"><b>wireframe</b> · grey = placeholder · yellow = note for Divya · tabs + toggle are live so the mechanic can be felt. No styles.css on purpose.</div>
+
+<script>
+(function(){
+  var tabs=document.querySelectorAll('[role=tab]'),panels=document.querySelectorAll('[role=tabpanel]');
+  function pick(name){
+    tabs.forEach(function(t){t.setAttribute('aria-selected',t.dataset.tab===name?'true':'false')});
+    panels.forEach(function(p){p.classList.toggle('is-on',p.dataset.panel===name)});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){pick(t.dataset.tab)})});
+  document.querySelectorAll('.door').forEach(function(d){
+    d.addEventListener('click',function(){
+      setView('kind');pick(d.dataset.go);
+      document.getElementById('show').scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+  var vk=document.getElementById('view-kind'),vt=document.getElementById('view-time'),tb=document.querySelectorAll('[data-view]');
+  function setView(v){
+    vk.style.display=v==='kind'?'':'none';vt.classList.toggle('is-on',v==='time');
+    tb.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.view===v?'true':'false')});
+  }
+  tb.forEach(function(b){b.addEventListener('click',function(){setView(b.dataset.view)})});
+})();
+</script>
+</body>
+</html>

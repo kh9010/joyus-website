@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>03 / What can be clicked — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+/* the annotated screenshot: markers sit at % positions over the 1440 x 1800 capture */
+.annot { position: relative; max-width: 880px; border: 1px solid var(--line) }
+.annot img { width: 100% }
+.mk { position: absolute; transform: translate(-50%, -50%); width: 24px; height: 24px; border-radius: 50%; font: 600 11px/24px var(--font); text-align: center; background: #222; color: #fff; box-shadow: 0 0 0 3px #fff }
+.mk.no { background: #fff; color: #222; box-shadow: 0 0 0 2px #222 }
+.mk:hover, .mk:focus { background: #315da8 }
+.annot-wrap { display: grid; grid-template-columns: minmax(0, 880px) 1fr; gap: 28px; align-items: start }
+.legend { font-size: 13px; position: sticky; top: 12px }
+.legend p { margin: 0 0 8px }
+.legend .mk { position: static; display: inline-block; transform: none; margin-right: 8px; vertical-align: middle }
+td .mk { position: static; display: inline-block; transform: none }
+.to { white-space: nowrap; font-weight: 600 }
+/* the map: three tiers, left to right */
+.map3 { display: grid; grid-template-columns: 1fr 1.3fr 1.3fr; gap: 0 36px; margin: 18px 0 8px; font-size: 13.5px }
+.tier h3 { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 10px }
+.node { border: 1.5px solid var(--ink); padding: 9px 12px; margin: 0 0 10px; background: #fff }
+.node.state { border-style: dashed; color: var(--ink-2) }
+.node.ext { border-color: var(--ink-3); color: var(--ink-2) }
+.node b { display: block; font-weight: 600 }
+.node small { display: block; color: var(--ink-2); font-size: 12px; line-height: 1.4; margin-top: 2px }
+.node .n { float: right; font: 600 12px var(--font); color: var(--ink-2) }
+.node .st { float: right; font-size: 11px; color: var(--ink-2) }
+.have-page { color: #2e7350 } .have-partial { color: #8a6d1f } .have-none { color: #b3365e }
+.bar { display: flex; height: 14px; margin: 8px 0 4px; max-width: 520px }
+.bar span { display: block }
+@media (max-width: 1000px) { .annot-wrap, .map3 { grid-template-columns: 1fr } .legend { position: static } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 03 · 1 October 2026</p>
+<h1>What can be clicked, and where it goes</h1>
+<p class="lede">Every clickable thing on the round-4 homepage, where each should lead, and the pages that fall out of that. Nine page types; the next eight studies wireframe them one at a time. The list is data (<code>ia.json</code>), tested against the wireframe it describes (<code>check.cjs</code>).</p>
+
+<h2>The homepage, every target numbered</h2>
+<div class="annot-wrap">
+  <div class="annot" id="annot"><img src="../02/img/rev4.png" alt="Round 4 wireframe with numbered markers over every clickable element"></div>
+  <div class="legend">
+    <p><span class="mk">1</span>goes somewhere</p>
+    <p><span class="mk no">5</span>clickable, but stays on the page (or deliberately isn't a link)</p>
+    <p>Hover a marker for its destination. The full reasoning is in the table below.</p>
+  </div>
+</div>
+
+<h2>The inventory</h2>
+<table id="clicks"><thead><tr><th>#</th><th>What</th><th>Where</th><th>Goes to</th><th>Why</th><th>Status</th></tr></thead><tbody></tbody></table>
+<p class="source"><strong>decided</strong> = Divya said so in Study 02 · <strong>proposed</strong> = my call, open to change · Count: <span id="nclicks"></span></p>
+
+<h2>Five calls that shaped the list</h2>
+<p>Each one had a real alternative. Named here so they can be overturned one at a time.</p>
+<table>
+<thead><tr><th style="width:22%">Call</th><th>Chosen</th><th>Alternative</th><th style="width:30%">Why the chosen one</th></tr></thead>
+<tbody>
+<tr><td><strong>Do pills navigate?</strong></td><td>No. On the homepage they switch the panel. On the work index they're filters.</td><td>Each pill links to its own category page.</td><td>Round 3 removed "see the work"; a pill that leaves the page would bring a link label back in another form. The same filtered list is one click away via <em>work</em>.</td></tr>
+<tr><td><strong>Tags on the homepage</strong></td><td>Plain text.</td><td>Each tag links to <code>/work/?tag=…</code>.</td><td>They sit inside the panel, which is already one big link. A link inside a link is invalid HTML and, on a phone, a mis-tap. They become links one level down, on the piece page.</td></tr>
+<tr><td><strong>Client pages</strong></td><td>Yes: <code>/work/klydo/</code> lists all seven Klydo pieces.</td><td>No client pages; logos are decoration.</td><td>The map is organised by client, and a visitor who recognises "Klydo" on the logo wall is asking "what did you do for them?". The client page is also where the order of pieces over time can be shown.</td></tr>
+<tr><td><strong>Subscribe</strong></td><td>Thanks appears in place; no new page.</td><td>A /subscribed page.</td><td>A whole page for "thanks" takes them away from the work they were looking at.</td></tr>
+<tr><td><strong>URLs</strong></td><td>Nested: <code>/work/klydo/branding.html</code> under <code>/work/klydo/</code>.</td><td>Flat: <code>/work/klydo-branding.html</code>, like today's <code>klydo-cut-design.html</code>.</td><td>The address mirrors the structure: delete the last part and you land on the client. Old <code>work/*-cut-*.html</code> URLs redirect through <code>gen-redirects.mjs</code> as the old Squarespace ones already do.</td></tr>
+</tbody></table>
+
+<h2>The pages that fall out</h2>
+<p>Left: the homepage. Middle: one click away. Right: two clicks away. A dashed box is a state, not a page; a grey one already exists and isn't part of this rebuild.</p>
+<div class="map3" id="map3"></div>
+
+<h2>The 37 pieces, and what already exists for each</h2>
+<p>A piece page doesn't start from nothing if the site already tells part of its story. Several of today's case-study "cuts" are piece pages in all but name.</p>
+<div class="bar" id="bar"></div>
+<p class="source" id="barlegend"></p>
+<table id="pieces"><thead><tr><th>Pill</th><th>Client · piece</th><th>New URL</th><th>Starts from</th><th></th></tr></thead><tbody></tbody></table>
+
+<h2>What loses its link</h2>
+<p>The round-4 nav is <em>work · about · say hi</em>. Today's nav also has Services, Workshops and Podcast. These pages exist and the new IA has to say what happens to them.</p>
+<table id="orphans"><thead><tr><th style="width:30%">Page(s)</th><th>Linked today from</th><th>Proposal</th></tr></thead><tbody></tbody></table>
+
+<h2>The test, and what it caught</h2>
+<p><code>node studies/iterations/03/check.cjs</code> reads Study 02's <code>rev4.html</code> and checks this list against it: every piece in the wireframe's data is here under the same pill; every nav and footer label has a row; every logo on the wall leads to a client with pieces; every destination is a defined page type; page counts are counted from the data, not typed; every cited source file exists. <code>verify.cjs</code> runs it.</p>
+<p class="wrong"><strong>My test was wrong first.</strong> Its pattern read each pill up to the first <code>]}</code>, which closes the first piece's tag list, so it saw 5 pieces instead of 37 and reported 32 false failures. Fixed by slicing at each pill header.</p>
+<p class="wrong"><strong>My data was wrong too.</strong> I typed 13 client pages; the data has 12. The derived-count check caught it.</p>
+<p class="wrong"><strong>Experiments were unreachable.</strong> The check noted no homepage element led to an experiment page. True: the panel leads to an experiment page when the Experiments pill is up. Added as the panel's second destination.</p>
+<p class="wrong"><strong>Shapeshifter has a piece but no logo</strong> on the round-4 wall. Not fixed: whether it belongs there depends on whether Shapeshifter can be named (open question 4).</p>
+
+<h2>Next: one wireframe per page type</h2>
+<table id="plan"><thead><tr><th>Study</th><th>Page</th><th>How many</th><th>URL</th></tr></thead><tbody></tbody></table>
+<p class="source">Then a final study wires all of them together: the homepage with real links, every link resolving.</p>
+</main>
+
+<script>
+// markers: % of the 1440 x 1800 capture of rev4.png
+const MARKS = {
+  'wordmark': [7.5, 2.1], 'nav-work': [86, 2.1], 'nav-about': [90.4, 2.1], 'nav-sayhi': [94.8, 2.1],
+  'blank': [52.5, 21], 'news-heading': [78, 20.4], 'subscribe': [92.5, 24.6], 'privacy': [70, 26.7],
+  'pill': [57, 34.5], 'panel': [35, 51], 'panel-tags': [87, 51.2], 'panel-client': [81.5, 64.7],
+  'logo': [2.5, 76.2], 'foot-wordmark': [12.5, 93], 'foot-email': [62.5, 94.4], 'foot-contact': [56.5, 95.9],
+  'foot-kahran': [78.5, 94.2], 'foot-divya': [82, 95.8], 'foot-podcast': [85.5, 97.4]
+};
+fetch('ia.json').then(r => r.json()).then(ia => {
+  const page = Object.fromEntries(ia.pages.map(p => [p.type, p]));
+  const name = (t) => t ? page[t].title : 'stays here';
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  // markers + inventory
+  const annot = document.getElementById('annot');
+  const rows = [];
+  ia.clickables.forEach((c, i) => {
+    const n = i + 1, xy = MARKS[c.id], dest = [c.to, c.or].filter(Boolean).map(name).join(' / ') || 'stays here';
+    if (xy) {
+      const m = document.createElement('span');
+      m.className = 'mk' + (c.to ? '' : ' no'); m.textContent = n; m.tabIndex = 0;
+      m.style.left = xy[0] + '%'; m.style.top = xy[1] + '%'; m.title = c.label + ' → ' + dest;
+      annot.appendChild(m);
+    }
+    rows.push(`<tr><td><span class="mk${c.to ? '' : ' no'}">${n}</span></td><td>${esc(c.label)}${c.count > 1 ? ' <small>×' + c.count + '</small>' : ''}</td><td>${c.block}</td><td class="to">${esc(dest)}</td><td>${esc(c.why)}</td><td><span class="status ${c.status === 'decided' ? 'done' : 'open'}">${c.status}</span></td></tr>`);
+  });
+  document.querySelector('#clicks tbody').innerHTML = rows.join('');
+  const total = ia.clickables.reduce((a, c) => a + c.count, 0);
+  document.getElementById('nclicks').textContent = ia.clickables.length + ' rows, ' + total + ' clickable things (5 pills, 12 logos), ' + ia.clickables.filter(c => c.to).length + ' rows that leave the page.';
+
+  // map
+  const box = (t, extra = '') => { const p = page[t]; const cls = t === 'subscribed-state' || t === 'mailto' ? 'state' : t === 'podcast-existing' ? 'ext' : ''; return `<div class="node ${cls}"><span class="n">${p.count > 1 ? '×' + p.count : ''}</span><b>${esc(p.title)}</b><small>${esc(p.url || '')}${extra ? ' · ' + extra : ''}</small></div>`; };
+  document.getElementById('map3').innerHTML =
+    `<div class="tier"><h3>Homepage</h3>${box('home')}</div>` +
+    `<div class="tier"><h3>One click</h3>${box('work-index', 'nav')}${box('piece', 'panel')}${box('experiment', 'panel, Experiments pill')}${box('client', 'logo wall')}${box('about', 'nav')}${box('say-hi', 'nav, footer')}${box('newsletter', 'hero')}${box('subscribed-state', 'hero')}${box('privacy', 'hero')}${box('person', 'footer')}${box('podcast-existing', 'footer')}</div>` +
+    `<div class="tier"><h3>Two clicks</h3><div class="node"><b>Client page</b><small>from a piece page (its client line)</small></div><div class="node"><b>Work index, filtered</b><small>from a piece page's tags: /work/?tag=…</small></div><div class="node"><b>Piece / experiment pages</b><small>from a client page, the work index, or "next piece" on a piece page</small></div><div class="node"><b>Person page</b><small>from About</small></div><div class="node"><b>Say hi</b><small>from the foot of every piece page</small></div></div>`;
+
+  // pieces
+  const counts = { page: 0, partial: 0, none: 0 };
+  ia.pieces.forEach(p => counts[p.have]++);
+  const colors = { page: '#2e7350', partial: '#d8b44a', none: '#b3365e' };
+  document.getElementById('bar').innerHTML = Object.entries(counts).map(([k, v]) => `<span style="width:${v / ia.pieces.length * 100}%;background:${colors[k]}" title="${k}: ${v}"></span>`).join('');
+  document.getElementById('barlegend').innerHTML = `<span class="have-page">■ ${counts.page} have a page that tells it</span> · <span class="have-partial">■ ${counts.partial} are part of a bigger page</span> · <span class="have-none">■ ${counts.none} have nothing in the repo</span>`;
+  document.querySelector('#pieces tbody').innerHTML = ia.pieces.map(p => `<tr><td>${esc(p.pill)}</td><td><strong>${esc(p.client)}</strong> · ${esc(p.piece)}</td><td><code>${esc(p.url)}</code></td><td>${p.source.map(s => `<a href="../../../${s}" target="_blank"><code>${esc(s)}</code></a>`).join('<br>') || '—'}${p.note ? '<br><small>' + esc(p.note) + '</small>' : ''}</td><td class="have-${p.have}">${p.have}</td></tr>`).join('');
+
+  // orphans + plan
+  document.querySelector('#orphans tbody').innerHTML = ia.orphans.map(o => `<tr><td><code>${esc(o.file)}</code></td><td>${esc(o.now)}</td><td>${esc(o.proposal)}</td></tr>`).join('');
+  const seen = new Set();
+  document.querySelector('#plan tbody').innerHTML = ia.pages.filter(p => p.study && p.study > '03').sort((a, b) => a.study.localeCompare(b.study)).map(p => `<tr><td>${seen.has(p.study) ? '' : (seen.add(p.study), p.study)}</td><td><strong>${esc(p.title)}</strong> <small>${esc(p.note)}</small></td><td>${p.count || '—'}</td><td><code>${esc(p.url || '')}</code></td></tr>`).join('');
+});
+</script>
+</body>
+</html>
