@@ -30,13 +30,21 @@ try {
     await c.shot(path.join(here, 'img', 'page-' + look + '.png'));
     await move(c, 1300, 120); await sleep(1500);
     const moved = await c.evaluate(STATE);
-    await move(c, 720, 450); await sleep(2000);
+    /* wait for it to settle, up to 6 s: the page caps each frame's time step, so on a slow
+       renderer (SwiftShader, busy CPU) the heavy looks settle later in wall-clock time.
+       A fixed 2 s failed Frosted at 0.0102 on 6 Oct with the machine busy. */
+    await move(c, 720, 450);
+    const t0 = Date.now();
+    /* settled = under the limit for 5 readings in a row (1 s): a spring swings back through
+       zero while still moving, and a first try stopped at the first low reading */
+    for (let calm = 0; calm < 5 && Date.now() - t0 < 6000; await sleep(200)) calm = Math.max(...(await c.evaluate(STATE)).spread) < 0.01 ? calm + 1 : 0;
+    const settleS = ((Date.now() - t0) / 1000).toFixed(1);
     const back = await c.evaluate(STATE);
     const sp = moved.spread, min = Math.min(...sp), max = Math.max(...sp);
     test(`${look}: loads that look`, home.look === look, home.look);
     test(`${look}: pieces come together`, Math.max(...home.away) < 0.005, Math.max(...home.away).toFixed(4));
     test(`${look}: the J leans and pieces drift apart`, moved.turn[1] > 0.2 && min > 0.02 && max / min > 1.5, `turn ${moved.turn[1].toFixed(2)}, drift ${min.toFixed(3)}–${max.toFixed(3)}`);
-    test(`${look}: settles back`, Math.max(...back.spread) < 0.01, Math.max(...back.spread).toFixed(4));
+    test(`${look}: settles back`, Math.max(...back.spread) < 0.01, Math.max(...back.spread).toFixed(4) + ' after ' + settleS + ' s');
     test(`${look}: white page`, home.bg === 'rgb(255, 255, 255)', home.bg);
     test(`${look}: no JavaScript errors`, c.errors.length === 0, c.errors.join(' / ') || 'none');
   }
