@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Joyus — under construction</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@500&display=swap">
+<style>
+:root { --bg: #FFFFFF; --ink: #2C3544; --ink-soft: #54606F; --ink-fade: #8892A0; --pink: #E91E7B; --x: clamp(1rem, 4vw, 3rem) }
+* { box-sizing: border-box }
+html, body { margin: 0; height: 100% }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 'Space Grotesk', system-ui, sans-serif; display: flex; flex-direction: column; min-height: 100dvh }
+#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
+#stage { flex: 1 1 auto; min-height: 56vh }
+.below { position: relative; z-index: 1; padding: 0 var(--x) clamp(2rem, 6vh, 4rem); text-align: center }
+h1 { font-size: clamp(1.6rem, 4.2vw, 2.6rem); line-height: 1.1; letter-spacing: -.03em; font-weight: 700; margin: 0 }
+.note { font: 500 clamp(1.2rem, 2.4vw, 1.5rem)/1.2 Caveat, cursive; color: var(--ink-soft); margin: .4rem 0 1.6rem }
+.links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem }
+.links a { display: inline-block; padding: .55rem 1.1rem; border: 1.5px solid var(--ink); border-radius: 999px; color: var(--ink); text-decoration: none; font-weight: 500; background: var(--bg) }
+.links a:hover { background: var(--ink); color: var(--bg) }
+.links a:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px }
+.links small { color: var(--ink-fade); font-weight: 400 }
+/* study only: the look switcher and the seed, not part of the design */
+.study { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; font: 12px/1 system-ui, sans-serif; max-width: calc(100vw - 20px) }
+.study a { padding: 6px 9px; color: #888; text-decoration: none; border: 1px solid #e3e3e3; border-radius: 99px; background: #fff }
+.study a[aria-current] { color: #fff; background: #222; border-color: #222 }
+.study .seed { border-style: dashed }
+.study .gap { width: 10px }
+</style>
+</head>
+<body>
+<nav class="study" aria-label="Look (study only)">
+  <a data-look="plain">Plain</a><a data-look="sugared">Sugared</a><a data-look="gummy">Gummy</a><a data-look="toon">Toon</a><a data-look="print">Print</a>
+  <span class="gap"></span>
+  <a data-sign="soft">A · soft sign</a><a data-sign="stones">B · stone sign</a><a data-sign="worker">C · stone worker</a><a data-sign="pile">D · stone pile</a>
+  <a class="seed" id="reroll">new J</a>
+</nav>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="stage"></div>
+<main class="below">
+  <h1>joyus.studio is under construction</h1>
+  <p class="note">we're putting the pieces back together</p>
+  <ul class="links">
+    <li><a href="../../../Joyus%20-%20work%20deck-mar26.pdf" target="_blank" rel="noopener">Our work <small>deck · PDF</small></a></li>
+    <li><a href="https://divyatak.art" target="_blank" rel="noopener">Divya Tak</a></li>
+    <li><a href="https://kahransingh.com" target="_blank" rel="noopener">Kahran Singh</a></li>
+  </ul>
+</main>
+
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+<script type="module">
+/* Study 22: no cones, no plate; the sign on a spring stand, in the brand's
+   colours and made of its stones three ways (?sign=, site.js).
+   Study 21: a real road-works sign instead of the striped barrier; the J is
+   Unbounded, 3D (decided in Study 20).
+   Study 20: the J no longer bulges past its letter (jbuilder.js, fixGlyph).
+   Study 19. What changed from 16–18, one decision each:
+   - the J is built live in a worker (jbuilder.js) from a random seed: a new
+     J every visit, 25 stones (Study 18 had 15);
+   - it floats over a floor; two small edge stones have fallen out and lie
+     on the floor by a construction barrier;
+   - the pieces fly in faster the more the pointer moves;
+   - the J moves as one: it leans and shifts with the pointer, no per-stone
+     drift. */
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { PAL, SIGN, pileOnFace, buildStand, buildSoftDiamond, stonesGroup, maskDiamond, maskWorker, drawFace, decal } from './site.js';
+
+const Q = new URLSearchParams(location.search);
+const LOOKS = ['plain', 'sugared', 'gummy', 'toon', 'print'];
+const LOOK = LOOKS.includes(Q.get('look')) ? Q.get('look') : 'sugared';
+const SEED = Q.get('seed') || Math.random().toString(36).slice(2, 8);
+/* Study 21: font and depth decided in Study 20 — Unbounded, 3D */
+const FONT = 'unbounded', MODE = '3d';
+/* Study 22: three ways to make the sign of the brand's material */
+const SIGNS = ['soft', 'stones', 'worker', 'pile'];
+const SIGNV = SIGNS.includes(Q.get('sign')) ? Q.get('sign') : 'pile';
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const T = window.__cs = { ready: false, assembled: false, look: LOOK, seed: SEED, font: FONT, mode: MODE, sign: SIGNV, pieces: [], fallen: [], tau: 0 };
+
+/* study bar: each switch changes one thing and keeps the rest (and the seed); "new J" drops the seed */
+const here = { look: LOOK, sign: SIGNV, seed: SEED };
+const link = (o) => '?' + new URLSearchParams({ ...here, ...o });
+for (const a of document.querySelectorAll('.study a[data-look], .study a[data-sign]')) {
+  const [k, v] = Object.entries(a.dataset)[0];
+  a.href = link({ [k]: v });
+  if (here[k] === v) a.setAttribute('aria-current', 'page');
+}
+document.getElementById('reroll').href = '?' + new URLSearchParams({ look: LOOK, sign: SIGNV });
+document.getElementById('reroll').title = 'this J: ' + SEED;
+
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('gl'), antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 60);
+
+/* ---------- layout, in world units. The J is 1.6 tall, centred on 0. ---------- */
+const JH = 1.6, LIFT = 0.32;                    // the J's gap above the floor
+const FLOOR = -JH / 2 - LIFT;
+const ink = new THREE.Color('#2C3544');
+
+const pivot = new THREE.Group(); scene.add(pivot);           // leans and shifts with the pointer
+const block = new THREE.Group(); block.position.y = -JH / 2; pivot.add(block);   // the J, its base at the pivot's foot
+const ground = new THREE.Group(); scene.add(ground);         // floor things: fallen stones, the sign
+
+/* ---------- the floor and its shadows ---------- */
+const floor = new THREE.Mesh(new THREE.CircleGeometry(3.2, 96), new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  vertexShader: 'varying vec2 vP; void main(){ vP = position.xy; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `varying vec2 vP; void main(){
+    float r = length(vP) / 3.2;
+    gl_FragColor = vec4(vec3(0.925, 0.915, 0.9), (1.0 - smoothstep(0.35, 1.0, r)) * 0.85);
+    #include <colorspace_fragment>
+  }`,
+}));
+floor.rotation.x = -Math.PI / 2; floor.position.y = FLOOR; floor.renderOrder = -2; scene.add(floor);
+
+/* a shadow is an ellipse on the floor, drawn in the look's manner:
+   0 soft (gaussian) · 1 hard (ink shape) · 2 halftone dots */
+const STYLE = { toon: 1, print: 2 }[LOOK] ?? 0;
+function shadowMat() {
+  return new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: { uK: { value: 0.3 }, uStyle: { value: STYLE }, uInk: { value: ink }, uCell: { value: 6.5 * renderer.getPixelRatio() } },
+    vertexShader: 'varying vec2 vU; void main(){ vU = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `uniform float uK; uniform int uStyle; uniform vec3 uInk; uniform float uCell; varying vec2 vU;
+      void main(){
+        vec2 p = (vU - 0.5) * 2.0; float g = exp(-3.2 * dot(p, p));
+        float a;
+        if (uStyle == 1) { float e = fwidth(g); a = smoothstep(0.42 - e, 0.42 + e, g) * 0.28 * clamp(uK * 3.0, 0.0, 1.0); }
+        else if (uStyle == 2) { float ang = radians(30.0); mat2 R = mat2(cos(ang), -sin(ang), sin(ang), cos(ang));
+          vec2 c = fract(R * gl_FragCoord.xy / uCell) - 0.5; float r = sqrt(g * clamp(uK * 2.2, 0.0, 1.0)) * 0.6, d = length(c), aa = fwidth(d);
+          a = (1.0 - smoothstep(r - aa, r + aa, d)) * 0.55; }
+        else a = g * uK;
+        gl_FragColor = vec4(uInk, a);
+        #include <colorspace_fragment>
+      }`,
+  });
+}
+function shadow(w, d) {
+  const s = new THREE.Mesh(new THREE.PlaneGeometry(w, d), shadowMat());
+  s.rotation.x = -Math.PI / 2; s.position.y = FLOOR + 0.002; s.renderOrder = -1; scene.add(s);
+  return s;
+}
+const jShadow = shadow(2.1, 0.95);
+
+/* ---------- the site: the sign on its spring stand (site.js) — built after the J ---------- */
+const parts = [];
+const sign = new THREE.Group(); ground.add(sign);
+sign.add(buildStand(THREE, RoundedBoxGeometry, parts));
+const signShadow = shadow(0.95, 0.6); signShadow.material.uniforms.uK.value = 0.2;
+
+/* ---------- the J, built live ---------- */
+const look = await import('./looks/' + LOOK + '.js');
+let s = 7; for (const ch of SEED) s = (s * 31 + ch.charCodeAt(0)) % 2147483647;   // the fly-in follows the seed too
+const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+/* one worker builds stones for any mask: the J, and (Study 22) the sign */
+const worker = new Worker('jbuilder.js', { type: 'module' });
+function stones(msg) {
+  return new Promise((res, rej) => {
+    const out = [];
+    worker.onmessage = (e) => { const d = e.data; if (d.type === 'piece') out.push(d); if (d.type === 'done') res({ pieces: out, ms: d.ms }); if (d.type === 'error') rej(new Error(d.message)); };
+    worker.postMessage(msg);
+  });
+}
+const J = await stones({ seed: SEED, cells: 25, mask: 'masks/' + FONT + '.png', layer: MODE === '2d' });
+const pending = J.pieces; T.buildMs = J.ms;
+
+/* two small stones near the outline have fallen out */
+const fallIdx = new Set(pending.filter(d => d.edge > -0.05).sort((a, b) => a.size - b.size).slice(0, 2).map(d => d.i));
+const meshes = [];
+const ident = new THREE.Quaternion();
+for (const [k, d] of pending.entries()) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3));
+  g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+  g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true));
+  g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+  g.computeBoundingBox(); const c = g.boundingBox.getCenter(new THREE.Vector3());
+  g.translate(-c.x, -c.y, -c.z);                                         // each stone turns about its own middle
+  const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(d.colour); m.userData.hex = d.colour;
+  meshes.push(m);
+  const P = { m, home: c, homeQ: ident.clone(), fallen: fallIdx.has(d.i), delay: 0.1 + k * 0.06 };
+  if (P.fallen) {
+    /* lying on its side on the floor, left of the J; it lands there, not in
+       the J. Try 1 tipped it onto its back: a stone is 0.6 deep and ~0.25
+       across, so on its back it stood up like a pillar. Now: keep the depth
+       horizontal (like a log), and roll it to whichever angle sits lowest. */
+    ground.add(m);
+    const n = T.fallen.length, yaw = (n ? -0.5 : 0.7) + (rnd() - 0.5) * 0.4;
+    m.position.set(0, 0, 0);
+    let best = null;
+    for (let k = 0; k < 24; k++) {
+      m.quaternion.setFromEuler(new THREE.Euler(0, yaw, k * Math.PI / 24, 'YXZ'));
+      m.updateMatrixWorld(true);
+      const b = new THREE.Box3().setFromObject(m, true), h = b.max.y - b.min.y;
+      if (!best || h < best.h) best = { h, q: m.quaternion.clone() };
+    }
+    P.homeQ = best.q; m.quaternion.copy(P.homeQ); m.updateMatrixWorld(true);
+    const lowest = new THREE.Box3().setFromObject(m, true).min.y;   // precise: the rotated mesh, not its rotated box
+    P.home = new THREE.Vector3(n ? -0.62 : -1.02, FLOOR - lowest + 0.004, n ? 0.62 : 0.4);
+    P.shadow = shadow(0.55, 0.42); P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); P.shadow.material.uniforms.uK.value = 0.24;
+    T.fallen.push(P);
+  } else block.add(m);
+  /* where it starts: thrown out from the J's middle, turned */
+  const dir = P.home.clone().sub(new THREE.Vector3(0, P.fallen ? FLOOR : JH / 2, 0)); dir.z += (rnd() - 0.5) * 0.8; dir.normalize();
+  P.from = P.home.clone().addScaledVector(dir, 1.6 + 1.4 * rnd()).add(new THREE.Vector3(0, 0.4 + 0.6 * rnd(), 1.2 * rnd()));
+  P.spin = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize(), (0.6 + rnd()) * Math.PI);
+  T.pieces.push(P);
+}
+/* the sign's face, three ways */
+T.signStones = 0;
+if (SIGNV === 'soft') sign.add(buildSoftDiamond(THREE, RoundedBoxGeometry, parts));
+if (SIGNV === 'stones') {
+  /* B: the diamond itself is stones (2D, thin), the line work drawn over them */
+  const b = await stones({ seed: 'sign', cells: 14, mask: maskDiamond(), layer: true, depth: 16 });
+  const face = stonesGroup(THREE, b.pieces, SIGN.D * Math.SQRT2); face.position.set(0, SIGN.CY, 0.02);
+  const cv = document.createElement('canvas'); cv.width = cv.height = 1024; drawFace(cv);
+  const d = decal(THREE, cv, SIGN.D, SIGN.D); d.rotation.z = -Math.PI / 4; d.position.z = face.userData.front + 0.006; face.add(d);
+  sign.add(face); parts.push(...face.userData.meshes); T.signStones = b.pieces.length;
+}
+if (SIGNV === 'worker') {
+  /* C: a soft yellow diamond with its border; the worker is stones, in relief, in the other three colours */
+  sign.add(buildSoftDiamond(THREE, RoundedBoxGeometry, parts, { worker: false }));
+  /* try 1: strokes ×1.7, 18 stones — the arms, legs and shovel were too thin to hold stones and the figure broke up */
+  const w = await stones({ seed: 'worker', cells: 30, mask: maskWorker(2.4), layer: true, depth: 18, palette: [PAL.pink, PAL.purple, PAL.cyan] });
+  const fig = stonesGroup(THREE, w.pieces, SIGN.D * 0.78); fig.position.set(0.01, SIGN.CY - 0.02, 0.02 + 0.045);
+  sign.add(fig); parts.push(...fig.userData.meshes); T.signStones = w.pieces.length;
+}
+if (SIGNV === 'pile') {
+  /* D: the worker in ink, digging a pile of the brand's stones */
+  const face = buildSoftDiamond(THREE, RoundedBoxGeometry, parts, { pile: false }); sign.add(face);
+  const at = pileOnFace(SIGN.D);
+  const p = await stones({ seed: 'pile', cells: 9, mask: at.mask, layer: false, depth: 30 });
+  /* placed exactly like the decal: on the face plane, turned −45° with it */
+  const pile = new THREE.Group(); pile.position.set(0, SIGN.CY, 0.02 + 0.045); pile.rotation.z = -Math.PI / 4;
+  /* fit the stones' REAL box to the drawn pile's box: in a shape this small,
+     rounding and grout eat half the outline, so sized by the mask the heap
+     came out half the drawn pile (try 3) */
+  const heap = stonesGroup(THREE, p.pieces, at.span);
+  const hb = new THREE.Box3(); for (const m of heap.userData.meshes) { m.geometry.computeBoundingBox(); hb.union(m.geometry.boundingBox); }
+  const kx = at.w / (hb.max.x - hb.min.x), ky = at.h / (hb.max.y - hb.min.y), k = Math.min(kx, ky);
+  const k2 = k * 1.2;   /* 1.2× the drawn mound, about its centre, for presence */
+  heap.scale.setScalar(k2);
+  /* backs on the sign's surface: try 4 centred them on it, half of each
+     stone was buried, and only the narrower front half showed */
+  heap.position.set(at.x - k2 * (hb.min.x + hb.max.x) / 2, at.y - k2 * (hb.min.y + hb.max.y) / 2, -k2 * hb.min.z);
+  pile.add(heap); T.pileFit = { k: +k.toFixed(2), kx: +kx.toFixed(2), ky: +ky.toFixed(2) };
+  pile.userData.meshes = heap.userData.meshes; T.pileAt = at;
+  sign.add(pile); parts.push(...pile.userData.meshes); T.signStones = p.pieces.length;
+}
+await look.setup({ THREE, renderer, scene, camera, pieces: [...meshes, ...parts], block, pivot, box: { min: new THREE.Vector3(-0.8, -JH / 2, -0.3), max: new THREE.Vector3(0.8, JH / 2, 0.3) } });
+T.pivot = pivot;
+
+/* ---------- layout and framing ----------
+   Wide screens: sign right of the J, fallen stones left. Narrow screens
+   (try 2: everything shrank to fit across a phone): both come forward,
+   in front of the J's feet.
+   Framing (try 2 fitted a flat box and the near stones ran into the
+   headline): project the real things through the camera and search for
+   the distance at which all of them land inside the stage box. */
+/* [x, z, yaw, scale] */
+const LAYOUT = {
+  wide:   { sign: [1.3, 0.3, -0.28, 1.15], fallen: [[-1.02, 0.45], [-0.6, 0.68]] },
+  narrow: { sign: [0.86, 0.95, -0.22, 0.72], fallen: [[-0.62, 0.86], [-0.24, 1.1]] },
+};
+function place(L) {
+  const [sx, sz, sy, ss] = L.sign;
+  sign.position.set(sx, FLOOR, sz); sign.rotation.y = sy; sign.scale.setScalar(ss);
+  signShadow.position.set(sx, FLOOR + 0.002, sz); signShadow.scale.setScalar(ss);
+
+  T.fallen.forEach((P, n) => { P.home.x = L.fallen[n][0]; P.home.z = L.fallen[n][1]; P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); });
+}
+const v3 = new THREE.Vector3();
+function fit() {
+  const W = innerWidth, H = innerHeight, r = stage.getBoundingClientRect();
+  T.layout = r.width / r.height < 1.15 ? 'narrow' : 'wide';
+  place(LAYOUT[T.layout]);
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H;
+  /* the points that must be seen: the J's box widened for its lean and bob,
+     the barrier's box, a ball round each fallen stone */
+  const pts = [];
+  for (const x of [-0.95, 0.95]) for (const y of [-JH / 2 - 0.08, JH / 2 + 0.08]) for (const z of [-0.4, 0.4]) pts.push(new THREE.Vector3(x, y, z));
+  for (const o of [sign]) {
+    o.updateMatrixWorld(true);
+    const bb = new THREE.Box3().setFromObject(o, true);
+    for (const x of [bb.min.x, bb.max.x]) for (const y of [bb.min.y, bb.max.y]) for (const z of [bb.min.z, bb.max.z]) pts.push(new THREE.Vector3(x, y, z));
+  }
+  for (const P of T.fallen) for (const d of [[-1,0,0],[1,0,0],[0,1,0],[0,0,-1],[0,0,1]]) pts.push(P.home.clone().add(new THREE.Vector3(...d).multiplyScalar(0.34)));
+  const box = new THREE.Box3().setFromPoints(pts), c = box.getCenter(new THREE.Vector3());
+  /* the stage box in normalised device coordinates */
+  const bar = document.querySelector('.study').getBoundingClientRect().bottom;   // the study bar wraps on a phone (Study 20 try 1: it covered the J)
+  const top = 1 - 2 * Math.max(r.top + 8, bar + 8) / H, bottom = 1 - 2 * (r.bottom - 6) / H;
+  const left = -1 + 2 * 12 / W, right = 1 - 2 * 12 / W;
+  const fits = (dist) => {
+    camera.position.set(c.x, c.y + dist * 0.2, c.z + dist); camera.lookAt(c);
+    camera.setViewOffset(W, H, 0, H / 2 - ((top + bottom) / 2 * -H / 2 + H / 2), W, H);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+    return pts.every(p => { v3.copy(p).project(camera); return v3.x > left && v3.x < right && v3.y < top && v3.y > bottom; });
+  };
+  let lo = 1, hi = 60;
+  for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; fits(m) ? hi = m : lo = m; }
+  fits(hi);
+  T.fit = { dist: +hi.toFixed(2), layout: T.layout };
+}
+fit(); addEventListener('resize', fit); addEventListener('scroll', fit, { passive: true });
+
+/* ---------- the pointer: where it is, and how fast it's moving ---------- */
+const target = new THREE.Vector2(), last = new THREE.Vector2();
+let speed = 0, seen = false;
+addEventListener('pointermove', e => {
+  target.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1));
+  if (!seen) { last.copy(target); seen = true; }
+});
+document.addEventListener('pointerleave', () => target.set(0, 0));
+
+const ease = t => 1 - Math.pow(1 - t, 3);
+const END = Math.max(...T.pieces.map(P => P.delay)) + 1.2;   // tau at which the last stone lands
+const BASE = 0.32, GAIN = 1.1;                               // build rate: idle → ~8 s, moving → ~1–2 s
+T.ready = true; T.rate = { BASE, GAIN, END };
+let then = performance.now(), t = 0;
+function frame(now) {
+  const dt = Math.min(0.05, (now - then) / 1000); then = now; t += dt;
+  /* 1. pointer speed (screen-halves per second), smoothed */
+  const v = target.distanceTo(last) / Math.max(dt, 1e-3); last.copy(target);
+  speed += (v - speed) * Math.min(1, dt * 6);
+  T.speed = speed;
+  /* 2. the build clock runs faster the more the pointer moves */
+  T.tau = still ? END : Math.min(END, T.tau + dt * (BASE + GAIN * Math.min(speed, 4)));
+  /* done when the clock is: per-stone progress can stop at 0.99999…
+     (seed rqec8q, 24 stones, never reported built — float rounding) */
+  const done = T.tau >= END;
+  for (const P of T.pieces) {
+    const a = done ? 1 : Math.min(1, Math.max(0, (T.tau - P.delay) / 1.2)), e = ease(a);
+    P.m.position.lerpVectors(P.from, P.home, e);
+    P.m.quaternion.copy(P.spin).slerp(P.homeQ, e);
+    if (P.shadow) P.shadow.material.uniforms.uK.value = 0.24 * e;
+  }
+  T.assembled = done;
+  /* 3. the J moves as one: leans and shifts toward the pointer, and floats */
+  const k = still ? 0 : 1, f = Math.min(1, dt * 4);
+  pivot.rotation.y += (target.x * 0.42 * k - pivot.rotation.y) * f;
+  pivot.rotation.x += (-target.y * 0.18 * k - pivot.rotation.x) * f;
+  pivot.position.x += (target.x * 0.14 * k - pivot.position.x) * f;
+  const bob = still ? 0 : Math.sin(t * 1.3) * 0.035;
+  pivot.position.y += ((target.y * 0.05 * k + bob) - pivot.position.y) * f;
+  /* its shadow: under it, darker and tighter as it dips */
+  const lift = LIFT + pivot.position.y;
+  jShadow.position.x = pivot.position.x;
+  jShadow.scale.setScalar(1 + (lift - LIFT) * 0.8);
+  jShadow.material.uniforms.uK.value = 0.3 * (LIFT / lift) * (T.tau / END);
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

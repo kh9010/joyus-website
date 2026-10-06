@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Bake occlusion</title></head>
+<body><p id="out">baking occlusion…</p>
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.8.3/build/index.module.js"
+} }</script>
+<script type="module">
+/* Ambient occlusion, baked once per vertex: how much of the sky each point
+   of each stone can see past its neighbours. The stones barely move
+   relative to each other on the page, so this never needs recomputing at
+   runtime — unlike screen-space AO (N8AO, GTAO), which costs every frame.
+   ?mesh=p100&rays=64&reach=0.35 → window.AO = [[0..255 per vertex] per piece] */
+import * as THREE from 'three';
+import { MeshBVH, acceleratedRaycast } from 'three-mesh-bvh';
+THREE.Mesh.prototype.raycast = acceleratedRaycast;
+const Q = new URLSearchParams(location.search);
+const name = Q.get('mesh') || 'p100', RAYS = +(Q.get('rays') || 64), REACH = +(Q.get('reach') || 0.35);
+const J = await (await fetch('../mesh/' + name + '.json')).json();
+// one merged copy of the whole J to shoot rays at
+const all = []; const allIdx = []; let off = 0;
+for (const p of J.pieces) { all.push(...p.pos); for (const i of p.idx) allIdx.push(i + off); off += p.pos.length / 3; }
+const g = new THREE.BufferGeometry();
+g.setAttribute('position', new THREE.Float32BufferAttribute(all, 3)); g.setIndex(allIdx);
+g.boundsTree = new MeshBVH(g);
+const mesh = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ side: THREE.DoubleSide }));
+const ray = new THREE.Raycaster(); ray.firstHitOnly = true; ray.far = REACH;
+// a fixed cosine-weighted set of directions (Fibonacci hemisphere), same for every vertex
+const dirs = [];
+for (let k = 0; k < RAYS; k++) { const u = (k + 0.5) / RAYS, phi = k * 2.399963, r = Math.sqrt(u); dirs.push([r * Math.cos(phi), r * Math.sin(phi), Math.sqrt(1 - u)]); }
+const t0 = performance.now(), AO = [];
+const n = new THREE.Vector3(), o = new THREE.Vector3(), tA = new THREE.Vector3(), tB = new THREE.Vector3(), d = new THREE.Vector3();
+for (const p of J.pieces) {
+  const ao = new Array(p.pos.length / 3);
+  for (let v = 0; v < ao.length; v++) {
+    n.fromArray(p.nrm, v * 3).normalize();
+    o.fromArray(p.pos, v * 3).addScaledVector(n, 0.004);
+    tA.set(Math.abs(n.x) < 0.9 ? 1 : 0, Math.abs(n.x) < 0.9 ? 0 : 1, 0).cross(n).normalize(); tB.crossVectors(n, tA);
+    let open = 0;
+    for (const [x, y, z] of dirs) {
+      d.set(0, 0, 0).addScaledVector(tA, x).addScaledVector(tB, y).addScaledVector(n, z);
+      ray.set(o, d);
+      if (!ray.intersectObject(mesh).length) open++;
+    }
+    ao[v] = Math.round(255 * open / RAYS);
+  }
+  AO.push(ao);
+}
+window.AO = AO; window.AO_MS = performance.now() - t0;
+document.getElementById('out').textContent = 'done in ' + Math.round(window.AO_MS) + ' ms';
+</script></body></html>

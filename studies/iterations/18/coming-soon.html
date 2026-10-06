@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Joyus — under construction (looks)</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@500&display=swap">
+<style>
+:root { --bg: #FFFFFF; --ink: #2C3544; --ink-soft: #54606F; --ink-fade: #8892A0; --rule: rgba(44,53,68,.12); --pink: #E91E7B; --x: clamp(1rem, 4vw, 3rem) }
+* { box-sizing: border-box }
+html, body { margin: 0; height: 100% }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 'Space Grotesk', system-ui, sans-serif; display: flex; flex-direction: column; min-height: 100dvh }
+/* the canvas covers the whole screen, so pieces can fly in from anywhere
+   (and behind the words); #stage is only the space the J settles into */
+#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
+#stage { flex: 1 1 auto; min-height: 50vh }
+.below { position: relative; z-index: 1; padding: 0 var(--x) clamp(2rem, 6vh, 4rem); text-align: center }
+h1 { font-size: clamp(1.6rem, 4.2vw, 2.6rem); line-height: 1.1; letter-spacing: -.03em; font-weight: 700; margin: 0 }
+.note { font: 500 clamp(1.2rem, 2.4vw, 1.5rem)/1.2 Caveat, cursive; color: var(--ink-soft); margin: .4rem 0 1.6rem }
+.links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem }
+.links a { display: inline-block; padding: .55rem 1.1rem; border: 1.5px solid var(--ink); border-radius: 999px; color: var(--ink); text-decoration: none; font-weight: 500 }
+.links a:hover { background: var(--ink); color: var(--bg) }
+.links a:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px }
+.links small { color: var(--ink-fade); font-weight: 400 }
+/* study only: the look switcher, not part of the design */
+.looks { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; font: 12px/1 system-ui, sans-serif; max-width: calc(100vw - 20px) }
+.looks a { padding: 6px 9px; color: #888; text-decoration: none; border: 1px solid #e3e3e3; border-radius: 99px; background: #fff }
+.looks a[aria-current] { color: #fff; background: #222; border-color: #222 }
+</style>
+</head>
+<body>
+<nav class="looks" aria-label="Look (study only)">
+  <a href="?look=plain">16 · plain</a><a href="?look=candy">Candy</a><a href="?look=studio">Studio</a><a href="?look=sugared">Sugared</a><a href="?look=gummy">Gummy</a><a href="?look=toon">Toon</a><a href="?look=print">Print</a><a href="?look=painted">Painted</a><a href="?look=frosted">Frosted</a>
+</nav>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="stage"></div>
+<main class="below">
+  <h1>joyus.studio is under construction</h1>
+  <p class="note">we're putting the pieces back together</p>
+  <ul class="links">
+    <li><a href="../../../Joyus%20-%20work%20deck-mar26.pdf" target="_blank" rel="noopener">Our work <small>deck · PDF</small></a></li>
+    <li><a href="https://divyatak.art" target="_blank" rel="noopener">Divya Tak</a></li>
+    <li><a href="https://kahransingh.com" target="_blank" rel="noopener">Kahran Singh</a></li>
+  </ul>
+</main>
+
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+<script type="module">
+import * as THREE from 'three';
+
+const stage = document.getElementById('stage');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const T = window.__cs = { ready: false, assembled: false, pieces: [], pointer: [0, 0] };
+
+let renderer;
+const gl = document.getElementById('gl');
+try { renderer = new THREE.WebGLRenderer({ canvas: gl, antialias: true, alpha: true }); }
+catch (e) { T.noWebGL = true; gl.remove(); throw e; }   /* no WebGL: the words and links still stand */
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 50);
+
+/* Study 18: white page, the smooth mesh, and the look chosen by ?look=
+   (looks/*.js, the same modules the lab screenshots). Everything else —
+   the assembly, the lean, the drift — is Study 16's, unchanged. */
+const LOOK = new URLSearchParams(location.search).get('look') || 'candy';
+document.querySelector(`.looks a[href="?look=${LOOK}"]`)?.setAttribute('aria-current', 'page');
+T.look = LOOK;
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const J = await (await fetch('mesh/p100-ao.json')).json();
+const pivot = new THREE.Group(), block = new THREE.Group();   /* pivot turns; block sits centred on it */
+pivot.add(block); scene.add(pivot);
+
+/* seeded, so every visit assembles the same way */
+let s = 7; const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+
+const box = new THREE.Box3();
+for (const p of J.pieces) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(p.pos, 3));
+  g.setIndex(p.idx);
+  g.setAttribute('normal', new THREE.Float32BufferAttribute(p.nrm, 3));          /* the exact normals (Study 16 dropped them) */
+  g.setAttribute('ao', new THREE.Uint8BufferAttribute(p.ao, 1, true));           /* baked occlusion */
+  g.computeBoundingBox(); box.union(g.boundingBox); const c = g.boundingBox.getCenter(new THREE.Vector3());
+  g.translate(-c.x, -c.y, -c.z);                  /* each piece turns about its own middle */
+  const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(p.colour); m.userData.hex = p.colour;
+  block.add(m);
+  T.pieces.push({ m, home: c, from: null, spin: null, delay: 0, follow: 0.05 + 0.13 * rnd(), off: new THREE.Vector2(), vel: new THREE.Vector2() });
+}
+const mid = box.getCenter(new THREE.Vector3());
+block.position.set(-mid.x, -mid.y, -mid.z);
+T.pivot = pivot;
+const mod = await import('./looks/' + LOOK + '.js');
+await mod.setup({ THREE, renderer, scene, camera, pieces: T.pieces.map(P => P.m), block, pivot,
+  box: { min: box.min.clone().sub(mid), max: box.max.clone().sub(mid) } });
+
+/* where each piece starts: thrown out from the middle of the J, turned */
+for (const [i, P] of T.pieces.entries()) {
+  const dir = P.home.clone().sub(mid); dir.z += (rnd() - 0.5) * 0.8; dir.normalize();
+  P.from = P.home.clone().addScaledVector(dir, 1.6 + 1.4 * rnd()).add(new THREE.Vector3(0, 0.6 * rnd(), 1.2 * rnd()));
+  P.spin = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize(), (0.6 + rnd()) * Math.PI);
+  P.delay = 0.15 + i * 0.09;
+}
+
+/* The camera sees the whole screen but frames the J inside #stage: far
+   enough back that the J (plus the lean it makes) fits the stage box, then
+   the view is shifted so the J's middle lands on the stage's middle. */
+function fit() {
+  const W = innerWidth, H = innerHeight, r = stage.getBoundingClientRect();
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H;
+  const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+  const halfH = (box.max.y - box.min.y) / 2 + 0.22, halfW = (box.max.x - box.min.x) / 2 + 0.3;
+  const dist = Math.max(halfH * H / (r.height * tan), halfW * W / (r.width * tan * camera.aspect));
+  camera.position.set(0, dist * 0.06, dist); camera.lookAt(0, 0, 0);
+  camera.setViewOffset(W, H, 0, H / 2 - (r.top + r.height / 2), W, H);
+  camera.updateProjectionMatrix();
+}
+fit(); addEventListener('resize', fit); addEventListener('scroll', fit, { passive: true });
+
+/* the pointer, anywhere on the page, as -1..1 */
+const target = new THREE.Vector2();
+addEventListener('pointermove', e => { target.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1)); });
+document.addEventListener('pointerleave', () => target.set(0, 0));
+
+const ease = t => 1 - Math.pow(1 - t, 3);
+const ident = new THREE.Quaternion();
+const t0 = performance.now();
+let last = t0;
+T.ready = true;
+function frame(now) {
+  const t = (now - t0) / 1000, dt = Math.min(0.05, (now - last) / 1000); last = now;
+  T.pointer = [target.x, target.y];
+  /* the whole J leans toward the pointer */
+  const k = still ? 0 : 1;
+  pivot.rotation.y += ((target.x * 0.45 * k) - pivot.rotation.y) * Math.min(1, dt * 4);
+  pivot.rotation.x += ((-target.y * 0.22 * k) - pivot.rotation.x) * Math.min(1, dt * 4);
+  let done = true;
+  for (const P of T.pieces) {
+    /* 1. come together */
+    const a = still ? 1 : Math.min(1, Math.max(0, (t - P.delay) / 1.3)), e = ease(a);
+    if (a < 1) done = false;
+    P.m.position.lerpVectors(P.from, P.home, e);
+    P.m.quaternion.copy(P.spin).slerp(ident, e);
+    /* 2. then each piece follows the pointer on its own spring, so they
+       drift a little apart and settle back: loose, not glued */
+    const goal = target.clone().multiplyScalar(P.follow * k * e);
+    const acc = goal.sub(P.off).multiplyScalar(60).addScaledVector(P.vel, -9);
+    P.vel.addScaledVector(acc, dt); P.off.addScaledVector(P.vel, dt);
+    P.m.position.x += P.off.x; P.m.position.y += P.off.y;
+    P.m.position.z += P.follow * 0.6 * P.off.length();
+  }
+  T.assembled = done;
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

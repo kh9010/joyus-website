@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Random seeds</title></head>
+<body><script type="module">
+/* How good is a random J? Build 60 random seeds at 25 cells and record,
+   per seed: time, stones made (cells too small to mesh are dropped and
+   leave holes), smallest and largest stone. */
+const N = +(new URLSearchParams(location.search).get('n') || 60);
+const w = new Worker('../jbuilder.js', { type: 'module' });
+const one = (seed) => new Promise(res => { let made = 0; w.onmessage = e => { const d = e.data; if (d.type === 'piece') made++; if (d.type === 'done') res({ seed, ms: d.ms, made, min: Math.min(...d.sizes), max: Math.max(...d.sizes) }); if (d.type === 'error') res({ seed, error: d.message }); }; w.postMessage({ seed, cells: 25 }); });
+const rows = [];
+for (let k = 0; k < N; k++) rows.push(await one('r' + k));
+window.SEEDS = rows;
+</script></body></html>

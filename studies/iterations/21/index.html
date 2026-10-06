@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>21 / Road works — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.top { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 16px; align-items: start }
+.g5, .g3 { display: grid; gap: 16px; align-items: start } .g5 { grid-template-columns: repeat(5, 1fr) } .g3 { grid-template-columns: repeat(3, 1fr) }
+figure { margin: 0 }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .top, .g5, .g3 { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 21 · 6 October 2026</p>
+<h1>Road works</h1>
+<p class="lede">The J in Unbounded, 3D. The striped barrier is now what a site actually uses: the work-zone diamond on a folding stand, and cones.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (move your mouse)</a>
+
+<div class="top">
+  <figure><img class="shot" src="img/page-sugared.png" alt="Sugared"><figcaption>Sugared</figcaption></figure>
+  <figure><img class="shot" src="img/page-toon.png" alt="Toon"><figcaption>Toon</figcaption></figure>
+  <figure><img class="shot" src="img/page-phone.png" alt="Phone"><figcaption>Phone</figcaption></figure>
+</div>
+
+<h2>Looks</h2>
+<div class="g5">
+  <figure><a href="coming-soon.html?look=plain&amp;seed=study21" target="_blank"><img class="shot" src="img/page-plain.png" alt="Plain"></a><figcaption>Plain</figcaption></figure>
+  <figure><a href="coming-soon.html?look=sugared&amp;seed=study21" target="_blank"><img class="shot" src="img/page-sugared.png" alt="Sugared"></a><figcaption>Sugared</figcaption></figure>
+  <figure><a href="coming-soon.html?look=gummy&amp;seed=study21" target="_blank"><img class="shot" src="img/page-gummy.png" alt="Gummy"></a><figcaption>Gummy</figcaption></figure>
+  <figure><a href="coming-soon.html?look=toon&amp;seed=study21" target="_blank"><img class="shot" src="img/page-toon.png" alt="Toon"></a><figcaption>Toon</figcaption></figure>
+  <figure><a href="coming-soon.html?look=print&amp;seed=study21" target="_blank"><img class="shot" src="img/page-print.png" alt="Print"></a><figcaption>Print</figcaption></figure>
+</div>
+
+<h2>The sign</h2>
+<div class="g3">
+  <figure><img class="shot" src="img/sign-art.png" alt="The diamond and the plate, flat"><figcaption>Drawn flat first: the digging worker, the plate.</figcaption></figure>
+  <figure><img class="shot" src="img/try1-worker.png" alt="First worker: small and upright"><figcaption>Wrong turn: the first worker, small and upright.</figcaption></figure>
+  <figure><img class="shot" src="img/try1-sideways.png" alt="Worker lying on his side on the 3D sign"><figcaption>Wrong turn: in 3D he lay on his side (three.js turns the other way).</figcaption></figure>
+</div>
+
+<h2>Open</h2>
+<ul>
+<li>Which look?</li>
+<li>The sign and the headline both say "under construction": keep both?</li>
+<li>Deck link, your site's address, homepage only or every page.</li>
+</ul>
+<p class="source">Test: <code>page-test.mjs</code>, 48 checks in a browser (the sign and cones stand on the floor, clear of the fallen stones; random Js; phone; reduced motion); read by <code>check.cjs</code>.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>23 / Smaller sign, more fonts — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; align-items: start }
+.top { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 16px; align-items: start }
+figure { margin: 0 }
+.s { font-size: 12.5px; color: var(--ink-2) }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .g4, .top { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 23 · 6 October 2026</p>
+<h1>Smaller sign, more fonts</h1>
+<p class="lede">The soft sign only, smaller. Its ink now prints in Print. Eight fonts for the J, switchable at the top of the page.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (switch fonts at the top)</a>
+
+<div class="top">
+  <figure><img class="shot" src="img/page-sugared.png" alt="Sugared"><figcaption>Unbounded, sugared</figcaption></figure>
+  <figure><img class="shot" src="img/page-print.png" alt="Print"><figcaption>Print</figcaption></figure>
+  <figure><img class="shot" src="img/page-phone.png" alt="Phone"><figcaption>Phone</figcaption></figure>
+</div>
+
+<h2>Eight fonts</h2>
+<div class="g4">
+  <figure><a href="coming-soon.html?font=unbounded" target="_blank"><img class="shot" src="img/fig-font-unbounded.png" alt="Unbounded"></a><figcaption>Unbounded (20) <span class="s">· 0.84</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=rubik" target="_blank"><img class="shot" src="img/fig-font-rubik.png" alt="Rubik"></a><figcaption>Rubik: top bar, chunky <span class="s">· 0.85</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=archivo-black" target="_blank"><img class="shot" src="img/fig-font-archivo-black.png" alt="Archivo Black"></a><figcaption>Archivo Black: plain, narrower <span class="s">· 0.83</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=syne" target="_blank"><img class="shot" src="img/fig-font-syne.png" alt="Syne"></a><figcaption>Syne: wide, flat <span class="s">· 0.80</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=titan" target="_blank"><img class="shot" src="img/fig-font-titan.png" alt="Titan"></a><figcaption>Titan: hook too small, nearly an "I" <span class="s">· 0.83</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=shrikhand" target="_blank"><img class="shot" src="img/fig-font-shrikhand.png" alt="Shrikhand"></a><figcaption>Shrikhand: italic swash; the ball comes loose <span class="s">· 0.81</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=dela-gothic" target="_blank"><img class="shot" src="img/fig-font-dela-gothic.png" alt="Dela Gothic"></a><figcaption>Dela Gothic: wide hook, a spur <span class="s">· 0.84</span></figcaption></figure>
+  <figure><a href="coming-soon.html?font=bowlby" target="_blank"><img class="shot" src="img/fig-font-bowlby.png" alt="Bowlby"></a><figcaption>Bowlby: fat, knob on the hook <span class="s">· 0.85</span></figcaption></figure>
+</div>
+<p class="source">Score = how much of the font's J the stones cover (Study 20's test). It can't see Titan's problem: Titan's own J is that shape.</p>
+
+<h2>The sign</h2>
+<div class="g4">
+  <figure><img class="shot" src="img/fig-board-before.png" alt="Board before"><figcaption>Before (22, A)</figcaption></figure>
+  <figure><img class="shot" src="img/fig-board-after.png" alt="Board after"><figcaption>Smaller, lower, narrower stand</figcaption></figure>
+  <figure><img class="shot" src="img/fig-print-ink-before.png" alt="Print before: solid black ink"><figcaption>Print before: the ink stayed solid</figcaption></figure>
+  <figure><img class="shot" src="img/fig-print-ink.png" alt="Print after: ink in dots"><figcaption>Now printed in dots</figcaption></figure>
+</div>
+<p>Test note: "fallen stones lie down" was loosened from 1.3× wider than tall to wider than tall. 1.3 was set for Study 19's flat stones; since 20 they're 3D, and one in this seed is chunky though already lying as low as it can.</p>
+
+<h2>Open</h2>
+<ul>
+<li>Which font? Which look?</li>
+<li>Did you mean fonts for the J, or for the headline?</li>
+<li>Deck link, your site's address, homepage only or every page.</li>
+</ul>
+<p class="source">Test: <code>page-test.mjs</code>, 54 checks in a browser (all 8 fonts build; only Print screens the ink; the sign stands; random Js; phone); read by <code>check.cjs</code>.</p>
+</main>
+</body>
+</html>

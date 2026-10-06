@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Looks lab — Study 18</title>
+<link rel="icon" href="data:,">
+<style>
+html, body { margin: 0; height: 100%; background: #fff; overflow: hidden }
+canvas { display: block; width: 100%; height: 100% }
+#tag { position: fixed; left: 12px; bottom: 10px; font: 12px/1.3 system-ui, sans-serif; color: #999 }
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="tag"></div>
+<!-- The lab: one mesh, one look, still, on white, same camera every time,
+     so screenshots compare like with like.
+     lab.html?look=plain&mesh=a-nrm[&turn=0.35][&live=1] -->
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+<script type="module">
+import * as THREE from 'three';
+const Q = new URLSearchParams(location.search);
+const lookName = Q.get('look') || 'plain', meshName = Q.get('mesh') || 'a-nrm';
+const L = window.__lab = { ready: false, look: lookName, mesh: meshName };
+document.getElementById('tag').textContent = lookName + ' · ' + meshName;
+
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('gl'), antialias: true, preserveDrawingBuffer: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+renderer.setClearColor(0xffffff, 1);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+const camera = new THREE.PerspectiveCamera(26, 1, 0.1, 50);
+
+const J = await (await fetch('mesh/' + meshName + '.json')).json();
+const pivot = new THREE.Group(), block = new THREE.Group(); pivot.add(block); scene.add(pivot);
+const box = new THREE.Box3(), pieces = [];
+for (const p of J.pieces) {
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(p.pos, 3));
+  g.setIndex(p.idx);   /* before the normals: computeVertexNormals on an unindexed soup is garbage */
+  if (p.nrm) g.setAttribute('normal', new THREE.Float32BufferAttribute(p.nrm, 3)); else g.computeVertexNormals();
+  if (p.ao) g.setAttribute('ao', new THREE.Uint8BufferAttribute(p.ao, 1, true));   /* baked occlusion, 0..1 */
+  g.computeBoundingBox(); box.union(g.boundingBox);
+  const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(p.colour); m.userData.hex = p.colour;
+  block.add(m); pieces.push(m);
+}
+const mid = box.getCenter(new THREE.Vector3());
+block.position.set(-mid.x, -mid.y, -mid.z);
+const size = box.getSize(new THREE.Vector3());
+
+function fit() {
+  const W = innerWidth, H = innerHeight;
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H;
+  const tan = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+  const dist = Math.max((size.y / 2 + 0.22) / tan, (size.x / 2 + 0.3) / (tan * camera.aspect));
+  camera.position.set(0, dist * 0.06, dist); camera.lookAt(0, 0, 0);
+  camera.updateProjectionMatrix();
+  look && look.resize && look.resize(W, H);
+}
+pivot.rotation.y = +(Q.get('turn') || 0.35); pivot.rotation.x = -0.08;   /* a three-quarter turn shows the sides */
+
+let look = null;
+fit(); addEventListener('resize', fit);
+const mod = await import('./looks/' + lookName + '.js');
+look = await mod.setup({ THREE, renderer, scene, camera, pieces, block, pivot, box: { min: box.min.clone().sub(mid), max: box.max.clone().sub(mid) } });
+fit();
+L.ready = true;
+const t0 = performance.now();
+function frame(now) {
+  if (Q.get('live')) pivot.rotation.y = Math.sin((now - t0) / 1600) * 0.5;
+  look.render ? look.render((now - t0) / 1000) : renderer.render(scene, camera);
+  L.frames = (L.frames || 0) + 1;
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

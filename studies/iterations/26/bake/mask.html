@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>J masks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Rubik:wght@900&family=Archivo+Black&family=Syne:wght@800&family=Titan+One&family=Shrikhand&family=Dela+Gothic+One&family=Bowlby+One&display=block">
+</head>
+<body><script type="module">
+/* The J in each candidate font, drawn exactly as Study 19's mask (and the
+   bake's glyphField): 320px canvas, the glyph fitted to 84% of it.
+   Study 23: Unbounded plus seven new fonts. */
+const FONTS = [   /* Study 23: Unbounded (picked in 20) and seven new ones, each a different kind of heavy */
+  ['unbounded', 900, '"Unbounded"'],
+  ['rubik', 900, '"Rubik"'],                    // rounded grotesque
+  ['archivo-black', 400, '"Archivo Black"'],    // plain, poster-heavy grotesque
+  ['syne', 800, '"Syne"'],                      // quirky, wide
+  ['titan', 400, '"Titan One"'],                // bubbly
+  ['shrikhand', 400, '"Shrikhand"'],            // heavy italic with a swash
+  ['dela-gothic', 400, '"Dela Gothic One"'],    // blocky, squared
+  ['bowlby', 400, '"Bowlby One"'],              // condensed poster slab-ish
+];
+const R = 320, out = {};
+for (const [name, wt, fam] of FONTS) {
+  await document.fonts.load(`${wt} 100px ${fam}`, 'J');
+  const ok = document.fonts.check(`${wt} 100px ${fam}`, 'J');
+  const c = document.createElement('canvas'); c.width = c.height = R;
+  const g = c.getContext('2d'), text = 'J';
+  let fs = 100; g.font = `${wt} ${fs}px ${fam}`; g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+  let m = g.measureText(text);
+  let w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1, hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+  fs = Math.max(1, 100 * Math.min(R * 0.84 / w, R * 0.84 / hh));
+  g.font = `${wt} ${fs}px ${fam}`; m = g.measureText(text);
+  w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1; hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+  g.fillStyle = '#000'; g.fillText(text, (R - w) / 2 + (m.actualBoundingBoxLeft || 0), (R - hh) / 2 + (m.actualBoundingBoxAscent || fs * 0.72));
+  /* ink share: how much of the square the J fills (room for stones) */
+  const a = g.getImageData(0, 0, R, R).data; let ink = 0; for (let i = 3; i < a.length; i += 4) if (a[i] > 127) ink++;
+  out[name] = { url: c.toDataURL('image/png'), loaded: ok, font: g.font, ink: +(ink / (R * R)).toFixed(3) };
+}
+window.MASKS = out;
+</script></body></html>

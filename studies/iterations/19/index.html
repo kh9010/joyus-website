@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>19 / Construction site — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.g3, .g5 { display: grid; gap: 16px; align-items: start }
+.g3 { grid-template-columns: repeat(3, 1fr) } .g5 { grid-template-columns: repeat(5, 1fr) }
+.g3 figure, .g5 figure { margin: 0 }
+.phone { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 16px; align-items: start }
+.phone figure { margin: 0 }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .g3, .g5, .phone { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 19 · 6 October 2026</p>
+<h1>Construction site</h1>
+<p class="lede">25 stones, a new J every visit, floating over a floor. Two stones have fallen out by the barrier. Move the mouse to build it faster; it moves as one.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (move your mouse)</a>
+
+<div class="phone">
+  <figure><img class="shot" src="img/page-plain.png" alt="The construction site, plain look"><figcaption>Plain</figcaption></figure>
+  <figure><img class="shot" src="img/page-pointer.png" alt="The J leaning toward the pointer as one piece"><figcaption>Pointer top right: the whole J leans and shifts</figcaption></figure>
+  <figure><img class="shot" src="img/page-phone.png" alt="Phone"><figcaption>Phone: barrier and stones come forward</figcaption></figure>
+</div>
+
+<h2>The five looks</h2>
+<div class="g5">
+  <figure><a href="coming-soon.html?look=plain&amp;seed=study19" target="_blank"><img class="shot" src="img/page-plain.png" alt="Plain"></a><figcaption>Plain</figcaption></figure>
+  <figure><a href="coming-soon.html?look=sugared&amp;seed=study19" target="_blank"><img class="shot" src="img/page-sugared.png" alt="Sugared"></a><figcaption>Sugared</figcaption></figure>
+  <figure><a href="coming-soon.html?look=gummy&amp;seed=study19" target="_blank"><img class="shot" src="img/page-gummy.png" alt="Gummy"></a><figcaption>Gummy</figcaption></figure>
+  <figure><a href="coming-soon.html?look=toon&amp;seed=study19" target="_blank"><img class="shot" src="img/page-toon.png" alt="Toon"></a><figcaption>Toon: hard ink shadows</figcaption></figure>
+  <figure><a href="coming-soon.html?look=print&amp;seed=study19" target="_blank"><img class="shot" src="img/page-print.png" alt="Print"></a><figcaption>Print: shadows in dots</figcaption></figure>
+</div>
+
+<h2>More blobs</h2>
+<div class="g3">
+  <figure><img class="shot" src="img/plain--c15--t0.png" alt="15 stones"><figcaption>15 (Study 18)</figcaption></figure>
+  <figure><img class="shot" src="img/plain--c25--t0.png" alt="25 stones"><figcaption>25. Picked.</figcaption></figure>
+  <figure><img class="shot" src="img/plain--c35--t0.png" alt="35 stones"><figcaption>35: slivers, holes, the hook breaks.</figcaption></figure>
+</div>
+
+<h2>Random</h2>
+<p>Built live in the browser now (0.33 s, measured), so every visit gets its own J. Same J as the bake, to the last vertex. 60 random seeds: 59 kept all 25 stones.</p>
+<figure style="max-width:480px"><img class="shot" src="img/page-random-68j62e.png" alt="A random J"><figcaption>A random visit (seed 68j62e)</figcaption></figure>
+
+<h2>Wrong turns</h2>
+<div class="g3">
+  <figure><img class="shot" src="img/try1-standing.png" alt="Fallen stones standing up like pillars"><figcaption>Fallen stones on their backs: stood up like pillars. The test passed it.</figcaption></figure>
+  <figure><img class="shot" src="img/try2-overlap.png" alt="Fallen stones running into the headline"><figcaption>Lying down, but into the headline.</figcaption></figure>
+  <figure><img class="shot" src="img/try2-phone.png" alt="Tiny scene on a phone"><figcaption>Phone: everything tiny.</figcaption></figure>
+</div>
+<ul>
+<li>One random J never finished building (rounding). Found by random seeds; now 8 run in every test.</li>
+<li>Shade where stones touch was too slow live (0.9–4.7 s). Now read off the neighbours' shapes, calibrated against the slow way.</li>
+</ul>
+
+<h2>Open</h2>
+<ul>
+<li>Which look? The headline says "under construction" and so does the sign: keep both?</li>
+<li>Still open: deck link, your site's address, homepage only or every page.</li>
+</ul>
+<p class="source">Test: <code>page-test.mjs</code> (43 checks in a browser), <code>equiv.mjs</code> (live J = baked J), <code>seeds.mjs</code> (60 random Js); all read by <code>check.cjs</code>.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Live vs baked</title></head>
+<body><script type="module">
+/* Does the live builder (worker, mask image, field occlusion) make the same
+   J as Study 18's bake (font, ray-cast occlusion)? Same seed and settings
+   as ../../18/mesh/p100-ao.json. */
+const ref = await (await fetch('../../18/mesh/p100-ao.json')).json();
+const w = new Worker('../jbuilder.js', { type: 'module' });
+const live = [];
+const done = new Promise(res => { w.onmessage = e => { if (e.data.type === 'piece') live.push(e.data); if (e.data.type === 'done' || e.data.type === 'error') res(e.data); }; });
+w.postMessage({ seed: 'joyus-01', cells: 15, fluff: 100, res: 0.6 });
+const end = await done;
+const out = { ms: end.ms, error: end.message, pieces: [live.length, ref.pieces.length], maxPos: 0, maxNrm: 0, verts: 0, aoCorr: 0, aoMeanLive: 0, aoMeanRef: 0 };
+let xs = [], ys = [];
+for (let i = 0; i < Math.min(live.length, ref.pieces.length); i++) {
+  const a = live[i], b = ref.pieces[i];
+  if (a.pos.length !== b.pos.length) { out.mismatch = 'piece ' + i + ' vertex count ' + a.pos.length / 3 + ' vs ' + b.pos.length / 3; break; }
+  for (let k = 0; k < a.pos.length; k++) { out.maxPos = Math.max(out.maxPos, Math.abs(a.pos[k] - b.pos[k])); out.maxNrm = Math.max(out.maxNrm, Math.abs(a.nrm[k] - b.nrm[k])); }
+  for (let k = 0; k < a.ao.length; k++) { xs.push(a.ao[k] / 255); ys.push(b.ao[k] / 255); }
+  out.verts += a.pos.length / 3;
+}
+const mx = xs.reduce((s, v) => s + v, 0) / xs.length, my = ys.reduce((s, v) => s + v, 0) / ys.length;
+let sxy = 0, sxx = 0, syy = 0; for (let k = 0; k < xs.length; k++) { sxy += (xs[k] - mx) * (ys[k] - my); sxx += (xs[k] - mx) ** 2; syy += (ys[k] - my) ** 2; }
+out.aoCorr = +(sxy / Math.sqrt(sxx * syy)).toFixed(3); out.aoMeanLive = +mx.toFixed(3); out.aoMeanRef = +my.toFixed(3);
+/* calibrate: which power curve on the live value best matches the rays? */
+out.fit = [];
+for (const g of [1, 0.8, 0.65, 0.5, 0.4]) { const m = xs.reduce((s, v) => s + v ** g, 0) / xs.length;
+  const err = Math.sqrt(xs.reduce((s, v, k) => s + (v ** g - ys[k]) ** 2, 0) / xs.length); out.fit.push({ g, mean: +m.toFixed(3), rmse: +err.toFixed(3) }); }
+{ const b = sxy / sxx, a = my - b * mx;   /* least squares: rays ≈ a + b·live */
+  const err = Math.sqrt(xs.reduce((s, v, k) => s + (Math.min(1, a + b * v) - ys[k]) ** 2, 0) / xs.length);
+  out.linear = { a: +a.toFixed(3), b: +b.toFixed(3), rmse: +err.toFixed(3) }; }
+window.EQUIV = out;
+</script></body></html>

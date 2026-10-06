@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>18 / Looks — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.g4, .g5 { display: grid; gap: 16px; align-items: start }
+.g4 { grid-template-columns: repeat(4, 1fr) } .g5 { grid-template-columns: repeat(5, 1fr) }
+.g4 figure, .g5 figure { margin: 0 }
+.look b { display: block; font-weight: 600; font-size: 14px; margin-top: 6px }
+.look span { display: block; font-size: 13px; color: var(--ink-2); line-height: 1.4 }
+.look em { font-style: normal; font-size: 12px; color: var(--ink-3) }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+.pick { font-weight: 600 }
+@media (max-width: 1000px) { .g4, .g5 { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 18 · 6 October 2026</p>
+<h1>Looks</h1>
+<p class="lede">The coming-soon page on white, smoother, in eight looks from Study 17. Switch looks live at the top of the page.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (move your mouse)</a>
+
+<h2>Smoother</h2>
+<div class="g4">
+  <figure><img class="shot" src="img/fig-smooth-1-study16.png" alt="Study 16 mesh close up: jagged highlights"><figcaption>Study 16: jagged highlights. My bug: the bake threw away the exact normals.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-smooth-2-normals.png" alt="Same mesh with exact normals: smooth"><figcaption>Same mesh, normals kept. Higher resolution added little at 6× the file.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-smooth-3-edge.png" alt="Normals as colour: the crease is the edge between front and side"><figcaption>The "crease" left: not a fault, it's the edge between front and side.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-smooth-4-pillow.png" alt="Fully rounded pieces"><figcaption>So: fully rounded, like the Blender J. 340 KB gzipped.</figcaption></figure>
+</div>
+
+<h2>Five ideas</h2>
+<div class="g5">
+  <figure class="look"><a href="coming-soon.html?look=candy" target="_blank"><img class="shot" src="img/page-candy.png" alt="Candy"></a><b>Candy</b><span>Lacquer, studio light, tinted shade baked where stones touch.</span><em>cheap</em></figure>
+  <figure class="look"><a href="coming-soon.html?look=toon" target="_blank"><img class="shot" src="img/page-toon.png" alt="Toon"></a><b>Toon</b><span>Light in three steps and an ink line. Reads like the comics.</span><em>cheap</em></figure>
+  <figure class="look"><a href="coming-soon.html?look=print" target="_blank"><img class="shot" src="img/page-print.png" alt="Print"></a><b>Print</b><span>Shade as halftone dots, ink per stone. Flatter as form.</span><em>cheap</em></figure>
+  <figure class="look"><a href="coming-soon.html?look=painted" target="_blank"><img class="shot" src="img/page-painted.png" alt="Painted"></a><b>Painted</b><span>Light is a painted sphere; each stone picks up the next colour below.</span><em>cheapest</em></figure>
+  <figure class="look"><a href="coming-soon.html?look=frosted" target="_blank"><img class="shot" src="img/page-frosted.png" alt="Frosted"></a><b>Frosted</b><span>A candy core in a milky shell. Most distinct; lags a little in motion.</span><em>heavy</em></figure>
+</div>
+
+<h2>Candy's finishes</h2>
+<p>Measured too close to Candy to count as their own ideas (under 15 apart; the five above are 24+).</p>
+<div class="g4">
+  <figure class="look"><a href="coming-soon.html?look=studio" target="_blank"><img class="shot" src="img/page-studio.png" alt="Studio"></a><b>Studio</b><span>Candy without the baked shade: stones float.</span></figure>
+  <figure class="look"><img class="shot" src="img/fig-candy-close.png" alt="Candy close up"><b>Candy, close</b><span>The seams carry the depth.</span></figure>
+  <figure class="look"><a href="coming-soon.html?look=sugared" target="_blank"><img class="shot" src="img/fig-sugar-close.png" alt="Sugared close up"></a><b>Sugared</b><span>Matte velvet and sugar glints. Glints show in motion.</span></figure>
+  <figure class="look"><a href="coming-soon.html?look=gummy" target="_blank"><img class="shot" src="img/page-gummy.png" alt="Gummy"></a><b>Gummy</b><span>Edges glow in their own colour. Subtle.</span></figure>
+</div>
+
+<h2>Wrong turns</h2>
+<div class="g5">
+  <figure><img class="shot" src="img/fig-wrong-gummy-1.png" alt="Gummy try 1: opaque navy and orange"><figcaption>Real glass: opaque, purple went navy.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-wrong-gummy-2.png" alt="Gummy try 2: plastic"><figcaption>Fixed colour: still plastic. Nothing on white to see through.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-wrong-frosted.png" alt="Frosted try 1: reads as Studio"><figcaption>So, a core inside. Too big, too frosted: back to Studio.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-wrong-painted.png" alt="Painted try 1: blots and halos"><figcaption>Painted: hard blots, ghost halos.</figcaption></figure>
+  <figure><img class="shot" src="img/fig-wrong-toon.png" alt="Toon try 1: stair-stepped bands"><figcaption>Toon: stair-stepped bands (fixed: <a href="img/fig-fixed-toon.png">after</a>).</figcaption></figure>
+</div>
+
+<h2>Open</h2>
+<ul>
+<li>Which idea? Then one study taking it all the way.</li>
+<li>Still open from Study 16: deck link, your site's address, homepage only or every page.</li>
+</ul>
+<p class="source">Tests: <code>page-test.mjs</code> runs every look on the page in a browser (56 checks); <code>distinct.py</code> measures how different each look is; both read by <code>check.cjs</code>. <a href="lab.html?look=candy&amp;mesh=p100-ao&amp;live=1" target="_blank">The lab</a> renders any look still.</p>
+</main>
+</body>
+</html>

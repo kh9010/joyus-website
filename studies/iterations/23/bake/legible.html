@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Does it read as a J?</title></head>
+<body>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }</script>
+<script type="module">
+/* Legibility, measured: build the J, draw its stones flat black, straight
+   on, with an orthographic camera over the unit square the builder works
+   in, and compare with the font's own J mapped into that square.
+   Scores per build:
+     iou   = overlap / union of the two silhouettes (1 = the font's J exactly)
+     fill  = share of the font's J the stones cover (gaps, holes lower it)
+     spill = share of the stones' silhouette outside the font's J
+   ?configs=[{font,layer,cells}] &seeds=5 → window.LEGIBLE */
+import * as THREE from 'three';
+const Q = new URLSearchParams(location.search);
+const configs = JSON.parse(Q.get('configs')), seeds = +(Q.get('seeds') || 5), RES = 256;
+const renderer = new THREE.WebGLRenderer({ preserveDrawingBuffer: true });
+renderer.setSize(RES, RES, false); renderer.setClearColor(0xffffff, 1);
+document.body.appendChild(renderer.domElement);
+const SIDE = 1.6;
+/* world x = field·1.6 − 0.8, y = field·1.6 */
+const cam = new THREE.OrthographicCamera(-SIDE / 2, SIDE / 2, SIDE, 0, -10, 10);
+const black = new THREE.MeshBasicMaterial({ color: 0x000000 });
+/* the font's J in the field square, the way the builder maps it */
+async function fieldMask(font) {
+  const img = await createImageBitmap(await (await fetch('../masks/' + font + '.png')).blob());
+  const R = 320, cv = new OffscreenCanvas(R, R), g = cv.getContext('2d'); g.drawImage(img, 0, 0);
+  const A = g.getImageData(0, 0, R, R).data;
+  let lox = R, loy = R, hix = -1, hiy = -1;
+  for (let i = 0; i < R * R; i++) if (A[i * 4 + 3] > 127) { const x = i % R, y = (i / R) | 0; lox = Math.min(lox, x); hix = Math.max(hix, x); loy = Math.min(loy, y); hiy = Math.max(hiy, y); }
+  const bw = hix - lox + 1, bh = hiy - loy + 1, Sc = Math.max(bw, bh) / 0.92, ox = 0.5 - bw / Sc / 2, oy = 0.5 - bh / Sc / 2;
+  const m = new Uint8Array(RES * RES);
+  for (let j = 0; j < RES; j++) for (let i = 0; i < RES; i++) {
+    const u = (i + 0.5) / RES, v = 1 - (j + 0.5) / RES;            // row 0 = top
+    const px = Math.round(lox + (u - ox) * Sc), py = Math.round(hiy - (v - oy) * Sc);
+    m[j * RES + i] = (px >= 0 && py >= 0 && px < R && py < R && A[(py * R + px) * 4 + 3] > 127) ? 1 : 0;
+  }
+  return m;
+}
+function build(msg) {
+  return new Promise((res, rej) => {
+    const w = new Worker('../jbuilder.js', { type: 'module' }), pieces = [];
+    w.onmessage = e => { const d = e.data; if (d.type === 'piece') pieces.push(d); if (d.type === 'done') { w.terminate(); res({ pieces, ms: d.ms }); } if (d.type === 'error') { w.terminate(); rej(new Error(d.message)); } };
+    w.postMessage(msg);
+  });
+}
+const out = [], masks = {};
+for (const cfg of configs) {
+  masks[cfg.font] ||= await fieldMask(cfg.font);
+  const M = masks[cfg.font], rows = [];
+  for (let k = 0; k < seeds; k++) {
+    const { pieces, ms } = await build({ ...cfg, seed: 'leg' + k, mask: 'masks/' + cfg.font + '.png' });   // every config field reaches the builder
+    const scene = new THREE.Scene();
+    for (const d of pieces) { const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3)); g.setIndex(new THREE.BufferAttribute(d.idx, 1)); scene.add(new THREE.Mesh(g, black)); }
+    renderer.render(scene, cam);
+    const px = new Uint8Array(RES * RES * 4); const gl = renderer.getContext();
+    gl.readPixels(0, 0, RES, RES, gl.RGBA, gl.UNSIGNED_BYTE, px);
+    let inter = 0, uni = 0, stones = 0, ink = 0;
+    for (let j = 0; j < RES; j++) for (let i = 0; i < RES; i++) {
+      const s = px[((RES - 1 - j) * RES + i) * 4] < 128 ? 1 : 0, m = M[j * RES + i];   // readPixels rows run bottom-up
+      inter += s & m; uni += s | m; stones += s; ink += m;
+    }
+    if (k === 0) {   /* an overlay of the first build: stones red, the font's J blue, both = purple */
+      const cv = new OffscreenCanvas(RES, RES), g = cv.getContext('2d'), im = g.createImageData(RES, RES);
+      for (let j = 0; j < RES; j++) for (let i = 0; i < RES; i++) { const s = px[((RES - 1 - j) * RES + i) * 4] < 128, m = M[j * RES + i], o = (j * RES + i) * 4;
+        im.data[o] = s ? 230 : 255; im.data[o + 1] = s || m ? (s && m ? 120 : 200) : 255; im.data[o + 2] = m ? 230 : 255; im.data[o + 3] = 255; if (s && !m) { im.data[o + 1] = 60; im.data[o + 2] = 60; } if (m && !s) { im.data[o] = 120; im.data[o + 1] = 160; } }
+      g.putImageData(im, 0, 0);
+      const b = await cv.convertToBlob(); const fr = new FileReader(); (window.OVERLAYS ||= {})[cfg.font + (cfg.layer ? '-2d' : '-3d') + cfg.cells + (cfg.fixGlyph === false ? '-unfixed' : '')] = await new Promise(r => { fr.onload = () => r(fr.result); fr.readAsDataURL(b); });
+    }
+    rows.push({ iou: inter / uni, fill: inter / ink, spill: (stones - inter) / stones, stones: pieces.length, ms });
+  }
+  const avg = (f) => +(rows.reduce((a, r) => a + r[f], 0) / rows.length).toFixed(3);
+  out.push({ ...cfg, iou: avg('iou'), fill: avg('fill'), spill: avg('spill'), worstIou: +Math.min(...rows.map(r => r.iou)).toFixed(3), stones: avg('stones'), ms: avg('ms') });
+}
+window.LEGIBLE = out;
+</script></body></html>

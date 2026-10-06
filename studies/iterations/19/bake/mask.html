@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>J mask</title></head>
+<body><script>
+/* The J's outline as an image, drawn exactly as the bake's glyphField draws
+   it (Arial Black, 900, 320px canvas, same fit). Visitors without Arial
+   Black (Android) would otherwise get a different J; the live builder
+   draws this image instead of the font. */
+const R = 320, stack = '"Arial Black", "Segoe UI Black", system-ui, sans-serif', text = 'J';
+const c = document.createElement('canvas'); c.width = c.height = R;
+const g = c.getContext('2d');
+let fs = 100; g.font = '900 ' + fs + 'px ' + stack; g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+let m = g.measureText(text);
+let w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1, hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+fs = Math.max(1, 100 * Math.min(R * 0.84 / w, R * 0.84 / hh));
+g.font = '900 ' + fs + 'px ' + stack; m = g.measureText(text);
+w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1; hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+g.fillStyle = '#000'; g.fillText(text, (R - w) / 2 + (m.actualBoundingBoxLeft || 0), (R - hh) / 2 + (m.actualBoundingBoxAscent || fs * 0.72));
+window.MASK = c.toDataURL('image/png'); window.FONT = g.font;
+</script></body></html>

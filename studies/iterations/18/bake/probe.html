@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Probe the crease</title></head>
+<body><pre id="out">probing…</pre>
+<script type="module">
+/* Where does the vertical crease on each piece's face come from? Walk
+   across the front face of every piece, put a point on the surface by
+   marching in z, read the exact normal, and log where it jumps, together
+   with which terms of the field are active there. */
+import { seeds3, buildCell, cellSDF } from './solid-geometry.js';
+const src = await (await fetch('bake.html')).text();
+// reuse bake.html's glyph code without copying it a third time
+const glyphCode = src.slice(src.indexOf('function chamfer'), src.indexOf('const glyph = glyphField'));
+const glyphField = new Function(glyphCode + '; return glyphField;')();
+const S = { seed: 'joyus-01', cells: 15, gap: 40, depth: 42, fluff: 55, dome: +(new URLSearchParams(location.search).get('dome') ?? 40) };
+const glyph = glyphField('J', '"Arial Black", "Segoe UI Black", system-ui, sans-serif');
+const D = (S.depth / 100) * 0.9;
+const { pts } = seeds3(S.seed, D, glyph.inside);
+for (const p of pts) p[2] = D / 2;
+const h = (S.gap / 100) * 0.05 / 2, fl = S.fluff / 100, dm = S.dome / 100;
+const probe = []; for (let i = 0; i < S.cells; i++) probe.push(buildCell(i, pts, S.cells, h, 0, D));
+glyph.off = 2 * h;
+const rows = [];
+for (let i = 0; i < S.cells; i++) {
+  const p = probe[i]; if (!p || p.size < 4 * h + 0.01) continue;
+  const r = fl * Math.min(0.5 * p.size, 0.18);
+  const field = { planes: p.planes.map(pl => ({ n: pl.n, d: pl.d - r })), lo: p.lo, hi: p.hi };
+  const f = cellSDF(field, r, glyph, 7 / Math.max(r, 0.01), dm);
+  const fNoGlyph = cellSDF(field, r, null, 0, dm);
+  const y = (p.lo[1] + p.hi[1]) / 2, g = [0, 0, 0];
+  let prev = null, worst = { jump: 0 };
+  for (let k = 0; k <= 200; k++) {
+    const x = p.lo[0] + (p.hi[0] - p.lo[0]) * (0.15 + 0.7 * k / 200);
+    let z = p.hi[2] + 0.1; if (f(x, y, z) < 0) continue;
+    for (let s = 0; s < 400 && f(x, y, z) > 0; s++) z -= 0.001;      /* march in to the surface */
+    if (f(x, y, z) > 0) continue;
+    f(x, y, z, g); const L = Math.hypot(...g), n = g.map(v => v / L);
+    const g0 = [0, 0, 0]; fNoGlyph(x, y, z, g0); const L0 = Math.hypot(...g0);
+    if (prev) { const jump = Math.acos(Math.min(1, n[0]*prev.n[0] + n[1]*prev.n[1] + n[2]*prev.n[2])) * 180 / Math.PI;
+      if (jump > worst.jump) worst = { jump, x, z,
+        glyphSd: glyph.sd(x, y), glyphGradX: glyph.grad(x, y)[0],
+        nx: n[0], nx0: g0[0] / L0, nxPrev: prev.n[0], nx0Prev: prev.n0 }; }
+    prev = { n, n0: g0[0] / L0 };
+  }
+  rows.push({ piece: i, r: +r.toFixed(3), worstJumpDeg: +worst.jump.toFixed(2), ...Object.fromEntries(Object.entries(worst).filter(([k]) => k !== 'jump').map(([k, v]) => [k, +(+v).toFixed(4)])) });
+}
+window.PROBE = rows;
+document.getElementById('out').textContent = JSON.stringify(rows, null, 1);
+</script></body></html>

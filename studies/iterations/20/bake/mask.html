@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>J masks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Fraunces:opsz,wght@144,900&family=Baloo+2:wght@800&family=Unbounded:wght@900&family=Bricolage+Grotesque:opsz,wght@96,800&family=Caveat:wght@700&display=block">
+</head>
+<body><script type="module">
+/* The J in each candidate font, drawn exactly as Study 19's mask (and the
+   bake's glyphField): 320px canvas, the glyph fitted to 84% of it.
+   Arial Black is Study 19's J, kept as the baseline. */
+const FONTS = [
+  ['arial-black', 900, '"Arial Black"'],
+  ['space-grotesk', 700, '"Space Grotesk"'],
+  ['fraunces', 900, '"Fraunces"'],
+  ['baloo', 800, '"Baloo 2"'],
+  ['unbounded', 900, '"Unbounded"'],
+  ['bricolage', 800, '"Bricolage Grotesque"'],
+  ['caveat', 700, '"Caveat"'],
+];
+const R = 320, out = {};
+for (const [name, wt, fam] of FONTS) {
+  await document.fonts.load(`${wt} 100px ${fam}`, 'J');
+  const ok = document.fonts.check(`${wt} 100px ${fam}`, 'J');
+  const c = document.createElement('canvas'); c.width = c.height = R;
+  const g = c.getContext('2d'), text = 'J';
+  let fs = 100; g.font = `${wt} ${fs}px ${fam}`; g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+  let m = g.measureText(text);
+  let w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1, hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+  fs = Math.max(1, 100 * Math.min(R * 0.84 / w, R * 0.84 / hh));
+  g.font = `${wt} ${fs}px ${fam}`; m = g.measureText(text);
+  w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1; hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+  g.fillStyle = '#000'; g.fillText(text, (R - w) / 2 + (m.actualBoundingBoxLeft || 0), (R - hh) / 2 + (m.actualBoundingBoxAscent || fs * 0.72));
+  /* ink share: how much of the square the J fills (room for stones) */
+  const a = g.getImageData(0, 0, R, R).data; let ink = 0; for (let i = 3; i < a.length; i += 4) if (a[i] > 127) ink++;
+  out[name] = { url: c.toDataURL('image/png'), loaded: ok, font: g.font, ink: +(ink / (R * R)).toFixed(3) };
+}
+window.MASKS = out;
+</script></body></html>

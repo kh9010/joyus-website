@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>16 / Coming soon — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.row { display: grid; grid-template-columns: repeat(3, 1fr) 0.42fr; gap: 18px; align-items: start }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 900px }
+.row figure, .pair figure { margin: 0 }
+.open { display: inline-block; margin: 6px 0 22px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 900px) { .row, .pair { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 16 · 6 October 2026</p>
+<h1>Coming soon</h1>
+<p class="lede">The site is under construction: the Voronoi J comes together, leans toward your pointer, and three links sit below it.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open it (move your mouse)</a>
+
+<div class="row">
+  <figure><img class="shot" src="img/assembling.png" alt="Pieces flying in from the edges"><figcaption>1. pieces fly in</figcaption></figure>
+  <figure><img class="shot" src="img/assembled.png" alt="The pieces assembled into the J"><figcaption>2. the J, about 2.5 s</figcaption></figure>
+  <figure><img class="shot" src="img/pointer.png" alt="The J turned toward the pointer, pieces slightly apart"><figcaption>3. pointer top right: the J leans, each piece drifts its own amount</figcaption></figure>
+  <figure><img class="shot" src="img/phone.png" alt="The page at phone width"><figcaption>phone</figcaption></figure>
+</div>
+
+<h2>Wrong turn</h2>
+<div class="pair">
+  <figure><img class="shot" src="img/try1-assembled.png" alt="First try: blobby pieces that do not read as a J"><figcaption>Brand-lab's Solid tab defaults: pieces stack in depth. Doesn't read as a J.</figcaption></figure>
+  <figure><img class="shot" src="img/full-res.png" alt="One layer of stones, reads as a J"><figcaption>One layer of stones, like the Blender J render. Picked.</figcaption></figure>
+</div>
+
+<h2>Open</h2>
+<ul>
+<li>Deck link = the March PDF already in the repo. Right one?</li>
+<li>Your site: is it <code>divyatak.art</code>?</li>
+<li>Replace only the homepage, or send every page here?</li>
+</ul>
+<p class="source">Test: <code>shoot.mjs</code> drives it in headless Chrome (12 checks) → <code>check.cjs</code>. Geometry: <code>bake.mjs</code>, brand-lab code copied as is.</p>
+</main>
+</body>
+</html>

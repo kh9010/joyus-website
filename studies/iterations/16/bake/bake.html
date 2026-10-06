@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Bake the J</title></head>
+<body>
+<p id="out">baking…</p>
+<script type="module">
+/* Builds the Voronoi J exactly the way brand-lab's Solid tab does
+   (joyus/brand-lab/solid-app.js, buildAsync), with brand-lab's defaults,
+   and leaves the meshes on window.J for bake.mjs to save as ../j.json.
+   solid-geometry.js is a verbatim copy of joyus/brand-lab @ 5d4a8f7.
+   Only the glyph rasteriser is repeated here, because it needs a canvas. */
+import { seeds3, buildCell, cellSDF, surfaceNets, assignColours } from './solid-geometry.js';
+
+/* brand-lab DEFAULTS (index.html), overridable from the query string:
+   ?cells=15&fluff=55&layer=1 . layer=1 puts every seed on one plane, so
+   each cell runs the full depth: one layer of stones, like the Blender J. */
+const Q = new URLSearchParams(location.search);
+const num = (k, d) => Q.has(k) ? +Q.get(k) : d;
+const S = {
+  seed: Q.get('seed') || 'joyus-01', cells: num('cells', 12), gap: num('gap', 40), depth: num('depth', 42), fluff: num('fluff', 80), dome: num('dome', 40), layer: num('layer', 0), res: num('res', 1),
+  palette: ['#f25aa3', '#7d55d4', '#2fc0d8', '#f5c63c'],
+  letter: 'J', fontStack: '"Arial Black", "Segoe UI Black", system-ui, sans-serif'
+};
+const SIDE = 1.6;
+
+function chamfer(bin, w, h){
+  const INF = 1e9, D = Math.SQRT2, d = new Float32Array(w * h);
+  for (let i = 0; i < w * h; i++) d[i] = bin[i] ? INF : 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++){
+    const i = y*w + x; if (d[i] === 0) continue; let v = d[i];
+    if (x > 0) v = Math.min(v, d[i-1] + 1);
+    if (y > 0){ v = Math.min(v, d[i-w] + 1); if (x > 0) v = Math.min(v, d[i-w-1] + D); if (x < w-1) v = Math.min(v, d[i-w+1] + D); }
+    d[i] = v;
+  }
+  for (let y = h-1; y >= 0; y--) for (let x = w-1; x >= 0; x--){
+    const i = y*w + x; if (d[i] === 0) continue; let v = d[i];
+    if (x < w-1) v = Math.min(v, d[i+1] + 1);
+    if (y < h-1){ v = Math.min(v, d[i+w] + 1); if (x < w-1) v = Math.min(v, d[i+w+1] + D); if (x > 0) v = Math.min(v, d[i+w-1] + D); }
+    d[i] = v;
+  }
+  return d;
+}
+function glyphField(text, stack){
+  const R = 320, c = document.createElement('canvas'); c.width = c.height = R;
+  const g = c.getContext('2d', { willReadFrequently: true });
+  let fs = 100; g.font = '900 ' + fs + 'px ' + stack; g.textAlign = 'left'; g.textBaseline = 'alphabetic';
+  let m = g.measureText(text);
+  let w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1, hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+  fs = Math.max(1, 100 * Math.min(R * 0.84 / w, R * 0.84 / hh));
+  g.font = '900 ' + fs + 'px ' + stack; m = g.measureText(text);
+  w = (m.actualBoundingBoxLeft + m.actualBoundingBoxRight) || m.width || 1; hh = (m.actualBoundingBoxAscent + m.actualBoundingBoxDescent) || fs * 0.72;
+  g.fillStyle = '#000'; g.fillText(text, (R - w) / 2 + (m.actualBoundingBoxLeft || 0), (R - hh) / 2 + (m.actualBoundingBoxAscent || fs * 0.72));
+  const A = g.getImageData(0, 0, R, R).data, bin = new Uint8Array(R*R), inv = new Uint8Array(R*R);
+  let lox = R, loy = R, hix = -1, hiy = -1;
+  for (let i = 0; i < R*R; i++){ const on = A[i*4+3] > 127; bin[i] = on ? 1 : 0; inv[i] = on ? 0 : 1; if (on){ const x = i % R, y = (i / R) | 0; if (x<lox)lox=x; if (x>hix)hix=x; if (y<loy)loy=y; if (y>hiy)hiy=y; } }
+  const din = chamfer(bin, R, R), dout = chamfer(inv, R, R);
+  const sd = new Float32Array(R*R); for (let i = 0; i < R*R; i++) sd[i] = (dout[i] - din[i]);
+  const bw = hix - lox + 1, bh = hiy - loy + 1, Sc = Math.max(bw, bh) / 0.92;
+  const ox = 0.5 - bw / Sc / 2, oy = 0.5 - bh / Sc / 2;
+  const toPx = (x, y) => [lox + (x - ox) * Sc, hiy - (y - oy) * Sc];
+  const sample = (px, py) => {
+    const X = Math.max(0, Math.min(R - 1.001, px)), Y = Math.max(0, Math.min(R - 1.001, py));
+    const x0 = X | 0, y0 = Y | 0, fx = X - x0, fy = Y - y0;
+    const a = sd[y0*R+x0], b = sd[y0*R+x0+1], c2 = sd[(y0+1)*R+x0], d2 = sd[(y0+1)*R+x0+1];
+    return (a*(1-fx) + b*fx)*(1-fy) + (c2*(1-fx) + d2*fx)*fy;
+  };
+  return {
+    sd: (x, y) => { const p = toPx(x, y); return sample(p[0], p[1]) / Sc; },
+    grad: (x, y) => { const p = toPx(x, y), e = 3.0; const gx = sample(p[0]+e, p[1]) - sample(p[0]-e, p[1]), gy = sample(p[0], p[1]-e) - sample(p[0], p[1]+e); const L = Math.hypot(gx, gy) || 1; return [gx/L, gy/L]; },
+    inside: (x, y) => { const p = toPx(x, y); return sample(p[0], p[1]) < -Sc * 0.02; },
+    off: 0, font: g.font
+  };
+}
+
+const glyph = glyphField(S.letter, S.fontStack);
+const D = (S.depth / 100) * 0.9;
+const { pts, u } = seeds3(S.seed, D, glyph.inside);
+if (S.layer) for (const p of pts) p[2] = D / 2;
+const n = S.cells, h = (S.gap / 100) * 0.05 / 2, fl = S.fluff / 100, dm = S.dome / 100;
+const probe = []; for (let i = 0; i < n; i++) probe.push(buildCell(i, pts, n, h, 0, D));
+const col = assignColours(probe, u, S.palette.length);
+glyph.off = 2 * h;
+const q = v => Math.round(v * 1000) / 1000;
+const pieces = [];
+for (let i = 0; i < n; i++){
+  const p = probe[i]; if (!p || p.size < 4 * h + 0.01) continue;
+  const r = fl * Math.min(0.5 * p.size, 0.18);
+  const field = { planes: p.planes.map(pl => ({ n: pl.n, d: pl.d - r })), lo: p.lo, hi: p.hi };
+  const f = cellSDF(field, r, glyph, 7 / Math.max(r, 0.01), dm);
+  const pad = r * dm + 0.02;
+  const lo = p.lo.map(v => v - pad), hi = p.hi.map(v => v + pad);
+  const ext = Math.max(...[0,1,2].map(a => hi[a]-lo[a]));
+  const res = Math.round((40 + 24 * Math.min(1, ext)) * S.res);   /* res<1: a lighter file */
+  const N = [0,1,2].map(a => Math.max(8, Math.round(res * (hi[a]-lo[a]) / ext)));
+  const mesh = surfaceNets(f, lo, hi, N);
+  if (!mesh.idx.length) continue;
+  /* same placement as solid-app: scale by SIDE, centre x and z */
+  const pos = [];
+  for (let k = 0; k < mesh.pos.length; k += 3) pos.push(q(mesh.pos[k] * SIDE - SIDE/2), q(mesh.pos[k+1] * SIDE), q(mesh.pos[k+2] * SIDE - SIDE * D / 2));
+  pieces.push({ colour: S.palette[col[i]], pos, idx: Array.from(mesh.idx) });
+}
+window.J = { source: 'joyus/brand-lab @ 5d4a8f7, Solid tab defaults', settings: S, font: glyph.font, pieces };
+document.getElementById('out').textContent = 'baked ' + pieces.length + ' pieces';
+</script>
+</body></html>

@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>20 / Font and depth — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.fonts { display: grid; grid-template-columns: 90px repeat(6, 1fr); gap: 10px; align-items: center }
+.fonts figure { margin: 0 } .fonts .h { font-size: 12.5px; font-weight: 600 } .fonts .s { font-size: 12px; color: var(--ink-2); text-align: center }
+.pair { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1000px }
+.pair figure { margin: 0 }
+.phone { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 16px; align-items: start } .phone figure { margin: 0 }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+.pick { outline: 3px solid var(--ink); outline-offset: -3px }
+@media (max-width: 1000px) { .fonts { grid-template-columns: 60px repeat(3, 1fr) } .pair, .phone { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 20 · 6 October 2026</p>
+<h1>Font and depth</h1>
+<p class="lede">Six fonts for the J, each in 2D (one layer) and 3D (stones through the depth). Pick: Unbounded, 3D. Font and depth switch at the top of the page.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (Unbounded, 3D)</a>
+
+<h2>Six fonts, 2D and 3D</h2>
+<p>Score = how much of the font's J the stones cover, straight on (5 random Js each).</p>
+<div class="fonts">
+  <span></span><span class="h">Unbounded</span><span class="h">Baloo</span><span class="h">Space Grotesk</span><span class="h">Fraunces</span><span class="h">Bricolage</span><span class="h">Arial Black (19)</span>
+  <span class="h">2D</span>
+  <figure><img class="shot" src="img/fig-unbounded-2d.png" alt="Unbounded 2D"><figcaption class="s">0.74</figcaption></figure>
+  <figure><img class="shot" src="img/fig-baloo-2d.png" alt="Baloo 2D"><figcaption class="s">0.63</figcaption></figure>
+  <figure><img class="shot" src="img/fig-space-grotesk-2d.png" alt="Space Grotesk 2D"><figcaption class="s">0.61</figcaption></figure>
+  <figure><img class="shot" src="img/fig-fraunces-2d.png" alt="Fraunces 2D"><figcaption class="s">0.61</figcaption></figure>
+  <figure><img class="shot" src="img/fig-bricolage-2d.png" alt="Bricolage 2D"><figcaption class="s">0.58</figcaption></figure>
+  <figure><img class="shot" src="img/fig-arial-black-2d.png" alt="Arial Black 2D"><figcaption class="s">0.70</figcaption></figure>
+  <span class="h">3D</span>
+  <figure><a href="coming-soon.html?font=unbounded&amp;mode=3d" target="_blank"><img class="shot pick" src="img/fig-unbounded-3d.png" alt="Unbounded 3D"></a><figcaption class="s"><b>0.84 · pick</b></figcaption></figure>
+  <figure><a href="coming-soon.html?font=baloo&amp;mode=3d" target="_blank"><img class="shot" src="img/fig-baloo-3d.png" alt="Baloo 3D"></a><figcaption class="s">0.80</figcaption></figure>
+  <figure><a href="coming-soon.html?font=space-grotesk&amp;mode=3d" target="_blank"><img class="shot" src="img/fig-space-grotesk-3d.png" alt="Space Grotesk 3D"></a><figcaption class="s">0.75 · the site's font</figcaption></figure>
+  <figure><a href="coming-soon.html?font=fraunces&amp;mode=3d" target="_blank"><img class="shot" src="img/fig-fraunces-3d.png" alt="Fraunces 3D"></a><figcaption class="s">0.77 · ball breaks off</figcaption></figure>
+  <figure><a href="coming-soon.html?font=bricolage&amp;mode=3d" target="_blank"><img class="shot" src="img/fig-bricolage-3d.png" alt="Bricolage 3D"></a><figcaption class="s">0.79 · narrow</figcaption></figure>
+  <figure><a href="coming-soon.html?font=arial-black&amp;mode=3d" target="_blank"><img class="shot" src="img/fig-arial-black-3d.png" alt="Arial Black 3D"></a><figcaption class="s">0.83</figcaption></figure>
+</div>
+<p class="source">Caveat (hand) was tried too: 0.40, too thin, drops stones. 40 stones in 3D: no better than 25, 1.5× slower.</p>
+
+<div class="phone">
+  <figure><img class="shot" src="img/page-sugared.png" alt="Unbounded 3D, sugared"><figcaption>Unbounded 3D, sugared</figcaption></figure>
+  <figure><img class="shot" src="img/page-toon.png" alt="Unbounded 3D, toon"><figcaption>toon</figcaption></figure>
+  <figure><img class="shot" src="img/page-phone.png" alt="Phone"><figcaption>phone</figcaption></figure>
+</div>
+
+<h2>A bug from Study 16 on</h2>
+<div class="pair">
+  <figure><img class="shot" src="sil/bulge-before.png" alt="Stones (red) spilling past the J (blue)"><figcaption>Before: every stone ended outside the letter (red). 46% spill.</figcaption></figure>
+  <figure><img class="shot" src="sil/bulge-after.png" alt="Stones inside the J"><figcaption>Fixed: 0% spill. Inherited from brand-lab's 3D code.</figcaption></figure>
+  <figure><img class="shot" src="sil/sil-unbounded-2d.png" alt="Unbounded 2D silhouette"><figcaption>2D: the grout shows (blue).</figcaption></figure>
+  <figure><img class="shot" src="sil/sil-unbounded-3d.png" alt="Unbounded 3D silhouette"><figcaption>3D: stones behind fill it.</figcaption></figure>
+</div>
+
+<h2>Open</h2>
+<ul>
+<li>Unbounded, or Space Grotesk to match the site?</li>
+<li>Which look; both "under construction"s; deck link; your site; homepage only or every page.</li>
+</ul>
+<p class="source">Tests: <code>legible.mjs</code> (the scores), <code>page-test.mjs</code> (44 checks in a browser, every font × 2D/3D); read by <code>check.cjs</code>.</p>
+</main>
+</body>
+</html>
