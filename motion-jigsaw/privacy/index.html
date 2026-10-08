@@ -20,7 +20,7 @@ header { max-width:1120px; margin:auto; padding:32px; border-bottom:1px solid va
 main { max-width:800px; margin:auto; padding:80px 32px; }
 h1 { font:700 clamp(48px,8vw,88px)/.95 'Space Grotesk',system-ui,sans-serif; letter-spacing:-.04em; margin:0 0 32px; }
 h2 { font-size:26px; font-weight:700; letter-spacing:-.025em; line-height:1.3; margin:48px 0 16px; }
-p { margin:0 0 24px; overflow-wrap:anywhere; }
+ul { margin:0 0 24px; padding-left:1.2em; } li { margin:0 0 12px; overflow-wrap:anywhere; } p { margin:0 0 24px; overflow-wrap:anywhere; }
 .status { font-size:16px; color:var(--muted); border-left:3px solid var(--accent); padding-left:16px; margin-bottom:40px; }
 a { color:var(--ink); text-underline-offset:4px; text-decoration-color:var(--accent); }
 a:hover { text-decoration-thickness:2px; }
@@ -35,27 +35,45 @@ footer { border-top:1px solid var(--line); max-width:736px; margin:auto; padding
 <header><a class="brand" href="https://joyus.studio/" aria-label="Joyus Studio home"><img src="assets/logo.webp" alt="Joyus Studio" width="500" height="383"></a><span class="game">Motion Jigsaw</span></header>
 <main id="policy">
 <h1>Privacy policy</h1>
-<p class="status">Last updated 17 September 2026.</p>
+<p class="status">Last updated 8 October 2026.</p>
 <p>Motion Jigsaw is a puzzle game from Joyus. This policy explains how the game handles information on Android, iPhone and iPad.</p>
 <p>For privacy questions or requests, contact <strong><a href="mailto:divya@joyus.studio">divya@joyus.studio</a></strong>.</p>
+<h2>The short version</h2>
+<p>You do not need an account to play, and the game never asks for your name, email address, contacts, location, camera or microphone. It sends Joyus anonymous play statistics (how puzzles are played, not who plays them) so we can make the puzzles better. If you choose to email us feedback, we receive that email. There is no advertising, and we do not sell or share information with anyone for their own use.</p>
+<h2>Play statistics</h2>
+<p>While you play, the game records short events about the game itself and sends them to Joyus in batches when your device is online. They are:</p>
+<ul>
+<li><strong>Sessions:</strong> when a session starts and ends, how long it lasted, how many puzzles were started and solved, how long since the previous session and since the game was installed, the furthest puzzle reached, and whether sound and haptics were on.</li>
+<li><strong>Puzzles:</strong> which puzzle was opened and from where, its size and pattern, whether it was a replay or a resumed board, and how it ended: solved, left or closed, with the time spent, the number of moves, hints and restarts, and the sound setting.</li>
+<li><strong>Screens and settings:</strong> which screen was opened, and a setting when you change it (for example sound off).</li>
+</ul>
+<p>Each event carries the game version, the platform (Android or iOS), the time, and two random identifiers made by the game itself: one for this installation and one for the current session. They are not your device's advertising ID or any hardware identifier, and they are not linked to your name, your email or any account. Reinstalling the game makes a new one.</p>
+<p>The statistics are processed for us by <strong>PostHog</strong>, an analytics service, on its European (EU) cloud. PostHog receives your device's IP address when the game sends events, as any internet service does; we have set PostHog not to store it, so it is not kept and is not used to work out your location.</p>
+<p>We use play statistics only to understand how the game is played: which puzzles are too hard or too easy, where players stop, and whether a change helped. We keep them for up to 12 months. When the device is offline, events wait on the device and are sent later; the waiting file is limited in size.</p>
+<p>Play statistics are part of how the game works and there is no switch to turn them off. You can stop them at any time by uninstalling the game.</p>
+<h2>Deleting your play statistics</h2>
+<p>To have the statistics from your installation deleted, open <strong>Settings › Delete my play statistics</strong> in the game. It opens an email to us with your installation's random identifier filled in, which is the only way we can find its statistics; send it and we delete them within 30 days. Uninstalling the game first removes the identifier from your device, so we could no longer find them.</p>
+<h2>Feedback by email</h2>
+<p>The game can open your own email app with a message to Joyus already addressed, with the game version, platform and the puzzle you were on in the subject. Nothing is sent unless you send it yourself. If you do, we receive your email address, your message and anything you attach, and we use them to read your feedback and reply. We keep feedback emails while they help us improve the game, and delete them on request.</p>
 <h2>Information stored on your device</h2>
-<p>You do not need an account to play. The current game does not include advertising, analytics tracking or an automatic reporting service that sends gameplay data to Joyus.</p>
-<p>The game stores your puzzle progress, completed puzzles, completion times and dates, tutorial state, and preferences such as sound and haptics on your device. This lets you resume play and keep your settings. It also writes local diagnostic logs to help investigate technical problems. These files are not automatically sent to Joyus.</p>
-<p>The game uses vibration for optional haptic feedback. It does not request access to your contacts, location, camera or microphone.</p>
+<p>The game stores your puzzle progress, completed puzzles, completion times and dates, what the tutorial has shown you, and preferences such as sound and haptics on your device. This lets you resume play and keep your settings. It also writes local diagnostic logs to help investigate technical problems; these are not sent to Joyus.</p>
+<p>The game uses vibration for optional haptic feedback, and the internet only to send play statistics.</p>
 <p>Joyus does not operate a cloud-save service or receive a copy of your saved progress. Device or operating-system backups are separate from Joyus&#x27;s services and depend on the platform, app configuration and your backup settings.</p>
-<h2>Sharing and security</h2>
-<p>The game does not transmit your saved progress, settings or local logs to Joyus or third parties. We do not sell or share this locally stored information.</p>
-<p>Game files are stored in the app&#x27;s local storage and rely on your device&#x27;s operating-system protections. No storage system can guarantee complete security.</p>
-<h2>Keeping and deleting information</h2>
+<h2>Security</h2>
+<p>Play statistics are sent over an encrypted connection (HTTPS). Game files are stored in the app&#x27;s local storage and rely on your device&#x27;s operating-system protections. No system can guarantee complete security.</p>
+<h2>Keeping and deleting game files</h2>
 <p>Local game files stay on your device until you remove them. Removing them deletes your saved progress and settings; Joyus cannot recover them for you.</p>
 <p><strong>Android:</strong> Clear the app&#x27;s storage in device settings or uninstall the app. App-data backup is disabled in the current Android app configuration.</p>
 <p><strong>iPhone and iPad:</strong> Use Delete App to remove the app and its associated local data. Offload App preserves documents and data. Any existing device or cloud backups are managed separately through Apple&#x27;s backup settings.</p>
-<p>We cannot access or delete game files on your device remotely. For questions about your game data, contact <a href="mailto:divya@joyus.studio">divya@joyus.studio</a>.</p>
+<h2>Children</h2>
+<p>Motion Jigsaw is made for adults and is not directed at children. If you believe a child has sent us feedback, contact us and we will delete it.</p>
+<h2>Your rights</h2>
+<p>Depending on where you live, you may have rights to access, correct, delete or object to the processing of information about you, and to complain to your data protection authority. To use them, contact <a href="mailto:divya@joyus.studio">divya@joyus.studio</a>. For play statistics, use Settings › Delete my play statistics so we can find them.</p>
 <h2>App stores and external links</h2>
 <p>The store or platform you use to install the game may process installation, device and diagnostic information through its own services and settings, and may make reports available to developers. This processing is covered by the platform&#x27;s privacy policy: <a href="https://policies.google.com/privacy">Google</a> and <a href="https://www.apple.com/legal/privacy/">Apple</a>.</p>
-<p>The game includes a link that opens the Joyus website in your browser. Visiting that website or another external service is separate from playing the game, and that service&#x27;s privacy practices apply.</p>
+<p>The game includes links that open the Joyus website and this policy in your browser. Visiting a website is separate from playing the game, and that site&#x27;s privacy practices apply.</p>
 <h2>Changes to this policy</h2>
-<p>We will update this policy if the game&#x27;s data practices change, including before introducing features that collect additional information. The published policy will show its latest revision date.</p>
+<p>We will update this policy before the game&#x27;s data practices change, including before it collects anything new. The published policy shows its latest revision date.</p>
 </main>
 <footer>Motion Jigsaw · Joyus</footer>
 </body>
