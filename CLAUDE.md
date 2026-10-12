@@ -213,6 +213,10 @@ When orchestrating, run agents in parallel only on non-conflicting files (each c
 
 `git push origin main` is permitted by `.claude/settings.local.json` (no PR review), but only after merging from a feature branch — see Branch discipline below.
 
+## Motion Jigsaw privacy policy: never take it down
+
+`motion-jigsaw/privacy/index.html` is served at `https://joyus.studio/motion-jigsaw/privacy/` and that URL is written into the Google Play and App Store listings and into the game itself (`PRIVACY_URL` in the game's Settings). **Never delete, move, rename or break this page or its `assets/`**, and never put it behind a redirect, a build step or a login. Edit its content on a `divya-*` branch; keep the URL and the `noindex` (Divya, 12 October 2026). A store listing with a dead privacy URL is removed from the store.
+
 ## Branch discipline
 
 **Always work on a personal/task-named branch. Never commit directly to main. Never commit on Divya's branches. Don't auto-merge — wait for explicit instruction.**
