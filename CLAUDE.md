@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Stack
 
-Pure static site: hand-written HTML + one shared `styles.css` + vanilla JS. **No build step, no framework, no package.json, no bundler.** Deployed on GitHub Pages at `https://kh9010.github.io/joyus-website/`. Firebase is loaded via CDN script tags on the pages that need it; there is no JS toolchain.
+Pure static site: hand-written HTML + one shared `styles.css` + vanilla JS. **No build step, no framework, no package.json, no bundler.** Deployed on GitHub Pages from `main` (root) to **https://joyus.studio** (`CNAME`); whatever lands on `main` is live within a minute or two. Firebase is loaded via CDN script tags on the pages that need it; there is no JS toolchain.
 
 The nav and footer are the **only** things that go through a sync step:
 - Canonical source: `_partials/nav.html` and `_partials/foot.html`
@@ -212,6 +212,19 @@ The session uses `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1` (set in `.claude/setti
 When orchestrating, run agents in parallel only on non-conflicting files (each case study is independent; `styles.css` is the one shared file — devs should prefer page-local `<style>` blocks for new families to avoid concurrent-edit merges).
 
 `git push origin main` is permitted by `.claude/settings.local.json` (no PR review), but only after merging from a feature branch — see Branch discipline below.
+
+## Going live — the new homepage (coming-soon J)
+
+_Added 2026-10-12 so Divya's Claude can ship it: Divya has write access, `main` is unprotected, Pages serves `main` → joyus.studio._
+
+The coming-soon page is built as studies on `divya-oct06-coming-soon` (latest: `studies/iterations/26/coming-soon.html`; see `studies/HANDOFF.md`). It is not live — nothing in `studies/` touches the live site. When Divya says it's done:
+
+1. **Move the whole study folder, not just the page.** It loads `./site.js`, `masks/`, `looks/`, `img/` and the `jbuilder.js` worker relatively. Copy the folder to its live home (e.g. root `coming-soon/`, or make it `index.html` with its assets beside it) and keep those paths working.
+2. **Remove `noindex`** from the live copy (studies carry it on purpose).
+3. **Fix the deck link** — it points `../../../Joyus%20-%20work%20deck-mar26.pdf`, which breaks once the page moves.
+4. **Archive the current `index.html`** first (`index-<mmmDD>.html`, as with `index-old.html`) — never overwrite the live homepage without a copy.
+5. **Check it in a browser over HTTP** (`python3 -m http.server`, not `file://` — the worker and masks need a server), then open a PR to `main` and merge it on GitHub (`gh pr create -B main` → `gh pr merge --merge --delete-branch`). Don't merge locally and push.
+6. Confirm on https://joyus.studio after Pages rebuilds (hard refresh).
 
 ## Branch discipline
 
