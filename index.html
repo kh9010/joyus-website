@@ -1,692 +1,589 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="For founders, artists, and teams who have something to say. We uncover the story underneath the work and build the words, ideas, and worlds around it.">
-<meta property="og:title" content="Joyus Studio — Stories, Strategy, Serious Play">
-<meta property="og:description" content="For founders, artists, and teams who have something to say. We uncover the story underneath the work and build the words, ideas, and worlds around it.">
-<meta property="og:image" content="https://joyus.studio/images/logo.webp">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Joyus Studio is under construction. In the meantime: our work deck, Divya Tak, Kahran Singh.">
+<meta property="og:title" content="Joyus Studio — under construction">
+<meta property="og:description" content="Joyus Studio is under construction. In the meantime: our work deck, Divya Tak, Kahran Singh.">
+<meta property="og:image" content="https://joyus.studio/cs/og.png">
 <meta property="og:type" content="website">
+<link rel="canonical" href="https://joyus.studio/">
 <meta property="og:url" content="https://joyus.studio/">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://joyus.studio/">
-<title>Joyus Studio — Stories, Strategy, Serious Play</title>
-<link rel="icon" href="favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
-<style>
-  /* :root tokens + body baseline come from styles.css */
-  body { min-height: 100vh; }
-
-  /* nav and foot styles come from /_partials/ — synced via scripts/sync-chrome.js */
-
-  /* DOTS */
-  .dot {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-  }
-  .d-pink   { background: var(--pink); }
-  .d-cyan   { background: var(--cyan); }
-  .d-yellow { background: var(--yellow); }
-
-  /* ============ HERO — sparse stage, dots-led ============
-     3-row grid: eyebrow top-left, input stage centered, tagline bottom-right. */
-  .hero {
-    min-height: 100vh;
-    min-height: 100dvh;
-    position: relative;
-    padding: clamp(5rem, 10vh, 8rem) var(--x) clamp(2.5rem, 5vh, 4rem);
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  .hero-inner {
-    max-width: 1400px;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 2;
-    flex: 1;
-    min-height: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  /* Scattered playful dots — fill the negative space the sparse layout opens up */
-  /* The signature big dot used to sit top-right on every page; here it bleeds
-     off the LEFT mid-edge so home doesn't repeat that top-right-accent structure.
-     Size / colour / opacity unchanged. */
-  .hero .dh1 { width: clamp(280px, 32vw, 480px); height: clamp(280px, 32vw, 480px); bottom: -8%; left: -16%; opacity:1; }
-  .hero .dh2 { width: 64px; height: 64px; top: 66%; right: 16%; }
-  .hero .dh3 { width: 28px; height: 28px; top: 16%; right: 20%; }
-  /* dh4 sat behind the bottom-right tagline; relocated to mid-right so the magenta
-     in the tagline doesn't have to fight a cyan field behind it */
-  .hero .dh4 { width: 110px; height: 110px; top: 12%; right: 6%; }
-  .hero .dh5 { width: 38px; height: 38px; top: 24%; left: 16%; }
-  .hero .dh6 { width: 18px; height: 18px; bottom: 26%; right: 34%; }
-  .hero .dh7 { width: 22px; height: 22px; top: 58%; left: 8%; }
-  .hero .dh8 { width: 12px; height: 12px; top: 38%; left: 30%; }
-  .hero .dh9 { width: 88px; height: 88px; top: -16px; left: 32%; opacity:1; }
-
-  /* eyebrow pinned top-left of the hero (absolute so the stage can center
-     in the full viewport, not between eyebrow and tagline) */
-  /* .hero-eyebrow base styles come from styles.css.
-     Homepage overrides: pin to top-left, yellow dot (not the page accent). */
-  .hero-eyebrow {
-    position: absolute;
-    top: clamp(5rem, 10vh, 8rem);
-    left: var(--x);
-    z-index: 3;
-    margin: 0;
-  }
-  .hero-eyebrow::before { background: var(--yellow); }
-
-  /* === V13: Sparse stage. Input is the center of gravity. ===
-     The 1fr middle row centers it vertically; max-width cap keeps it
-     from sprawling to the page edges. */
-  .hero-stage {
-    width: 100%;
-    max-width: 900px;
-    min-width: 0;
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    gap: 1rem;
-    position: relative;
-  }
-  .hero-h1 {
-    font-family: var(--sans);
-    font-weight: 500;
-    font-size: clamp(1.2rem, 1.6vw, 1.5rem);
-    line-height: 1;
-    letter-spacing: -0.005em;
-    color: var(--ink-soft);
-    font-style: italic;
-    margin: 0;
-    text-align: left;
-  }
-  .hero-fill {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 0.4em;
-    width: 100%;
-    min-width: 0;
-  }
-  /* Field wraps the textarea + the grey faux-placeholder overlay; both share
-     IDENTICAL type metrics so the dummy prompt sits exactly where the typed
-     answer will appear. */
-  .hero-field { position: relative; flex: 1 1 0; min-width: 0; }
-  .hero-fill #intentInput,
-  .hero-fauxph,
-  .hero-caret {
-    font-family: var(--sans);
-    font-size: clamp(1.8rem, 3.6vw, 3rem);
-    line-height: 1.15;
-    letter-spacing: -0.04em;
-    padding: 0 0.15em 0.1em;
-  }
-  /* The input is a textarea so a long need WRAPS to a new line (auto-grown in
-     JS) instead of getting clipped on one line. */
-  .hero-fill #intentInput {
-    display: block;
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 1.3em;
-    resize: none;
-    overflow: hidden;
-    font-weight: 700;
-    color: var(--pink);
-    background: transparent;
-    border: 0;
-    border-bottom: 5px solid var(--ink);
-    outline: none;
-    transition: border-color 0.25s;
-  }
-  .hero-fill #intentInput:focus { border-bottom-color: var(--pink); }
-  /* Grey "dummy" prompt overlaid on the empty field. Crossfades between prompts
-     (mirrors the services rel-in fade-up) — no typing caret, so it reads as
-     placeholder text you replace, not live typing. Hidden once you focus/type. */
-  .hero-fauxph {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    pointer-events: none;
-    font-weight: 500;
-    color: var(--ink-fade);
-    opacity: 0.6;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding-left: 0.55em;        /* clear the resting caret so they don't overlap */
-    transition: opacity 0.34s ease, transform 0.34s ease;
-  }
-  .hero-fauxph.swap { opacity: 0; transform: translateY(6px); }
-  .hero-field.active .hero-fauxph,
-  .hero-field.filled .hero-fauxph { opacity: 0; }
-  /* Resting caret — a calm pink "you can type here" marker at the field start.
-     It stays PUT while the grey prompt crossfades, so it reads as a cursor, not
-     another moving thing. Hidden on focus (the real textarea caret takes over)
-     and once anything is typed. */
-  /* Caret container shares the field's exact line-box (font/line-height/padding
-     from the rule above) so the bar can sit on the SAME baseline as the text. */
-  .hero-caret {
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    pointer-events: none;
-  }
-  .hero-caret i {
-    display: inline-block;
-    width: 0.07em;
-    height: 0.74em;
-    background: var(--pink);
-    vertical-align: baseline;     /* sits ON the text baseline, not floating */
-    animation: caretBlink 1.1s steps(1, end) infinite;
-  }
-  @keyframes caretBlink { 0%, 55% { opacity: 1; } 55.01%, 100% { opacity: 0; } }
-  .hero-field.active .hero-caret,
-  .hero-field.filled .hero-caret { display: none; }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-caret i { animation: none; opacity: 1; }
-  }
-  .hero-fill .submit {
-    font-size: clamp(1.4rem, 2vw, 1.8rem);
-    color: var(--ink-fade);
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-    line-height: 1;
-    transition: color 0.2s, transform 0.25s;
-    font-family: var(--sans);
-    font-weight: 500;
-    flex-shrink: 0;
-    align-self: flex-end;
-    padding-bottom: 0.12em;
-  }
-  .hero-fill .submit:hover { color: var(--pink); transform: translateX(4px); }
-
-  /* SUGGESTIONS — sits flush under the input, in the hero-stage frame.
-     Lighter than a form dropdown — feels like a list of ideas opening up. */
-  #intentSuggestions {
-    position: absolute;
-    top: calc(100% + 1.25rem);
-    left: 0; right: 0;
-    background: rgba(255, 255, 255, 0.96);
-    backdrop-filter: blur(8px);
-    border: 0;
-    border-radius: 14px;
-    box-shadow: 0 12px 40px rgba(44, 53, 68, 0.10), 0 2px 6px rgba(44, 53, 68, 0.05);
-    overflow: hidden;
-    z-index: 30;
-    opacity: 0;
-    transform: translateY(-8px);
-    pointer-events: none;
-    /* visibility:hidden keeps the (invisible) default suggestion links out of
-       the keyboard tab order at rest; delayed 0.25s so the fade-out still plays. */
-    visibility: hidden;
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
-  }
-  #intentSuggestions.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-    visibility: visible;
-    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0s;
-  }
-  .sug {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1.5rem;
-    padding: 1.05rem 1.75rem;
-    border-top: 1px solid rgba(44, 53, 68, 0.06);
-    transition: background 0.15s, color 0.15s;
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--ink);
-    position: relative;
-  }
-  .sug::before {
-    content: "";
-    position: absolute;
-    left: 0.85rem;
-    top: 1.45rem;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--pink);
-    transition: transform 0.2s;
-  }
-  .sug:nth-child(2)::before { background: var(--cyan); }
-  .sug:nth-child(3)::before { background: var(--yellow); }
-  .sug:nth-child(4)::before { background: var(--pink); opacity: 0.6; }
-  .sug:nth-child(5)::before { background: var(--cyan); opacity: 0.6; }
-  .sug:first-child { border-top: 0; }
-  .sug:hover { background: var(--bg); color: var(--pink); }
-  .sug:hover::before { transform: scale(1.4); }
-  .sug-text { font-size: 1rem; padding-left: 1rem; flex: 1; }
-  .sug-dest {
-    font-family: var(--hand);
-    font-size: 1.15rem;
-    color: var(--ink-fade);
-    white-space: nowrap;
-  }
-  .sug:hover .sug-dest { color: var(--pink); }
-
-  /* secondary entry — a hand-note under the field offering a browse path for
-     visitors who'd rather not type. Absolute (like the old tagline) so it never
-     changes the stage height the dropdown anchors to; fades out while the
-     suggestions are open so the two never collide. */
-  .hero-alt {
-    position: absolute;
-    /* mirror of .hero-eyebrow (top:clamp(5rem,10vh,8rem); left:var(--x)) so the
-       browse-note sits symmetric to the eyebrow, bottom-right corner of the hero */
-    bottom: clamp(5rem, 10vh, 8rem);
-    right: var(--x);
-    margin: 0;
-    font-family: var(--hand);
-    font-weight: 600;
-    font-size: clamp(1.25rem, 1.9vw, 1.65rem);
-    line-height: 1.05;
-    color: var(--ink-soft);
-    text-align: right;
-    transform: rotate(-1.5deg);
-    transition: opacity 0.2s ease;
-    z-index: 3;
-  }
-  .hero-alt a {
-    color: var(--ink);
-    text-decoration: none;
-    border-bottom: 2px solid var(--pink);
-    white-space: nowrap;
-  }
-  .hero-alt a:hover { color: var(--pink); }
-  /* dimmed while the suggestions dropdown is open (toggled in JS — the dropdown
-     is no longer a DOM sibling now that .hero-alt is pinned to the hero corner) */
-  .hero-alt.dimmed { opacity: 0; pointer-events: none; }
-
-  /* ============ CLOSING ============
-     .closing family styles come from styles.css; page-local dots only. */
-  .closing .dx1 { width: 26px; height: 26px; bottom: 28%; left: 16%; }
-  .closing .dx2 { width: 14px; height: 14px; top: 26%; right: 26%; }
-  .closing .dx3 { width: 60px; height: 60px; bottom: 16%; left: 8%; }
-
-  /* foot comes from /_partials/foot.html */
-
-  @media (max-width: 720px) {
-    /* keep the lead line small — DO NOT inflate it */
-    .hero-h1 { font-size: 1.3rem !important; }
-    .hero-fill #intentInput,
-    .hero-fauxph,
-    .hero-caret {
-      font-size: clamp(1.7rem, 7.5vw, 2.5rem);
-    }
-    .hero-fill #intentInput { border-bottom-width: 4px; }
-    /* declutter the dot scatter on mobile */
-    .hero .dh9 { display: none; }
-    .hero .dh4 { width: 60px; height: 60px; right: 4%; top: 38%; }
-    .hero .dh1 { width: 220px; height: 220px; left: -30%; right: auto; opacity:1; }
-    .hero .dh2 { width: 36px; height: 36px; }
-    .hero .dh3 { width: 18px; height: 18px; }
-    /* on mobile, keep the note tucked under the input, left-aligned */
-    .hero-alt { transform: rotate(-1deg); right: auto; left: var(--x); bottom: clamp(2.5rem, 5vh, 4rem); text-align: left; }
-    .hero-inner { gap: 1.5rem; }
-    .hero-eyebrow { font-size: 0.72rem; }
-    /* dropdown: inline so it doesn't get covered by mobile keyboard, BUT
-       collapse to 0 height when not visible — otherwise it inflates the
-       .hero-stage and pushes the input above center */
-    #intentSuggestions {
-      position: relative;
-      top: auto;
-      margin-top: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease, margin-top 0.3s ease, opacity 0.25s ease;
-    }
-    #intentSuggestions.visible {
-      max-height: 80vh;
-      margin-top: 1.5rem;
-    }
-    .closing .dx1, .closing .dx2 { display: none; }
-  }
-</style>
-  <!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-74FZR7YY60');
-  </script>
-</head>
-<body data-accent="pink">
-  <a href="#main-content" class="skip-to-content">Skip to content</a>
-
-  <!--BEGIN:NAV-->
-<!-- Single source of truth for the top nav.
-     Sync into pages by running:  node scripts/sync-chrome.js
-      → path prefix to repo root (e.g. "" or "../")
-     Colors use the tokens declared in styles.css :root. -->
-<style>
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    padding-top: max(1.25rem, env(safe-area-inset-top));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 500;
-    background: rgba(250, 247, 242, 0.88);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
-    font-family: var(--sans);
-  }
-  .nav .nav-logo { display: inline-flex; align-items: center; line-height: 1; position: relative; z-index: 510; }
-  .nav .nav-logo img { height: 32px; width: auto; display: block; }
-  .nav .nav-links {
-    display: flex; gap: 1.75rem; align-items: center;
-    list-style: none; padding: 0; margin: 0;
-  }
-  .nav .nav-links a {
-    font-size: 0.92rem;
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-weight: 400;
-    padding-bottom: 2px;
-    border-bottom: 1.5px solid transparent;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .nav .nav-links a:hover { color: var(--pink); }
-  .nav .nav-links a.active {
-    color: var(--ink);
-    font-weight: 500;
-    border-bottom-color: var(--pink);
-  }
-  .nav .nav-cta { color: var(--ink); font-weight: 500; }
-  .nav .nav-cta:hover { color: var(--pink); }
-
-  /* Hamburger button — hidden on desktop */
-  .nav-toggle {
-    display: none;
-    width: 44px; height: 44px;
-    background: transparent; border: 0; padding: 0;
-    cursor: pointer; position: relative; z-index: 510;
-    align-items: center; justify-content: center;
-  }
-  .nav-toggle span {
-    display: block; width: 24px; height: 2px;
-    background: var(--ink); border-radius: 2px;
-    position: absolute;
-    transition: transform 0.25s ease, top 0.25s ease, opacity 0.2s;
-  }
-  .nav-toggle span:nth-child(1) { top: 14px; }
-  .nav-toggle span:nth-child(2) { top: 21px; }
-  .nav-toggle span:nth-child(3) { top: 28px; }
-  .nav-toggle[aria-expanded="true"] span:nth-child(1) { top: 21px; transform: rotate(45deg); }
-  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-  .nav-toggle[aria-expanded="true"] span:nth-child(3) { top: 21px; transform: rotate(-45deg); }
-
-  @media (max-width: 720px) {
-    .nav {
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      background: rgba(250, 247, 242, 0.95);
-    }
-    .nav-toggle { display: inline-flex; }
-    .nav .nav-links {
-      position: fixed;
-      inset: 0;
-      padding: 6rem clamp(1.5rem, 4vw, 3rem) 3rem;
-      padding-top: max(6rem, calc(env(safe-area-inset-top) + 5rem));
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 1.75rem;
-      background: var(--white);
-      border-left: 4px solid var(--ink);
-      box-shadow: -16px 0 48px rgba(44, 53, 68, 0.22);
-      transform: translateX(100%);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-      z-index: 505;
-    }
-    .nav .nav-links.open { transform: translateX(0); }
-    .nav .nav-links a {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: var(--ink);
-    }
-    .nav .nav-links a.active { border-bottom-color: var(--pink); }
-    .nav .nav-cta { font-size: 1.6rem; }
-  }
-</style>
-<nav class="nav">
-  <a class="nav-logo" href="index.html"><img src="images/logo.webp" alt="Joyus Studio" width="500" height="383" /></a>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navMenu">
-    <span></span><span></span><span></span>
-  </button>
-  <div class="nav-links" id="navMenu">
-    <a href="work/" data-nav="work">Work</a>
-    <a href="services.html" data-nav="services">Services</a>
-    <a href="workshops.html" data-nav="workshops">Workshops</a>
-    <a href="podcast.html" data-nav="podcast">Podcast</a>
-    <a href="about.html" data-nav="about">About</a>
-    <a class="nav-cta" href="say-hi.html" data-nav="say-hi">Say hi</a>
-  </div>
-</nav>
+<title>Joyus Studio — under construction</title>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- Google Analytics (GA4) — Joyus Studio · G-74FZR7YY60 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-74FZR7YY60"></script>
 <script>
-  (function(){
-    var path = window.location.pathname;
-    var active = null;
-    if (/\/work(\/|$)/.test(path)) active = 'work';
-    else if (/services\.html/.test(path)) active = 'services';
-    else if (/workshops/.test(path)) active = 'workshops';
-    else if (/podcast/.test(path)) active = 'podcast';
-    else if (/about\.html/.test(path)) active = 'about';
-    else if (/say-hi\.html/.test(path)) active = 'say-hi';
-    if (active) {
-      var links = document.querySelectorAll('.nav .nav-links a[data-nav]');
-      for (var i = 0; i < links.length; i++) {
-        if (links[i].getAttribute('data-nav') === active) {
-          links[i].classList.add('active');
-        }
-      }
-    }
-    // hamburger toggle
-    var toggle = document.querySelector('.nav-toggle');
-    var menu = document.querySelector('.nav .nav-links');
-    if (toggle && menu) {
-      var close = function() {
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      };
-      toggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = menu.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        document.body.style.overflow = open ? 'hidden' : '';
-      });
-      // close on link tap
-      menu.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', close);
-      });
-      // close on escape
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && menu.classList.contains('open')) close();
-      });
-    }
-  })();
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-74FZR7YY60');
 </script>
-<!--END:NAV-->
-
-  <main id="main-content">
-  <h1 class="visually-hidden">Joyus Studio — Tell us what you need</h1>
-  <!-- =========== HERO — the intent moment =========== -->
-  <section class="hero">
-    <span class="dot dh1 d-pink"></span>
-    <span class="dot dh2 d-yellow"></span>
-    <span class="dot dh3 d-cyan"></span>
-    <span class="dot dh4 d-cyan"></span>
-    <span class="dot dh5 d-yellow"></span>
-    <span class="dot dh6 d-pink"></span>
-    <span class="dot dh7 d-pink"></span>
-    <span class="dot dh8 d-yellow"></span>
-    <span class="dot dh9 d-cyan"></span>
-
-   <div class="hero-inner">
-    <span class="hero-eyebrow">a storytelling studio · based in BLR &amp; NYC</span>
-
-    <div class="hero-stage">
-      <label class="hero-h1" for="intentInput">what brings you here?</label>
-      <form class="hero-fill" onsubmit="event.preventDefault();">
-        <span class="hero-field">
-          <textarea id="intentInput" rows="1" maxlength="280" placeholder="" autocomplete="off" autocorrect="off" autocapitalize="off" inputmode="text" enterkeyhint="search" aria-label="What brings you here?"></textarea>
-          <span class="hero-caret" aria-hidden="true"><i></i></span>
-          <span class="hero-fauxph" id="intentFaux" aria-hidden="true"></span>
-        </span>
-        <button class="submit" type="submit" aria-label="Submit">→</button>
-      </form>
-
-      <div id="intentSuggestions" role="listbox"></div>
-    </div>
-   </div>
-   <p class="hero-alt">or start with <a href="services.html">what we do</a> · <a href="about.html">who we are</a></p>
-  </section>
-
-  <!-- =========== CLOSING =========== -->
-  <section class="closing">
-    <span class="dot dx1 d-pink"></span>
-    <span class="dot dx2 d-cyan"></span>
-    <span class="dot dx3 d-yellow"></span>
-    <h2>Don't know what you need? <em><a href="say-hi.html">Bring the half-formed thing.</a></em></h2>
-  </section>
-  </main>
-
-  <!--BEGIN:FOOT-->
-<!-- Single source of truth for the site footer.
-     Sync into pages by running:  node scripts/sync-chrome.js
-     Colors use the tokens declared in styles.css :root. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
 <style>
-  .foot {
-    position: relative;
-    z-index: 20;
-    background: var(--bg);
-    padding: 1.5rem clamp(1.5rem, 4vw, 3rem) 2rem;
-    padding-bottom: max(2rem, calc(env(safe-area-inset-bottom) + 1.5rem));
-    max-width: 1400px;
-    margin: 0 auto;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    font-family: var(--sans);
-    font-size: 0.78rem;
-    color: var(--ink-fade);
-    letter-spacing: 0.05em;
-  }
-  .foot a { color: var(--ink-fade); text-decoration: none; transition: color 0.2s; }
-  .foot a:hover { color: var(--pink); }
-  @media (max-width: 480px) {
-    .foot { justify-content: flex-start; }
-  }
+:root { --bg: #FFFFFF; --ink: #2C3544; --ink-soft: #54606F; --ink-fade: #8892A0; --rule: rgba(44, 53, 68, 0.12); --pink: #E91E7B; --cyan: #4FC4CF; --yellow: #F2C94A; --x: clamp(1rem, 4vw, 3rem) }
+* { box-sizing: border-box }
+html, body { margin: 0; height: 100% }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 'Space Grotesk', system-ui, sans-serif; display: flex; flex-direction: column; min-height: 100dvh }
+#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
+#stage { flex: 1 1 auto; min-height: 56vh }
+.below { position: relative; z-index: 1; padding: 0 var(--x) clamp(2rem, 6vh, 4rem); text-align: center }
+/* Study 31: the headline bigger (was clamp(1.6rem, 4.2vw, 2.6rem)) */
+h1 { font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -.035em; font-weight: 700; margin: 0; -webkit-text-stroke: .9px var(--ink); paint-order: stroke fill }   /* Study 40: heavier. Space Grotesk's heaviest is 700, so the stroke thickens it */
+h1 .keep { white-space: nowrap }   /* Study 35: "under construction" stays on one line */
+.note { margin: .6rem 0 2.6rem }   /* Study 40: more air before the links (was 1.6rem) */
+.links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem }
+/* Study 28: side by side when there's room. The J on the left, the words on the right (Divya, 13 Oct); stacked on a phone as before. */
+@media (min-width: 820px) and (min-aspect-ratio: 1/1) {
+  body { display: grid; grid-template-columns: 1.15fr 1fr; height: 100dvh }   /* Study 35: the words get more room (was 1.35 : 1) */
+  #stage { min-height: 0; height: 100dvh }
+  .below { display: flex; flex-direction: column; justify-content: center; text-align: left; padding: 0 var(--x) 0 clamp(1rem, 2vw, 2rem); max-width: 720px }
+  h1 { font-size: clamp(2.2rem, 3.4vw, 3.6rem) }
+  .links { justify-content: flex-start }
+}
+/* Study 39: the words, decided (Divya, 13 Oct): treatment C, the subtitle in Space Grotesk.
+   The links: big words on a thick underline in each one's colour; on hover that colour sweeps in
+   from the left as a band behind the whole word (background-size 0 → 100%, anchored left). */
+.links a { display: inline-flex; align-items: center; color: var(--ink); text-decoration: none; font-weight: 500 }
+.links a:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px }
+.links .dot, .links .arrow, .links small { display: none }
+.links li:nth-child(1) { --c: var(--pink) } .links li:nth-child(2) { --c: var(--cyan) } .links li:nth-child(3) { --c: var(--yellow) }
+.note { font: 500 clamp(1.15rem, 1.7vw, 1.45rem)/1.4 'Space Grotesk', sans-serif; color: var(--ink-soft) }
+.links { flex-direction: column; align-items: flex-start; gap: .55rem }
+@media not all and (min-width: 820px) and (min-aspect-ratio: 1/1) { .links { align-items: center } }
+/* Study 40: the band sweeps in as the word's background; a white copy of the word (::after, from data-label) lies
+   on top and is revealed from the left by a clip-path in step with the band, so the letters go white exactly where the
+   band has reached (Divya: white for readability). On the yellow link the copy is ink: white on yellow doesn't read.
+   (Try 1 painted the letters as a clipped background under a ::before band, and the band covered them.) */
+.links a { font-size: clamp(1.35rem, 2.1vw, 1.8rem); font-weight: 700; letter-spacing: -.025em; padding: 0 .12em; margin: 0 -.12em; position: relative;
+  text-decoration: underline; text-decoration-color: var(--c); text-decoration-thickness: 5px; text-underline-offset: 7px;
+  --over: #fff;
+  background: linear-gradient(var(--c), var(--c)) no-repeat left center / 0% 100%;
+  transition: background-size .38s cubic-bezier(.4, 0, .2, 1), text-underline-offset .15s, text-decoration-thickness .15s }
+.links li:nth-child(3) a { --over: var(--ink) }
+.links a::after { content: attr(data-label); position: absolute; inset: 0; padding: 0 .12em; display: flex; align-items: center; color: var(--over); text-decoration: none; white-space: nowrap; pointer-events: none;
+  clip-path: inset(0 100% 0 0); transition: clip-path .38s cubic-bezier(.4, 0, .2, 1) }
+.links a:hover, .links a:focus-visible { background-size: 100% 100%; text-underline-offset: 3px; text-decoration-thickness: 9px }
+.links a:hover::after, .links a:focus-visible::after { clip-path: inset(0 0 0 0) }
+@media (prefers-reduced-motion: reduce) { .links a, .links a::after { transition: none } }
 </style>
-<footer class="foot">
-  <span>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span>
-  <a href="say-hi.html">say hi</a>
-</footer>
-<!--END:FOOT-->
+</head>
+<body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="stage"></div>
+<main class="below">
+  <h1>joyus.studio is <span class="keep">under construction</span></h1>
+  <p class="note">in the meantime… you can check us out here</p>
+  <ul class="links">
+    <li><a href="https://drive.google.com/file/d/1cM-AvZpCK4QvV3oYHT2cnu9a0sGEgtoM/view?usp=sharing" target="_blank" rel="noopener" data-label="Our work"><span class="dot"></span><span class="l">Our work</span><small>deck · PDF</small><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a href="https://divyatak.art" target="_blank" rel="noopener" data-label="Divya Tak"><span class="dot"></span><span class="l">Divya Tak</span><small>divyatak.art</small><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a href="https://kahransingh.com" target="_blank" rel="noopener" data-label="Kahran Singh"><span class="dot"></span><span class="l">Kahran Singh</span><small>kahransingh.com</small><span class="arrow" aria-hidden="true">→</span></a></li>
+  </ul>
+</main>
 
-  <!-- Firebase (compat) — best-effort capture of typed intents. -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-  <script src="intent-box.js"></script>
-  <script>
-    // Autocomplete + Enter-routing live in intent-box.js. We pass NO `prompts`
-    // (so its typewriter stays off) and instead drive a cursor-free, crossfading
-    // grey "dummy" prompt over the field below — and let the field grow so a
-    // long need wraps instead of getting cut off.
-    initIntentBox({ page: 'index' });
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+<script type="module">
+/* LIVE, 13 Oct 2026: joyus.studio's coming-soon page, Study 40 of the homepage
+   studies (branch divya-oct06-coming-soon, studies/iterations/40) with the
+   study bar removed and the assets in /cs/. The same page is 404.html.
+   Study 40 (Divya, 13 Oct): the fonts in an order that never puts two sans
+   in a row (sans: Rubik, Archivo Black, Lilita, Bagel Fat, Sansita; the rest
+   slab, serif or script); the sign further right; the hovered word turns
+   white as the band passes (ink on the yellow one); more air between the
+   subtitle and the links; the headline heavier (Space Grotesk stops at 700,
+   so a thin stroke in the ink); "Our work" goes to the Drive deck.
+   Study 39: decided (Divya, 13 Oct): the subtitle in Space Grotesk; no more
+   treatment, subtitle, mesh or edge switches. The mesh is res 0.6 with the
+   exact field on the fine mask (Study 34): smooth edges at the old cost, no
+   wait for "finer". Only the sign sits under the words; the two blocks are
+   back under the J. The links' colour sweeps in on hover. The J a bit
+   smaller (SHRINK).
+   Study 38: the subtitle alone, in twelve voices (?line=); the links stay
+   Space Grotesk (treatment C, decided: Divya, 13 Oct). 40 stones, decided.
+   And the idle build is ~2.7 s, not ~8.6 s: with a 6 s hold the J was in
+   pieces more than it was whole.
+   Study 37: the fallen stones keep the silhouette (Divya, 13 Oct: don't
+   break Sansita's tail, take the blocks from anywhere, the silhouette should
+   retain). For every font the two fallen stones now come from well inside
+   the outline, the front-most of those so the pocket shows, then the two
+   smallest. FALL_FROM (the tail rule) is gone.
+   Study 36: the sign and the fallen stones move out of the J's column to
+   the bottom right, under the words (Divya's sketch, 13 Oct). The floor
+   point under a pixel is found by unprojecting through the camera, and the
+   site is laid round it; the J alone sizes its column now. On a phone they
+   stay in front of the J as before.
+   Study 35: the words, after Divya's sketch (13 Oct). The headline runs
+   wider and "under construction" never splits; in C the links stack as a
+   list under the line; ?line= now sets the font of the line AND the links
+   (one switch for both, as she bracketed them): Space Grotesk, Instrument
+   Serif italic, Fraunces italic, Space Mono.
+   Study 34: smoother edges without more polygons. The glyph's distance
+   field, not the mesh, is what wobbles: a 320px mask through a chamfer
+   transform (octagonal contours). ?edge= chamfer (as before) | exact
+   (Euclidean distance, same mask) | exact1024 (and a 1024px mask).
+   Study 33: treatment C is the one (Divya); its line in four fonts (?line=),
+   none of them Unbounded: Space Grotesk, Instrument Serif italic, Fraunces
+   italic, Space Mono. C is the default now.
+   Study 32: smoother stones. Each stone is meshed (surface nets) on a grid
+   whose size is res × (40 + 24·extent): res 0.6 since Study 19 gave about
+   30 cells across a stone, and curved edges facet. ?res= 0.6 | 1 | 1.5;
+   build time and triangles are reported (T.buildMs, T.tris).
+   Study 31: the words. The headline bigger; the second line now says
+   "in the meantime… you can check us out here", in a new voice; the links
+   nicer, four ways (?words=a|b|c|d): A serif aside + dotted pills, B mono
+   label + hairline list, C Unbounded + thick underlines, D Nunito + tinted
+   cards. The J is untouched.
+   Study 30: 40 stones is the build (Divya, 13 Oct: reads a lot better); the
+   count switch is gone (?cells= stays for the test). Tilt Warp out: ten fonts.
+   Sansita's two fallen stones come from its tail, not its thin upper stroke,
+   which they left with holes (FALL_FROM).
+   Study 29: more stones. ?cells= 25 (as before) | 40 | 60 per J; the fly-in
+   delays scale so a bigger J builds in the same time. The fonts Divya kept
+   (13 Oct): Rubik, Archivo Black, Shrikhand, Lilita, Alfa Slab, Bagel Fat,
+   Calistoga, Abril, Ultra, Sansita Swashed, and Tilt Warp (not mentioned).
+   Study 28: the J on the left, the words on the right; six seconds whole;
+   eighteen more fonts tried (cursive, marker, comic, fat serif); the eleven
+   that read as a J kept, the connected scripts didn't (legible-fonts.json).
+   Study 27: the J cycles through its fonts. Gummy is the look (Divya, 13 Oct);
+   the other looks and "new J" are gone; Syne, Titan and Dela Gothic are gone,
+   nine fonts are new. Ten seconds after the J is whole, its stones let go,
+   bottom first, drop to the floor, settle, and sink away; then the next
+   font's stones fly in. The two fallen stones go with their J. Clicking a
+   font in the bar brings it next.
+   Study 26: the sign lying down; no other placements.
+   Study 25: the sign knocked over on its stand / lying down / leaning (?site=), smaller.
+   Study 24: no stand; the sign leans on the ground on the left, behind the fallen stones.
+   Study 23: the soft sign only, smaller; the J's font switchable; looks may
+   restyle drawn art (styleDecal — Print screens the ink).
+   Study 22: no cones, no plate; the sign on a spring stand, in the brand's
+   colours and made of its stones three ways (?sign=, site.js).
+   Study 21: a real road-works sign instead of the striped barrier; the J is
+   Unbounded, 3D (decided in Study 20).
+   Study 20: the J no longer bulges past its letter (jbuilder.js, fixGlyph).
+   Study 19. What changed from 16–18, one decision each:
+   - the J is built live in a worker (jbuilder.js) from a random seed: a new
+     J every visit, 25 stones (Study 18 had 15);
+   - it floats over a floor; two small edge stones have fallen out and lie
+     on the floor by a construction barrier;
+   - the pieces fly in faster the more the pointer moves;
+   - the J moves as one: it leans and shifts with the pointer, no per-stone
+     drift. */
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { buildSoftDiamond } from '/cs/site.js';
+import * as look from '/cs/looks/gummy.js';
 
-    // Fade the corner browse-note while the suggestions dropdown is open. It used
-    // to be a CSS sibling of #intentSuggestions; now that it's pinned to the hero
-    // corner we watch the dropdown's class and mirror it onto .hero-alt.
-    (function () {
-      var sug = document.getElementById('intentSuggestions');
-      var alt = document.querySelector('.hero-alt');
-      if (!sug || !alt || !window.MutationObserver) return;
-      new MutationObserver(function () {
-        alt.classList.toggle('dimmed', sug.classList.contains('visible'));
-      }).observe(sug, { attributes: true, attributeFilter: ['class'] });
-    })();
+const Q = new URLSearchParams(location.search);
+const LOOK = 'gummy';   /* Study 27: the look (Divya, 13 Oct) */
+const SEED = Q.get('seed') || Math.random().toString(36).slice(2, 8);
+/* Study 30: the ten kept, in the order they cycle; scored at 25, 40 and 60 stones in legible-fonts.json */
+const FONTS = ['rubik', 'alfa-slab', 'archivo-black', 'shrikhand', 'lilita', 'calistoga', 'bagel-fat', 'abril', 'sansita-swashed', 'ultra'];   /* Study 40: sans and not-sans alternate, round the wrap too */
+const FONT = FONTS.includes(Q.get('font')) ? Q.get('font') : 'rubik', MODE = '3d';
+const N = 40;   /* decided, Study 30 */   const CELLS = [N], _cells = CELLS.includes(+Q.get('cells')) ? +Q.get('cells') : 40;   /* stones per J: 40 (Divya, 13 Oct); 25 from Study 19 to 29 */
+/* Study 37: a stone is a candidate to fall out if it sits this far inside
+   the outline (field units; the letter is ~0.92 tall), so the silhouette
+   stays whole without it */
+const INSIDE = 0.06;
+const WV = 'c';   /* Study 39: decided */
+const LINE = 'grotesk';   /* Study 39: decided */
+const RES = 0.6;   /* Study 39: decided; 'finer' meshed 2.75× the triangles and the page waits for all forty stones before the first one shows */
+const EDGE = 'exact1024';   /* Study 39: decided — the exact distance on the 1024px mask (Study 34) */
+const MASKDIR = EDGE === 'exact1024' ? 'masks1024/' : 'masks/';
+document.body.dataset.words = WV; document.body.dataset.line = LINE;
+const HOLD = 6;         /* seconds the whole J stays before its stones let go (10 in Study 27; Divya, 13 Oct: 6) */
+const SIGNV = 'soft';   /* Divya, on 22: the soft sign; the yellow says it */
+const SITEV = 'flat';   /* Study 26: the sign lies down (Divya, on 25); the other placements are gone */
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const T = window.__cs = { ready: false, assembled: false, look: LOOK, seed: SEED, font: FONT, fonts: FONTS, cells: N, words: WV, line: LINE, res: RES, edge: EDGE, mode: MODE, sign: SIGNV, site: SITEV, hold: HOLD, phase: 'build', gen: 0, pieces: [], fallen: [], tau: 0 };
 
-    (function () {
-      var ta    = document.getElementById('intentInput');
-      var faux  = document.getElementById('intentFaux');
-      var field = ta && ta.closest('.hero-field');
-      var form  = ta && ta.closest('.hero-fill');
-      if (!ta || !faux || !field) return;
+/* the study bar is gone (live site); these stay harmless with no bar */
+const bar = [...document.querySelectorAll('.study a[data-font]')];
+for (const a of bar) {
+  a.href = '?' + new URLSearchParams({ font: a.dataset.font, seed: SEED });
+  a.addEventListener('click', (e) => { e.preventDefault(); jump(a.dataset.font); });
+}
+function lightBar() {
+  for (const a of bar) {
+    a.dataset.font === T.font ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
+    a.dataset.font === T.next && T.phase !== 'build' ? a.setAttribute('data-next', '') : a.removeAttribute('data-next');
+  }
+}
 
-      var PROMPTS = [
-        'to tell a better story',
-        'to launch a product from zero',
-        'to build a brand that feels like me',
-        'to run a workshop for my team',
-        'to get help with my pitch deck',
-        'to just think with someone',
-        'to find a conversation worth listening to',
-        'to hear founders talk burnout',
-        'to figure out where ai fits',
-        'to question what success means'
-      ];
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('gl'), antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 60);
 
-      // Auto-grow: the field's height follows the typed answer (wraps, never clips).
-      function grow() { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
-      // The grey dummy text is gone the moment you're in the field or have typed.
-      function sync() {
-        field.classList.toggle('active', document.activeElement === ta);
-        field.classList.toggle('filled', ta.value.length > 0);
+/* ---------- layout, in world units. The J is 1.6 tall, centred on 0. ---------- */
+const JH = 1.6, LIFT = 0.32;                    // the J's gap above the floor
+const FLOOR = -JH / 2 - LIFT;
+const ink = new THREE.Color('#2C3544');
+
+const pivot = new THREE.Group(); scene.add(pivot);           // leans and shifts with the pointer
+const block = new THREE.Group(); block.position.y = -JH / 2; pivot.add(block);   // the J, its base at the pivot's foot
+const ground = new THREE.Group(); scene.add(ground);         // floor things: fallen stones, the sign
+
+/* ---------- the floor and its shadows ---------- */
+const floor = new THREE.Mesh(new THREE.CircleGeometry(3.2, 96), new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  vertexShader: 'varying vec2 vP; void main(){ vP = position.xy; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `varying vec2 vP; void main(){
+    float r = length(vP) / 3.2;
+    gl_FragColor = vec4(vec3(0.925, 0.915, 0.9), (1.0 - smoothstep(0.35, 1.0, r)) * 0.85);
+    #include <colorspace_fragment>
+  }`,
+}));
+floor.rotation.x = -Math.PI / 2; floor.position.y = FLOOR; floor.renderOrder = -2; scene.add(floor);
+
+/* a shadow is an ellipse on the floor, soft (gaussian): Gummy's manner */
+function shadowMat() {
+  return new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: { uK: { value: 0.3 }, uInk: { value: ink } },
+    vertexShader: 'varying vec2 vU; void main(){ vU = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `uniform float uK; uniform vec3 uInk; varying vec2 vU;
+      void main(){
+        vec2 p = (vU - 0.5) * 2.0; float g = exp(-3.2 * dot(p, p));
+        gl_FragColor = vec4(uInk, g * uK);
+        #include <colorspace_fragment>
+      }`,
+  });
+}
+function shadow(w, d) {
+  const s = new THREE.Mesh(new THREE.PlaneGeometry(w, d), shadowMat());
+  s.rotation.x = -Math.PI / 2; s.position.y = FLOOR + 0.002; s.renderOrder = -1; scene.add(s);
+  return s;
+}
+const jShadow = shadow(2.1, 0.95);
+
+/* ---------- the site: the sign lying on the floor (site.js) ---------- */
+const parts = [];
+const sign = new THREE.Group(); ground.add(sign);
+const signShadow = shadow(0.8, 0.45); signShadow.material.uniforms.uK.value = 0.2;
+{ const face = buildSoftDiamond(THREE, RoundedBoxGeometry, parts); face.position.set(0, 0, 0); sign.add(face); }
+
+/* ---------- the J, built live: one worker, any mask ---------- */
+const worker = new Worker('/cs/jbuilder.js', { type: 'module' });
+function stones(msg) {
+  return new Promise((res, rej) => {
+    const out = [];
+    worker.onmessage = (e) => { const d = e.data; if (d.type === 'piece') out.push(d); if (d.type === 'done') res({ pieces: out, ms: d.ms, fieldMs: d.fieldMs, maskR: d.maskR }); if (d.type === 'error') rej(new Error(d.message)); };
+    worker.postMessage(msg);
+  });
+}
+/* the first J uses the seed as given (so ?seed= pins it, as before); each later font gets the seed plus its own name */
+const seedFor = (font, gen) => gen ? SEED + '/' + font : SEED;
+const build = (font, gen) => stones({ seed: seedFor(font, gen), cells: N, res: RES, field: EDGE === 'chamfer' ? 'chamfer' : 'exact', mask: MASKDIR + font + '.png', layer: MODE === '2d' });
+
+const ident = new THREE.Quaternion();
+/* one generation = one font's J: its stones in the block, its two fallen
+   stones on the floor, where each flies in from, and its build clock */
+function makeGen(font, gen, J) {
+  let s = 7; for (const ch of seedFor(font, gen)) s = (s * 31 + ch.charCodeAt(0)) % 2147483647;   // the fly-in follows the seed too
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const pending = J.pieces;
+  const G = { font, gen, seed: seedFor(font, gen), buildMs: J.ms, fieldMs: J.fieldMs, maskR: J.maskR, tris: pending.reduce((n, d) => n + d.idx.length / 3, 0), pieces: [], fallen: [], meshes: [], tau: 0, rnd };
+  /* two stones have fallen out: from inside the outline (the silhouette keeps),
+     the front-most four of those (so the pocket shows), the two smallest of
+     them. A thin letter with fewer than two inside stones takes its two
+     innermost. (Studies 19–36 took the two smallest ON the outline.) */
+  const zOf = (d) => { let z = 0; for (let k = 2; k < d.pos.length; k += 3) z += d.pos[k]; return z / (d.pos.length / 3); };
+  const inside = pending.filter(d => d.edge < -INSIDE);
+  const pool = inside.length >= 2 ? inside : [...pending].sort((a, b) => a.edge - b.edge).slice(0, 2);
+  const fallIdx = new Set(pool.sort((a, b) => zOf(b) - zOf(a)).slice(0, 4).sort((a, b) => a.size - b.size).slice(0, 2).map(d => d.i));
+  for (const [k, d] of pending.entries()) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3));
+    g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+    g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true));
+    g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+    g.computeBoundingBox(); const c = g.boundingBox.getCenter(new THREE.Vector3()), sz = g.boundingBox.getSize(new THREE.Vector3());
+    g.translate(-c.x, -c.y, -c.z);                                         // each stone turns about its own middle
+    const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(d.colour); m.userData.hex = d.colour;
+    look.dress({ THREE, mesh: m });
+    G.meshes.push(m);
+    const P = { m, home: c, origin: c.clone(), edge: d.edge, homeQ: ident.clone(), fallen: fallIdx.has(d.i), delay: 0.1 + k * 0.06 * 25 / pending.length, r: 0.45 * Math.min(sz.x, sz.y, sz.z) };   /* Study 29: the same build time whatever the count */
+    if (P.fallen) {
+      /* lying on its side on the floor, left of the J; it lands there, not in
+         the J. Try 1 tipped it onto its back: a stone is 0.6 deep and ~0.25
+         across, so on its back it stood up like a pillar. Now: keep the depth
+         horizontal (like a log), and roll it to whichever angle sits lowest. */
+      ground.add(m);
+      const n = G.fallen.length, yaw = (n ? -0.5 : 0.7) + (rnd() - 0.5) * 0.4;
+      m.position.set(0, 0, 0);
+      let best = null;
+      for (let k = 0; k < 24; k++) {
+        m.quaternion.setFromEuler(new THREE.Euler(0, yaw, k * Math.PI / 24, 'YXZ'));
+        m.updateMatrixWorld(true);
+        const b = new THREE.Box3().setFromObject(m, true), h = b.max.y - b.min.y;
+        if (!best || h < best.h) best = { h, q: m.quaternion.clone() };
       }
-      ta.addEventListener('input', function () { grow(); sync(); });
-      ta.addEventListener('focus', sync);
-      ta.addEventListener('blur', sync);
+      P.homeQ = best.q; m.quaternion.copy(P.homeQ); m.updateMatrixWorld(true);
+      const lowest = new THREE.Box3().setFromObject(m, true).min.y;   // precise: the rotated mesh, not its rotated box
+      P.home = new THREE.Vector3(n ? -0.62 : -1.02, FLOOR - lowest + 0.004, n ? 0.62 : 0.4);
+      P.shadow = shadow(0.55, 0.42); P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); P.shadow.material.uniforms.uK.value = 0;
+      G.fallen.push(P);
+    } else block.add(m);
+    /* where it starts: thrown out from the J's middle, turned */
+    const dir = P.home.clone().sub(new THREE.Vector3(0, P.fallen ? FLOOR : JH / 2, 0)); dir.z += (rnd() - 0.5) * 0.8; dir.normalize();
+    P.from = P.home.clone().addScaledVector(dir, 1.6 + 1.4 * rnd()).add(new THREE.Vector3(0, 0.4 + 0.6 * rnd(), 1.2 * rnd()));
+    P.spin = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize(), (0.6 + rnd()) * Math.PI);
+    m.position.copy(P.from); m.quaternion.copy(P.spin);
+    G.pieces.push(P);
+  }
+  G.end = Math.max(...G.pieces.map(P => P.delay)) + 1.2;   // tau at which the last stone lands
+  return G;
+}
+function dropGen(G) {
+  for (const P of G.pieces) {
+    P.m.removeFromParent(); P.m.geometry.dispose(); P.m.material.dispose();
+    if (P.shadow) { P.shadow.removeFromParent(); P.shadow.geometry.dispose(); P.shadow.material.dispose(); }
+  }
+}
+function show(G) {   /* the test and the bar read the current generation through T */
+  T.pieces = G.pieces; T.fallen = G.fallen; T.font = G.font; T.gen = G.gen; T.genSeed = G.seed; T.buildMs = G.buildMs; T.fieldMs = G.fieldMs; T.maskR = G.maskR; T.tris = G.tris; T.tau = G.tau;
+  T.rate = { BASE, GAIN, END: G.end };
+  lightBar();
+}
 
-      // Enter submits (a textarea would otherwise insert a newline). Shift+Enter = newline.
-      ta.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-          e.preventDefault();
-          if (form && form.requestSubmit) form.requestSubmit();
-          else if (form) form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-        }
-      });
+let G = makeGen(FONT, 0, await build(FONT, 0));
+await look.setup({ THREE, renderer, scene, camera, pieces: [...G.meshes, ...parts], block, pivot, box: { min: new THREE.Vector3(-0.8, -JH / 2, -0.3), max: new THREE.Vector3(0.8, JH / 2, 0.3) } });
+const decals = []; scene.traverse(o => { if (o.userData.decal) decals.push(o); });
+T.decals = decals.length; T.decalStyled = false;
+T.pivot = pivot; T.camera = camera;
 
-      // Crossfade the grey prompt — fade out + 6px down, swap, fade back in
-      // (the services rel-in fade, no caret). Pauses while the field is in use.
-      var i = 0;
-      faux.textContent = PROMPTS[0];
-      grow();
-      if (!reduce) {
-        setInterval(function () {
-          if (document.activeElement === ta || ta.value) return;
-          faux.classList.add('swap');
-          setTimeout(function () {
-            i = (i + 1) % PROMPTS.length;
-            faux.textContent = PROMPTS[i];
-            faux.classList.remove('swap');
-          }, 340);
-        }, 2600);
+/* the next font: decided now, built while this one stands, so the swap never waits */
+const after = (font) => FONTS[(FONTS.indexOf(font) + 1) % FONTS.length];
+let nextFont = after(FONT), nextJ = build(nextFont, 1);
+T.next = nextFont;
+function jump(font) {   /* study bar: bring this font next, now */
+  if (!FONTS.includes(font) || font === G.font || T.phase === 'swap') return;
+  nextFont = font; nextJ = build(font, G.gen + 1); T.next = font;
+  if (T.phase !== 'fall') letGo();
+  lightBar();
+}
+
+/* ---------- layout and framing ----------
+   Wide screens: sign right of the J, fallen stones left. Narrow screens
+   (try 2: everything shrank to fit across a phone): both come forward,
+   in front of the J's feet.
+   Framing (try 2 fitted a flat box and the near stones ran into the
+   headline): project the real things through the camera and search for
+   the distance at which all of them land inside the stage box. */
+/* Study 26: the sign lying down, nearly flat, face up, behind the fallen
+   stones (Study 25's "flat"). sign: [x, z, yaw, scale, lean back, tilt] */
+const SIGN_AT = { wide: [-1.3, -0.22, 0.35, 1.1, 1.3, 0.35], narrow: [-0.95, 0.3, 0.3, 0.75, 1.3, 0.35] };
+const LAYOUT = {
+  wide:   { sign: SIGN_AT.wide, fallen: [[-0.9, 0.42], [-0.5, 0.66]] },
+  narrow: { sign: SIGN_AT.narrow, fallen: [[-0.3, 0.82], [0.18, 1.02]] },   /* Study 39: under the J's middle, now the sign is gone from the column (was [-0.62, 0.86], [-0.24, 1.1], beside the sign) */
+};
+function place(L) {
+  const [sx, sz, sy, ss, lean, tilt] = L.sign;
+  /* turned in its own plane (tilt), leaned back (lean), then turned to face the J (yaw) */
+  sign.rotation.set(-lean, sy, tilt, 'YXZ'); sign.scale.setScalar(ss);
+  sign.position.set(sx, 0, sz); sign.updateMatrixWorld(true);
+  sign.position.y = FLOOR - new THREE.Box3().setFromObject(sign, true).min.y + 0.002;   // its lowest point on the floor
+  signShadow.position.set(sx, FLOOR + 0.002, sz - 0.08); signShadow.scale.setScalar(ss);
+
+  G.fallen.forEach((P, n) => { P.home.x = L.fallen[n][0]; P.home.z = L.fallen[n][1]; P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); });
+}
+/* Study 36: the floor point under a pixel, and the site laid round a point */
+function floorAt(px, py) {
+  const p = new THREE.Vector3(px / innerWidth * 2 - 1, -(py / innerHeight * 2 - 1), 0.5).unproject(camera);
+  const dir = p.sub(camera.position).normalize();
+  return camera.position.clone().addScaledVector(dir, (FLOOR - camera.position.y) / dir.y);
+}
+function placeSite(a, L) {
+  const [, , sy, ss, lean, tilt] = L.sign;
+  sign.rotation.set(-lean, sy, tilt, 'YXZ'); sign.scale.setScalar(ss);
+  sign.position.set(a.x, 0, a.z); sign.updateMatrixWorld(true);
+  sign.position.y = FLOOR - new THREE.Box3().setFromObject(sign, true).min.y + 0.002;
+  signShadow.position.set(sign.position.x, FLOOR + 0.002, sign.position.z - 0.08); signShadow.scale.setScalar(ss);
+  /* Study 39: only the sign; the two blocks stay where place() put them, under the J (Divya: "i only wanted the sign moved") */
+  T.siteAt = { x: +a.x.toFixed(3), z: +a.z.toFixed(3) };
+}
+const SHRINK = 0.84;   /* Study 39: the J at 84% of what the column allows */
+const v3 = new THREE.Vector3();
+function fit() {
+  const W = innerWidth, H = innerHeight, r = stage.getBoundingClientRect();
+  T.layout = r.width / r.height < 1.15 ? 'narrow' : 'wide';
+  /* side by side (the words' column to the right of the stage): the site goes under the words. Not the
+     stage's aspect: a desktop stage column is taller than wide, so T.layout has read 'narrow' there since Study 28. */
+  const wide = document.querySelector('.below').getBoundingClientRect().left >= r.right - 1;
+  place(LAYOUT[T.layout]);   /* stacked: in front of the J; side by side: replaced below, under the words */
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H;
+  /* the points that must be seen: the J's box widened for its lean and bob,
+     the sign's box, a ball round each fallen stone */
+  const pts = [];
+  for (const x of [-0.95, 0.95]) for (const y of [-JH / 2 - 0.08, JH / 2 + 0.08]) for (const z of [-0.4, 0.4]) pts.push(new THREE.Vector3(x, y, z));
+  for (const o of wide ? [] : [sign]) {   /* Study 36: on wide screens the J alone sizes the column */
+    o.updateMatrixWorld(true);
+    const bb = new THREE.Box3().setFromObject(o, true);
+    for (const x of [bb.min.x, bb.max.x]) for (const y of [bb.min.y, bb.max.y]) for (const z of [bb.min.z, bb.max.z]) pts.push(new THREE.Vector3(x, y, z));
+  }
+  for (const P of G.fallen) for (const d of [[-1,0,0],[1,0,0],[0,1,0],[0,0,-1],[0,0,1]]) pts.push(P.home.clone().add(new THREE.Vector3(...d).multiplyScalar(0.34)));   /* Study 39: the blocks are under the J again, so they frame with it */
+  /* Study 39: a bit smaller (Divya): the frame is asked to hold the J and its blocks grown by 1/SHRINK about their middle */
+  { const cc = new THREE.Box3().setFromPoints(pts).getCenter(new THREE.Vector3()); for (const p of pts) p.sub(cc).multiplyScalar(1 / SHRINK).add(cc); }
+  const box = new THREE.Box3().setFromPoints(pts), c = box.getCenter(new THREE.Vector3());
+  /* the stage box in normalised device coordinates */
+  const barEl = document.querySelector('.study'), barBottom = barEl ? barEl.getBoundingClientRect().bottom : 0;   // no bar on the live site
+  /* Study 28: the floor things sat on the column's bottom edge with 6px to spare; now 5% of its height */
+  const top = 1 - 2 * Math.max(r.top + 8, barBottom + 8) / H, bottom = 1 - 2 * (r.bottom - Math.max(6, 0.05 * r.height)) / H;
+  /* Study 28: the stage is a column, so its sides bound the J too, and the view is shifted to its middle in both axes */
+  const left = -1 + 2 * (r.left + 12) / W, right = -1 + 2 * (r.right - 12) / W;
+  const fits = (dist) => {
+    camera.position.set(c.x, c.y + dist * 0.2, c.z + dist); camera.lookAt(c);
+    camera.setViewOffset(W, H, W / 2 - ((left + right) / 2 * W / 2 + W / 2), H / 2 - ((top + bottom) / 2 * -H / 2 + H / 2), W, H);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+    return pts.every(p => { v3.copy(p).project(camera); return v3.x > left && v3.x < right && v3.y < top && v3.y > bottom; });
+  };
+  let lo = 1, hi = 60;
+  for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; fits(m) ? hi = m : lo = m; }
+  fits(hi);
+  T.fit = { dist: +hi.toFixed(2), layout: T.layout };
+  if (wide) {   /* Study 36: the site under the words, between the last link and the bottom edge */
+    const wr = document.querySelector('.below').getBoundingClientRect(), lr = document.querySelector('.links').getBoundingClientRect();
+    const px = wr.left + wr.width * 0.66, py = Math.min(H - 70, Math.max(lr.bottom + 90, H * 0.84));   /* Study 40: further right (was 0.42) */
+    placeSite(floorAt(px, py), LAYOUT.wide);
+  } else T.siteAt = null;
+}
+fit(); addEventListener('resize', fit); addEventListener('scroll', fit, { passive: true });
+
+/* ---------- the pointer: where it is, and how fast it's moving ---------- */
+const target = new THREE.Vector2(), last = new THREE.Vector2();
+let speed = 0, seen = false;
+addEventListener('pointermove', e => {
+  target.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1));
+  if (!seen) { last.copy(target); seen = true; }
+});
+document.addEventListener('pointerleave', () => target.set(0, 0));
+
+/* ---------- letting go: the J's stones drop, settle on the floor, sink away ----------
+   Each stone is released in turn, the lowest first (the base crumbles), with
+   a small sideways push and a tumble. It falls under gravity in the block's
+   own frame, lands on the floor (its half-size above it, since it tumbles),
+   bounces once, rests half a second, then shrinks and fades where it lies
+   (sinking only a touch: try 1 sank it down into the headline). The fallen
+   stones on the floor only shrink and fade, a little later. presence
+   (1 → 0) fades the floating J's shadow. */
+const GRAV = 7, BOUNCE = 0.3, REST = 0.5, FADE = 0.5, SINK = 0.12;   /* try 1 sank at 0.5/s: the pile slid down into the headline */
+let presence = 1;
+function letGo() {
+  if (T.phase === 'fall' || T.phase === 'swap') return;
+  if (still) { swap(); return; }   /* reduced motion: no fall, a cut */
+  T.phase = 'fall'; T.phaseT = 0; T.assembled = false;
+  const rnd = G.rnd;
+  for (const P of G.pieces) {
+    P.m.material.transparent = true; P.alpha = 1; P.rest = 0;
+    if (P.fallen) { P.release = 0.6 + rnd() * 0.3; P.landed = true; continue; }
+    P.release = (P.home.y / JH) * 0.35 + rnd() * 0.12;
+    P.v = new THREE.Vector3((P.home.x > 0 ? 1 : -1) * (0.15 + rnd() * 0.35), 0.2 * rnd(), (rnd() - 0.5) * 0.7);
+    P.w = new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize().multiplyScalar(2 + 4 * rnd());
+    P.landed = false;
+  }
+  lightBar();
+}
+const wq = new THREE.Quaternion(), wv = new THREE.Vector3();
+function stepFall(dt) {
+  T.phaseT += dt;
+  presence = Math.max(0, presence - dt / 0.7);
+  let gone = 0;
+  for (const P of G.pieces) {
+    if (T.phaseT < P.release) continue;
+    if (P.alpha <= 0) { gone++; continue; }
+    if (!P.landed) {
+      P.v.y -= GRAV * dt;
+      P.m.position.addScaledVector(P.v, dt);
+      wq.setFromAxisAngle(wv.copy(P.w).normalize(), P.w.length() * dt); P.m.quaternion.premultiply(wq);
+      /* the floor, in the block's frame, under this stone */
+      P.m.getWorldPosition(wv); wv.y = FLOOR; block.worldToLocal(wv);
+      if (P.m.position.y - P.r < wv.y) {   /* on or under the floor: land it (try 1 also required v.y < 0, and a slow frame once let a stone through) */
+        P.m.position.y = wv.y + P.r;
+        P.v.y *= -BOUNCE; P.v.x *= 0.6; P.v.z *= 0.6; P.w.multiplyScalar(0.4);
+        if (P.v.y < 0.5) { P.v.set(0, 0, 0); P.landed = true; }
       }
-    })();
-  </script>
+    } else {
+      P.rest += dt;
+      if (P.rest > REST) {
+        P.m.position.y -= SINK * dt;
+        P.alpha = Math.max(0, P.alpha - dt / FADE);
+        P.m.material.opacity = P.alpha; P.m.scale.setScalar(0.4 + 0.6 * P.alpha);
+        if (P.shadow) P.shadow.material.uniforms.uK.value = 0.24 * P.alpha;
+        if (P.alpha <= 0) { P.m.visible = false; gone++; T.faded = (T.faded || 0) + 1; }   /* counted, so the test needn't catch the moment */
+      }
+    }
+  }
+  if (gone === G.pieces.length) swap();
+}
+async function swap() {
+  T.phase = 'swap'; T.swaps = (T.swaps || 0) + 1; T.lastFaded = T.faded || 0; T.faded = 0;
+  const font = nextFont, J = await nextJ;
+  dropGen(G);
+  G = makeGen(font, G.gen + 1, J);
+  place(LAYOUT[T.layout]); if (T.siteAt) fit();   /* Study 36: the new fallen stones go under the words too */
+  presence = 1;
+  nextFont = after(font); nextJ = build(nextFont, G.gen + 1); T.next = nextFont;
+  T.phase = 'build'; T.phaseT = 0; T.assembled = false;
+  show(G);
+}
 
+const ease = t => 1 - Math.pow(1 - t, 3);
+const BASE = 1.0, GAIN = 1.1;                                // build rate: idle → ~2.7 s, moving → ~1 s. Study 38: was 0.32 (idle ~8.6 s), longer than the 6 s hold, so the J spent most of each cycle in pieces (Divya: "it breaks")
+show(G);
+T.ready = true;
+let then = performance.now(), t = 0;
+function frame(now) {
+  const dt = Math.min(0.1, (now - then) / 1000); then = now; t += dt;   /* capped at 10 fps: below that the clocks slow rather than jump */
+  /* 1. pointer speed (screen-halves per second), smoothed */
+  const v = target.distanceTo(last) / Math.max(dt, 1e-3); last.copy(target);
+  speed += (v - speed) * Math.min(1, dt * 6);
+  T.speed = speed;
+  if (T.phase === 'build') {
+    /* 2. the build clock runs faster the more the pointer moves */
+    G.tau = still ? G.end : Math.min(G.end, G.tau + dt * (BASE + GAIN * Math.min(speed, 4)));
+    T.tau = G.tau;
+    /* done when the clock is: per-stone progress can stop at 0.99999…
+       (seed rqec8q, 24 stones, never reported built — float rounding) */
+    const done = G.tau >= G.end;
+    for (const P of G.pieces) {
+      const a = done ? 1 : Math.min(1, Math.max(0, (G.tau - P.delay) / 1.2)), e = ease(a);
+      P.m.position.lerpVectors(P.from, P.home, e);
+      P.m.quaternion.copy(P.spin).slerp(P.homeQ, e);
+      if (P.shadow) P.shadow.material.uniforms.uK.value = 0.24 * e;
+    }
+    if (done) { T.assembled = true; T.phase = 'hold'; T.phaseT = 0; T.wholeAt = now; lightBar(); }
+  } else if (T.phase === 'hold') {
+    /* real seconds, not frames: a slow machine still lets go after HOLD */
+    T.phaseT = (now - T.wholeAt) / 1000;
+    if (T.phaseT >= HOLD) letGo();
+  } else if (T.phase === 'fall') stepFall(dt);
+  /* 3. the J moves as one: leans and shifts toward the pointer, and floats */
+  const k = still ? 0 : 1, f = Math.min(1, dt * 4);
+  pivot.rotation.y += (target.x * 0.42 * k - pivot.rotation.y) * f;
+  pivot.rotation.x += (-target.y * 0.18 * k - pivot.rotation.x) * f;
+  pivot.position.x += (target.x * 0.14 * k - pivot.position.x) * f;
+  const bob = still ? 0 : Math.sin(t * 1.3) * 0.035;
+  pivot.position.y += ((target.y * 0.05 * k + bob) - pivot.position.y) * f;
+  /* its shadow: under it, darker and tighter as it dips; gone once the stones are down */
+  const lift = LIFT + pivot.position.y;
+  jShadow.position.x = pivot.position.x;
+  jShadow.scale.setScalar(1 + (lift - LIFT) * 0.8);
+  jShadow.material.uniforms.uK.value = 0.3 * (LIFT / lift) * (G.tau / G.end) * presence;
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
 </body>
 </html>
