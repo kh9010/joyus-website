@@ -57,19 +57,9 @@ h1 .keep { white-space: nowrap }   /* Study 35: "under construction" stays on on
 .links a:hover, .links a:focus-visible { background-size: 100% 100%; text-underline-offset: 3px; text-decoration-thickness: 9px }
 .links a:hover::after, .links a:focus-visible::after { clip-path: inset(0 0 0 0) }
 @media (prefers-reduced-motion: reduce) { .links a, .links a::after { transition: none } }
-/* study only: the font bar, not part of the design. The lit one is the font on stage; it moves as the J cycles. */
-.study { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; font: 12px/1 system-ui, sans-serif; max-width: calc(100vw - 20px) }
-.study a { padding: 6px 9px; color: #888; text-decoration: none; border: 1px solid #e3e3e3; border-radius: 99px; background: #fff; cursor: pointer }
-.study a[aria-current] { color: #fff; background: #222; border-color: #222 }
-.study a[data-next] { border-color: #222 }
-.study .gap { width: 10px }
-@media (max-width: 600px) { .study { gap: 3px; font-size: 10.5px } .study a { padding: 4px 6px } }
 </style>
 </head>
 <body>
-<nav class="study" aria-label="Font (study only)">
-  <a data-font="rubik">Rubik</a><a data-font="alfa-slab">Alfa Slab</a><a data-font="archivo-black">Archivo Black</a><a data-font="shrikhand">Shrikhand</a><a data-font="lilita">Lilita</a><a data-font="calistoga">Calistoga</a><a data-font="bagel-fat">Bagel Fat</a><a data-font="abril">Abril Fatface</a><a data-font="sansita-swashed">Sansita Swashed</a><a data-font="ultra">Ultra</a>
-</nav>
 <canvas id="gl" aria-hidden="true"></canvas>
 <div id="stage"></div>
 <main class="below">
@@ -104,7 +94,9 @@ h1 .keep { white-space: nowrap }   /* Study 35: "under construction" stays on on
   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
 } }</script>
 <script type="module">
-/* Study 41: a graceful first load (Divya, 13 Oct: 1.5 s of nothing). The
+/* Study 41 (later the same day): the study-only font bar is gone too (Divya:
+   "why can i see the fonts on top? remove those"); the ten fonts just cycle.
+   Study 41: a graceful first load (Divya, 13 Oct: 1.5 s of nothing). The
    floor, the sign and the words are drawn at once; the worker is started
    from an inline script before three.js downloads; each stone flies in the
    moment it is meshed; the two fallen stones are chosen once all are in
@@ -417,7 +409,8 @@ const firstBuild = firstStones((d) => { addStone(G, d); }).then((J) => { finishG
 const after = (font) => FONTS[(FONTS.indexOf(font) + 1) % FONTS.length];
 let nextFont = after(FONT), nextJ = firstBuild.then(() => build(nextFont, 1));
 T.next = nextFont;
-function jump(font) {   /* study bar: bring this font next, now */
+T.jump = (f) => jump(f);   /* the test jumps fonts this way now the bar is gone */
+function jump(font) {   /* bring this font next, now */
   if (!FONTS.includes(font) || font === G.font || T.phase === 'swap' || !G.done) return;
   nextFont = font; nextJ = build(font, G.gen + 1); T.next = font;
   if (T.phase !== 'fall') letGo();
@@ -488,7 +481,7 @@ function fit() {
   { const cc = new THREE.Box3().setFromPoints(pts).getCenter(new THREE.Vector3()); for (const p of pts) p.sub(cc).multiplyScalar(1 / SHRINK).add(cc); }
   const box = new THREE.Box3().setFromPoints(pts), c = box.getCenter(new THREE.Vector3());
   /* the stage box in normalised device coordinates */
-  const barBottom = document.querySelector('.study').getBoundingClientRect().bottom;   // the study bar wraps on a phone (Study 20 try 1: it covered the J)
+  const barEl = document.querySelector('.study'), barBottom = barEl ? barEl.getBoundingClientRect().bottom : 0;   // the bar is gone (Divya, 13 Oct); the J starts under the top edge
   /* Study 28: the floor things sat on the column's bottom edge with 6px to spare; now 5% of its height */
   const top = 1 - 2 * Math.max(r.top + 8, barBottom + 8) / H, bottom = 1 - 2 * (r.bottom - Math.max(6, 0.05 * r.height)) / H;
   /* Study 28: the stage is a column, so its sides bound the J too, and the view is shifted to its middle in both axes */

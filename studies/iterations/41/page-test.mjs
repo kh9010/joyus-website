@@ -111,7 +111,7 @@ try {
   test('wide: the J is inside the stage column, not under the words', sc.l > s.stage.l && sc.r < s.stage.r && sc.t > 60 && sc.b < s.stage.b, `J spans ${Math.round(sc.l)}–${Math.round(sc.r)} of the ${Math.round(s.stage.l)}–${Math.round(s.stage.r)} column`);
   const site = await c.evaluate(SITE);
   test('wide: the sign sits under the words, bottom right, on screen', site.sign[0] > site.words && site.sign[0] < 1440 && site.sign[1] > site.links + 20 && site.sign[1] < 880, `sign at ${site.sign.map(Math.round)}, links end ${Math.round(site.links)}, words start ${Math.round(site.words)}`);
-  test('the bar: 10 fonts, no looks, no "new J"', s.barFonts === 10 && s.fonts === 10 && s.looks === 0 && !s.reroll, `${s.barFonts} fonts, ${s.looks} looks, reroll ${s.reroll}`);
+  test('no bar at all: the ten fonts just cycle', s.barFonts === 0 && s.fonts === 10 && !(await c.evaluate('!!document.querySelector(".study")')), `${s.barFonts} pills`);
   test(`${s.jCount + s.fallen} stones: ${s.jCount} in the J, ${s.fallen} on the floor`, s.jCount + s.fallen >= 36 && s.fallen === 2, `built in ${s.buildMs} ms`);
   test('J stones home, fallen stones landed', Math.max(...s.away) < 0.005 && Math.max(...s.fallenAway) < 0.005);
   test('fallen stones rest on the floor', s.fallenBox.every(b => Math.abs(b.low - FLOOR) < 0.02), s.fallenBox.map(b => b.low).join(', '));
@@ -143,7 +143,7 @@ try {
   test('the headline is heavier: a stroke in the ink', (await c.evaluate(`getComputedStyle(document.querySelector('h1')).webkitTextStrokeWidth`)) !== '0px');
   test('"Our work" goes to the Drive deck', (await c.evaluate(`document.querySelector('.links li:first-child a').href`)).startsWith('https://drive.google.com/file/d/1cM-AvZpCK4QvV3oYHT2cnu9a0sGEgtoM/'));
   test('more air between the subtitle and the links', s.links.t - (await c.evaluate(`document.querySelector('.note').getBoundingClientRect().bottom`)) > 36, `${Math.round(s.links.t - (await c.evaluate("document.querySelector('.note').getBoundingClientRect().bottom")))}px`);
-  test('the words are decided: C, Space Grotesk subtitle, no switches in the bar', s.words === 'c' && /Space Grotesk/.test(s.noteFont) && /Space Grotesk/.test(s.linkFont) && s.barWords === 0 && document_lines === 0 && !/data-res|data-edge/.test(await c.evaluate('document.querySelector(".study").innerHTML')), `${s.barWords} treatments, ${document_lines} subtitles`);
+  test('the words are decided: C, Space Grotesk subtitle, no switches', s.words === 'c' && /Space Grotesk/.test(s.noteFont) && /Space Grotesk/.test(s.linkFont) && s.barWords === 0 && document_lines === 0, `${s.barWords} treatments, ${document_lines} subtitles`);
   // 2b. the site: the sign under the words; the two blocks under the J, in its column
   const site0 = await c.evaluate(SITE);
   test('the sign sits under the words; the two blocks stay under the J', site0.sign[0] > site0.words && site0.sign[1] > site0.links + 20 && site0.sign[1] < 880 && site0.stones.every(p => p[0] < s.stage.r && p[1] > sc.b - 40 && p[1] < s.stage.b), `sign at ${site0.sign.map(Math.round)}, blocks at ${site0.stones.map(p => p.map(Math.round).join(':')).join(' ')}, J bottom ${Math.round(sc.b)}, column ends ${Math.round(s.stage.r)}`);
@@ -175,7 +175,7 @@ try {
   const nx = await c.evaluate(STATE);
   test('the next font takes the stage: alfa-slab, a fresh J of 40', nx.font === 'alfa-slab' && nx.cells === N && nx.gen === 1 && nx.swaps === 1 && nx.genSeed === SEED + '/alfa-slab' && nx.jCount + nx.fallen >= 36 && nx.fallen === 2, `${nx.font} gen ${nx.gen} ${nx.jCount}+${nx.fallen} stones, seed ${nx.genSeed}`);
   test('its stones start away, not in the J', Math.min(...nx.away) > 0.5, 'min ' + Math.min(...nx.away).toFixed(2));
-  test('the bar follows', nx.lit.length === 1 && nx.lit[0] === 'alfa-slab' && nx.next === 'archivo-black', nx.lit.join(',') + ' → ' + nx.next);
+  test('the order follows', nx.next === 'archivo-black', nx.font + ' → ' + nx.next);
   await whole(c); await sleep(1200);
   const nw = await c.evaluate(STATE);
   const site2 = await c.evaluate(SITE);
@@ -184,13 +184,13 @@ try {
   test('no JavaScript errors through a cycle', c.errors.length === 0, c.errors.join(' / '));
 
   // 4. the bar brings a font next, now; the order wraps
-  await c.evaluate(`document.querySelector('.study a[data-font="ultra"]').click()`);
+  await c.evaluate(`window.__cs.jump('ultra')`);
   await sleep(150);
   const cl = await c.evaluate(STATE);
-  test('click Ultra: the J lets go, Ultra is next', cl.phase === 'fall' && cl.next === 'ultra', `phase ${cl.phase}, next ${cl.next}`);
+  test('jump to Ultra: the J lets go, Ultra is next', cl.phase === 'fall' && cl.next === 'ultra', `phase ${cl.phase}, next ${cl.next}`);
   await c.waitFor("window.__cs.phase === 'build'", 30000);
   const cj = await c.evaluate(STATE);
-  test('Ultra takes the stage, Rubik after it (the wrap)', cj.font === 'ultra' && cj.next === 'rubik' && cj.lit[0] === 'ultra', `${cj.font} → ${cj.next}`);
+  test('Ultra takes the stage, Rubik after it (the wrap)', cj.font === 'ultra' && cj.next === 'rubik', `${cj.font} → ${cj.next}`);
   await c.visit(`${URL}?font=sansita-swashed&seed=${SEED}`, 1440, 900);
   await c.waitFor('window.__cs && window.__cs.ready', 120000);
   const wr = await c.evaluate(STATE);
