@@ -226,6 +226,10 @@ The coming-soon page is built as studies on `divya-oct06-coming-soon` (latest: `
 5. **Check it in a browser over HTTP** (`python3 -m http.server`, not `file://` — the worker and masks need a server), then open a PR to `main` and merge it on GitHub (`gh pr create -B main` → `gh pr merge --merge --delete-branch`). Don't merge locally and push.
 6. Confirm on https://joyus.studio after Pages rebuilds (hard refresh).
 
+## Motion Jigsaw privacy policy: never take it down
+
+`motion-jigsaw/privacy/index.html` is served at `https://joyus.studio/motion-jigsaw/privacy/` and that URL is written into the Google Play and App Store listings and into the game itself (`PRIVACY_URL` in the game's Settings). **Never delete, move, rename or break this page or its `assets/`**, and never put it behind a redirect, a build step or a login. Edit its content on a `divya-*` branch; keep the URL and the `noindex` (Divya, 12 October 2026). A store listing with a dead privacy URL is removed from the store.
+
 ## Branch discipline
 
 **Always work on a personal/task-named branch. Never commit directly to main. Never commit on Divya's branches. Don't auto-merge — wait for explicit instruction.**
