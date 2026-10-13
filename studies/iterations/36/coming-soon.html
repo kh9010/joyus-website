@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Joyus — under construction</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Instrument+Serif:ital@1&family=DM+Mono:wght@500&family=Unbounded:wght@500&family=Nunito:wght@800&family=Fraunces:ital,wght@1,500&family=Space+Mono:wght@400&display=swap">
+<style>
+:root { --bg: #FFFFFF; --ink: #2C3544; --ink-soft: #54606F; --ink-fade: #8892A0; --rule: rgba(44, 53, 68, 0.12); --pink: #E91E7B; --cyan: #4FC4CF; --yellow: #F2C94A; --x: clamp(1rem, 4vw, 3rem) }
+* { box-sizing: border-box }
+html, body { margin: 0; height: 100% }
+body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 'Space Grotesk', system-ui, sans-serif; display: flex; flex-direction: column; min-height: 100dvh }
+#gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
+#stage { flex: 1 1 auto; min-height: 56vh }
+.below { position: relative; z-index: 1; padding: 0 var(--x) clamp(2rem, 6vh, 4rem); text-align: center }
+/* Study 31: the headline bigger (was clamp(1.6rem, 4.2vw, 2.6rem)) */
+h1 { font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -.035em; font-weight: 700; margin: 0 }
+h1 .keep { white-space: nowrap }   /* Study 35: "under construction" stays on one line */
+.note { margin: .6rem 0 1.6rem }
+.links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem }
+/* Study 28: side by side when there's room. The J on the left, the words on the right (Divya, 13 Oct); stacked on a phone as before. */
+@media (min-width: 820px) and (min-aspect-ratio: 1/1) {
+  body { display: grid; grid-template-columns: 1.15fr 1fr; height: 100dvh }   /* Study 35: the words get more room (was 1.35 : 1) */
+  #stage { min-height: 0; height: 100dvh }
+  .below { display: flex; flex-direction: column; justify-content: center; text-align: left; padding: 0 var(--x) 0 clamp(1rem, 2vw, 2rem); max-width: 720px }
+  h1 { font-size: clamp(2.2rem, 3.4vw, 3.6rem) }
+  .links { justify-content: flex-start }
+}
+/* Study 31: four treatments of the words (?words=), each one idea: the second line's voice and the links' shape.
+   Every link carries a dot, a label, a second line and an arrow; each treatment shows what it needs. */
+.links a { display: inline-flex; align-items: center; gap: .5rem; color: var(--ink); text-decoration: none; font-weight: 500 }
+.links a:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px }
+.links .dot, .links .arrow, .links small { display: none }
+.links li:nth-child(1) { --c: var(--pink) } .links li:nth-child(2) { --c: var(--cyan) } .links li:nth-child(3) { --c: var(--yellow) }
+/* A · Serif aside: an italic serif line; outlined pills, each with its colour as a dot */
+body[data-words=a] .note { font: italic 400 clamp(1.5rem, 2.3vw, 2rem)/1.2 'Instrument Serif', Georgia, serif; color: var(--ink-soft) }
+body[data-words=a] .links a { padding: .65rem 1.25rem .65rem 1rem; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--bg); font-size: 1.05rem }
+body[data-words=a] .links .dot { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; background: var(--c) }
+body[data-words=a] .links small { display: inline; color: var(--ink-fade); font-weight: 400 }
+body[data-words=a] .links a:hover { background: var(--ink); color: var(--bg) }
+body[data-words=a] .links a:hover small { color: rgba(255, 255, 255, .6) }
+/* B · Index: a mono label; the links as a list with hairlines, the arrow in each one's colour */
+body[data-words=b] .note { font: 500 .85rem/1.4 'DM Mono', ui-monospace, monospace; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft) }
+body[data-words=b] .links { flex-direction: column; gap: 0; width: 100%; max-width: 400px; margin: 0 auto }
+body[data-words=b] .links li { border-top: 1px solid var(--rule) }
+body[data-words=b] .links li:last-child { border-bottom: 1px solid var(--rule) }
+body[data-words=b] .links a { display: flex; width: 100%; padding: .9rem 0; font-size: 1.2rem; font-weight: 600; letter-spacing: -.01em; text-align: left }
+body[data-words=b] .links small { display: inline; color: var(--ink-fade); font-weight: 400; font-size: .85rem; margin-left: .2rem }
+body[data-words=b] .links .arrow { display: inline; margin-left: auto; color: var(--c); font-weight: 700; transition: transform .2s }
+body[data-words=b] .links a:hover .arrow { transform: translateX(6px) }
+/* C · Display: big words on a thick coloured underline. Study 33: Divya likes the style, not Unbounded for the line,
+   so the line's font is its own switch (?line=): the page's own Space Grotesk, Instrument Serif italic, Fraunces italic, Space Mono */
+body[data-words=c] .note { font: 500 clamp(1.15rem, 1.7vw, 1.45rem)/1.4 'Space Grotesk', sans-serif; color: var(--ink-soft) }
+body[data-words=c][data-line=serif] .note { font: italic 400 clamp(1.5rem, 2.3vw, 2rem)/1.2 'Instrument Serif', Georgia, serif }
+body[data-words=c][data-line=fraunces] .note { font: italic 500 clamp(1.4rem, 2.1vw, 1.85rem)/1.25 Fraunces, Georgia, serif }
+body[data-words=c][data-line=mono] .note { font: 400 clamp(.95rem, 1.3vw, 1.1rem)/1.5 'Space Mono', ui-monospace, monospace; letter-spacing: -.01em }
+/* Study 35: the same switch dresses the links */
+body[data-words=c][data-line=serif] .links a { font: italic 400 clamp(1.6rem, 2.5vw, 2.2rem)/1.15 'Instrument Serif', Georgia, serif; letter-spacing: 0 }
+body[data-words=c][data-line=fraunces] .links a { font: italic 500 clamp(1.5rem, 2.3vw, 2rem)/1.15 Fraunces, Georgia, serif; letter-spacing: 0 }
+body[data-words=c][data-line=mono] .links a { font: 700 clamp(1.1rem, 1.6vw, 1.35rem)/1.3 'Space Mono', ui-monospace, monospace; letter-spacing: -.02em }
+body[data-words=c] .links { flex-direction: column; align-items: flex-start; gap: .55rem }   /* Study 35: a list under the line (Divya's sketch) */
+@media not all and (min-width: 820px) and (min-aspect-ratio: 1/1) { body[data-words=c] .links { align-items: center } }
+body[data-words=c] .links a { font-size: clamp(1.35rem, 2.1vw, 1.8rem); font-weight: 700; letter-spacing: -.025em; text-decoration: underline; text-decoration-color: var(--c); text-decoration-thickness: 5px; text-underline-offset: 7px; transition: text-underline-offset .15s, text-decoration-thickness .15s }
+body[data-words=c] .links a:hover { text-underline-offset: 3px; text-decoration-thickness: 9px }
+/* D · Gummy: a rounded heavy line; soft cards tinted in each one's colour, with a second line */
+body[data-words=d] .note { font: 800 clamp(1.2rem, 1.9vw, 1.55rem)/1.3 Nunito, sans-serif; color: var(--ink-soft) }
+body[data-words=d] .links { gap: .7rem }
+body[data-words=d] .links a { flex-direction: column; align-items: flex-start; gap: .1rem; padding: .85rem 1.15rem; border-radius: 16px; background: color-mix(in srgb, var(--c) 18%, white); font-weight: 700; font-size: 1.1rem; transition: transform .15s, box-shadow .15s }
+body[data-words=d] .links small { display: block; color: var(--ink-soft); font-weight: 500; font-size: .8rem }
+body[data-words=d] .links a:hover { transform: translateY(-3px); box-shadow: 0 12px 26px -14px color-mix(in srgb, var(--c) 70%, transparent) }
+/* study only: the font bar, not part of the design. The lit one is the font on stage; it moves as the J cycles. */
+.study { position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; font: 12px/1 system-ui, sans-serif; max-width: calc(100vw - 20px) }
+.study a { padding: 6px 9px; color: #888; text-decoration: none; border: 1px solid #e3e3e3; border-radius: 99px; background: #fff; cursor: pointer }
+.study a[aria-current] { color: #fff; background: #222; border-color: #222 }
+.study a[data-next] { border-color: #222 }
+.study .gap { width: 10px }
+@media (max-width: 600px) { .study { gap: 3px; font-size: 10.5px } .study a { padding: 4px 6px } }
+</style>
+</head>
+<body>
+<nav class="study" aria-label="Font and stones (study only)">
+  <a data-font="rubik">Rubik</a><a data-font="archivo-black">Archivo Black</a><a data-font="shrikhand">Shrikhand</a><a data-font="lilita">Lilita</a><a data-font="alfa-slab">Alfa Slab</a><a data-font="bagel-fat">Bagel Fat</a><a data-font="calistoga">Calistoga</a><a data-font="abril">Abril Fatface</a><a data-font="ultra">Ultra</a><a data-font="sansita-swashed">Sansita Swashed</a>
+  <span class="gap"></span>
+  <a data-words="a">A · serif aside</a><a data-words="b">B · index</a><a data-words="c">C · display</a><a data-words="d">D · gummy</a>
+  <span class="gap"></span>
+  <a data-line="grotesk">line: Space Grotesk</a><a data-line="serif">Instrument Serif</a><a data-line="fraunces">Fraunces</a><a data-line="mono">Space Mono</a>
+  <span class="gap"></span>
+  <a data-res="0.6">mesh as before</a><a data-res="1">finer</a><a data-res="1.5">finest</a>
+  <span class="gap"></span>
+  <a data-edge="chamfer">edges as before</a><a data-edge="exact">exact distance</a><a data-edge="exact1024">exact + fine mask</a>
+</nav>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="stage"></div>
+<main class="below">
+  <h1>joyus.studio is <span class="keep">under construction</span></h1>
+  <p class="note">in the meantime… you can check us out here</p>
+  <ul class="links">
+    <li><a href="../../../Joyus%20-%20work%20deck-mar26.pdf" target="_blank" rel="noopener"><span class="dot"></span><span class="l">Our work</span><small>deck · PDF</small><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a href="https://divyatak.art" target="_blank" rel="noopener"><span class="dot"></span><span class="l">Divya Tak</span><small>divyatak.art</small><span class="arrow" aria-hidden="true">→</span></a></li>
+    <li><a href="https://kahransingh.com" target="_blank" rel="noopener"><span class="dot"></span><span class="l">Kahran Singh</span><small>kahransingh.com</small><span class="arrow" aria-hidden="true">→</span></a></li>
+  </ul>
+</main>
+
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+<script type="module">
+/* Study 36: the sign and the fallen stones move out of the J's column to
+   the bottom right, under the words (Divya's sketch, 13 Oct). The floor
+   point under a pixel is found by unprojecting through the camera, and the
+   site is laid round it; the J alone sizes its column now. On a phone they
+   stay in front of the J as before.
+   Study 35: the words, after Divya's sketch (13 Oct). The headline runs
+   wider and "under construction" never splits; in C the links stack as a
+   list under the line; ?line= now sets the font of the line AND the links
+   (one switch for both, as she bracketed them): Space Grotesk, Instrument
+   Serif italic, Fraunces italic, Space Mono.
+   Study 34: smoother edges without more polygons. The glyph's distance
+   field, not the mesh, is what wobbles: a 320px mask through a chamfer
+   transform (octagonal contours). ?edge= chamfer (as before) | exact
+   (Euclidean distance, same mask) | exact1024 (and a 1024px mask).
+   Study 33: treatment C is the one (Divya); its line in four fonts (?line=),
+   none of them Unbounded: Space Grotesk, Instrument Serif italic, Fraunces
+   italic, Space Mono. C is the default now.
+   Study 32: smoother stones. Each stone is meshed (surface nets) on a grid
+   whose size is res × (40 + 24·extent): res 0.6 since Study 19 gave about
+   30 cells across a stone, and curved edges facet. ?res= 0.6 | 1 | 1.5;
+   build time and triangles are reported (T.buildMs, T.tris).
+   Study 31: the words. The headline bigger; the second line now says
+   "in the meantime… you can check us out here", in a new voice; the links
+   nicer, four ways (?words=a|b|c|d): A serif aside + dotted pills, B mono
+   label + hairline list, C Unbounded + thick underlines, D Nunito + tinted
+   cards. The J is untouched.
+   Study 30: 40 stones is the build (Divya, 13 Oct: reads a lot better); the
+   count switch is gone (?cells= stays for the test). Tilt Warp out: ten fonts.
+   Sansita's two fallen stones come from its tail, not its thin upper stroke,
+   which they left with holes (FALL_FROM).
+   Study 29: more stones. ?cells= 25 (as before) | 40 | 60 per J; the fly-in
+   delays scale so a bigger J builds in the same time. The fonts Divya kept
+   (13 Oct): Rubik, Archivo Black, Shrikhand, Lilita, Alfa Slab, Bagel Fat,
+   Calistoga, Abril, Ultra, Sansita Swashed, and Tilt Warp (not mentioned).
+   Study 28: the J on the left, the words on the right; six seconds whole;
+   eighteen more fonts tried (cursive, marker, comic, fat serif); the eleven
+   that read as a J kept, the connected scripts didn't (legible-fonts.json).
+   Study 27: the J cycles through its fonts. Gummy is the look (Divya, 13 Oct);
+   the other looks and "new J" are gone; Syne, Titan and Dela Gothic are gone,
+   nine fonts are new. Ten seconds after the J is whole, its stones let go,
+   bottom first, drop to the floor, settle, and sink away; then the next
+   font's stones fly in. The two fallen stones go with their J. Clicking a
+   font in the bar brings it next.
+   Study 26: the sign lying down; no other placements.
+   Study 25: the sign knocked over on its stand / lying down / leaning (?site=), smaller.
+   Study 24: no stand; the sign leans on the ground on the left, behind the fallen stones.
+   Study 23: the soft sign only, smaller; the J's font switchable; looks may
+   restyle drawn art (styleDecal — Print screens the ink).
+   Study 22: no cones, no plate; the sign on a spring stand, in the brand's
+   colours and made of its stones three ways (?sign=, site.js).
+   Study 21: a real road-works sign instead of the striped barrier; the J is
+   Unbounded, 3D (decided in Study 20).
+   Study 20: the J no longer bulges past its letter (jbuilder.js, fixGlyph).
+   Study 19. What changed from 16–18, one decision each:
+   - the J is built live in a worker (jbuilder.js) from a random seed: a new
+     J every visit, 25 stones (Study 18 had 15);
+   - it floats over a floor; two small edge stones have fallen out and lie
+     on the floor by a construction barrier;
+   - the pieces fly in faster the more the pointer moves;
+   - the J moves as one: it leans and shifts with the pointer, no per-stone
+     drift. */
+import * as THREE from 'three';
+import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { buildSoftDiamond } from './site.js';
+import * as look from './looks/gummy.js';
+
+const Q = new URLSearchParams(location.search);
+const LOOK = 'gummy';   /* Study 27: the look (Divya, 13 Oct) */
+const SEED = Q.get('seed') || Math.random().toString(36).slice(2, 8);
+/* Study 30: the ten kept, in the order they cycle; scored at 25, 40 and 60 stones in legible-fonts.json */
+const FONTS = ['rubik', 'archivo-black', 'shrikhand', 'lilita', 'alfa-slab', 'bagel-fat', 'calistoga', 'abril', 'ultra', 'sansita-swashed'];
+const FONT = FONTS.includes(Q.get('font')) ? Q.get('font') : 'rubik', MODE = '3d';
+const CELLS = [25, 40, 60], N = CELLS.includes(+Q.get('cells')) ? +Q.get('cells') : 40;   /* stones per J: 40 (Divya, 13 Oct); 25 from Study 19 to 29 */
+/* where the two fallen stones are taken from: anywhere on the outline, or
+   only the tail (the lowest part of the letter, as a share of its height) */
+const FALL_FROM = { 'sansita-swashed': 0.35 };
+const WORDS = ['a', 'b', 'c', 'd'], WV = WORDS.includes(Q.get('words')) ? Q.get('words') : 'c';   /* Study 31: the words' treatment; Study 33: C by default */
+const LINES = ['grotesk', 'serif', 'fraunces', 'mono'], LINE = LINES.includes(Q.get('line')) ? Q.get('line') : 'grotesk';   /* Study 33: C's line font */
+const RESS = [0.6, 1, 1.5], RES = RESS.includes(+Q.get('res')) ? +Q.get('res') : 0.6;   /* Study 32: the stones' mesh resolution; 0.6 since Study 19 */
+const EDGES = ['chamfer', 'exact', 'exact1024'], EDGE = EDGES.includes(Q.get('edge')) ? Q.get('edge') : 'chamfer';   /* Study 34: the glyph field */
+const MASKDIR = EDGE === 'exact1024' ? 'masks1024/' : 'masks/';
+document.body.dataset.words = WV; document.body.dataset.line = LINE;
+const HOLD = 6;         /* seconds the whole J stays before its stones let go (10 in Study 27; Divya, 13 Oct: 6) */
+const SIGNV = 'soft';   /* Divya, on 22: the soft sign; the yellow says it */
+const SITEV = 'flat';   /* Study 26: the sign lies down (Divya, on 25); the other placements are gone */
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const T = window.__cs = { ready: false, assembled: false, look: LOOK, seed: SEED, font: FONT, fonts: FONTS, cells: N, words: WV, line: LINE, res: RES, edge: EDGE, mode: MODE, sign: SIGNV, site: SITEV, hold: HOLD, phase: 'build', gen: 0, pieces: [], fallen: [], tau: 0 };
+
+/* study bar: the lit font is the one on stage; click another to bring it next */
+const bar = [...document.querySelectorAll('.study a[data-font]')];
+for (const a of bar) {
+  a.href = '?' + new URLSearchParams({ font: a.dataset.font, seed: SEED, words: WV, line: LINE, res: RES });
+  a.addEventListener('click', (e) => { e.preventDefault(); jump(a.dataset.font); });
+}
+/* the words' treatment reloads and keeps the font and seed */
+for (const a of document.querySelectorAll('.study a[data-words]')) {
+  a.href = '?' + new URLSearchParams({ font: FONT, seed: SEED, words: a.dataset.words, line: LINE, res: RES });
+  if (a.dataset.words === WV) a.setAttribute('aria-current', 'page');
+}
+/* the mesh resolution reloads too */
+for (const a of document.querySelectorAll('.study a[data-res]')) {
+  a.href = '?' + new URLSearchParams({ font: FONT, seed: SEED, words: WV, line: LINE, res: a.dataset.res });
+  if (+a.dataset.res === RES) a.setAttribute('aria-current', 'page');
+}
+/* and the edges */
+for (const a of document.querySelectorAll('.study a[data-edge]')) {
+  a.href = '?' + new URLSearchParams({ font: FONT, seed: SEED, words: WV, line: LINE, res: RES, edge: a.dataset.edge });
+  if (a.dataset.edge === EDGE) a.setAttribute('aria-current', 'page');
+}
+/* and C's line font */
+for (const a of document.querySelectorAll('.study a[data-line]')) {
+  a.href = '?' + new URLSearchParams({ font: FONT, seed: SEED, words: 'c', line: a.dataset.line, res: RES });
+  if (a.dataset.line === LINE) a.setAttribute('aria-current', 'page');
+}
+function lightBar() {
+  for (const a of bar) {
+    a.dataset.font === T.font ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current');
+    a.dataset.font === T.next && T.phase !== 'build' ? a.setAttribute('data-next', '') : a.removeAttribute('data-next');
+  }
+}
+
+const stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('gl'), antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(24, 1, 0.1, 60);
+
+/* ---------- layout, in world units. The J is 1.6 tall, centred on 0. ---------- */
+const JH = 1.6, LIFT = 0.32;                    // the J's gap above the floor
+const FLOOR = -JH / 2 - LIFT;
+const ink = new THREE.Color('#2C3544');
+
+const pivot = new THREE.Group(); scene.add(pivot);           // leans and shifts with the pointer
+const block = new THREE.Group(); block.position.y = -JH / 2; pivot.add(block);   // the J, its base at the pivot's foot
+const ground = new THREE.Group(); scene.add(ground);         // floor things: fallen stones, the sign
+
+/* ---------- the floor and its shadows ---------- */
+const floor = new THREE.Mesh(new THREE.CircleGeometry(3.2, 96), new THREE.ShaderMaterial({
+  transparent: true, depthWrite: false,
+  vertexShader: 'varying vec2 vP; void main(){ vP = position.xy; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: `varying vec2 vP; void main(){
+    float r = length(vP) / 3.2;
+    gl_FragColor = vec4(vec3(0.925, 0.915, 0.9), (1.0 - smoothstep(0.35, 1.0, r)) * 0.85);
+    #include <colorspace_fragment>
+  }`,
+}));
+floor.rotation.x = -Math.PI / 2; floor.position.y = FLOOR; floor.renderOrder = -2; scene.add(floor);
+
+/* a shadow is an ellipse on the floor, soft (gaussian): Gummy's manner */
+function shadowMat() {
+  return new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false,
+    uniforms: { uK: { value: 0.3 }, uInk: { value: ink } },
+    vertexShader: 'varying vec2 vU; void main(){ vU = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+    fragmentShader: `uniform float uK; uniform vec3 uInk; varying vec2 vU;
+      void main(){
+        vec2 p = (vU - 0.5) * 2.0; float g = exp(-3.2 * dot(p, p));
+        gl_FragColor = vec4(uInk, g * uK);
+        #include <colorspace_fragment>
+      }`,
+  });
+}
+function shadow(w, d) {
+  const s = new THREE.Mesh(new THREE.PlaneGeometry(w, d), shadowMat());
+  s.rotation.x = -Math.PI / 2; s.position.y = FLOOR + 0.002; s.renderOrder = -1; scene.add(s);
+  return s;
+}
+const jShadow = shadow(2.1, 0.95);
+
+/* ---------- the site: the sign lying on the floor (site.js) ---------- */
+const parts = [];
+const sign = new THREE.Group(); ground.add(sign);
+const signShadow = shadow(0.8, 0.45); signShadow.material.uniforms.uK.value = 0.2;
+{ const face = buildSoftDiamond(THREE, RoundedBoxGeometry, parts); face.position.set(0, 0, 0); sign.add(face); }
+
+/* ---------- the J, built live: one worker, any mask ---------- */
+const worker = new Worker('jbuilder.js', { type: 'module' });
+function stones(msg) {
+  return new Promise((res, rej) => {
+    const out = [];
+    worker.onmessage = (e) => { const d = e.data; if (d.type === 'piece') out.push(d); if (d.type === 'done') res({ pieces: out, ms: d.ms, fieldMs: d.fieldMs, maskR: d.maskR }); if (d.type === 'error') rej(new Error(d.message)); };
+    worker.postMessage(msg);
+  });
+}
+/* the first J uses the seed as given (so ?seed= pins it, as before); each later font gets the seed plus its own name */
+const seedFor = (font, gen) => gen ? SEED + '/' + font : SEED;
+const build = (font, gen) => stones({ seed: seedFor(font, gen), cells: N, res: RES, field: EDGE === 'chamfer' ? 'chamfer' : 'exact', mask: MASKDIR + font + '.png', layer: MODE === '2d' });
+
+const ident = new THREE.Quaternion();
+/* one generation = one font's J: its stones in the block, its two fallen
+   stones on the floor, where each flies in from, and its build clock */
+function makeGen(font, gen, J) {
+  let s = 7; for (const ch of seedFor(font, gen)) s = (s * 31 + ch.charCodeAt(0)) % 2147483647;   // the fly-in follows the seed too
+  const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
+  const pending = J.pieces;
+  const G = { font, gen, seed: seedFor(font, gen), buildMs: J.ms, fieldMs: J.fieldMs, maskR: J.maskR, tris: pending.reduce((n, d) => n + d.idx.length / 3, 0), pieces: [], fallen: [], meshes: [], tau: 0, rnd };
+  /* two small stones near the outline have fallen out; for some fonts only from the tail (FALL_FROM) */
+  const mid = (d) => { let y = 0; for (let k = 1; k < d.pos.length; k += 3) y += d.pos[k]; return y / (d.pos.length / 3); };   // a stone's height in the letter
+  const low = FALL_FROM[font] ?? 1;
+  const fallIdx = new Set(pending.filter(d => d.edge > -0.05 && mid(d) < JH * low).sort((a, b) => a.size - b.size).slice(0, 2).map(d => d.i));
+  for (const [k, d] of pending.entries()) {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3));
+    g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+    g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true));
+    g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+    g.computeBoundingBox(); const c = g.boundingBox.getCenter(new THREE.Vector3()), sz = g.boundingBox.getSize(new THREE.Vector3());
+    g.translate(-c.x, -c.y, -c.z);                                         // each stone turns about its own middle
+    const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(d.colour); m.userData.hex = d.colour;
+    look.dress({ THREE, mesh: m });
+    G.meshes.push(m);
+    const P = { m, home: c, origin: c.clone(), homeQ: ident.clone(), fallen: fallIdx.has(d.i), delay: 0.1 + k * 0.06 * 25 / pending.length, r: 0.45 * Math.min(sz.x, sz.y, sz.z) };   /* Study 29: the same build time whatever the count */
+    if (P.fallen) {
+      /* lying on its side on the floor, left of the J; it lands there, not in
+         the J. Try 1 tipped it onto its back: a stone is 0.6 deep and ~0.25
+         across, so on its back it stood up like a pillar. Now: keep the depth
+         horizontal (like a log), and roll it to whichever angle sits lowest. */
+      ground.add(m);
+      const n = G.fallen.length, yaw = (n ? -0.5 : 0.7) + (rnd() - 0.5) * 0.4;
+      m.position.set(0, 0, 0);
+      let best = null;
+      for (let k = 0; k < 24; k++) {
+        m.quaternion.setFromEuler(new THREE.Euler(0, yaw, k * Math.PI / 24, 'YXZ'));
+        m.updateMatrixWorld(true);
+        const b = new THREE.Box3().setFromObject(m, true), h = b.max.y - b.min.y;
+        if (!best || h < best.h) best = { h, q: m.quaternion.clone() };
+      }
+      P.homeQ = best.q; m.quaternion.copy(P.homeQ); m.updateMatrixWorld(true);
+      const lowest = new THREE.Box3().setFromObject(m, true).min.y;   // precise: the rotated mesh, not its rotated box
+      P.home = new THREE.Vector3(n ? -0.62 : -1.02, FLOOR - lowest + 0.004, n ? 0.62 : 0.4);
+      P.shadow = shadow(0.55, 0.42); P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); P.shadow.material.uniforms.uK.value = 0;
+      G.fallen.push(P);
+    } else block.add(m);
+    /* where it starts: thrown out from the J's middle, turned */
+    const dir = P.home.clone().sub(new THREE.Vector3(0, P.fallen ? FLOOR : JH / 2, 0)); dir.z += (rnd() - 0.5) * 0.8; dir.normalize();
+    P.from = P.home.clone().addScaledVector(dir, 1.6 + 1.4 * rnd()).add(new THREE.Vector3(0, 0.4 + 0.6 * rnd(), 1.2 * rnd()));
+    P.spin = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize(), (0.6 + rnd()) * Math.PI);
+    m.position.copy(P.from); m.quaternion.copy(P.spin);
+    G.pieces.push(P);
+  }
+  G.end = Math.max(...G.pieces.map(P => P.delay)) + 1.2;   // tau at which the last stone lands
+  return G;
+}
+function dropGen(G) {
+  for (const P of G.pieces) {
+    P.m.removeFromParent(); P.m.geometry.dispose(); P.m.material.dispose();
+    if (P.shadow) { P.shadow.removeFromParent(); P.shadow.geometry.dispose(); P.shadow.material.dispose(); }
+  }
+}
+function show(G) {   /* the test and the bar read the current generation through T */
+  T.pieces = G.pieces; T.fallen = G.fallen; T.font = G.font; T.gen = G.gen; T.genSeed = G.seed; T.buildMs = G.buildMs; T.fieldMs = G.fieldMs; T.maskR = G.maskR; T.tris = G.tris; T.tau = G.tau;
+  T.rate = { BASE, GAIN, END: G.end };
+  lightBar();
+}
+
+let G = makeGen(FONT, 0, await build(FONT, 0));
+await look.setup({ THREE, renderer, scene, camera, pieces: [...G.meshes, ...parts], block, pivot, box: { min: new THREE.Vector3(-0.8, -JH / 2, -0.3), max: new THREE.Vector3(0.8, JH / 2, 0.3) } });
+const decals = []; scene.traverse(o => { if (o.userData.decal) decals.push(o); });
+T.decals = decals.length; T.decalStyled = false;
+T.pivot = pivot; T.camera = camera;
+
+/* the next font: decided now, built while this one stands, so the swap never waits */
+const after = (font) => FONTS[(FONTS.indexOf(font) + 1) % FONTS.length];
+let nextFont = after(FONT), nextJ = build(nextFont, 1);
+T.next = nextFont;
+function jump(font) {   /* study bar: bring this font next, now */
+  if (!FONTS.includes(font) || font === G.font || T.phase === 'swap') return;
+  nextFont = font; nextJ = build(font, G.gen + 1); T.next = font;
+  if (T.phase !== 'fall') letGo();
+  lightBar();
+}
+
+/* ---------- layout and framing ----------
+   Wide screens: sign right of the J, fallen stones left. Narrow screens
+   (try 2: everything shrank to fit across a phone): both come forward,
+   in front of the J's feet.
+   Framing (try 2 fitted a flat box and the near stones ran into the
+   headline): project the real things through the camera and search for
+   the distance at which all of them land inside the stage box. */
+/* Study 26: the sign lying down, nearly flat, face up, behind the fallen
+   stones (Study 25's "flat"). sign: [x, z, yaw, scale, lean back, tilt] */
+const SIGN_AT = { wide: [-1.3, -0.22, 0.35, 1.1, 1.3, 0.35], narrow: [-0.95, 0.3, 0.3, 0.75, 1.3, 0.35] };
+const LAYOUT = {
+  wide:   { sign: SIGN_AT.wide, fallen: [[-0.9, 0.42], [-0.5, 0.66]] },
+  narrow: { sign: SIGN_AT.narrow, fallen: [[-0.62, 0.86], [-0.24, 1.1]] },
+};
+function place(L) {
+  const [sx, sz, sy, ss, lean, tilt] = L.sign;
+  /* turned in its own plane (tilt), leaned back (lean), then turned to face the J (yaw) */
+  sign.rotation.set(-lean, sy, tilt, 'YXZ'); sign.scale.setScalar(ss);
+  sign.position.set(sx, 0, sz); sign.updateMatrixWorld(true);
+  sign.position.y = FLOOR - new THREE.Box3().setFromObject(sign, true).min.y + 0.002;   // its lowest point on the floor
+  signShadow.position.set(sx, FLOOR + 0.002, sz - 0.08); signShadow.scale.setScalar(ss);
+
+  G.fallen.forEach((P, n) => { P.home.x = L.fallen[n][0]; P.home.z = L.fallen[n][1]; P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); });
+}
+/* Study 36: the floor point under a pixel, and the site laid round a point */
+function floorAt(px, py) {
+  const p = new THREE.Vector3(px / innerWidth * 2 - 1, -(py / innerHeight * 2 - 1), 0.5).unproject(camera);
+  const dir = p.sub(camera.position).normalize();
+  return camera.position.clone().addScaledVector(dir, (FLOOR - camera.position.y) / dir.y);
+}
+function placeSite(a, L) {
+  const [, , sy, ss, lean, tilt] = L.sign;
+  sign.rotation.set(-lean, sy, tilt, 'YXZ'); sign.scale.setScalar(ss);
+  sign.position.set(a.x - 0.42, 0, a.z - 0.08); sign.updateMatrixWorld(true);
+  sign.position.y = FLOOR - new THREE.Box3().setFromObject(sign, true).min.y + 0.002;
+  signShadow.position.set(sign.position.x, FLOOR + 0.002, sign.position.z - 0.08); signShadow.scale.setScalar(ss);
+  const at = [[a.x + 0.12, a.z + 0.12], [a.x + 0.5, a.z + 0.34]];
+  G.fallen.forEach((P, n) => { P.home.x = at[n][0]; P.home.z = at[n][1]; P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); });
+  T.siteAt = { x: +a.x.toFixed(3), z: +a.z.toFixed(3) };
+}
+const v3 = new THREE.Vector3();
+function fit() {
+  const W = innerWidth, H = innerHeight, r = stage.getBoundingClientRect();
+  T.layout = r.width / r.height < 1.15 ? 'narrow' : 'wide';
+  /* side by side (the words' column to the right of the stage): the site goes under the words. Not the
+     stage's aspect: a desktop stage column is taller than wide, so T.layout has read 'narrow' there since Study 28. */
+  const wide = document.querySelector('.below').getBoundingClientRect().left >= r.right - 1;
+  place(LAYOUT[T.layout]);   /* stacked: in front of the J; side by side: replaced below, under the words */
+  renderer.setSize(W, H, false);
+  camera.aspect = W / H;
+  /* the points that must be seen: the J's box widened for its lean and bob,
+     the sign's box, a ball round each fallen stone */
+  const pts = [];
+  for (const x of [-0.95, 0.95]) for (const y of [-JH / 2 - 0.08, JH / 2 + 0.08]) for (const z of [-0.4, 0.4]) pts.push(new THREE.Vector3(x, y, z));
+  for (const o of wide ? [] : [sign]) {   /* Study 36: on wide screens the J alone sizes the column */
+    o.updateMatrixWorld(true);
+    const bb = new THREE.Box3().setFromObject(o, true);
+    for (const x of [bb.min.x, bb.max.x]) for (const y of [bb.min.y, bb.max.y]) for (const z of [bb.min.z, bb.max.z]) pts.push(new THREE.Vector3(x, y, z));
+  }
+  if (!wide) for (const P of G.fallen) for (const d of [[-1,0,0],[1,0,0],[0,1,0],[0,0,-1],[0,0,1]]) pts.push(P.home.clone().add(new THREE.Vector3(...d).multiplyScalar(0.34)));
+  const box = new THREE.Box3().setFromPoints(pts), c = box.getCenter(new THREE.Vector3());
+  /* the stage box in normalised device coordinates */
+  const barBottom = document.querySelector('.study').getBoundingClientRect().bottom;   // the study bar wraps on a phone (Study 20 try 1: it covered the J)
+  /* Study 28: the floor things sat on the column's bottom edge with 6px to spare; now 5% of its height */
+  const top = 1 - 2 * Math.max(r.top + 8, barBottom + 8) / H, bottom = 1 - 2 * (r.bottom - Math.max(6, 0.05 * r.height)) / H;
+  /* Study 28: the stage is a column, so its sides bound the J too, and the view is shifted to its middle in both axes */
+  const left = -1 + 2 * (r.left + 12) / W, right = -1 + 2 * (r.right - 12) / W;
+  const fits = (dist) => {
+    camera.position.set(c.x, c.y + dist * 0.2, c.z + dist); camera.lookAt(c);
+    camera.setViewOffset(W, H, W / 2 - ((left + right) / 2 * W / 2 + W / 2), H / 2 - ((top + bottom) / 2 * -H / 2 + H / 2), W, H);
+    camera.updateProjectionMatrix(); camera.updateMatrixWorld(true);
+    return pts.every(p => { v3.copy(p).project(camera); return v3.x > left && v3.x < right && v3.y < top && v3.y > bottom; });
+  };
+  let lo = 1, hi = 60;
+  for (let k = 0; k < 30; k++) { const m = (lo + hi) / 2; fits(m) ? hi = m : lo = m; }
+  fits(hi);
+  T.fit = { dist: +hi.toFixed(2), layout: T.layout };
+  if (wide) {   /* Study 36: the site under the words, between the last link and the bottom edge */
+    const wr = document.querySelector('.below').getBoundingClientRect(), lr = document.querySelector('.links').getBoundingClientRect();
+    const px = wr.left + wr.width * 0.5, py = Math.min(H - 70, Math.max(lr.bottom + 90, H * 0.84));
+    placeSite(floorAt(px, py), LAYOUT.wide);
+  } else T.siteAt = null;
+}
+fit(); addEventListener('resize', fit); addEventListener('scroll', fit, { passive: true });
+
+/* ---------- the pointer: where it is, and how fast it's moving ---------- */
+const target = new THREE.Vector2(), last = new THREE.Vector2();
+let speed = 0, seen = false;
+addEventListener('pointermove', e => {
+  target.set(e.clientX / innerWidth * 2 - 1, -(e.clientY / innerHeight * 2 - 1));
+  if (!seen) { last.copy(target); seen = true; }
+});
+document.addEventListener('pointerleave', () => target.set(0, 0));
+
+/* ---------- letting go: the J's stones drop, settle on the floor, sink away ----------
+   Each stone is released in turn, the lowest first (the base crumbles), with
+   a small sideways push and a tumble. It falls under gravity in the block's
+   own frame, lands on the floor (its half-size above it, since it tumbles),
+   bounces once, rests half a second, then shrinks and fades where it lies
+   (sinking only a touch: try 1 sank it down into the headline). The fallen
+   stones on the floor only shrink and fade, a little later. presence
+   (1 → 0) fades the floating J's shadow. */
+const GRAV = 7, BOUNCE = 0.3, REST = 0.5, FADE = 0.5, SINK = 0.12;   /* try 1 sank at 0.5/s: the pile slid down into the headline */
+let presence = 1;
+function letGo() {
+  if (T.phase === 'fall' || T.phase === 'swap') return;
+  if (still) { swap(); return; }   /* reduced motion: no fall, a cut */
+  T.phase = 'fall'; T.phaseT = 0; T.assembled = false;
+  const rnd = G.rnd;
+  for (const P of G.pieces) {
+    P.m.material.transparent = true; P.alpha = 1; P.rest = 0;
+    if (P.fallen) { P.release = 0.6 + rnd() * 0.3; P.landed = true; continue; }
+    P.release = (P.home.y / JH) * 0.35 + rnd() * 0.12;
+    P.v = new THREE.Vector3((P.home.x > 0 ? 1 : -1) * (0.15 + rnd() * 0.35), 0.2 * rnd(), (rnd() - 0.5) * 0.7);
+    P.w = new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize().multiplyScalar(2 + 4 * rnd());
+    P.landed = false;
+  }
+  lightBar();
+}
+const wq = new THREE.Quaternion(), wv = new THREE.Vector3();
+function stepFall(dt) {
+  T.phaseT += dt;
+  presence = Math.max(0, presence - dt / 0.7);
+  let gone = 0;
+  for (const P of G.pieces) {
+    if (T.phaseT < P.release) continue;
+    if (P.alpha <= 0) { gone++; continue; }
+    if (!P.landed) {
+      P.v.y -= GRAV * dt;
+      P.m.position.addScaledVector(P.v, dt);
+      wq.setFromAxisAngle(wv.copy(P.w).normalize(), P.w.length() * dt); P.m.quaternion.premultiply(wq);
+      /* the floor, in the block's frame, under this stone */
+      P.m.getWorldPosition(wv); wv.y = FLOOR; block.worldToLocal(wv);
+      if (P.m.position.y - P.r < wv.y) {   /* on or under the floor: land it (try 1 also required v.y < 0, and a slow frame once let a stone through) */
+        P.m.position.y = wv.y + P.r;
+        P.v.y *= -BOUNCE; P.v.x *= 0.6; P.v.z *= 0.6; P.w.multiplyScalar(0.4);
+        if (P.v.y < 0.5) { P.v.set(0, 0, 0); P.landed = true; }
+      }
+    } else {
+      P.rest += dt;
+      if (P.rest > REST) {
+        P.m.position.y -= SINK * dt;
+        P.alpha = Math.max(0, P.alpha - dt / FADE);
+        P.m.material.opacity = P.alpha; P.m.scale.setScalar(0.4 + 0.6 * P.alpha);
+        if (P.shadow) P.shadow.material.uniforms.uK.value = 0.24 * P.alpha;
+        if (P.alpha <= 0) { P.m.visible = false; gone++; T.faded = (T.faded || 0) + 1; }   /* counted, so the test needn't catch the moment */
+      }
+    }
+  }
+  if (gone === G.pieces.length) swap();
+}
+async function swap() {
+  T.phase = 'swap'; T.swaps = (T.swaps || 0) + 1; T.lastFaded = T.faded || 0; T.faded = 0;
+  const font = nextFont, J = await nextJ;
+  dropGen(G);
+  G = makeGen(font, G.gen + 1, J);
+  place(LAYOUT[T.layout]); if (T.siteAt) fit();   /* Study 36: the new fallen stones go under the words too */
+  presence = 1;
+  nextFont = after(font); nextJ = build(nextFont, G.gen + 1); T.next = nextFont;
+  T.phase = 'build'; T.phaseT = 0; T.assembled = false;
+  show(G);
+}
+
+const ease = t => 1 - Math.pow(1 - t, 3);
+const BASE = 0.32, GAIN = 1.1;                               // build rate: idle → ~8 s, moving → ~1–2 s
+show(G);
+T.ready = true;
+let then = performance.now(), t = 0;
+function frame(now) {
+  const dt = Math.min(0.1, (now - then) / 1000); then = now; t += dt;   /* capped at 10 fps: below that the clocks slow rather than jump */
+  /* 1. pointer speed (screen-halves per second), smoothed */
+  const v = target.distanceTo(last) / Math.max(dt, 1e-3); last.copy(target);
+  speed += (v - speed) * Math.min(1, dt * 6);
+  T.speed = speed;
+  if (T.phase === 'build') {
+    /* 2. the build clock runs faster the more the pointer moves */
+    G.tau = still ? G.end : Math.min(G.end, G.tau + dt * (BASE + GAIN * Math.min(speed, 4)));
+    T.tau = G.tau;
+    /* done when the clock is: per-stone progress can stop at 0.99999…
+       (seed rqec8q, 24 stones, never reported built — float rounding) */
+    const done = G.tau >= G.end;
+    for (const P of G.pieces) {
+      const a = done ? 1 : Math.min(1, Math.max(0, (G.tau - P.delay) / 1.2)), e = ease(a);
+      P.m.position.lerpVectors(P.from, P.home, e);
+      P.m.quaternion.copy(P.spin).slerp(P.homeQ, e);
+      if (P.shadow) P.shadow.material.uniforms.uK.value = 0.24 * e;
+    }
+    if (done) { T.assembled = true; T.phase = 'hold'; T.phaseT = 0; T.wholeAt = now; lightBar(); }
+  } else if (T.phase === 'hold') {
+    /* real seconds, not frames: a slow machine still lets go after HOLD */
+    T.phaseT = (now - T.wholeAt) / 1000;
+    if (T.phaseT >= HOLD) letGo();
+  } else if (T.phase === 'fall') stepFall(dt);
+  /* 3. the J moves as one: leans and shifts toward the pointer, and floats */
+  const k = still ? 0 : 1, f = Math.min(1, dt * 4);
+  pivot.rotation.y += (target.x * 0.42 * k - pivot.rotation.y) * f;
+  pivot.rotation.x += (-target.y * 0.18 * k - pivot.rotation.x) * f;
+  pivot.position.x += (target.x * 0.14 * k - pivot.position.x) * f;
+  const bob = still ? 0 : Math.sin(t * 1.3) * 0.035;
+  pivot.position.y += ((target.y * 0.05 * k + bob) - pivot.position.y) * f;
+  /* its shadow: under it, darker and tighter as it dips; gone once the stones are down */
+  const lift = LIFT + pivot.position.y;
+  jShadow.position.x = pivot.position.x;
+  jShadow.scale.setScalar(1 + (lift - LIFT) * 0.8);
+  jShadow.material.uniforms.uK.value = 0.3 * (LIFT / lift) * (G.tau / G.end) * presence;
+  renderer.render(scene, camera);
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>29 / More stones — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.top { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start }
+.row { display: grid; grid-template-columns: 110px repeat(3, 1fr); gap: 10px; align-items: center; margin: 0 0 10px }
+.row h3 { margin: 0; font-size: 14px; font-weight: 600 }
+.row h3 small { display: block; font-weight: 400; color: #666; font-size: 12px; margin-top: 3px }
+.head { display: grid; grid-template-columns: 110px repeat(3, 1fr); gap: 10px; font-size: 12px; color: #666; margin-bottom: 4px }
+.breaks { display: grid; grid-template-columns: 110px repeat(2, 1fr); gap: 10px; align-items: center; margin: 0 0 10px }
+figure { margin: 0 }
+figcaption { font-size: 12px; color: #555; margin-top: 3px }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .top { grid-template-columns: 1fr } .row, .breaks, .head { grid-template-columns: 1fr 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 29 · 13 October 2026</p>
+<h1>More stones</h1>
+<p class="lede">The eleven fonts you kept, each built with 25 (as now), 40 and 60 stones. A J has that many stones in all; the two smallest edge stones lie on the floor. Switch at the top of the page.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (fonts and stone counts at the top)</a>
+<div class="top">
+  <figure><a class="zoom" href="img/page-gummy.png" target="_blank"><img class="shot" src="img/page-gummy.png" alt="Rubik, 25 stones"></a><figcaption>Rubik, 25 stones</figcaption></figure>
+  <figure><a class="zoom" href="img/page-60.png" target="_blank"><img class="shot" src="img/page-60.png" alt="Ultra, 60 stones"></a><figcaption>Ultra, 60 stones</figcaption></figure>
+</div>
+<h2>Every font, three counts</h2>
+<p>Under each: how well the stones overlap the font's own J (5 random builds, 1 = exact), and the stones that made it into the build.</p>
+<div class="head"><span></span><span>25 stones</span><span>40 stones</span><span>60 stones</span></div>
+<div id="grid"></div>
+<h2>Other breaks</h2>
+<p>Three more builds each for Calistoga, Abril and Sansita Swashed, at 25 stones. Which stones fall out and where the cuts land follow the seed; the page draws a new one every visit, and every font change.</p>
+<div id="breaks"></div>
+<h2>Open</h2>
+<ul>
+<li>How many stones: 25, 40 or 60 (or one count for some fonts and another for others).</li>
+<li>Tilt Warp: you didn't say; it's in until you do.</li>
+<li>Which break for Calistoga, Abril, Sansita: say the letter (a, b, c) or the seed on the page.</li>
+</ul>
+<p class="source">Scores: <code>legible-fonts.json</code> (33 rows). Test: <code>page-test.mjs</code>, 44 checks in a browser, 33 + 9 shots; read by <code>check.cjs</code>.</p>
+<script>
+const FONTS = [['rubik', 'Rubik'], ['archivo-black', 'Archivo Black'], ['shrikhand', 'Shrikhand'], ['lilita', 'Lilita One'], ['alfa-slab', 'Alfa Slab One'], ['bagel-fat', 'Bagel Fat One'], ['calistoga', 'Calistoga'], ['abril', 'Abril Fatface'], ['ultra', 'Ultra'], ['sansita-swashed', 'Sansita Swashed'], ['tilt-warp', 'Tilt Warp']];
+const grid = document.getElementById('grid'), breaks = document.getElementById('breaks');
+for (const [f, name] of FONTS) {
+  const row = document.createElement('div'); row.className = 'row';
+  row.innerHTML = `<h3>${name}</h3>` + [25, 40, 60].map(c => `<figure><a class="zoom" href="img/font-${f}-${c}.png" target="_blank"><a class="zoom" href="img/font-${f}-${c}.png" target="_blank"><img class="shot" src="img/font-${f}-${c}.png" alt="${name}, ${c} stones" loading="lazy"></a></a><figcaption data-font="${f}" data-cells="${c}">${c} stones</figcaption></figure>`).join('');
+  grid.appendChild(row);
+}
+for (const [f, name] of FONTS.filter(x => ['calistoga', 'abril', 'sansita-swashed'].includes(x[0]))) {
+  const row = document.createElement('div'); row.className = 'breaks';
+  row.innerHTML = `<h3>${name}</h3>` + `<figure><a class="zoom" href="img/font-${f}-25.png" target="_blank"><a class="zoom" href="img/font-${f}-25.png" target="_blank"><img class="shot" src="img/font-${f}-25.png" alt="${name}, as above" loading="lazy"></a></a><figcaption>as above (seed study29)</figcaption></figure>` +
+    ['a', 'b', 'c'].map(k => `<figure><a class="zoom" href="img/break-${f}-break-${k}.png" target="_blank"><a class="zoom" href="img/break-${f}-break-${k}.png" target="_blank"><img class="shot" src="img/break-${f}-break-${k}.png" alt="${name}, break ${k}" loading="lazy"></a></a><figcaption>break ${k} (seed break-${k})</figcaption></figure>`).join('');
+  breaks.appendChild(row);
+}
+fetch('legible-fonts.json').then(r => r.json()).then(rows => {
+  for (const cap of document.querySelectorAll('figcaption[data-font]')) {
+    const x = rows.find(r => r.font === cap.dataset.font && r.cells === +cap.dataset.cells);
+    if (x) cap.textContent = `${x.cells} stones · reads ${x.iou.toFixed(2)} · ${Math.round(x.stones)} built`;
+  }
+}).catch(() => {});
+</script>
+</main>
+</body>
+</html>

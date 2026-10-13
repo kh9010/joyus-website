@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>Sign art</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=block">
+<style>body{margin:0;background:#fff;display:flex;gap:30px;align-items:center;padding:30px} .d{width:420px;height:420px;transform:rotate(45deg);background:#F07D1E;border-radius:26px;margin:60px} .p{width:434px;height:140px;background:#F07D1E;border-radius:10px} canvas{width:100%;height:100%;display:block}</style></head>
+<body><div class="d"><canvas id="d" width="1024" height="1024"></canvas></div><div class="p"><canvas id="p" width="1024" height="330"></canvas></div>
+<script type="module">
+/* the sign art, as it will sit on the orange faces (the diamond turned 45° like the mesh) */
+import { drawDiamond, drawPlate } from '../site.js';
+await document.fonts.load('700 80px "Space Grotesk"');
+drawDiamond(document.getElementById('d')); drawPlate(document.getElementById('p'));
+window.ART = true;
+</script></body></html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>34 / Smoother edges, same polygons — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.two { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; align-items: start; max-width: 1100px }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start }
+figure { margin: 0 }
+figcaption { font-size: 12.5px; color: #555; margin-top: 4px }
+figcaption b { font-weight: 600 }
+table { border-collapse: collapse; font-size: 13px; margin: 8px 0; width: auto }
+td, th { padding: 4px 14px 4px 0; text-align: left; border-bottom: 1px solid var(--line) }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .two, .three { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 34 · 13 October 2026</p>
+<h1>Smoother edges, same polygons</h1>
+<p class="lede">You were right: it isn't the mesh. The letter reaches the stones as a distance field made from a 320px bitmap with a chamfer approximation, and that field's contours are octagons. The stones' cut edges and their shading follow it, at any polygon count.</p>
+<a class="open" href="coming-soon.html?edge=exact" target="_blank">Open the page (edges at the top: as before · exact distance · exact + fine mask)</a>
+<h2>The field, drawn</h2>
+<p>Contour lines of the same Rubik J, every 8px of distance. Left, the chamfer used since Study 19. Right, the exact Euclidean distance.</p>
+<div class="two">
+  <figure><a class="zoom" href="img/field-chamfer.png" target="_blank"><img class="shot" src="img/field-chamfer.png" alt="Chamfer contours"></a><figcaption><b>Chamfer.</b> Flats and corners on every curve.</figcaption></figure>
+  <figure><a class="zoom" href="img/field-exact.png" target="_blank"><img class="shot" src="img/field-exact.png" alt="Exact contours"></a><figcaption><b>Exact.</b> True offsets of the letter.</figcaption></figure>
+</div>
+<p id="fieldnum"></p>
+<h2>The stones, up close</h2>
+<p>Same seed, forty stones, the mesh as before (res 0.6). Only the field changes.</p>
+<div class="three">
+  <figure><a class="zoom" href="img/close-chamfer.png" target="_blank"><img class="shot" src="img/close-chamfer.png" alt="as before"></a><figcaption><b>As before.</b> Chamfer, 320px mask.</figcaption></figure>
+  <figure><a class="zoom" href="img/close-exact.png" target="_blank"><img class="shot" src="img/close-exact.png" alt="exact distance"></a><figcaption><b>Exact distance.</b> Same 320px mask.</figcaption></figure>
+  <figure><a class="zoom" href="img/close-exact1024.png" target="_blank"><img class="shot" src="img/close-exact1024.png" alt="exact + fine mask"></a><figcaption><b>Exact + fine mask.</b> The letter drawn at 1024px.</figcaption></figure>
+</div>
+<h2>The whole J</h2>
+<div class="three">
+  <figure><a class="zoom" href="img/edge-chamfer.png" target="_blank"><img class="shot" src="img/edge-chamfer.png" alt="as before"></a><figcaption>As before</figcaption></figure>
+  <figure><a class="zoom" href="img/edge-exact.png" target="_blank"><img class="shot" src="img/edge-exact.png" alt="exact"></a><figcaption>Exact distance</figcaption></figure>
+  <figure><a class="zoom" href="img/edge-exact1024.png" target="_blank"><img class="shot" src="img/edge-exact1024.png" alt="exact + fine mask"></a><figcaption>Exact + fine mask</figcaption></figure>
+</div>
+<h2>What it costs</h2>
+<table id="cost"><tr><th>Field</th><th>Mask</th><th>Triangles</th><th>Field</th><th>Whole build</th></tr></table>
+<h2>Open</h2>
+<ul>
+<li>Which edges. Exact distance costs nothing in polygons and a few milliseconds; the fine mask costs a little more build.</li>
+<li>Combine with Study 32's finer mesh, or not.</li>
+</ul>
+<p class="source">Field numbers: <code>field.json</code> (<code>field.mjs</code>). Test: <code>page-test.mjs</code>, 49 checks in a browser; read by <code>check.cjs</code>.</p>
+<script>
+fetch('field.json').then(r => r.json()).then(F => {
+  document.getElementById('fieldnum').textContent = `Near the edge, where the stones are cut (within ${F.m320.band}px), the chamfer is off by ${F.m320.meanErrPx}px on average and ${F.m320.maxErrPx}px at worst, on a ${F.m320.maskR}px mask. The exact transform takes ${F.m320.exactMs} ms at 320px and ${F.m1024.exactMs} ms at 1024px.`;
+}).catch(() => {});
+fetch('page-report.json').then(r => r.json()).then(rep => {
+  const t = document.getElementById('cost'), names = { chamfer: 'As before (chamfer)', exact: 'Exact distance', exact1024: 'Exact + fine mask' };
+  for (const k of ['chamfer', 'exact', 'exact1024']) { const m = rep.edges[k]; if (!m) continue;
+    const row = t.insertRow(); row.innerHTML = `<td>${names[k]}</td><td>${m.maskR}px</td><td>${m.tris.toLocaleString()}</td><td>${m.fieldMs} ms</td><td>${m.ms} ms</td>`; }
+}).catch(() => {});
+</script>
+</main>
+</body>
+</html>

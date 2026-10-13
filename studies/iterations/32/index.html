@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>32 / Smoother stones — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start }
+figure { margin: 0 }
+figcaption { font-size: 12.5px; color: #555; margin-top: 4px }
+figcaption b { font-weight: 600 }
+table { border-collapse: collapse; font-size: 13px; margin: 8px 0 }
+td, th { padding: 4px 14px 4px 0; text-align: left; border-bottom: 1px solid var(--line) }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .three { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 32 · 13 October 2026</p>
+<h1>Smoother stones</h1>
+<p class="lede">Curved edges facet because each stone is meshed on a grid about 30 cells across. Three resolutions, the same J, seen up close; what each costs in build time and triangles.</p>
+<a class="open" href="coming-soon.html?res=1" target="_blank">Open the page (mesh at the top: as before · finer · finest)</a>
+<h2>Up close</h2>
+<div class="three">
+  <figure><a class="zoom" href="img/close-0.6.png" target="_blank"><img class="shot" src="img/close-0.6.png" alt="res 0.6, as before"></a><figcaption><b>As before</b> (res 0.6)</figcaption></figure>
+  <figure><a class="zoom" href="img/close-1.png" target="_blank"><img class="shot" src="img/close-1.png" alt="res 1"></a><figcaption><b>Finer</b> (res 1)</figcaption></figure>
+  <figure><a class="zoom" href="img/close-1.5.png" target="_blank"><img class="shot" src="img/close-1.5.png" alt="res 1.5"></a><figcaption><b>Finest</b> (res 1.5)</figcaption></figure>
+</div>
+<h2>The whole J</h2>
+<div class="three">
+  <figure><a class="zoom" href="img/res-0.6.png" target="_blank"><img class="shot" src="img/res-0.6.png" alt="res 0.6"></a><figcaption>As before</figcaption></figure>
+  <figure><a class="zoom" href="img/res-1.png" target="_blank"><img class="shot" src="img/res-1.png" alt="res 1"></a><figcaption>Finer</figcaption></figure>
+  <figure><a class="zoom" href="img/res-1.5.png" target="_blank"><img class="shot" src="img/res-1.5.png" alt="res 1.5"></a><figcaption>Finest</figcaption></figure>
+</div>
+<h2>What it costs</h2>
+<table id="cost"><tr><th>Mesh</th><th>Cells across a stone</th><th>Triangles in the J</th><th>Build (worker, headless Chrome)</th></tr></table>
+<p>The build runs in a worker before the first stone appears, and again for the next font while this one stands, so the cost is the wait on the first visit. Chrome here is software-rendered; a real machine is several times faster.</p>
+<h2>Open</h2>
+<ul>
+<li>Which mesh. Finer costs nothing on screen once built; it costs the first wait.</li>
+</ul>
+<p class="source">Test: <code>page-test.mjs</code>, 44 checks in a browser; read by <code>check.cjs</code>. Numbers in the table are read from <code>page-report.json</code>.</p>
+<script>
+fetch('page-report.json').then(r => r.json()).then(rep => {
+  const t = document.getElementById('cost'), names = { 0.6: 'As before', 1: 'Finer', 1.5: 'Finest' };
+  for (const k of [0.6, 1, 1.5]) { const m = rep.res[k]; if (!m) continue;
+    const row = t.insertRow(); row.innerHTML = `<td>${names[k]} (res ${k})</td><td>≈ ${Math.round((40 + 24 * 0.5) * k)}</td><td>${m.tris.toLocaleString()}</td><td>${m.ms} ms</td>`; }
+}).catch(() => {});
+</script>
+</main>
+</body>
+</html>

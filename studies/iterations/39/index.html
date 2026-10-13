@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>39 / Decided, and the sweep — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.two { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; align-items: start }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; max-width: 1100px }
+figure { margin: 0 }
+figcaption { font-size: 12.5px; color: #555; margin-top: 4px }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .two, .pair { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 39 · 13 October 2026</p>
+<h1>Decided, and the sweep</h1>
+<p class="lede">Space Grotesk for the subtitle; the treatment, mesh and edge switches are gone. Only the sign moved under the words; the two blocks are back under the J. The J a bit smaller. On hover a link's colour sweeps in from the left, over the whole word.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (hover the links)</a>
+<div class="two">
+  <figure><a class="zoom" href="img/page-gummy.png" target="_blank"><img class="shot" src="img/page-gummy.png" alt="Wide"></a><figcaption>Wide: the blocks under the J, the sign under the words, the J at 84% of what the column allows.</figcaption></figure>
+  <figure><a class="zoom" href="img/page-phone.png" target="_blank"><img class="shot" src="img/page-phone.png" alt="Phone"></a><figcaption>Phone</figcaption></figure>
+</div>
+<h2>The sweep</h2>
+<div class="pair">
+  <figure><a class="zoom" href="img/hover-1.png" target="_blank"><img class="shot" src="img/hover-1.png" alt="Hovering Our work"></a><figcaption>Hovering "Our work": pink fills in from the left behind the word; the underline thickens.</figcaption></figure>
+  <figure><a class="zoom" href="img/hover-2.png" target="_blank"><img class="shot" src="img/hover-2.png" alt="Hovering Divya Tak"></a><figcaption>Hovering "Divya Tak": cyan. The sweep takes 0.38 s and leaves the same way.</figcaption></figure>
+</div>
+<h2>Why "finer" was slow</h2>
+<p>The finer mesh builds nearly three times the triangles, and the page shows nothing until all forty stones are meshed. It's gone: the smooth edges now come from the exact distance field on the 1024px mask (Study 34), at the old polygon count and about a second of build.</p>
+<h2>Open</h2>
+<ul>
+<li>The sweep: band behind the word (as here), or the text itself changing colour as it passes.</li>
+<li>Smaller enough?</li>
+</ul>
+<p class="source">Pictures: <code>shoot.mjs</code>. Test: <code>page-test.mjs</code>, 46 checks in a browser; read by <code>check.cjs</code>.</p>
+</main>
+</body>
+</html>

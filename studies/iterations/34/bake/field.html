@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><title>The glyph field: chamfer vs exact</title></head>
+<body>
+<script type="module">
+/* Study 34. The same mask through the chamfer transform (as since Study 19)
+   and the exact Euclidean one; the contour lines of each, drawn; and how far
+   the chamfer is from the truth near the edge, where the stones are cut.
+   ?font=rubik&R=320 → window.FIELD = { stats, chamferPng, exactPng, maskR } */
+import { chamfer, edt } from './dist.js';
+const Q = new URLSearchParams(location.search);
+const font = Q.get('font') || 'rubik', dir = Q.get('dir') || 'masks';
+const img = await createImageBitmap(await (await fetch(`../${dir}/${font}.png`)).blob());
+const R = img.width, cv = new OffscreenCanvas(R, R), g = cv.getContext('2d'); g.drawImage(img, 0, 0);
+const A = g.getImageData(0, 0, R, R).data;
+const bin = new Uint8Array(R * R), inv = new Uint8Array(R * R);
+for (let i = 0; i < R * R; i++) { const on = A[i * 4 + 3] > 127; bin[i] = on ? 1 : 0; inv[i] = on ? 0 : 1; }
+const t0 = performance.now(); const cin = chamfer(bin, R, R), cout = chamfer(inv, R, R); const tC = performance.now() - t0;
+const t1 = performance.now(); const ein = edt(bin, R, R), eout = edt(inv, R, R); const tE = performance.now() - t1;
+const sdC = new Float32Array(R * R), sdE = new Float32Array(R * R);
+for (let i = 0; i < R * R; i++) { sdC[i] = cout[i] - cin[i]; sdE[i] = eout[i] - ein[i]; }
+/* error within the band the stones are cut in: |d| ≤ 24px of the edge (at 320: the rounding radius and the gap) */
+let n = 0, sum = 0, max = 0, band = 24 * R / 320;
+for (let i = 0; i < R * R; i++) if (Math.abs(sdE[i]) <= band && Math.abs(sdE[i]) > 0.5) { const e = Math.abs(sdC[i] - sdE[i]); n++; sum += e; if (e > max) max = e; }
+/* contour pictures: the glyph in light grey, lines every `step` px of distance, both sides */
+function picture(sd, colour) {
+  const S = 640, c = document.createElement('canvas'); c.width = c.height = S; const x = c.getContext('2d');
+  const id = x.createImageData(S, S), D = id.data, step = 8 * R / 320;
+  for (let j = 0; j < S; j++) for (let i = 0; i < S; i++) {
+    const px = Math.min(R - 1, Math.floor(i * R / S)), py = Math.min(R - 1, Math.floor(j * R / S)), d = sd[py * R + px];
+    const k = (j * S + i) * 4;
+    const line = Math.abs(((d % step) + step) % step - step / 2) < 0.6 * R / 320 && Math.abs(d) > 1;   // a thin line at each multiple of step
+    const inside = d < 0;
+    D[k] = line ? colour[0] : inside ? 232 : 255; D[k + 1] = line ? colour[1] : inside ? 232 : 255; D[k + 2] = line ? colour[2] : inside ? 232 : 255; D[k + 3] = 255;
+  }
+  x.putImageData(id, 0, 0);
+  return c.toDataURL('image/png');
+}
+window.FIELD = { maskR: R, stats: { band: Math.round(band), meanErrPx: +(sum / n).toFixed(3), maxErrPx: +max.toFixed(2), chamferMs: +tC.toFixed(1), exactMs: +tE.toFixed(1) },
+  chamferPng: picture(sdC, [44, 53, 68]), exactPng: picture(sdE, [233, 30, 123]) };
+</script></body></html>
