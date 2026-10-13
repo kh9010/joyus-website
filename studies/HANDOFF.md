@@ -1,6 +1,6 @@
 # Homepage rebuild — handoff
 
-_13 October 2026 · branch `divya-oct06-coming-soon` · Studies 27–40 committed 13 Oct (off `divya-sep22-home-wireframe`) · not merged to main_
+_13 October 2026 · branch `divya-oct06-coming-soon`, pushed · Studies 27–41 committed 13 Oct · the page is live on joyus.studio from `main` (PR #15, #16); the studies themselves stay on this branch, off `main`_
 
 ## Where it is
 
