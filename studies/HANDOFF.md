@@ -12,7 +12,7 @@ The new joyus.studio homepage is being worked out as numbered **studies** (snaps
 
 **joyus.studio is this page since 13 Oct 2026** (PR #15: Study 40 as `index.html` and `404.html`, assets in `/cs/`, the old site removed from `main`; `CLAUDE.md` on `main` rewritten for it). Studies stay here, on this branch, off `main`.
 
-**The coming-soon page, as of Study 40 (13 Oct 2026):** Gummy look; 40 stones; ten fonts cycling (6 s whole, then the stones let go and the next font flies in, idle build ~2.7 s); the exact distance field on 1024px masks (smooth edges, same polygons); the J left, the words right (headline up to 3.8rem with "under construction" whole, Space Grotesk subtitle, three stacked links with coloured underlines and a hover sweep that turns the word white); the sign under the words, the two fallen stones (from inside the outline) under the J. Decided by Divya through Studies 27–40; still open: the font, in the end. Divya (13 Oct): don't update this file per study; update it when committing.
+**The coming-soon page, as of Study 40 (13 Oct 2026):** Gummy look; 40 stones; ten fonts cycling (6 s whole, then the stones let go and the next font flies in, idle build ~2.7 s); the exact distance field on 1024px masks (smooth edges, same polygons); the J left, the words right (headline up to 3.8rem with "under construction" whole, Space Grotesk subtitle, three stacked links with coloured underlines and a hover sweep that turns the word white); the sign under the words, the two fallen stones (from inside the outline) under the J. Decided by Divya through Studies 27–41, including the fonts: all ten cycle. Nothing is open. Divya (13 Oct): don't update this file per study; update it when committing.
 
 ## Run it
 
