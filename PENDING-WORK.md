@@ -1,3 +1,5 @@
+> **13 October 2026:** joyus.studio is now the coming-soon page only (see `CLAUDE.md`). This document describes the site that was taken down and the one being rebuilt; its page references point into git history (`5247822`).
+
 # Pending work — joyus-website
 
 A shared running list of outstanding work, so Divya and Kahran can collaborate without losing track.
