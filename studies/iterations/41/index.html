@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>41 / A graceful first load — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.shot { width: 100%; border: 1px solid var(--line) }
+.three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: start }
+.two { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; align-items: start }
+figure { margin: 0 }
+figcaption { font-size: 12.5px; color: #555; margin-top: 4px }
+figcaption b { font-weight: 600 }
+table { border-collapse: collapse; font-size: 13px; margin: 8px 0; width: auto }
+td, th { padding: 4px 14px 4px 0; text-align: left; border-bottom: 1px solid var(--line) }
+.open { display: inline-block; margin: 6px 0 10px; padding: 10px 18px; background: var(--ink); color: #fff; text-decoration: none; font-weight: 500 }
+@media (max-width: 1000px) { .three, .two { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 41 · 13 October 2026</p>
+<h1>A graceful first load</h1>
+<p class="lede">Before: nothing until three.js had downloaded and all forty stones were meshed. Now: the words at once with a soft floor in CSS; the worker starts before three.js arrives; the floor and the sign appear as soon as the renderer is up; each stone flies in the moment it is meshed; the two that fall out are chosen last and change course to the floor.</p>
+<a class="open" href="coming-soon.html" target="_blank">Open the page (reload to watch it)</a>
+<h2>As it happens</h2>
+<div class="three">
+  <figure><a class="zoom" href="img/load-1.png" target="_blank"><img class="shot" src="img/load-1.png" alt="At ready"></a><figcaption><b>The renderer is up.</b> Floor, sign, words; the stones the worker has already meshed are on their way.</figcaption></figure>
+  <figure><a class="zoom" href="img/load-2.png" target="_blank"><img class="shot" src="img/load-2.png" alt="A moment later"></a><figcaption><b>A moment later.</b> More stones in; the last ones still meshing.</figcaption></figure>
+  <figure><a class="zoom" href="img/load-3.png" target="_blank"><img class="shot" src="img/load-3.png" alt="All forty in"></a><figcaption><b>All forty in.</b> The two fallen stones are chosen now and head for the floor.</figcaption></figure>
+</div>
+<h2>Measured</h2>
+<p>Milliseconds since navigation, median of three loads each, software Chrome (several times slower than a laptop, and noisy: loads ran back to back). "Page loaded" is the browser's load event, which in Study 40 waits for the whole build. "Cold" clears the browser cache first, so three.js (about 170 KB over the wire) downloads again.</p>
+<table id="timing"><tr><th></th><th>Page loaded</th><th>First stone</th><th>All forty</th></tr></table>
+<p id="stamp"></p>
+<p>The remaining wait on a cold load is three.js itself; the CSS floor and the words cover it. Warm, the scene is up well under half a second.</p>
+<h2>The page</h2>
+<div class="two">
+  <figure><a class="zoom" href="img/page-gummy.png" target="_blank"><img class="shot" src="img/page-gummy.png" alt="Wide"></a><figcaption>Wide, whole</figcaption></figure>
+  <figure><a class="zoom" href="img/page-phone.png" target="_blank"><img class="shot" src="img/page-phone.png" alt="Phone"></a><figcaption>Phone</figcaption></figure>
+</div>
+<h2>Open</h2>
+<ul>
+<li>Nothing from you: this goes live as is unless you'd rather the stones waited for one another.</li>
+</ul>
+<p class="source">Timings: <code>load-timing.json</code>. Pictures: <code>shoot.mjs</code>. Test: <code>page-test.mjs</code>, 56 checks in a browser; read by <code>check.cjs</code>.</p>
+<script>
+fetch('load-timing.json').then(r => r.json()).then(T => {
+  const t = document.getElementById('timing'), rows = [['Study 40, cold', T.median[40]], ['Study 41, cold', T.median[41]], ['Study 40, warm', T.median.warm40], ['Study 41, warm', T.median.warm41]];
+  for (const [name, m] of rows) { if (!m) continue; const r = t.insertRow(); r.innerHTML = `<td>${name}</td><td>${m.firstVisibleMs} ms</td><td>${m.firstStoneMs} ms</td><td>${m.allStonesMs} ms</td>`; }
+}).catch(() => {});
+fetch('page-report.json').then(r => r.json()).then(R => { if (R.load) document.getElementById('stamp').textContent = `By the page's own clock on the test run: the renderer was up at ${R.load.sceneAt} ms, the first stone flew in at ${R.load.firstStoneAt} ms, all forty were in at ${R.load.builtAt} ms.`; }).catch(() => {});
+</script>
+</main>
+</body>
+</html>
