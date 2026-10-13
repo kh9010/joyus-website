@@ -1,3 +1,5 @@
+> **13 October 2026:** joyus.studio is now the coming-soon page only (see `CLAUDE.md`). This document describes the site that was taken down and the one being rebuilt; its page references point into git history (`5247822`).
+
 # Website direction — where we're taking it
 
 _Divya's brief, 2026-06-30. Kahran — take this from the repo when you next work on it._

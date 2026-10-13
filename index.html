@@ -31,7 +31,10 @@
 html, body { margin: 0; height: 100% }
 body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 'Space Grotesk', system-ui, sans-serif; display: flex; flex-direction: column; min-height: 100dvh }
 #gl { position: fixed; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; z-index: 0 }
-#stage { flex: 1 1 auto; min-height: 56vh }
+#stage { flex: 1 1 auto; min-height: 56vh; position: relative }
+/* Study 41: a soft floor in CSS while three.js downloads, so the page is never empty; it fades once the renderer draws */
+#stage::before { content: ''; position: absolute; left: 10%; right: 10%; top: 62%; height: 26%; border-radius: 50%; background: radial-gradient(closest-side, rgba(236, 233, 229, .9), rgba(236, 233, 229, 0)); transition: opacity .6s; pointer-events: none }
+#stage.up::before { opacity: 0 }
 .below { position: relative; z-index: 1; padding: 0 var(--x) clamp(2rem, 6vh, 4rem); text-align: center }
 /* Study 31: the headline bigger (was clamp(1.6rem, 4.2vw, 2.6rem)) */
 h1 { font-size: clamp(2rem, 5vw, 3.8rem); line-height: 1.05; letter-spacing: -.035em; font-weight: 700; margin: 0; -webkit-text-stroke: .9px var(--ink); paint-order: stroke fill }   /* Study 40: heavier. Space Grotesk's heaviest is 700, so the stroke thickens it */
@@ -86,14 +89,37 @@ h1 .keep { white-space: nowrap }   /* Study 35: "under construction" stays on on
   </ul>
 </main>
 
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js">
+<script>
+/* Study 41: the first J starts meshing before three.js (~650 KB) has even
+   downloaded. This runs as the HTML is parsed, starts the worker, and keeps
+   its messages for the module to pick up (window.__early). The seed, font,
+   count and field here must match the module's. */
+(() => {
+  const q = new URLSearchParams(location.search);
+  const FONTS = ['rubik', 'alfa-slab', 'archivo-black', 'shrikhand', 'lilita', 'calistoga', 'bagel-fat', 'abril', 'sansita-swashed', 'ultra'];
+  const font = FONTS.includes(q.get('font')) ? q.get('font') : 'rubik';
+  const seed = q.get('seed') || Math.random().toString(36).slice(2, 8);
+  const w = new Worker('/cs/jbuilder.js', { type: 'module' });
+  const E = window.__early = { worker: w, seed, font, msgs: [], onmsg: null, t0: performance.now() };
+  w.onmessage = (e) => { E.msgs.push(e.data); if (E.onmsg) E.onmsg(e.data); };
+  w.postMessage({ seed, cells: 40, res: 0.6, field: 'exact', mask: '/cs/masks1024/' + font + '.png', layer: false });
+})();
+</script>
 <script type="importmap">{ "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
   "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
 } }</script>
 <script type="module">
-/* LIVE, 13 Oct 2026: joyus.studio's coming-soon page, Study 40 of the homepage
-   studies (branch divya-oct06-coming-soon, studies/iterations/40) with the
+/* LIVE, 13 Oct 2026: joyus.studio's coming-soon page, Study 41 of the homepage
+   studies (branch divya-oct06-coming-soon, studies/iterations/41) with the
    study bar removed and the assets in /cs/. The same page is 404.html.
+   Study 41: a graceful first load (Divya, 13 Oct: 1.5 s of nothing). The
+   floor, the sign and the words are drawn at once; the worker is started
+   from an inline script before three.js downloads; each stone flies in the
+   moment it is meshed; the two fallen stones are chosen once all are in
+   and change course to the floor. T.sceneAt, T.firstStoneAt, T.builtAt
+   (ms since navigation) say how it went.
    Study 40 (Divya, 13 Oct): the fonts in an order that never puts two sans
    in a row (sans: Rubik, Archivo Black, Lilita, Bagel Fat, Sansita; the rest
    slab, serif or script); the sign further right; the hovered word turns
@@ -183,7 +209,7 @@ import * as look from '/cs/looks/gummy.js';
 
 const Q = new URLSearchParams(location.search);
 const LOOK = 'gummy';   /* Study 27: the look (Divya, 13 Oct) */
-const SEED = Q.get('seed') || Math.random().toString(36).slice(2, 8);
+const SEED = window.__early.seed;   /* Study 41: chosen by the inline script, which already started the build */
 /* Study 30: the ten kept, in the order they cycle; scored at 25, 40 and 60 stones in legible-fonts.json */
 const FONTS = ['rubik', 'alfa-slab', 'archivo-black', 'shrikhand', 'lilita', 'calistoga', 'bagel-fat', 'abril', 'sansita-swashed', 'ultra'];   /* Study 40: sans and not-sans alternate, round the wrap too */
 const FONT = FONTS.includes(Q.get('font')) ? Q.get('font') : 'rubik', MODE = '3d';
@@ -273,7 +299,16 @@ const signShadow = shadow(0.8, 0.45); signShadow.material.uniforms.uK.value = 0.
 { const face = buildSoftDiamond(THREE, RoundedBoxGeometry, parts); face.position.set(0, 0, 0); sign.add(face); }
 
 /* ---------- the J, built live: one worker, any mask ---------- */
-const worker = new Worker('/cs/jbuilder.js', { type: 'module' });
+const worker = window.__early.worker;   /* Study 41: already running the first build */
+/* the first build: pieces already received, then the rest as they come */
+function firstStones(onPiece) {
+  return new Promise((res, rej) => {
+    const E = window.__early, out = [];
+    const take = (d) => { if (d.type === 'piece') { out.push(d); onPiece(d); } if (d.type === 'done') { E.onmsg = null; res({ pieces: out, ms: d.ms, fieldMs: d.fieldMs, maskR: d.maskR }); } if (d.type === 'error') rej(new Error(d.message)); };
+    for (const d of E.msgs) take(d);
+    E.onmsg = take;
+  });
+}
 function stones(msg) {
   return new Promise((res, rej) => {
     const out = [];
@@ -288,60 +323,84 @@ const build = (font, gen) => stones({ seed: seedFor(font, gen), cells: N, res: R
 const ident = new THREE.Quaternion();
 /* one generation = one font's J: its stones in the block, its two fallen
    stones on the floor, where each flies in from, and its build clock */
-function makeGen(font, gen, J) {
+/* Study 41: a generation is built stone by stone. newGen makes it, addStone
+   adds a meshed stone (flying in from its throw-out point), finishGen picks
+   the two that fall out once every stone is in. makeGen (all at once, for
+   the next font built in the background) is the three in a row. */
+function newGen(font, gen) {
   let s = 7; for (const ch of seedFor(font, gen)) s = (s * 31 + ch.charCodeAt(0)) % 2147483647;   // the fly-in follows the seed too
   const rnd = () => (s = (s * 16807) % 2147483647) / 2147483647;
-  const pending = J.pieces;
-  const G = { font, gen, seed: seedFor(font, gen), buildMs: J.ms, fieldMs: J.fieldMs, maskR: J.maskR, tris: pending.reduce((n, d) => n + d.idx.length / 3, 0), pieces: [], fallen: [], meshes: [], tau: 0, rnd };
+  return { font, gen, seed: seedFor(font, gen), buildMs: 0, fieldMs: 0, maskR: 0, tris: 0, pieces: [], fallen: [], meshes: [], tau: 0, rnd, end: 1.2, done: false };
+}
+function addStone(G, d) {
+  const rnd = G.rnd;
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3));
+  g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+  g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true));
+  g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+  g.computeBoundingBox(); const c = g.boundingBox.getCenter(new THREE.Vector3()), sz = g.boundingBox.getSize(new THREE.Vector3());
+  g.translate(-c.x, -c.y, -c.z);                                         // each stone turns about its own middle
+  const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(d.colour); m.userData.hex = d.colour;
+  look.dress({ THREE, mesh: m });
+  G.meshes.push(m); G.tris += d.idx.length / 3;
+  const k = G.pieces.length;
+  const P = { m, home: c, origin: c.clone(), edge: d.edge, size: d.size, homeQ: ident.clone(), fallen: false, delay: 0.1 + k * 0.06 * 25 / N, r: 0.45 * Math.min(sz.x, sz.y, sz.z) };   /* Study 29: the same build time whatever the count */
+  block.add(m);
+  /* where it starts: thrown out from the J's middle, turned */
+  const dir = P.home.clone().sub(new THREE.Vector3(0, JH / 2, 0)); dir.z += (rnd() - 0.5) * 0.8; dir.normalize();
+  P.from = P.home.clone().addScaledVector(dir, 1.6 + 1.4 * rnd()).add(new THREE.Vector3(0, 0.4 + 0.6 * rnd(), 1.2 * rnd()));
+  P.spin = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize(), (0.6 + rnd()) * Math.PI);
+  m.position.copy(P.from); m.quaternion.copy(P.spin);
+  G.pieces.push(P);
+  G.end = Math.max(G.end, P.delay + 1.2);   // tau at which the last stone lands
+  if (!T.firstStoneAt && G.gen === 0) T.firstStoneAt = Math.round(performance.now());
+}
+function finishGen(G, J) {
+  const rnd = G.rnd;
+  G.buildMs = J.ms; G.fieldMs = J.fieldMs; G.maskR = J.maskR;
   /* two stones have fallen out: from inside the outline (the silhouette keeps),
      the front-most four of those (so the pocket shows), the two smallest of
      them. A thin letter with fewer than two inside stones takes its two
      innermost. (Studies 19–36 took the two smallest ON the outline.) */
-  const zOf = (d) => { let z = 0; for (let k = 2; k < d.pos.length; k += 3) z += d.pos[k]; return z / (d.pos.length / 3); };
-  const inside = pending.filter(d => d.edge < -INSIDE);
-  const pool = inside.length >= 2 ? inside : [...pending].sort((a, b) => a.edge - b.edge).slice(0, 2);
-  const fallIdx = new Set(pool.sort((a, b) => zOf(b) - zOf(a)).slice(0, 4).sort((a, b) => a.size - b.size).slice(0, 2).map(d => d.i));
-  for (const [k, d] of pending.entries()) {
-    const g = new THREE.BufferGeometry();
-    g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3));
-    g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
-    g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true));
-    g.setIndex(new THREE.BufferAttribute(d.idx, 1));
-    g.computeBoundingBox(); const c = g.boundingBox.getCenter(new THREE.Vector3()), sz = g.boundingBox.getSize(new THREE.Vector3());
-    g.translate(-c.x, -c.y, -c.z);                                         // each stone turns about its own middle
-    const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(d.colour); m.userData.hex = d.colour;
-    look.dress({ THREE, mesh: m });
-    G.meshes.push(m);
-    const P = { m, home: c, origin: c.clone(), edge: d.edge, homeQ: ident.clone(), fallen: fallIdx.has(d.i), delay: 0.1 + k * 0.06 * 25 / pending.length, r: 0.45 * Math.min(sz.x, sz.y, sz.z) };   /* Study 29: the same build time whatever the count */
-    if (P.fallen) {
-      /* lying on its side on the floor, left of the J; it lands there, not in
-         the J. Try 1 tipped it onto its back: a stone is 0.6 deep and ~0.25
-         across, so on its back it stood up like a pillar. Now: keep the depth
-         horizontal (like a log), and roll it to whichever angle sits lowest. */
-      ground.add(m);
-      const n = G.fallen.length, yaw = (n ? -0.5 : 0.7) + (rnd() - 0.5) * 0.4;
-      m.position.set(0, 0, 0);
-      let best = null;
-      for (let k = 0; k < 24; k++) {
-        m.quaternion.setFromEuler(new THREE.Euler(0, yaw, k * Math.PI / 24, 'YXZ'));
-        m.updateMatrixWorld(true);
-        const b = new THREE.Box3().setFromObject(m, true), h = b.max.y - b.min.y;
-        if (!best || h < best.h) best = { h, q: m.quaternion.clone() };
-      }
-      P.homeQ = best.q; m.quaternion.copy(P.homeQ); m.updateMatrixWorld(true);
-      const lowest = new THREE.Box3().setFromObject(m, true).min.y;   // precise: the rotated mesh, not its rotated box
-      P.home = new THREE.Vector3(n ? -0.62 : -1.02, FLOOR - lowest + 0.004, n ? 0.62 : 0.4);
-      P.shadow = shadow(0.55, 0.42); P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); P.shadow.material.uniforms.uK.value = 0;
-      G.fallen.push(P);
-    } else block.add(m);
-    /* where it starts: thrown out from the J's middle, turned */
-    const dir = P.home.clone().sub(new THREE.Vector3(0, P.fallen ? FLOOR : JH / 2, 0)); dir.z += (rnd() - 0.5) * 0.8; dir.normalize();
-    P.from = P.home.clone().addScaledVector(dir, 1.6 + 1.4 * rnd()).add(new THREE.Vector3(0, 0.4 + 0.6 * rnd(), 1.2 * rnd()));
-    P.spin = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(rnd() - .5, rnd() - .5, rnd() - .5).normalize(), (0.6 + rnd()) * Math.PI);
+  const inside = G.pieces.filter(P => P.edge < -INSIDE);
+  const pool = inside.length >= 2 ? inside : [...G.pieces].sort((a, b) => a.edge - b.edge).slice(0, 2);
+  const chosen = pool.sort((a, b) => b.origin.z - a.origin.z).slice(0, 4).sort((a, b) => a.size - b.size).slice(0, 2);
+  for (const P of chosen) {
+    /* lying on its side on the floor; it lands there, not in the J. Try 1
+       (Study 19) tipped it onto its back: a stone is 0.6 deep and ~0.25
+       across, so on its back it stood up like a pillar. Now: keep the depth
+       horizontal (like a log), and roll it to whichever angle sits lowest. */
+    const m = P.m; P.fallen = true;
+    const flying = m.position.clone(), turned = m.quaternion.clone();   // where it is now, mid-flight or still out
+    ground.add(m);
+    const n = G.fallen.length, yaw = (n ? -0.5 : 0.7) + (rnd() - 0.5) * 0.4;
+    m.position.set(0, 0, 0);
+    let best = null;
+    for (let k = 0; k < 24; k++) {
+      m.quaternion.setFromEuler(new THREE.Euler(0, yaw, k * Math.PI / 24, 'YXZ'));
+      m.updateMatrixWorld(true);
+      const b = new THREE.Box3().setFromObject(m, true), h = b.max.y - b.min.y;
+      if (!best || h < best.h) best = { h, q: m.quaternion.clone() };
+    }
+    P.homeQ = best.q; m.quaternion.copy(P.homeQ); m.updateMatrixWorld(true);
+    const lowest = new THREE.Box3().setFromObject(m, true).min.y;   // precise: the rotated mesh, not its rotated box
+    P.home = new THREE.Vector3(n ? -0.62 : -1.02, FLOOR - lowest + 0.004, n ? 0.62 : 0.4);
+    P.shadow = shadow(0.55, 0.42); P.shadow.position.set(P.home.x, FLOOR + 0.003, P.home.z); P.shadow.material.uniforms.uK.value = 0;
+    /* it changes course from where it is: block-local → the ground is at the same origin, so the point carries over */
+    block.localToWorld(flying); ground.worldToLocal(flying);
+    P.from = flying; P.spin = turned; P.delay = G.tau;
     m.position.copy(P.from); m.quaternion.copy(P.spin);
-    G.pieces.push(P);
+    G.fallen.push(P);
   }
-  G.end = Math.max(...G.pieces.map(P => P.delay)) + 1.2;   // tau at which the last stone lands
+  G.end = Math.max(...G.pieces.map(P => P.delay)) + 1.2;
+  G.done = true;
+  if (G.gen === 0) T.builtAt = Math.round(performance.now());
+}
+function makeGen(font, gen, J) {
+  const G = newGen(font, gen);
+  for (const d of J.pieces) addStone(G, d);
+  finishGen(G, J);
   return G;
 }
 function dropGen(G) {
@@ -356,18 +415,20 @@ function show(G) {   /* the test and the bar read the current generation through
   lightBar();
 }
 
-let G = makeGen(FONT, 0, await build(FONT, 0));
-await look.setup({ THREE, renderer, scene, camera, pieces: [...G.meshes, ...parts], block, pivot, box: { min: new THREE.Vector3(-0.8, -JH / 2, -0.3), max: new THREE.Vector3(0.8, JH / 2, 0.3) } });
+let G = newGen(FONT, 0);
+await look.setup({ THREE, renderer, scene, camera, pieces: [...parts], block, pivot, box: { min: new THREE.Vector3(-0.8, -JH / 2, -0.3), max: new THREE.Vector3(0.8, JH / 2, 0.3) } });
 const decals = []; scene.traverse(o => { if (o.userData.decal) decals.push(o); });
 T.decals = decals.length; T.decalStyled = false;
 T.pivot = pivot; T.camera = camera;
 
-/* the next font: decided now, built while this one stands, so the swap never waits */
+/* Study 41: the first J's stones fly in as they are meshed; the two that fall out are chosen once all are in */
+const firstBuild = firstStones((d) => { addStone(G, d); }).then((J) => { finishGen(G, J); place(LAYOUT[T.layout]); if (T.siteAt) fit(); show(G); return J; });
+/* the next font: decided now, built while this one stands (after the first build has the worker), so the swap never waits */
 const after = (font) => FONTS[(FONTS.indexOf(font) + 1) % FONTS.length];
-let nextFont = after(FONT), nextJ = build(nextFont, 1);
+let nextFont = after(FONT), nextJ = firstBuild.then(() => build(nextFont, 1));
 T.next = nextFont;
 function jump(font) {   /* study bar: bring this font next, now */
-  if (!FONTS.includes(font) || font === G.font || T.phase === 'swap') return;
+  if (!FONTS.includes(font) || font === G.font || T.phase === 'swap' || !G.done) return;
   nextFont = font; nextJ = build(font, G.gen + 1); T.next = font;
   if (T.phase !== 'fall') letGo();
   lightBar();
@@ -541,7 +602,7 @@ async function swap() {
 const ease = t => 1 - Math.pow(1 - t, 3);
 const BASE = 1.0, GAIN = 1.1;                                // build rate: idle → ~2.7 s, moving → ~1 s. Study 38: was 0.32 (idle ~8.6 s), longer than the 6 s hold, so the J spent most of each cycle in pieces (Divya: "it breaks")
 show(G);
-T.ready = true;
+T.ready = true; T.sceneAt = Math.round(performance.now()); stage.classList.add('up');   /* Study 41: the floor, the sign and the words are up; the stones follow */
 let then = performance.now(), t = 0;
 function frame(now) {
   const dt = Math.min(0.1, (now - then) / 1000); then = now; t += dt;   /* capped at 10 fps: below that the clocks slow rather than jump */
@@ -555,7 +616,7 @@ function frame(now) {
     T.tau = G.tau;
     /* done when the clock is: per-stone progress can stop at 0.99999…
        (seed rqec8q, 24 stones, never reported built — float rounding) */
-    const done = G.tau >= G.end;
+    const done = G.done && G.tau >= G.end;
     for (const P of G.pieces) {
       const a = done ? 1 : Math.min(1, Math.max(0, (G.tau - P.delay) / 1.2)), e = ease(a);
       P.m.position.lerpVectors(P.from, P.home, e);
