@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>44 / EWC, the web + the verbs — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.ways { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin: 22px 0 18px }
+.ways button { text-align: left; font: inherit; background: white; border: 1px solid #ddd; border-left: 3px solid #ddd; padding: 12px 14px; cursor: pointer; color: #222 }
+.ways button[aria-pressed="true"] { border-left-color: #222; background: #fafafa }
+.ways strong, .ways small { display: block }
+.ways small { margin-top: 4px; color: #636363; line-height: 1.45 }
+.frame { border: 1px solid #ddd; height: 78vh; min-height: 520px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.open { margin: 8px 0 0; font-size: 13px }
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px }
+.shots figure { margin: 0 }
+.shots .shot { width: 100%; height: 260px; object-fit: cover; object-position: top }
+.heard { margin: 18px 0 0; padding-left: 14px; border-left: 3px solid #ddd; max-width: 68ch }
+.heard p { margin: 0 0 8px }
+.heard cite { font-style: normal; color: #636363; font-size: 13px }
+@media (max-width: 1100px) { .ways { grid-template-columns: repeat(3, minmax(0, 1fr)) } }
+@media (max-width: 900px) { .ways, .shots { grid-template-columns: 1fr 1fr } }
+@media (max-width: 520px) { .ways, .shots { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 44 · 27 October 2026 · Kahran</p>
+<h1>EWC, the web + the verbs</h1>
+<p class="lede">Study 43's two picks, the web (3) and the seven verbs (6), put together five ways. The finding goes first on every page, and each page keeps to 120 words of ours. The brand guide's lines are extra, and they appear word for word.</p>
+
+<div class="heard">
+  <p>From the call on 27 Oct: treat one as user research and one as the brand story, because "we create too much strategy and artifact together. We need to be able to sell both of those things separately." Put insight first ("who uses what"), and "make shit way more digestible… what is EWC for, and then for the Quiet Connector, the Country Club, and then like remove everything else from the outside." Kahran: "directionally this feels right, but we just need more density and less words."</p>
+  <cite>Divya and Kahran, granola 5781859, turns 137–177</cite>
+</div>
+
+<div class="ways" role="group" aria-label="Pick a combination">
+  <button aria-pressed="true" data-src="combo-a-stacked.html"><strong>A · Stacked</strong><small>The finding, then the web as the research, then the seven verbs as the brand story.</small></button>
+  <button aria-pressed="false" data-src="combo-b-halves.html"><strong>B · Two halves</strong><small>Research and Brand story as two tabs. Each stands alone, so each can be sold alone.</small></button>
+  <button aria-pressed="false" data-src="combo-c-spine.html"><strong>C · The verbs as the spine</strong><small>Seven verbs in a row. Sort and price open into the web beneath them.</small></button>
+  <button aria-pressed="false" data-src="combo-d-member.html"><strong>D · One member at a time</strong><small>"What is EWC for?" Pick a member to see what they use today and what the club gives them.</small></button>
+  <button aria-pressed="false" data-src="combo-e-lines.html"><strong>E · Six lines</strong><small>Who it's for, for what, instead of what, then the verbs as one line. No web.</small></button>
+</div>
+
+<div class="frame"><iframe id="way" title="The combination" src="combo-a-stacked.html"></iframe></div>
+<p class="open"><a id="way-open" href="combo-a-stacked.html" target="_blank">Open this one in its own tab</a></p>
+
+<div class="shots">
+  <figure><a class="zoom" href="img/combo-a-stacked.png" target="_blank"><img class="shot" src="img/combo-a-stacked.png" alt="A, stacked: the finding, the web, then seven verbs in a row"></a><figcaption>A · stacked</figcaption></figure>
+  <figure><a class="zoom" href="img/combo-b-halves.png" target="_blank"><img class="shot" src="img/combo-b-halves.png" alt="B, two halves: Research and Brand story tabs over the web"></a><figcaption>B · two halves</figcaption></figure>
+  <figure><a class="zoom" href="img/combo-c-spine.png" target="_blank"><img class="shot" src="img/combo-c-spine.png" alt="C, the verbs as the spine: seven verbs, sort and price opening into the web"></a><figcaption>C · the verbs as the spine</figcaption></figure>
+  <figure><a class="zoom" href="img/combo-d-member.png" target="_blank"><img class="shot" src="img/combo-d-member.png" alt="D, one member at a time: six names, one open with what they use today"></a><figcaption>D · one member at a time</figcaption></figure>
+  <figure><a class="zoom" href="img/combo-e-lines.png" target="_blank"><img class="shot" src="img/combo-e-lines.png" alt="E, six lines: who it is for, for what, instead of what"></a><figcaption>E · six lines</figcaption></figure>
+</div>
+
+<p><strong>Next: Kahran's text pass, then Divya.</strong> Every string on the five pages has a <code>data-copy</code> id. The full list, with each string's flag and source, is in <a href="copy.json">copy.json</a>. Yellow means draft. Change the words in <code>words.json</code> and run <code>build.cjs</code>.</p>
+</main>
+<script>
+  const bs = [...document.querySelectorAll('.ways button')], f = document.getElementById('way'), o = document.getElementById('way-open');
+  bs.forEach(b => b.addEventListener('click', () => { bs.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); f.src = o.href = b.dataset.src; }));
+</script>
+</body>
+</html>
