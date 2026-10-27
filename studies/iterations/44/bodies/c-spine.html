@@ -1,0 +1,15 @@
+<style>
+  /* C · the verbs as the spine: seven in a row; sort and price open into the web under them */
+  .spine .vb[data-verb="sort"],.spine .vb[data-verb="price"]{background:#fff;border-bottom:3px solid var(--ink);padding-left:12px}
+  .drawn{margin-top:0;border:1px solid var(--ink);border-top:0;padding:14px 16px 18px;background:#fff}
+  .drawn .mono{display:block;margin-bottom:4px}
+  .drawn .web-wrap{margin-top:8px}
+</style>
+<section class="body spine" aria-labelledby="bh-b">
+  <div class="body-h"><h2 id="bh-b">{{w:all.brand.h}}</h2></div>
+  {{VERBS}}
+  <div class="drawn" aria-labelledby="bh-r">
+    <span class="mono" id="bh-r">{{w:c.hint}} · {{w:all.research.hint}}</span>
+    {{WEB}}
+  </div>
+</section>

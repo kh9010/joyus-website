@@ -1,0 +1,29 @@
+<style>
+  /* D · one member at a time: what is EWC for, pick one, what they use today, what the club gives */
+  .ask{font:500 clamp(1.3rem,2.4vw,1.9rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0}
+  .pick{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0}
+  .pick button{font:14px var(--sans);border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:#fff;color:var(--ink);cursor:pointer}
+  .pick button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .member{margin-top:22px;border-top:1.5px solid var(--ink);padding-top:14px}
+  .member[hidden]{display:none}
+  .member .profile{font:12px/1.45 var(--mono);color:var(--mute);margin:0 0 14px;max-width:60ch}
+  .member .cols{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+  .member h3{font:12px var(--mono);color:var(--mute);margin:0 0 8px;font-weight:400}
+  .member ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .member li{font-size:1.1rem;border-top:1px solid var(--box);padding-top:8px}
+  .member li small{display:block;font:12px var(--mono);color:var(--mute);margin-top:3px}
+  .member .cols>div:last-child p{font-size:1.1rem;margin:0;line-height:1.4}
+  @media (max-width:760px){ .member .cols{grid-template-columns:1fr} }
+</style>
+<section class="body" aria-labelledby="bh-d">
+  <div class="body-h"><h2 id="bh-d" class="ask">{{w:d.ask}}</h2></div>
+  {{PICK}}
+</section>
+<section class="body" aria-labelledby="bh-b">
+  <div class="body-h"><h2 id="bh-b">{{w:all.brand.h}}</h2></div>
+  {{STRIP}}
+</section>
+<script>
+  const bs = [...document.querySelectorAll('.pick button')], ms = [...document.querySelectorAll('.member')];
+  bs.forEach(b => b.addEventListener('click', () => { bs.forEach(x => x.setAttribute('aria-pressed', x === b)); ms.forEach(m => { m.hidden = m.dataset.p !== b.dataset.p; }); }));
+</script>

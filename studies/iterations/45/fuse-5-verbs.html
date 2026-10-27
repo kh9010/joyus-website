@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, 5: two sets of verbs (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 44's piece page: no hero, tags, "also" or closing (Divya, 27 Oct: "remove everything else") */
+  .head{padding:clamp(40px,7vh,80px) var(--x) 28px;display:grid;grid-template-columns:minmax(0,7fr) minmax(220px,3fr);gap:48px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.8rem,3.4vw,3rem)/1.12 var(--sans);letter-spacing:-.025em;margin:0;max-width:20ch}
+  .facts{margin:0;display:grid;gap:12px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .insight{padding:44px var(--x) 8px}
+  .insight p{font:500 clamp(1.4rem,2.6vw,2.2rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0;max-width:26ch}
+  .insight small{display:block;font:12px var(--mono);color:var(--mute);margin-top:12px}
+  .body{padding:40px var(--x) 24px}
+  .body-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin:0}
+  .body-h h2{margin:0;font-size:1.2rem;letter-spacing:-.02em;font-weight:600}
+  .line-draft{background:#fff4c2}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:48px var(--x) 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.1rem,2vw,1.5rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:24px} }
+
+</style>
+<style>
+  /* 5 · two sets of verbs: the members' and ours in one a–z index; open a verb to see who does it and where they do it now */
+  .legend{display:flex;gap:18px;font:12px var(--mono);color:var(--mute);margin:0 0 12px}
+  .legend>span::before{content:"";display:inline-block;width:9px;height:9px;margin-right:6px;border:1.5px solid var(--ink);vertical-align:-1px}
+  .legend>.o::before,.ix li.ours>details>summary::after{background:var(--ink)}
+  .ix{list-style:none;margin:0;padding:0;columns:3 220px;column-gap:40px}
+  .ix>li{break-inside:avoid;border-bottom:1px solid var(--box)}
+  .ix summary{cursor:pointer;list-style:none;padding:8px 0;font:500 clamp(1.15rem,1.8vw,1.45rem)/1.1 var(--sans);letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .ix summary::-webkit-details-marker{display:none}
+  .ix summary::after{content:"";width:8px;height:8px;border:1.5px solid var(--ink);margin-left:auto;flex:none}
+  .ix li.theirs.ours>details>summary::after{background:linear-gradient(135deg,var(--ink) 50%,#fff 50%)}
+  .ix details ul{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:6px}
+  .ix details li{font-size:14px;line-height:1.35}
+  .ix details li small{display:block;font:11px var(--mono);color:var(--mute)}
+  .ix details li.ours{font:12px var(--mono)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index"><span data-copy="45.chrome.work">work</span></a></li><li><a href="#" data-to="about"><span data-copy="45.chrome.about">about</span></a></li><li><a href="#" data-to="say-hi"><span data-copy="45.chrome.sayhi">say hi</span></a></li></ul>
+</header>
+
+<main class="piece">
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy"><span data-copy="45.chrome.crumb.strategy">Strategy</span></a><span>/</span><a href="#" data-to="client"><span data-copy="45.chrome.crumb.ewc">EWC</span></a></p>
+    <h1><span data-copy="45.all.headline" class="line-draft">Who East West Club is for, and what it is up against.</span></h1>
+  </div>
+  <dl class="facts">
+    <div><dt><span data-copy="45.all.client.k">client</span></dt><dd><span data-copy="45.all.client.v">East | West Club, Seattle</span></dd></div>
+    <div><dt><span data-copy="45.all.when.k">when</span></dt><dd><span data-copy="45.all.when.v">March – August 2026</span></dd></div>
+  </dl>
+</section>
+
+<section class="insight" aria-label="the finding">
+  <p><span data-copy="45.all.insight" class="line-draft">The competition was never another club. It was a coffeeshop, a bar, home.</span></p>
+  <small><span data-copy="45.all.claim">24 wants: coffeeshop 4 · bar 3 · home 4 · country club 2</span></small>
+</section>
+
+<section class="body">
+<p class="legend"><span class="t"><span data-copy="45.v.theirs">theirs</span></span><span class="o"><span data-copy="45.v.ours">ours</span></span></p><ul class="ix"><li class="theirs" data-verb="be noticed"><details><summary><span data-copy="45.v.p2.w2" class="line-draft">be noticed</span></summary><ul><li class="theirs"><span data-copy="45.data.p2.w2.want">Being valued and noticed for it.</span><small><span data-copy="45.data.p2.name">The Semi-Retired Operator</span> · <span data-copy="45.data.p2.w2.today">charity events, winery concerts</span></small></li></ul></details></li><li class="theirs" data-verb="be respected"><details><summary><span data-copy="45.v.p4.w3" class="line-draft">be respected</span></summary><ul><li class="theirs"><span data-copy="45.data.p4.w3.want">Being respected for what they know.</span><small><span data-copy="45.data.p4.name">The Empty-Nester</span> · <span data-copy="45.data.p4.w3.today">charity events</span></small></li></ul></details></li><li class="ours" data-verb="cast"><details><summary><span data-copy="45.v.o.cast">cast</span></summary><ul><li class="ours"><span data-copy="45.v.o.cast.date">Mar – Jul</span></li></ul></details></li><li class="theirs" data-verb="deal"><details><summary><span data-copy="45.v.p1.w2" class="line-draft">deal</span></summary><ul><li class="theirs"><span data-copy="45.data.p1.w2.want">Thursday night poker.</span><small><span data-copy="45.data.p1.name">The Country-Club Guy</span> · <span data-copy="45.data.p1.w2.today">a friend's house, a private room at Daniel's</span></small></li></ul></details></li><li class="ours" data-verb="dress"><details><summary><span data-copy="45.v.o.dress">dress</span></summary><ul><li class="ours"><span data-copy="45.v.o.dress.date">May – Jul</span></li></ul></details></li><li class="theirs" data-verb="drop in"><details><summary><span data-copy="45.v.p1.w1" class="line-draft">drop in</span></summary><ul><li class="theirs"><span data-copy="45.data.p1.w1.want">Dropping in without the long commute.</span><small><span data-copy="45.data.p1.name">The Country-Club Guy</span> · <span data-copy="45.data.p1.w1.today">the local gym</span></small></li></ul></details></li><li class="theirs" data-verb="get away"><details><summary><span data-copy="45.v.p0.w0" class="line-draft">get away</span></summary><ul><li class="theirs"><span data-copy="45.data.p0.w0.want">A way to be away from his usual social circles.</span><small><span data-copy="45.data.p0.name">The Quiet Connector</span> · <span data-copy="45.data.p0.w0.today">a coffeeshop near the house, or the office</span></small></li></ul></details></li><li class="theirs" data-verb="go out"><details><summary><span data-copy="45.v.p4.w2" class="line-draft">go out</span></summary><ul><li class="theirs"><span data-copy="45.data.p4.w2.want">Seeing people without hosting at home.</span><small><span data-copy="45.data.p4.name">The Empty-Nester</span> · <span data-copy="45.data.p4.w2.today">a favourite restaurant</span></small></li></ul></details></li><li class="theirs" data-verb="know first"><details><summary><span data-copy="45.v.p5.w3" class="line-draft">know first</span></summary><ul><li class="theirs"><span data-copy="45.data.p5.w3.want">Knowing the next thing before it's the next thing.</span><small><span data-copy="45.data.p5.name">The Mid-Career High Earner</span> · <span data-copy="45.data.p5.w3.today">work, Instagram</span></small></li></ul></details></li><li class="theirs" data-verb="look back"><details><summary><span data-copy="45.v.p0.w2" class="line-draft">look back</span></summary><ul><li class="theirs"><span data-copy="45.data.p0.w2.want">A space that reminds him of freer times.</span><small><span data-copy="45.data.p0.name">The Quiet Connector</span> · <span data-copy="45.data.p0.w2.today">the driving range, a lakefront patio</span></small></li></ul></details></li><li class="theirs" data-verb="make friends"><details><summary><span data-copy="45.v.p4.w1" class="line-draft">make friends</span></summary><ul><li class="theirs"><span data-copy="45.data.p4.w1.want">Friends who match the life they have now.</span><small><span data-copy="45.data.p4.name">The Empty-Nester</span> · <span data-copy="45.data.p4.w1.today">friends of friends</span></small></li></ul></details></li><li class="theirs ours" data-verb="meet"><details><summary><span data-copy="45.v.p2.w0" class="line-draft">meet</span><span hidden><span data-copy="45.v.p3.w3" class="line-draft">meet</span></span><span hidden><span data-copy="45.v.o.meet">meet</span></span></summary><ul><li class="theirs"><span data-copy="45.data.p2.w0.want">Meeting younger, more interesting people.</span><small><span data-copy="45.data.p2.name">The Semi-Retired Operator</span> · <span data-copy="45.data.p2.w0.today">the country club, concerts, dinners</span></small></li><li class="theirs"><span data-copy="45.data.p3.w3.want">People who aren't colleagues.</span><small><span data-copy="45.data.p3.name">The New-to-Seattle Founder</span> · <span data-copy="45.data.p3.w3.today">meetups, affinity groups, friends of friends</span></small></li><li class="ours"><span data-copy="45.v.o.meet.date">22 Apr</span></li></ul></details></li><li class="theirs" data-verb="mentor"><details><summary><span data-copy="45.v.p2.w1" class="line-draft">mentor</span></summary><ul><li class="theirs"><span data-copy="45.data.p2.w1.want">Being a practical mentor to someone.</span><small><span data-copy="45.data.p2.name">The Semi-Retired Operator</span> · <span data-copy="45.data.p2.w1.today">board work, informal coffees</span></small></li></ul></details></li><li class="ours" data-verb="open"><details><summary><span data-copy="45.v.o.open">open</span></summary><ul><li class="ours"><span data-copy="45.v.o.open.date">after Joyus</span></li></ul></details></li><li class="theirs" data-verb="pick up"><details><summary><span data-copy="45.v.p4.w0" class="line-draft">pick up</span></summary><ul><li class="theirs"><span data-copy="45.data.p4.w0.want">Reconnecting with the hobbies they dropped.</span><small><span data-copy="45.data.p4.name">The Empty-Nester</span> · <span data-copy="45.data.p4.w0.today">the arts centre, the mall, a purchase</span></small></li></ul></details></li><li class="theirs" data-verb="pitch"><details><summary><span data-copy="45.v.p3.w2" class="line-draft">pitch</span></summary><ul><li class="theirs"><span data-copy="45.data.p3.w2.want">Somewhere to meet investors.</span><small><span data-copy="45.data.p3.name">The New-to-Seattle Founder</span> · <span data-copy="45.data.p3.w2.today">a coffeeshop</span></small></li></ul></details></li><li class="theirs" data-verb="plan"><details><summary><span data-copy="45.v.p5.w1" class="line-draft">plan</span></summary><ul><li class="theirs"><span data-copy="45.data.p5.w1.want">Plans that are certain when she needs them to be.</span><small><span data-copy="45.data.p5.name">The Mid-Career High Earner</span> · <span data-copy="45.data.p5.w1.today">the neighbourhood bar</span></small></li></ul></details></li><li class="theirs" data-verb="play"><details><summary><span data-copy="45.v.p1.w0" class="line-draft">play</span></summary><ul><li class="theirs"><span data-copy="45.data.p1.w0.want">A simulator that's free when he wants it.</span><small><span data-copy="45.data.p1.name">The Country-Club Guy</span> · <span data-copy="45.data.p1.w0.today">his house</span></small></li></ul></details></li><li class="ours" data-verb="price"><details><summary><span data-copy="45.v.o.price">price</span></summary><ul><li class="ours"><span data-copy="45.v.o.price.date">27 May</span></li></ul></details></li><li class="ours" data-verb="reframe"><details><summary><span data-copy="45.v.o.reframe">reframe</span></summary><ul><li class="ours"><span data-copy="45.v.o.reframe.date">1 Apr</span></li></ul></details></li><li class="theirs" data-verb="run into"><details><summary><span data-copy="45.v.p0.w1" class="line-draft">run into</span></summary><ul><li class="theirs"><span data-copy="45.data.p0.w1.want">Running into someone he hasn't seen in a while.</span><small><span data-copy="45.data.p0.name">The Quiet Connector</span> · <span data-copy="45.data.p0.w1.today">kids' sports, community events</span></small></li></ul></details></li><li class="theirs" data-verb="settle in"><details><summary><span data-copy="45.v.p5.w0" class="line-draft">settle in</span></summary><ul><li class="theirs"><span data-copy="45.data.p5.w0.want">A third place.</span><small><span data-copy="45.data.p5.name">The Mid-Career High Earner</span> · <span data-copy="45.data.p5.w0.today">a bar</span></small></li></ul></details></li><li class="ours" data-verb="sort"><details><summary><span data-copy="45.v.o.sort">sort</span></summary><ul><li class="ours"><span data-copy="45.v.o.sort.date">15 May</span></li></ul></details></li><li class="theirs" data-verb="take calls"><details><summary><span data-copy="45.v.p3.w1" class="line-draft">take calls</span></summary><ul><li class="theirs"><span data-copy="45.data.p3.w1.want">Somewhere to take video calls.</span><small><span data-copy="45.data.p3.name">The New-to-Seattle Founder</span> · <span data-copy="45.data.p3.w1.today">a coffeeshop</span></small></li></ul></details></li><li class="theirs" data-verb="throw"><details><summary><span data-copy="45.v.p2.w3" class="line-draft">throw</span></summary><ul><li class="theirs"><span data-copy="45.data.p2.w3.want">Throwing something impromptu on a Friday.</span><small><span data-copy="45.data.p2.name">The Semi-Retired Operator</span> · <span data-copy="45.data.p2.w3.today">the country club</span></small></li></ul></details></li><li class="theirs" data-verb="train"><details><summary><span data-copy="45.v.p0.w3" class="line-draft">train</span></summary><ul><li class="theirs"><span data-copy="45.data.p0.w3.want">Wellness on Monday morning, before work.</span><small><span data-copy="45.data.p0.name">The Quiet Connector</span> · <span data-copy="45.data.p0.w3.today">at home, a small private gym</span></small></li></ul></details></li><li class="theirs" data-verb="unwind"><details><summary><span data-copy="45.v.p1.w3" class="line-draft">unwind</span></summary><ul><li class="theirs"><span data-copy="45.data.p1.w3.want">Wellness — most clubs don't offer it.</span><small><span data-copy="45.data.p1.name">The Country-Club Guy</span> · <span data-copy="45.data.p1.w3.today">a scheduled appointment with his wife</span></small></li></ul></details></li><li class="theirs" data-verb="watch"><details><summary><span data-copy="45.v.p5.w2" class="line-draft">watch</span></summary><ul><li class="theirs"><span data-copy="45.data.p5.w2.want">People to watch the game with.</span><small><span data-copy="45.data.p5.name">The Mid-Career High Earner</span> · <span data-copy="45.data.p5.w2.today">a sports bar, the work text group</span></small></li></ul></details></li><li class="theirs" data-verb="work"><details><summary><span data-copy="45.v.p3.w0" class="line-draft">work</span></summary><ul><li class="theirs"><span data-copy="45.data.p3.w0.want">A true second space.</span><small><span data-copy="45.data.p3.name">The New-to-Seattle Founder</span> · <span data-copy="45.data.p3.w0.today">a coffeeshop</span></small></li></ul></details></li></ul>
+</section>
+</main>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small><span data-copy="45.chrome.next.label">next in Strategy</span></small><b><span data-copy="45.chrome.next.piece">For Pratham USA, we worked out why donors give once and stop, and designed the strategy to bring them back and keep them.</span></b></span><span class="arrow">→</span></a>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px"><span data-copy="45.chrome.f.copyright">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span></p></div>
+  <div><span data-copy="45.chrome.f.sayhi">say hi</span><ul><li><a href="#" data-to="mailto"><span data-copy="45.chrome.f.mail">hello@joyus.studio</span></a></li><li><a href="#" data-to="say-hi"><span data-copy="45.chrome.f.contact">contact</span></a></li></ul></div>
+  <div><span data-copy="45.chrome.f.findus">find us</span><ul><li><a href="#" data-to="person"><span data-copy="45.chrome.f.kahran">Kahran</span></a></li><li><a href="#" data-to="person"><span data-copy="45.chrome.f.divya">Divya</span></a></li><li><a href="#" data-to="podcast-existing"><span data-copy="45.chrome.f.podcast">podcast</span></a></li></ul></div>
+</footer>
+
+</body>
+</html>

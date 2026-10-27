@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, {{TITLE}} (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 44's piece page: no hero, tags, "also" or closing (Divya, 27 Oct: "remove everything else") */
+  .head{padding:clamp(40px,7vh,80px) var(--x) 28px;display:grid;grid-template-columns:minmax(0,7fr) minmax(220px,3fr);gap:48px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.8rem,3.4vw,3rem)/1.12 var(--sans);letter-spacing:-.025em;margin:0;max-width:20ch}
+  .facts{margin:0;display:grid;gap:12px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .insight{padding:44px var(--x) 8px}
+  .insight p{font:500 clamp(1.4rem,2.6vw,2.2rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0;max-width:26ch}
+  .insight small{display:block;font:12px var(--mono);color:var(--mute);margin-top:12px}
+  .body{padding:40px var(--x) 24px}
+  .body-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin:0}
+  .body-h h2{margin:0;font-size:1.2rem;letter-spacing:-.02em;font-weight:600}
+  .line-draft{background:#fff4c2}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:48px var(--x) 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.1rem,2vw,1.5rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:24px} }
+
+</style>
+<!--STYLE-->
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">{{w:chrome.work}}</a></li><li><a href="#" data-to="about">{{w:chrome.about}}</a></li><li><a href="#" data-to="say-hi">{{w:chrome.sayhi}}</a></li></ul>
+</header>
+
+<main class="piece">
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy">{{w:chrome.crumb.strategy}}</a><span>/</span><a href="#" data-to="client">{{w:chrome.crumb.ewc}}</a></p>
+    <h1>{{w:all.headline}}</h1>
+  </div>
+  <dl class="facts">
+    <div><dt>{{w:all.client.k}}</dt><dd>{{w:all.client.v}}</dd></div>
+    <div><dt>{{w:all.when.k}}</dt><dd>{{w:all.when.v}}</dd></div>
+  </dl>
+</section>
+
+<section class="insight" aria-label="the finding">
+  <p>{{w:all.insight}}</p>
+  <small>{{CLAIM}}</small>
+</section>
+
+<!--BODY-->
+</main>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small>{{w:chrome.next.label}}</small><b>{{w:chrome.next.piece}}</b></span><span class="arrow">→</span></a>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">{{w:chrome.f.copyright}}</p></div>
+  <div>{{w:chrome.f.sayhi}}<ul><li><a href="#" data-to="mailto">{{w:chrome.f.mail}}</a></li><li><a href="#" data-to="say-hi">{{w:chrome.f.contact}}</a></li></ul></div>
+  <div>{{w:chrome.f.findus}}<ul><li><a href="#" data-to="person">{{w:chrome.f.kahran}}</a></li><li><a href="#" data-to="person">{{w:chrome.f.divya}}</a></li><li><a href="#" data-to="podcast-existing">{{w:chrome.f.podcast}}</a></li></ul></div>
+</footer>
+
+</body>
+</html>

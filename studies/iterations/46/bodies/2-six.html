@@ -1,0 +1,25 @@
+<style>
+  /* 2 · six Tuesdays at once: the six evenings side by side; the coffeeshops, bars and homes light up */
+  .ask{font:500 clamp(1.3rem,2.4vw,1.9rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0}
+  .lead{font:15px var(--sans);margin:14px 0 0}
+  .flip{display:flex;gap:6px;margin:14px 0 0}
+  .flip button{font:14px var(--sans);border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:#fff;color:var(--ink);cursor:pointer}
+  .flip button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  [hidden]{display:none!important}
+  .six{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:16px;border-top:1.5px solid var(--ink);padding-top:12px}
+  .col h3{font:600 14px/1.25 var(--sans);margin:0 0 10px;min-height:2.5em}
+  .col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .col li{font:13px/1.35 var(--mono);color:var(--mute);border:1px solid var(--box);padding:8px;min-height:3.4em}
+  .col li.hit{color:var(--ink);border-color:var(--ink);background:var(--box)}
+  .col .with p{margin:0;font:14px/1.4 var(--sans)}
+  @media (max-width:1000px){ .six{grid-template-columns:repeat(3,minmax(0,1fr))} }
+  @media (max-width:560px){ .six{grid-template-columns:1fr 1fr} }
+</style>
+<section class="body" aria-labelledby="bh-2">
+  <div class="body-h"><h2 id="bh-2" class="ask">{{w:t.ask}}</h2></div>
+  {{SIX}}
+</section>
+<script>
+  const fs = [...document.querySelectorAll('.flip button')];
+  fs.forEach(b => b.addEventListener('click', () => { const on = b.dataset.with === '1'; fs.forEach(x => x.setAttribute('aria-pressed', x === b)); document.querySelectorAll('.col').forEach(c => { c.querySelector('.without').hidden = on; c.querySelector('.with').hidden = !on; }); }));
+</script>

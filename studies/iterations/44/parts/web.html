@@ -1,0 +1,47 @@
+<div class="web-wrap">
+  <svg class="web" id="web" viewBox="0 0 760 560" role="img" aria-label="Six personas on the left, linked to what they use instead today on the right"></svg>
+  <aside class="web-side" id="web-side" aria-live="polite"></aside>
+</div>
+<script>
+  // Study 43's web, with every drawn string carrying its data-copy id (copy.json)
+  const WEB = {{WEB_JSON}};
+  const svg = document.getElementById('web'), side = document.getElementById('web-side');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const cp = (id, s) => `<span data-copy="${id}">${esc(s)}</span>`;
+  const H = Math.max(520, WEB.places.length * 32 + 30);
+  svg.setAttribute('viewBox', `0 0 760 ${H}`);
+  const P = WEB.personas.map((p, i) => ({ ...p, id: `44.data.p${i}.name`, x: 20, y: 40 + i * ((H - 80) / (WEB.personas.length - 1)), w: 230 }));
+  const S = WEB.places.map((s, i) => ({ ...s, x: 450, y: 22 + i * ((H - 44) / Math.max(1, WEB.places.length - 1)), w: 290 }));
+  const lines = WEB.edges.map(e => {
+    const a = P[e.p], b = S[e.s];
+    const l = el('line', { x1: a.x + a.w, y1: a.y, x2: b.x, y2: b.y });
+    svg.appendChild(l); return l;
+  });
+  const node = (d, kind, i) => {
+    const g = el('g', { class: 'node ' + kind, tabindex: 0, transform: `translate(${d.x},${d.y - 14})` });
+    g.appendChild(el('rect', { width: d.w, height: 28, rx: kind === 'persona' ? 2 : 14 }));
+    const t = el('text', { x: 12, y: 14, 'data-copy': d.id }); t.textContent = d.name; g.appendChild(t);
+    if (kind === 'place') { const n = el('text', { class: 'n', x: d.w - 12, y: 14, 'text-anchor': 'end' }); n.textContent = WEB.edges.filter(e => e.s === i).length; g.appendChild(n); }
+    g.addEventListener('click', () => pick(kind, i));
+    g.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(kind, i); } });
+    svg.appendChild(g); return g;
+  };
+  const pg = P.map((d, i) => node(d, 'persona', i)), sg = S.map((d, i) => node(d, 'place', i));
+  const today = cp('44.web.today', WEB.today);
+  function pick(kind, i) {
+    const on = WEB.edges.map(e => kind === 'persona' ? e.p === i : e.s === i);
+    lines.forEach((l, k) => l.classList.toggle('on', on[k]));
+    pg.forEach((g, k) => g.classList.toggle('on', kind === 'persona' ? k === i : WEB.edges.some((e, j) => on[j] && e.p === k)));
+    sg.forEach((g, k) => g.classList.toggle('on', kind === 'place' ? k === i : WEB.edges.some((e, j) => on[j] && e.s === k)));
+    if (kind === 'persona') {
+      const p = WEB.personas[i], id = (s) => `44.data.p${i}.${s}`;
+      side.innerHTML = `<h3>${cp(id('name'), p.name)}</h3><p class="profile">${cp(id('profile'), p.profile)}</p><ul>${p.wants.map((w, k) => `<li>${cp(id(`w${k}.want`), w.want)}<span class="today">${today} ${cp(id(`w${k}.today`), w.today)}</span></li>`).join('')}</ul><div class="give"><b>${cp(id('giveLabel'), p.giveLabel)}</b>${cp(id('give'), p.give)}</div>`;
+    } else {
+      const s = WEB.places[i], es = WEB.edges.filter(e => e.s === i);
+      side.innerHTML = `<h3>${cp(s.id, s.name)}</h3><ul>${es.map(e => `<li>${cp(`44.data.p${e.p}.w${e.w}.want`, WEB.personas[e.p].wants[e.w].want)}<span class="today">${cp(`44.data.p${e.p}.name`, WEB.personas[e.p].name)} · ${today} ${cp(`44.data.p${e.p}.w${e.w}.today`, WEB.personas[e.p].wants[e.w].today)}</span></li>`).join('')}</ul>`;
+    }
+  }
+  pick('persona', 0);
+</script>

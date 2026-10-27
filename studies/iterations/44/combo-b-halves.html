@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, B: two halves (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 42/43's piece page, cut down: no hero, tags, "also" or closing (Divya, 27 Oct: "remove everything else") */
+  .head{padding:clamp(40px,7vh,80px) var(--x) 28px;display:grid;grid-template-columns:minmax(0,7fr) minmax(220px,3fr);gap:48px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.8rem,3.4vw,3rem)/1.12 var(--sans);letter-spacing:-.025em;margin:0;max-width:20ch}
+  .facts{margin:0;display:grid;gap:12px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .insight{padding:44px var(--x) 8px}
+  .insight p{font:500 clamp(1.4rem,2.6vw,2.2rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0;max-width:26ch}
+  .insight small{display:block;font:12px var(--mono);color:var(--mute);margin-top:12px}
+  .body{padding:40px var(--x) 24px}
+  .body-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin:0}
+  .body-h h2{margin:0;font-size:1.2rem;letter-spacing:-.02em;font-weight:600}
+  .line-draft{background:#fff4c2}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:48px var(--x) 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.1rem,2vw,1.5rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:24px} }
+
+  /* the two parts every combination is made of: the web (43 · 3) and the verbs (43 · 6) */
+  .web-wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:24px;margin-top:20px;align-items:start}
+  .web{width:100%;height:auto;background:#fff;border:1px solid var(--line);display:block}
+  .web line{stroke:var(--box2);stroke-width:1.2}
+  .web line.on{stroke:var(--ink);stroke-width:2}
+  .web g.node{cursor:pointer}
+  .web g.node rect{fill:#fff;stroke:var(--line)}
+  .web g.node.persona rect{fill:var(--box);stroke:var(--ink)}
+  .web g.node.on rect{fill:var(--ink)}
+  .web g.node.on text{fill:#fff}
+  .web g.node text{font:12px var(--sans);fill:var(--ink);dominant-baseline:middle}
+  .web g.node .n{font:11px var(--mono);fill:var(--mute)}
+  .web-side h3{margin:0 0 6px;font-size:1.05rem;font-weight:600}
+  .web-side .profile{font:12px/1.45 var(--mono);color:var(--mute);margin:0 0 10px}
+  .web-side ul{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:8px;font-size:14px}
+  .web-side li{border-top:1px solid var(--box);padding-top:8px}
+  .web-side .today{display:block;font:12px var(--mono);color:var(--mute);margin-top:2px}
+  .web-side .give{border-top:1.5px solid var(--ink);padding-top:10px;font-size:14px}
+  .web-side .give b{display:block;font:12px var(--mono);margin-bottom:4px}
+  .verbs{list-style:none;margin:20px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
+  .vb{padding:18px 14px 18px 0;border-right:1px solid var(--box)}
+  .vb:last-child{border-right:0}
+  .verb{font:500 clamp(1.2rem,2vw,1.7rem)/1 var(--sans);letter-spacing:-.03em;margin:0 0 10px}
+  .verb small,.strip small{display:block;font:11px var(--mono);color:var(--mute);letter-spacing:0;margin-top:6px}
+  .vline{margin:0;font-size:15px;line-height:1.35}
+  .strip{list-style:none;margin:20px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px 28px;font:500 1.3rem var(--sans);letter-spacing:-.02em}
+  @media (max-width:980px){ .web-wrap{grid-template-columns:1fr} .verbs{grid-template-columns:repeat(2,minmax(0,1fr))} .vb{border-right:0;border-bottom:1px solid var(--box)} }
+</style>
+<style>
+  /* B · two halves: research and brand story each stand alone (Divya: sell them separately) */
+  .halves{display:flex;gap:8px;margin:0 var(--x);padding-top:32px}
+  .halves button{font:500 .95rem var(--sans);border:1.5px solid var(--ink);border-radius:999px;padding:8px 18px;background:none;color:var(--ink);cursor:pointer}
+  .halves button[aria-selected="true"]{background:var(--ink);color:#fff}
+  .half[hidden]{display:none}
+  .swap{display:inline-block;margin-top:24px;font:500 .95rem var(--sans);border:0;border-bottom:1.5px solid var(--ink);background:none;padding:0 0 2px;cursor:pointer;color:var(--ink)}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index"><span data-copy="44.chrome.work">work</span></a></li><li><a href="#" data-to="about"><span data-copy="44.chrome.about">about</span></a></li><li><a href="#" data-to="say-hi"><span data-copy="44.chrome.sayhi">say hi</span></a></li></ul>
+</header>
+
+<main class="piece">
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy"><span data-copy="44.chrome.crumb.strategy">Strategy</span></a><span>/</span><a href="#" data-to="client"><span data-copy="44.chrome.crumb.ewc">EWC</span></a></p>
+    <h1><span data-copy="44.all.headline" class="line-draft">Who East West Club is for, and what it is up against.</span></h1>
+  </div>
+  <dl class="facts">
+    <div><dt><span data-copy="44.all.client.k">client</span></dt><dd><span data-copy="44.all.client.v">East | West Club, Seattle</span></dd></div>
+    <div><dt><span data-copy="44.all.when.k">when</span></dt><dd><span data-copy="44.all.when.v">March – August 2026</span></dd></div>
+  </dl>
+</section>
+
+<section class="insight" aria-label="the finding">
+  <p><span data-copy="44.all.insight" class="line-draft">The competition was never another club. It was a coffeeshop, a bar, home.</span></p>
+  <small><span data-copy="44.all.claim">24 wants: coffeeshop 4 · bar 3 · home 4 · country club 2</span></small>
+</section>
+
+<div class="halves" role="tablist">
+  <button type="button" role="tab" aria-selected="true" data-half="research"><span data-copy="44.b.tab.research">Research</span></button>
+  <button type="button" role="tab" aria-selected="false" data-half="brand"><span data-copy="44.b.tab.brand">Brand story</span></button>
+</div>
+<section class="body half" data-half="research" aria-labelledby="bh-r">
+  <div class="body-h"><h2 id="bh-r"><span data-copy="44.all.research.h">Who uses what instead</span></h2><span class="mono"><span data-copy="44.all.research.hint">click one</span></span></div>
+  <div class="web-wrap">
+  <svg class="web" id="web" viewBox="0 0 760 560" role="img" aria-label="Six personas on the left, linked to what they use instead today on the right"></svg>
+  <aside class="web-side" id="web-side" aria-live="polite"></aside>
+</div>
+<script>
+  // Study 43's web, with every drawn string carrying its data-copy id (copy.json)
+  const WEB = {"personas":[{"name":"The Quiet Connector","profile":"$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.","wants":[{"want":"A way to be away from his usual social circles.","today":"a coffeeshop near the house, or the office"},{"want":"Running into someone he hasn't seen in a while.","today":"kids' sports, community events"},{"want":"A space that reminds him of freer times.","today":"the driving range, a lakefront patio"},{"want":"Wellness on Monday morning, before work.","today":"at home, a small private gym"}],"giveLabel":"We give him","give":"The café, the lounge, the events space. Wellness and the bays. Featured chefs, poker nights, golf-focused pilates — and leagues that give you somewhere to go even when you don't have friends.","i":0},{"name":"The Country-Club Guy","profile":"$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.","wants":[{"want":"A simulator that's free when he wants it.","today":"his house"},{"want":"Dropping in without the long commute.","today":"the local gym"},{"want":"Thursday night poker.","today":"a friend's house, a private room at Daniel's"},{"want":"Wellness — most clubs don't offer it.","today":"a scheduled appointment with his wife"}],"giveLabel":"We give him","give":"Bookings he can plan around — an 8am bay before work. Demo days, whiskey launches, Bandon and Pebble. Deliberately slower programming: visits over two hours.","i":1},{"name":"The Semi-Retired Operator","profile":"$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.","wants":[{"want":"Meeting younger, more interesting people.","today":"the country club, concerts, dinners"},{"want":"Being a practical mentor to someone.","today":"board work, informal coffees"},{"want":"Being valued and noticed for it.","today":"charity events, winery concerts"},{"want":"Throwing something impromptu on a Friday.","today":"the country club"}],"giveLabel":"We give him","give":"A named role and a real position in the club. He organizes programming, recruits teams, hosts member dinners — and we say publicly that he is the one who made it happen.","i":2},{"name":"The New-to-Seattle Founder","profile":"$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.","wants":[{"want":"A true second space.","today":"a coffeeshop"},{"want":"Somewhere to take video calls.","today":"a coffeeshop"},{"want":"Somewhere to meet investors.","today":"a coffeeshop"},{"want":"People who aren't colleagues.","today":"meetups, affinity groups, friends of friends"}],"giveLabel":"We give him","give":"The lounge as workspace and as the default \"meet me at.\" A room mixed on purpose — professions, genders, backgrounds. Events with the top Seattle companies, one-offs, short-format matches.","i":3},{"name":"The Empty-Nester","profile":"$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.","wants":[{"want":"Reconnecting with the hobbies they dropped.","today":"the arts centre, the mall, a purchase"},{"want":"Friends who match the life they have now.","today":"friends of friends"},{"want":"Seeing people without hosting at home.","today":"a favourite restaurant"},{"want":"Being respected for what they know.","today":"charity events"}],"giveLabel":"We give them","give":"Cohorts that start the game on the same day, so nobody is behind. Leadership called out by name, and accolades worth winning. Private space to book — book clubs, birthdays, corporate parties.","i":4},{"name":"The Mid-Career High Earner","profile":"$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.","wants":[{"want":"A third place.","today":"a bar"},{"want":"Plans that are certain when she needs them to be.","today":"the neighbourhood bar"},{"want":"People to watch the game with.","today":"a sports bar, the work text group"},{"want":"Knowing the next thing before it's the next thing.","today":"work, Instagram"}],"giveLabel":"We give her","give":"Guest passes, and the generosity of bringing people. Athlete and brand nights, demo sessions, date nights worth choosing. Faster programming — in and out in sixty to ninety minutes.","i":5}],"places":[{"id":"44.web.place.coffeeshop","name":"a coffeeshop"},{"id":"44.web.place.home","name":"home, a house"},{"id":"44.web.place.work","name":"work, the office"},{"id":"44.web.place.bar","name":"a bar"},{"id":"44.web.place.gym","name":"a gym"},{"id":"44.web.place.countryclub","name":"the country club"},{"id":"44.web.place.dinners","name":"dinners, a restaurant"},{"id":"44.web.place.concerts","name":"concerts"},{"id":"44.web.place.charity","name":"charity events"},{"id":"44.web.place.friends","name":"friends of friends"},{"id":"44.data.p0.w1.today","name":"kids' sports, community events"},{"id":"44.data.p0.w2.today","name":"the driving range, a lakefront patio"},{"id":"44.data.p1.w3.today","name":"a scheduled appointment with his wife"},{"id":"44.data.p4.w0.today","name":"the arts centre, the mall, a purchase"}],"edges":[{"p":0,"w":0,"s":0},{"p":0,"w":0,"s":1},{"p":0,"w":0,"s":2},{"p":0,"w":1,"s":10},{"p":0,"w":2,"s":11},{"p":0,"w":3,"s":1},{"p":0,"w":3,"s":4},{"p":1,"w":0,"s":1},{"p":1,"w":1,"s":4},{"p":1,"w":2,"s":1},{"p":1,"w":3,"s":12},{"p":2,"w":0,"s":5},{"p":2,"w":0,"s":6},{"p":2,"w":0,"s":7},{"p":2,"w":1,"s":2},{"p":2,"w":2,"s":8},{"p":2,"w":2,"s":7},{"p":2,"w":3,"s":5},{"p":3,"w":0,"s":0},{"p":3,"w":1,"s":0},{"p":3,"w":2,"s":0},{"p":3,"w":3,"s":9},{"p":4,"w":0,"s":13},{"p":4,"w":1,"s":9},{"p":4,"w":2,"s":6},{"p":4,"w":3,"s":8},{"p":5,"w":0,"s":3},{"p":5,"w":1,"s":3},{"p":5,"w":2,"s":3},{"p":5,"w":2,"s":2},{"p":5,"w":3,"s":2}],"today":"Today:"};
+  const svg = document.getElementById('web'), side = document.getElementById('web-side');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const cp = (id, s) => `<span data-copy="${id}">${esc(s)}</span>`;
+  const H = Math.max(520, WEB.places.length * 32 + 30);
+  svg.setAttribute('viewBox', `0 0 760 ${H}`);
+  const P = WEB.personas.map((p, i) => ({ ...p, id: `44.data.p${i}.name`, x: 20, y: 40 + i * ((H - 80) / (WEB.personas.length - 1)), w: 230 }));
+  const S = WEB.places.map((s, i) => ({ ...s, x: 450, y: 22 + i * ((H - 44) / Math.max(1, WEB.places.length - 1)), w: 290 }));
+  const lines = WEB.edges.map(e => {
+    const a = P[e.p], b = S[e.s];
+    const l = el('line', { x1: a.x + a.w, y1: a.y, x2: b.x, y2: b.y });
+    svg.appendChild(l); return l;
+  });
+  const node = (d, kind, i) => {
+    const g = el('g', { class: 'node ' + kind, tabindex: 0, transform: `translate(${d.x},${d.y - 14})` });
+    g.appendChild(el('rect', { width: d.w, height: 28, rx: kind === 'persona' ? 2 : 14 }));
+    const t = el('text', { x: 12, y: 14, 'data-copy': d.id }); t.textContent = d.name; g.appendChild(t);
+    if (kind === 'place') { const n = el('text', { class: 'n', x: d.w - 12, y: 14, 'text-anchor': 'end' }); n.textContent = WEB.edges.filter(e => e.s === i).length; g.appendChild(n); }
+    g.addEventListener('click', () => pick(kind, i));
+    g.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(kind, i); } });
+    svg.appendChild(g); return g;
+  };
+  const pg = P.map((d, i) => node(d, 'persona', i)), sg = S.map((d, i) => node(d, 'place', i));
+  const today = cp('44.web.today', WEB.today);
+  function pick(kind, i) {
+    const on = WEB.edges.map(e => kind === 'persona' ? e.p === i : e.s === i);
+    lines.forEach((l, k) => l.classList.toggle('on', on[k]));
+    pg.forEach((g, k) => g.classList.toggle('on', kind === 'persona' ? k === i : WEB.edges.some((e, j) => on[j] && e.p === k)));
+    sg.forEach((g, k) => g.classList.toggle('on', kind === 'place' ? k === i : WEB.edges.some((e, j) => on[j] && e.s === k)));
+    if (kind === 'persona') {
+      const p = WEB.personas[i], id = (s) => `44.data.p${i}.${s}`;
+      side.innerHTML = `<h3>${cp(id('name'), p.name)}</h3><p class="profile">${cp(id('profile'), p.profile)}</p><ul>${p.wants.map((w, k) => `<li>${cp(id(`w${k}.want`), w.want)}<span class="today">${today} ${cp(id(`w${k}.today`), w.today)}</span></li>`).join('')}</ul><div class="give"><b>${cp(id('giveLabel'), p.giveLabel)}</b>${cp(id('give'), p.give)}</div>`;
+    } else {
+      const s = WEB.places[i], es = WEB.edges.filter(e => e.s === i);
+      side.innerHTML = `<h3>${cp(s.id, s.name)}</h3><ul>${es.map(e => `<li>${cp(`44.data.p${e.p}.w${e.w}.want`, WEB.personas[e.p].wants[e.w].want)}<span class="today">${cp(`44.data.p${e.p}.name`, WEB.personas[e.p].name)} · ${today} ${cp(`44.data.p${e.p}.w${e.w}.today`, WEB.personas[e.p].wants[e.w].today)}</span></li>`).join('')}</ul>`;
+    }
+  }
+  pick('persona', 0);
+</script>
+
+  <button type="button" class="swap" data-go="brand"><span data-copy="44.b.handoff">The brand</span> →</button>
+</section>
+<section class="body half" data-half="brand" aria-labelledby="bh-b" hidden>
+  <div class="body-h"><h2 id="bh-b"><span data-copy="44.all.brand.h">Seven verbs</span></h2></div>
+  <ol class="verbs">
+  <li class="vb" data-verb="reframe"><p class="verb"><span data-copy="44.all.v.reframe.verb">reframe</span><small><span data-copy="44.all.v.reframe.date">1 Apr</span></small></p><p class="vline"><span data-copy="44.all.v.reframe.line" class="line-draft">Not against anything. Just different.</span></p></li>
+  <li class="vb" data-verb="meet"><p class="verb"><span data-copy="44.all.v.meet.verb">meet</span><small><span data-copy="44.all.v.meet.date">22 Apr</span></small></p><p class="vline"><span data-copy="44.all.v.meet.line" class="line-draft">Three real people. One question each.</span></p></li>
+  <li class="vb" data-verb="sort"><p class="verb"><span data-copy="44.all.v.sort.verb">sort</span><small><span data-copy="44.all.v.sort.date">15 May</span></small></p><p class="vline"><span data-copy="44.all.v.sort.line" class="line-draft">Six kinds of member.</span></p></li>
+  <li class="vb" data-verb="price"><p class="verb"><span data-copy="44.all.v.price.verb">price</span><small><span data-copy="44.all.v.price.date">27 May</span></small></p><p class="vline"><span data-copy="44.all.v.price.line" class="line-draft">Up against a coffeeshop, not a club.</span></p></li>
+  <li class="vb" data-verb="cast"><p class="verb"><span data-copy="44.all.v.cast.verb">cast</span><small><span data-copy="44.all.v.cast.date">Mar – Jul</span></small></p><p class="vline"><span data-copy="44.all.v.cast.line" class="line-draft">Twenty-five people, no two alike.</span></p></li>
+  <li class="vb" data-verb="dress"><p class="verb"><span data-copy="44.all.v.dress.verb">dress</span><small><span data-copy="44.all.v.dress.date">May – Jul</span></small></p><p class="vline"><span data-copy="44.all.v.dress.line" class="line-draft">Green, lighter. The guide, the site.</span></p></li>
+  <li class="vb" data-verb="open"><p class="verb"><span data-copy="44.all.v.open.verb">open</span><small><span data-copy="44.all.v.open.date">after Joyus</span></small></p><p class="vline"><span data-copy="44.all.v.open.line" class="line-draft">Doors open. Someone else runs the nights.</span></p></li>
+</ol>
+  <button type="button" class="swap" data-go="research">← <span data-copy="44.b.back">Back</span></button>
+</section>
+<script>
+  const tabs = [...document.querySelectorAll('.halves button')], halves = [...document.querySelectorAll('.half')];
+  const show = (h) => { tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.half === h)); halves.forEach(s => { s.hidden = s.dataset.half !== h; }); };
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.half)));
+  document.querySelectorAll('.swap').forEach(b => b.addEventListener('click', () => show(b.dataset.go)));
+</script>
+</main>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small><span data-copy="44.chrome.next.label">next in Strategy</span></small><b><span data-copy="44.chrome.next.piece">For Pratham USA, we worked out why donors give once and stop, and designed the strategy to bring them back and keep them.</span></b></span><span class="arrow">→</span></a>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px"><span data-copy="44.chrome.f.copyright">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span></p></div>
+  <div><span data-copy="44.chrome.f.sayhi">say hi</span><ul><li><a href="#" data-to="mailto"><span data-copy="44.chrome.f.mail">hello@joyus.studio</span></a></li><li><a href="#" data-to="say-hi"><span data-copy="44.chrome.f.contact">contact</span></a></li></ul></div>
+  <div><span data-copy="44.chrome.f.findus">find us</span><ul><li><a href="#" data-to="person"><span data-copy="44.chrome.f.kahran">Kahran</span></a></li><li><a href="#" data-to="person"><span data-copy="44.chrome.f.divya">Divya</span></a></li><li><a href="#" data-to="podcast-existing"><span data-copy="44.chrome.f.podcast">podcast</span></a></li></ul></div>
+</footer>
+
+</body>
+</html>

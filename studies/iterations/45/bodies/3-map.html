@@ -1,0 +1,38 @@
+<style>
+  /* 3 · the map redrawn: one picture of where they go; each of our verbs changes it, until the lines come to the club */
+  .stage{display:grid;grid-template-columns:minmax(0,7fr) minmax(220px,3fr);gap:28px;align-items:start;margin-top:8px}
+  .map{width:100%;height:auto;background:#fff;border:1px solid var(--line);display:block}
+  .map line{stroke:var(--box2);stroke-width:1.1}
+  .map line.to-club{stroke:var(--ink);stroke-width:2}
+  .map .place circle{fill:var(--box2)}
+  .map .place text{font:13px var(--sans);fill:var(--ink)}
+  .map .place .n{font:11px var(--mono);fill:var(--mute)}
+  .map .cc text{fill:var(--mute);text-decoration:line-through}
+  .map .cc circle{fill:var(--box)}
+  .map .member rect{fill:var(--box);stroke:var(--ink)}
+  .map .member text{font:12px var(--sans);fill:var(--ink)}
+  .map .mix{fill:none;stroke:var(--ink);stroke-dasharray:4 5}
+  .map .club circle{fill:var(--ink)}
+  .map .club text{font:600 12px var(--sans);fill:#fff}
+  .steps{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .steps li{border-bottom:1px solid var(--box);padding:10px 0;color:var(--mute)}
+  .steps li[aria-current]{color:var(--ink)}
+  .steps button{all:unset;cursor:pointer;display:flex;gap:10px;align-items:baseline}
+  .steps b{font:500 1.35rem/1 var(--sans);letter-spacing:-.03em}
+  .steps small{font:11px var(--mono)}
+  .steps p{margin:6px 0 0;font-size:14px;display:none}
+  .steps li[aria-current] p{display:block}
+  .next-step{margin-top:12px;font:14px var(--sans);border:1px solid var(--ink);border-radius:999px;padding:7px 16px;background:#fff;cursor:pointer}
+  @media (max-width:900px){ .stage{grid-template-columns:1fr} }
+</style>
+<section class="body"><div class="stage">
+{{MAP}}
+</div>
+<button type="button" class="next-step">{{w:m.next}} →</button>
+</section>
+<script>
+  const map = document.getElementById('map'), ls = [...document.querySelectorAll('.steps li')];
+  const go = (k) => { map.dataset.step = k; ls.forEach((l, j) => l.toggleAttribute('aria-current', j === k)); };
+  ls.forEach((l, k) => l.querySelector('button').addEventListener('click', () => go(k)));
+  document.querySelector('.next-step').addEventListener('click', () => go((+map.dataset.step + 1) % ls.length));
+</script>

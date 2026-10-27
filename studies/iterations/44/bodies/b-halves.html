@@ -1,0 +1,28 @@
+<style>
+  /* B · two halves: research and brand story each stand alone (Divya: sell them separately) */
+  .halves{display:flex;gap:8px;margin:0 var(--x);padding-top:32px}
+  .halves button{font:500 .95rem var(--sans);border:1.5px solid var(--ink);border-radius:999px;padding:8px 18px;background:none;color:var(--ink);cursor:pointer}
+  .halves button[aria-selected="true"]{background:var(--ink);color:#fff}
+  .half[hidden]{display:none}
+  .swap{display:inline-block;margin-top:24px;font:500 .95rem var(--sans);border:0;border-bottom:1.5px solid var(--ink);background:none;padding:0 0 2px;cursor:pointer;color:var(--ink)}
+</style>
+<div class="halves" role="tablist">
+  <button type="button" role="tab" aria-selected="true" data-half="research">{{w:b.tab.research}}</button>
+  <button type="button" role="tab" aria-selected="false" data-half="brand">{{w:b.tab.brand}}</button>
+</div>
+<section class="body half" data-half="research" aria-labelledby="bh-r">
+  <div class="body-h"><h2 id="bh-r">{{w:all.research.h}}</h2><span class="mono">{{w:all.research.hint}}</span></div>
+  {{WEB}}
+  <button type="button" class="swap" data-go="brand">{{w:b.handoff}} →</button>
+</section>
+<section class="body half" data-half="brand" aria-labelledby="bh-b" hidden>
+  <div class="body-h"><h2 id="bh-b">{{w:all.brand.h}}</h2></div>
+  {{VERBS}}
+  <button type="button" class="swap" data-go="research">← {{w:b.back}}</button>
+</section>
+<script>
+  const tabs = [...document.querySelectorAll('.halves button')], halves = [...document.querySelectorAll('.half')];
+  const show = (h) => { tabs.forEach(t => t.setAttribute('aria-selected', t.dataset.half === h)); halves.forEach(s => { s.hidden = s.dataset.half !== h; }); };
+  tabs.forEach(t => t.addEventListener('click', () => show(t.dataset.half)));
+  document.querySelectorAll('.swap').forEach(b => b.addEventListener('click', () => show(b.dataset.go)));
+</script>

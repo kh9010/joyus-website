@@ -1,0 +1,16 @@
+<style>
+  /* E · six lines: who it is for, for what, instead of what; then the seven verbs as one line */
+  .lines{list-style:none;margin:18px 0 0;padding:0}
+  .lines li{display:grid;grid-template-columns:minmax(180px,3fr) minmax(0,4fr) minmax(0,4fr);gap:20px;padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .lines b{font-weight:600}
+  .lines .instead{font:13px var(--mono);color:var(--mute)}
+  @media (max-width:760px){ .lines li{grid-template-columns:1fr;gap:4px} }
+</style>
+<section class="body" aria-labelledby="bh-e">
+  <div class="body-h"><h2 id="bh-e">{{w:e.ask}}</h2></div>
+  {{LINES}}
+</section>
+<section class="body" aria-labelledby="bh-b">
+  <div class="body-h"><h2 id="bh-b">{{w:all.brand.h}}</h2></div>
+  {{STRIP}}
+</section>
