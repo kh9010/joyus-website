@@ -1,0 +1,25 @@
+<style>
+  /* 5 · split screen: scroll down the six; without on the left, and the right fills in as each one arrives */
+  .ask{font:500 clamp(1.3rem,2.4vw,1.9rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0}
+  .hint{font:12px var(--mono);color:var(--mute);margin:12px 0 0}
+  .heads{position:sticky;top:0;z-index:2;background:var(--paper);display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:12px 0;border-bottom:1.5px solid var(--ink);margin-top:10px}
+  .heads b{font:12px var(--mono);color:var(--mute);font-weight:400}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:28px 0;border-bottom:1px solid var(--box);min-height:min(52vh,440px);align-items:start}
+  .pair h3{font:600 1.1rem/1.2 var(--sans);margin:0 0 12px}
+  .pair ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .pair li b{display:block;font-weight:500}
+  .where{font:13px var(--mono);color:var(--mute)}
+  .r{position:sticky;top:60px;opacity:.12;transform:translateY(14px);transition:opacity .6s,transform .6s}
+  .pair.on .r{opacity:1;transform:none}
+  .give{font:500 clamp(1.1rem,1.9vw,1.4rem)/1.35 var(--sans);margin:0;max-width:40ch}
+  .give b{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:8px;font-weight:400}
+  @media (max-width:760px){ .pair,.heads{grid-template-columns:1fr;gap:16px} .heads b:last-child{display:none} .r{position:static;opacity:1;transform:none} }
+</style>
+<section class="body" aria-labelledby="bh-5">
+  <div class="body-h"><h2 id="bh-5" class="ask">{{w:t.ask}}</h2></div>
+  {{SPLIT}}
+</section>
+<script>
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); }), { threshold: .35 });
+  document.querySelectorAll('.pair').forEach(p => io.observe(p));
+</script>
