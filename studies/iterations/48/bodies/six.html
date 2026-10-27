@@ -1,0 +1,67 @@
+<style>
+  /* six Tuesdays at once (46 · 2): the six evenings side by side; the coffeeshops, bars and homes light up.
+     47: "with EWC" re-spaced. The gives are paragraphs, so the six go to three columns (two, then one,
+     on smaller screens), a longer line, more air between them, and no empty band under the names.
+     48: a hover on each evening. The page carries every option; the picking sheet (or ?picks=)
+     says which show and how: T-a a card over the column, T-b the column opens in place, T-c the
+     others dim and it opens in place. A tap does what a hover does; "show all" opens all six. */
+  .ask{font:500 clamp(1.3rem,2.4vw,1.9rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0}
+  .lead{font:15px var(--sans);margin:14px 0 0}
+  .flip{display:flex;gap:6px;margin:14px 0 0}
+  .flip button{font:14px var(--sans);border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:#fff;color:var(--ink);cursor:pointer}
+  .flip button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  [hidden]{display:none!important}
+  .six{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:16px;border-top:1.5px solid var(--ink);padding-top:12px}
+  .col h3{font:600 14px/1.25 var(--sans);margin:0 0 10px;min-height:2.5em}
+  .col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .col li{font:13px/1.35 var(--mono);color:var(--mute);border:1px solid var(--box);padding:8px;min-height:3.4em}
+  .col li.hit{color:var(--ink);border-color:var(--ink);background:var(--box)}
+  .six.is-with{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:56px;row-gap:44px;border-top:0;padding-top:4px}
+  .six.is-with .col{border-top:1.5px solid var(--ink);padding-top:14px}
+  .six.is-with .col h3{min-height:0;margin:0 0 10px;font-size:15px}
+  .col .with p{margin:0;font:15px/1.6 var(--sans);max-width:44ch}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px}
+  .hint{font:13px var(--sans);color:var(--mute);margin:14px 0 0;display:flex;align-items:center;gap:10px}
+  .hint .all{font:13px var(--sans);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;color:var(--ink);cursor:pointer}
+  .hint .all[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .col{position:relative;cursor:pointer;outline:none}
+  .hov{display:none}
+  .hov .opt{margin:0;font:14px/1.5 var(--sans)}
+  .hov .opt + .opt{margin-top:8px}
+  /* T-a: a card over the column */
+  body.t-a .col:is(:hover,:focus-visible,.is-open) .hov{display:block;position:absolute;z-index:5;left:-8px;right:-8px;top:30px;min-width:220px;background:#fff;border:1px solid var(--ink);padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.14)}
+  /* T-b and T-c: the column opens in place, under the name */
+  body:is(.t-b,.t-c) .col:is(:hover,:focus-visible,.is-open) .hov{display:block;background:#fff;border-left:3px solid var(--ink);padding:10px 12px;margin:0 0 12px}
+  /* T-c: the other five dim */
+  body.t-c .six:has(.col:is(:hover,:focus-visible,.is-open)) .col:not(:is(:hover,:focus-visible,.is-open)){opacity:.3}
+  /* show all: every hover open, in place, whatever the treatment (for phones) */
+  body.show-all .col .hov{display:block!important;position:static!important;box-shadow:none!important;min-width:0!important;background:#fff;border:0;border-left:3px solid var(--ink);padding:10px 12px;margin:0 0 12px}
+  body.show-all .six .col{opacity:1!important}
+  @media (max-width:1000px){ .six{grid-template-columns:repeat(3,minmax(0,1fr))} .six.is-with{grid-template-columns:1fr 1fr;column-gap:40px} }
+  @media (max-width:560px){ .six{grid-template-columns:1fr 1fr} .six.is-with{grid-template-columns:1fr;row-gap:32px} }
+</style>
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh" class="ask">{{w:t.ask}}</h2></div>
+  {{SIX}}
+</section>
+<script>
+  // which options show, and how: the picking sheet calls applyPicks(); ?picks=QC-b,T-c works too.
+  // Nothing picked for a member = their first option; no treatment picked = T-a.
+  window.applyPicks = (codes) => {
+    const on = new Set(codes || []);
+    const t = ['T-a', 'T-b', 'T-c'].find(c => on.has(c)) || 'T-a';
+    document.body.classList.remove('t-a', 't-b', 't-c'); document.body.classList.add(t.toLowerCase());
+    document.querySelectorAll('.hov').forEach(h => {
+      const opts = [...h.querySelectorAll('.opt')], any = opts.some(x => on.has(x.dataset.opt));
+      opts.forEach((x, k) => { x.hidden = any ? !on.has(x.dataset.opt) : k > 0; });
+    });
+  };
+  applyPicks((new URLSearchParams(location.search).get('picks') || '').split(',').filter(Boolean));
+  const cols = [...document.querySelectorAll('.col')];
+  cols.forEach(c => c.addEventListener('click', (e) => { if (e.target.closest('button')) return; const was = c.classList.contains('is-open'); cols.forEach(x => x.classList.remove('is-open')); c.classList.toggle('is-open', !was); }));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.col')) cols.forEach(x => x.classList.remove('is-open')); });
+  const all = document.querySelector('.hint .all');
+  all.addEventListener('click', () => { const on = all.getAttribute('aria-pressed') !== 'true'; all.setAttribute('aria-pressed', on); document.body.classList.toggle('show-all', on); });
+  const fs = [...document.querySelectorAll('.flip button')];
+  fs.forEach(b => b.addEventListener('click', () => { const on = b.dataset.with === '1'; fs.forEach(x => x.setAttribute('aria-pressed', x === b)); document.querySelector('.six').classList.toggle('is-with', on); document.querySelectorAll('.col').forEach(c => { c.querySelector('.without').hidden = on; c.querySelector('.with').hidden = !on; }); }));
+</script>

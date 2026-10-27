@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>48 / EWC, a hover for each Tuesday — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+/* index.html is written by build.cjs from index.tpl.html: edit the template */
+main { padding-bottom: 120px }
+.frame { border: 1px solid #ddd; height: 70vh; min-height: 480px; margin-top: 18px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.open { margin: 8px 0 0; font-size: 13px }
+.heard { margin: 18px 0 0; padding-left: 14px; border-left: 3px solid #ddd; max-width: 68ch }
+.heard p { margin: 0 0 8px }
+.heard cite { font-style: normal; color: #636363; font-size: 13px }
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px }
+.shots figure { margin: 0 }
+.shots .shot { width: 100%; height: 180px; object-fit: cover; object-position: top; border: 1px solid #eee }
+@media (max-width: 700px) { .shots { grid-template-columns: 1fr 1fr } }
+.pickset { margin-top: 30px }
+.pickset h3 { font-size: 15px; margin: 0 0 10px; font-weight: 600 }
+.pickset h3 small { font-weight: 400; color: #636363; margin-left: 6px }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px }
+.card { text-align: left; font: inherit; font-size: 14px; line-height: 1.45; background: white; color: #222; border: 1px solid #ddd; border-left: 4px solid #ddd; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; -webkit-tap-highlight-color: transparent }
+.card .code { font: 600 13px ui-monospace, Menlo, monospace }
+.card small { color: #636363; font-size: 12px }
+.card[aria-pressed="true"] { border-color: #222; border-left-color: #e91e7b; background: #fff4f9 }
+.card[aria-pressed="true"] .code::after { content: "  ✓ picked"; color: #e91e7b }
+.picks { margin-top: 40px; border-top: 2px solid #222; padding-top: 16px }
+.picks pre { white-space: pre-wrap; background: #fafafa; border: 1px solid #eee; padding: 14px; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 10px 0 }
+.picks textarea { width: 100%; min-height: 80px; font: 15px/1.4 inherit; padding: 10px; border: 1px solid #ccc }
+.dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: rgba(255,255,255,.96); border-top: 1px solid #ddd; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: space-between; gap: 12px }
+.dock span { font-size: 13px; color: #636363 }
+.copy { font: 600 16px Montserrat, system-ui, sans-serif; background: #222; color: white; border: 0; border-radius: 999px; padding: 14px 26px; cursor: pointer; min-width: 170px }
+.copy.done { background: #1d7a45 }
+.clear { font: 13px inherit; background: none; border: 0; color: #636363; text-decoration: underline; cursor: pointer }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 48 · 27 October 2026 · Kahran</p>
+<h1>EWC, a hover for each Tuesday</h1>
+<p class="lede">47's page with a hover on each member's evening. Below the page: the options for every member and three ways the hover can appear, each with a code. Tap the ones you like (more than one is fine), then press <b>Copy picks</b> at the bottom and paste it back. The page updates as you tap, so you can try each one. Tap a member on the page to see their hover; on a phone, "show all" opens all six.</p>
+
+<div class="heard">
+  <p>"maybe we could have a onHover for each of them. We could do a quick study for the [48] where you could give me some options for the hovers for all of the different personas, and I can tell you which ones to choose."</p>
+  <cite>Kahran, 27 Oct, on Study 47</cite>
+</div>
+
+<div class="frame"><iframe id="page" title="The page, with hovers" src="six.html"></iframe></div>
+<p class="open"><a id="page-open" href="six.html" target="_blank">Open the page in its own tab, with your picks</a></p>
+
+<div class="shots">
+  <figure><a class="zoom" href="img/hover-t-a.png" target="_blank"><img class="shot" src="img/hover-t-a.png" alt="T-a: a white card over the Quiet Connector's column"></a><figcaption>T-a · card</figcaption></figure>
+  <figure><a class="zoom" href="img/hover-t-b.png" target="_blank"><img class="shot" src="img/hover-t-b.png" alt="T-b: the Quiet Connector's column opens, the line under the name"></a><figcaption>T-b · opens in place</figcaption></figure>
+  <figure><a class="zoom" href="img/hover-t-c.png" target="_blank"><img class="shot" src="img/hover-t-c.png" alt="T-c: the other five columns dimmed"></a><figcaption>T-c · spotlight</figcaption></figure>
+  <figure><a class="zoom" href="img/sheet-390.png" target="_blank"><img class="shot" src="img/sheet-390.png" alt="the picking sheet on a phone, two cards picked"></a><figcaption>the sheet on a phone</figcaption></figure>
+  <figure><a class="zoom" href="img/picks-390.png" target="_blank"><img class="shot" src="img/picks-390.png" alt="the picks summary and the Copy picks button on a phone"></a><figcaption>your picks, on a phone</figcaption></figure>
+</div>
+
+<p class="mono" style="margin-top:28px">Every option is word for word from the EWC sales kit, the brand guide, the EWC handoff or the founders' workshop board (copy.json names each source). "Our pairing" = we chose which member a line goes with. The three treatment lines are ours.</p>
+
+<!--SHEET-->
+
+<section class="picks" aria-labelledby="picks-h">
+  <h2 id="picks-h">Your picks</h2>
+  <pre id="summary"></pre>
+  <label for="note" class="mono">A note, if you want one</label>
+  <textarea id="note" placeholder="anything else for the next round"></textarea>
+  <p><button type="button" class="clear" id="clear">Clear all picks</button></p>
+</section>
+</main>
+
+<div class="dock"><span id="count">Nothing picked yet</span><button type="button" class="copy" id="copy">Copy picks</button></div>
+
+<script>
+/*PICK*/
+const KEY = 'joyus-study-48-picks';
+const cards = [...document.querySelectorAll('.card')];
+const note = document.getElementById('note'), summary = document.getElementById('summary');
+let state = { picked: [], note: '' };
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.picked)) state = { picked: s.picked.filter(c => c in PICK.text), note: s.note || '' }; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const text = () => {
+  const on = new Set(state.picked), line = (c) => c + ' — "' + PICK.text[c] + '"';
+  const t = PICK.treatments.filter(c => on.has(c));
+  const rows = ['Study 48 picks', 'Treatment: ' + (t.length ? t.join(', ') : '—')];
+  for (const m of PICK.members) { const p = m.options.filter(c => on.has(c)); rows.push(m.name + ': ' + (p.length ? p.map(line).join(' + ') : '—')); }
+  if (state.note.trim()) rows.push('Note: ' + state.note.trim());
+  return rows.join('\n');
+};
+const render = () => {
+  const on = new Set(state.picked);
+  cards.forEach(c => c.setAttribute('aria-pressed', on.has(c.dataset.code)));
+  summary.textContent = text();
+  const n = state.picked.length;
+  document.getElementById('count').textContent = n ? n + ' picked' : 'Nothing picked yet';
+  const f = document.getElementById('page');
+  try { f.contentWindow.applyPicks && f.contentWindow.applyPicks(state.picked); } catch (e) {}
+  document.getElementById('page-open').href = 'six.html' + (n ? '?picks=' + state.picked.join(',') : '');
+};
+cards.forEach(c => c.addEventListener('click', () => {
+  const k = c.dataset.code, i = state.picked.indexOf(k);
+  if (i >= 0) state.picked.splice(i, 1); else state.picked.push(k);
+  save(); render();
+}));
+note.value = state.note;
+note.addEventListener('input', () => { state.note = note.value; save(); summary.textContent = text(); });
+document.getElementById('clear').addEventListener('click', () => { state = { picked: [], note: '' }; note.value = ''; save(); render(); });
+document.getElementById('page').addEventListener('load', render);
+const copyBtn = document.getElementById('copy');
+const fallback = (s) => { const t = document.createElement('textarea'); t.value = s; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.top = '0'; t.style.opacity = '0'; document.body.appendChild(t); t.focus(); t.select(); t.setSelectionRange(0, s.length); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} t.remove(); return ok; };
+copyBtn.addEventListener('click', async () => {
+  const s = text(); let ok = false;
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(s); ok = true; } } catch (e) {}
+  if (!ok) ok = fallback(s);
+  copyBtn.textContent = ok ? 'Copied' : 'Select the text above';
+  copyBtn.classList.toggle('done', ok);
+  if (!ok) { const r = document.createRange(); r.selectNodeContents(summary); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+  setTimeout(() => { copyBtn.textContent = 'Copy picks'; copyBtn.classList.remove('done'); }, 2000);
+});
+render();
+</script>
+</body>
+</html>
