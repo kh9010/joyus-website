@@ -8,6 +8,8 @@ The new joyus.studio homepage is being worked out as numbered **studies** (snaps
 
 **Current direction (Study 13): one page.** Work, About and Say hi on a single page; each piece of work gets its own details page. Everything else from Studies 04–12 (work index, client pages, person pages, separate About / Say hi / newsletter pages) folds into it.
 
+**Newest (Study 42, 26 Oct):** the EWC strategy piece as A rounds vs B grid-first, for Divya.
+
 **Latest research (Studies 14–15):** 20 interesting About pages and 20 interesting Work pages, screenshotted, one line each, grouped by the move they make. For inspiration, nothing implemented.
 
 **joyus.studio is this page since 13 Oct 2026** (PR #15: Study 40 as `index.html` and `404.html`, assets in `/cs/`, the old site removed from `main`; `CLAUDE.md` on `main` rewritten for it). Studies stay here, on this branch, off `main`.
@@ -68,6 +70,7 @@ The server gets killed when the machine is low on memory if it runs as a Claude 
 | 39 | **Decided, and the sweep**: subtitle Space Grotesk, treatment C; the words/subtitle/mesh/edge switches gone (res 0.6, exact field on the 1024 mask); only the sign under the words, the two blocks under the J and back in the frame; `SHRINK` 0.84 (the J at 84% of what the column allows); the links' colour sweeps in from the left on hover (`background-size` 0 → 100%, anchored left) | Divya: order the fonts so no two sans follow; sign further right; white text under the band; more air; heavier headline; the Drive deck; commit |
 | 40 | **Six small things**: fonts alternate sans/not-sans round the wrap (Rubik · Alfa Slab · Archivo Black · Shrikhand · Lilita · Calistoga · Bagel Fat · Abril · Sansita · Ultra); the sign at 66% of the words' column; the hovered word is painted by clipped layers and goes white in step with the band (ink on the yellow one); `.note` margin 2.6rem; the headline wears a 0.9px ink stroke (Space Grotesk stops at 700); "Our work" → the Drive deck | committed 13 Oct; **live on joyus.studio** (PR #15) |
 | 41 | **A graceful first load**: the words and a CSS floor at once; the worker starts from an inline script before three.js downloads; the floor and sign appear when the renderer is up; each stone flies in as it is meshed (`newGen`/`addStone`/`finishGen`); the two fallen stones are chosen last and change course to the floor; `load-timing.json` (40 vs 41, cold and warm) | **current**; to go live next |
+| 42 | **EWC, told two ways** (Kahran, 26 Oct): a new piece, *EWC · strategy* (not in rev4; its headline is a draft). A = seven dated rounds (Study 04); B = the value grid first, story under it. Grid = the EWC brand guide word for word via `extract.cjs` → `personas.json` → `build.cjs`; quotes from raw.db transcripts, listed in `check.cjs`. `shoot.mjs --sources` re-shoots the guide and eastwestclub.com (needs `~/dev/ewc`) | for Divya |
 
 ## Waiting on Divya / Kahran
 

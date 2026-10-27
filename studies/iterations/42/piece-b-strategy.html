@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, B: strategy first (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 04 A's piece page, unchanged outside the body */
+  .head{padding:clamp(48px,8vh,96px) var(--x) 36px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 22px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.9rem,3.6vw,3.2rem)/1.15 var(--sans);letter-spacing:-.025em;margin:0 0 24px;max-width:22ch}
+  .draft{display:inline-block;font:11px var(--mono);color:#7a5b00;background:#fff4c2;border:1px solid #e0c35a;padding:2px 7px;margin-bottom:12px}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .hero-img{margin:0 var(--x);aspect-ratio:16/9}
+  figure{margin:0}
+  figure img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff}
+  figcaption{font:12px var(--mono);color:var(--mute);margin-top:8px}
+  q{quotes:"\201C" "\201D"}
+  blockquote{margin:0 0 14px;padding-left:14px;border-left:3px solid var(--ink);font-size:1.05rem;max-width:40ch}
+  blockquote cite{display:block;font:12px var(--mono);color:var(--mute);margin-top:6px;font-style:normal}
+
+  /* the body: seven dated rounds, oldest first (Study 04's pick) */
+  .rounds{padding:72px var(--x) 24px}
+  .rounds-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:0}
+  .rounds-h h2{margin:0;font-size:1.35rem;letter-spacing:-.02em;font-weight:600}
+  .round{display:grid;grid-template-columns:64px minmax(0,3fr) minmax(0,7fr);gap:28px;padding:32px 0;border-bottom:1px solid var(--line);align-items:start}
+  .round .no{font:14px var(--mono);color:var(--mute);padding-top:4px}
+  .round h3{margin:0 0 6px;font-size:1.25rem;font-weight:500;letter-spacing:-.01em}
+  .round .when{font:12px var(--mono);color:var(--mute);margin:0 0 14px}
+  .round p{margin:0 0 10px;color:var(--ink);max-width:40ch}
+  .round .gbox--img{aspect-ratio:16/9}
+  .round .card{background:#fff;border:1px solid var(--line);padding:28px;font-size:1.1rem;max-width:620px}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .round--big{grid-template-columns:64px minmax(0,1fr)}
+  .round--big .grid-wrap{grid-column:2}
+
+  /* the value grid: the brand guide's "what we replace", word for word */
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+  .persona{background:#fff;border:1px solid var(--line);padding:16px 16px 18px;font-size:14px}
+  .persona h4{margin:0 0 4px;font-size:1.05rem;font-weight:600}
+  .persona .profile{font:12px/1.45 var(--mono);color:var(--mute);margin:0 0 12px}
+  .persona ul{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:8px}
+  .persona li{border-top:1px solid var(--box);padding-top:8px}
+  .persona .today{display:block;font:12px var(--mono);color:var(--mute);margin-top:2px}
+  .persona .give{border-top:1.5px solid var(--ink);padding-top:10px}
+  .persona .give b{display:block;font:12px var(--mono);margin-bottom:4px}
+
+  /* the mix */
+  .roles{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .roles span{border:1.5px solid var(--ink);border-radius:999px;padding:6px 14px;font-size:14px}
+  .counts{display:flex;gap:28px;margin-top:8px}
+  .counts div{font:12px var(--mono);color:var(--mute)}
+  .counts b{display:block;font:500 2rem/1 var(--sans);color:var(--ink);margin-bottom:4px}
+
+  /* after the body: the rest of EWC, then the next piece in the pill */
+  .also{padding:64px var(--x) 24px}
+  .also-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+  .also-h h2{margin:0;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+  .also-h a{font-size:14px;border-bottom:1px solid var(--ink)}
+  .sib{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sib a{display:grid;grid-template-rows:auto 1fr;gap:10px;background:#fff;border:1px solid var(--line);padding:12px 12px 16px}
+  .sib a:hover{border-color:var(--ink);text-decoration:none}
+  .sib .gbox{aspect-ratio:16/9}
+  .sib b{display:block;font-weight:500}
+  .sib small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:4px}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:56px var(--x) 0;padding:28px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.2rem,2.2vw,1.7rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  .closing{padding:88px var(--x);text-align:left}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+
+  /* B: the value grid is the spine; the story is compressed under it */
+  .case{padding:72px var(--x) 24px}
+  .case-h{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:12px}
+  .case-h h2{margin:0;font-size:1.35rem;letter-spacing:-.02em;font-weight:600}
+  .lede-b{font-size:1.15rem;max-width:52ch;margin:22px 0 10px}
+  .vgrid{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px;background:#fff}
+  .vgrid th{text-align:left;font:12px var(--mono);color:var(--mute);border-bottom:1.5px solid var(--ink);padding:8px 10px}
+  .vgrid td{border-top:1px solid var(--box);padding:8px 10px;vertical-align:top}
+  .vgrid tr.first td{border-top:1.5px solid var(--line)}
+  .vgrid .who h4{margin:0 0 4px;font-size:1rem;font-weight:600}
+  .vgrid .who p{font:12px/1.45 var(--mono);color:var(--mute);margin:0}
+  .vgrid .today{font:13px var(--mono);color:var(--mute)}
+  .vgrid .give b{display:block;font:12px var(--mono);margin-bottom:4px}
+  .wide{margin-top:36px}
+  .sub{font-size:1.15rem;font-weight:600;margin:56px 0 14px;border-top:1px solid var(--line);padding-top:14px}
+  .steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .steps li{background:#fff;border:1px solid var(--line);padding:14px;font-size:14px;display:grid;gap:6px;align-content:start}
+  .steps .when{font:12px var(--mono);color:var(--mute)}
+  .mix p,.coda{max-width:60ch;margin:0 0 10px}
+  .thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+  @media (max-width:820px){ .steps{grid-template-columns:1fr 1fr} .vgrid thead{display:none} .vgrid,.vgrid tbody,.vgrid tr,.vgrid td{display:block;width:auto} .vgrid td{border:0;padding:4px 10px} .vgrid tr.first td.who{border-top:1.5px solid var(--line);padding-top:12px} }
+  @media (max-width:480px){ .steps,.thumbs{grid-template-columns:1fr} }
+
+  @media (max-width:1100px){ .grid{grid-template-columns:1fr 1fr} }
+  @media (max-width:820px){
+    .head{grid-template-columns:1fr;gap:28px}
+    .round,.round--big{grid-template-columns:40px 1fr;gap:14px}
+    .round figure,.round .card,.round .pair,.round--big .grid-wrap{grid-column:1 / -1}
+    .sib{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:480px){ .grid,.pair{grid-template-columns:1fr} .sib{grid-template-columns:1fr;gap:0} .sib a{grid-template-rows:auto;border-width:0 0 1px;background:none;padding:12px 0} .sib .gbox{display:none} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy">Strategy</a><span>/</span><a href="#" data-to="client">EWC</a></p>
+    <span class="draft">draft sentence: not in rev4, Kahran's to write</span>
+    <h1>For East West [EWC], we worked out who the club is for, what each of them uses instead today, and how to mix them into one room.</h1>
+    <ul class="tags"><li><a href="#" data-to="work-index" data-filter="tag=strategy">strategy</a></li><li><a href="#" data-to="work-index" data-filter="tag=personas">personas</a></li><li><a href="#" data-to="work-index" data-filter="tag=client-work">client work</a></li></ul>
+  </div>
+  <dl class="facts">
+    <div><dt>client</dt><dd><a href="#" data-to="client">East | West Club</a>, a golf, social &amp; wellness club, Seattle</dd></div>
+    <div><dt>when</dt><dd>April – July 2026</dd></div>
+    <div><dt>shape</dt><dd>the grid first, then how we got there</dd></div>
+  </dl>
+</section>
+
+<div class="gbox gbox--img hero-img"><span>image · the same still as the homepage panel (not picked yet)</span></div>
+
+<section class="case" aria-labelledby="gh">
+  <div class="case-h"><h2 id="gh">Who it's for, and what they use instead</h2><span class="mono">six personas · four wants each</span></div>
+  <p class="lede-b">The ask was a brand. The work turned into a question first: who is this club for, and what are they doing on a Tuesday night without it?</p>
+
+  <table class="vgrid" id="value-grid">
+    <thead><tr><th style="width:22%">Who</th><th>What they want</th><th style="width:24%">Today they use</th><th style="width:28%">What the club gives</th></tr></thead>
+<!--GRID-->
+    <tbody>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Quiet Connector</h4><p>$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.</p></td><td class="want">A way to be away from his usual social circles.</td><td class="today">a coffeeshop near the house, or the office</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">The café, the lounge, the events space. Wellness and the bays. Featured chefs, poker nights, golf-focused pilates — and leagues that give you somewhere to go even when you don't have friends.</span></td></tr>
+    <tr><td class="want">Running into someone he hasn't seen in a while.</td><td class="today">kids' sports, community events</td></tr>
+    <tr><td class="want">A space that reminds him of freer times.</td><td class="today">the driving range, a lakefront patio</td></tr>
+    <tr><td class="want">Wellness on Monday morning, before work.</td><td class="today">at home, a small private gym</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Country-Club Guy</h4><p>$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.</p></td><td class="want">A simulator that's free when he wants it.</td><td class="today">his house</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">Bookings he can plan around — an 8am bay before work. Demo days, whiskey launches, Bandon and Pebble. Deliberately slower programming: visits over two hours.</span></td></tr>
+    <tr><td class="want">Dropping in without the long commute.</td><td class="today">the local gym</td></tr>
+    <tr><td class="want">Thursday night poker.</td><td class="today">a friend's house, a private room at Daniel's</td></tr>
+    <tr><td class="want">Wellness — most clubs don't offer it.</td><td class="today">a scheduled appointment with his wife</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Semi-Retired Operator</h4><p>$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.</p></td><td class="want">Meeting younger, more interesting people.</td><td class="today">the country club, concerts, dinners</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">A named role and a real position in the club. He organizes programming, recruits teams, hosts member dinners — and we say publicly that he is the one who made it happen.</span></td></tr>
+    <tr><td class="want">Being a practical mentor to someone.</td><td class="today">board work, informal coffees</td></tr>
+    <tr><td class="want">Being valued and noticed for it.</td><td class="today">charity events, winery concerts</td></tr>
+    <tr><td class="want">Throwing something impromptu on a Friday.</td><td class="today">the country club</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The New-to-Seattle Founder</h4><p>$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.</p></td><td class="want">A true second space.</td><td class="today">a coffeeshop</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">The lounge as workspace and as the default "meet me at." A room mixed on purpose — professions, genders, backgrounds. Events with the top Seattle companies, one-offs, short-format matches.</span></td></tr>
+    <tr><td class="want">Somewhere to take video calls.</td><td class="today">a coffeeshop</td></tr>
+    <tr><td class="want">Somewhere to meet investors.</td><td class="today">a coffeeshop</td></tr>
+    <tr><td class="want">People who aren't colleagues.</td><td class="today">meetups, affinity groups, friends of friends</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Empty-Nester</h4><p>$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.</p></td><td class="want">Reconnecting with the hobbies they dropped.</td><td class="today">the arts centre, the mall, a purchase</td><td class="give" rowspan="4"><b>We give them</b><span class="gives">Cohorts that start the game on the same day, so nobody is behind. Leadership called out by name, and accolades worth winning. Private space to book — book clubs, birthdays, corporate parties.</span></td></tr>
+    <tr><td class="want">Friends who match the life they have now.</td><td class="today">friends of friends</td></tr>
+    <tr><td class="want">Seeing people without hosting at home.</td><td class="today">a favourite restaurant</td></tr>
+    <tr><td class="want">Being respected for what they know.</td><td class="today">charity events</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Mid-Career High Earner</h4><p>$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.</p></td><td class="want">A third place.</td><td class="today">a bar</td><td class="give" rowspan="4"><b>We give her</b><span class="gives">Guest passes, and the generosity of bringing people. Athlete and brand nights, demo sessions, date nights worth choosing. Faster programming — in and out in sixty to ninety minutes.</span></td></tr>
+    <tr><td class="want">Plans that are certain when she needs them to be.</td><td class="today">the neighbourhood bar</td></tr>
+    <tr><td class="want">People to watch the game with.</td><td class="today">a sports bar, the work text group</td></tr>
+    <tr><td class="want">Knowing the next thing before it's the next thing.</td><td class="today">work, Instagram</td></tr>
+    </tbody>
+<!--/GRID-->
+  </table>
+  <p class="mono" style="margin-top:12px">Word for word from the EWC brand guide, "Audience · what we replace" (personas.json).</p>
+
+  <figure class="wide"><img src="img/figjam-session4-values.jpg" alt="FigJam, workshop session 4, members and promise: each persona's row of pink value clusters and sticky notes" loading="lazy"><figcaption>Where the grid came from: FigJam · session 4, 27 May 2026</figcaption></figure>
+
+  <h3 class="sub">How we got there</h3>
+  <ol class="steps">
+    <!-- source: granola 2277338, 1 Apr 2026, founder (Guest) -->
+    <li><span class="when">1 Apr 2026</span><b>Not anti. Different.</b><q>It's more like, it's just different. What we're building is very different.</q></li>
+    <!-- source: ewc/EWC workshopsession2fill.excalidraw, part 2 -->
+    <li><span class="when">22 Apr 2026</span><b>Real people first</b><q>What's their Tuesday night like without EWC?</q></li>
+    <!-- source: granola 2277342, 15 May 2026, founder (Guest), 15:39 -->
+    <li><span class="when">15 May 2026</span><b>Six people, not one</b><q>These are all, these are spot on. … this is at least like 90 of our population.</q></li>
+    <li><span class="when">27 May 2026</span><b>What they use instead</b><span>Per persona: today, and what the club can give. The grid above.</span></li>
+  </ol>
+
+  <h3 class="sub">The mix</h3>
+  <div class="mix">
+    <!-- source: ewc/docs/strategy-notes.md; ewc/docs/HANDOFF.md -->
+    <p>The founding cohort is cast like a school class: a mix of industries, ages, kinds. A block of 8–20 from one consulting firm asked to join together and was turned down.</p>
+    <div class="roles"><span>Anchors</span><span>Hosts</span><span>Bridges</span><span>Makers</span><span>Seekers</span><span>Quiet depth</span><span>Wildcards</span></div>
+    <div class="counts"><div><b>~250</b>members in all</div><div><b>100</b>founding</div><div><b>25</b>first</div></div>
+  </div>
+
+  <h3 class="sub">Then the brand</h3>
+  <!-- sources: granola 2297485 (14 May: four directions); ewc/src/brand-guide.html; eastwestclub.com -->
+  <p class="coda">Four visual directions, a brand guide, a sales playbook, and <a href="https://eastwestclub.com" data-to="external">eastwestclub.com</a>, all built on the grid. After our part, the club brought in someone to run events and carry the brand into the space. It opened, and its first 25 members are in.</p>
+  <div class="thumbs">
+    <figure><img src="img/guide-audience.png" alt="EWC brand guide slide: Audience, what we replace" loading="lazy"><figcaption>brand guide · audience</figcaption></figure>
+    <figure><img src="img/guide-palette.png" alt="EWC brand guide slide: colour palette" loading="lazy"><figcaption>brand guide · palette</figcaption></figure>
+    <figure><img src="img/site-home.png" alt="eastwestclub.com home page" loading="lazy"><figcaption>eastwestclub.com</figcaption></figure>
+  </div>
+</section>
+
+<section class="also" aria-labelledby="ah">
+  <div class="also-h"><h2 id="ah">Also for EWC</h2><a href="#" data-to="client">All three EWC pieces →</a></div>
+  <div class="sib">
+    <a href="#" data-to="piece"><div class="gbox gbox--img"><span>image</span></div><div><small>Website &amp; Product</small><b>EWC · website</b></div></a>
+    <a href="#" data-to="piece"><div class="gbox gbox--img"><span>image</span></div><div><small>Storytelling</small><b>EWC · branding storytelling</b></div></a>
+  </div>
+</section>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small>next in Strategy</small><b>For Pratham USA, we worked out why donors give once and stop, and designed the strategy to bring them back and keep them.</b></span><span class="arrow">→</span></a>
+
+<section class="closing">
+  <p>Something you want reimagined?</p>
+  <a href="#" data-to="say-hi">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+</body>
+</html>
