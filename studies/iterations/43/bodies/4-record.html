@@ -1,0 +1,57 @@
+<style>
+  /* 4 · the record: a short story, then the whole grid as a plain table with credits (Mindy Seu, Studio Forme) */
+  .story{max-width:56ch;font-size:1.15rem;line-height:1.5;margin:24px 0 8px}
+  .story p{margin:0 0 14px}
+  .rec{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px}
+  .rec th{font:12px var(--mono);color:var(--mute);text-align:left;padding:8px 10px 8px 0;border-bottom:1.5px solid var(--ink);white-space:nowrap}
+  .rec td{padding:9px 10px 9px 0;border-bottom:1px solid var(--box);vertical-align:top}
+  .rec tr.first td{border-top:1px solid var(--line)}
+  .rec .no{font:12px var(--mono);color:var(--mute)}
+  .rec .who h4{margin:0 0 4px;font-size:.95rem;font-weight:600}
+  .rec .who p{margin:0;font:11px/1.4 var(--mono);color:var(--mute)}
+  .rec .today,.rec .by,.rec .when{font:12px var(--mono);color:var(--mute)}
+  .rec .give b{display:block;font:11px var(--mono);margin-bottom:4px}
+  .rec-h{display:flex;justify-content:space-between;align-items:baseline;margin-top:48px}
+  .rec-h h3{margin:0;font-size:1.1rem;font-weight:600}
+  .scroll{overflow-x:auto}
+  @media (max-width:820px){ .rec{min-width:760px} }
+</style>
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh">The record</h2><span class="mono">short story · then everything</span></div>
+  <div class="story line-draft">
+    <p>They asked for a brand. On the first call, "the anti-country club" became "just different", and the real question showed: who is this club for?</p>
+    <p>We started from real people the founders wanted in the room, sorted them into six personas, and asked what each of them uses instead today. The answer was a coffeeshop, a bar, home, far more often than another club.</p>
+    <p>Then the mix: a founding class cast by role, so the room is never one kind of person. The brand, the sales kit and the site were built on that. The club opened with its first 25 members.</p>
+  </div>
+  <!-- sources: granola 2277338 (1 Apr); ewc/docs/strategy-notes.md (the mix); Kahran, 26 Oct 2026 (first 25) -->
+
+  <div class="rec-h"><h3>The value grid</h3><span class="mono">brand guide, word for word</span></div>
+  <div class="scroll">
+  <table class="rec" id="value-grid">
+    <thead><tr><th>persona</th><th>wants</th><th>today</th><th>the club gives</th><th>credit</th></tr></thead>
+{{GRID_TABLE_CREDIT}}
+  </table>
+  </div>
+  <!-- credit sources: persona set = Divya, per a founder, granola 2277344 (18 May: "Divya had the. The personas kind of identified"); wants/today/give = the 27 May workshop, granola 2277395 (Kahran recording; Ryan Schaffer, Shankar Sundaram attending); words = ewc/src/brand-guide.html -->
+
+  <div class="rec-h"><h3>Everything we made</h3><span class="mono">oldest first</span></div>
+  <div class="scroll">
+  <table class="rec" id="made">
+    <thead><tr><th>no.</th><th>what</th><th>when</th><th>by</th><th>source</th></tr></thead>
+    <tbody>
+      <tr><td class="no">01</td><td>Proposal v2, "revised after 4/1 conversation"</td><td class="when">Apr 2026</td><td class="by">Joyus</td><td class="by">joyus/east-west-club</td></tr>
+      <tr><td class="no">02</td><td>Workshop 2 board: a club you love, one that bugs you, three real people</td><td class="when">22 Apr 2026</td><td class="by">Joyus + founders</td><td class="by">granola 2277373</td></tr>
+      <tr><td class="no">03</td><td>Four visual directions</td><td class="when">14 May 2026</td><td class="by">Joyus</td><td class="by">notes 2297485</td></tr>
+      <tr><td class="no">04</td><td>Six personas</td><td class="when">15 May 2026</td><td class="by">Divya</td><td class="by">granola 2277344</td></tr>
+      <tr><td class="no">05</td><td>FigJam, "What are we offering and to whom?"</td><td class="when">27 May 2026</td><td class="by">Kahran + founders</td><td class="by">granola 2277395</td></tr>
+      <tr><td class="no">06</td><td>Brand guide</td><td class="when">28 May 2026</td><td class="by">Divya</td><td class="by">ewc git d550d16</td></tr>
+      <tr><td class="no">07</td><td>Sales kit: deck, one-pager v2</td><td class="when">16 Jun 2026</td><td class="by">Divya</td><td class="by">ewc git 9863afd</td></tr>
+      <tr><td class="no">08</td><td>Instagram launch kit</td><td class="when">12 Jul 2026</td><td class="by">Kahran</td><td class="by">ewc git 374777f</td></tr>
+      <tr><td class="no">09</td><td><a href="https://eastwestclub.com" data-to="external">eastwestclub.com</a>, live</td><td class="when">13 Jul 2026</td><td class="by">Joyus</td><td class="by">ewc/docs/HANDOFF.md</td></tr>
+      <tr><td class="no">10</td><td>Sales playbook for founding conversations</td><td class="when">14 Jul 2026</td><td class="by">Kahran</td><td class="by">ewc git d62d251</td></tr>
+      <tr><td class="no">11</td><td>Events, and the brand carried into the space</td><td class="when">after Joyus</td><td class="by">—</td><td class="by">per Kahran, 26 Oct</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="mono" style="margin-top:12px">"by" is the commit author or who ran the session; "Joyus" where no single source says. The person who carried it forward is not named in our sources.</p>
+</section>

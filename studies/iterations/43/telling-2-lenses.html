@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, 2: lenses (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 42's piece page, unchanged outside the body */
+  .head{padding:clamp(48px,8vh,96px) var(--x) 36px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 22px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.9rem,3.6vw,3.2rem)/1.15 var(--sans);letter-spacing:-.025em;margin:0 0 24px;max-width:22ch}
+  .draft{display:inline-block;font:11px var(--mono);color:#7a5b00;background:#fff4c2;border:1px solid #e0c35a;padding:2px 7px;margin-bottom:12px}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .hero-img{margin:0 var(--x);aspect-ratio:16/9}
+  figure{margin:0}
+  figure img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff}
+  figcaption{font:12px var(--mono);color:var(--mute);margin-top:8px}
+  q{quotes:"\201C" "\201D"}
+  blockquote{margin:0 0 14px;padding-left:14px;border-left:3px solid var(--ink);font-size:1.05rem;max-width:40ch}
+  blockquote cite{display:block;font:12px var(--mono);color:var(--mute);margin-top:6px;font-style:normal}
+  .borrow{margin:0 var(--x);padding:14px 0;border-bottom:1px solid var(--line);font:12px var(--mono);color:var(--mute)}
+  .borrow a{border-bottom:1px solid var(--line);color:var(--ink)}
+  .body{padding:56px var(--x) 24px}
+  .body-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:0}
+  .body-h h2{margin:0;font-size:1.35rem;letter-spacing:-.02em;font-weight:600}
+  .line-draft{background:#fff4c2}
+
+  /* after the body: the rest of EWC, then the next piece in the pill */
+  .also{padding:64px var(--x) 24px}
+  .also-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+  .also-h h2{margin:0;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+  .also-h a{font-size:14px;border-bottom:1px solid var(--ink)}
+  .sib{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sib a{display:grid;grid-template-rows:auto 1fr;gap:10px;background:#fff;border:1px solid var(--line);padding:12px 12px 16px}
+  .sib a:hover{border-color:var(--ink);text-decoration:none}
+  .sib .gbox{aspect-ratio:16/9}
+  .sib b{display:block;font-weight:500}
+  .sib small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:4px}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:56px var(--x) 0;padding:28px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.2rem,2.2vw,1.7rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  .closing{padding:88px var(--x);text-align:left}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:28px} .sib{grid-template-columns:1fr 1fr} }
+  @media (max-width:480px){ .sib{grid-template-columns:1fr;gap:0} .sib a{grid-template-rows:auto;border-width:0 0 1px;background:none;padding:12px 0} .sib .gbox{display:none} }
+</style>
+<style>
+  /* 2 · lenses: one project, four ways in (Quicksand's themes) */
+  .lens-tabs{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+  .lens-tabs button{font:500 .95rem var(--sans);border:1.5px solid var(--ink);border-radius:999px;padding:8px 18px;background:none;color:var(--ink);cursor:pointer}
+  .lens-tabs button[aria-selected="true"]{background:var(--ink);color:#fff}
+  .lens{padding:32px 0;border-bottom:1px solid var(--line)}
+  .lens[hidden]{display:none}
+  .lens-q{font:500 1.35rem/1.25 var(--sans);letter-spacing:-.015em;margin:0 0 18px;max-width:34ch}
+  .lens-2{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:28px;align-items:start}
+  .lens p{max-width:44ch}
+  .people{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .people div{background:#fff;border:1px solid var(--line);padding:14px}
+  .people h4{margin:0 0 6px;font-size:1rem}
+  .people p{margin:0;font:12px/1.45 var(--mono);color:var(--mute)}
+  table.vg{width:100%;border-collapse:collapse;font-size:14px;background:#fff}
+  .vg th{font:12px var(--mono);color:var(--mute);text-align:left;padding:8px 10px;border-bottom:1.5px solid var(--ink)}
+  .vg td{padding:8px 10px;border-bottom:1px solid var(--box);vertical-align:top}
+  .vg tr.first td{border-top:1px solid var(--line)}
+  .vg .who h4{margin:0 0 4px;font-size:.95rem}
+  .vg .who p{margin:0;font:11px/1.4 var(--mono);color:var(--mute)}
+  .vg .today{font:12px var(--mono);color:var(--mute)}
+  .vg .give b{display:block;font:11px var(--mono);margin-bottom:4px}
+  .roles{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+  .roles span{border:1.5px solid var(--ink);border-radius:999px;padding:6px 14px;font-size:14px}
+  .counts{display:flex;gap:28px;margin-top:8px}
+  .counts div{font:12px var(--mono);color:var(--mute)}
+  .counts b{display:block;font:500 2rem/1 var(--sans);color:var(--ink);margin-bottom:4px}
+  .dirs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+  .dirs div{aspect-ratio:1;font-size:11px}
+  .dirs .won{outline:2px solid var(--ink)}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:900px){ .lens-2{grid-template-columns:1fr} .people{grid-template-columns:1fr 1fr} .vg{display:block;overflow-x:auto} }
+  @media (max-width:480px){ .people,.pair{grid-template-columns:1fr} .dirs{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy">Strategy</a><span>/</span><a href="#" data-to="client">EWC</a></p>
+    <span class="draft">draft sentence: not in rev4, Kahran's to write</span>
+    <h1>For East West [EWC], we worked out who the club is for, what each of them uses instead today, and how to mix them into one room.</h1>
+    <ul class="tags"><li><a href="#" data-to="work-index" data-filter="tag=strategy">strategy</a></li><li><a href="#" data-to="work-index" data-filter="tag=personas">personas</a></li><li><a href="#" data-to="work-index" data-filter="tag=client-work">client work</a></li></ul>
+  </div>
+  <dl class="facts">
+    <div><dt>client</dt><dd><a href="#" data-to="client">East | West Club</a>, a golf, social &amp; wellness club, Seattle</dd></div>
+    <div><dt>when</dt><dd>March – August 2026</dd></div>
+    <div><dt>shape</dt><dd>one project, four lenses</dd></div>
+  </dl>
+</section>
+
+<div class="gbox gbox--img hero-img"><span>image · the same still as the homepage panel (not picked yet)</span></div>
+
+<p class="borrow">borrows from <a href="https://www.quicksand.co.in/themes" data-to="external" data-pick="quicksand">Quicksand</a> (work organised by themes, not by project) · Study 15</p>
+
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh">Four ways in</h2><span class="mono">one project · pick a lens</span></div>
+  <div class="lens-tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-lens="people">People</button>
+    <button role="tab" aria-selected="false" data-lens="value">Value</button>
+    <button role="tab" aria-selected="false" data-lens="mix">Mix</button>
+    <button role="tab" aria-selected="false" data-lens="brand">Brand</button>
+  </div>
+
+  <div class="lens" id="lens-people" role="tabpanel">
+    <p class="lens-q line-draft">Who is the club actually for?</p>
+    <div class="lens-2">
+      <div>
+        <p>The founders came in as "the anti-country club", and softened it on the first call. Then, three real people they'd want as founding members, and one question for each:</p>
+        <!-- source: granola 2277338, 1 Apr 2026, a founder -->
+        <blockquote><q>It's more like, it's just different. What we're building is very different.</q><cite>a founder, 1 Apr</cite></blockquote>
+        <!-- source: ewc/EWC workshopsession2fill.excalidraw, part 2 -->
+        <blockquote><q>What's their Tuesday night like without EWC?</q><cite>workshop 2 board, 22 Apr</cite></blockquote>
+        <!-- source: granola 2277342, 15 May 2026 15:39, a founder -->
+        <blockquote><q>These are all, these are spot on. … this is at least like 90 of our population.</q><cite>a founder, 15 May (transcript: "90")</cite></blockquote>
+      </div>
+      <div class="people">
+        <div><h4>The Quiet Connector</h4><p>$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.</p></div>
+        <div><h4>The Country-Club Guy</h4><p>$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.</p></div>
+        <div><h4>The Semi-Retired Operator</h4><p>$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.</p></div>
+        <div><h4>The New-to-Seattle Founder</h4><p>$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.</p></div>
+        <div><h4>The Empty-Nester</h4><p>$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.</p></div>
+        <div><h4>The Mid-Career High Earner</h4><p>$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lens" id="lens-value" role="tabpanel" hidden>
+    <p class="lens-q line-draft">What does each of them use instead today?</p>
+    <p>27 May, on the FigJam board: for each persona, what they want, where they get it today, and what the club gives them instead. Almost none of the substitutes are clubs.</p>
+    <table class="vg">
+      <thead><tr><th>persona</th><th>wants</th><th>today</th><th>the club gives</th></tr></thead>
+    <tbody>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Quiet Connector</h4><p>$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.</p></td><td class="want">A way to be away from his usual social circles.</td><td class="today">a coffeeshop near the house, or the office</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">The café, the lounge, the events space. Wellness and the bays. Featured chefs, poker nights, golf-focused pilates — and leagues that give you somewhere to go even when you don't have friends.</span></td></tr>
+    <tr><td class="want">Running into someone he hasn't seen in a while.</td><td class="today">kids' sports, community events</td></tr>
+    <tr><td class="want">A space that reminds him of freer times.</td><td class="today">the driving range, a lakefront patio</td></tr>
+    <tr><td class="want">Wellness on Monday morning, before work.</td><td class="today">at home, a small private gym</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Country-Club Guy</h4><p>$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.</p></td><td class="want">A simulator that's free when he wants it.</td><td class="today">his house</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">Bookings he can plan around — an 8am bay before work. Demo days, whiskey launches, Bandon and Pebble. Deliberately slower programming: visits over two hours.</span></td></tr>
+    <tr><td class="want">Dropping in without the long commute.</td><td class="today">the local gym</td></tr>
+    <tr><td class="want">Thursday night poker.</td><td class="today">a friend's house, a private room at Daniel's</td></tr>
+    <tr><td class="want">Wellness — most clubs don't offer it.</td><td class="today">a scheduled appointment with his wife</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Semi-Retired Operator</h4><p>$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.</p></td><td class="want">Meeting younger, more interesting people.</td><td class="today">the country club, concerts, dinners</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">A named role and a real position in the club. He organizes programming, recruits teams, hosts member dinners — and we say publicly that he is the one who made it happen.</span></td></tr>
+    <tr><td class="want">Being a practical mentor to someone.</td><td class="today">board work, informal coffees</td></tr>
+    <tr><td class="want">Being valued and noticed for it.</td><td class="today">charity events, winery concerts</td></tr>
+    <tr><td class="want">Throwing something impromptu on a Friday.</td><td class="today">the country club</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The New-to-Seattle Founder</h4><p>$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.</p></td><td class="want">A true second space.</td><td class="today">a coffeeshop</td><td class="give" rowspan="4"><b>We give him</b><span class="gives">The lounge as workspace and as the default "meet me at." A room mixed on purpose — professions, genders, backgrounds. Events with the top Seattle companies, one-offs, short-format matches.</span></td></tr>
+    <tr><td class="want">Somewhere to take video calls.</td><td class="today">a coffeeshop</td></tr>
+    <tr><td class="want">Somewhere to meet investors.</td><td class="today">a coffeeshop</td></tr>
+    <tr><td class="want">People who aren't colleagues.</td><td class="today">meetups, affinity groups, friends of friends</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Empty-Nester</h4><p>$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.</p></td><td class="want">Reconnecting with the hobbies they dropped.</td><td class="today">the arts centre, the mall, a purchase</td><td class="give" rowspan="4"><b>We give them</b><span class="gives">Cohorts that start the game on the same day, so nobody is behind. Leadership called out by name, and accolades worth winning. Private space to book — book clubs, birthdays, corporate parties.</span></td></tr>
+    <tr><td class="want">Friends who match the life they have now.</td><td class="today">friends of friends</td></tr>
+    <tr><td class="want">Seeing people without hosting at home.</td><td class="today">a favourite restaurant</td></tr>
+    <tr><td class="want">Being respected for what they know.</td><td class="today">charity events</td></tr>
+    <tr class="first"><td class="who" rowspan="4"><h4>The Mid-Career High Earner</h4><p>$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.</p></td><td class="want">A third place.</td><td class="today">a bar</td><td class="give" rowspan="4"><b>We give her</b><span class="gives">Guest passes, and the generosity of bringing people. Athlete and brand nights, demo sessions, date nights worth choosing. Faster programming — in and out in sixty to ninety minutes.</span></td></tr>
+    <tr><td class="want">Plans that are certain when she needs them to be.</td><td class="today">the neighbourhood bar</td></tr>
+    <tr><td class="want">People to watch the game with.</td><td class="today">a sports bar, the work text group</td></tr>
+    <tr><td class="want">Knowing the next thing before it's the next thing.</td><td class="today">work, Instagram</td></tr>
+    </tbody>
+    </table>
+    <p class="mono" style="margin-top:12px">Word for word from the EWC brand guide, "Audience · what we replace" (personas.json).</p>
+  </div>
+
+  <div class="lens" id="lens-mix" role="tabpanel" hidden>
+    <p class="lens-q line-draft">How do they make one room?</p>
+    <div class="lens-2">
+      <!-- source: ewc/docs/strategy-notes.md -->
+      <p>The founding cohort is cast like a school class: a mix of industries, ages, kinds. A block of 8–20 from one consulting firm asked to join together and was turned down.</p>
+      <div>
+        <!-- source: ewc/docs/HANDOFF.md: community roles; capacity ~250 / 100 / 25 -->
+        <div>Cast by role, not just persona:</div>
+        <div class="roles"><span>Anchors</span><span>Hosts</span><span>Bridges</span><span>Makers</span><span>Seekers</span><span>Quiet depth</span><span>Wildcards</span></div>
+        <div class="counts"><div><b>~250</b>members in all</div><div><b>100</b>founding</div><div><b>25</b>first</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lens" id="lens-brand" role="tabpanel" hidden>
+    <p class="lens-q line-draft">What does it look and sound like?</p>
+    <!-- sources: notes 2297485 (14 May: four directions); ewc/src/brand-guide.html; eastwestclub.com (live 13 Jul, ewc/docs/HANDOFF.md) -->
+    <p>Four visual directions on 14 May; the green and lighter one won. Then the brand guide, the sales kit, and <a href="https://eastwestclub.com" data-to="external">eastwestclub.com</a>, live on 13 July.</p>
+    <div class="dirs"><div class="gbox">Workshop</div><div class="gbox">Living Room Extension</div><div class="gbox">Industrial Minimal</div><div class="gbox">Mid-Century Modern</div></div>
+    <div class="pair">
+      <figure><img src="img/guide-palette.png" alt="EWC brand guide slide: colour palette" loading="lazy"><figcaption>brand guide · palette</figcaption></figure>
+      <figure><img src="img/site-home.png" alt="eastwestclub.com home page" loading="lazy"><figcaption>eastwestclub.com</figcaption></figure>
+    </div>
+    <!-- source: Kahran, 26 Oct 2026 (this session) -->
+    <p class="mono" style="margin-top:14px">After our part: someone to run events and carry the brand into the space. The club opened; the first 25 members. (per Kahran, 26 Oct)</p>
+  </div>
+</section>
+<script>
+  // tabs: one lens open at a time; with no JS, People shows and the rest are reachable by #id
+  const tabs = [...document.querySelectorAll('.lens-tabs button')];
+  tabs.forEach(b => b.addEventListener('click', () => {
+    tabs.forEach(t => t.setAttribute('aria-selected', t === b ? 'true' : 'false'));
+    document.querySelectorAll('.lens').forEach(l => { l.hidden = l.id !== 'lens-' + b.dataset.lens; });
+  }));
+</script>
+
+<section class="also" aria-labelledby="ah">
+  <div class="also-h"><h2 id="ah">Also for EWC</h2><a href="#" data-to="client">All three EWC pieces →</a></div>
+  <div class="sib">
+    <a href="#" data-to="piece"><div class="gbox gbox--img"><span>image</span></div><div><small>Website &amp; Product</small><b>EWC · website</b></div></a>
+    <a href="#" data-to="piece"><div class="gbox gbox--img"><span>image</span></div><div><small>Storytelling</small><b>EWC · branding storytelling</b></div></a>
+  </div>
+</section>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small>next in Strategy</small><b>For Pratham USA, we worked out why donors give once and stop, and designed the strategy to bring them back and keep them.</b></span><span class="arrow">→</span></a>
+
+<section class="closing">
+  <p>Something you want reimagined?</p>
+  <a href="#" data-to="say-hi">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+</body>
+</html>

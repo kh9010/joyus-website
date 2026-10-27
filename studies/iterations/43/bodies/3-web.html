@@ -1,0 +1,73 @@
+<style>
+  /* 3 · the web: personas linked to what they use instead today (Andrew Trousdale's nodes) */
+  .web-wrap{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,3fr);gap:28px;margin-top:24px;align-items:start}
+  .web{width:100%;height:auto;background:#fff;border:1px solid var(--line);display:block}
+  .web line{stroke:var(--box2);stroke-width:1.2}
+  .web line.on{stroke:var(--ink);stroke-width:2}
+  .web g.node{cursor:pointer}
+  .web g.node rect{fill:#fff;stroke:var(--line)}
+  .web g.node.persona rect{fill:var(--box);stroke:var(--ink)}
+  .web g.node.on rect{fill:var(--ink)}
+  .web g.node.on text{fill:#fff}
+  .web g.node text{font:12px var(--sans);fill:var(--ink);dominant-baseline:middle}
+  .web g.node .n{font:11px var(--mono);fill:var(--mute)}
+  .web-side h3{margin:0 0 6px;font-size:1.1rem;font-weight:600}
+  .web-side .profile{font:12px/1.45 var(--mono);color:var(--mute);margin:0 0 12px}
+  .web-side ul{list-style:none;margin:0 0 12px;padding:0;display:grid;gap:8px;font-size:14px}
+  .web-side li{border-top:1px solid var(--box);padding-top:8px}
+  .web-side .today{display:block;font:12px var(--mono);color:var(--mute);margin-top:2px}
+  .web-side .give{border-top:1.5px solid var(--ink);padding-top:10px;font-size:14px}
+  .web-side .give b{display:block;font:12px var(--mono);margin-bottom:4px}
+  .web-note{font:12px var(--mono);color:var(--mute);margin-top:10px}
+  @media (max-width:900px){ .web-wrap{grid-template-columns:1fr} }
+</style>
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh">Who uses what instead</h2><span class="mono">click a person or a place</span></div>
+  <p style="max-width:56ch;margin-top:18px">27 May, on the FigJam board: for each persona, what they want and where they get it today. <span class="line-draft">Drawn as a web, the competition shows: it is a coffeeshop, a bar, home, far more often than another club.</span></p>
+  <div class="web-wrap">
+    <svg class="web" id="web" viewBox="0 0 760 560" role="img" aria-label="Six personas on the left, linked to the places they use instead today on the right"></svg>
+    <aside class="web-side" id="web-side" aria-live="polite"></aside>
+  </div>
+  <p class="web-note">Each line is one want from the brand guide's "what we replace", word for word. Places are grouped by the word they share in the guide's line ("a coffeeshop", "the country club"); the grouping is ours.</p>
+</section>
+<script>
+  // the web: built from personas.json by build.cjs (WEB below), never hand-typed
+  const WEB = {{WEB_JSON}};
+  const svg = document.getElementById('web'), side = document.getElementById('web-side');
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const H = Math.max(560, WEB.places.length * 34 + 30);
+  svg.setAttribute('viewBox', `0 0 760 ${H}`);
+  const P = WEB.personas.map((p, i) => ({ ...p, x: 20, y: 40 + i * ((H - 80) / (WEB.personas.length - 1)), w: 230 }));
+  const S = WEB.places.map((s, i) => ({ ...s, x: 450, y: 22 + i * ((H - 44) / Math.max(1, WEB.places.length - 1)), w: 290 }));
+  const lines = WEB.edges.map(e => {
+    const a = P[e.p], b = S[e.s];
+    const l = el('line', { x1: a.x + a.w, y1: a.y, x2: b.x, y2: b.y });
+    l.dataset.p = e.p; l.dataset.s = e.s; svg.appendChild(l); return l;
+  });
+  const node = (d, kind, i) => {
+    const g = el('g', { class: 'node ' + kind, tabindex: 0, transform: `translate(${d.x},${d.y - 14})` });
+    g.appendChild(el('rect', { width: d.w, height: 28, rx: kind === 'persona' ? 2 : 14 }));
+    const t = el('text', { x: 12, y: 14 }); t.textContent = d.name; g.appendChild(t);
+    if (kind === 'place') { const n = el('text', { class: 'n', x: d.w - 12, y: 14, 'text-anchor': 'end' }); n.textContent = WEB.edges.filter(e => e.s === i).length; g.appendChild(n); }
+    g.addEventListener('click', () => pick(kind, i));
+    g.addEventListener('keydown', (ev) => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); pick(kind, i); } });
+    svg.appendChild(g); return g;
+  };
+  const pg = P.map((d, i) => node(d, 'persona', i)), sg = S.map((d, i) => node(d, 'place', i));
+  function pick(kind, i) {
+    const on = WEB.edges.map(e => kind === 'persona' ? e.p === i : e.s === i);
+    lines.forEach((l, k) => l.classList.toggle('on', on[k]));
+    pg.forEach((g, k) => g.classList.toggle('on', kind === 'persona' ? k === i : WEB.edges.some((e, j) => on[j] && e.p === k)));
+    sg.forEach((g, k) => g.classList.toggle('on', kind === 'place' ? k === i : WEB.edges.some((e, j) => on[j] && e.s === k)));
+    if (kind === 'persona') {
+      const p = WEB.personas[i];
+      side.innerHTML = `<h3>${esc(p.name)}</h3><p class="profile">${esc(p.profile)}</p><ul>${p.wants.map(w => `<li>${esc(w.want)}<span class="today">Today: ${esc(w.today)}</span></li>`).join('')}</ul><div class="give"><b>${esc(p.giveLabel)}</b>${esc(p.give)}</div>`;
+    } else {
+      const s = WEB.places[i], es = WEB.edges.filter(e => e.s === i);
+      side.innerHTML = `<h3>${esc(s.name)}</h3><p class="profile">today's substitute for ${es.length} want${es.length > 1 ? 's' : ''}</p><ul>${es.map(e => `<li>${esc(WEB.personas[e.p].wants[e.w].want)}<span class="today">${esc(WEB.personas[e.p].name)} · Today: ${esc(WEB.personas[e.p].wants[e.w].today)}</span></li>`).join('')}</ul>`;
+    }
+  }
+  pick('persona', 0);
+</script>
