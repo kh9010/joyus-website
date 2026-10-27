@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>43 / EWC, six more ways — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.ways { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 22px 0 18px }
+.ways button { text-align: left; font: inherit; background: white; border: 1px solid #ddd; border-left: 3px solid #ddd; padding: 12px 14px; cursor: pointer; color: #222 }
+.ways button[aria-pressed="true"] { border-left-color: #222; background: #fafafa }
+.ways strong, .ways small { display: block }
+.ways small { margin-top: 4px; color: #636363; line-height: 1.45 }
+.frame { border: 1px solid #ddd; height: 78vh; min-height: 520px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.open { margin: 8px 0 0; font-size: 13px }
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 28px }
+.shots figure { margin: 0 }
+.shots .shot { width: 100%; height: 260px; object-fit: cover; object-position: top }
+@media (max-width: 900px) { .ways, .shots { grid-template-columns: 1fr 1fr } }
+@media (max-width: 520px) { .ways, .shots { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 43 · 26 October 2026 · Kahran</p>
+<h1>EWC, six more ways</h1>
+<p class="lede">The same piece as Study 42, told six more ways, each borrowing from work pages picked in Study 15. Same chrome, same sourced quotes and grid; only the body changes.</p>
+
+<div class="ways" role="group" aria-label="Pick a telling">
+  <button aria-pressed="true" data-src="telling-1-log.html"><strong>1 · The log</strong><small>Every dated touchpoint, 10 Mar → the hand-off, nothing left out. Rauno + increpare.</small></button>
+  <button aria-pressed="false" data-src="telling-2-lenses.html"><strong>2 · Lenses</strong><small>One project, four tabs: People · Value · Mix · Brand. Quicksand.</small></button>
+  <button aria-pressed="false" data-src="telling-3-web.html"><strong>3 · The web</strong><small>Six personas linked to what they use instead; click to light one up. Andrew Trousdale.</small></button>
+  <button aria-pressed="false" data-src="telling-4-record.html"><strong>4 · The record</strong><small>Three short paragraphs, then the whole grid and everything made, with credits. Mindy Seu + Studio Forme.</small></button>
+  <button aria-pressed="false" data-src="telling-5-references.html"><strong>5 · The references</strong><small>The work filed beside the clubs and sites the founders loved, and the one that bugs them. Archive for Space.</small></button>
+  <button aria-pressed="false" data-src="telling-6-voice.html"><strong>6 · In its own voice</strong><small>Seven verbs, each step told the way the club talks. Fathom + Lucas Pope.</small></button>
+</div>
+
+<div class="frame"><iframe id="way" title="The telling" src="telling-1-log.html"></iframe></div>
+<p class="open"><a id="way-open" href="telling-1-log.html" target="_blank">Open this one in its own tab</a></p>
+
+<div class="shots">
+  <figure><a class="zoom" href="img/telling-1-log.png" target="_blank"><img class="shot" src="img/telling-1-log.png" alt="Telling 1, the log: dated rows from 10 Mar to the hand-off"></a><figcaption>1 · the log</figcaption></figure>
+  <figure><a class="zoom" href="img/telling-2-lenses.png" target="_blank"><img class="shot" src="img/telling-2-lenses.png" alt="Telling 2, lenses: four pill tabs over the People lens"></a><figcaption>2 · lenses</figcaption></figure>
+  <figure><a class="zoom" href="img/telling-3-web.png" target="_blank"><img class="shot" src="img/telling-3-web.png" alt="Telling 3, the web: personas linked to places"></a><figcaption>3 · the web</figcaption></figure>
+  <figure><a class="zoom" href="img/telling-4-record.png" target="_blank"><img class="shot" src="img/telling-4-record.png" alt="Telling 4, the record: short story, then two plain tables"></a><figcaption>4 · the record</figcaption></figure>
+  <figure><a class="zoom" href="img/telling-5-references.png" target="_blank"><img class="shot" src="img/telling-5-references.png" alt="Telling 5, the references: catalogue cards of clubs beside our work"></a><figcaption>5 · the references</figcaption></figure>
+  <figure><a class="zoom" href="img/telling-6-voice.png" target="_blank"><img class="shot" src="img/telling-6-voice.png" alt="Telling 6, in its own voice: seven big verbs down the page"></a><figcaption>6 · in its own voice</figcaption></figure>
+</div>
+
+<p><strong>Pick: for Divya + Kahran.</strong> Quotes, the grid and the dates are sourced (check.cjs lists each); yellow lines are drafts for Kahran's pass.</p>
+</main>
+<script>
+  const bs = [...document.querySelectorAll('.ways button')], f = document.getElementById('way'), o = document.getElementById('way-open');
+  bs.forEach(b => b.addEventListener('click', () => { bs.forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false')); f.src = o.href = b.dataset.src; }));
+</script>
+</body>
+</html>

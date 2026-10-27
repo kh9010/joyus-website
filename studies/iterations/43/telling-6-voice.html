@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, 6: in its own voice (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 42's piece page, unchanged outside the body */
+  .head{padding:clamp(48px,8vh,96px) var(--x) 36px;display:grid;grid-template-columns:minmax(0,7fr) minmax(240px,3fr);gap:56px;align-items:end}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 22px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.9rem,3.6vw,3.2rem)/1.15 var(--sans);letter-spacing:-.025em;margin:0 0 24px;max-width:22ch}
+  .draft{display:inline-block;font:11px var(--mono);color:#7a5b00;background:#fff4c2;border:1px solid #e0c35a;padding:2px 7px;margin-bottom:12px}
+  .facts{margin:0;display:grid;gap:14px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .hero-img{margin:0 var(--x);aspect-ratio:16/9}
+  figure{margin:0}
+  figure img{display:block;width:100%;height:auto;border:1px solid var(--line);background:#fff}
+  figcaption{font:12px var(--mono);color:var(--mute);margin-top:8px}
+  q{quotes:"\201C" "\201D"}
+  blockquote{margin:0 0 14px;padding-left:14px;border-left:3px solid var(--ink);font-size:1.05rem;max-width:40ch}
+  blockquote cite{display:block;font:12px var(--mono);color:var(--mute);margin-top:6px;font-style:normal}
+  .borrow{margin:0 var(--x);padding:14px 0;border-bottom:1px solid var(--line);font:12px var(--mono);color:var(--mute)}
+  .borrow a{border-bottom:1px solid var(--line);color:var(--ink)}
+  .body{padding:56px var(--x) 24px}
+  .body-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:12px;margin-bottom:0}
+  .body-h h2{margin:0;font-size:1.35rem;letter-spacing:-.02em;font-weight:600}
+  .line-draft{background:#fff4c2}
+
+  /* after the body: the rest of EWC, then the next piece in the pill */
+  .also{padding:64px var(--x) 24px}
+  .also-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px}
+  .also-h h2{margin:0;font-size:1.35rem;font-weight:600;letter-spacing:-.02em}
+  .also-h a{font-size:14px;border-bottom:1px solid var(--ink)}
+  .sib{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sib a{display:grid;grid-template-rows:auto 1fr;gap:10px;background:#fff;border:1px solid var(--line);padding:12px 12px 16px}
+  .sib a:hover{border-color:var(--ink);text-decoration:none}
+  .sib .gbox{aspect-ratio:16/9}
+  .sib b{display:block;font-weight:500}
+  .sib small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:4px}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:56px var(--x) 0;padding:28px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.2rem,2.2vw,1.7rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  .closing{padding:88px var(--x);text-align:left}
+  .closing p{font:500 clamp(1.6rem,3vw,2.6rem)/1.15 var(--sans);letter-spacing:-.03em;margin:0 0 18px;max-width:20ch}
+  .closing a{display:inline-block;border:1.5px solid var(--ink);border-radius:999px;padding:10px 22px;font-weight:500}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:28px} .sib{grid-template-columns:1fr 1fr} }
+  @media (max-width:480px){ .sib{grid-template-columns:1fr;gap:0} .sib a{grid-template-rows:auto;border-width:0 0 1px;background:none;padding:12px 0} .sib .gbox{display:none} }
+</style>
+<style>
+  /* 6 · in its own voice: each step captioned by a verb (Fathom), told in the club's own voice (Lucas Pope) */
+  .steps{list-style:none;margin:0;padding:0}
+  .step{display:grid;grid-template-columns:minmax(120px,2fr) minmax(0,4fr) minmax(0,4fr);gap:28px;padding:32px 0;border-bottom:1px solid var(--line);align-items:start}
+  .verb{font:500 clamp(1.6rem,3vw,2.4rem)/1 var(--sans);letter-spacing:-.03em;margin:0}
+  .verb small{display:block;font:12px var(--mono);color:var(--mute);letter-spacing:0;margin-top:8px}
+  .blurb{font-size:1.2rem;line-height:1.45;margin:0 0 14px;max-width:34ch}
+  .fact{font:12px/1.5 var(--mono);color:var(--mute);margin:0}
+  .step blockquote{margin-top:12px}
+  .voice-rule{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0 8px;font-size:14px}
+  .voice-rule div{background:#fff;border:1px solid var(--line);padding:12px 14px}
+  .voice-rule b{display:block;font:11px var(--mono);color:var(--mute);margin-bottom:4px}
+  @media (max-width:820px){ .step{grid-template-columns:1fr;gap:12px} .voice-rule{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index">work</a></li><li><a href="#" data-to="about">about</a></li><li><a href="#" data-to="say-hi">say hi</a></li></ul>
+</header>
+
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy">Strategy</a><span>/</span><a href="#" data-to="client">EWC</a></p>
+    <span class="draft">draft sentence: not in rev4, Kahran's to write</span>
+    <h1>For East West [EWC], we worked out who the club is for, what each of them uses instead today, and how to mix them into one room.</h1>
+    <ul class="tags"><li><a href="#" data-to="work-index" data-filter="tag=strategy">strategy</a></li><li><a href="#" data-to="work-index" data-filter="tag=personas">personas</a></li><li><a href="#" data-to="work-index" data-filter="tag=client-work">client work</a></li></ul>
+  </div>
+  <dl class="facts">
+    <div><dt>client</dt><dd><a href="#" data-to="client">East | West Club</a>, a golf, social &amp; wellness club, Seattle</dd></div>
+    <div><dt>when</dt><dd>March – August 2026</dd></div>
+    <div><dt>shape</dt><dd>seven verbs, in the club's voice</dd></div>
+  </dl>
+</section>
+
+<div class="gbox gbox--img hero-img"><span>image · the same still as the homepage panel (not picked yet)</span></div>
+
+<p class="borrow">borrows from <a href="https://fathom.info/projects/" data-to="external" data-pick="fathom">Fathom</a> (every project captioned with the verb of what it does) + <a href="https://dukope.com/" data-to="external" data-pick="lucas-pope">Lucas Pope</a> (each game introduced in the voice of its own fiction) · Study 15</p>
+
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh">Seven verbs</h2><span class="mono">told the way the club talks</span></div>
+  <!-- source: ewc/src/brand-guide.html, "Voice and tone — how we sound" -->
+  <div class="voice-rule">
+    <div><b>the club's voice, from its brand guide</b>Plain-spoken, declarative, slightly wry. We don't claim the benefit — we describe the moment it happens in, and let the reader draw the conclusion.</div>
+    <div><b>words it keeps out</b>curated · elevated · exclusive · bespoke · concierge · amenities</div>
+  </div>
+  <ol class="steps">
+    <li class="step"><p class="verb">reframe<small>1 Apr 2026</small></p>
+      <div><p class="blurb line-draft">Not against anything. Just different. The first call ended with a club that didn't need an enemy.</p></div>
+      <div><p class="fact">Founder call. "The anti-country club" became "just different"; the proposal was rewritten around it.</p>
+        <!-- source: granola 2277338, 1 Apr 2026, a founder -->
+        <blockquote><q>It's more like, it's just different. What we're building is very different.</q><cite>a founder, 1 Apr</cite></blockquote></div></li>
+    <li class="step"><p class="verb">meet<small>22 Apr 2026</small></p>
+      <div><p class="blurb line-draft">Three real people, and one question about each of them.</p></div>
+      <div><p class="fact">Workshop 2. A club they love, one that bugs them, three people they'd want as founding members.</p>
+        <!-- source: ewc/EWC workshopsession2fill.excalidraw, part 2 -->
+        <blockquote><q>What's their Tuesday night like without EWC?</q><cite>workshop 2 board</cite></blockquote></div></li>
+    <li class="step"><p class="verb">sort<small>15 May 2026</small></p>
+      <div><p class="blurb line-draft">Six kinds of member. The founders read the list and recognised most of the people they'd been talking to.</p></div>
+      <div><p class="fact">Founder call. Six personas, from the founders' own list of prospects.</p>
+        <!-- source: granola 2277342, 15 May 2026 15:39, a founder -->
+        <blockquote><q>These are all, these are spot on. … this is at least like 90 of our population.</q><cite>a founder, 15 May (transcript: "90")</cite></blockquote>
+        <figure><img src="img/figjam-session3-personas.jpg" alt="FigJam session 3, 'Who are these people?': six persona cards" loading="lazy"><figcaption>FigJam · session 3</figcaption></figure></div></li>
+    <li class="step"><p class="verb">price<small>27 May 2026</small></p>
+      <div><p class="blurb line-draft">The competition was never another club. It was a coffeeshop near the house, the local gym, a friend's house on a Thursday.</p></div>
+      <div><p class="fact">Workshop, FigJam. For each persona: what they want, where they get it today, what the club gives instead. "Price" as in what it's up against.</p>
+        <figure><img src="img/figjam-quiet-connector.jpg" alt="FigJam session 4: one persona's row of sticky notes" loading="lazy"><figcaption>FigJam · one persona's row</figcaption></figure></div></li>
+    <li class="step"><p class="verb">cast<small>Mar – Jul 2026</small></p>
+      <div><p class="blurb line-draft">Not twenty-five of the same person. Anchors, hosts, bridges, and at least one wildcard.</p></div>
+      <div><!-- source: ewc/docs/strategy-notes.md; ewc/docs/HANDOFF.md (roles) -->
+        <p class="fact">The founding class is cast like a school class. A block of 8–20 from one consulting firm asked to join together and was turned down. Roles: Anchors, Hosts, Bridges, Makers, Seekers, Quiet depth, Wildcards.</p></div></li>
+    <li class="step"><p class="verb">dress<small>14 May – 13 Jul 2026</small></p>
+      <div><p class="blurb line-draft">Four directions on the table. The green, lighter one stayed. Then the guide, the kit, the site.</p></div>
+      <div><!-- sources: notes 2297485 (14 May); ewc/src/brand-guide.html; ewc/docs/HANDOFF.md (live 13 Jul) -->
+        <p class="fact">Workshop, Living Room Extension, Industrial Minimal, Mid-Century Modern. The brand guide, the sales kit, <a href="https://eastwestclub.com" data-to="external">eastwestclub.com</a>.</p>
+        <figure><img src="img/site-home.png" alt="eastwestclub.com home page" loading="lazy"><figcaption>eastwestclub.com</figcaption></figure></div></li>
+    <li class="step"><p class="verb">open<small>after Joyus</small></p>
+      <div><p class="blurb line-draft">The doors open. Someone else runs the events now, and twenty-five members have a reason to come in.</p></div>
+      <div><!-- source: Kahran, 26 Oct 2026 (this session) -->
+        <p class="fact">The club brought in someone to run events and carry the brand into the space. The club opened; the first 25 members. (per Kahran, 26 Oct)</p>
+        <!-- source: granola 3383201, 28 Aug 2026, a founder -->
+        <blockquote><q>I'd love to still stay organic and quiet and interesting and kind of not Elite</q><cite>a founder, final hand-off call, 28 Aug</cite></blockquote></div></li>
+  </ol>
+</section>
+
+<section class="also" aria-labelledby="ah">
+  <div class="also-h"><h2 id="ah">Also for EWC</h2><a href="#" data-to="client">All three EWC pieces →</a></div>
+  <div class="sib">
+    <a href="#" data-to="piece"><div class="gbox gbox--img"><span>image</span></div><div><small>Website &amp; Product</small><b>EWC · website</b></div></a>
+    <a href="#" data-to="piece"><div class="gbox gbox--img"><span>image</span></div><div><small>Storytelling</small><b>EWC · branding storytelling</b></div></a>
+  </div>
+</section>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small>next in Strategy</small><b>For Pratham USA, we worked out why donors give once and stop, and designed the strategy to bring them back and keep them.</b></span><span class="arrow">→</span></a>
+
+<section class="closing">
+  <p>Something you want reimagined?</p>
+  <a href="#" data-to="say-hi">say hi</a>
+</section>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</p></div>
+  <div>say hi<ul><li><a href="#" data-to="mailto">hello@joyus.studio</a></li><li><a href="#" data-to="say-hi">contact</a></li></ul></div>
+  <div>find us<ul><li><a href="#" data-to="person">Kahran</a></li><li><a href="#" data-to="person">Divya</a></li><li><a href="#" data-to="podcast-existing">podcast</a></li></ul></div>
+</footer>
+
+</body>
+</html>

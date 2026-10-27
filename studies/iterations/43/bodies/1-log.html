@@ -1,0 +1,93 @@
+<style>
+  /* 1 · the log: every dated touchpoint, oldest first, nothing curated out (Rauno, increpare) */
+  .log{list-style:none;margin:0;padding:0}
+  .log li{display:grid;grid-template-columns:110px 92px minmax(0,1fr);gap:20px;padding:14px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .log time{font:13px var(--mono)}
+  .log .kind{font:12px var(--mono);color:var(--mute)}
+  .log .what b{font-weight:500}
+  .log .what span{display:block;color:var(--mute);font-size:14px;margin-top:3px}
+  .log .what blockquote{margin:10px 0 0}
+  .log li.big{padding:24px 0}
+  .log li.big .what{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+  .log li.after{background:var(--box)}
+  .log li.after time{padding-left:8px}
+  .rule{font:12px var(--mono);color:var(--mute);margin:10px 0 0}
+  @media (max-width:820px){ .log li{grid-template-columns:84px 1fr} .log .kind{grid-column:2} .log .what{grid-column:1 / -1} .log li.big .what{grid-template-columns:1fr} }
+</style>
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh">Everything, dated</h2><span class="mono">oldest first · nothing left out</span></div>
+  <p class="rule">Every call, workshop, message and release with the club, March to August 2026. Meeting names are as recorded. Our internal Kahran / Divya calls are not listed.</p>
+  <ol class="log">
+    <!-- source: granola 2277336 + notes 2297482 -->
+    <li><time datetime="2026-03-10">10 Mar 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b><span class="line-draft">More people asking about the founders club; they want a way to close them: a deck, prints for walkthroughs, a website.</span></div></li>
+    <!-- source: granola 2277375 -->
+    <li><time datetime="2026-03-14">14 Mar 2026</time><span class="kind">call</span><div class="what"><b>East West Club founding strategy with Shankar and Ryan</b></div></li>
+    <!-- source: granola 2277337 -->
+    <li><time datetime="2026-03-23">23 Mar 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b></div></li>
+    <!-- source: granola 2277376 -->
+    <li><time datetime="2026-03-23">23 Mar 2026</time><span class="kind">call</span><div class="what"><b>East West Club tech strategy and member experience planning</b></div></li>
+    <li class="big"><time datetime="2026-04-01">1 Apr 2026</time><span class="kind">call</span><div class="what"><div><b>Catch up re deck and website for east west club</b><span class="line-draft">"The anti-country club" comes up, and comes down.</span>
+      <!-- source: granola 2277338, 1 Apr 2026, a founder -->
+      <blockquote><q>It's more like, it's just different. What we're building is very different.</q><cite>a founder, 1 Apr</cite></blockquote></div>
+      <figure><img src="img/proposal-v2-heard.jpg" alt="Proposal v2, What we heard: 'It's a different thing, not an oppositional one.'" loading="lazy"><figcaption>proposal v2, "revised after 4/1 conversation"</figcaption></figure></div></li>
+    <!-- source: ewc git 1688265 (divyatak) -->
+    <li><time datetime="2026-04-14">14 Apr 2026</time><span class="kind">site</span><div class="what"><b>The club's domain points at the new site</b><span>ewc repo, "Create CNAME"</span></div></li>
+    <!-- source: granola 2277399 -->
+    <li><time datetime="2026-04-15">15 Apr 2026</time><span class="kind">call</span><div class="what"><b>Founding members funnel and club experience strategy</b></div></li>
+    <!-- source: granola 2277377 -->
+    <li><time datetime="2026-04-21">21 Apr 2026</time><span class="kind">workshop</span><div class="what"><b>East West Clubs brand identity and founding member exploration</b></div></li>
+    <li class="big"><time datetime="2026-04-22">22 Apr 2026</time><span class="kind">workshop</span><div class="what"><div><b>EWC : second workshop</b><span>A club you love, one that bugs you, three real people, and one question for each.</span>
+      <!-- source: ewc/EWC workshopsession2fill.excalidraw, part 2 -->
+      <blockquote><q>What's their Tuesday night like without EWC?</q><cite>workshop 2 board</cite></blockquote></div>
+      <div class="gbox gbox--img" style="aspect-ratio:16/10"><span>workshopsession2fill.excalidraw · export needed</span></div></div></li>
+    <!-- source: whatsapp "Joyus <> EWC" 38522 -->
+    <li><time datetime="2026-05-01">1 May 2026</time><span class="kind">message</span><div class="what"><b>A founder sends references</b><span>Bandon Dunes and its Ghost Tree grill; aman.com; kinfolk.com</span></div></li>
+    <!-- source: granola 2277339 -->
+    <li><time datetime="2026-05-05">5 May 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b></div></li>
+    <!-- source: granola 2277341 + notes 2297485 -->
+    <li><time datetime="2026-05-14">14 May 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b><span>Four visual directions: Workshop, Living Room Extension, Industrial Minimal, Mid-Century Modern.</span></div></li>
+    <li class="big"><time datetime="2026-05-15">15 May 2026</time><span class="kind">call</span><div class="what"><div><b>Catch up re deck and website for east west club</b><span>Six personas, from the founders' own list of prospects.</span>
+      <!-- source: granola 2277342, 15 May 2026 15:39, a founder -->
+      <blockquote><q>These are all, these are spot on. … this is at least like 90 of our population.</q><cite>a founder, 15 May (transcript: "90")</cite></blockquote></div>
+      <figure><img src="img/figjam-session3-personas.jpg" alt="FigJam session 3, 'Who are these people?': six persona cards" loading="lazy"><figcaption>FigJam · session 3</figcaption></figure></div></li>
+    <!-- source: granola 2277344, 18 May 2026, a founder -->
+    <li><time datetime="2026-05-18">18 May 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b><span>The founders ask for the next layer: which club gives what to which persona.</span></div></li>
+    <!-- source: whatsapp "Joyus <> EWC" 38170 -->
+    <li><time datetime="2026-05-18">18 May 2026</time><span class="kind">message</span><div class="what"><b>A founder sends moss.nyc</b>
+      <blockquote><q>Kahran I really like their site!!!</q><cite>a founder, 18 May</cite></blockquote></div></li>
+    <!-- source: granola 2277346 + notes 2297486 -->
+    <li><time datetime="2026-05-22">22 May 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b><span>Walking the rooms: the café, the lounge, the bays.</span></div></li>
+    <!-- source: granola 2277395 (Kahran recording; Ryan Schaffer, Shankar Sundaram) -->
+    <li class="big"><time datetime="2026-05-27">27 May 2026</time><span class="kind">workshop</span><div class="what"><div><b>Finish value &amp; archetypes exercise</b><span>For each persona: what they want, where they get it today, what the club can give.</span></div>
+      <figure><img src="img/figjam-session4-values.jpg" alt="FigJam session 4: rows of sticky notes per persona" loading="lazy"><figcaption>FigJam · "What are we offering and to whom?"</figcaption></figure></div></li>
+    <!-- source: ewc git d550d16 (divyatak) -->
+    <li><time datetime="2026-05-28">28 May 2026</time><span class="kind">release</span><div class="what"><b>The brand guide</b><span>ewc repo, "Add brand guide + internal tracker"</span></div></li>
+    <!-- source: whatsapp "Joyus <> EWC" 54378 -->
+    <li><time datetime="2026-06-02">2 Jun 2026</time><span class="kind">message</span><div class="what"><b>A founder sends the clubs they were introduced to</b><span>Maxwell Social, The Quin House, University Club, Rye Golf Club, Coveleigh Club, 1776 Morristown</span></div></li>
+    <!-- source: granola 2277355 + notes 2297491 -->
+    <li><time datetime="2026-06-16">16 Jun 2026</time><span class="kind">call</span><div class="what"><b>Catch up re deck and website for east west club</b><span>The founders packet and membership benefits.</span></div></li>
+    <!-- source: ewc git 9863afd (divyatak) -->
+    <li><time datetime="2026-06-16">16 Jun 2026</time><span class="kind">release</span><div class="what"><b>The sales kit: deck, one-pager v2</b><span>ewc repo, "Sales-kit pass"</span></div></li>
+    <!-- source: whatsapp "Joyus <> EWC" 335751 -->
+    <li><time datetime="2026-06-23">23 Jun 2026</time><span class="kind">message</span><div class="what"><b>A founder, on Maxwell Social</b>
+      <blockquote><q>To me this feels more novel…</q><cite>a founder, 23 Jun</cite></blockquote></div></li>
+    <!-- source: granola 2290581 -->
+    <li><time datetime="2026-07-10">10 Jul 2026</time><span class="kind">call</span><div class="what"><b>punchlist for ewc golive</b></div></li>
+    <!-- source: ewc git 374777f (Kahran) -->
+    <li><time datetime="2026-07-12">12 Jul 2026</time><span class="kind">release</span><div class="what"><b>The Instagram launch kit</b></div></li>
+    <li class="big"><time datetime="2026-07-13">13 Jul 2026</time><span class="kind">release</span><div class="what"><div><b>eastwestclub.com goes live</b><span><a href="https://eastwestclub.com" data-to="external">eastwestclub.com</a></span></div>
+      <!-- source: ewc/docs/HANDOFF.md line 5 -->
+      <figure><img src="img/site-home.png" alt="eastwestclub.com home page" loading="lazy"><figcaption>eastwestclub.com</figcaption></figure></div></li>
+    <!-- source: ewc git d62d251 (Kahran) -->
+    <li><time datetime="2026-07-14">14 Jul 2026</time><span class="kind">release</span><div class="what"><b>The sales playbook for founding conversations</b></div></li>
+    <!-- source: granola 2290572 -->
+    <li><time datetime="2026-07-15">15 Jul 2026</time><span class="kind">call</span><div class="what"><b>ewc next steps</b></div></li>
+    <!-- source: granola 2277378 -->
+    <li><time datetime="2026-07-30">30 Jul 2026</time><span class="kind">site</span><div class="what"><b>East-West Club site audit and bug fixes</b></div></li>
+    <li class="big"><time datetime="2026-08-28">28 Aug 2026</time><span class="kind">call</span><div class="what"><div><b>Final hand off call</b>
+      <!-- source: granola 3383201, 28 Aug 2026, a founder -->
+      <blockquote><q>I'd love to still stay organic and quiet and interesting and kind of not Elite</q><cite>a founder, 28 Aug</cite></blockquote></div><div></div></div></li>
+    <!-- source: Kahran, 26 Oct 2026 (this session) -->
+    <li class="after"><time>after Joyus</time><span class="kind">the club</span><div class="what"><b>Someone to run events and carry the brand into the space. The club opens; the first 25 members.</b><span>per Kahran, 26 Oct · a founder quote would beat this line</span></div></li>
+  </ol>
+</section>
