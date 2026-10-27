@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Wireframe — piece page, six Tuesdays at once, with hovers (EWC · strategy)</title>
+<link rel="stylesheet" href="wire.css">
+<style>
+  /* Study 44's piece page: no hero, tags, "also" or closing (Divya, 27 Oct: "remove everything else") */
+  .head{padding:clamp(40px,7vh,80px) var(--x) 28px;display:grid;grid-template-columns:minmax(0,7fr) minmax(220px,3fr);gap:48px;align-items:end;border-bottom:1px solid var(--line)}
+  .crumb{font:13px var(--mono);color:var(--mute);margin:0 0 18px;display:flex;gap:10px;flex-wrap:wrap}
+  .crumb a{border-bottom:1px solid var(--line)}
+  .head h1{font:500 clamp(1.8rem,3.4vw,3rem)/1.12 var(--sans);letter-spacing:-.025em;margin:0;max-width:20ch}
+  .facts{margin:0;display:grid;gap:12px;font-size:14px}
+  .facts div{border-top:1px solid var(--line);padding-top:8px}
+  .facts dt{font:12px var(--mono);color:var(--mute);margin-bottom:2px}
+  .facts dd{margin:0}
+  .insight{padding:44px var(--x) 8px}
+  .insight p{font:500 clamp(1.4rem,2.6vw,2.2rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0;max-width:26ch}
+  .insight small{display:block;font:12px var(--mono);color:var(--mute);margin-top:12px}
+  .body{padding:40px var(--x) 24px}
+  .body-h{display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-bottom:1px solid var(--ink);padding-bottom:10px;margin:0}
+  .body-h h2{margin:0;font-size:1.2rem;letter-spacing:-.02em;font-weight:600}
+  .line-draft{background:#fff4c2}
+  .next{display:flex;justify-content:space-between;align-items:center;gap:24px;margin:48px var(--x) 0;padding:24px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+  .next small{display:block;font:12px var(--mono);color:var(--mute);margin-bottom:6px}
+  .next b{font:500 clamp(1.1rem,2vw,1.5rem)/1.2 var(--sans);letter-spacing:-.02em}
+  .next .arrow{font-size:2rem}
+  @media (max-width:820px){ .head{grid-template-columns:1fr;gap:24px} }
+
+</style>
+<style>
+  /* six Tuesdays at once (46 · 2): the six evenings side by side; the coffeeshops, bars and homes light up.
+     47: "with EWC" re-spaced. The gives are paragraphs, so the six go to three columns (two, then one,
+     on smaller screens), a longer line, more air between them, and no empty band under the names.
+     48: a hover on each evening. The page carries every option; the picking sheet (or ?picks=)
+     says which show and how: T-a a card over the column, T-b the column opens in place, T-c the
+     others dim and it opens in place. A tap does what a hover does; "show all" opens all six. */
+  .ask{font:500 clamp(1.3rem,2.4vw,1.9rem)/1.2 var(--sans);letter-spacing:-.02em;margin:0}
+  .lead{font:15px var(--sans);margin:14px 0 0}
+  .flip{display:flex;gap:6px;margin:14px 0 0}
+  .flip button{font:14px var(--sans);border:1px solid var(--line);border-radius:999px;padding:7px 14px;background:#fff;color:var(--ink);cursor:pointer}
+  .flip button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  [hidden]{display:none!important}
+  .six{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:16px;border-top:1.5px solid var(--ink);padding-top:12px}
+  .col h3{font:600 14px/1.25 var(--sans);margin:0 0 10px;min-height:2.5em}
+  .col ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+  .col li{font:13px/1.35 var(--mono);color:var(--mute);border:1px solid var(--box);padding:8px;min-height:3.4em}
+  .col li.hit{color:var(--ink);border-color:var(--ink);background:var(--box)}
+  .six.is-with{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:56px;row-gap:44px;border-top:0;padding-top:4px}
+  .six.is-with .col{border-top:1.5px solid var(--ink);padding-top:14px}
+  .six.is-with .col h3{min-height:0;margin:0 0 10px;font-size:15px}
+  .col .with p{margin:0;font:15px/1.6 var(--sans);max-width:44ch}
+  .bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 20px}
+  .hint{font:13px var(--sans);color:var(--mute);margin:14px 0 0;display:flex;align-items:center;gap:10px}
+  .hint .all{font:13px var(--sans);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:#fff;color:var(--ink);cursor:pointer}
+  .hint .all[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+  .col{position:relative;cursor:pointer;outline:none}
+  .hov{display:none}
+  .hov .opt{margin:0;font:14px/1.5 var(--sans)}
+  .hov .opt + .opt{margin-top:8px}
+  /* T-a: a card over the column */
+  body.t-a .col:is(:hover,:focus-visible,.is-open) .hov{display:block;position:absolute;z-index:5;left:-8px;right:-8px;top:30px;min-width:220px;background:#fff;border:1px solid var(--ink);padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.14)}
+  /* T-b and T-c: the column opens in place, under the name */
+  body:is(.t-b,.t-c) .col:is(:hover,:focus-visible,.is-open) .hov{display:block;background:#fff;border-left:3px solid var(--ink);padding:10px 12px;margin:0 0 12px}
+  /* T-c: the other five dim */
+  body.t-c .six:has(.col:is(:hover,:focus-visible,.is-open)) .col:not(:is(:hover,:focus-visible,.is-open)){opacity:.3}
+  /* show all: every hover open, in place, whatever the treatment (for phones) */
+  body.show-all .col .hov{display:block!important;position:static!important;box-shadow:none!important;min-width:0!important;background:#fff;border:0;border-left:3px solid var(--ink);padding:10px 12px;margin:0 0 12px}
+  body.show-all .six .col{opacity:1!important}
+  @media (max-width:1000px){ .six{grid-template-columns:repeat(3,minmax(0,1fr))} .six.is-with{grid-template-columns:1fr 1fr;column-gap:40px} }
+  @media (max-width:560px){ .six{grid-template-columns:1fr 1fr} .six.is-with{grid-template-columns:1fr;row-gap:32px} }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="gbox" href="#" data-to="home">wordmark</a>
+  <ul><li><a href="#" data-to="work-index"><span data-copy="48.chrome.work">work</span></a></li><li><a href="#" data-to="about"><span data-copy="48.chrome.about">about</span></a></li><li><a href="#" data-to="say-hi"><span data-copy="48.chrome.sayhi">say hi</span></a></li></ul>
+</header>
+
+<main class="piece">
+<section class="head">
+  <div>
+    <p class="crumb"><a href="#" data-to="work-index" data-filter="pill=strategy"><span data-copy="48.chrome.crumb.strategy">Strategy</span></a><span>/</span><a href="#" data-to="client"><span data-copy="48.chrome.crumb.ewc">EWC</span></a></p>
+    <h1><span data-copy="48.all.headline" class="line-draft">Who East West Club is for, and what it is up against.</span></h1>
+  </div>
+  <dl class="facts">
+    <div><dt><span data-copy="48.all.client.k">client</span></dt><dd><span data-copy="48.all.client.v">East | West Club, Seattle</span></dd></div>
+    <div><dt><span data-copy="48.all.when.k">when</span></dt><dd><span data-copy="48.all.when.v">March – August 2026</span></dd></div>
+  </dl>
+</section>
+
+<section class="insight" aria-label="the finding">
+  <p><span data-copy="48.all.insight" class="line-draft">The competition was never another club. It was a coffeeshop, a bar, home.</span></p>
+  <small><span data-copy="48.all.claim">24 wants: coffeeshop 4 · bar 3 · home 4 · country club 2</span></small>
+</section>
+
+<section class="body" aria-labelledby="bh">
+  <div class="body-h"><h2 id="bh" class="ask"><span data-copy="48.t.ask">What's their Tuesday night like without EWC?</span></h2></div>
+  <p class="lead"><span data-copy="48.g.h" class="line-draft">Six members, one Tuesday. Same few places.</span></p><div class="bar"><div class="flip" role="group"><button type="button" aria-pressed="true" data-with="0"><span data-copy="48.t.without">without EWC</span></button><button type="button" aria-pressed="false" data-with="1"><span data-copy="48.t.with">with EWC</span></button></div><p class="hint"><span data-copy="48.h.hint">Hover a member to see more (tap on a phone).</span> <button type="button" class="all" aria-pressed="false"><span data-copy="48.h.all">show all</span></button></p></div><div class="six"><div class="col" data-m="QC" tabindex="0" aria-describedby="hov-QC"><h3 data-copy="48.data.p0.name">The Quiet Connector</h3><div class="hov" id="hov-QC"><p data-copy="48.opt.QC-a" class="opt" data-opt="QC-a">$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.</p><p data-copy="48.opt.QC-b" class="opt" data-opt="QC-b" hidden>A calm senior title, weekends that belong to the family, an email that is just their name.</p><p data-copy="48.opt.QC-c" class="opt" data-opt="QC-c" hidden>A third place that asks nothing.</p><p data-copy="48.opt.QC-d" class="opt" data-opt="QC-d" hidden>Whether a club is a sound spend or an indulgence.</p><p data-copy="48.opt.QC-e" class="opt" data-opt="QC-e" hidden>A way to be away from his usual social circles. Today: a coffeeshop near the house, or the office.</p><p data-copy="48.opt.QC-f" class="opt" data-opt="QC-f" hidden>picking up kids and coming home, so they are busy, figuring out dinner</p><p data-copy="48.opt.QC-g" class="opt" data-opt="QC-g" hidden>Anchors (walkable, Tuesday-because-Tuesday regulars)</p></div><ul class="without"><li class="hit coffeeshop"><span data-copy="48.data.p0.w0.today">a coffeeshop near the house, or the office</span></li><li class=""><span data-copy="48.data.p0.w1.today">kids' sports, community events</span></li><li class=""><span data-copy="48.data.p0.w2.today">the driving range, a lakefront patio</span></li><li class="hit home"><span data-copy="48.data.p0.w3.today">at home, a small private gym</span></li></ul><div class="with" hidden><p data-copy="48.data.p0.give">The café, the lounge, the events space. Wellness and the bays. Featured chefs, poker nights, golf-focused pilates — and leagues that give you somewhere to go even when you don't have friends.</p></div></div><div class="col" data-m="CCG" tabindex="0" aria-describedby="hov-CCG"><h3 data-copy="48.data.p1.name">The Country-Club Guy</h3><div class="hov" id="hov-CCG"><p data-copy="48.opt.CCG-a" class="opt" data-opt="CCG-a">$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.</p><p data-copy="48.opt.CCG-b" class="opt" data-opt="CCG-b" hidden>He will mention his club in the first five minutes. Senior exec, or his name is on the company.</p><p data-copy="48.opt.CCG-c" class="opt" data-opt="CCG-c" hidden>Not a replacement — the weekday club.</p><p data-copy="48.opt.CCG-d" class="opt" data-opt="CCG-d" hidden>Why a second membership.</p><p data-copy="48.opt.CCG-e" class="opt" data-opt="CCG-e" hidden>A simulator that's free when he wants it. Today: his house.</p><p data-copy="48.opt.CCG-f" class="opt" data-opt="CCG-f" hidden>Coaching baseball/doing something with atheletics</p></div><ul class="without"><li class="hit home"><span data-copy="48.data.p1.w0.today">his house</span></li><li class=""><span data-copy="48.data.p1.w1.today">the local gym</span></li><li class="hit home"><span data-copy="48.data.p1.w2.today">a friend's house, a private room at Daniel's</span></li><li class=""><span data-copy="48.data.p1.w3.today">a scheduled appointment with his wife</span></li></ul><div class="with" hidden><p data-copy="48.data.p1.give">Bookings he can plan around — an 8am bay before work. Demo days, whiskey launches, Bandon and Pebble. Deliberately slower programming: visits over two hours.</p></div></div><div class="col" data-m="SRO" tabindex="0" aria-describedby="hov-SRO"><h3 data-copy="48.data.p2.name">The Semi-Retired Operator</h3><div class="hov" id="hov-SRO"><p data-copy="48.opt.SRO-a" class="opt" data-opt="SRO-a">$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.</p><p data-copy="48.opt.SRO-b" class="opt" data-opt="SRO-b" hidden>Sold it, stepped back, or halfway there. Talks about what they are building next — usually for other people.</p><p data-copy="48.opt.SRO-c" class="opt" data-opt="SRO-c" hidden>A role, not a membership.</p><p data-copy="48.opt.SRO-d" class="opt" data-opt="SRO-d" hidden>Whether this is something to do or merely somewhere to be.</p><p data-copy="48.opt.SRO-e" class="opt" data-opt="SRO-e" hidden>Meeting younger, more interesting people. Today: the country club, concerts, dinners.</p><p data-copy="48.opt.SRO-f" class="opt" data-opt="SRO-f" hidden>named roles: league captains, dinner hosts</p></div><ul class="without"><li class="hit club"><span data-copy="48.data.p2.w0.today">the country club, concerts, dinners</span></li><li class=""><span data-copy="48.data.p2.w1.today">board work, informal coffees</span></li><li class=""><span data-copy="48.data.p2.w2.today">charity events, winery concerts</span></li><li class="hit club"><span data-copy="48.data.p2.w3.today">the country club</span></li></ul><div class="with" hidden><p data-copy="48.data.p2.give">A named role and a real position in the club. He organizes programming, recruits teams, hosts member dinners — and we say publicly that he is the one who made it happen.</p></div></div><div class="col" data-m="NSF" tabindex="0" aria-describedby="hov-NSF"><h3 data-copy="48.data.p3.name">The New-to-Seattle Founder</h3><div class="hov" id="hov-NSF"><p data-copy="48.opt.NSF-a" class="opt" data-opt="NSF-a">$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.</p><p data-copy="48.opt.NSF-b" class="opt" data-opt="NSF-b" hidden>Founder, operator, or investor. New to the city, or just ready for a new room — rooted founders run this play too. The first question, asked or not, is who else is a member.</p><p data-copy="48.opt.NSF-c" class="opt" data-opt="NSF-c" hidden>The first circle.</p><p data-copy="48.opt.NSF-d" class="opt" data-opt="NSF-d" hidden>Whether the people they want to know will actually be here.</p><p data-copy="48.opt.NSF-e" class="opt" data-opt="NSF-e" hidden>A true second space. Today: a coffeeshop.</p><p data-copy="48.opt.NSF-f" class="opt" data-opt="NSF-f" hidden>dinner with colleagues / clients</p></div><ul class="without"><li class="hit coffeeshop"><span data-copy="48.data.p3.w0.today">a coffeeshop</span></li><li class="hit coffeeshop"><span data-copy="48.data.p3.w1.today">a coffeeshop</span></li><li class="hit coffeeshop"><span data-copy="48.data.p3.w2.today">a coffeeshop</span></li><li class=""><span data-copy="48.data.p3.w3.today">meetups, affinity groups, friends of friends</span></li></ul><div class="with" hidden><p data-copy="48.data.p3.give">The lounge as workspace and as the default "meet me at." A room mixed on purpose — professions, genders, backgrounds. Events with the top Seattle companies, one-offs, short-format matches.</p></div></div><div class="col" data-m="EN" tabindex="0" aria-describedby="hov-EN"><h3 data-copy="48.data.p4.name">The Empty-Nester</h3><div class="hov" id="hov-EN"><p data-copy="48.opt.EN-a" class="opt" data-opt="EN-a">$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.</p><p data-copy="48.opt.EN-b" class="opt" data-opt="EN-b" hidden>Senior and easing off. Says some version of "I finally have time."</p><p data-copy="48.opt.EN-c" class="opt" data-opt="EN-c" hidden>The next chapter, with structure.</p><p data-copy="48.opt.EN-d" class="opt" data-opt="EN-d" hidden>Being new at something in public.</p><p data-copy="48.opt.EN-e" class="opt" data-opt="EN-e" hidden>Reconnecting with the hobbies they dropped. Today: the arts centre, the mall, a purchase.</p><p data-copy="48.opt.EN-f" class="opt" data-opt="EN-f" hidden>going to a game, to a museum to have dinner with friends</p></div><ul class="without"><li class=""><span data-copy="48.data.p4.w0.today">the arts centre, the mall, a purchase</span></li><li class=""><span data-copy="48.data.p4.w1.today">friends of friends</span></li><li class=""><span data-copy="48.data.p4.w2.today">a favourite restaurant</span></li><li class=""><span data-copy="48.data.p4.w3.today">charity events</span></li></ul><div class="with" hidden><p data-copy="48.data.p4.give">Cohorts that start the game on the same day, so nobody is behind. Leadership called out by name, and accolades worth winning. Private space to book — book clubs, birthdays, corporate parties.</p></div></div><div class="col" data-m="MCHE" tabindex="0" aria-describedby="hov-MCHE"><h3 data-copy="48.data.p5.name">The Mid-Career High Earner</h3><div class="hov" id="hov-MCHE"><p data-copy="48.opt.MCHE-a" class="opt" data-opt="MCHE-a">$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.</p><p data-copy="48.opt.MCHE-b" class="opt" data-opt="MCHE-b" hidden>Books things same-day. The visit will run sixty to ninety minutes. Often arrives with someone worth impressing.</p><p data-copy="48.opt.MCHE-c" class="opt" data-opt="MCHE-c" hidden>Early is the privilege.</p><p data-copy="48.opt.MCHE-d" class="opt" data-opt="MCHE-d" hidden>Whether the room will skew older than them.</p><p data-copy="48.opt.MCHE-e" class="opt" data-opt="MCHE-e" hidden>A third place. Today: a bar.</p></div><ul class="without"><li class="hit bar"><span data-copy="48.data.p5.w0.today">a bar</span></li><li class="hit bar"><span data-copy="48.data.p5.w1.today">the neighbourhood bar</span></li><li class="hit bar"><span data-copy="48.data.p5.w2.today">a sports bar, the work text group</span></li><li class=""><span data-copy="48.data.p5.w3.today">work, Instagram</span></li></ul><div class="with" hidden><p data-copy="48.data.p5.give">Guest passes, and the generosity of bringing people. Athlete and brand nights, demo sessions, date nights worth choosing. Faster programming — in and out in sixty to ninety minutes.</p></div></div></div>
+</section>
+<script>
+  // which options show, and how: the picking sheet calls applyPicks(); ?picks=QC-b,T-c works too.
+  // Nothing picked for a member = their first option; no treatment picked = T-a.
+  window.applyPicks = (codes) => {
+    const on = new Set(codes || []);
+    const t = ['T-a', 'T-b', 'T-c'].find(c => on.has(c)) || 'T-a';
+    document.body.classList.remove('t-a', 't-b', 't-c'); document.body.classList.add(t.toLowerCase());
+    document.querySelectorAll('.hov').forEach(h => {
+      const opts = [...h.querySelectorAll('.opt')], any = opts.some(x => on.has(x.dataset.opt));
+      opts.forEach((x, k) => { x.hidden = any ? !on.has(x.dataset.opt) : k > 0; });
+    });
+  };
+  applyPicks((new URLSearchParams(location.search).get('picks') || '').split(',').filter(Boolean));
+  const cols = [...document.querySelectorAll('.col')];
+  cols.forEach(c => c.addEventListener('click', (e) => { if (e.target.closest('button')) return; const was = c.classList.contains('is-open'); cols.forEach(x => x.classList.remove('is-open')); c.classList.toggle('is-open', !was); }));
+  document.addEventListener('click', (e) => { if (!e.target.closest('.col')) cols.forEach(x => x.classList.remove('is-open')); });
+  const all = document.querySelector('.hint .all');
+  all.addEventListener('click', () => { const on = all.getAttribute('aria-pressed') !== 'true'; all.setAttribute('aria-pressed', on); document.body.classList.toggle('show-all', on); });
+  const fs = [...document.querySelectorAll('.flip button')];
+  fs.forEach(b => b.addEventListener('click', () => { const on = b.dataset.with === '1'; fs.forEach(x => x.setAttribute('aria-pressed', x === b)); document.querySelector('.six').classList.toggle('is-with', on); document.querySelectorAll('.col').forEach(c => { c.querySelector('.without').hidden = on; c.querySelector('.with').hidden = !on; }); }));
+</script>
+</main>
+
+<a class="next" href="#" data-to="piece" data-next="Pratham USA · reactivation &amp; retention strategy"><span><small><span data-copy="48.chrome.next.label">next in Strategy</span></small><b><span data-copy="48.chrome.next.piece">For Pratham USA, we worked out why donors give once and stop, and designed the strategy to bring them back and keep them.</span></b></span><span class="arrow">→</span></a>
+
+<footer class="foot">
+  <div><a class="gbox" href="#" data-to="home">wordmark</a><p style="margin-top:12px"><span data-copy="48.chrome.f.copyright">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</span></p></div>
+  <div><span data-copy="48.chrome.f.sayhi">say hi</span><ul><li><a href="#" data-to="mailto"><span data-copy="48.chrome.f.mail">hello@joyus.studio</span></a></li><li><a href="#" data-to="say-hi"><span data-copy="48.chrome.f.contact">contact</span></a></li></ul></div>
+  <div><span data-copy="48.chrome.f.findus">find us</span><ul><li><a href="#" data-to="person"><span data-copy="48.chrome.f.kahran">Kahran</span></a></li><li><a href="#" data-to="person"><span data-copy="48.chrome.f.divya">Divya</span></a></li><li><a href="#" data-to="podcast-existing"><span data-copy="48.chrome.f.podcast">podcast</span></a></li></ul></div>
+</footer>
+
+</body>
+</html>

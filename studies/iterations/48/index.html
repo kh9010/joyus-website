@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>48 / EWC, a hover for each Tuesday — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+/* index.html is written by build.cjs from index.tpl.html: edit the template */
+main { padding-bottom: 120px }
+.frame { border: 1px solid #ddd; height: 70vh; min-height: 480px; margin-top: 18px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.open { margin: 8px 0 0; font-size: 13px }
+.heard { margin: 18px 0 0; padding-left: 14px; border-left: 3px solid #ddd; max-width: 68ch }
+.heard p { margin: 0 0 8px }
+.heard cite { font-style: normal; color: #636363; font-size: 13px }
+.shots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px }
+.shots figure { margin: 0 }
+.shots .shot { width: 100%; height: 180px; object-fit: cover; object-position: top; border: 1px solid #eee }
+@media (max-width: 700px) { .shots { grid-template-columns: 1fr 1fr } }
+.pickset { margin-top: 30px }
+.pickset h3 { font-size: 15px; margin: 0 0 10px; font-weight: 600 }
+.pickset h3 small { font-weight: 400; color: #636363; margin-left: 6px }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 10px }
+.card { text-align: left; font: inherit; font-size: 14px; line-height: 1.45; background: white; color: #222; border: 1px solid #ddd; border-left: 4px solid #ddd; padding: 12px 14px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; -webkit-tap-highlight-color: transparent }
+.card .code { font: 600 13px ui-monospace, Menlo, monospace }
+.card small { color: #636363; font-size: 12px }
+.card[aria-pressed="true"] { border-color: #222; border-left-color: #e91e7b; background: #fff4f9 }
+.card[aria-pressed="true"] .code::after { content: "  ✓ picked"; color: #e91e7b }
+.picks { margin-top: 40px; border-top: 2px solid #222; padding-top: 16px }
+.picks pre { white-space: pre-wrap; background: #fafafa; border: 1px solid #eee; padding: 14px; font: 13px/1.5 ui-monospace, Menlo, monospace; margin: 10px 0 }
+.picks textarea { width: 100%; min-height: 80px; font: 15px/1.4 inherit; padding: 10px; border: 1px solid #ccc }
+.dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 10; background: rgba(255,255,255,.96); border-top: 1px solid #ddd; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); display: flex; align-items: center; justify-content: space-between; gap: 12px }
+.dock span { font-size: 13px; color: #636363 }
+.copy { font: 600 16px Montserrat, system-ui, sans-serif; background: #222; color: white; border: 0; border-radius: 999px; padding: 14px 26px; cursor: pointer; min-width: 170px }
+.copy.done { background: #1d7a45 }
+.clear { font: 13px inherit; background: none; border: 0; color: #636363; text-decoration: underline; cursor: pointer }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 48 · 27 October 2026 · Kahran</p>
+<h1>EWC, a hover for each Tuesday</h1>
+<p class="lede">47's page with a hover on each member's evening. Below the page: the options for every member and three ways the hover can appear, each with a code. Tap the ones you like (more than one is fine), then press <b>Copy picks</b> at the bottom and paste it back. The page updates as you tap, so you can try each one. Tap a member on the page to see their hover; on a phone, "show all" opens all six.</p>
+
+<div class="heard">
+  <p>"maybe we could have a onHover for each of them. We could do a quick study for the [48] where you could give me some options for the hovers for all of the different personas, and I can tell you which ones to choose."</p>
+  <cite>Kahran, 27 Oct, on Study 47</cite>
+</div>
+
+<div class="frame"><iframe id="page" title="The page, with hovers" src="six.html"></iframe></div>
+<p class="open"><a id="page-open" href="six.html" target="_blank">Open the page in its own tab, with your picks</a></p>
+
+<div class="shots">
+  <figure><a class="zoom" href="img/hover-t-a.png" target="_blank"><img class="shot" src="img/hover-t-a.png" alt="T-a: a white card over the Quiet Connector's column"></a><figcaption>T-a · card</figcaption></figure>
+  <figure><a class="zoom" href="img/hover-t-b.png" target="_blank"><img class="shot" src="img/hover-t-b.png" alt="T-b: the Quiet Connector's column opens, the line under the name"></a><figcaption>T-b · opens in place</figcaption></figure>
+  <figure><a class="zoom" href="img/hover-t-c.png" target="_blank"><img class="shot" src="img/hover-t-c.png" alt="T-c: the other five columns dimmed"></a><figcaption>T-c · spotlight</figcaption></figure>
+  <figure><a class="zoom" href="img/sheet-390.png" target="_blank"><img class="shot" src="img/sheet-390.png" alt="the picking sheet on a phone, two cards picked"></a><figcaption>the sheet on a phone</figcaption></figure>
+  <figure><a class="zoom" href="img/picks-390.png" target="_blank"><img class="shot" src="img/picks-390.png" alt="the picks summary and the Copy picks button on a phone"></a><figcaption>your picks, on a phone</figcaption></figure>
+</div>
+
+<p class="mono" style="margin-top:28px">Every option is word for word from the EWC sales kit, the brand guide, the EWC handoff or the founders' workshop board (copy.json names each source). "Our pairing" = we chose which member a line goes with. The three treatment lines are ours.</p>
+
+<section class="pickset" aria-labelledby="ph-t"><h3 id="ph-t">Treatment <small>how the hover appears</small></h3><div class="cards"><button type="button" class="card" data-code="T-a" aria-pressed="false"><b class="code">T-a</b><small>card</small><span data-copy="48.opt.T-a" class="line-draft">A card floats over the column.</span></button><button type="button" class="card" data-code="T-b" aria-pressed="false"><b class="code">T-b</b><small>opens in place</small><span data-copy="48.opt.T-b" class="line-draft">The column opens; the line appears under the name.</span></button><button type="button" class="card" data-code="T-c" aria-pressed="false"><b class="code">T-c</b><small>spotlight</small><span data-copy="48.opt.T-c" class="line-draft">The other five dim; the line opens under the name.</span></button></div></section><section class="pickset" data-m="QC" aria-labelledby="ph-QC"><h3 id="ph-QC">The Quiet Connector <small>QC</small></h3><div class="cards"><button type="button" class="card" data-code="QC-a" data-m="QC" aria-pressed="false"><b class="code">QC-a</b><small>who they are</small><span data-copy="48.opt.QC-a">$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.</span></button><button type="button" class="card" data-code="QC-b" data-m="QC" aria-pressed="false"><b class="code">QC-b</b><small>spot them</small><span data-copy="48.opt.QC-b">A calm senior title, weekends that belong to the family, an email that is just their name.</span></button><button type="button" class="card" data-code="QC-c" data-m="QC" aria-pressed="false"><b class="code">QC-c</b><small>open with</small><span data-copy="48.opt.QC-c">A third place that asks nothing.</span></button><button type="button" class="card" data-code="QC-d" data-m="QC" aria-pressed="false"><b class="code">QC-d</b><small>the hesitation</small><span data-copy="48.opt.QC-d">Whether a club is a sound spend or an indulgence.</span></button><button type="button" class="card" data-code="QC-e" data-m="QC" aria-pressed="false"><b class="code">QC-e</b><small>the want that hits</small><span data-copy="48.opt.QC-e">A way to be away from his usual social circles. Today: a coffeeshop near the house, or the office.</span></button><button type="button" class="card" data-code="QC-f" data-m="QC" aria-pressed="false"><b class="code">QC-f</b><small>the founders’ Tuesday (our pairing)</small><span data-copy="48.opt.QC-f">picking up kids and coming home, so they are busy, figuring out dinner</span></button><button type="button" class="card" data-code="QC-g" data-m="QC" aria-pressed="false"><b class="code">QC-g</b><small>their part in the room (our pairing)</small><span data-copy="48.opt.QC-g">Anchors (walkable, Tuesday-because-Tuesday regulars)</span></button></div></section><section class="pickset" data-m="CCG" aria-labelledby="ph-CCG"><h3 id="ph-CCG">The Country-Club Guy <small>CCG</small></h3><div class="cards"><button type="button" class="card" data-code="CCG-a" data-m="CCG" aria-pressed="false"><b class="code">CCG-a</b><small>who they are</small><span data-copy="48.opt.CCG-a">$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.</span></button><button type="button" class="card" data-code="CCG-b" data-m="CCG" aria-pressed="false"><b class="code">CCG-b</b><small>spot them</small><span data-copy="48.opt.CCG-b">He will mention his club in the first five minutes. Senior exec, or his name is on the company.</span></button><button type="button" class="card" data-code="CCG-c" data-m="CCG" aria-pressed="false"><b class="code">CCG-c</b><small>open with</small><span data-copy="48.opt.CCG-c">Not a replacement — the weekday club.</span></button><button type="button" class="card" data-code="CCG-d" data-m="CCG" aria-pressed="false"><b class="code">CCG-d</b><small>the hesitation</small><span data-copy="48.opt.CCG-d">Why a second membership.</span></button><button type="button" class="card" data-code="CCG-e" data-m="CCG" aria-pressed="false"><b class="code">CCG-e</b><small>the want that hits</small><span data-copy="48.opt.CCG-e">A simulator that's free when he wants it. Today: his house.</span></button><button type="button" class="card" data-code="CCG-f" data-m="CCG" aria-pressed="false"><b class="code">CCG-f</b><small>the founders’ Tuesday (our pairing)</small><span data-copy="48.opt.CCG-f">Coaching baseball/doing something with atheletics</span></button></div></section><section class="pickset" data-m="SRO" aria-labelledby="ph-SRO"><h3 id="ph-SRO">The Semi-Retired Operator <small>SRO</small></h3><div class="cards"><button type="button" class="card" data-code="SRO-a" data-m="SRO" aria-pressed="false"><b class="code">SRO-a</b><small>who they are</small><span data-copy="48.opt.SRO-a">$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.</span></button><button type="button" class="card" data-code="SRO-b" data-m="SRO" aria-pressed="false"><b class="code">SRO-b</b><small>spot them</small><span data-copy="48.opt.SRO-b">Sold it, stepped back, or halfway there. Talks about what they are building next — usually for other people.</span></button><button type="button" class="card" data-code="SRO-c" data-m="SRO" aria-pressed="false"><b class="code">SRO-c</b><small>open with</small><span data-copy="48.opt.SRO-c">A role, not a membership.</span></button><button type="button" class="card" data-code="SRO-d" data-m="SRO" aria-pressed="false"><b class="code">SRO-d</b><small>the hesitation</small><span data-copy="48.opt.SRO-d">Whether this is something to do or merely somewhere to be.</span></button><button type="button" class="card" data-code="SRO-e" data-m="SRO" aria-pressed="false"><b class="code">SRO-e</b><small>the want that hits</small><span data-copy="48.opt.SRO-e">Meeting younger, more interesting people. Today: the country club, concerts, dinners.</span></button><button type="button" class="card" data-code="SRO-f" data-m="SRO" aria-pressed="false"><b class="code">SRO-f</b><small>their part in the room</small><span data-copy="48.opt.SRO-f">named roles: league captains, dinner hosts</span></button></div></section><section class="pickset" data-m="NSF" aria-labelledby="ph-NSF"><h3 id="ph-NSF">The New-to-Seattle Founder <small>NSF</small></h3><div class="cards"><button type="button" class="card" data-code="NSF-a" data-m="NSF" aria-pressed="false"><b class="code">NSF-a</b><small>who they are</small><span data-copy="48.opt.NSF-a">$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.</span></button><button type="button" class="card" data-code="NSF-b" data-m="NSF" aria-pressed="false"><b class="code">NSF-b</b><small>spot them</small><span data-copy="48.opt.NSF-b">Founder, operator, or investor. New to the city, or just ready for a new room — rooted founders run this play too. The first question, asked or not, is who else is a member.</span></button><button type="button" class="card" data-code="NSF-c" data-m="NSF" aria-pressed="false"><b class="code">NSF-c</b><small>open with</small><span data-copy="48.opt.NSF-c">The first circle.</span></button><button type="button" class="card" data-code="NSF-d" data-m="NSF" aria-pressed="false"><b class="code">NSF-d</b><small>the hesitation</small><span data-copy="48.opt.NSF-d">Whether the people they want to know will actually be here.</span></button><button type="button" class="card" data-code="NSF-e" data-m="NSF" aria-pressed="false"><b class="code">NSF-e</b><small>the want that hits</small><span data-copy="48.opt.NSF-e">A true second space. Today: a coffeeshop.</span></button><button type="button" class="card" data-code="NSF-f" data-m="NSF" aria-pressed="false"><b class="code">NSF-f</b><small>the founders’ Tuesday (our pairing)</small><span data-copy="48.opt.NSF-f">dinner with colleagues / clients</span></button></div></section><section class="pickset" data-m="EN" aria-labelledby="ph-EN"><h3 id="ph-EN">The Empty-Nester <small>EN</small></h3><div class="cards"><button type="button" class="card" data-code="EN-a" data-m="EN" aria-pressed="false"><b class="code">EN-a</b><small>who they are</small><span data-copy="48.opt.EN-a">$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.</span></button><button type="button" class="card" data-code="EN-b" data-m="EN" aria-pressed="false"><b class="code">EN-b</b><small>spot them</small><span data-copy="48.opt.EN-b">Senior and easing off. Says some version of "I finally have time."</span></button><button type="button" class="card" data-code="EN-c" data-m="EN" aria-pressed="false"><b class="code">EN-c</b><small>open with</small><span data-copy="48.opt.EN-c">The next chapter, with structure.</span></button><button type="button" class="card" data-code="EN-d" data-m="EN" aria-pressed="false"><b class="code">EN-d</b><small>the hesitation</small><span data-copy="48.opt.EN-d">Being new at something in public.</span></button><button type="button" class="card" data-code="EN-e" data-m="EN" aria-pressed="false"><b class="code">EN-e</b><small>the want that hits</small><span data-copy="48.opt.EN-e">Reconnecting with the hobbies they dropped. Today: the arts centre, the mall, a purchase.</span></button><button type="button" class="card" data-code="EN-f" data-m="EN" aria-pressed="false"><b class="code">EN-f</b><small>the founders’ Tuesday (our pairing)</small><span data-copy="48.opt.EN-f">going to a game, to a museum to have dinner with friends</span></button></div></section><section class="pickset" data-m="MCHE" aria-labelledby="ph-MCHE"><h3 id="ph-MCHE">The Mid-Career High Earner <small>MCHE</small></h3><div class="cards"><button type="button" class="card" data-code="MCHE-a" data-m="MCHE" aria-pressed="false"><b class="code">MCHE-a</b><small>who they are</small><span data-copy="48.opt.MCHE-a">$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.</span></button><button type="button" class="card" data-code="MCHE-b" data-m="MCHE" aria-pressed="false"><b class="code">MCHE-b</b><small>spot them</small><span data-copy="48.opt.MCHE-b">Books things same-day. The visit will run sixty to ninety minutes. Often arrives with someone worth impressing.</span></button><button type="button" class="card" data-code="MCHE-c" data-m="MCHE" aria-pressed="false"><b class="code">MCHE-c</b><small>open with</small><span data-copy="48.opt.MCHE-c">Early is the privilege.</span></button><button type="button" class="card" data-code="MCHE-d" data-m="MCHE" aria-pressed="false"><b class="code">MCHE-d</b><small>the hesitation</small><span data-copy="48.opt.MCHE-d">Whether the room will skew older than them.</span></button><button type="button" class="card" data-code="MCHE-e" data-m="MCHE" aria-pressed="false"><b class="code">MCHE-e</b><small>the want that hits</small><span data-copy="48.opt.MCHE-e">A third place. Today: a bar.</span></button></div></section>
+
+<section class="picks" aria-labelledby="picks-h">
+  <h2 id="picks-h">Your picks</h2>
+  <pre id="summary"></pre>
+  <label for="note" class="mono">A note, if you want one</label>
+  <textarea id="note" placeholder="anything else for the next round"></textarea>
+  <p><button type="button" class="clear" id="clear">Clear all picks</button></p>
+</section>
+</main>
+
+<div class="dock"><span id="count">Nothing picked yet</span><button type="button" class="copy" id="copy">Copy picks</button></div>
+
+<script>
+const PICK = {"members":[{"code":"QC","name":"The Quiet Connector","options":["QC-a","QC-b","QC-c","QC-d","QC-e","QC-f","QC-g"]},{"code":"CCG","name":"The Country-Club Guy","options":["CCG-a","CCG-b","CCG-c","CCG-d","CCG-e","CCG-f"]},{"code":"SRO","name":"The Semi-Retired Operator","options":["SRO-a","SRO-b","SRO-c","SRO-d","SRO-e","SRO-f"]},{"code":"NSF","name":"The New-to-Seattle Founder","options":["NSF-a","NSF-b","NSF-c","NSF-d","NSF-e","NSF-f"]},{"code":"EN","name":"The Empty-Nester","options":["EN-a","EN-b","EN-c","EN-d","EN-e","EN-f"]},{"code":"MCHE","name":"The Mid-Career High Earner","options":["MCHE-a","MCHE-b","MCHE-c","MCHE-d","MCHE-e"]}],"treatments":["T-a","T-b","T-c"],"text":{"T-a":"A card floats over the column.","T-b":"The column opens; the line appears under the name.","T-c":"The other five dim; the line opens under the name.","QC-a":"$400K HHI, spends on what compounds. Two kids, 9 and 12. Soccer sideline, porch coffee, house project.","QC-b":"A calm senior title, weekends that belong to the family, an email that is just their name.","QC-c":"A third place that asks nothing.","QC-d":"Whether a club is a sound spend or an indulgence.","QC-e":"A way to be away from his usual social circles. Today: a coffeeshop near the house, or the office.","QC-f":"picking up kids and coming home, so they are busy, figuring out dinner","QC-g":"Anchors (walkable, Tuesday-because-Tuesday regulars)","CCG-a":"$600K+, asset-rich. Teens at home. 7:40 tee time, home by noon, lake with the kids. Already belongs somewhere.","CCG-b":"He will mention his club in the first five minutes. Senior exec, or his name is on the company.","CCG-c":"Not a replacement — the weekday club.","CCG-d":"Why a second membership.","CCG-e":"A simulator that's free when he wants it. Today: his house.","CCG-f":"Coaching baseball/doing something with atheletics","SRO-a":"$2M+ net worth, lives off investments and board fees. Grown kids, first grandchild. Two boards, one advisory role.","SRO-b":"Sold it, stepped back, or halfway there. Talks about what they are building next — usually for other people.","SRO-c":"A role, not a membership.","SRO-d":"Whether this is something to do or merely somewhere to be.","SRO-e":"Meeting younger, more interesting people. Today: the country club, concerts, dinners.","SRO-f":"named roles: league captains, dinner hosts","NSF-a":"$250K plus equity. Newly married, no kids, a dog. New restaurant, one hike, Sunday work.","NSF-b":"Founder, operator, or investor. New to the city, or just ready for a new room — rooted founders run this play too. The first question, asked or not, is who else is a member.","NSF-c":"The first circle.","NSF-d":"Whether the people they want to know will actually be here.","NSF-e":"A true second space. Today: a coffeeshop.","NSF-f":"dinner with colleagues / clients","EN-a":"$500K HHI, house paid off, college fund done. Kids in their 20s. Long breakfast, garden, dinner with two other couples.","EN-b":"Senior and easing off. Says some version of \"I finally have time.\"","EN-c":"The next chapter, with structure.","EN-d":"Being new at something in public.","EN-e":"Reconnecting with the hobbies they dropped. Today: the arts centre, the mall, a purchase.","EN-f":"going to a game, to a museum to have dinner with friends","MCHE-a":"$450K single or $700K dual, no dependents. Senior IC or top firm. Run, brunch, date night, side project.","MCHE-b":"Books things same-day. The visit will run sixty to ninety minutes. Often arrives with someone worth impressing.","MCHE-c":"Early is the privilege.","MCHE-d":"Whether the room will skew older than them.","MCHE-e":"A third place. Today: a bar."}};
+const KEY = 'joyus-study-48-picks';
+const cards = [...document.querySelectorAll('.card')];
+const note = document.getElementById('note'), summary = document.getElementById('summary');
+let state = { picked: [], note: '' };
+try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && Array.isArray(s.picked)) state = { picked: s.picked.filter(c => c in PICK.text), note: s.note || '' }; } catch (e) {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+const text = () => {
+  const on = new Set(state.picked), line = (c) => c + ' — "' + PICK.text[c] + '"';
+  const t = PICK.treatments.filter(c => on.has(c));
+  const rows = ['Study 48 picks', 'Treatment: ' + (t.length ? t.join(', ') : '—')];
+  for (const m of PICK.members) { const p = m.options.filter(c => on.has(c)); rows.push(m.name + ': ' + (p.length ? p.map(line).join(' + ') : '—')); }
+  if (state.note.trim()) rows.push('Note: ' + state.note.trim());
+  return rows.join('\n');
+};
+const render = () => {
+  const on = new Set(state.picked);
+  cards.forEach(c => c.setAttribute('aria-pressed', on.has(c.dataset.code)));
+  summary.textContent = text();
+  const n = state.picked.length;
+  document.getElementById('count').textContent = n ? n + ' picked' : 'Nothing picked yet';
+  const f = document.getElementById('page');
+  try { f.contentWindow.applyPicks && f.contentWindow.applyPicks(state.picked); } catch (e) {}
+  document.getElementById('page-open').href = 'six.html' + (n ? '?picks=' + state.picked.join(',') : '');
+};
+cards.forEach(c => c.addEventListener('click', () => {
+  const k = c.dataset.code, i = state.picked.indexOf(k);
+  if (i >= 0) state.picked.splice(i, 1); else state.picked.push(k);
+  save(); render();
+}));
+note.value = state.note;
+note.addEventListener('input', () => { state.note = note.value; save(); summary.textContent = text(); });
+document.getElementById('clear').addEventListener('click', () => { state = { picked: [], note: '' }; note.value = ''; save(); render(); });
+document.getElementById('page').addEventListener('load', render);
+const copyBtn = document.getElementById('copy');
+const fallback = (s) => { const t = document.createElement('textarea'); t.value = s; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.top = '0'; t.style.opacity = '0'; document.body.appendChild(t); t.focus(); t.select(); t.setSelectionRange(0, s.length); let ok = false; try { ok = document.execCommand('copy'); } catch (e) {} t.remove(); return ok; };
+copyBtn.addEventListener('click', async () => {
+  const s = text(); let ok = false;
+  try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(s); ok = true; } } catch (e) {}
+  if (!ok) ok = fallback(s);
+  copyBtn.textContent = ok ? 'Copied' : 'Select the text above';
+  copyBtn.classList.toggle('done', ok);
+  if (!ok) { const r = document.createRange(); r.selectNodeContents(summary); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
+  setTimeout(() => { copyBtn.textContent = 'Copy picks'; copyBtn.classList.remove('done'); }, 2000);
+});
+render();
+</script>
+</body>
+</html>

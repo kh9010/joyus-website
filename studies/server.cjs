@@ -3,11 +3,15 @@
 // real pages it is talking about (../../../index.html) and they open as they
 // are today. Port 8794 sits next to ueno (8791), metro-museum-unity (8792)
 // and nid-paper (8793).
+// HOST=<address> serves on another address as well as being started a second time
+// (e.g. HOST=$(tailscale ip -4) to open a study on a phone over Tailscale); the
+// default stays 127.0.0.1, this machine only.
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
 const root = path.resolve(__dirname, '..');
 const port = 8794;
+const host = process.env.HOST || '127.0.0.1';
 const types = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -34,4 +38,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': types[path.extname(file).toLowerCase()], 'Cache-Control': 'no-store' });
     res.end(data);
   });
-}).listen(port, '127.0.0.1', () => console.log('Joyus homepage studies: http://localhost:' + port + '/studies/'));
+}).listen(port, host, () => console.log('Joyus homepage studies: http://' + (host === '127.0.0.1' ? 'localhost' : host) + ':' + port + '/studies/'));
