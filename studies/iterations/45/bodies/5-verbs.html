@@ -1,0 +1,19 @@
+<style>
+  /* 5 · two sets of verbs: the members' and ours in one a–z index; open a verb to see who does it and where they do it now */
+  .legend{display:flex;gap:18px;font:12px var(--mono);color:var(--mute);margin:0 0 12px}
+  .legend>span::before{content:"";display:inline-block;width:9px;height:9px;margin-right:6px;border:1.5px solid var(--ink);vertical-align:-1px}
+  .legend>.o::before,.ix li.ours>details>summary::after{background:var(--ink)}
+  .ix{list-style:none;margin:0;padding:0;columns:3 220px;column-gap:40px}
+  .ix>li{break-inside:avoid;border-bottom:1px solid var(--box)}
+  .ix summary{cursor:pointer;list-style:none;padding:8px 0;font:500 clamp(1.15rem,1.8vw,1.45rem)/1.1 var(--sans);letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
+  .ix summary::-webkit-details-marker{display:none}
+  .ix summary::after{content:"";width:8px;height:8px;border:1.5px solid var(--ink);margin-left:auto;flex:none}
+  .ix li.theirs.ours>details>summary::after{background:linear-gradient(135deg,var(--ink) 50%,#fff 50%)}
+  .ix details ul{list-style:none;margin:0 0 10px;padding:0;display:grid;gap:6px}
+  .ix details li{font-size:14px;line-height:1.35}
+  .ix details li small{display:block;font:11px var(--mono);color:var(--mute)}
+  .ix details li.ours{font:12px var(--mono)}
+</style>
+<section class="body">
+{{VERBINDEX}}
+</section>
