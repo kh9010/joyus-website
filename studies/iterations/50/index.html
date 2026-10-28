@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>50 / EWC, six Tuesdays, the columns kept — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.frame { border: 1px solid #ddd; height: 78vh; min-height: 520px; margin-top: 22px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.open { margin: 8px 0 0; font-size: 13px }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 28px }
+.pair.phone { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) }
+.pair figure { margin: 0 }
+.pair .shot { width: 100%; height: auto; border: 1px solid #eee }
+.heard { margin: 18px 0 0; padding-left: 14px; border-left: 3px solid #ddd; max-width: 68ch }
+.heard p { margin: 0 0 8px }
+.heard cite { font-style: normal; color: #636363; font-size: 13px }
+@media (max-width: 700px) { .pair, .pair.phone { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 50 · 27 October 2026 · Kahran</p>
+<h1>EWC, six Tuesdays, the columns kept</h1>
+<p class="lede">46 · 2's six columns exactly as they were: same grid, same gaps, same widths, same breakpoints (check.cjs measures both pages and holds them equal). Only inside each column, with EWC: the give is cut at its full stops into one sentence to a paragraph, with room between them and a rule under the name. The words are the guide's, unchanged. The cards are 49's: hover a member (tap, on a phone) to see who they are.</p>
+
+<div class="heard">
+  <p>"I don't want you to change the columns. I just wanted you to make it more readable within the columns. Like, just add some more paragraph breaks or something. You cannot move the columns."</p>
+  <cite>Kahran, 27 Oct, on 47 and 49.</cite>
+</div>
+
+<div class="frame"><iframe title="The page" src="six.html"></iframe></div>
+<p class="open"><a href="six.html" target="_blank">Open it in its own tab</a> and hover a member, or press "with EWC" and hover again.</p>
+
+<div class="pair">
+  <figure><a class="zoom" href="img/with-46-1440.png" target="_blank"><img class="shot" src="img/with-46-1440.png" alt="46 · 2 with EWC at 1440: six columns, each give one block of text"></a><figcaption>46 · 2 · with EWC, 1440</figcaption></figure>
+  <figure><a class="zoom" href="img/with-50-1440.png" target="_blank"><img class="shot" src="img/with-50-1440.png" alt="50 with EWC at 1440: the same six columns, each give in paragraphs"></a><figcaption>50 · the same columns, the give in paragraphs</figcaption></figure>
+</div>
+<div class="pair phone">
+  <figure><a class="zoom" href="img/with-46-390.png" target="_blank"><img class="shot" src="img/with-46-390.png" alt="46 · 2 with EWC at 390: two columns, each give one block"></a><figcaption>46 · 2 · with EWC, 390</figcaption></figure>
+  <figure><a class="zoom" href="img/with-50-390.png" target="_blank"><img class="shot" src="img/with-50-390.png" alt="50 with EWC at 390: the same two columns, each give in paragraphs"></a><figcaption>50 · 390</figcaption></figure>
+</div>
+<div class="pair phone">
+  <figure><a class="zoom" href="img/card-1440.png" target="_blank"><img class="shot" src="img/card-1440.png" alt="1440, without EWC: the Mid-Career High Earner's card open over the last column, kept inside the right edge"></a><figcaption>the cards, as 49 · 1440</figcaption></figure>
+  <figure><a class="zoom" href="img/card-390.png" target="_blank"><img class="shot" src="img/card-390.png" alt="390, without EWC: the Country-Club Guy's card open, slid left so it fits the phone"></a><figcaption>390 · tap</figcaption></figure>
+</div>
+
+<p><strong>Next: the text pass.</strong> Every string on the page has a <code>data-copy</code> id; the full list, with each string's flag and source, is <a href="copy.json">copy.json</a>. The cards are the guide's words (sourced); ours are in <code>words.json</code>, then run <code>build.cjs</code>.</p>
+</main>
+</body>
+</html>
