@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The label is the page</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap">
+<style>
+/* One idea: you are reading the label. Its real painted border is the window's edge, its white panel is the page, and the type follows the label's own order.
+   The border is cut from the label at its own proportions (left and right 220 of 1891, top 135, bottom 137 of 2764), scaled by one number so nothing is squished. */
+:root{--teal:#3fbdab;--grey:#9a9a9a;--k:.5}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:400 18px/1.5 Montserrat,system-ui,sans-serif;color:#6f6f6f;background:#fff;text-align:center}
+#frame{position:fixed;inset:0;pointer-events:none;z-index:2;border-style:solid;border-width:calc(135px*var(--k)) calc(222px*var(--k)) calc(137px*var(--k)) calc(220px*var(--k));border-image:url(img/label.jpg) 135 222 137 220 round}
+main{padding:calc(135px*var(--k) + 7vh) calc(222px*var(--k) + 5vw) calc(137px*var(--k) + 7vh)}
+section{min-height:calc(100dvh - 135px*var(--k) - 137px*var(--k));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,3vh,30px);padding:4vh 0}
+.logo{width:clamp(130px,16vw,210px)}
+.tag{letter-spacing:.14em;font-size:clamp(10px,1vw,13px);text-transform:uppercase;color:#555;margin:0}
+h1{font:500 clamp(2rem,5.4vw,4.6rem)/1 Montserrat,sans-serif;letter-spacing:.2em;margin:0;color:var(--teal);padding-left:.2em}
+.big{font:300 clamp(1.5rem,3.4vw,3rem)/1.2 Montserrat,sans-serif;color:var(--grey);margin:0;max-width:20ch}
+.hero{height:min(78dvh,860px);max-width:100%;object-fit:contain;-webkit-mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(transparent,#000 3%,#000 97%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(transparent,#000 3%,#000 97%,transparent);mask-composite:intersect}
+.motifs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(6px,2vw,26px);align-items:center;width:min(100%,1040px)}
+.motifs img{width:100%;max-height:190px;object-fit:contain}
+.labels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,2vw,28px);align-items:center;width:min(100%,780px)}
+.labels img{width:100%;box-shadow:0 2px 14px rgba(0,0,0,.09)}
+.family{width:100%;max-width:1200px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+small{font-size:13px;color:var(--grey);letter-spacing:.04em}
+@media(max-width:700px){:root{--k:.2}body{font-size:16px}main{padding-left:calc(222px*var(--k) + 14px);padding-right:calc(222px*var(--k) + 14px)}.motifs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+</style></head><body>
+<div id="frame" aria-hidden="true"></div>
+<main>
+<section><img class="logo" src="img/logo.png" alt="Secret Senses"><h1>BRANDING</h1><p class="big">A handmade brand, with handmade motifs</p></section>
+<section><div class="motifs"><img src="img/m17.png" alt=""><img src="img/m16.png" alt=""><img src="img/m03.png" alt=""><img src="img/m25.png" alt=""><img src="img/m10.png" alt=""><img src="img/m11.png" alt=""></div><p class="big">Every motif on it was made by hand</p></section>
+<section><div class="labels"><img src="img/label-conditioner.jpg" alt="The conditioner's label"><img src="img/label.jpg" alt="The hair oil's label"><img src="img/label-elixir.jpg" alt="The elixir's label"></div><p class="big">Each product has its own border of them</p></section>
+<section><img class="hero" src="img/hero.jpg" alt="The hair oil, glass and gold"></section>
+<section><img class="family" src="img/family.jpg" alt="The whole family of products and a box"><small>Branding by Joyus. Packaging rendered for this page.</small></section>
+</main>
+</body></html>

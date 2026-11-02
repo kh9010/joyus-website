@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The trail</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik:wght@900&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:17px/1.5 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff;overflow-x:hidden}
+/* One sheet. The canvas is the whole window, behind everything, and every stone is placed in page coordinates. */
+#gl{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main{position:relative;z-index:1}
+#top{height:82dvh;min-height:440px;display:flex;flex-direction:column;align-items:center;padding-top:clamp(18px,4vh,40px)}
+h1{font:700 clamp(1.7rem,3.2vw,2.6rem)/1 'Space Grotesk';letter-spacing:-.03em;margin:0}
+#say-where{font-size:14px;color:var(--soft);margin:6px 0 0;text-align:center;padding:0 16px}
+#trail{max-width:1040px;margin:0 auto;padding:0 16px 96px}
+.step{display:grid;grid-template-columns:1fr 112px 1fr;align-items:center;min-height:104px;padding:6px 0;scroll-margin-bottom:96px}
+.at{grid-column:2;grid-row:1;height:84px}
+.say{grid-row:1;animation:rise .45s .62s backwards}
+.step[data-who=D] .say{grid-column:1;text-align:right}
+.step[data-who=K] .say{grid-column:3}
+.say small{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--soft)}
+.dot{width:9px;height:9px;border-radius:50%;margin:37px auto 0;background:var(--c);opacity:0;transition:opacity .5s}
+.gone .dot{opacity:1}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+#end{height:96dvh;min-height:520px;position:relative;text-align:center}
+#end p{position:absolute;left:0;right:0;bottom:92px;margin:0;font-size:17px;padding:0 16px}
+#end p b{display:block;font:700 clamp(1.7rem,3.2vw,2.6rem)/1.1 'Space Grotesk';letter-spacing:-.03em}
+.keys{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:8px;z-index:3;background:rgba(255,255,255,.86);border-radius:999px;padding:4px}
+.keys button{font:500 15px 'Space Grotesk',sans-serif;color:var(--ink);border:1.5px solid #cfd3d8;background:#fff;border-radius:999px;min-height:44px;padding:6px 15px;cursor:pointer;white-space:nowrap}
+.keys button b{font-weight:700}.keys small{color:var(--soft);font-size:12px;margin-left:4px}
+.keys button:disabled{opacity:.4;cursor:default}
+.keys[hidden]{display:none}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media(max-width:700px){
+  body{font-size:16px}
+  #top{height:auto;min-height:0;aspect-ratio:390/330}
+  .step{grid-template-columns:62px 1fr;min-height:84px}
+  .at{grid-column:1;height:62px}.dot{margin-top:26px}
+  .step[data-who=D] .say,.step[data-who=K] .say{grid-column:2;text-align:left}
+  .keys{gap:4px;width:calc(100% - 16px);justify-content:center}.keys button{padding:6px 10px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){.say{animation:none}.dot{transition:none}}
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
+</head><body>
+<canvas id="gl" aria-hidden="true"></canvas>
+<main>
+<header id="top"><h1>Take a stone.</h1><p id="say-where">Whoever you take from, you hear from next.</p></header>
+<section id="trail" aria-live="polite"></section>
+<section id="end" hidden><p><b>Joyus.</b>Divya Tak and Kahran Singh</p></section>
+</main>
+<div class="keys">
+<button id="pick-D" type="button"><b>Divya</b><small></small></button>
+<button id="pick-K" type="button"><b>Kahran</b><small></small></button>
+<button id="all" type="button">All of it</button>
+</div>
+<script type="module" src="trail.js"></script>
+</body></html>

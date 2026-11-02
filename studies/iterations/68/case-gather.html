@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The motifs gather</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* One idea: the cut-out motifs are loose on the table, and scrolling arranges them. They end as the wreath round the bottle: the same relationship as the border on the label. */
+:root{--paper:#f3f1ec;--ink:#2C3544}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--paper);overflow-x:hidden}
+#run{height:420vh;position:relative}
+#stage{position:sticky;top:0;height:100dvh;overflow:hidden}
+#stage img.m{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(0 2px 3px rgba(44,53,68,.22))}
+#bottle{position:absolute;left:50%;top:50%;height:78dvh;transform:translate(-50%,-50%);opacity:0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(transparent,#000 2%,#000 98%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 16%,#000 84%,transparent),linear-gradient(transparent,#000 2%,#000 98%,transparent);mask-composite:intersect}
+.line{position:absolute;left:clamp(16px,6vw,90px);top:clamp(20px,9vh,90px);margin:0;max-width:15ch;font:700 clamp(2rem,5.4vw,4.4rem)/1.02 'Space Grotesk',sans-serif;letter-spacing:-.03em;z-index:2}
+.l2{top:auto;bottom:clamp(20px,9vh,90px);opacity:0;max-width:11ch;font-size:clamp(1.5rem,3.4vw,2.8rem)}
+#family{padding:0 0 12vh;text-align:center}
+#family img{width:100%;display:block;-webkit-mask-image:linear-gradient(transparent,#000 12%,#000 86%,transparent);mask-image:linear-gradient(transparent,#000 12%,#000 86%,transparent)}
+#family small{color:#54606F;font-size:14px}
+@media(max-width:700px){.l2{left:16px;bottom:12px;max-width:none;font-size:1.25rem;background:rgba(243,241,236,.82);padding:4px 8px;border-radius:8px}#bottle{height:62dvh}}
+</style></head><body>
+<div id="run"><div id="stage">
+<h1 class="line" id="l1">Secret Senses. Every motif made by hand.</h1>
+<img id="bottle" src="img/hero.jpg" alt="The hair oil, in a wreath of its own motifs">
+<p class="line l2" id="l2">Each product has its own border of them.</p>
+</div></div>
+<section id="family"><img src="img/family.jpg" alt="The whole family of products and a box"><small>Branding by Joyus. Packaging rendered for this page.</small></section>
+<script>
+// Named, not random: which motif, its size in the wreath. Warm flowers at the top and foot, leaves between, as the label's own border does.
+const SET = [['m17',.2],['m02',.17],['m16',.17],['m06',.15],['m11',.16],['m01',.16],['m25',.17],['m07',.16],['m13',.15],['m03',.16],['m00',.15],['m08',.19],['m26',.18],['m05',.16],['m14',.13],['m04',.15]];
+const stage = document.getElementById('stage'), run = document.getElementById('run');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+const M = SET.map(([f, s], i) => {
+  const e = new Image(); e.src = 'img/' + f + '.png'; e.alt = ''; e.className = 'm'; stage.append(e);
+  return { e, s, i, sx: rnd(), sy: rnd(), sr: (rnd() - .5) * 90, er: (rnd() - .5) * 26, d: rnd() * .22 };
+});
+const ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+const clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+function draw() {
+  const W = innerWidth, H = stage.clientHeight, narrow = W < 700;
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - H), 1);
+  const size = Math.min(W, H) * (narrow ? 1.05 : .92);
+  const a = narrow ? W * .42 : Math.min(W * .3, H * .36), b = H * (narrow ? .4 : .44);
+  for (const m of M) {
+    const t = ease(clamp(0, (p - .08 - m.d) / .55, 1));
+    const ang = -Math.PI / 2 + m.i / M.length * Math.PI * 2;
+    const ex = W / 2 + Math.cos(ang) * a, ey = H / 2 + Math.sin(ang) * b;
+    // loose on the table, kept clear of nothing: they are the first picture
+    let sx = W * (.04 + m.sx * .92), sy = H * (.06 + m.sy * .88);
+    if (sx < W * (narrow ? 1 : .46) && sy < H * .3) sy += H * .3;   // not over the headline
+    const w = size * m.s * (narrow ? .92 : 1) * (1.25 - .25 * t);
+    const x = sx + (ex - sx) * t, y = sy + (ey - sy) * t, r = m.sr + (m.er - m.sr) * t;
+    m.e.style.width = w + 'px';
+    m.e.style.transform = `translate(${x - w / 2}px,${y - w / 2}px) rotate(${r}deg)`;
+  }
+  document.getElementById('bottle').style.opacity = clamp(0, (p - .42) / .25, 1);
+  document.getElementById('l1').style.opacity = 1 - clamp(0, (p - .05) / .16, 1);
+  document.getElementById('l2').style.opacity = clamp(0, (p - .72) / .12, 1);
+  window.__p = p;
+}
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', draw); draw(); window.__ready = 1;
+</script>
+</body></html>

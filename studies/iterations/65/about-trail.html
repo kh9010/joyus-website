@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The trail</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik:wght@900&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F}
+*{box-sizing:border-box}html,body{margin:0}body{font:16px/1.48 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff;overflow-x:hidden}
+/* One thing: the letters shed stones down the page, and each stone lands beside what it says. The letters and the story are one line of stones. */
+#top{position:relative;height:min(62vh,520px);min-height:280px}
+#c{position:absolute;inset:0;width:100%;height:100%;cursor:pointer;touch-action:pan-y}
+#trail{position:relative;max-width:1060px;margin:0 auto;padding:6px 16px 90px;min-height:220px}
+.step{display:grid;grid-template-columns:1fr 92px 1fr;align-items:center;min-height:92px;margin-top:-8px}
+.at{grid-column:2;height:84px;display:grid;place-items:center}
+.at canvas{max-width:88px;max-height:84px}
+.say{font-size:16px;animation:rise .5s .45s backwards}
+.step[data-who=D] .say{grid-column:1;grid-row:1;text-align:right;padding-right:6px}.step[data-who=K] .say{grid-column:3;grid-row:1;padding-left:6px}
+.say small{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--soft)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.fly{position:fixed;left:0;top:0;pointer-events:none;z-index:5;transition:transform .72s cubic-bezier(.45,.05,.3,1.2)}
+.pad{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:space-around;pointer-events:none;font-size:13px;color:var(--soft)}
+.keys{position:fixed;right:12px;bottom:10px;display:flex;gap:6px;z-index:6}
+.keys button{font:inherit;border:1px solid #cfd3d8;background:#fff;border-radius:999px;min-height:44px;min-width:60px;padding:6px 12px;cursor:pointer}
+.keys button:disabled{opacity:.4;cursor:default}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+@media(max-width:640px){.step{grid-template-columns:1fr 62px 1fr}.at canvas{max-width:60px}.say{font-size:14px}}
+@media (prefers-reduced-motion:reduce){.say{animation:none}.fly{transition:none}}
+</style></head><body>
+<header id="top"><canvas id="c" role="img" aria-label="A D and a K made of stones. Take a stone: it falls down the page and lands beside what it has to say."></canvas><p class="pad"><span id="ld"></span><span id="lk"></span></p></header>
+<section id="trail" aria-live="polite"></section>
+<div class="keys"><button id="pick-D" type="button">D</button><button id="pick-K" type="button">K</button></div>
+<script type="module">
+import { seedsIn, cut, letterMask, PALETTE } from '../59/voronoi.js';
+const W = await (await fetch('../59/words.json')).json();
+const STORY = { D: W.D.flatMap(p => p.split(/(?<=\.)\s+(?=[A-Z])/)), K: [...W.K, W.Q, ...W.Y.map(([y, t]) => y + ': ' + t)] };
+const NAME = { D: 'Divya', K: 'Kahran' };
+const R = 400;
+const col = (p, i) => PALETTE[i % 4];
+const dM = await letterMask('D', R), kM = await letterMask('K', R);
+const LET = {
+  D: cut(R, R, dM, seedsIn(R, R, dM, 24, 23), col).map(s => ({ ...s, who: 'D', gone: false })),
+  K: cut(R, R, kM, seedsIn(R, R, kM, 24, 31), col).map(s => ({ ...s, who: 'K', gone: false })),
+};
+const told = { D: 0, K: 0 };
+const c = document.getElementById('c'), g = c.getContext('2d'), trail = document.getElementById('trail');
+function layout() { const W_ = c.clientWidth, H = c.clientHeight, dpr = Math.min(2, devicePixelRatio || 1); if (c.width !== W_ * dpr) { c.width = W_ * dpr; c.height = H * dpr; } const s = Math.min(H * .86 / R, W_ * .46 / R); return { W_, H, s, dpr, ox: { D: W_ * .28 - R * s / 2, K: W_ * .72 - R * s / 2 }, oy: (H - R * s) / 2 }; }
+function draw() {
+  const L = layout(); g.setTransform(L.dpr, 0, 0, L.dpr, 0, 0); g.clearRect(0, 0, L.W_, L.H);
+  for (const k of ['D', 'K']) for (const s of LET[k]) if (!s.gone) g.drawImage(s.canvas, L.ox[k] + s.x * L.s, L.oy + s.y * L.s, s.w * L.s, s.h * L.s);
+  document.getElementById('ld').textContent = (STORY.D.length - told.D) + ' left'; document.getElementById('lk').textContent = (STORY.K.length - told.K) + ' left';
+  for (const k of ['D', 'K']) document.getElementById('pick-' + k).disabled = told[k] >= STORY[k].length;
+}
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function take(k, stone) {
+  if (told[k] >= STORY[k].length) return;
+  const L = layout();
+  const loose = LET[k].filter(s => !s.gone).sort((a, b) => b.cy - a.cy);   // from the foot up, unless you touched one
+  const s = stone && !stone.gone ? stone : loose[0]; if (!s) return;
+  s.gone = true;
+  const text = STORY[k][told[k]++];
+  const step = document.createElement('div'); step.className = 'step'; step.dataset.who = k;
+  const at = document.createElement('div'); at.className = 'at';
+  const small = document.createElement('canvas'); small.width = s.w; small.height = s.h; small.getContext('2d').drawImage(s.canvas, 0, 0); small.style.visibility = 'hidden';
+  const f = Math.min(1.4, 80 / Math.max(s.w, s.h)); small.style.width = s.w * f + 'px'; small.style.height = s.h * f + 'px';
+  at.append(small);
+  const say = document.createElement('div'); say.className = 'say';
+  const w = document.createElement('small'); w.textContent = NAME[k]; say.append(w, document.createTextNode(text));
+  step.append(say, at); trail.appendChild(step);
+  // the stone itself leaves the letter and travels to its place
+  const box = c.getBoundingClientRect();
+  const from = { x: box.left + L.ox[k] + s.x * L.s, y: box.top + L.oy + s.y * L.s, w: s.w * L.s, h: s.h * L.s };
+  const to = small.getBoundingClientRect();
+  const fly = document.createElement('canvas'); fly.className = 'fly'; fly.width = s.w; fly.height = s.h; fly.getContext('2d').drawImage(s.canvas, 0, 0);
+  fly.style.width = from.w + 'px'; fly.style.height = from.h + 'px'; fly.style.transform = `translate(${from.x}px,${from.y}px)`;
+  document.body.appendChild(fly);
+  requestAnimationFrame(() => requestAnimationFrame(() => { fly.style.transform = `translate(${to.left}px,${to.top}px) scale(${to.width / from.w},${to.height / from.h})`; fly.style.transformOrigin = '0 0'; }));
+  setTimeout(() => { small.style.visibility = ''; fly.remove(); }, still ? 0 : 760);
+  draw(); window.__told = told.D + told.K;
+  step.scrollIntoView({ block: 'nearest', behavior: still ? 'auto' : 'smooth' });
+}
+c.addEventListener('pointerdown', e => {
+  const L = layout(), b = c.getBoundingClientRect(), x = e.clientX - b.left, y = e.clientY - b.top;
+  const k = x < L.W_ / 2 ? 'D' : 'K';
+  const lx = (x - L.ox[k]) / L.s, ly = (y - L.oy) / L.s;
+  const s = LET[k].filter(q => !q.gone).sort((a, q) => Math.hypot(a.cx - lx, a.cy - ly) - Math.hypot(q.cx - lx, q.cy - ly))[0];
+  if (s && Math.hypot(s.cx - lx, s.cy - ly) < 95) take(k, s);
+});
+for (const k of ['D', 'K']) document.getElementById('pick-' + k).onclick = () => take(k);
+window.__pick = take; addEventListener('resize', draw); draw(); window.__ready = 1;
+</script></body></html>

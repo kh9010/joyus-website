@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The cairn</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F}
+*{box-sizing:border-box}html,body{margin:0}body{font:16px/1.42 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff;overflow-x:hidden}
+/* One thing: you build the story by stacking it. Every line is a stone; the words are on the stone. */
+main{display:flex;flex-direction:column;align-items:center;min-height:100dvh;padding:28px 12px 0}
+h1{font:700 clamp(1.6rem,3.4vw,2.6rem)/1.05 'Space Grotesk';letter-spacing:-.03em;margin:0;text-align:center}
+#hint{color:var(--soft);font-size:14px;margin:6px 0 0;text-align:center}
+#pile{display:flex;flex-direction:column-reverse;align-items:center;margin-top:auto;padding-top:26px;width:100%;overflow-x:clip}
+.stone{position:relative;width:var(--w);max-width:calc(100vw - 28px);padding:var(--py) var(--px);margin-top:-7px;margin-left:var(--off);background:var(--c);color:var(--fg);border-radius:var(--r);font-size:var(--fs);text-align:center;box-shadow:inset -8px -11px 18px rgba(20,10,40,.17),inset 8px 9px 16px rgba(255,255,255,.42),0 7px 10px -4px rgba(44,53,68,.28);animation:drop .62s cubic-bezier(.3,1.35,.5,1) backwards;z-index:1}
+.stone small{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;opacity:.72;margin-bottom:3px}
+@keyframes drop{from{transform:translateY(-240px) rotate(var(--tilt));opacity:0}}
+#ground{display:flex;justify-content:center;align-items:flex-end;gap:clamp(8px,4vw,60px);width:100%;padding:0 0 20px;border-top:2px solid var(--ink);position:relative}
+.pick{all:unset;cursor:pointer;box-sizing:border-box;display:grid;place-items:center;text-align:center;font:700 clamp(2.4rem,6vw,4.4rem)/1 'Space Grotesk';width:clamp(116px,18vw,190px);aspect-ratio:1.28;margin-top:-1px;border-radius:50% 46% 44% 52%/58% 54% 40% 42%;background:var(--c);color:var(--fg);box-shadow:inset -10px -13px 22px rgba(20,10,40,.2),inset 10px 11px 18px rgba(255,255,255,.45);transition:transform .16s;transform-origin:bottom}
+.pick:hover{transform:scale(1.05) translateY(-2px)}.pick:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.pick small{display:block;font:400 11px 'Space Grotesk';opacity:.75}
+.pick[disabled]{opacity:.35;cursor:default}
+@media(max-width:560px){.stone{margin-left:calc(var(--off) * .3)}}
+@media (prefers-reduced-motion:reduce){.stone{animation:none}.pick{transition:none}}
+</style></head><body>
+<main><h1>Build us.</h1><p id="hint">Pick a stone. Whichever you pick, you hear from next, and it goes on the pile.</p>
+<div id="pile" aria-live="polite"></div>
+<div id="ground"><button class="pick" id="pick-D" type="button" style="--c:#f25aa3;--fg:#fff">D<small></small></button><button class="pick" id="pick-K" type="button" style="--c:#2fc0d8;--fg:#10303a">K<small></small></button></div></main>
+<script type="module">
+const W = await (await fetch('../59/words.json')).json();
+const STORY = { D: W.D.flatMap(p => p.split(/(?<=\.)\s+(?=[A-Z])/)), K: [...W.K, W.Q, ...W.Y.map(([y, t]) => y + ': ' + t)] };
+const NAME = { D: 'Divya', K: 'Kahran' };
+const TONES = { D: [['#f25aa3', '#fff'], ['#7d55d4', '#fff'], ['#f78bbf', '#3a1030']], K: [['#2fc0d8', '#10303a'], ['#f5c63c', '#3a2c06'], ['#7fdbe8', '#10303a']] };
+const told = { D: 0, K: 0 }, pile = document.getElementById('pile');
+let seed = 9; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+let side = 1;
+function say() { for (const s of ['D', 'K']) { const n = STORY[s].length - told[s], b = document.getElementById('pick-' + s); b.querySelector('small').textContent = n ? n + ' left' : 'all told'; b.disabled = !n; } window.__told = told.D + told.K; }
+function pick(s) {
+  if (told[s] >= STORY[s].length) return;
+  const t = STORY[s][told[s]++], n = told.D + told.K, [c, fg] = TONES[s][n % 3];
+  const e = document.createElement('div'); e.className = 'stone'; e.dataset.who = s;
+  // the longer the line, the bigger the stone; a heavy line near the foot, the pile narrows as it climbs
+  const len = t.length, w = Math.min(760, Math.max(250, 170 + Math.sqrt(len) * 30));
+  const a = 44 + rnd() * 10, b_ = 42 + rnd() * 12, c2 = 48 + rnd() * 10, d = 40 + rnd() * 12;
+  e.style.cssText = `--c:${c};--fg:${fg};--w:${w}px;--py:${16 + Math.min(16, len / 34)}px;--px:${Math.max(30, w * .1)}px;--r:${a}% ${100 - a}% ${b_}% ${100 - b_}%/${c2}% ${d}% ${100 - d}% ${100 - c2}%;--fs:${len < 90 ? 17 : 15}px;--off:${side * (10 + rnd() * 34)}px;--tilt:${(rnd() - .5) * 26}deg;z-index:${200 - n}`;
+  side = -side;
+  const m = document.createElement('small'); m.textContent = NAME[s]; e.append(m, document.createTextNode(t));
+  pile.appendChild(e);
+  document.getElementById('hint').textContent = told.D + told.K < STORY.D.length + STORY.K.length ? 'Your pile. Nobody else has quite this one.' : 'That is all of us, in the order you chose.';
+  say();
+}
+for (const s of ['D', 'K']) document.getElementById('pick-' + s).onclick = () => pick(s);
+window.__pick = pick; say(); window.__ready = 1;
+</script></body></html>

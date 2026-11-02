@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Pull back</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* One idea: one continuous camera move. It starts on a single painted flower and pulls back: the flower is on a label, the label is on a bottle, the bottle is in a family. No sections, one picture. */
+:root{--ink:#2C3544;--paper:#f3f1ec}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.4 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--paper)}
+#run{height:520vh}
+#stage{position:sticky;top:0;height:100dvh;overflow:hidden;background:var(--paper)}
+#world{position:absolute;left:0;top:0;transform-origin:0 0}
+#world img{position:absolute;display:block;max-width:none}
+#hero{-webkit-mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent),linear-gradient(transparent,#000 2%,#000 98%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 20%,#000 80%,transparent),linear-gradient(transparent,#000 2%,#000 98%,transparent);mask-composite:intersect}
+#paper{position:absolute;inset:0;background:#fff;display:grid;place-items:center;z-index:1}
+#paper img{width:min(62vmin,520px)}
+.line{position:absolute;left:clamp(14px,4vw,56px);bottom:clamp(16px,6vh,60px);margin:0;max-width:min(92vw,20ch);padding:.28em .5em;border-radius:12px;background:#fff;z-index:2;font:700 clamp(1.45rem,3.6vw,3rem)/1.06 'Space Grotesk',sans-serif;letter-spacing:-.03em;opacity:0}
+.line small{display:block;font:400 14px 'Space Grotesk',sans-serif;letter-spacing:0;color:#54606F;margin-top:4px}
+</style></head><body>
+<div id="run"><div id="stage">
+<div id="world"><img id="family" src="img/family.jpg" alt="The whole family of products and a box"><img id="hero" src="img/hero.jpg" alt=""><img id="label" src="img/label.jpg" alt=""></div>
+<div id="paper"><img src="img/m16.png" alt="One painted flower"></div>
+<p class="line" data-a="0" data-b=".2" style="z-index:2">Every motif was made by hand.</p>
+<p class="line" data-a=".24" data-b=".46">Each product has its own border of them.</p>
+<p class="line" data-a=".5" data-b=".72">Secret Senses, a handmade brand.</p>
+<p class="line" data-a=".84" data-b="2">Secret Senses<small>Branding by Joyus. Packaging rendered for this page.</small></p>
+</div></div>
+<script type="module">
+// Calibrated by hand from the renders (calib.json): where the bottle sits in each picture and the label in the bottle.
+const C = await (await fetch('calib.json')).json();
+const $ = id => document.getElementById(id);
+const world = $('world'), stage = $('stage'), run = $('run');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// world units = family image pixels. The hero is scaled so its bottle lies on the family's bottle; the label is scaled by ONE number, so it is never squished.
+const hs = C.family.oilH / C.hero.oilH;
+const hx = C.family.oilCx - C.hero.oilCx * hs, hy = C.family.oilTop - C.hero.oilTop * hs;
+const lw = C.hero.label.w * hs, ls = lw / C.label.w, lh = C.label.h * ls;
+const lx = hx + C.hero.label.x * hs, ly = hy + C.hero.label.y * hs;
+const place = (e, x, y, w, h) => { e.style.left = x + 'px'; e.style.top = y + 'px'; e.style.width = w + 'px'; e.style.height = h + 'px'; };
+place($('family'), 0, 0, C.family.w, C.family.h);
+place($('hero'), hx, hy, C.hero.w * hs, C.hero.h * hs);
+place($('label'), lx, ly, lw, lh);
+window.__labelAspect = lw / lh;
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+function shots() {
+  const W = stage.clientWidth, H = stage.clientHeight;
+  const fit = (w, h, m = 1) => Math.min(W / w, H / h) * m;
+  const flower = { x: lx + lw * C.label.flower[0], y: ly + lh * C.label.flower[1], z: fit(lw, lh) * 3.2 };   // no further: the label's art pixelates past this (seen)
+  const label = { x: lx + lw / 2, y: ly + lh / 2, z: fit(lw, lh, .92) };
+  const bottle = { x: hx + C.hero.oilCx * hs, y: hy + (C.hero.oilTop + C.hero.oilH / 2) * hs, z: fit(C.hero.oilW * hs, C.hero.oilH * hs, .9) };
+  const family = { x: C.family.w / 2, y: C.family.h * C.family.cy, z: Math.max(fit(C.family.w, C.family.h), W / C.family.w) };
+  return [flower, label, bottle, family];
+}
+const STOPS = [0, .28, .56, .86];
+function draw() {
+  const W = stage.clientWidth, H = stage.clientHeight, S = shots();
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - H), 1);
+  let i = 0; while (i < 2 && p > STOPS[i + 1]) i++;
+  const t = ease(clamp(0, (p - STOPS[i]) / (STOPS[i + 1] - STOPS[i]), 1));
+  const a = S[i], b = S[i + 1];
+  const z = Math.exp(Math.log(a.z) + (Math.log(b.z) - Math.log(a.z)) * t);   // zoom evenly in log, as a dolly feels
+  const k = (a.z === b.z) ? t : (1 / a.z - 1 / z) / (1 / a.z - 1 / b.z);     // and keep the centre moving with it, so nothing swings
+  const x = a.x + (b.x - a.x) * k, y = a.y + (b.y - a.y) * k;
+  world.style.transform = `translate(${W / 2 - x * z}px,${H / 2 - y * z}px) scale(${z})`;
+  $('label').style.opacity = 1 - clamp(0, (p - .3) / .05, 1);
+  $('paper').style.opacity = 1 - clamp(0, (p - .05) / .07, 1); $('paper').style.visibility = p > .12 ? 'hidden' : 'visible';
+  $('hero').style.opacity = 1 - clamp(0, (p - .6) / .12, 1);
+  for (const l of document.querySelectorAll('.line')) { const A = +l.dataset.a, B = +l.dataset.b; l.style.opacity = (A === 0 ? 1 : clamp(0, (p - A) / .03, 1)) * (1 - clamp(0, (p - B) / .03, 1)); }
+  window.__p = p; window.__z = z;
+}
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', draw); draw(); window.__ready = 1;
+</script>
+</body></html>

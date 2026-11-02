@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>The wall</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik:wght@900&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F}
+*{box-sizing:border-box}html,body{margin:0}body{font:clamp(16px,1.45vw,20px)/1.5 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff}
+/* One thing: the words are behind a wall of stones. There is no panel for the stones and no panel for the words. */
+#room{position:relative;display:grid;grid-template-columns:1fr 1fr;min-height:100dvh}
+.side{padding:clamp(28px,5vw,72px) clamp(18px,4vw,64px);min-height:100dvh}
+.side h2{font:700 clamp(1.8rem,3.4vw,3rem)/1 'Space Grotesk';letter-spacing:-.03em;margin:0 0 18px}
+.side p{margin:0 0 14px}.q{font-style:italic;color:var(--soft)}
+.years{list-style:none;margin:16px 0 0;padding:0;font-size:.82em}.years li{display:grid;grid-template-columns:48px 1fr;gap:6px;padding:2px 0}.years b{font-weight:500;color:var(--soft)}
+canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y;cursor:pointer}
+.tell{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:999px;padding:8px 16px;font-size:14px;transition:opacity .5s;pointer-events:none;white-space:nowrap}
+.all{position:fixed;right:14px;bottom:10px;border:1px solid #cfd3d8;background:#fff;border-radius:999px;padding:8px 14px;min-height:44px;font:inherit;font-size:14px;cursor:pointer}
+@media(max-width:700px){.tell{left:14px;transform:none;bottom:66px}}
+@media (prefers-reduced-motion:reduce){.tell{transition:none}}
+</style></head><body>
+<main id="room"><article class="side" id="d"></article><article class="side" id="k"></article><canvas id="c" role="img" aria-label="A wall of stones, D on the left and K on the right. Move across it and the stones fall away, and the words behind them are there."></canvas></main>
+<p class="tell" id="tell">Move the stones. They are in front of something.</p>
+<button class="all" id="all" type="button">Clear the wall</button>
+<script type="module">
+import { seedsIn, cut, letterMask, PALETTE } from '../59/voronoi.js';
+const W = await (await fetch('../59/words.json')).json();
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+document.getElementById('d').innerHTML = '<h2>Divya Tak</h2>' + W.D.map(p => '<p>' + esc(p) + '</p>').join('');
+document.getElementById('k').innerHTML = '<h2>Kahran Singh</h2>' + W.K.map(p => '<p>' + esc(p) + '</p>').join('') + '<p class="q">' + esc(W.Q) + '</p><ol class="years">' + W.Y.map(([y, t]) => '<li><b>' + esc(y) + '</b><span>' + esc(t) + '</span></li>').join('') + '</ol>';
+const room = document.getElementById('room'), c = document.getElementById('c'), g = c.getContext('2d'), tell = document.getElementById('tell');
+const dM = await letterMask('D', 520), kM = await letterMask('K', 520);
+let stones = [], SCALE = 1, RW = 0, RH = 0;
+async function build() {
+  const b = room.getBoundingClientRect();
+  RW = Math.round(b.width); RH = Math.round(b.height);
+  SCALE = Math.min(1, 900 / Math.max(RW, RH));   // cut at a manageable size, draw at full
+  const w = Math.round(RW * SCALE), h = Math.round(RH * SCALE);
+  const narrow = RW < 700;
+  // the wall is one sheet: the letters are not placed on it, they are in it, as a change of colour
+  const isL = (mask, x, y, cx, cy, s) => mask(((x - cx) / s + 260) | 0, ((y - cy) / s + 260) | 0);
+  const vh = Math.min(h, innerHeight * SCALE);
+  const s = Math.min(w / (narrow ? 1 : 2), vh) / 520 * (narrow ? .46 : .8);
+  const dc = [w * .25, vh * .5], kc = [w * .75, vh * .5];
+  const sizeN = Math.min(460, Math.round(w * h / 1250));
+  const pts = seedsIn(w, h, () => true, sizeN, 5);
+  const colour = (p, i) => (isL(dM, p.x, p.y, dc[0], dc[1], s) || isL(kM, p.x, p.y, kc[0], kc[1], s)) ? PALETTE[i % 4] : ['#eef0ee', '#e8eae8', '#f1f1ec'][i % 3];
+  const all = cut(w, h, () => true, pts, colour, 1.05, .8);
+  stones = all.map(st => ({ ...st, x: st.x / SCALE, y: st.y / SCALE, cw: st.w / SCALE, ch: st.h / SCALE, gone: false, t: 0, vx: 0, vy: 0, rot: 0 }));
+  window.__stones = stones.length;
+  const dpr = Math.min(2, devicePixelRatio || 1); c.width = RW * dpr; c.height = RH * dpr; g.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+await document.fonts.ready; await build(); window.__ready = 1;
+let moved = 0;
+function knock(x, y, r) {
+  let n = 0;
+  for (const s of stones) {
+    if (s.gone) continue;
+    const dx = s.x + s.cw / 2 - x, dy = s.y + s.ch / 2 - y;
+    if (dx * dx + dy * dy < r * r) { s.gone = true; s.vx = dx * .05 + (Math.random() - .5) * 2; s.vy = -2 - Math.random() * 3; s.spin = (Math.random() - .5) * .16; n++; }
+  }
+  if (n && !moved++) tell.style.opacity = 0;
+  window.__left = stones.filter(s => !s.gone).length;
+  kick();
+}
+c.addEventListener('pointermove', e => { const b = c.getBoundingClientRect(); knock(e.clientX - b.left, e.clientY - b.top, 44); });
+c.addEventListener('pointerdown', e => { const b = c.getBoundingClientRect(); knock(e.clientX - b.left, e.clientY - b.top, 60); });
+document.getElementById('all').onclick = () => { for (const s of stones) knock(s.x + s.cw / 2, s.y + s.ch / 2, 2); c.style.pointerEvents = 'none'; };
+window.__knock = knock;
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let running = false;
+function kick() { if (!running) { running = true; requestAnimationFrame(frame); } }
+function frame() {
+  g.clearRect(0, 0, RW, RH);
+  let live = false;
+  for (const s of stones) {
+    if (s.gone) {
+      if (still) continue;
+      s.t += 1; s.vy += .6; s.x += s.vx; s.y += s.vy; s.rot += s.spin;
+      if (s.y > RH + 60) continue;
+      live = true;
+      g.save(); g.translate(s.x + s.cw / 2, s.y + s.ch / 2); g.rotate(s.rot); g.drawImage(s.canvas, -s.cw / 2, -s.ch / 2, s.cw, s.ch); g.restore();
+    } else g.drawImage(s.canvas, s.x, s.y, s.cw, s.ch);
+  }
+  if (live) requestAnimationFrame(frame); else running = false;
+}
+kick();
+</script></body></html>
