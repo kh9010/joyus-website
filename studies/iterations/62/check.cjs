@@ -1,0 +1,24 @@
+// Study 62: three-point light as asked; the box is card, not glass; labels still at their proportions; renders real.
+const fs = require('node:fs');
+const path = require('node:path');
+let bad = 0;
+const say = (ok, m) => { console.log((ok ? '  ok   ' : '  FAIL ') + m); if (!ok) bad++; };
+const log = fs.readFileSync(path.join(__dirname, 'labels.log'), 'utf8').split(/\r?\n/).filter(l => l.startsWith('LABEL'));
+const rows = log.map(l => { const m = /LABEL (.+) file ([\d.]+) built ([\d.]+)/.exec(l); return { name: m[1], file: +m[2], built: +m[3] }; });
+const wrong = rows.filter(r => Math.abs(r.built / r.file - 1) > .005);
+say(rows.length >= 14 && !wrong.length, rows.length + ' labels built, none squished' + (wrong.length ? ': ' + wrong.map(r => r.name).join() : ''));
+const scene = fs.readFileSync(path.join(__dirname, 'scene.py'), 'utf8');
+const kit = scene.slice(scene.indexOf('# ------- Study 62'));
+const studio = kit.slice(kit.indexOf('def studio'), kit.indexOf('def softlight'));
+for (const w of ['key:', 'fill:', 'rim left', 'rim right']) say(studio.includes(w), 'the studio has its ' + w.replace(':', ''));
+const shots = kit.slice(kit.indexOf('def shot_window'));
+say(!/window_shadow|leaf_shade|marble\(|plaster\(/.test(shots), 'plain backdrop: no window shadows, marble or plaster in any shot');
+say(!/box2\(|heavy_glass/.test(kit.slice(kit.indexOf('def box3'), kit.indexOf('# ------- the studio'))) && shots.includes('box3('), 'the box is printed card with a noise surface');
+say(kit.includes("'Anisotropic'") && kit.includes('GOLD_F0'), 'the metal: real gold reflectance, brushed collars');
+const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+const pics = [...html.matchAll(/<a class="zoom" href="(img\/[^"]+)"/g)].map(m => m[1]);
+say(pics.length === 8 && pics.every(p => fs.existsSync(path.join(__dirname, p)) && fs.statSync(path.join(__dirname, p)).size > 30000), pics.length + ' real renders');
+const words = html.replace(/<head>[\s\S]*?<\/head>/, '').replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length;
+say(words < 100, 'under 100 words (' + words + ')');
+say(!fs.readdirSync(__dirname).some(f => /\.(ai|psd)$/i.test(f)), 'no source artwork in the folder');
+process.exitCode = bad ? 1 : 0;
