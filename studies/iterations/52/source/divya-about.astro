@@ -1,0 +1,381 @@
+---
+import Layout from '../layouts/Layout.astro'
+import aboutData from '../data/generated-about.json'
+
+const { email, photo, talks, workshops, press } = aboutData
+const base = import.meta.env.BASE_URL.replace(/\/$/, '')
+
+// The logo strip is authored here (it has no entry in generated-about.json).
+const logos = [
+  { src: '/logos/google.webp', alt: 'Google India' },
+  { src: '/logos/ngma.gif', alt: 'NGMA Bangalore' },
+  { src: '/logos/goethe-institut.png', alt: 'Goethe Institut' },
+  { src: '/logos/iimb.png', alt: 'IIM Bangalore' },
+  { src: '/logos/layers.png', alt: 'Friends of Figma / Layers Portugal' },
+  { src: '/logos/hasgeek.svg', alt: 'HasGeek' },
+  { src: '/logos/uxdx.webp', alt: 'UXDX' },
+  { src: '/logos/slush.webp', alt: "Slush'd" },
+  { src: '/logos/gafx.webp', alt: 'GAFX Bangalore' },
+  { src: '/logos/bangalore-international-centre.png', alt: 'Bangalore International Centre' },
+  { src: '/logos/agifest.png', alt: 'AGI Fest' },
+  { src: '/logos/litschool.png', alt: 'LIT School' },
+  { src: '/logos/christ-university.webp', alt: 'Christ University' },
+  { src: '/logos/startout.svg', alt: 'StartOut' },
+  { src: '/logos/ai-enthusiasts-circle.webp', alt: 'AI Enthusiasts Circle' },
+  { src: '/logos/ajaibghar.webp', alt: 'Ajaibghar / Lab59' },
+]
+
+---
+
+<Layout title="About — Divya" description="Divya Tak makes playful variations on familiar forms, changing their rules to see what happens to the experience.">
+  <div class="page">
+    <h1 class="chapter">About</h1>
+
+    <!-- ---- the statement: columns 1-2, the portrait on column 3 ---- -->
+    <section class="intro" aria-label="Artist statement">
+      <div class="statement">
+        <p>Divya Tak makes playful variations on familiar forms, changing their rules to see what happens to the experience. Her work spans film, games, comics, interactive systems, and generative media, and has contributed to award-winning projects. Trained in physics and shaped by over a decade of working across creative industries, she approaches storytelling as a study of perception itself, how we see, what we overlook, and how meaning forms between systems and humans.</p>
+        <p>Her visual poetry collaboration with poet Kahran Singh was exhibited in Boulder, Colorado in January 2025. She worked as Creative Producer on the film Jugnuma, which won Best Film at Leeds 2025. Her narrative game The Titli Effect placed second at The Jennifer Ann Group's Connectedness Game Jam. She has created cover illustrations for scientific journals between 2018 and 2024, and her original comic Common was published in the INKLAB Anthology in 2021. She completed the Pollinator Creative Program in November 2025 and the BHX Creators Residency in March 2025.</p>
+      </div>
+
+      {photo ? (
+        <img
+          class="portrait"
+          src={`${base}${photo}`}
+          alt="Portrait of Divya Tak"
+          width="800"
+          height="1000"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="portrait portrait--empty"></div>
+      )}
+    </section>
+
+    {email && (
+      <section class="block" aria-labelledby="lbl-contact">
+        <h2 class="label" id="lbl-contact">For queries &amp; commissions</h2>
+        <p class="contact-lead">Reach out at</p>
+        <p class="contact"><a href={`mailto:${email}`}>{email}</a></p>
+      </section>
+    )}
+
+    <!-- ---- the rooms she has spoken in, at a whisper ---- -->
+    <section class="block" aria-label="Places and platforms">
+      <ul class="logos">
+        {logos.map((l) => (
+          <li><img src={`${base}${l.src}`} alt={l.alt} loading="lazy" decoding="async" /></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="lbl-talks">
+      <h2 class="label" id="lbl-talks">Talks &amp; panels</h2>
+      <ul class="index">
+        {talks.map((t) => (
+          <li class="row">
+            <span class="row-title">
+              {t.url ? (
+                <a href={t.url} target="_blank" rel="noopener noreferrer">
+                  {t.title}<span class="ext" aria-hidden="true">&#8599;</span>
+                </a>
+              ) : t.title}
+            </span>
+            <span class="row-meta">
+              <span class="row-where">{t.venue}</span>
+              <span class="row-year">{t.year ?? ''}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block" aria-labelledby="lbl-workshops">
+      <h2 class="label" id="lbl-workshops">Workshops</h2>
+      <ul class="index">
+        {workshops.map((t) => (
+          <li class="row">
+            <span class="row-title">
+              {t.url ? (
+                <a href={t.url} target="_blank" rel="noopener noreferrer">
+                  {t.title}<span class="ext" aria-hidden="true">&#8599;</span>
+                </a>
+              ) : t.title}
+            </span>
+            <span class="row-meta">
+              <span class="row-where">{t.venue}</span>
+              <span class="row-year">{t.year ?? ''}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    {press.length > 0 && (
+      <section class="block" aria-labelledby="lbl-press">
+        <h2 class="label" id="lbl-press">Press</h2>
+        <ul class="index">
+          {press.map((p) => (
+            <li class="row">
+              <span class="row-title">
+                {p.url ? (
+                  <a href={p.url} target="_blank" rel="noopener noreferrer">
+                    {p.title}<span class="ext" aria-hidden="true">&#8599;</span>
+                  </a>
+                ) : p.title}
+              </span>
+              <span class="row-meta">
+                <span class="row-where">{p.outlet}</span>
+                <span class="row-year">{p.year ?? ''}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</Layout>
+
+<style>
+  /* =====================================================================
+     ABOUT — the landing's language, page-scoped.
+
+     One seed: --r = 24px. Gutter, body line box, and the unit behind every
+     vertical space here.
+
+     One grid: three columns inside the Layout's .content box, so column 1's
+     left line is the line the top bar's wordmark hangs on.
+
+     Everything that is a FACT becomes a row on that grid — year on column 1,
+     the thing itself on column 2, where it happened on column 3. Talks,
+     workshops and press are the same object at three scales, so they are set
+     identically and read as one index.
+     ===================================================================== */
+
+  .page {
+    --r: 1.5rem;
+    --gutter: var(--r);
+
+    --ink: #222;
+    --mid: #636363;
+    --quiet: #999;
+    --hair: #eee;
+
+    --t-body: 0.9375rem;   /* 15px */
+    --lh-body: var(--r);
+    --measure: 54ch;
+
+    font-family: 'Sora', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    color: var(--ink);
+    padding-top: calc(var(--r) * 4);
+    padding-bottom: calc(var(--r) * 4);
+  }
+
+  /* ---------- the chapter word ---------- */
+  .chapter {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    color: var(--ink);
+    margin-bottom: calc(var(--r) * 4);
+  }
+
+  /* ---------- statement on 1-2, portrait on 3 ---------- */
+  .intro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--gutter);
+    align-items: start;
+  }
+
+  .statement { grid-column: 1 / 3; }
+
+  /* the one generous reading rank on the page: bigger than body, leading a
+     quarter-unit wider than the module, measure capped so the two columns
+     host the paragraph rather than stretch it */
+  .statement p {
+    font-size: 1.0625rem;                 /* 17px */
+    line-height: calc(var(--r) * 1.25);   /* 30px */
+    letter-spacing: -0.005em;
+    color: var(--mid);
+    max-width: var(--measure);
+  }
+  .statement p + p { margin-top: calc(var(--r) * 1.25); }
+
+  .portrait {
+    grid-column: 3;
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 8%;
+    background: #f4f4f4;
+  }
+
+  /* ---------- a section: a quiet label on a hairline, then the run ---------- */
+  .block { margin-top: calc(var(--r) * 5); }
+
+  .label {
+    font-size: 0.75rem;      /* 12px */
+    font-weight: 600;
+    /* sentence case now, so the tracking comes back in a little — 0.18em was
+       set for an all-lowercase run and gaps a capital badly */
+    letter-spacing: 0.12em;
+    color: var(--quiet);
+    border-top: 1px solid var(--hair);
+    padding-top: calc(var(--r) * 0.75);
+    margin-bottom: calc(var(--r) * 2);
+  }
+
+  /* ---------- contact: plain, and the only thing set at subtitle rank ---------- */
+  .contact-lead {
+    font-size: var(--t-body);
+    line-height: var(--lh-body);
+    color: var(--quiet);
+    margin-bottom: calc(var(--r) * 0.5);
+  }
+  .contact {
+    font-size: clamp(1.35rem, 3.4vw, 2.25rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+  .contact a {
+    border-bottom: 1px solid var(--hair);
+    transition: border-color var(--hover-on, 0.2s) ease;
+  }
+  .contact a:hover { border-bottom-color: var(--ink); }
+
+  /* ---------- the logo strip: small, on the rhythm, and IN COLOUR ----------
+     They were greyscaled once to keep the page quiet; Divya wants the colour
+     back — these marks are the one place the page borrows other people's ink,
+     and they may as well arrive as themselves. */
+  .logos {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: calc(var(--r) * 1.25) calc(var(--r) * 2);
+  }
+  .logos img {
+    display: block;
+    height: calc(var(--r) * 1.15);   /* ~28px */
+    width: auto;
+    max-width: calc(var(--r) * 6);
+    object-fit: contain;
+  }
+
+  /* ---------- the index: THING | where · year, one line each ----------
+     The year used to open every row, which spent the widest, leftmost thing on
+     the page's grid on the least interesting fact in it. It is now the LAST
+     thing in the row and right-aligned, so the eye reads the title, then where
+     it happened, and only picks up the date on the way out.
+
+     AND THERE IS NO RULE BETWEEN ROWS. A hairline under every entry turned a
+     short list into a table; the rows are separated by air, and the only rule
+     left on the page is the one that opens each section's label. */
+  .index { list-style: none; }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: var(--gutter);
+    align-items: baseline;
+  }
+  .row + .row { margin-top: calc(var(--r) * 1.25); }
+
+  /* the title takes the two columns the statement takes: it is the content */
+  .row-title {
+    grid-column: 1 / 3;
+    font-size: var(--t-body);
+    line-height: var(--lh-body);
+    color: var(--ink);
+    max-width: var(--measure);
+  }
+
+  /* column 3 carries the two quiet facts: where on its left line, the year
+     closing on the grid's right edge */
+  .row-meta {
+    grid-column: 3;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--r);
+  }
+
+  .row-where {
+    font-size: 0.75rem;
+    line-height: calc(var(--r) * 0.75);
+    letter-spacing: 0.04em;
+    color: var(--quiet);
+  }
+
+  .row-year {
+    font-size: 0.75rem;
+    line-height: calc(var(--r) * 0.75);
+    letter-spacing: 0.12em;
+    color: #bbb;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' 1;
+  }
+
+  /* ---------- links ---------- */
+  .page a { color: inherit; text-decoration: none; }
+  .page a:visited { color: inherit; }
+
+  .row-title a {
+    border-bottom: 1px solid var(--hair);
+    transition: border-color var(--hover-on, 0.2s) ease;
+  }
+  .row-title a:hover { border-bottom-color: var(--ink); }
+
+  .ext {
+    display: inline-block;
+    margin-left: 0.3em;
+    font-size: 0.7em;
+    color: #bbb;
+    vertical-align: 0.15em;
+  }
+
+  .page a:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+  /* ================= narrowing: fewer columns, same rhythm ================= */
+  @media (max-width: 1000px) {
+    .intro { grid-template-columns: repeat(2, 1fr); }
+    .statement { grid-column: 1 / -1; }
+    .portrait { grid-column: 1; margin-top: calc(var(--r) * 2); }
+
+    /* the venue and the year drop under the title rather than squeezing a
+       third column — same order, still title first and year last */
+    .row { grid-template-columns: 1fr; row-gap: calc(var(--r) * 0.25); }
+    .row-title,
+    .row-meta { grid-column: 1; }
+    .row-meta { justify-content: flex-start; }
+  }
+
+  @media (max-width: 700px) {
+    .page {
+      padding-top: calc(var(--r) * 2.5);
+      padding-bottom: calc(var(--r) * 2.5);
+    }
+    .chapter { margin-bottom: calc(var(--r) * 2.5); }
+    .block { margin-top: calc(var(--r) * 3.5); }
+    .label { margin-bottom: calc(var(--r) * 1.5); }
+
+    .intro { grid-template-columns: 1fr; }
+    .portrait { aspect-ratio: 3 / 2; }
+
+    .statement p { font-size: 1rem; line-height: calc(var(--r) * 1.15); }
+
+    .logos { gap: var(--r) calc(var(--r) * 1.5); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page a { transition: none; }
+  }
+</style>

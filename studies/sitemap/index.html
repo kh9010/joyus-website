@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow"><title>Site map — Joyus</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../study.css">
+<style>
+/* Site map tab (2 Nov 2026): one tree, Work first. Read from pages.json each time this opens. */
+:root { --done: #1f7a4d; --wait: #d81b72; --some: #f6d469; --none: #b4b4b4; --wire: #c4c4c4; --tk: 30px; --row: 46px }
+main { max-width: 1120px }
+
+/* a token: the icon says which stage, the fill says how far */
+.tk { display: inline-flex; align-items: center; justify-content: center; width: var(--tk); height: var(--tk); border-radius: 50%; flex: none; box-sizing: border-box; background: #fff; border: 1.5px dashed var(--none); color: #a0a0a0; position: relative; z-index: 1 }
+.tk svg, .badge svg, .ico { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: block }
+.tk svg { width: 58%; height: 58% }
+.tk.s { background: var(--some); border: 0; color: #2a2a2a }
+.tk.w { background: var(--wait); border: 0; color: #fff }
+.tk.d { background: var(--done); border: 0; color: #fff }
+
+/* status: the four stages as a path, and in words how far it has got */
+.status { display: inline-flex; align-items: center; gap: 12px; margin: 0 0 0 auto; flex: none; padding: 0 0 0 14px; text-transform: none; letter-spacing: 0; font-size: inherit; background: none; color: inherit; vertical-align: baseline }
+.status .say { font-size: 12px; color: var(--ink-2); width: 112px; text-align: right; line-height: 1.25; font-weight: 400 }
+.path { display: inline-flex; align-items: center; position: relative }
+.path::before { content: ''; position: absolute; left: 12px; right: 12px; top: 50%; border-top: 1.5px solid var(--wire) }
+.path .tk + .tk { margin-left: 10px }
+
+/* the tree */
+.tree, .tree ul { list-style: none; margin: 0; padding: 0; max-width: none }
+.tree li { margin: 0; max-width: none; position: relative }
+.tree ul { padding-left: 15px }
+.tree ul > li { padding-left: 21px }
+.tree ul > li::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; border-left: 1.5px solid var(--wire) }
+.tree ul > li:last-child::before { bottom: auto; height: calc(var(--row) / 2) }
+.tree ul > li::after { content: ''; position: absolute; left: 0; top: calc(var(--row) / 2); width: 17px; border-top: 1.5px solid var(--wire) }
+.tree details > summary { list-style: none; cursor: pointer }
+.tree details > summary::-webkit-details-marker { display: none }
+.tree summary { -webkit-tap-highlight-color: transparent }
+.tree summary:focus-visible { outline: 3px solid #315da8; outline-offset: -2px; border-radius: 6px }
+.node { display: flex; align-items: center; min-height: var(--row); gap: 9px; border-radius: 8px }
+summary.node:hover { background: var(--surface) }
+.caret { width: 16px; height: 16px; flex: none; color: var(--ink-3); transition: transform .12s }
+.caret svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; display: block }
+details[open] > summary > .caret { transform: rotate(90deg) }
+@media (prefers-reduced-motion: reduce) { .caret { transition: none } }
+.badge { width: 30px; height: 30px; border-radius: 8px; background: #efefec; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; flex: none }
+.badge svg { width: 60%; height: 60% }
+.name { min-width: 0; overflow-wrap: anywhere; line-height: 1.3; font-size: 13.5px; padding: 5px 0 }
+.name small { color: var(--ink-2); font-size: 12px; font-weight: 400; margin-left: 6px; white-space: nowrap }
+.name em { display: block; font-style: normal; color: #b0145b; font-size: 11.5px; font-weight: 400 }
+.live-tag { display: inline-block; white-space: nowrap; font-size: 10.5px; font-weight: 600; color: #fff; background: var(--done); border-radius: 999px; padding: 0 7px; margin-left: 6px; vertical-align: 1px }
+.lvl1 > details > summary .name { font-size: 19px; font-weight: 600 }
+.lvl1 > details > summary .badge { background: var(--ink); color: #fff; width: 36px; height: 36px }
+.lvl1 { margin-bottom: 14px }
+.lvl1 > details > summary { --row: 54px }
+.lvl2 > details > summary .name { font-size: 15px; font-weight: 600 }
+.lvl3 > details > summary .name { font-size: 14px; font-weight: 500 }
+.leaf > details > summary .name { font-size: 13.5px; font-weight: 400 }
+.shape > details > summary .name { font-weight: 600 }
+
+/* inside an item: status as branches, then its parts, then where to look */
+.st-row { display: flex; align-items: flex-start; gap: 9px; padding: 8px 0; min-height: var(--row); box-sizing: border-box; font-size: 13px; --tk: 28px }
+.st-row > div { min-width: 0; padding-top: 4px; overflow-wrap: anywhere }
+.st-row b { font-weight: 600; margin-right: 6px }
+.st-row .word { color: var(--ink-2); font-size: 12px }
+.st-row p { margin: 2px 0 0; max-width: 72ch; font-size: 13px; line-height: 1.45 }
+.st-row .who { color: #b0145b; font-size: 12px }
+.sub-h { font-size: 12px; font-weight: 600; color: var(--ink-2); display: flex; align-items: center; gap: 9px; min-height: var(--row) }
+.sub-h .badge { width: 24px; height: 24px; border-radius: 6px }
+.part-row, .go-row { display: flex; align-items: center; min-height: var(--row); font-size: 13px }
+.go-row { flex-wrap: wrap; gap: 4px 14px }
+.line { color: var(--ink-2); font-size: 12.5px; margin: 0 0 4px 25px; max-width: 72ch }
+.struck { display: flex; align-items: center; min-height: var(--row); font-size: 12.5px; color: var(--ink-2); text-decoration: line-through }
+
+/* the head of the page */
+.key { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; margin: 14px 0 0; --tk: 24px }
+.key > span { display: inline-flex; align-items: center; gap: 7px }
+.stages { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; margin: 20px 0 0; max-width: 860px; --tk: 34px }
+.stages div { display: grid; justify-items: center; gap: 4px; text-align: center; font-size: 11px; color: var(--ink-2); line-height: 1.25 }
+.stages i { font-style: normal; color: var(--ink-3); display: block }
+.stages b { display: block; font-size: 15px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums }
+.stages .tk { background: #efefec; border: 0; color: var(--ink) }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; margin: 26px 0 12px; align-items: center }
+.tools button { font: 13px var(--font); padding: 6px 13px; min-height: 36px; border: 1px solid #dcdcdc; border-radius: 999px; background: #fff; color: var(--ink-2); cursor: pointer }
+.tools button[aria-pressed=true] { border-color: var(--ink); color: var(--ink) }
+.tools .gap { flex: 1 }
+.hide { display: none !important }
+
+@media (max-width: 1000px) { .status .say { display: none } }
+@media (max-width: 720px) {
+  :root { --tk: 26px }
+  .tree ul { padding-left: 7px }
+  .tree ul > li { padding-left: 14px }
+  .tree ul > li::after { width: 11px }
+  .node { flex-wrap: wrap; gap: 6px 7px; padding-bottom: 4px }
+  .leaf > details > summary .name { flex: 1 1 60%; }
+  .status { padding-left: 0; margin-left: 23px; flex: 1 1 calc(100% - 30px); min-width: 0; flex-wrap: wrap; gap: 4px 10px }
+  .lvl1 > details > summary .name { font-size: 17px }
+  .status .say { display: inline; width: auto; text-align: left; font-size: 11.5px; order: 2 }
+  .stages { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 12px; --tk: 30px }
+  .path .tk + .tk { margin-left: 6px }
+}
+</style></head><body><main>
+<h1>Site map</h1>
+<p class="lede" id="lede">Loading…</p>
+<div class="stages" id="stages"></div>
+<div class="key" id="key"></div>
+<div class="tools" id="tools"></div>
+<ul class="tree" id="tree"></ul>
+
+</main>
+<script>
+const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const WORD = { 0: 'not started', s: 'something exists', w: 'waiting on a person', d: 'done' };
+// every icon, drawn on a 24 grid. Stages first, then the sections of the tree.
+const ICON = {
+  ux: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
+  ui: '<path d="M12 3a9 9 0 1 0 0 18c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.2 0-1 .8-1.5 1.8-1.5H17a4 4 0 0 0 4-4c0-4.4-4-8-9-8z"/><path d="M7.5 11.5h.01M10.5 7.5h.01M15 8h.01"/>',
+  content: '<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h6"/>',
+  refinement: '<path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h8M16 18h4"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="14" cy="18" r="2"/>',
+  writing: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  images: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-5-5L5 21"/>',
+  interactions: '<path d="M4 4l7 17 2.5-7.5L21 11z"/>',
+  strategic: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  narrative: '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/>',
+  visual: '<path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/>',
+  work: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/>',
+  branding: '<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17.1 6.6 20l1-6.1L3.200 9.500l6.100-.9z"/>',
+  web: '<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>',
+  compass: '<circle cx="12" cy="12" r="9"/><path d="m15.500 8.500-2 5-5 2 2-5z"/>',
+  story: '<path d="M21 12a8 8 0 0 1-8 8H4l2.200-3.200A8 8 0 1 1 21 12z"/>',
+  together: '<circle cx="9" cy="8" r="3.500"/><path d="M2.500 20a6.500 6.500 0 0 1 13 0"/><path d="M16 4.800a3.500 3.500 0 0 1 0 6.400M18 14.200a6.500 6.500 0 0 1 3.500 5.800"/>',
+  comics: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 3v9M3 12h18M9 12v9"/>',
+  poetry: '<path d="M20 4c-7 0-13 5-13 12v4"/><path d="M20 4c0 7-4 12-13 12"/><path d="M7 16 3 20"/>',
+  ai: '<path d="M12 3l1.800 5.200L19 10l-5.200 1.800L12 17l-1.800-5.200L5 10l5.200-1.800z"/><path d="M19 16l.8 2.200L22 19l-2.200.8L19 22l-.8-2.200L16 19l2.200-.8z"/>',
+  game: '<rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 11v3M5.500 12.500h3M15.500 11.500h.01M18 13.500h.01"/>',
+  home: '<path d="M3 11l9-8 9 8"/><path d="M5 9.500V21h14V9.500M10 21v-6h4v6"/>',
+  sign: '<path d="M12 2.500 21.500 12 12 21.500 2.500 12z"/><path d="M12 8v5M12 16h.01"/>',
+  question: '<circle cx="12" cy="12" r="9"/><path d="M9.500 9.500a2.500 2.500 0 1 1 3.800 2.100c-.8.500-1.300 1-1.300 1.900M12 17h.01"/>',
+  flask: '<path d="M9 3h6M10 3v6l-5.500 9.500A1.700 1.700 0 0 0 6 21h12a1.700 1.700 0 0 0 1.500-2.500L14 9V3M7.500 15h9"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',
+  series: '<path d="M4 6h16M4 12h16M4 18h10"/>',
+  flag: '<path d="M5 21V4M5 4h13l-3 4 3 4H5"/>',
+  grid: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>',
+  person: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  hello: '<path d="M21 15a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  menu: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
+  archive: '<rect x="3" y="4" width="18" height="5" rx="1"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9M10 13h4"/>',
+  parts: '<path d="M4 7l8-4 8 4-8 4zM4 12l8 4 8-4M4 17l8 4 8-4"/>',
+  links: '<path d="M10 14a4 4 0 0 0 6 .4l3-3a4.200 4.200 0 0 0-6-6l-1.500 1.500"/><path d="M14 10a4 4 0 0 0-6-.4l-3 3a4.200 4.200 0 0 0 6 6l1.500-1.500"/>',
+};
+const OWNER = w => (w === 'both' ? 'Both' : esc(w));
+const svg = id => '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICON[id] + '</svg>';
+const badge = id => '<span class="badge">' + svg(id) + '</span>';
+const CARET = '<span class="caret"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></span>';
+// "Study 50" and "Studies 42, 43" in a note open those studies
+const link = s => esc(s).replace(/\b(Stud(?:y|ies) )(\d\d(?:(?:, | and | to )\d\d)*)/g, (m, w, list) => w + list.replace(/\d\d/g, n => '<a href="../iterations/' + n + '/index.html">' + n + '</a>'));
+
+fetch('pages.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(D => {
+  const S = D.stages;
+  const leaves = n => (n.kids ? n.kids.flatMap(leaves) : [n]);
+  const counted = n => leaves(n).filter(p => p.kind !== 'shape');
+  const st = (p, id) => (p.s[id] || ['0'])[0];
+  const roll = (list, ids) => { const v = list.flatMap(p => ids.map(id => st(p, id))); return v.length && v.every(x => x === 'd') ? 'd' : v.includes('w') ? 'w' : v.some(x => x !== '0') ? 's' : '0'; };
+  const tk = (state, icon, text) => '<span class="tk ' + (state === '0' ? '' : state) + '" role="img" aria-label="' + esc(text) + '" title="' + esc(text) + '" data-s="' + state + '" data-i="' + icon + '">' + svg(icon) + '</span>';
+  // the four stages in order, each with the ids it rolls up
+  const FOUR = ['UX', 'UI', 'Content', 'Refinement'].map(name => ({ name, icon: name.toLowerCase(), ids: S.filter(s => s.stage === name).map(s => s.id) }));
+  // how far: the stages finished in a row from the start, then what comes next
+  const howFar = list => {
+    let last = null;
+    for (const f of FOUR) { if (roll(list, f.ids) !== 'd') return last ? 'Done up to ' + last : 'Nothing done yet'; last = f.name; }
+    return 'All done';
+  };
+  const status = list => '<span class="status"><span class="path">' + FOUR.map(f => { const v = roll(list, f.ids); return tk(v, f.icon, f.name + ': ' + WORD[v]); }).join('') + '</span><span class="say">' + howFar(list) + '</span></span>';
+
+  // inside an item: its status as branches, its parts, its links
+  const stRow = (p, s) => { const [v, note, who] = p.s[s.id] || ['0'];
+    return '<li><div class="st-row">' + tk(v, s.id, (s.sub || s.stage) + ': ' + WORD[v]) + '<div><b>' + esc(s.sub || s.stage) + '</b><span class="word">' + WORD[v] + (s.owner ? ' · ' + OWNER(s.owner) : '') + '</span>' + (note ? '<p>' + link(note) + (who ? ' <span class="who">Waiting on ' + (who === 'both' ? 'Divya and Kahran' : esc(who)) + '</span>' : '') + '</p>' : '') + '</div></div></li>'; };
+  const stageBranch = (p, f) => {
+    const list = S.filter(s => s.stage === f.name);
+    if (list.length === 1) return stRow(p, list[0]);
+    const v = roll([p], f.ids);
+    return '<li><div class="st-row">' + tk(v, f.icon, f.name + ': ' + WORD[v]) + '<div><b>' + f.name + '</b><span class="word">' + WORD[v] + '</span></div></div><ul>' + list.map(s => stRow(p, s)).join('') + '</ul></li>';
+  };
+  const inside = p => {
+    let h = '';
+    h += '<li><div class="sub-h">' + badge('compass') + 'Status</div><ul>' + FOUR.map(f => stageBranch(p, f)).join('') + '</ul></li>';
+    if (p.parts) h += '<li><div class="sub-h">' + badge('parts') + 'What is in it</div><ul>' + p.parts.map(q => '<li><div class="part-row">' + (q.href ? '<a href="' + esc(q.href) + '" target="_blank" rel="noopener">' + esc(q.t) + '</a>' : esc(q.t)) + (q.page ? '&nbsp;<small style="color:var(--ink-2)">deck p.' + q.page + '</small>' : '') + '</div></li>').join('') + '</ul></li>';
+    if (p.links && p.links.length) h += '<li><div class="sub-h">' + badge('links') + 'Where to look</div><ul><li><div class="go-row">' + p.links.map(([t, u]) => '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(t) + '</a>').join('') + '</div></li></ul></li>';
+    return h;
+  };
+  const nodeHtml = (n, lvl) => {
+    if (!n.kids) {
+      const who = [...new Set(S.map(s => (n.s[s.id] || [])[2]).filter(Boolean))].join(' ');
+      return '<li class="leaf lvl' + lvl + (n.kind === 'shape' ? ' shape' : '') + '" data-id="' + esc(n.id) + '" data-who="' + esc(who) + '"><details><summary class="node">' + CARET + (n.icon ? badge(n.icon) : '') + '<span class="name">' + esc(n.title) + (n.live ? '<span class="live-tag">live</span>' : '') + (n.siteLive ? '<span class="live-tag">site is live</span>' : '') + (n.flag ? '<em>' + esc(n.flag) + '</em>' : '') + '</span>' + status([n]) + '</summary>' + (n.line ? '<p class="line">' + esc(n.line) + '</p>' : '') + '<ul>' + inside(n) + '</ul></details></li>';
+    }
+    const list = leaves(n);
+    return '<li class="branch lvl' + lvl + '" data-id="' + esc(n.id) + '"><details' + (n.closed ? '' : ' open') + '><summary class="node">' + CARET + (n.icon ? badge(n.icon) : '') + '<span class="name">' + esc(n.title) + '<small>' + counted(n).length + '</small></span>' + status(list) + '</summary>' + (n.line ? '<p class="line">' + link(n.line) + '</p>' : '') + '<ul>' + n.kids.map(k => nodeHtml(k, lvl + 1)).join('') + '</ul></details></li>';
+  };
+
+  const all = D.tree.flatMap(leaves), pages = all.filter(p => p.kind !== 'shape');
+  const work = D.tree[0], workPages = counted(work);
+  document.getElementById('lede').textContent = 'One tree, Work first: ' + workPages.length + ' things in Work, as of ' + D.asOf + '.';
+  // Work's progress, one number per stage
+  document.getElementById('stages').innerHTML = S.map(s => '<div data-stage="' + s.id + '"><span class="tk">' + svg(s.id) + '</span><b>' + workPages.filter(p => st(p, s.id) === 'd').length + '/' + workPages.length + '</b>' + esc(s.sub || s.stage) + (s.owner ? '<i>' + OWNER(s.owner) + '</i>' : '') + '</div>').join('');
+  document.getElementById('key').innerHTML = ['d', 'w', 's', '0'].map(k => '<span>' + tk(k, 'writing', WORD[k]) + WORD[k] + (k === 's' ? ' (an old page, a template, a draft)' : '') + '</span>').join('');
+
+  // retired stays on the tree, struck through, so it is plain what left
+  const retired = {}; D.notPages.filter(p => p.why === 'retired').forEach(p => { (retired[p.group] = retired[p.group] || []).push(p.file); });
+  const retiredHtml = '<li class="branch lvl1" data-id="retired-branch"><details><summary class="node">' + CARET + badge('archive') + '<span class="name">Retired</span></summary><ul>' + Object.entries(retired).map(([g, files]) => '<li class="branch lvl2"><details><summary class="node">' + CARET + '<span class="name">' + esc(g) + '<small>' + files.length + '</small></span></summary><ul>' + files.map(f => '<li><div class="struck">' + esc(f) + '</div></li>').join('') + '</ul></details></li>').join('') + '</ul></details></li>';
+  document.getElementById('tree').innerHTML = D.tree.map(n => nodeHtml(n, 1)).join('') + retiredHtml;
+
+  // tools: open or close it all, and who it waits on
+  const F = [['all', 'All'], ['Divya', 'Waiting on Divya'], ['Kahran', 'Waiting on Kahran'], ['both', 'Waiting on both']];
+  const count = w => all.filter(p => S.some(s => (p.s[s.id] || [])[2] === w)).length;
+  const tools = document.getElementById('tools');
+  tools.innerHTML = F.map(([k, t], i) => '<button type="button" data-k="' + k + '" aria-pressed="' + (i ? 'false' : 'true') + '">' + t + (i ? ' · ' + count(k) : '') + '</button>').join('') + '<span class="gap"></span><button type="button" id="openall">Open every item</button><button type="button" id="closeall">Back to Work</button>';
+  const tree = document.getElementById('tree');
+  const startOpen = new Map([...tree.querySelectorAll('details')].map(d => [d, d.open]));
+  tools.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'openall') { tree.querySelectorAll('details').forEach(d => { d.open = true; }); return; }
+    if (b.id === 'closeall') { startOpen.forEach((v, d) => { d.open = v; }); return; }
+    tools.querySelectorAll('button[data-k]').forEach(x => x.setAttribute('aria-pressed', x === b));
+    const k = b.dataset.k;
+    tree.querySelectorAll('.leaf').forEach(r => r.classList.toggle('hide', k !== 'all' && !r.dataset.who.split(' ').includes(k)));
+    tree.querySelectorAll('.branch').forEach(d => {
+      const any = d.querySelector('.leaf:not(.hide)') || (k === 'all');
+      d.classList.toggle('hide', !any);
+      if (k !== 'all' && any) d.querySelector('details').open = true;
+    });
+    if (k === 'all') startOpen.forEach((v, d) => { d.open = v; });
+  });
+
+  document.body.dataset.ready = pages.length;
+}).catch(err => { document.getElementById('lede').textContent = 'Could not read pages.json (' + err.message + '). Open this through node studies/server.cjs.'; });
+</script></body></html>

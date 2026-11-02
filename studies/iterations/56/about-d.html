@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>D / Four choices</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--cyan:#4FC4CF;--yellow:#F2C94A;--line:#dfe2e6}
+*{box-sizing:border-box}html,body{margin:0}body{font:17px/1.55 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff}
+p{margin:0 0 14px}button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.hint{font-size:13px;color:var(--fade)}
+
+main{max-width:760px;margin:auto;padding:clamp(28px,6vw,72px) clamp(20px,5vw,40px)}
+h1{font:700 clamp(1.8rem,5vw,3.2rem)/1.05 'Space Grotesk';letter-spacing:-.03em;margin:0 0 10px}
+.pair{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;margin:28px 0}
+.pair button{padding:20px 16px;border:2px solid var(--ink);background:#fff;border-radius:16px;cursor:pointer;font-weight:500;min-height:88px;transition:background .15s,transform .15s}
+.pair button:hover{background:#fff4c9;transform:translateY(-2px)}.or{color:var(--fade);font-size:14px}
+.got p{border-left:4px solid var(--c);padding:2px 0 2px 16px}.got small{display:block;color:var(--soft);font-size:12px;margin-bottom:4px}
+.dots{display:flex;gap:6px;margin-top:6px}.dots i{width:12px;height:12px;border-radius:50%;border:2px solid var(--ink)}.dots i.on{background:var(--ink)}
+.end{margin-top:26px;padding:18px;border-radius:16px;background:#f4f5f7}.end button{border:0;background:none;text-decoration:underline;cursor:pointer;padding:6px 0;min-height:44px}
+@media(max-width:560px){.pair{grid-template-columns:1fr}.or{text-align:center}}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head><body>
+<main><h1>Meet us your way.</h1><p class="hint">Four choices make an About.</p><div class="dots" id="dots"></div><div id="ask"></div><div class="got" id="got" aria-live="polite"></div><div id="end"></div></main>
+<script>
+var P=[["Start with what we make","Start with who we are",0,1],["How it looks","How it reads",2,3],["What came first","What came after",4,5],["Keep it short","Tell me everything",6,7]],W=[{"w":"Divya","t":"Divya Tak makes playful variations on familiar forms, changing their rules to see what happens to the experience. Her work spans film, games, comics, interactive systems, and generative media, and has contributed to award-winning projects. Trained in physics and shaped by over a decade of working across creative industries, she approaches storytelling as a study of perception itself, how we see, what we overlook, and how meaning forms between systems and humans."},{"w":"Kahran","t":"I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and a public record of what got built. The photograph and poem on the home page come out of the same machine, one of each a day."},{"w":"Divya","t":"She has created cover illustrations for scientific journals between 2018 and 2024, and her original comic Common was published in the INKLAB Anthology in 2021."},{"w":"Kahran","t":"How the World Works, a first book, 2022, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa."},{"w":"Divya","t":"Her visual poetry collaboration with poet Kahran Singh was exhibited in Boulder, Colorado in January 2025."},{"w":"Kahran","t":"Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months."},{"w":"Kahran","t":"Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend."},{"w":"Divya","t":"Her visual poetry collaboration with poet Kahran Singh was exhibited in Boulder, Colorado in January 2025. She worked as Creative Producer on the film Jugnuma, which won Best Film at Leeds 2025. Her narrative game The Titli Effect placed second at The Jennifer Ann Group's Connectedness Game Jam. She has created cover illustrations for scientific journals between 2018 and 2024, and her original comic Common was published in the INKLAB Anthology in 2021. She completed the Pollinator Creative Program in November 2025 and the BHX Creators Residency in March 2025."}],n=0;
+var ask=document.getElementById('ask'),got=document.getElementById('got'),end=document.getElementById('end'),dots=document.getElementById('dots');
+function dotsDraw(){dots.innerHTML=P.map(function(_,i){return '<i class="'+(i<n?'on':'')+'"></i>';}).join('');}
+function show(){dotsDraw();if(n>=P.length){ask.innerHTML='';end.innerHTML='<div class="end"><p>That is your About. Nobody else has quite this one.</p><button id="again" type="button">Choose again</button></div>';document.getElementById('again').onclick=function(){n=0;got.innerHTML='';end.innerHTML='';show();};return;}
+var q=P[n];ask.innerHTML='<div class="pair"><button type="button" data-w="'+q[2]+'">'+q[0]+'</button><span class="or">or</span><button type="button" data-w="'+q[3]+'">'+q[1]+'</button></div>';
+ask.querySelectorAll('button').forEach(function(b){b.onclick=function(){var w=W[+b.dataset.w],e=document.createElement('div');e.innerHTML='<small>'+w.w+'</small>';var p=document.createElement('p');p.textContent=w.t;p.style.setProperty('--c',w.w==='Divya'?'#E91E7B':'#4FC4CF');e.appendChild(p);got.appendChild(e);n++;show();};});}
+show();
+</script></body></html>

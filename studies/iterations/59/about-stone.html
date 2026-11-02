@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Take a stone</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--line:#dfe2e6}
+*{box-sizing:border-box}html,body{margin:0}body{font:17px/1.55 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:100dvh}
+.stage{position:sticky;top:0;height:100dvh;touch-action:pan-y}canvas{display:block;width:100%;height:100%;cursor:grab}
+.words{padding:clamp(28px,6vh,72px) clamp(20px,4vw,56px)}
+h1{font:700 clamp(2rem,4.4vw,3.6rem)/1 'Space Grotesk';letter-spacing:-.03em;margin:0 0 12px}
+.n{font-size:14px;color:var(--soft);margin:0 0 8px}
+button{font:inherit;color:inherit;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px;min-height:44px;cursor:pointer}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.log{margin-top:22px}.log article{border-left:5px solid var(--c);padding:1px 0 1px 16px;margin:0 0 16px;animation:in .45s}
+.log small{display:block;color:var(--soft);font-size:12px;letter-spacing:.06em;text-transform:uppercase}.log p{margin:2px 0 0}
+@keyframes in{from{opacity:0;transform:translateX(-10px)}}
+@media(max-width:760px){.wrap{grid-template-columns:1fr}.stage{position:relative;height:52dvh}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js", "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/" } }</script>
+</head><body><div class="wrap">
+<div class="stage" id="stage"><canvas id="gl" role="img" aria-label="The Joyus J, built of real stones. Each stone you take tells you something."></canvas></div>
+<div class="words"><h1>Take a stone.</h1><p class="n" id="n">Building the J…</p><button id="take" type="button" disabled>Take one for me</button><div class="log" id="log" aria-live="polite"></div></div>
+</div>
+<script type="module">
+/* Study 59: the live page's J, not an imitation: the same worker (../41/jbuilder.js), the same forty stones
+   cut by the same Voronoi diagram, the same Gummy look. What is new: the stones at the front can be taken. */
+import * as THREE from 'three';
+import * as look from '../41/looks/gummy.js';
+const words = await (await fetch('words.json')).json();
+const sentences = words.D.flatMap(p => p.split(/(?<=\.)\s+(?=[A-Z])/));
+const SAY = [...sentences.map(t => ({ who: 'Divya', t })), ...words.K.map(t => ({ who: 'Kahran', t })), { who: 'Kahran', t: words.Q }, ...words.Y.map(([y, t]) => ({ who: 'Kahran', t: y + ': ' + t }))];
+// dealt so the two of them alternate as far as they can
+const dealt = []; { const a = SAY.filter(s => s.who === 'Divya'), b = SAY.filter(s => s.who === 'Kahran'); let n = 0; while (a.length || b.length) { const fromA = a.length && (!b.length || n * (a.length + b.length) % 3 === 0); dealt.push((fromA ? a : b).shift()); n++; } }
+
+const canvas = document.getElementById('gl'), stage = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(2, devicePixelRatio || 1)); renderer.outputColorSpace = THREE.SRGBColorSpace;
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(24, 1, .1, 60);
+const JH = 1.6, FLOOR = -JH / 2 - .24;
+const pivot = new THREE.Group(); scene.add(pivot);
+const block = new THREE.Group(); block.position.y = -JH / 2; pivot.add(block);
+const mat = (k) => new THREE.ShaderMaterial({ transparent: true, depthWrite: false, uniforms: { k: { value: k } },
+  vertexShader: 'varying vec2 v; void main(){ v = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+  fragmentShader: 'uniform float k; varying vec2 v; void main(){ vec2 p = (v - .5) * 2.; gl_FragColor = vec4(.17,.21,.27, exp(-3.2 * dot(p,p)) * k); #include <colorspace_fragment>\n }' });
+const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.1, .95), mat(.28)); shadow.rotation.x = -Math.PI / 2; shadow.position.y = FLOOR + .002; scene.add(shadow);
+
+await look.setup({ THREE, renderer, scene, camera, pieces: [], block, pivot, box: { min: new THREE.Vector3(-.8, -JH / 2, -.3), max: new THREE.Vector3(.8, JH / 2, .3) } });
+
+const pieces = [];
+const seed = new URLSearchParams(location.search).get('seed') || Math.random().toString(36).slice(2, 8);
+const worker = new Worker('../41/jbuilder.js', { type: 'module' });
+worker.onmessage = (e) => {
+  const d = e.data;
+  if (d.type === 'piece') {
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+    g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true)); g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+    g.computeBoundingBox(); const c = g.boundingBox.getCenter(new THREE.Vector3()); g.translate(-c.x, -c.y, -c.z);
+    const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(d.colour); m.userData.hex = d.colour;
+    look.dress({ THREE, mesh: m }); m.position.copy(c); block.add(m);
+    pieces.push({ m, home: c.clone(), hex: d.colour, taken: false, t: 0, hover: 0 });
+  }
+  if (d.type === 'done') ready();
+  if (d.type === 'error') document.getElementById('n').textContent = 'Could not build the J: ' + d.message;
+};
+worker.postMessage({ seed, cells: 40, res: .6, field: 'exact', mask: 'masks1024/rubik.png', layer: false });
+
+let loose = [];
+const n = document.getElementById('n'), log = document.getElementById('log'), takeBtn = document.getElementById('take');
+let told = 0;
+function say() { n.textContent = told < dealt.length ? (dealt.length - told) + ' left to take. Each one is true.' : 'That is everything we have said. The rest of the J is still standing.'; takeBtn.disabled = told >= dealt.length; }
+function ready() {
+  // the front stones are the loose ones, as many as we have things to say; the back of the J stays up
+  loose = [...pieces].sort((a, b) => b.home.z - a.home.z).slice(0, dealt.length);
+  say(); window.__stones = pieces.length; window.__loose = loose.length; window.__ready = 1;
+}
+function take(P) {
+  if (!P || P.taken || told >= dealt.length || !loose.includes(P)) return;
+  P.taken = true; P.t = 0; const s = dealt[told++];
+  P.to = new THREE.Vector3((Math.random() - .5) * 1.5, FLOOR + JH / 2 + .1, .28 + Math.random() * .5);
+  P.from = P.m.position.clone(); P.axis = new THREE.Vector3(Math.random() - .5, Math.random() - .5, Math.random() - .5).normalize();
+  const a = document.createElement('article'); a.style.setProperty('--c', P.hex);
+  const w = document.createElement('small'); w.textContent = s.who; const p = document.createElement('p'); p.textContent = s.t;
+  a.append(w, p); log.insertBefore(a, log.firstChild); say(); window.__told = told;
+}
+takeBtn.onclick = () => take(loose.find(P => !P.taken));
+window.__takeNext = () => take(loose.find(P => !P.taken));
+
+const ray = new THREE.Raycaster(), ptr = new THREE.Vector2(), lean = new THREE.Vector2();
+const hit = (e) => { const b = canvas.getBoundingClientRect(); ptr.set((e.clientX - b.left) / b.width * 2 - 1, -(e.clientY - b.top) / b.height * 2 + 1); ray.setFromCamera(ptr, camera); const h = ray.intersectObjects(pieces.map(P => P.m))[0]; return h && pieces.find(P => P.m === h.object); };
+let over = null;
+canvas.addEventListener('pointermove', e => { over = hit(e); canvas.style.cursor = over && loose.includes(over) && !over.taken ? 'pointer' : 'default'; lean.copy(ptr); });
+canvas.addEventListener('pointerdown', e => { take(hit(e)); });
+
+function fit() { const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); camera.aspect = w / h; const fov = camera.fov * Math.PI / 180, dist = Math.max(2.3 / (2 * Math.tan(fov / 2)), 2.3 / (2 * Math.tan(fov / 2) * camera.aspect)) * 1.04; camera.position.set(0, -.02 + dist * .13, dist); camera.lookAt(0, -.1, 0); camera.updateProjectionMatrix(); }
+fit(); addEventListener('resize', fit);
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let last = performance.now();
+renderer.setAnimationLoop((now) => {
+  const dt = Math.min(.05, (now - last) / 1000); last = now;
+  if (!still) { pivot.rotation.y += (lean.x * .3 - pivot.rotation.y) * .06; pivot.rotation.x += (-lean.y * .12 - pivot.rotation.x) * .06; }
+  for (const P of pieces) {
+    if (P.taken) {
+      if (P.t < 1) {
+        P.t = still ? 1 : Math.min(1, P.t + dt / .95);
+        const t = P.t, e = t * t;
+        P.m.position.lerpVectors(P.from, P.to, t); P.m.position.y = P.from.y + (P.to.y - P.from.y) * e + Math.sin(t * Math.PI) * .18;
+        P.m.rotateOnAxis(P.axis, dt * 4 * (1 - t));
+      }
+    } else {
+      const want = P === over && loose.includes(P) ? 1 : 0;
+      P.hover += (want - P.hover) * .18;
+      P.m.position.z = P.home.z + P.hover * .07;
+      P.m.scale.setScalar(1 + P.hover * .05);
+    }
+  }
+  renderer.render(scene, camera);
+});
+</script></body></html>

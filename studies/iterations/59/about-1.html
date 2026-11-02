@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>1 / One J, two people</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Rubik:wght@900&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--cyan:#4FC4CF;--yellow:#F2C94A;--line:#dfe2e6}
+*{box-sizing:border-box}html,body{margin:0}body{font:17px/1.55 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff}
+p{margin:0 0 14px}button{font:inherit;color:inherit}:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.q{font-style:italic;color:var(--soft)}
+.years{list-style:none;margin:16px 0 0;padding:12px 0 0;border-top:1px solid var(--line);font-size:14px}.years li{display:grid;grid-template-columns:48px 1fr;gap:6px;padding:2px 0}.years b{font-weight:500;color:var(--soft)}
+
+.stage{position:relative;width:100%;height:min(66vh,620px);min-height:340px}canvas{position:absolute;inset:0;width:100%;height:100%}
+.who{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,5vw,64px);padding:0 clamp(20px,5vw,64px) 64px;max-width:1240px;margin:auto}
+h2{font:700 clamp(1.5rem,3vw,2.2rem)/1.1 'Space Grotesk';letter-spacing:-.02em;margin:0 0 14px}
+.again{position:absolute;right:16px;top:12px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:8px 14px;min-height:44px;cursor:pointer;font-size:14px}
+@media(max-width:720px){.who{grid-template-columns:1fr}}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head><body>
+<div class="stage"><canvas id="c" role="img" aria-label="The Joyus J, made of forty stones, comes apart and becomes a D and a K"></canvas><button class="again" id="again" type="button">Again</button></div>
+<div class="who"><article><h2>Divya Tak</h2><p>Divya Tak makes playful variations on familiar forms, changing their rules to see what happens to the experience. Her work spans film, games, comics, interactive systems, and generative media, and has contributed to award-winning projects. Trained in physics and shaped by over a decade of working across creative industries, she approaches storytelling as a study of perception itself, how we see, what we overlook, and how meaning forms between systems and humans.</p><p>Her visual poetry collaboration with poet Kahran Singh was exhibited in Boulder, Colorado in January 2025. She worked as Creative Producer on the film Jugnuma, which won Best Film at Leeds 2025. Her narrative game The Titli Effect placed second at The Jennifer Ann Group's Connectedness Game Jam. She has created cover illustrations for scientific journals between 2018 and 2024, and her original comic Common was published in the INKLAB Anthology in 2021. She completed the Pollinator Creative Program in November 2025 and the BHX Creators Residency in March 2025.</p></article><article><h2>Kahran Singh</h2><p>Hello. I’m Kahran.</p><p>I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and a public record of what got built. The photograph and poem on the home page come out of the same machine, one of each a day.</p><p>Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months.</p><p>How the World Works, a first book, 2022, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</p><p>I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we eloped in Telluride, in the snow, and did it again in Jaisalmer with 150 people a year later.</p><p>Write to me. Especially if you are drawing up your own contract with the world instead of signing the one you were handed: what it gives you, what you give back, and which of the settled questions you are asking again. Tell me what’s going on. K</p><p class="q">Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.</p><ol class="years"><li><b>now</b><span>Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</span></li><li><b>2025</b><span>Board of TomboyX. A panel in Kauai, seven StartOut talks.</span></li><li><b>2024</b><span>Poem Films, with Divya Tak. SEEN V, Boulder.</span></li><li><b>2022</b><span>Joyus Studio. How the World Works, a first book. Jaisalmer.</span></li><li><b>2021</b><span>Telluride.</span></li><li><b>2017</b><span>Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</span></li><li><b>2015</b><span>Vidyanext, Bangalore, until 2019.</span></li><li><b>2012</b><span>Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</span></li><li><b>2009</b><span>Microsoft, after an internship in the House of Commons.</span></li><li><b>2006</b><span>Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</span></li></ol></article></div>
+<script type="module">
+import { seedsIn, cut, letterMask, PALETTE } from './voronoi.js';
+const R = 460, N = 40;
+const J = await letterMask('J', R), Dm = await letterMask('D', R), Km = await letterMask('K', R);
+const col = (p, i) => PALETTE[i % 4];
+const js = cut(R, R, J, seedsIn(R, R, J, N, 11), col);
+const half = Math.floor(js.length / 2);
+const ds = cut(R, R, Dm, seedsIn(R, R, Dm, half, 23), col), ks = cut(R, R, Km, seedsIn(R, R, Km, js.length - half, 31), col);
+const c = document.getElementById('c'), g = c.getContext('2d');
+let t0 = performance.now(); const hold = 1100, dur = 1500;
+// each J stone goes to the nearest free stone of the letter on its own side
+const order = js.map((s, i) => i).sort((a, b) => js[a].cx - js[b].cx);
+const pairs = order.map((i, n) => { const left = n < half, list = left ? ds : ks, idx = left ? n : n - half; return { a: js[i], b: list[idx % list.length], left, delay: (js[i].cy / R) * .32 }; });
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function frame(now) {
+  const dpr = devicePixelRatio || 1, W = c.clientWidth, H = c.clientHeight;
+  if (c.width !== W * dpr) { c.width = W * dpr; c.height = H * dpr; }
+  g.setTransform(dpr, 0, 0, dpr, 0, 0); g.clearRect(0, 0, W, H);
+  const s = Math.min(H / R, W / (R * 2.1));
+  const T = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : (now - t0 - hold) / dur;
+  for (const p of pairs) {
+    const t = ease(Math.max(0, Math.min(1, (T - p.delay) / .68)));
+    const ox = W / 2 - R * s / 2, oy = (H - R * s) / 2;
+    const tx = (p.left ? W * .27 : W * .73) - R * s / 2;
+    const ax = ox + p.a.cx * s, ay = oy + p.a.cy * s, bx = tx + p.b.cx * s, by = oy + p.b.cy * s;
+    const arc = Math.sin(t * Math.PI) * -46;
+    const x = ax + (bx - ax) * t, y = ay + (by - ay) * t + arc;
+    g.globalAlpha = 1 - t; g.drawImage(p.a.canvas, x - p.a.w * s / 2, y - p.a.h * s / 2, p.a.w * s, p.a.h * s);
+    g.globalAlpha = t; g.drawImage(p.b.canvas, x - p.b.w * s / 2, y - p.b.h * s / 2, p.b.w * s, p.b.h * s);
+  }
+  g.globalAlpha = 1; window.__t = T; requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+document.getElementById('again').onclick = () => { t0 = performance.now(); };
+window.__ready = js.length;
+</script></body></html>

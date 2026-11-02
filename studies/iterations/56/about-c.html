@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>C / The braid</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--cyan:#4FC4CF;--yellow:#F2C94A;--line:#dfe2e6}
+*{box-sizing:border-box}html,body{margin:0}body{font:17px/1.55 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff}
+p{margin:0 0 14px}button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.hint{font-size:13px;color:var(--fade)}
+
+.top{padding:clamp(28px,5vw,64px) clamp(20px,5vw,64px) 18px;max-width:880px}
+h1{font:700 clamp(1.8rem,4vw,3rem)/1.05 'Space Grotesk';letter-spacing:-.03em;margin:0 0 8px}
+.t{position:relative;display:grid;grid-template-columns:1fr 64px 1fr;padding:0 clamp(12px,4vw,48px) 80px;max-width:1100px;margin:auto}
+.row{display:contents}
+.d,.k{padding:10px 14px;font-size:15px;line-height:1.45}
+.d{text-align:right;grid-column:1}.k{grid-column:3}
+.y{grid-column:2;text-align:center;font:500 12px ui-monospace,Consolas,monospace;color:var(--soft);padding-top:13px;position:relative;z-index:1}
+.y span{background:#fff;padding:2px 4px}
+.meet{grid-column:1/-1;text-align:center;padding:26px 10px;position:relative;z-index:1}
+.meet b{display:inline-block;background:var(--ink);color:#fff;padding:9px 18px;border-radius:999px;font-weight:500}
+svg{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
+@media(max-width:640px){.d,.k{font-size:13.5px;padding:8px 6px}.t{grid-template-columns:1fr 40px 1fr;padding:0 8px 60px}}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head><body>
+<div class="top"><h1>Two lines, one studio.</h1></div>
+<div class="t" id="t"><svg id="sv" aria-hidden="true"></svg><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2006</span></div><div class="k" data-s="k">Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</div></div><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2009</span></div><div class="k" data-s="k">Microsoft, after an internship in the House of Commons.</div></div><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2012</span></div><div class="k" data-s="k">Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</div></div><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2015</span></div><div class="k" data-s="k">Vidyanext, Bangalore, until 2019.</div></div><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2017</span></div><div class="k" data-s="k">Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</div></div><div class="row"><div class="d" data-s="d">She has created cover illustrations for scientific journals between 2018 and 2024, and her original comic Common was published in the INKLAB Anthology in 2021.</div><div class="y"><span>2018</span></div><div class="k" data-s="k"></div></div><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2021</span></div><div class="k" data-s="k">Telluride.</div></div><div class="meet" id="meet"><b>Joyus Studio. How the World Works, a first book. Jaisalmer.</b></div><div class="row"><div class="d" data-s="d"></div><div class="y"><span>2024</span></div><div class="k" data-s="k">Poem Films, with Divya Tak. SEEN V, Boulder.</div></div><div class="row"><div class="d" data-s="d">Her visual poetry collaboration with poet Kahran Singh was exhibited in Boulder, Colorado in January 2025.<br><br>She worked as Creative Producer on the film Jugnuma, which won Best Film at Leeds 2025.<br><br>She completed the Pollinator Creative Program in November 2025 and the BHX Creators Residency in March 2025.</div><div class="y"><span>2025</span></div><div class="k" data-s="k">Board of TomboyX. A panel in Kauai, seven StartOut talks.</div></div><div class="row"><div class="d"></div><div class="y"><span>now</span></div><div class="k">Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</div></div></div>
+<script>
+function draw(){var t=document.getElementById('t'),sv=document.getElementById('sv'),b=t.getBoundingClientRect(),m=document.getElementById('meet').getBoundingClientRect();
+var cx=b.width/2,w=Math.min(b.width*.018,24),my=m.top-b.top+m.height/2,h=b.height;sv.setAttribute('viewBox','0 0 '+b.width+' '+h);
+function p(a){return 'M'+(cx+a*w)+' 0 C'+(cx+a*w)+' '+(my*.55)+' '+cx+' '+(my*.7)+' '+cx+' '+my+' C'+cx+' '+(my+(h-my)*.25)+' '+(cx-a*22)+' '+(my+(h-my)*.4)+' '+(cx-a*7)+' '+h;}
+sv.innerHTML='<path d="'+p(-1)+'" fill="none" stroke="#E91E7B" stroke-width="4"/><path d="'+p(1)+'" fill="none" stroke="#4FC4CF" stroke-width="4"/>';}
+draw();addEventListener('resize',draw);document.fonts&&document.fonts.ready.then(draw);
+</script></body></html>

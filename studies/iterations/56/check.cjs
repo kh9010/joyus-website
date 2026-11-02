@@ -1,0 +1,28 @@
+// Study 56: Kahran's paragraphs are never split or edited; hers only cut at full stops, and they join back; nothing shows twice on the braid.
+const fs = require('node:fs');
+const path = require('node:path');
+let bad = 0;
+const say = (ok, m) => { console.log((ok ? '  ok   ' : '  FAIL ') + m); if (!ok) bad++; };
+const W = JSON.parse(fs.readFileSync(path.join(__dirname, 'words.json'), 'utf8'));
+const src = JSON.parse(fs.readFileSync(path.join(__dirname, '../52/words.json'), 'utf8'));
+const read = f => fs.readFileSync(path.join(__dirname, f), 'utf8');
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+say(W.K.join() === src.kahran.paras.join(), 'Kahran: his six paragraphs, unchanged');
+say(W.dSentences.join(' ') === src.divya.paras.join(' '), 'Divya: her sentences join back into her two paragraphs');
+const a = read('about-a.html');
+say(W.D.every(p => a.includes(esc(p))) && W.K.every(p => a.includes(esc(p))), 'A: both Abouts whole');
+const b = read('about-b.html');
+say(W.K.every(p => b.includes(JSON.stringify(p))), 'B: every paragraph of his is one whole stone');
+const c = read('about-c.html');
+const dcells = [...c.matchAll(/<div class="d" data-s="d">([\s\S]*?)<\/div>/g)].flatMap(m => m[1].split('<br><br>')).filter(Boolean);
+say(new Set(dcells).size === dcells.length, 'C: none of her sentences shows twice (' + dcells.length + ')');
+say(W.Y.filter(([y]) => /^\d/.test(y)).every(([, t]) => c.includes(esc(t))), 'C: all his dated years are on the line');
+const d = read('about-d.html');
+say(d.includes('drafts') === false && /POLES|Keep it short/.test(d), 'D: the choices are there');
+const html = read('index.html');
+const refs = [...html.matchAll(/(?:href|src)="((?:img\/|about-)[^"]+)"/g)].map(m => m[1]);
+const lost = refs.filter(r => !fs.existsSync(path.join(__dirname, r)));
+say(!lost.length, refs.length + ' links and pictures exist' + (lost.length ? ': not ' + lost.join() : ''));
+const words = html.replace(/<head>[\s\S]*?<\/head>/, '').replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length;
+say(words < 100, 'the study page is under 100 words (' + words + ')');
+process.exitCode = bad ? 1 : 0;

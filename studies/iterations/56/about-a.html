@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>A / The divide</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+:root{--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--cyan:#4FC4CF;--yellow:#F2C94A;--line:#dfe2e6}
+*{box-sizing:border-box}html,body{margin:0}body{font:17px/1.55 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff}
+p{margin:0 0 14px}button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.hint{font-size:13px;color:var(--fade)}
+
+.room{position:relative;height:100dvh;min-height:560px;overflow:hidden;touch-action:pan-y}
+.half{position:absolute;top:0;bottom:0;overflow:hidden}
+.half.d{left:0;background:#fff2f8}.half.k{right:0;background:#effafb}
+.inner{position:absolute;top:0;bottom:0;width:min(100vw,720px);padding:64px clamp(24px,4vw,56px);overflow:auto}
+.d .inner{left:0}.k .inner{right:0}
+h2{font:700 clamp(2rem,5vw,3.6rem)/1.02 'Space Grotesk';letter-spacing:-.03em;margin:0 0 22px}
+.d h2{color:var(--pink)}.k h2{color:#1a98a4}
+.line{position:absolute;top:0;bottom:0;width:44px;margin-left:-22px;cursor:ew-resize;background:none;border:0;padding:0;z-index:2}
+.line::before{content:'';position:absolute;left:21px;top:0;bottom:0;width:2px;background:var(--ink)}
+.line::after{content:'⟷';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;line-height:44px;text-align:center;background:var(--ink);color:#fff;border-radius:50%;font-size:16px}
+.years{list-style:none;margin:18px 0 0;padding:12px 0 0;border-top:1px solid #bfe6ea;font-size:14px}.years li{display:grid;grid-template-columns:48px 1fr;gap:6px;padding:2px 0}.years b{font-weight:500;color:var(--soft)}
+.q{font-style:italic;color:var(--soft)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style></head><body>
+<div class="room" id="room">
+<section class="half d" id="d"><div class="inner"><h2>Divya Tak</h2><p>Divya Tak makes playful variations on familiar forms, changing their rules to see what happens to the experience. Her work spans film, games, comics, interactive systems, and generative media, and has contributed to award-winning projects. Trained in physics and shaped by over a decade of working across creative industries, she approaches storytelling as a study of perception itself, how we see, what we overlook, and how meaning forms between systems and humans.</p><p>Her visual poetry collaboration with poet Kahran Singh was exhibited in Boulder, Colorado in January 2025. She worked as Creative Producer on the film Jugnuma, which won Best Film at Leeds 2025. Her narrative game The Titli Effect placed second at The Jennifer Ann Group's Connectedness Game Jam. She has created cover illustrations for scientific journals between 2018 and 2024, and her original comic Common was published in the INKLAB Anthology in 2021. She completed the Pollinator Creative Program in November 2025 and the BHX Creators Residency in March 2025.</p></div></section>
+<section class="half k" id="k"><div class="inner"><h2>Kahran Singh</h2><p>Hello. I’m Kahran.</p><p>I write poems, and most days I build software. The poems came first. The software is newer, and it is mostly tools to support myself: one place where everything I leave behind lands, a day planned from it, and a public record of what got built. The photograph and poem on the home page come out of the same machine, one of each a day.</p><p>Joyus is a storytelling and experience design studio with Divya Tak. Tres Monos invests early in underrepresented founders, with Sweta Jagirdar and Sahil Sagar. At Vidyanext, in Bangalore, I took over after a leadership crisis; when it could not be saved, I placed all 65+ people within two months.</p><p>How the World Works, a first book, 2022, and one a day on the home page, chosen by the day’s weather. An MFA in Writing and Poetics underway at the Jack Kerouac School, Naropa.</p><p>I’m learning Kathak from Rachna Nivas in New York. I’m married to Gourav: we eloped in Telluride, in the snow, and did it again in Jaisalmer with 150 people a year later.</p><p>Write to me. Especially if you are drawing up your own contract with the world instead of signing the one you were handed: what it gives you, what you give back, and which of the settled questions you are asking again. Tell me what’s going on. K</p><p class="q">Sometimes I smile at myself (in the mirror) and wonder what must it be like to be my friend.</p><ol class="years"><li><b>now</b><span>Tools, with Claude. MFA in poetry at Naropa’s Kerouac School. Kathak at the Kathak Legacy Project.</span></li><li><b>2025</b><span>Board of TomboyX. A panel in Kauai, seven StartOut talks.</span></li><li><b>2024</b><span>Poem Films, with Divya Tak. SEEN V, Boulder.</span></li><li><b>2022</b><span>Joyus Studio. How the World Works, a first book. Jaisalmer.</span></li><li><b>2021</b><span>Telluride.</span></li><li><b>2017</b><span>Tres Monos Capital, with Sweta Jagirdar and Sahil Sagar.</span></li><li><b>2015</b><span>Vidyanext, Bangalore, until 2019.</span></li><li><b>2012</b><span>Aditi Technologies, then Symphony Teleca: product and programmes across the US, India and Russia.</span></li><li><b>2009</b><span>Microsoft, after an internship in the House of Commons.</span></li><li><b>2006</b><span>Tufts: computer science and economics, and the Tufts Daily. A year at University College London.</span></li></ol></div></section>
+<button class="line" id="line" role="slider" aria-label="Move between Divya and Kahran" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"></button>
+</div>
+<script>
+var R=document.getElementById('room'),d=document.getElementById('d'),k=document.getElementById('k'),l=document.getElementById('line');
+function set(p){p=Math.max(6,Math.min(94,p));d.style.width=p+'%';k.style.width=(100-p)+'%';l.style.left=p+'%';l.setAttribute('aria-valuenow',Math.round(p));window.__p=p;}
+set(50);var drag=false;
+l.addEventListener('pointerdown',function(e){drag=true;l.setPointerCapture(e.pointerId);});
+l.addEventListener('pointermove',function(e){if(drag){var b=R.getBoundingClientRect();set((e.clientX-b.left)/b.width*100);}});
+l.addEventListener('pointerup',function(){drag=false;});
+l.addEventListener('keydown',function(e){if(e.key==='ArrowLeft'){set(window.__p-6);e.preventDefault();}if(e.key==='ArrowRight'){set(window.__p+6);e.preventDefault();}});
+</script></body></html>

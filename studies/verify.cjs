@@ -58,6 +58,15 @@ for (const d of folders) {
   r.status === 0 ? ok(d + '/check.cjs passes') : fail(d + '/check.cjs:\n' + r.stdout);
 }
 
+// 2c. the Site map tab: on the rail, and its data holds
+console.log('site map tab');
+rail.includes('href="sitemap/index.html"') ? ok('the rail links the Site map tab') : fail('the rail has no Site map tab');
+read('sitemap/index.html').includes('content="noindex') ? ok('sitemap/index.html is noindex') : fail('sitemap/index.html has no noindex');
+{
+  const sm = spawnSync(process.execPath, [path.join(here, 'sitemap', 'check.cjs')], { encoding: 'utf8' });
+  sm.status === 0 ? ok('sitemap/check.cjs passes') : fail('sitemap/check.cjs: ' + sm.stdout);
+}
+
 // 3. screenshots are real PNGs
 console.log('images');
 let imgs = 0, badImgs = 0;
