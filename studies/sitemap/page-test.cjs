@@ -116,7 +116,7 @@ const ready = page => page.waitForFunction(() => document.body.dataset.ready, { 
     if (shots) await page.screenshot({ path: path.join(shots, 'tab.png') });
     await page.click('.modes a[data-mode="studies"]');
     await new Promise(r => setTimeout(r, 400));
-    say(/iterations\/68/.test(await page.$eval('iframe', f => f.src)), 'Studies brings the study back');
+    say(/iterations\/69/.test(await page.$eval('iframe', f => f.src)), 'Studies brings the study back');
 
     // phone
     await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });
