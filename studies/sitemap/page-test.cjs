@@ -108,6 +108,19 @@ const ready = page => page.waitForFunction(() => document.body.dataset.ready, { 
 
     // the tab in the rail
     await page.goto(BASE, { waitUntil: 'networkidle0' });
+    // the bet, a mode inside this page
+    const B = JSON.parse(fs.readFileSync(path.join(__dirname, 'bet.json'), 'utf8'));
+    await page.goto(BASE + 'sitemap/index.html#bet', { waitUntil: 'networkidle0' }); await ready(page);
+    const bet = await page.evaluate(() => ({ stagesHidden: document.getElementById('vStages').classList.contains('hide'), rows: document.querySelectorAll('tr.bm-r').length, heads: document.querySelectorAll('table.bm thead img').length, cells: document.querySelectorAll('td.bc').length, broken: [...document.querySelectorAll('#vBet img')].filter(i => !i.naturalWidth).length, big: [...document.querySelectorAll('.bet-find .big')].map(e => e.textContent), wide: [document.documentElement.scrollWidth, innerWidth] }));
+    say(bet.stagesHidden && bet.rows === 21 && bet.heads === B.outputs.length && bet.cells === 21 * B.outputs.length, 'the bet opens by #bet: 21 questions against ' + bet.heads + ' outputs');
+    say(bet.broken === 0, 'every output has its picture');
+    say(bet.wide[0] <= bet.wide[1], 'the bet does not scroll the page sideways');
+    console.log('       ' + bet.big.join(' · '));
+    await page.click('#views button[data-v="stages"]');
+    say(await page.evaluate(() => !document.getElementById('vStages').classList.contains('hide') && document.getElementById('vBet').classList.contains('hide')), 'back to Stages, unchanged');
+    const inItem = await page.evaluate(() => { const r = document.querySelector('.leaf[data-id="ss-packaging"]'); r.querySelector('details').open = true; const s = r.querySelector('.st-bet'); s.querySelector('a').click(); return { n: s.dataset.bet, on: !document.getElementById('vBet').classList.contains('hide') }; });
+    say(inItem.on && +inItem.n > 0, 'an item shows its score (' + inItem.n + ') and leads to the bet');
+    await page.goto(BASE, { waitUntil: 'networkidle0' });
     await page.click('.modes a[data-mode="sitemap"]');
     await page.waitForFunction(() => { const f = document.querySelector('iframe'); try { return f.contentDocument.body.dataset.ready; } catch { return false; } }, { timeout: 15000 });
     const onMap = await page.evaluate(() => ({ cur: document.querySelector('.modes a[aria-current]').dataset.mode, hist: getComputedStyle(document.querySelector('.history')).display, hash: location.hash }));
@@ -116,7 +129,7 @@ const ready = page => page.waitForFunction(() => document.body.dataset.ready, { 
     if (shots) await page.screenshot({ path: path.join(shots, 'tab.png') });
     await page.click('.modes a[data-mode="studies"]');
     await new Promise(r => setTimeout(r, 400));
-    say(/iterations\/69/.test(await page.$eval('iframe', f => f.src)), 'Studies brings the study back');
+    say(/iterations\/82/.test(await page.$eval('iframe', f => f.src)), 'Studies brings the study back');
 
     // phone
     await page.setViewport({ width: 390, height: 844, isMobile: true, hasTouch: true });

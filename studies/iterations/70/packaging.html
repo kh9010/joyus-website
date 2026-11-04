@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Secret Senses, packaging — Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+/* One question, answered by one scroll: the motifs make the label, the label goes on the bottle, each product gets its own border, then all of them. */
+#run{height:1000vh}
+#stage{background:var(--paper)}
+#stage img{position:absolute;left:0;top:0;display:block;max-width:none;transform-origin:0 0}
+#stage img.m{will-change:transform;filter:drop-shadow(0 2px 3px rgba(44,53,68,.22));transform-origin:50% 50%;z-index:3}
+#ins{display:inline-block;overflow:hidden;white-space:nowrap;vertical-align:bottom;color:var(--pink)}
+#hero{-webkit-mask-image:linear-gradient(90deg,transparent 4%,#000 24%,#000 76%,transparent 96%),linear-gradient(transparent,#000 8%,#000 92%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 4%,#000 24%,#000 76%,transparent 96%),linear-gradient(transparent,#000 8%,#000 92%,transparent);mask-composite:intersect}
+#family{-webkit-mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
+#label{z-index:2;box-shadow:0 8px 30px rgba(44,53,68,.12)}
+.lb{z-index:2;box-shadow:0 6px 22px rgba(44,53,68,.12)}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div class="parts"><span>Secret Senses</span><a href="packaging.html" aria-current="page">Packaging</a><a href="branding.html">Branding</a></div>
+<div id="run"><div id="stage">
+<div class="q" id="q"><h1>How do you communicate <span id="ins">nature and&nbsp;</span>care in a brand?</h1></div>
+<img id="family" src="img/family.jpg" alt="The whole family of products and a box">
+<img id="hero" src="img/hero.jpg" alt="The hair oil">
+<img id="label" src="img/label.jpg" alt="The hair oil's label">
+<img class="lb" id="lb1" src="img/lb-shampoo.jpg" alt="The shampoo's label">
+<img class="lb" id="lb2" src="img/lb-conditioner.jpg" alt="The conditioner's label">
+<img class="lb" id="lb3" src="img/lb-elixir.jpg" alt="The elixir's label">
+<p class="line" id="l1">Every motif was made by hand.</p>
+<p class="line" id="l2">The motifs come together to create a label.</p>
+<p class="line" id="l3">Each product has a border of its own.</p>
+<p class="line" id="l4">All the products.</p>
+</div></div>
+<img class="full" src="img/everything.jpg" alt="The range, laid out with a grapefruit and a lime">
+<div class="two"><img src="img/conditioner-box.jpg" alt="The conditioner with its box"><img src="img/elixir.jpg" alt="The elixir"></div>
+<div class="on"><a class="next" href="branding.html"><small>Secret Senses, next</small>Branding</a><a href="#">Say hi</a></div>
+<div class="foot"><span>Secret Senses, 2016</span><span>Bottles rendered for this page; the rest are mockups</span></div>
+<script>
+// Where each motif lands on the label, by eye from the label's own border: the same flower where that flower is. x, y are fractions of the label; s its size against the label's width; r its turn. The first use of a motif is its painting on the table; repeats split off it as it travels.
+const RING = [
+ ['m16',.06,.06,.2,0],['m05',.07,.13,.16,-20],['m16',.07,.21,.13,10],['m14',.07,.275,.14,0],['m06',.06,.37,.13,-10],['m14',.06,.5,.13,0],['m17',.055,.6,.19,-90],['m03',.07,.67,.14,20],['m16',.06,.73,.14,0],['m14',.08,.78,.15,0],['m17',.05,.85,.15,-90],['m16',.065,.89,.13,0],
+ ['m17',.29,.03,.26,0],['m14',.16,.03,.13,0],['m04',.42,.035,.1,10],['m14',.63,.03,.12,0],['m17',.78,.03,.25,0],['m08',.88,.04,.1,40],
+ ['m16',.94,.12,.13,0],['m07',.93,.07,.1,0],['m14',.94,.215,.14,0],['m16',.94,.275,.12,0],['m17',.955,.42,.2,90],['m16',.94,.48,.16,0],['m05',.93,.56,.14,30],['m17',.95,.64,.14,90],['m14',.945,.73,.13,0],['m16',.94,.8,.12,0],['m06',.93,.87,.12,10],['m16',.95,.94,.18,0],
+ ['m17',.27,.97,.24,0],['m14',.37,.97,.12,0],['m03',.5,.97,.13,0],['m16',.6,.965,.13,0],['m17',.72,.97,.24,0],['m04',.84,.97,.1,0],['m08',.13,.965,.1,-30]
+];
+const stage = document.getElementById('stage'), run = document.getElementById('run'), $ = id => document.getElementById(id);
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+// The table, placed by hand. Paintings that belong to other products' borders lie here too, and leave when this label gathers; the row later shows where they went.
+const TABLE = { m16: [.13, .3], m05: [.31, .2], m06: [.47, .44], m14: [.71, .63], m17: [.82, .22], m04: [.93, .52], m08: [.57, .82], m03: [.3, .6], m07: [.62, .19] };
+const EXTRA = [['m25', .18, .56], ['m11', .44, .17], ['m13', .9, .8], ['m26', .75, .36], ['m00', .4, .76], ['m10', .57, .6], ['m01', .05, .47], ['m02', .77, .86], ['m09', .95, .17]];
+const X = EXTRA.map(([f, sx, sy], i) => { const e = new Image(); e.src = 'img/' + f + '.png'; e.alt = ''; e.className = 'm'; stage.append(e); return { e, sx, sy, sr: (rnd() - .5) * 50, d: rnd() * .3 }; });
+const home = {};
+const M = RING.map(([f, x, y, s, r], i) => {
+  const e = new Image(); e.src = 'img/' + f + '.png'; e.alt = ''; e.className = 'm'; stage.append(e);
+  if (!home[f]) home[f] = { sx: TABLE[f][0], sy: TABLE[f][1], sr: (rnd() - .5) * 60, first: true };
+  const h = home[f]; const first = h.first; h.first = false;
+  return { e, f, x, y, s, r, h, first, d: rnd() * .3 };
+});
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1));
+const mix = (a, b, t) => a + (b - a) * t;
+const LA = 2764 / 1891;                                       // the label's own proportion; one scale number, never squished
+const HERO = { w: 1400, h: 1750, cx: 657, top: 43, oilH: 1669, lx: 469, ly: 706, lw: 600 };
+const LBS = [['label', 1891, 2764], ['lb1', 1377 * 1400 / 3441, 1400], ['lb2', 969 * 1400 / 2105, 1400], ['lb3', 1891 * 1400 / 2764, 1400]];
+const place = (e, x, y, w, h, o) => { e.style.width = w + 'px'; e.style.height = h + 'px'; e.style.transform = `translate(${x}px,${y}px)`; e.style.opacity = o; e.style.visibility = o > .001 ? 'visible' : 'hidden'; };
+const fade = (id, a, b, c, d, p) => { $(id).style.opacity = ramp(p, a, b) * (1 - ramp(p, c, d)); };
+const HOLDS = [.05, .15, .27, .52, .66, .82, 1];              // reduced motion: the same beats, without the travel
+const insW = (() => { const s = $('ins'); s.style.maxWidth = 'none'; const w = () => s.scrollWidth; return w; })();
+function draw() {
+  const W = stage.clientWidth, H = stage.clientHeight, narrow = W < 760;
+  let p = clamp(0, scrollY / Math.max(1, run.offsetHeight - H), 1);
+  if (still) p = HOLDS.reduce((a, b) => Math.abs(b - p) < Math.abs(a - p) ? b : a);
+
+  // 1 the question, then the same question with two more words in it
+  const ins = $('ins'), it = ramp(p, .07, .12);
+  ins.style.maxWidth = 'none'; const full = ins.scrollWidth;
+  ins.style.maxWidth = full * it + 'px'; ins.style.opacity = it;
+  $('q').style.opacity = 1 - ramp(p, .17, .2); $('q').style.visibility = p > .2 ? 'hidden' : 'visible';
+
+  // the flat label
+  const fh = Math.min(H * .8, W * .84 * LA), fw = fh / LA, fx = (W - fw) / 2, fy = (H - fh) / 2 + (narrow ? -12 : 18);
+  // 2-3 the table, then the ring
+  const size = fw;
+  for (const m of M) {
+    const t = ramp(p, .3 + m.d * .3, .44 + m.d * .1), w0 = Math.min(W, H) * (narrow ? .22 : .2);
+    const sx = W * m.h.sx, sy = H * m.h.sy;
+    const w = mix(w0, size * m.s, t);
+    const x = mix(sx, fx + fw * m.x, t), y = mix(sy, fy + fh * m.y, t);
+    const r = mix(m.h.sr, m.r, t);
+    const inn = ramp(p, .18 + m.d * .12, .23 + m.d * .12);
+    const o = (m.first ? inn : (t > .001 ? 1 : 0)) * (1 - ramp(p, .455, .5));
+    m.e.style.width = w + 'px';
+    m.e.style.transform = `translate(${x - w / 2}px,${y - w / 2}px) rotate(${r}deg) scale(${mix(.8, 1, m.first ? inn : 1)})`;
+    m.e.style.opacity = o; m.e.style.visibility = o > .001 ? 'visible' : 'hidden';
+  }
+
+  for (const m of X) {
+    const w = Math.min(W, H) * (narrow ? .19 : .17), inn = ramp(p, .18 + m.d * .12, .23 + m.d * .12);
+    const o = inn * (1 - ramp(p, .3, .36));
+    m.e.style.width = w + 'px';
+    m.e.style.transform = `translate(${W * m.sx - w / 2}px,${H * m.sy - w / 2 + ramp(p, .3, .36) * 24}px) rotate(${m.sr}deg)`;
+    m.e.style.opacity = o; m.e.style.visibility = o > .001 ? 'visible' : 'hidden';
+  }
+
+  // 4 the label goes on the bottle: the bottle is scaled so its label lies exactly where this one lands
+  const hz = H * (narrow ? .7 : .84) / HERO.oilH, hw = HERO.w * hz, hh = HERO.h * hz, hx = W / 2 - HERO.cx * hz, hy = (H - HERO.oilH * hz) / 2 - HERO.top * hz + (narrow ? -10 : 22);
+  const bx = hx + HERO.lx * hz, by = hy + HERO.ly * hz, bw = HERO.lw * hz, bh = bw * LA;
+  const toB = ramp(p, .54, .64);
+
+  // 5 the row: every label at the same height, each by its own one scale
+  const aspect = LBS.map(l => l[1] / l[2]);
+  let rects;
+  if (narrow) {
+    const h = Math.min((H - 150) / 2 - 8, (W - 44) / (aspect[0] + aspect[1]));
+    const rowW = (a, b) => (aspect[a] + aspect[b]) * h + 12;
+    const y1 = H / 2 - h - 14, y2 = H / 2 - 2;
+    const x1 = (W - rowW(0, 1)) / 2, x2 = (W - rowW(2, 3)) / 2;
+    rects = [[x1, y1, h], [x1 + aspect[0] * h + 12, y1, h], [x2, y2, h], [x2 + aspect[2] * h + 12, y2, h]];
+  } else {
+    const tot = aspect.reduce((a, b) => a + b, 0), gap = 22, hMax = Math.min(H * .66, (W * .9 - gap * 3) / tot);
+    let x = (W - tot * hMax - gap * 3) / 2; const y = (H - hMax) / 2 - H * .05;
+    rects = aspect.map(a => { const r = [x, y, hMax]; x += a * hMax + gap; return r; });
+  }
+  const toR = ramp(p, .68, .76), gone = ramp(p, .84, .9);
+
+  // the oil's label: flat, then on the bottle, then lifted back off it into the row
+  const lx = mix(mix(fx, bx, toB), rects[0][0], toR), ly = mix(mix(fy, by, toB), rects[0][1], toR);
+  const lw = mix(mix(fw, bw, toB), rects[0][2] * aspect[0], toR), lh = lw * LA;
+  const lo = ramp(p, .455, .5) * (1 - ramp(p, .62, .645) * (1 - ramp(p, .67, .7))) * (1 - gone);
+  place($('label'), lx, ly, lw, lh, lo);
+  $('label').style.boxShadow = toB > 0 && toR === 0 ? 'none' : '';
+  place($('hero'), hx, hy, hw, hh, ramp(p, .54, .6) * (1 - ramp(p, .68, .73)));
+  [1, 2, 3].forEach(i => { const r = rects[i], t = ramp(p, .7 + i * .012, .77 + i * .012); place($('lb' + i), r[0] + (1 - t) * 60, r[1], r[2] * aspect[i], r[2], t * (1 - gone)); });
+
+  // 6 all of them
+  const fz = narrow ? W / 1600 * 1.1 : Math.max(W / 1600, H / 1066);
+  place($('family'), (W - 1600 * fz) / 2, (H - 1066 * fz) / 2, 1600 * fz, 1066 * fz, ramp(p, .85, .92));
+
+  fade('l1', .22, .25, .31, .34, p); fade('l2', .36, .39, .54, .56, p); fade('l3', .72, .75, .84, .86, p); fade('l4', .92, .95, 2, 3, p);
+  window.__p = p;
+}
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', draw);
+(document.fonts && document.fonts.ready || Promise.resolve()).then(draw);
+draw(); window.__ready = 1;
+</script>
+</body></html>

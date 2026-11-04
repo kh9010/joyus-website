@@ -85,6 +85,44 @@ details[open] > summary > .caret { transform: rotate(90deg) }
 .tools .gap { flex: 1 }
 .hide { display: none !important }
 
+/* the two modes of this page: the same outputs, two questions. How far along is it; does it do its job. */
+.views { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid #dcdcdc; border-radius: 999px; margin: 2px 0 16px }
+.views button { font: 500 13px var(--font); padding: 6px 16px; min-height: 34px; border: 0; border-radius: 999px; background: transparent; color: var(--ink-2); cursor: pointer }
+.views button[aria-pressed=true] { background: var(--ink); color: #fff }
+.bet-line { color: var(--ink-2); font-size: 16px; margin: 4px 0 14px }
+.bet-bet { font-size: clamp(24px, 3vw, 34px); line-height: 1.2; font-weight: 500; max-width: 28ch; margin: 0 0 30px }
+.bet-sum { font-size: clamp(18px, 2vw, 22px); line-height: 1.3; font-weight: 500; max-width: 38ch; margin: 0 0 14px }
+.bet-find { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 28px; margin: 0 0 30px }
+.bet-find p { margin: 0; color: var(--ink-2); font-size: 14px }
+.bet-find b { display: block; color: var(--ink); font-size: 15px; font-weight: 600; margin-bottom: 4px }
+.bet-find .big { display: block; font-size: 30px; font-weight: 600; color: var(--ink); line-height: 1.1; margin-bottom: 6px }
+.bet-scroll { overflow-x: auto }
+table.bm { border-collapse: collapse; width: 100%; min-width: 1020px; font-size: 13.5px }
+table.bm thead th { background: #fff; font-size: 11.5px; font-weight: 500; color: var(--ink-2); padding: 0 3px 8px; vertical-align: bottom; border-bottom: 1px solid var(--ink); line-height: 1.15; width: 80px }
+table.bm thead a { color: inherit; text-decoration: none; display: block }
+table.bm thead a:hover span { text-decoration: underline }
+table.bm thead img { display: block; width: 100%; aspect-ratio: 22/15; object-fit: cover; border: 1px solid var(--line); margin-bottom: 5px; transition: transform .2s; transform-origin: 50% 100% }
+table.bm thead a:hover img { transform: scale(2.4); position: relative; z-index: 3; box-shadow: 0 6px 20px rgba(0,0,0,.2) }
+tr.bm-b th { padding: 18px 0 6px; text-align: left; font-weight: 400; border-bottom: 1px solid var(--line) }
+tr.bm-b .n { display: inline-block; width: 22px; font-weight: 600 }
+tr.bm-b .say { font-size: 17px; font-weight: 600; margin-right: 10px }
+tr.bm-b .msg { color: var(--ink-2); font-size: 13.5px }
+table.bm td { padding: 6px 2px; border-bottom: 1px solid #f3f3f3; vertical-align: middle }
+td.bk { width: 72px; color: var(--ink-3); font-size: 11.5px; padding-left: 22px }
+td.bq { padding-right: 14px; min-width: 240px }
+td.bc { text-align: center }
+.bd { display: inline-block; width: 15px; height: 15px; border: 1.5px solid #d9d9d9; vertical-align: middle }
+.bd1 { border-color: var(--ink); background: linear-gradient(135deg, var(--ink) 50%, transparent 50%) }
+.bd2 { border-color: var(--ink); background: var(--ink) }
+tr.bm-blank td.bq, tr.bm-blank td.bk { color: var(--wait) }
+.bet-key { display: flex; gap: 18px; font-size: 12px; color: var(--ink-2); margin: 0 0 12px }
+.bet-key .bd { margin-right: 5px; width: 12px; height: 12px }
+.bet-moves { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 28px }
+.bet-moves li { color: var(--ink-2); font-size: 14px }
+.bet-moves b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px }
+.bet-note { color: var(--ink-3); font-size: 13px; margin: 24px 0 0; max-width: 80ch }
+.st-bet { font-size: 13px; padding: 2px 0 4px; color: var(--ink-2) }
+@media (max-width: 820px) { .bet-find, .bet-moves { grid-template-columns: 1fr } }
 @media (max-width: 1000px) { .status .say { display: none } }
 @media (max-width: 720px) {
   :root { --tk: 26px }
@@ -101,11 +139,15 @@ details[open] > summary > .caret { transform: rotate(90deg) }
 }
 </style></head><body><main>
 <h1>Site map</h1>
+<div class="views" id="views" role="group" aria-label="Mode"><button type="button" data-v="stages" aria-pressed="true">Stages</button><button type="button" data-v="bet" aria-pressed="false">The bet</button></div>
+<div id="vStages">
 <p class="lede" id="lede">Loading…</p>
 <div class="stages" id="stages"></div>
 <div class="key" id="key"></div>
 <div class="tools" id="tools"></div>
 <ul class="tree" id="tree"></ul>
+</div>
+<div id="vBet" class="hide"></div>
 
 </main>
 <script>
@@ -156,7 +198,12 @@ const CARET = '<span class="caret"><svg viewBox="0 0 24 24" aria-hidden="true"><
 // "Study 50" and "Studies 42, 43" in a note open those studies
 const link = s => esc(s).replace(/\b(Stud(?:y|ies) )(\d\d(?:(?:, | and | to )\d\d)*)/g, (m, w, list) => w + list.replace(/\d\d/g, n => '<a href="../iterations/' + n + '/index.html">' + n + '</a>'));
 
-fetch('pages.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).then(D => {
+const getJSON = f => fetch(f, { cache: 'no-store' }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
+Promise.all([getJSON('pages.json'), getJSON('bet.json')]).then(([D, B]) => {
+  const KINDS = [['f', 'Functional'], ['e', 'Emotional'], ['i', 'Identity']];
+  const sum = a => a.reduce((x, y) => x + y, 0);
+  const betRows = B.beliefs.flatMap(b => KINDS.map(k => b[k[0]]));
+  const betScore = {}; B.outputs.forEach((o, i) => { betScore[o.item] = sum(betRows.map(r => r[1][i])); });
   const S = D.stages;
   const leaves = n => (n.kids ? n.kids.flatMap(leaves) : [n]);
   const counted = n => leaves(n).filter(p => p.kind !== 'shape');
@@ -184,6 +231,7 @@ fetch('pages.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw new Erro
   };
   const inside = p => {
     let h = '';
+    if (p.id in betScore) h += '<li><div class="sub-h">' + badge('strategic') + 'Against the bet</div><ul><li><div class="st-bet" data-bet="' + betScore[p.id] + '">' + betScore[p.id] + ' of ' + (betRows.length * 2) + ' <a href="#bet" class="to-bet">see which</a></div></li></ul></li>';
     h += '<li><div class="sub-h">' + badge('compass') + 'Status</div><ul>' + FOUR.map(f => stageBranch(p, f)).join('') + '</ul></li>';
     if (p.parts) h += '<li><div class="sub-h">' + badge('parts') + 'What is in it</div><ul>' + p.parts.map(q => '<li><div class="part-row">' + (q.href ? '<a href="' + esc(q.href) + '" target="_blank" rel="noopener">' + esc(q.t) + '</a>' : esc(q.t)) + (q.page ? '&nbsp;<small style="color:var(--ink-2)">deck p.' + q.page + '</small>' : '') + '</div></li>').join('') + '</ul></li>';
     if (p.links && p.links.length) h += '<li><div class="sub-h">' + badge('links') + 'Where to look</div><ul><li><div class="go-row">' + p.links.map(([t, u]) => '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(t) + '</a>').join('') + '</div></li></ul></li>';
@@ -231,6 +279,26 @@ fetch('pages.json', { cache: 'no-store' }).then(r => { if (!r.ok) throw new Erro
     });
     if (k === 'all') startOpen.forEach((v, d) => { d.open = v; });
   });
+
+  // the bet: every output against every question. Numbers counted here, from bet.json.
+  const nOut = B.outputs.length, ABOUT_THEM = [0, 3, 5], ABOUT_ME = [1, 2, 4, 6];
+  const them = sum(ABOUT_THEM.map(i => sum(B.beliefs[i].i[1]))), me = sum(ABOUT_ME.map(i => sum(B.beliefs[i].i[1]))), empty = betRows.filter(r => !sum(r[1])).length;
+  const dot = v => '<i class="bd bd' + v + '" title="' + ['Not at all', 'Partly', 'Carries it'][v] + '"></i>';
+  document.getElementById('vBet').innerHTML = '<p class="bet-line">' + esc(B.line) + '</p><p class="bet-bet">' + esc(B.bet) + '</p><p class="bet-sum">' + esc(B.sum) + '</p>'
+    + '<div class="bet-find"><p><span class="big">' + them + ' of ' + ABOUT_THEM.length * nOut * 2 + '</span><b>Who they are: answered</b>Taste, range, good company, two people you\'d like.</p>'
+    + '<p><span class="big">' + me + ' of ' + ABOUT_ME.length * nOut * 2 + '</span><b>Who I\'d be: nearly empty</b>Nothing tells me I can need this without having failed, or that I\'d end up the one who looks smart.</p>'
+    + '<p><span class="big">' + empty + ' of ' + betRows.length + '</span><b>Questions nothing answers</b>The gap isn\'t a missing page. No output is built to answer them.</p></div>'
+    + '<p class="bet-key"><span><i class="bd bd2"></i>Carries it</span><span><i class="bd bd1"></i>Partly</span><span><i class="bd bd0"></i>Not at all</span></p>'
+    + '<div class="bet-scroll"><table class="bm"><thead><tr><th colspan="2"></th>' + B.outputs.map(o => '<th><a href="' + esc(o.url) + '" target="_blank" rel="noopener"><img src="' + esc(o.img) + '" alt="' + esc(o.name) + '"><span>' + esc(o.name) + '</span></a></th>').join('') + '</tr></thead><tbody>'
+    + B.beliefs.map((b, n) => '<tr class="bm-b"><th colspan="' + (nOut + 2) + '"><span class="n">' + (n + 1) + '</span><span class="say">' + esc(b.say) + '</span><span class="msg">' + esc(b.msg) + '</span></th></tr>'
+      + KINDS.map(([k, name]) => '<tr class="bm-r' + (sum(b[k][1]) ? '' : ' bm-blank') + '"><td class="bk">' + name + '</td><td class="bq">' + esc(b[k][0]) + '</td>' + b[k][1].map(v => '<td class="bc">' + dot(v) + '</td>').join('') + '</tr>').join('')).join('')
+    + '</tbody></table></div><h2>Three moves I\'d start with</h2><ul class="bet-moves">' + B.moves.map(m => '<li><b>' + esc(m[0]) + '</b>' + esc(m[1]) + '</li>').join('') + '</ul>'
+    + '<p class="bet-note">Scores and the sentence beside each belief are a reading, for you and Kahran to argue with.</p>';
+  const views = document.getElementById('views');
+  const show = v => { views.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v)); document.getElementById('vStages').classList.toggle('hide', v !== 'stages'); document.getElementById('vBet').classList.toggle('hide', v !== 'bet'); };
+  views.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; show(b.dataset.v); history.replaceState(null, '', b.dataset.v === 'bet' ? '#bet' : '#'); });
+  document.getElementById('tree').addEventListener('click', e => { if (e.target.closest('.to-bet')) { e.preventDefault(); show('bet'); history.replaceState(null, '', '#bet'); scrollTo(0, 0); } });
+  if (location.hash === '#bet') show('bet');
 
   document.body.dataset.ready = pages.length;
 }).catch(err => { document.getElementById('lede').textContent = 'Could not read pages.json (' + err.message + '). Open this through node studies/server.cjs.'; });

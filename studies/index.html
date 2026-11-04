@@ -9,7 +9,20 @@
 </style></head><body><div class="shell"><aside><div><h1>Joyus homepage</h1><small>The rebuild · studies</small></div>
 <nav class="modes" aria-label="Mode"><a href="#" data-mode="studies" aria-current="page">Studies</a><a href="sitemap/index.html" target="study" data-mode="sitemap">Site map</a></nav>
 <nav class="history" aria-label="Study history">
-<a href="iterations/69/index.html" target="study" aria-current="page"><strong>69 / The bet</strong><small>3 November 2026<br>Who the customer is, what has to be true, and all 68 studies held against it</small></a>
+<a href="iterations/82/index.html" target="study" aria-current="page"><strong>82 / Secret Senses, real edges</strong><small>4 November 2026<br>Subdivided, and rougher: the metal stops looking plated</small></a>
+<a href="iterations/81/index.html" target="study"><strong>81 / Secret Senses, indoor rooms</strong><small>4 November 2026<br>Twelve real rooms for the metal to reflect</small></a>
+<a href="iterations/80/index.html" target="study"><strong>80 / Secret Senses, light and camera</strong><small>4 November 2026<br>One source doing the work; a camera that shows the bottle is round</small></a>
+<a href="iterations/79/index.html" target="study"><strong>79 / Secret Senses, a sky map</strong><small>4 November 2026<br>A real place for the metal and glass to reflect</small></a>
+<a href="iterations/78/index.html" target="study"><strong>78 / Secret Senses, turned down</strong><small>4 November 2026<br>Her strengths: metal 25%, cap 50%, paper 25%; three colours</small></a>
+<a href="iterations/77/index.html" target="study"><strong>77 / Secret Senses, surfaces</strong><small>4 November 2026<br>Nothing smooth: three metals, cold-press paper, stippled plastic</small></a>
+<a href="iterations/76/index.html" target="study"><strong>76 / Secret Senses, materiality</strong><small>4 November 2026<br>Label, glass, oil, metal, touch: one decision at a time</small></a>
+<a href="iterations/75/index.html" target="study"><strong>75 / Lit the way they do it</strong><small>4 November 2026<br>What the tutorials say; the same bottle in their set</small></a>
+<a href="iterations/74/index.html" target="study"><strong>74 / Secret Senses, a real place</strong><small>4 November 2026<br>One bottle by a waterfall, sized from its label</small></a>
+<a href="iterations/73/index.html" target="study"><strong>73 / Secret Senses, 25 ways</strong><small>4 November 2026<br>Bright white: droplets, open cream, natural, metal, and a few more</small></a>
+<a href="iterations/72/index.html" target="study"><strong>72 / The bet, against the output</strong><small>4 November 2026<br>Functional, emotional, identity: each question held against what we have made</small></a>
+<a href="iterations/71/index.html" target="study"><strong>71 / Secret Senses, in her light</strong><small>4 November 2026<br>Bright and alive, with the labels from her mockups; Packaging rebuilt on them</small></a>
+<a href="iterations/70/index.html" target="study"><strong>70 / Secret Senses, as pages</strong><small>4 November 2026<br>Packaging and Branding, as they could sit on the site</small></a>
+<a href="iterations/69/index.html" target="study"><strong>69 / The bet</strong><small>3 November 2026<br>Who the customer is, what has to be true, and all 68 studies held against it</small></a>
 <a href="iterations/68/index.html" target="study"><strong>68 / Secret Senses, the case study</strong><small>3 November 2026<br>Three wireframes: pull back, the label is the page, the motifs gather</small></a>
 <a href="iterations/67/index.html" target="study"><strong>67 / The trail, real stones</strong><small>3 November 2026<br>The brand's stones, one per line; at the end they become the J</small></a>
 <a href="iterations/66/index.html" target="study"><strong>66 / Secret Senses, one model</strong><small>3 November 2026<br>Too shiny fixed: what metal reflects, then its finish</small></a>
@@ -80,5 +93,5 @@
 <a href="iterations/01/index.html" target="study"><strong>01 / Where we started</strong><small>22 September 2026<br>The brief in Divya's words, her map, the homepage today, what was tried before</small></a>
 </nav>
 <footer>Studies are snapshots. A change beyond a copy fix is a new study; earlier ones stay as they were. <code>node studies/verify.cjs</code> before every commit.</footer></aside>
-<iframe title="Study" name="study" src="iterations/69/index.html"></iframe></div>
+<iframe title="Study" name="study" src="iterations/82/index.html"></iframe></div>
 <script>document.querySelectorAll('.history a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.history a').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','page');}));</script><script>/* Site map tab (2 Nov 2026), after Motion Jigsaw's: the map in the same frame; Studies returns to the study last chosen; #sitemap opens on it */(function(){var modes=document.querySelectorAll('.modes a'),hist=document.querySelector('.history'),fr=document.querySelector('iframe[name=study]');function mode(m){modes.forEach(function(x){x.toggleAttribute('aria-current',x.dataset.mode===m)});hist.style.display=m==='studies'?'':'none';}modes[0].addEventListener('click',function(e){e.preventDefault();var cur=document.querySelector('.history a[aria-current]')||document.querySelector('.history a');fr.src=cur.getAttribute('href');mode('studies');history.replaceState(null,'',location.pathname);});modes[1].addEventListener('click',function(){mode('sitemap');history.replaceState(null,'','#sitemap');});function fromHash(){if(location.hash==='#sitemap'){fr.src=modes[1].getAttribute('href');mode('sitemap');}}fromHash();addEventListener('hashchange',fromHash);})();</script></body></html>

@@ -1,0 +1,30 @@
+/* What the two pages share if they sat on joyus.studio: the site's tokens, a thin header, the two parts of Secret Senses, a way on. */
+:root{--bg:#fff;--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--paper:#f3f1ec;--teal:#50baac}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px;transition:color .3s}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+.parts{position:fixed;z-index:20;left:50%;transform:translateX(-50%);top:12px;display:flex;align-items:center;gap:4px;font-size:14px;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-radius:999px;padding:4px 5px 4px 14px;white-space:nowrap;color:var(--ink)}
+.parts span{margin-right:8px;font-weight:500}
+.parts a{padding:3px 11px;border-radius:999px;text-decoration:none;color:var(--soft)}
+.parts a[aria-current]{background:var(--ink);color:#fff}
+.parts a:not([aria-current]):hover{color:var(--ink)}
+#run{position:relative}
+#stage{position:sticky;top:0;height:100dvh;overflow:hidden}
+.line{position:absolute;left:clamp(16px,4vw,60px);bottom:clamp(20px,7vh,70px);margin:0;max-width:14ch;font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.03em;z-index:6;opacity:0;pointer-events:none}
+.q{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 clamp(16px,8vw,120px);z-index:5;pointer-events:none}
+.q h1{margin:0;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em;text-align:center;max-width:17ch}
+.full{display:block;width:100%;height:auto}
+.two{display:grid;grid-template-columns:1fr 1fr}.two img{width:100%;height:100%;object-fit:cover;display:block}
+.on{display:flex;flex-wrap:wrap;gap:12px 40px;justify-content:space-between;align-items:baseline;padding:clamp(40px,8vh,90px) clamp(16px,4vw,60px)}
+.on a.next{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.on small{display:block;color:var(--soft);font-size:15px;font-weight:400;letter-spacing:0;margin-bottom:6px}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--fade);font-size:14px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
+@media(max-width:760px){
+ .top nav{display:none}
+ .parts{left:auto;right:12px;transform:none;top:10px;padding-left:5px}.parts span{display:none}
+ .line{max-width:none;right:16px;font-size:1.4rem;bottom:18px}
+ .two{grid-template-columns:1fr}
+}

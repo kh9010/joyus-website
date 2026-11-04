@@ -13,6 +13,7 @@ const ok = m => console.log('  ok   ' + m);
 const fail = m => { bad++; console.log('  FAIL ' + m); };
 const test = (c, m) => (c ? ok(m) : fail(m));
 const D = JSON.parse(fs.readFileSync(path.join(here, 'pages.json'), 'utf8'));
+const BET = JSON.parse(fs.readFileSync(path.join(here, 'bet.json'), 'utf8'));
 const leaves = n => (n.kids ? n.kids.flatMap(leaves) : [n]);
 const nodes = n => [n, ...(n.kids || []).flatMap(nodes)];
 const depth = n => (n.kids ? 1 + Math.max(...n.kids.map(depth)) : 1);
@@ -141,4 +142,14 @@ for (const p of D.tree.flatMap(nodes)) for (const h of [...(p.links || []).map(l
 test(!noFile.length, 'every local link opens' + (noFile.length ? ': ' + noFile.slice(0, 8).join('; ') : ''));
 
 console.log(bad ? bad + ' failure(s)' : 'site map holds: ' + pages.length + ' items, Work ' + leaves(find('work-branch')).length);
+// the bet mode's data
+{
+  const rows = BET.beliefs.flatMap(b => ['f', 'e', 'i'].map(k => b[k]));
+  test(BET.beliefs.length === 7 && rows.length === 21 && rows.every(r => r[1].length === BET.outputs.length && r[1].every(v => [0, 1, 2].includes(v))), 'the bet: 21 questions, each scored against all ' + BET.outputs.length + ' outputs');
+  const ids = new Set(D.tree.flatMap(function all(n) { return [n.id, ...(n.kids || []).flatMap(all)]; }));
+  const gone = BET.outputs.filter(o => !ids.has(o.item)).map(o => o.item);
+  test(!gone.length, 'each output the bet scores is an item on the tree' + (gone.length ? ': not ' + gone : ''));
+  const lost = BET.outputs.flatMap(o => [o.img, o.url]).filter(f => !/^https?:/.test(f) && !fs.existsSync(path.join(here, f)));
+  test(!lost.length, 'each output has its picture and its page' + (lost.length ? ': not ' + lost : ''));
+}
 process.exitCode = bad ? 1 : 0;

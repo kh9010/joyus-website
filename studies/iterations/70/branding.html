@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Secret Senses, branding — Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+/* The same question for one letter. The brush sketches become the S, the S takes its colours, the teal fills the screen, and the screen turns out to be the lid of the box. */
+#run{height:800vh}
+#stage{background:#fff}
+#stage img{position:absolute;left:0;top:0;display:block;max-width:none}
+#box{transform-origin:0 0;z-index:1}
+#fill{position:absolute;inset:0;background:var(--teal)}
+.ink{position:absolute;left:0;top:0;z-index:3;-webkit-mask-size:100% 100%;mask-size:100% 100%;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
+#mark,#markW,.five{-webkit-mask-image:url(img/mark.png);mask-image:url(img/mark.png)}
+#word{-webkit-mask-image:url(img/word.png);mask-image:url(img/word.png)}
+.s{z-index:4;will-change:transform,opacity}
+.line{z-index:6}
+#flood{position:absolute;inset:0;z-index:3}#fill{z-index:0}#flood .ink{z-index:1}#mark{z-index:2}.white .line{color:#fff}
+.q h1{transition:color .2s}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div class="parts"><span>Secret Senses</span><a href="packaging.html">Packaging</a><a href="branding.html" aria-current="page">Branding</a></div>
+<div id="run"><div id="stage">
+<img id="box" src="img/box.jpg" alt="The box, teal, with the white mark on its lid">
+<div class="q" id="q"><h1>How do you draw nature and care in one letter?</h1></div>
+<div class="ink" id="mark" role="img" aria-label="The Secret Senses S"></div>
+<div id="flood"><div id="fill"></div><div class="ink" id="markW"></div><div class="ink" id="word" role="img" aria-label="Secret Senses"></div></div>
+<p class="line" id="l1">It started with a brush.</p>
+<p class="line" id="l2">One S, five colours.</p>
+<p class="line" id="l3">Then it goes on everything.</p>
+</div></div>
+<img class="full" src="img/notebook.jpg" alt="A notebook with the painted motifs on its pages">
+<div class="two"><img src="img/tote.jpg" alt="A tote bag with the mark"><img style="object-position:77% 50%" src="img/sign.jpg" alt="A glass office sign with the mark"></div>
+<img class="full" src="img/binder.jpg" alt="The brand book in a ring binder">
+<div class="on"><a class="next" href="packaging.html"><small>Secret Senses, next</small>Packaging</a><a href="#">Say hi</a></div>
+<div class="foot"><span>Secret Senses, 2016</span><span>Box, notebook, tote, sign and binder are mockups</span></div>
+<script>
+const stage = document.getElementById('stage'), run = document.getElementById('run'), $ = id => document.getElementById(id);
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1));
+const mix = (a, b, t) => a + (b - a) * t;
+// Measured on the picture (cal.py): the lid and the lockup on it, in box.jpg's pixels.
+const BOX = { w: 2600, h: 1733, lid: [827, 1764, 428, 1297], logo: [1031, 1576, 638, 1059], mark: [1199.6, 1380.9, 638.4, 928.8], word: [1030.6, 1576.6, 979.3, 1059.5] };
+// mark and word above are where each is printed on the lid (cal2.py); their proportions match the artwork to within 1%, so each is one scale number.
+const GUIDE = ['#55c2b4', '#b4d88f', '#d8e37b', '#fed767', '#ef4d4d'];
+// The seven sketches, as they sit on her sheet: x, y as fractions of the stage's free space; size against the smaller side.
+const SK = [[.15, .3], [.38, .3], [.61, .3], [.84, .3], [.42, .72], [.63, .72], [.84, .72]];
+const SKN = [[.28, .2], [.72, .2], [.28, .4], [.72, .4], [.28, .6], [.72, .6], [.5, .79]];
+const S = SK.map((_, i) => { const e = new Image(); e.src = 'img/s' + (i + 1) + '.png'; e.alt = i === 0 ? 'Seven brush sketches of the S' : ''; e.className = 's'; stage.append(e); return { e, i }; });
+const F = GUIDE.map(c => { const d = document.createElement('div'); d.className = 'ink five'; d.style.background = c; stage.append(d); return d; });
+const markSrc = new Image(), wordSrc = new Image(); let MA = .8, WA = 4;
+markSrc.onload = () => { MA = markSrc.width / markSrc.height; draw(); }; markSrc.src = 'img/mark.png';
+wordSrc.onload = () => { WA = wordSrc.width / wordSrc.height; draw(); }; wordSrc.src = 'img/word.png';
+const put = (e, x, y, w, h, o) => { e.style.width = w + 'px'; e.style.height = h + 'px'; e.style.transform = `translate(${x}px,${y}px)`; e.style.opacity = o; e.style.visibility = o > .001 ? 'visible' : 'hidden'; };
+const fade = (id, a, b, c, d, p) => { $(id).style.opacity = ramp(p, a, b) * (1 - ramp(p, c, d)); };
+const HOLDS = [.05, .24, .46, .58, .78, 1];
+function draw() {
+  const W = stage.clientWidth, H = stage.clientHeight, narrow = W < 760;
+  let p = clamp(0, scrollY / Math.max(1, run.offsetHeight - H), 1);
+  if (still) p = HOLDS.reduce((a, b) => Math.abs(b - p) < Math.abs(a - p) ? b : a);
+
+  // The world: the box picture. At z0 the lid fills the screen and the lockup still fits; the fill and the lockup are placed in its coordinates, so the pull back is one move.
+  const lidW = BOX.lid[1] - BOX.lid[0], lidH = BOX.lid[3] - BOX.lid[2], logoW = BOX.logo[1] - BOX.logo[0], logoH = BOX.logo[3] - BOX.logo[2];
+  const z0 = Math.min(Math.max(W / lidW, H / lidH) * 1.05, W * .8 / logoW), z1 = Math.max(W / BOX.w, H / BOX.h);
+  const lcx = (BOX.lid[0] + BOX.lid[1]) / 2, lcy = (BOX.lid[2] + BOX.lid[3]) / 2;
+  const pull = ramp(p, .81, .96), z = Math.exp(mix(Math.log(z0), Math.log(z1), pull));
+  const cx = mix(lcx, BOX.w / 2, pull), cy = mix(lcy, BOX.h / 2, pull);
+  const X = v => W / 2 + (v - cx) * z, Y = v => H / 2 + (v - cy) * z;
+  $('box').style.width = BOX.w + 'px'; $('box').style.height = BOX.h + 'px';
+  $('box').style.transform = `translate(${X(0)}px,${Y(0)}px) scale(${z})`;
+
+  // the lockup, rebuilt from its parts in the picture's coordinates
+  const mh = (BOX.mark[3] - BOX.mark[2]) * z, mw = mh * MA, wh = (BOX.word[3] - BOX.word[2]) * z, ww = wh * WA;
+  const lx = (X(BOX.mark[0]) + X(BOX.mark[1])) / 2, ty = Y(BOX.mark[2]);
+  // before the flood the mark stands alone, centred
+  const flood = ramp(p, .66, .74), settle = ramp(p, .68, .76);
+  const my = mix((H - mh) / 2, ty, settle);
+  const six = ramp(p, .48, .55) * (1 - ramp(p, .6, .66));   // five out, five back
+  const mo = ramp(p, .38, .47) * (1 - ramp(p, .955, .975));
+  // the teal S stays under the flood; a white one is revealed by the same circle, so the colour turns exactly at the wave's edge
+  put($('mark'), lx - mw / 2, my, mw, mh, p > .76 ? 0 : mo * (1 - ramp(p, .48, .5) * (1 - ramp(p, .62, .645))));
+  $('mark').style.background = '#55c2b4';
+  // the overlay leaves as soon as the fill has: the box's own printed mark carries on from there
+  const printed = 1 - ramp(p, .79, .83);
+  put($('markW'), lx - mw / 2, my, mw, mh, printed); $('markW').style.background = '#fff';
+  put($('word'), (X(BOX.word[0]) + X(BOX.word[1])) / 2 - ww / 2, Y(BOX.word[2]), ww, wh, ramp(p, .7, .76) * printed);
+  $('word').style.background = '#fff';
+
+  // one S, five colours: spread along the row and back to one
+  const fh = Math.min(mh * .62, (W * .72 / 5) / MA), fw = fh * MA, gap = W * .9 / 5;
+  F.forEach((d, i) => put(d, mix(lx - fw / 2, W / 2 + (i - 2) * gap - fw / 2, six), (H - fh) / 2 - H * .03, fw, fh, ramp(p, .48, .5) * (1 - ramp(p, .62, .645))));
+
+  // the teal comes up from the S until the screen is the lid, then lets go of the picture underneath
+  const r = Math.hypot(W, H) * flood;
+  const fo = 1 - ramp(p, .78, .8);
+  $('flood').style.clipPath = `circle(${r}px at ${W / 2}px ${H / 2}px)`;
+  $('fill').style.background = '#50baac'; $('fill').style.opacity = fo;
+  $('flood').style.visibility = p > .84 || flood === 0 ? 'hidden' : 'visible';
+  // white stage stays white until the flood has covered it, and the box waits underneath
+  $('box').style.opacity = p > .74 ? 1 : 0;
+  stage.classList.toggle('white', p > .7 && p < .8);
+
+  // the sketches
+  const sz = narrow ? W * .4 : Math.min(W * .19, H * .36);
+  for (const s of S) {
+    const [fx, fy] = (narrow ? SKN : SK)[s.i];
+    const inn = ramp(p, .12 + s.i * .012, .17 + s.i * .012), g = ramp(p, .3 + (6 - s.i) * .006, .42);
+    const x = mix(W * fx, W / 2, g), y = mix(H * fy, H / 2, g), w = mix(sz, mh * .9, g);
+    const o = inn * (1 - ramp(p, .37, .44));
+    s.e.style.width = w + 'px';
+    s.e.style.transform = `translate(${x - w / 2}px,${y - w / 2}px)`;
+    s.e.style.opacity = o; s.e.style.visibility = o > .001 ? 'visible' : 'hidden';
+  }
+  $('q').style.opacity = 1 - ramp(p, .09, .13); $('q').style.visibility = p > .13 ? 'hidden' : 'visible';
+  fade('l1', .17, .2, .32, .35, p); fade('l2', .5, .53, .62, .64, p); fade('l3', .9, .94, 2, 3, p);
+  window.__p = p;
+}
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', draw);
+(document.fonts && document.fonts.ready || Promise.resolve()).then(draw);
+draw(); window.__ready = 1;
+</script>
+</body></html>

@@ -1,0 +1,25 @@
+// Study 72: seven beliefs, three questions each, every one scored against every output; the page's numbers are recounted here; nothing private for a public repo.
+const fs = require('node:fs');
+const path = require('node:path');
+let bad = 0;
+const say = (ok, m) => { console.log((ok ? '  ok   ' : '  FAIL ') + m); if (!ok) bad++; };
+const D = JSON.parse(fs.readFileSync(path.join(__dirname, 'bet.json'), 'utf8'));
+const html = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+const sum = a => a.reduce((x, y) => x + y, 0);
+say(D.beliefs.length === 7, 'seven beliefs');
+const R = D.beliefs.flatMap(b => ['f', 'e', 'i'].map(k => b[k]));
+say(R.length === 21 && R.every(r => typeof r[0] === 'string' && r[0].endsWith('?')), '21 rows, each a question');
+say(R.every(r => r[1].length === D.outputs.length && r[1].every(v => [0, 1, 2].includes(v))), 'every question scored against all ' + D.outputs.length + ' outputs');
+const them = sum([0, 3, 5].map(i => sum(D.beliefs[i].i[1]))), me = sum([1, 2, 4, 6].map(i => sum(D.beliefs[i].i[1]))), empty = R.filter(r => !sum(r[1])).length;
+say(html.includes('data-them>' + them + ' of 54'), 'who they are: ' + them + ' of 54');
+say(html.includes('data-me>' + me + ' of 72'), "who I'd be: " + me + ' of 72');
+say(html.includes('data-empty>' + empty + ' of 21'), 'unanswered: ' + empty + ' of 21');
+say(!/studies<\/|\d+ stud(y|ies)/i.test(html.replace(/<head>[\s\S]*?<\/head>/, '')), 'nothing is counted against studies any more');
+const refs = D.outputs.map(o => o[1]).filter(r => r.startsWith('../')).concat(['../69/index.html']);
+const lost = refs.filter(r => !fs.existsSync(path.join(__dirname, r)));
+say(!lost.length, 'links exist' + (lost.length ? ': not ' + lost : ''));
+const body = html.replace(/<head>[\s\S]*?<\/head>/, '').replace(/<[^>]+>/g, ' ');
+say(!/\$\s?\d|\b\d+K\b/.test(body), 'no money figures: the repo is public');
+say(!/Deborah|Willow|Gary|Tricia|Shankar|Ryan|Francesco|Jacob/.test(body), 'no private names');
+say(html.includes('noindex'), 'noindex');
+process.exitCode = bad ? 1 : 0;
