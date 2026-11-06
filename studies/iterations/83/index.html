@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>83 / EWC, why a Tuesday · Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.opts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px }
+.opts a { border: 1px solid #ddd; padding: 6px 12px; font-size: 13px; color: #222; text-decoration: none; background: #fff }
+.opts a[aria-current] { border-color: #222 }
+.frame { border: 1px solid #ddd; height: 78vh; min-height: 520px; margin-top: 10px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.pair { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 18px; margin-top: 28px; align-items: start }
+.pair figure { margin: 0 }
+.pair .shot { width: 100%; height: auto; border: 1px solid #eee }
+.heard { margin: 18px 0 0; padding-left: 14px; border-left: 3px solid #ddd; max-width: 68ch }
+.heard p { margin: 0 0 8px }
+.heard cite { font-style: normal; color: #636363; font-size: 13px }
+@media (max-width: 700px) { .pair { grid-template-columns: 1fr } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 83 · 6 November 2026 · Kahran</p>
+<h1>EWC, why a Tuesday</h1>
+<p class="lede">Study 50's page as it was, plus one piece above the six Tuesdays: why it is a Tuesday, four ways. Every other night already has a job; Tuesday is the one nothing claims, so what fills it is the competition. The week is our reading, marked; the quotes are the founders' and the guide's.</p>
+
+<div class="heard">
+  <p>"The words are trying to carry too much, the visuals need to carry more."</p>
+  <cite>Kahran, 6 Nov.</cite>
+</div>
+
+<nav class="opts" aria-label="options">
+  <a href="six.html?v=a" target="page" aria-current="page">a · the week</a>
+  <a href="six.html?v=b" target="page">b · the curve</a>
+  <a href="six.html?v=c" target="page">c · the places</a>
+  <a href="six.html?v=d" target="page">d · the month</a>
+</nav>
+<div class="frame"><iframe title="The page" name="page" src="six.html?v=a"></iframe></div>
+
+<div class="pair">
+  <figure><a class="zoom" href="img/why-a-1440.png" target="_blank"><img class="shot" src="img/why-a-1440.png" alt="a at 1440: seven nights in a row, six filled dark, Tuesday open"></a><figcaption>a · the week: six nights have a job, Tuesday is open</figcaption></figure>
+  <figure><a class="zoom" href="img/why-a-390.png" target="_blank"><img class="shot" src="img/why-a-390.png" alt="a at 390: the nights as rows"></a><figcaption>390</figcaption></figure>
+</div>
+<div class="pair">
+  <figure><a class="zoom" href="img/why-b-1440.png" target="_blank"><img class="shot" src="img/why-b-1440.png" alt="b at 1440: a curve across the week, Tuesday on the floor"></a><figcaption>b · the curve: how spoken-for each night is</figcaption></figure>
+  <figure><a class="zoom" href="img/why-b-390.png" target="_blank"><img class="shot" src="img/why-b-390.png" alt="b at 390"></a><figcaption>390</figcaption></figure>
+</div>
+<div class="pair">
+  <figure><a class="zoom" href="img/why-c-1440.png" target="_blank"><img class="shot" src="img/why-c-1440.png" alt="c at 1440: a coffeeshop, a bar, home, a country club as boxes sized by wants, EWC empty"></a><figcaption>c · the places: a Tuesday, otherwise</figcaption></figure>
+  <figure><a class="zoom" href="img/why-c-390.png" target="_blank"><img class="shot" src="img/why-c-390.png" alt="c at 390"></a><figcaption>390</figcaption></figure>
+</div>
+<div class="pair">
+  <figure><a class="zoom" href="img/why-d-1440.png" target="_blank"><img class="shot" src="img/why-d-1440.png" alt="d at 1440: a month, every Tuesday filled, one Saturday event"></a><figcaption>d · the month: every Tuesday, not one Saturday</figcaption></figure>
+  <figure><a class="zoom" href="img/why-d-390.png" target="_blank"><img class="shot" src="img/why-d-390.png" alt="d at 390"></a><figcaption>390</figcaption></figure>
+</div>
+
+<p>Every string has a <code>data-copy</code> id in <a href="copy.json">copy.json</a>; ours are in <code>words.json</code>, then <code>build.cjs</code>.</p>
+</main>
+<script>document.querySelectorAll('.opts a').forEach(a => a.addEventListener('click', () => { document.querySelectorAll('.opts a').forEach(x => x.removeAttribute('aria-current')); a.setAttribute('aria-current', 'page'); }));</script>
+</body>
+</html>
