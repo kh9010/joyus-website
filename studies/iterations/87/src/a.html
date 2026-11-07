@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Joyus · East West Club: six kinds of member</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#fff; --ink:#2C3544; --soft:#4F5A69; --pink:#C2185B; --line:#DCE0E6; --cream:#F3EEE3; --green:#1F3A2E; --gold:#7A5A1E; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { -webkit-text-size-adjust:100%; }
+  body { background:var(--bg); color:var(--ink); font-family:'Space Grotesk', system-ui, sans-serif; font-size:17px; line-height:1.45; }
+  .wrap { max-width:680px; margin:0 auto; padding:0 22px; }
+  header { display:flex; justify-content:space-between; align-items:baseline; padding:18px 0 0; }
+  .mark { font-weight:700; font-size:22px; color:var(--ink); text-decoration:none; }
+  .who { font-size:14px; color:var(--soft); }
+  h1 { font-size:30px; line-height:1.15; font-weight:700; letter-spacing:-.015em; margin:26px 0 14px; }
+  .lede { font-size:18px; line-height:1.42; }
+  .lede + .lede { margin-top:12px; }
+  .lede b { font-weight:700; }
+  .stat { display:flex; align-items:center; gap:14px; margin-top:20px; padding:14px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .stat strong { font-size:58px; line-height:1; font-weight:700; color:var(--pink); letter-spacing:-.03em; white-space:nowrap; }
+  .stat span { font-size:17px; line-height:1.3; font-weight:500; }
+  h2 { font-size:22px; line-height:1.2; font-weight:700; margin-bottom:6px; }
+  .sub { font-size:16px; color:var(--soft); }
+  section { padding-top:38px; }
+  /* the club's own words: upright, cream, with a source. Ours: plain on white. */
+  .guide { background:var(--cream); border-radius:14px; padding:18px 16px 14px; margin-top:14px; color:var(--green); }
+  .guide .gh { display:flex; justify-content:space-between; font-size:13px; font-weight:600; color:var(--gold); letter-spacing:.02em; padding-bottom:8px; border-bottom:1px solid #D9CDB4; }
+  .row { padding:10px 0; border-bottom:1px solid #E2D8C4; }
+  .row:last-of-type { border-bottom:0; }
+  .row h3 { font-size:16px; font-weight:700; line-height:1.25; }
+  .row p { font-size:16px; line-height:1.3; margin-top:2px; }
+  .row .now { color:#4E4636; }
+  .row .now::before { content:"instead: "; font-weight:600; color:var(--gold); }
+  .give { margin-top:6px; background:#fff; border-radius:10px; padding:12px; }
+  .give .gl { font-size:13px; font-weight:700; color:var(--gold); }
+  .give p { font-size:15px; line-height:1.35; margin-top:3px; }
+  .src { font-size:13px; color:var(--soft); margin-top:8px; }
+  .guide .src { color:#5E5440; }
+  .big { font-size:25px; line-height:1.2; font-weight:700; letter-spacing:-.01em; }
+  p.t + p.t, .t + .big, .big + .t { margin-top:14px; }
+  .board { margin-top:20px; background:var(--cream); border-radius:14px; padding:16px; color:var(--green); }
+  .board .ask { font-size:17px; font-weight:600; }
+  .notes { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+  .note { background:#FFF3B0; color:#3A3320; padding:10px; border-radius:4px; font-size:15px; line-height:1.3; }
+  .front { margin-top:22px; display:flex; gap:14px; align-items:center; }
+  .front img { width:52%; border:1px solid var(--line); border-radius:8px; display:block; }
+  .front p { font-size:15px; color:var(--soft); line-height:1.35; }
+  .askbox { background:var(--ink); color:#fff; margin-top:40px; padding:32px 0 26px; }
+  .askbox .big { font-size:26px; }
+  .askbox p { color:#fff; }
+  .askbox .t { font-size:17px; }
+  .facts { margin-top:18px; font-size:16px; color:#E8ECF1; }
+  .facts b { color:#fff; }
+  .btn { display:inline-block; margin-top:20px; background:#fff; color:var(--ink); font-weight:700; font-size:17px; padding:14px 20px; border-radius:999px; text-decoration:none; }
+  .safe { margin-top:10px; font-size:15px; color:#E8ECF1; }
+  .last { margin-top:20px; font-size:18px; font-weight:600; }
+  footer { background:var(--ink); color:#E8ECF1; font-size:14px; padding:0 0 22px; }
+  footer .wrap { border-top:1px solid #55606F; padding-top:14px; display:flex; justify-content:space-between; }
+  footer a { color:#fff; }
+  @media (min-width:760px) {
+    h1 { font-size:44px; } .big { font-size:32px; } .askbox .big { font-size:34px; }
+    .rows { display:grid; grid-template-columns:1fr 1fr; column-gap:28px; }
+    .row:nth-last-of-type(2) { border-bottom:0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="https://joyus.studio">Joyus</a>
+    <span class="who">a two-person studio</span>
+  </header>
+
+  <h1>You have the value. You can't break it down yet.</h1>
+  <p class="lede"><b>East West Club</b>, a new members club in Seattle, had golf bays, a café and a lounge. It said all of it the same way to everyone.</p>
+  <p class="lede">At Joyus, the two of us split it into <b>six kinds of member</b>: what each one wants, and where they go for it now. The six went into the club's brand guide.</p>
+  <div class="stat"><strong>88%</strong><span>of founding members signed, faster than the club expected.</span></div>
+
+  <section style="padding-top:30px">
+    <h2>The six, as they sit in the guide</h2>
+    <div class="guide">
+      <div class="gh"><span>EAST WEST CLUB · BRAND GUIDE</span></div>
+      <div class="rows">
+        <div class="row"><h3>The New-to-Seattle Founder</h3><p>Somewhere to meet investors.</p><p class="now">a coffeeshop</p></div>
+        <div class="row"><h3>The Mid-Career High Earner</h3><p>People to watch the game with.</p><p class="now">a sports bar, the work text group</p>
+          <div class="give"><div class="gl">We give her</div><p>Guest passes, and the generosity of bringing people. Athlete and brand nights, demo sessions, date nights worth choosing.</p></div></div>
+        <div class="row"><h3>The Quiet Connector</h3><p>Running into someone he hasn't seen in a while.</p><p class="now">kids' sports, community events</p></div>
+        <div class="row"><h3>The Country-Club Guy</h3><p>A simulator that's free when he wants it.</p><p class="now">his house</p></div>
+        <div class="row"><h3>The Semi-Retired Operator</h3><p>Meeting younger, more interesting people.</p><p class="now">the country club, concerts, dinners</p></div>
+        <div class="row"><h3>The Empty-Nester</h3><p>Seeing people without hosting at home.</p><p class="now">a favourite restaurant</p></div>
+      </div>
+      <p class="src">Their words, from East West Club's brand guide.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="t">The club's founders came to us to make it tangible where the club sits in a member's life. Until members signed, there was no money to build. Until it was built, no next members.</p>
+    <p class="big">The competition wasn't another club. It was what they'd do otherwise.</p>
+    <div class="board">
+      <p class="ask">“If East West Club didn't exist, what would be missing from your life?”</p>
+      <div class="notes">
+        <div class="note">If i am a golfer, i would not have the convenience. And a coach.</div>
+        <div class="note">I would not have a friend circle that is specifically from the EWC.</div>
+      </div>
+      <p class="src" style="color:#5E5440">The club's founders, on our workshop board.</p>
+    </div>
+    <div class="front">
+      <img src="front.png" alt="East West Club's home page: A Club For Every Kind of Day">
+      <p>Their home page now.</p>
+    </div>
+  </section>
+</div>
+
+<div class="askbox">
+  <div class="wrap">
+    <p class="big">It's the thing that keeps coming back to you. Everything else is waiting on it.</p>
+    <p class="t" style="margin-top:14px">You don't need a brief. It starts small.</p>
+    <p class="facts">Divya Tak and Kahran Singh, the two of us at Joyus, ran the workshops and wrote up the six. For East West Club, that cost <b>$5–10K</b>.</p>
+    <a class="btn" href="mailto:hello@joyus.studio">Email hello@joyus.studio</a>
+    <p class="safe">One of us writes back. No pitch deck.</p>
+    <p class="last">How would you split yours?</p>
+  </div>
+</div>
+<footer><div class="wrap"><span>Joyus</span><a href="mailto:hello@joyus.studio">hello@joyus.studio</a></div></footer>
+</body>
+</html>
