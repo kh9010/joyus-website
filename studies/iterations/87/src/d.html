@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>East West Club: same words, re-sorted · Joyus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#ffffff; --ink:#2C3544; --soft:#54606F; --rule:#dfe3e8; --card:#f6f7f9; --mark:#F2C94A; --pink:#C2185B; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { -webkit-text-size-adjust:100%; }
+  body { background:var(--bg); color:var(--ink); font-family:"Space Grotesk", system-ui, sans-serif; font-size:17px; line-height:1.45; }
+  .wrap { max-width:660px; margin:0 auto; padding:0 22px; }
+  header { display:flex; justify-content:space-between; align-items:baseline; padding:16px 0 12px; border-bottom:1px solid var(--rule); }
+  .mark { font-weight:700; font-size:22px; color:var(--ink); text-decoration:none; }
+  .crumb { font-size:14px; color:var(--soft); }
+  h1 { font-weight:700; font-size:30px; line-height:1.12; letter-spacing:-.02em; margin:20px 0 12px; }
+  p + p { margin-top:10px; }
+  .club { font-weight:600; }
+  /* the club's own words: highlighted, upright, with a source */
+  q, .theirs { quotes:none; background:linear-gradient(transparent 55%, var(--mark) 55%); }
+  .src { display:block; font-size:13px; color:var(--soft); margin-top:6px; }
+  .names { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:6px; margin:14px 0 0; }
+  .names li { font-size:14px; font-weight:600; line-height:1.25; background:var(--card); border-left:3px solid var(--mark); padding:7px 9px; }
+  .win { display:flex; align-items:center; gap:14px; margin-top:16px; padding-top:12px; border-top:2px solid var(--ink); }
+  .big { font-size:66px; font-weight:700; line-height:1; letter-spacing:-.04em; white-space:nowrap; }
+  .win p { font-size:17px; line-height:1.3; }
+  h2 { font-size:22px; font-weight:700; line-height:1.2; letter-spacing:-.01em; margin-bottom:10px; }
+  section { padding-top:38px; }
+  .lab { display:block; font-size:14px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--soft); margin-bottom:8px; }
+  .before { background:var(--card); padding:14px 16px; border-radius:6px; }
+  .before p { font-size:16px; line-height:1.5; }
+  .before q { background:none; }
+  .arrow { text-align:center; font-size:15px; color:var(--soft); margin:10px 0; }
+  .types { display:grid; gap:8px; }
+  .t { border:1px solid var(--rule); border-radius:6px; padding:11px 13px; }
+  .t h3 { font-size:17px; font-weight:700; line-height:1.2; margin-bottom:4px; }
+  .t .row { font-size:15px; line-height:1.35; margin-top:3px; }
+  .t .k { font-size:13px; font-weight:700; color:var(--soft); margin-right:4px; }
+  .t .got { font-size:15.5px; margin-top:6px; }
+  .comp { font-size:25px; line-height:1.2; font-weight:700; letter-spacing:-.015em; }
+  .comp em { font-style:normal; color:var(--pink); }
+  .facts { margin-top:16px; border-top:1px solid var(--rule); }
+  .facts div { display:flex; gap:12px; padding:9px 0; border-bottom:1px solid var(--rule); font-size:16px; }
+  .facts dt { flex:0 0 92px; font-size:14px; font-weight:700; color:var(--soft); padding-top:1px; }
+  .facts dd { flex:1; }
+  .shot { margin-top:18px; }
+  .shot img { display:block; width:100%; height:auto; border:1px solid var(--rule); border-radius:6px; }
+  .close { margin-top:36px; padding:22px 0 0; border-top:2px solid var(--ink); }
+  .close .haunt { font-size:20px; line-height:1.3; }
+  .close .start { font-size:20px; font-weight:700; margin-top:10px; }
+  .close .q { font-size:24px; font-weight:700; margin-top:18px; line-height:1.15; }
+  .btn { display:inline-block; margin-top:12px; background:var(--ink); color:#fff; text-decoration:none; font-size:17px; font-weight:600; padding:13px 18px; border-radius:6px; }
+  .after { font-size:15px; color:var(--soft); margin-top:10px; }
+  footer { margin-top:30px; padding:14px 0 26px; border-top:1px solid var(--rule); font-size:14px; color:var(--soft); }
+  @media (min-width:760px) {
+    body { font-size:18px; }
+    h1 { font-size:44px; }
+    .types { grid-template-columns:1fr 1fr; }
+    .names { grid-template-columns:1fr 1fr 1fr; }
+    .big { font-size:96px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="mark" href="https://joyus.studio">Joyus</a>
+    <span class="crumb">Case study: East West Club</span>
+  </header>
+
+  <h1>You have the value. You can't break it down yet.</h1>
+  <p><span class="club">East West Club</span>, a new members club in Seattle (golf bays, a café, a lounge), had a lot to offer. It said all of it the same way to everyone.</p>
+  <p>Two of us at Joyus broke it into six kinds of member: what each one wants, and where they go for it today.</p>
+  <ul class="names" aria-label="The six kinds of member">
+    <li>The Quiet Connector</li><li>The Country-Club Guy</li>
+    <li>The Semi-Retired Operator</li><li>The New-to-Seattle Founder</li>
+    <li>The Empty-Nester</li><li>The Mid-Career High Earner</li>
+  </ul>
+  <div class="win">
+    <div class="big">88%</div>
+    <p>of founding members signed. Faster than the club expected.</p>
+  </div>
+
+  <section>
+    <h2>Same words, re-sorted</h2>
+    <span class="lab">Before: one pitch for everyone</span>
+    <div class="before">
+      <p><q>The café, the lounge, the events space.</q> <q>An 8am bay before work.</q> <q>A named role and a real position in the club.</q> <q>The lounge as workspace and as the default "meet me at."</q> <q>Cohorts that start the game on the same day, so nobody is behind.</q> <q>Guest passes, and the generosity of bringing people.</q></p>
+      <span class="src">The club's own lines, from their brand guide</span>
+    </div>
+    <p class="arrow">↓ the same lines, filed by who they're for</p>
+    <div class="types">
+      <div class="t">
+        <h3>The Quiet Connector</h3>
+        <p class="row"><span class="k">Wants:</span>A way to be away from his usual social circles.</p>
+        <p class="row"><span class="k">Goes today:</span>a coffeeshop near the house, or the office</p>
+        <p class="got"><q>The café, the lounge, the events space.</q></p>
+      </div>
+      <div class="t">
+        <h3>The Country-Club Guy</h3>
+        <p class="row"><span class="k">Wants:</span>A simulator that's free when he wants it.</p>
+        <p class="row"><span class="k">Goes today:</span>his house</p>
+        <p class="got"><q>An 8am bay before work.</q></p>
+      </div>
+      <div class="t">
+        <h3>The Semi-Retired Operator</h3>
+        <p class="row"><span class="k">Wants:</span>Being a practical mentor to someone.</p>
+        <p class="row"><span class="k">Goes today:</span>board work, informal coffees</p>
+        <p class="got"><q>A named role and a real position in the club.</q></p>
+      </div>
+      <div class="t">
+        <h3>The New-to-Seattle Founder</h3>
+        <p class="row"><span class="k">Wants:</span>A true second space.</p>
+        <p class="row"><span class="k">Goes today:</span>a coffeeshop</p>
+        <p class="got"><q>The lounge as workspace and as the default "meet me at."</q></p>
+      </div>
+      <div class="t">
+        <h3>The Empty-Nester</h3>
+        <p class="row"><span class="k">Wants:</span>Reconnecting with the hobbies they dropped.</p>
+        <p class="row"><span class="k">Goes today:</span>the arts centre, the mall, a purchase</p>
+        <p class="got"><q>Cohorts that start the game on the same day, so nobody is behind.</q></p>
+      </div>
+      <div class="t">
+        <h3>The Mid-Career High Earner</h3>
+        <p class="row"><span class="k">Wants:</span>A third place.</p>
+        <p class="row"><span class="k">Goes today:</span>a bar</p>
+        <p class="got"><q>Guest passes, and the generosity of bringing people.</q></p>
+      </div>
+    </div>
+    <span class="src">Highlighted words, wants and places: the East West Club brand guide</span>
+  </section>
+
+  <section>
+    <p class="comp">The competition wasn't another club. It was <em>what they'd do otherwise.</em></p>
+    <dl class="facts">
+      <div><dt>The stakes</dt><dd>No members meant no money to build. Nothing built meant no next members.</dd></div>
+      <div><dt>What we did</dt><dd>Sorted the offer into six kinds of member. The six went into the club's brand guide.</dd></div>
+      <div><dt>Who</dt><dd>Divya and Kahran, the two of us at Joyus</dd></div>
+      <div><dt>What it cost</dt><dd>$5–10K</dd></div>
+    </dl>
+    <figure class="shot">
+      <img src="front.png" alt="The East West Club home page" width="640" height="340">
+      <span class="src">The club's home page, from the site we made with them</span>
+    </figure>
+  </section>
+
+  <div class="close">
+    <p class="haunt">It's the thing that keeps coming back to you. Everything else is waiting on it.</p>
+    <p class="start">You don't need a brief. It starts small.</p>
+    <p class="q">What would yours sort into?</p>
+    <a class="btn" href="mailto:hello@joyus.studio?subject=What%20would%20mine%20sort%20into%3F">Write to hello@joyus.studio</a>
+    <p class="after">A few lines is plenty. One of us writes back.</p>
+  </div>
+
+  <footer>Joyus, a two-person studio. More from East West Club: the site, the brand, the sales kit.</footer>
+</div>
+</body>
+</html>
