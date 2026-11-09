@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>East West Club · Joyus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#F5F0E6;--ink:#1E1C19;--soft:#55504A;--who:#A63D22;--what:#1C4C86;--rule:#D9D0C0}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 17px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  main{max-width:520px;margin:0 auto;padding:18px 20px 40px}
+  .top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--soft)}
+  .mark{font:500 20px/1 Fraunces,serif;color:var(--ink);letter-spacing:-.01em}
+  h1{font:400 24px/1.3 Fraunces,serif;letter-spacing:-.01em;margin:22px 0 12px}
+  .did{font-size:17px;margin-bottom:10px}
+  .did b{font-weight:600}
+  .k-who{color:var(--who)} .k-what{color:var(--what)}
+  svg{display:block;width:100%;height:auto}
+  svg text{font-family:Inter,system-ui,sans-serif}
+  .lab{font-size:14px;fill:var(--ink)}
+  .hd{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .mid{font-size:14px;fill:var(--soft)}
+  .fit{border:1.5px solid var(--ink);border-radius:4px;padding:14px 16px;margin-top:-2px}
+  .fit .hd2{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .row{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline}
+  .row+.row{margin-top:8px}
+  .row .tag{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .row .v{font-size:17px;font-weight:500}
+  .q{font:400 18px/1.35 Fraunces,serif;color:var(--what)}
+  .src{display:block;font:400 13px/1.4 Inter,sans-serif;color:var(--soft);margin-top:3px}
+  .proof{margin-top:30px;display:flex;gap:14px;align-items:baseline}
+  .big{font:500 52px/1 Fraunces,serif;letter-spacing:-.02em}
+  .proof p{font-size:17px;line-height:1.4}
+  .who2{margin-top:20px;font-size:16px;color:var(--soft)}
+  .close{margin-top:26px;padding-top:22px;border-top:1px solid var(--rule)}
+  .close h2{font:400 23px/1.3 Fraunces,serif}
+  .close a{display:inline-block;margin-top:12px;color:var(--ink);font-weight:500;font-size:17px;text-decoration:none;border-bottom:2px solid var(--who);padding-bottom:2px}
+  footer{margin-top:34px;font-size:13px;color:var(--soft)}
+  @media (min-width:700px){main{padding-top:40px} h1{font-size:30px} .did{font-size:18px}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top"><span class="mark">Joyus</span><span>Strategy</span></div>
+
+  <h1>East West Club is a new members club in Seattle. Its value was big and vague: “a not-country-club.”</h1>
+  <p class="did">To make it land, we had to know <b class="k-who">who it was for</b> and <b class="k-what">what it meant to them</b>. Each answer changed the other, so we solved both together until they fit.</p>
+
+  <svg viewBox="0 0 350 250" role="img" aria-label="Who it's for starts at anyone done with the country club. What it means starts at a not-country-club. Each time one is fixed the other moves, and the two lines close in until they meet at one point.">
+    <text class="hd" x="4" y="16" fill="#A63D22">Who it's for</text>
+    <text class="hd" x="346" y="16" text-anchor="end" fill="#1C4C86">What it means</text>
+    <text class="lab" x="4" y="38">anyone done with</text>
+    <text class="lab" x="4" y="56">the country club</text>
+    <text class="lab" x="346" y="38" text-anchor="end">“a not-country-club”</text>
+    <text class="lab" x="346" y="56" text-anchor="end">and little else</text>
+
+    <!-- back-and-forth ties -->
+    <g stroke="#8A8378" stroke-width="1.5" stroke-dasharray="3 4" fill="none">
+      <line x1="40" y1="108" x2="310" y2="108"/>
+      <line x1="80" y1="148" x2="270" y2="148"/>
+      <line x1="120" y1="188" x2="230" y2="188"/>
+    </g>
+    <text class="mid" x="175" y="132" text-anchor="middle">fix one, the other moves</text>
+
+    <line x1="14" y1="76" x2="175" y2="236" stroke="#A63D22" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="336" y1="76" x2="175" y2="236" stroke="#1C4C86" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="14" cy="76" r="5" fill="#A63D22"/><circle cx="336" cy="76" r="5" fill="#1C4C86"/>
+    <circle cx="175" cy="236" r="9" fill="#1E1C19"/>
+  </svg>
+
+  <div class="fit">
+    <p class="hd2">Where they fit</p>
+    <div class="row"><span class="tag k-who">Who</span><span class="v">People with no third place, somewhere that isn't work or home</span></div>
+    <div class="row"><span class="tag k-what">What</span><span class="q">“Somewhere you never need an occasion to come in, only a reason to stay.”<span class="src">East West Club, brand guide</span></span></div>
+  </div>
+
+  <div class="proof"><span class="big">88%</span><p>of founding members signed, faster than the club expected.</p></div>
+
+  <p class="who2">Kahran and Divya, the two of us. What it cost: $5–10K.</p>
+
+  <div class="close">
+    <h2>You don't need a brief. It starts small.</h2>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </div>
+
+  <footer>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</footer>
+</main>
+</body>
+</html>
