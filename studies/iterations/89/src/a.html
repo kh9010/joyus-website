@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>East West Club · Joyus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f5f1e8; --ink:#1c1a17; --soft:#5a554c; --rule:#d9d2c3;
+    --who:#2c4a86; --what:#a8432a;
+    --serif:"Newsreader",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+  body{font:400 17px/1.5 var(--sans);max-width:640px;margin:0 auto;padding:22px 24px 40px}
+  header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:44px}
+  .mark{font:500 20px/1 var(--serif);letter-spacing:.01em;color:var(--ink);text-decoration:none}
+  .tag{font:500 13px/1 var(--sans);color:var(--soft);letter-spacing:.04em;text-transform:uppercase}
+  .intro{font-size:18px;line-height:1.5;color:var(--ink);max-width:30em}
+  h1{font:400 38px/1.12 var(--serif);letter-spacing:-.01em;margin:22px 0 0}
+  h1 .w{color:var(--who)} h1 .v{color:var(--what)}
+  .turn{margin-top:18px;font-size:18px;line-height:1.45;color:var(--ink);max-width:30em}
+  figure{margin:30px 0 0;padding-top:20px;border-top:1px solid var(--rule)}
+  svg{display:block;width:100%;height:auto}
+  .proof{margin-top:36px;padding-top:22px;border-top:1px solid var(--rule);display:flex;gap:18px;align-items:baseline}
+  .big{font:400 76px/.9 var(--serif);letter-spacing:-.02em}
+  .proof p{font-size:18px;line-height:1.4}
+  .who{margin-top:26px;font-size:17px;color:var(--soft)}
+  .who b{color:var(--ink);font-weight:500}
+  .close{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule)}
+  .close p{font:400 26px/1.2 var(--serif)}
+  .close a{display:inline-block;margin-top:16px;font:500 17px/1.4 var(--sans);color:var(--ink);text-decoration:none;border-bottom:2px solid var(--what);padding-bottom:2px}
+  .close small{display:block;margin-top:8px;font-size:15px;color:var(--soft)}
+  @media (min-width:700px){
+    body{padding-top:40px}
+    h1{font-size:52px}
+    .big{font-size:96px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <a class="mark" href="https://joyus.studio/">Joyus</a>
+  <span class="tag">Case study</span>
+</header>
+
+<main>
+  <p class="intro">East West Club is a new members club in Seattle. Its value was big and vague: a new social club, not a country club. Vague is hard to join.</p>
+  <h1>We worked out <span class="w">who it was for</span> and <span class="v">what it meant to them</span> at the same time, until the two fit.</h1>
+  <p class="turn">Each time we pinned one, the other moved. So we kept moving both until they held still.</p>
+
+  <figure aria-label="Diagram: who it is for and what it means start far apart. Pinning one moves the other, round by round, until they meet and fit.">
+    <svg viewBox="0 0 340 196" role="img" font-family="Inter, system-ui, sans-serif">
+      <text x="6" y="16" font-size="14" font-weight="600" fill="#2c4a86">who it's for</text>
+      <text x="6" y="190" font-size="14" font-weight="600" fill="#a8432a">what it means</text>
+      <path d="M8 34 H70 V58 H130 V78 H186 V90 H226 V97 H246" fill="none" stroke="#2c4a86" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M8 166 H100 V136 H158 V112 H206 V102 H236 V97 H246" fill="none" stroke="#a8432a" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M246 97 H300" stroke="#1c1a17" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="306" cy="97" r="12" fill="none" stroke="#1c1a17" stroke-width="1.5"/>
+      <circle cx="306" cy="97" r="5" fill="#1c1a17"/>
+      <text x="334" y="74" font-size="14" font-weight="600" fill="#1c1a17" text-anchor="end">they fit</text>
+      <text x="40" y="104" font-size="13" fill="#5a554c">pin one,</text>
+      <text x="40" y="121" font-size="13" fill="#5a554c">the other moves</text>
+    </svg>
+  </figure>
+
+  <section class="proof">
+    <span class="big">88%</span>
+    <p>of founding members signed, faster than the club expected.</p>
+  </section>
+  <p class="who"><b>Kahran and Divya, the two of us.</b> What it cost: $5–10K.</p>
+
+  <section class="close">
+    <p>You don't need a brief. It starts small.</p>
+    <a href="mailto:hello@joyus.studio?subject=How%20would%20you%20have%20solved%20it%3F">How would you have solved it?</a>
+    <small>hello@joyus.studio</small>
+  </section>
+</main>
+</body>
+</html>

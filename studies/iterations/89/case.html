@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>East West Club · Joyus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link data-opt="a" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link data-opt="b" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link data-opt="c" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link data-opt="d" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>html[data-v="a"] .case:not([data-opt="a"]), html[data-v="b"] .case:not([data-opt="b"]), html[data-v="c"] .case:not([data-opt="c"]), html[data-v="d"] .case:not([data-opt="d"]) { display:none; }</style>
+<style data-opt="a">
+  :root{
+    --bg:#f5f1e8; --ink:#1c1a17; --soft:#5a554c; --rule:#d9d2c3;
+    --who:#2c4a86; --what:#a8432a;
+    --serif:"Newsreader",Georgia,serif; --sans:"Inter",system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg);color:var(--ink);-webkit-text-size-adjust:100%}
+  body{font:400 17px/1.5 var(--sans);max-width:640px;margin:0 auto;padding:22px 24px 40px}
+  header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:44px}
+  .mark{font:500 20px/1 var(--serif);letter-spacing:.01em;color:var(--ink);text-decoration:none}
+  .tag{font:500 13px/1 var(--sans);color:var(--soft);letter-spacing:.04em;text-transform:uppercase}
+  .intro{font-size:18px;line-height:1.5;color:var(--ink);max-width:30em}
+  h1{font:400 38px/1.12 var(--serif);letter-spacing:-.01em;margin:22px 0 0}
+  h1 .w{color:var(--who)} h1 .v{color:var(--what)}
+  .turn{margin-top:18px;font-size:18px;line-height:1.45;color:var(--ink);max-width:30em}
+  figure{margin:30px 0 0;padding-top:20px;border-top:1px solid var(--rule)}
+  svg{display:block;width:100%;height:auto}
+  .proof{margin-top:36px;padding-top:22px;border-top:1px solid var(--rule);display:flex;gap:18px;align-items:baseline}
+  .big{font:400 76px/.9 var(--serif);letter-spacing:-.02em}
+  .proof p{font-size:18px;line-height:1.4}
+  .who{margin-top:26px;font-size:17px;color:var(--soft)}
+  .who b{color:var(--ink);font-weight:500}
+  .close{margin-top:40px;padding-top:22px;border-top:1px solid var(--rule)}
+  .close p{font:400 26px/1.2 var(--serif)}
+  .close a{display:inline-block;margin-top:16px;font:500 17px/1.4 var(--sans);color:var(--ink);text-decoration:none;border-bottom:2px solid var(--what);padding-bottom:2px}
+  .close small{display:block;margin-top:8px;font-size:15px;color:var(--soft)}
+  @media (min-width:700px){
+    body{padding-top:40px}
+    h1{font-size:52px}
+    .big{font-size:96px}
+  }
+</style>
+<style data-opt="b">
+  :root{--bg:#f6f2ea;--ink:#1d1b18;--soft:#5a554d;--who:#a84a22;--what:#1d6464;--rule:#d8d0c2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font:400 17px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  main{max-width:520px;margin:0 auto;padding:22px 24px 40px}
+  .mark{font-weight:600;font-size:17px}
+  h1{font:600 25px/1.28 Inter,system-ui,sans-serif;letter-spacing:-.015em;margin:26px 0 14px}
+  p{margin:0 0 12px}
+  .who{color:var(--who);font-weight:600}
+  .what{color:var(--what);font-weight:600}
+  figure{margin:20px 0 0}
+  svg{display:block;width:100%;height:auto;max-width:400px;margin:0 auto}
+  svg text{font-family:Inter,system-ui,sans-serif}
+  blockquote{font:400 21px/1.4 'Source Serif 4',Georgia,serif;margin:6px 0 0;text-align:center}
+  cite{display:block;font:400 13px/1.4 Inter,system-ui,sans-serif;color:var(--soft);font-style:normal;margin-top:8px;text-align:center}
+  .proof{display:flex;align-items:center;gap:14px;margin:30px 0 0;border-top:1px solid var(--rule);padding-top:22px}
+  .big{font:600 54px/1 Inter,system-ui,sans-serif;letter-spacing:-.03em}
+  .proof p{margin:0}
+  .cost{color:var(--soft);margin:16px 0 0}
+  .close{margin-top:28px;border-top:1px solid var(--rule);padding-top:22px}
+  .close h2{font:600 21px/1.3 Inter,system-ui,sans-serif;margin-bottom:8px}
+  a{color:var(--ink);text-decoration-thickness:1px;text-underline-offset:3px}
+  footer{margin-top:30px;font-size:13px;color:var(--soft)}
+</style>
+<style data-opt="c">
+  :root{--bg:#F5F0E6;--ink:#1E1C19;--soft:#55504A;--who:#A63D22;--what:#1C4C86;--rule:#D9D0C0}
+  *{box-sizing:border-box;margin:0}
+  body{background:var(--bg);color:var(--ink);font:400 17px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  main{max-width:520px;margin:0 auto;padding:18px 20px 40px}
+  .top{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;color:var(--soft)}
+  .mark{font:500 20px/1 Fraunces,serif;color:var(--ink);letter-spacing:-.01em}
+  h1{font:400 24px/1.3 Fraunces,serif;letter-spacing:-.01em;margin:22px 0 12px}
+  .did{font-size:17px;margin-bottom:10px}
+  .did b{font-weight:600}
+  .k-who{color:var(--who)} .k-what{color:var(--what)}
+  svg{display:block;width:100%;height:auto}
+  svg text{font-family:Inter,system-ui,sans-serif}
+  .lab{font-size:14px;fill:var(--ink)}
+  .hd{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+  .mid{font-size:14px;fill:var(--soft)}
+  .fit{border:1.5px solid var(--ink);border-radius:4px;padding:14px 16px;margin-top:-2px}
+  .fit .hd2{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+  .row{display:grid;grid-template-columns:52px 1fr;gap:8px;align-items:baseline}
+  .row+.row{margin-top:8px}
+  .row .tag{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .row .v{font-size:17px;font-weight:500}
+  .q{font:400 18px/1.35 Fraunces,serif;color:var(--what)}
+  .src{display:block;font:400 13px/1.4 Inter,sans-serif;color:var(--soft);margin-top:3px}
+  .proof{margin-top:30px;display:flex;gap:14px;align-items:baseline}
+  .big{font:500 52px/1 Fraunces,serif;letter-spacing:-.02em}
+  .proof p{font-size:17px;line-height:1.4}
+  .who2{margin-top:20px;font-size:16px;color:var(--soft)}
+  .close{margin-top:26px;padding-top:22px;border-top:1px solid var(--rule)}
+  .close h2{font:400 23px/1.3 Fraunces,serif}
+  .close a{display:inline-block;margin-top:12px;color:var(--ink);font-weight:500;font-size:17px;text-decoration:none;border-bottom:2px solid var(--who);padding-bottom:2px}
+  footer{margin-top:34px;font-size:13px;color:var(--soft)}
+  @media (min-width:700px){main{padding-top:40px} h1{font-size:30px} .did{font-size:18px}}
+</style>
+<style data-opt="d">
+:root{--ink:#2C3544;--soft:#4E5968;--pinkT:#B8155F;--cyanT:#1F7F89;--yellow:#F2C94A;--line:#E3E6EA}
+*{box-sizing:border-box;margin:0}
+body{font-family:'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff;font-size:17px;line-height:1.42;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+.top{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 4px;font-size:14px;color:var(--soft)}
+.top b{font-size:20px;color:var(--ink);font-weight:700;letter-spacing:-.01em}
+h1{font-size:27px;line-height:1.16;font-weight:700;letter-spacing:-.015em;margin-top:14px}
+.lede{margin-top:10px}
+.lede b{font-weight:700}
+.fig{margin:16px -6px 0}
+.fig svg{width:100%;height:auto;display:block}
+.result{display:flex;gap:12px;align-items:center;margin-top:16px;padding:10px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.result .n{font-size:44px;font-weight:700;color:var(--pinkT);line-height:1;letter-spacing:-.02em}
+.result p{font-size:17px;line-height:1.3}
+.cost{margin-top:16px;font-size:16px;color:var(--soft)}
+.close{margin-top:16px;padding:18px 16px;background:var(--ink);color:#fff;border-radius:10px}
+.close .big{font-size:21px;font-weight:700;line-height:1.2}
+.close a{display:inline-block;margin-top:12px;color:#fff;font-weight:500;border-bottom:2px solid var(--yellow);text-decoration:none;padding-bottom:1px}
+footer{font-size:13px;color:var(--soft);padding:14px 0 40px}
+@media(min-width:820px){
+ body{font-size:18px}
+ h1{font-size:40px}
+ .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center;padding-top:24px}
+ .fig{margin:0}
+ .after{max-width:560px}
+}
+</style>
+<script>
+(function () {
+  var v = new URLSearchParams(location.search).get('v');
+  v = /^[a-d]$/.test(v || '') ? v : 'a';
+  document.documentElement.dataset.v = v;
+  document.querySelectorAll('style[data-opt], link[data-opt]').forEach(function (s) { if (s.dataset.opt !== v) s.remove(); });
+  document.title = ({"a":"East West Club · Joyus","b":"East West Club · Joyus","c":"East West Club · Joyus","d":"East West Club: who it's for, and what it means to them · Joyus"})[v];
+})();
+</script>
+</head>
+<body>
+<div class="case" data-opt="a">
+<header>
+  <a class="mark" href="https://joyus.studio/">Joyus</a>
+  <span class="tag">Case study</span>
+</header>
+
+<main>
+  <p class="intro">East West Club is a new members club in Seattle. Its value was big and vague: a new social club, not a country club. Vague is hard to join.</p>
+  <h1>We worked out <span class="w">who it was for</span> and <span class="v">what it meant to them</span> at the same time, until the two fit.</h1>
+  <p class="turn">Each time we pinned one, the other moved. So we kept moving both until they held still.</p>
+
+  <figure aria-label="Diagram: who it is for and what it means start far apart. Pinning one moves the other, round by round, until they meet and fit.">
+    <svg viewBox="0 0 340 196" role="img" font-family="Inter, system-ui, sans-serif">
+      <text x="6" y="16" font-size="14" font-weight="600" fill="#2c4a86">who it's for</text>
+      <text x="6" y="190" font-size="14" font-weight="600" fill="#a8432a">what it means</text>
+      <path d="M8 34 H70 V58 H130 V78 H186 V90 H226 V97 H246" fill="none" stroke="#2c4a86" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M8 166 H100 V136 H158 V112 H206 V102 H236 V97 H246" fill="none" stroke="#a8432a" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M246 97 H300" stroke="#1c1a17" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="306" cy="97" r="12" fill="none" stroke="#1c1a17" stroke-width="1.5"/>
+      <circle cx="306" cy="97" r="5" fill="#1c1a17"/>
+      <text x="334" y="74" font-size="14" font-weight="600" fill="#1c1a17" text-anchor="end">they fit</text>
+      <text x="40" y="104" font-size="13" fill="#5a554c">pin one,</text>
+      <text x="40" y="121" font-size="13" fill="#5a554c">the other moves</text>
+    </svg>
+  </figure>
+
+  <section class="proof">
+    <span class="big">88%</span>
+    <p>of founding members signed, faster than the club expected.</p>
+  </section>
+  <p class="who"><b>Kahran and Divya, the two of us.</b> What it cost: $5–10K.</p>
+
+  <section class="close">
+    <p>You don't need a brief. It starts small.</p>
+    <a href="mailto:hello@joyus.studio?subject=How%20would%20you%20have%20solved%20it%3F">How would you have solved it?</a>
+    <small>hello@joyus.studio</small>
+  </section>
+</main>
+</div>
+<div class="case" data-opt="b">
+<main>
+  <div class="mark">Joyus</div>
+
+  <h1>East West Club's value was big and vague: a new social club that isn't a country club.</h1>
+  <p>We worked out <span class="who">who it's for</span> and <span class="what">what it means to them</span> at the same time. Change one and the other moved, so we kept adjusting both until they fit.</p>
+
+  <figure aria-label="Who it's for and what it means to them, adjusted against each other until they fit: six kinds of member, one promise.">
+    <svg viewBox="0 0 340 300" role="img">
+      <defs>
+        <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5a554d"/></marker>
+      </defs>
+      <text x="14" y="16" font-size="13" font-weight="600" fill="#a84a22">WHO IT'S FOR</text>
+      <text x="326" y="16" font-size="13" font-weight="600" fill="#1d6464" text-anchor="end">WHAT IT MEANS</text>
+      <text x="14" y="34" font-size="13" fill="#5a554d">too broad</text>
+      <text x="326" y="34" font-size="13" fill="#5a554d" text-anchor="end">too vague</text>
+      <line x1="34" y1="48" x2="170" y2="214" stroke="#a84a22" stroke-width="3.5" stroke-linecap="round"/>
+      <line x1="306" y1="48" x2="170" y2="214" stroke="#1d6464" stroke-width="3.5" stroke-linecap="round"/>
+      <g stroke="#5a554d" stroke-width="1.4" marker-start="url(#ah)" marker-end="url(#ah)">
+        <line x1="66" y1="88" x2="274" y2="88"/>
+        <line x1="100" y1="130" x2="240" y2="130"/>
+        <line x1="133" y1="170" x2="207" y2="170"/>
+      </g>
+      <text x="170" y="80" font-size="13" fill="#1d1b18" text-anchor="middle">change one, the other moves</text>
+      <circle cx="170" cy="214" r="14" fill="none" stroke="#1d1b18" stroke-width="1.5"/>
+      <circle cx="170" cy="214" r="6" fill="#1d1b18"/>
+      <text x="170" y="252" font-size="16" font-weight="600" fill="#1d1b18" text-anchor="middle">they fit</text>
+      <text x="160" y="282" font-size="14" font-weight="600" fill="#a84a22" text-anchor="end">six kinds of member</text>
+      <text x="170" y="282" font-size="14" fill="#5a554d" text-anchor="middle">·</text>
+      <text x="180" y="282" font-size="14" font-weight="600" fill="#1d6464">one promise</text>
+    </svg>
+  </figure>
+
+  <blockquote>“Somewhere you never need an occasion to come in, only a reason to stay.”</blockquote>
+  <cite>the promise, from the club's brand guide</cite>
+
+  <div class="proof">
+    <div class="big">88%</div>
+    <p>of founding members signed, faster than the club expected. That was the fit working.</p>
+  </div>
+  <p class="cost">Kahran and Divya, the two of us. What it cost: $5–10K.</p>
+
+  <div class="close">
+    <h2>You don't need a brief. It starts small.</h2>
+    <p>How would you have solved it? <a href="mailto:hello@joyus.studio?subject=East%20West%20Club">hello@joyus.studio</a></p>
+  </div>
+
+  <footer>© 2026 Joyus Studio · Kahran Singh &amp; Divya Tak</footer>
+</main>
+</div>
+<div class="case" data-opt="c">
+<main>
+  <div class="top"><span class="mark">Joyus</span><span>Strategy</span></div>
+
+  <h1>East West Club is a new members club in Seattle. Its value was big and vague: “a not-country-club.”</h1>
+  <p class="did">To make it land, we had to know <b class="k-who">who it was for</b> and <b class="k-what">what it meant to them</b>. Each answer changed the other, so we solved both together until they fit.</p>
+
+  <svg viewBox="0 0 350 250" role="img" aria-label="Who it's for starts at anyone done with the country club. What it means starts at a not-country-club. Each time one is fixed the other moves, and the two lines close in until they meet at one point.">
+    <text class="hd" x="4" y="16" fill="#A63D22">Who it's for</text>
+    <text class="hd" x="346" y="16" text-anchor="end" fill="#1C4C86">What it means</text>
+    <text class="lab" x="4" y="38">anyone done with</text>
+    <text class="lab" x="4" y="56">the country club</text>
+    <text class="lab" x="346" y="38" text-anchor="end">“a not-country-club”</text>
+    <text class="lab" x="346" y="56" text-anchor="end">and little else</text>
+
+    <!-- back-and-forth ties -->
+    <g stroke="#8A8378" stroke-width="1.5" stroke-dasharray="3 4" fill="none">
+      <line x1="40" y1="108" x2="310" y2="108"/>
+      <line x1="80" y1="148" x2="270" y2="148"/>
+      <line x1="120" y1="188" x2="230" y2="188"/>
+    </g>
+    <text class="mid" x="175" y="132" text-anchor="middle">fix one, the other moves</text>
+
+    <line x1="14" y1="76" x2="175" y2="236" stroke="#A63D22" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="336" y1="76" x2="175" y2="236" stroke="#1C4C86" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="14" cy="76" r="5" fill="#A63D22"/><circle cx="336" cy="76" r="5" fill="#1C4C86"/>
+    <circle cx="175" cy="236" r="9" fill="#1E1C19"/>
+  </svg>
+
+  <div class="fit">
+    <p class="hd2">Where they fit</p>
+    <div class="row"><span class="tag k-who">Who</span><span class="v">People with no third place, somewhere that isn't work or home</span></div>
+    <div class="row"><span class="tag k-what">What</span><span class="q">“Somewhere you never need an occasion to come in, only a reason to stay.”<span class="src">East West Club, brand guide</span></span></div>
+  </div>
+
+  <div class="proof"><span class="big">88%</span><p>of founding members signed, faster than the club expected.</p></div>
+
+  <p class="who2">Kahran and Divya, the two of us. What it cost: $5–10K.</p>
+
+  <div class="close">
+    <h2>You don't need a brief. It starts small.</h2>
+    <a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+  </div>
+
+  <footer>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</footer>
+</main>
+</div>
+<div class="case" data-opt="d"><div class="wrap">
+
+<div class="top"><b>Joyus</b><span>case study: strategy</span></div>
+
+<div class="grid">
+<div>
+<h1>East West Club's value was big and vague. We made it specific.</h1>
+<p class="lede">It's a new members club in Seattle: not a country club, a new kind of social club. But who is that for, and what does it mean to them? Fix one and the other shifts. So we <b>solved both together, until six people and six reasons fit.</b></p>
+</div>
+
+<div class="fig" role="img" aria-label="Six pairs, each a kind of member matched to what the club means to them: the quiet connector, leagues that give him somewhere to go; the country-club guy, a bay booked before work; the semi-retired operator, a named role and the credit; the new-to-Seattle founder, the lounge as meet me at; the empty-nester, cohorts that start on the same day; the mid-career high earner, quick nights, in and out.">
+<svg viewBox="0 0 360 330" xmlns="http://www.w3.org/2000/svg" font-family="Space Grotesk, sans-serif">
+ <text x="164" y="16" text-anchor="end" font-size="15" font-weight="700" fill="#B8155F">WHO it's for</text>
+ <text x="196" y="16" font-size="15" font-weight="700" fill="#1F7F89">WHAT it means</text>
+ <text x="196" y="32" font-size="13" fill="#2C3544">to them</text>
+ <g font-size="13" fill="#2C3544">
+  <g transform="translate(0,50)">
+   <rect x="2" y="0" width="356" height="38" rx="19" fill="#FCE4EF"/><rect x="180" y="0" width="178" height="38" rx="19" fill="#DDF3F5"/><rect x="180" y="0" width="20" height="38" fill="#DDF3F5"/>
+   <circle cx="180" cy="19" r="9" fill="#F2C94A"/>
+   <text x="164" y="24" text-anchor="end" font-weight="700">Quiet connector</text><text x="196" y="17">leagues: somewhere</text><text x="196" y="32">to go, friends or not</text>
+  </g>
+  <g transform="translate(0,96)">
+   <rect x="2" y="0" width="356" height="38" rx="19" fill="#FCE4EF"/><rect x="180" y="0" width="178" height="38" rx="19" fill="#DDF3F5"/><rect x="180" y="0" width="20" height="38" fill="#DDF3F5"/>
+   <circle cx="180" cy="19" r="9" fill="#F2C94A"/>
+   <text x="164" y="24" text-anchor="end" font-weight="700">Country-club guy</text><text x="196" y="17">a bay he can book</text><text x="196" y="32">before work</text>
+  </g>
+  <g transform="translate(0,142)">
+   <rect x="2" y="0" width="356" height="38" rx="19" fill="#FCE4EF"/><rect x="180" y="0" width="178" height="38" rx="19" fill="#DDF3F5"/><rect x="180" y="0" width="20" height="38" fill="#DDF3F5"/>
+   <circle cx="180" cy="19" r="9" fill="#F2C94A"/>
+   <text x="164" y="17" text-anchor="end" font-weight="700">Semi-retired</text><text x="164" y="32" text-anchor="end" font-weight="700">operator</text><text x="196" y="24">a named role, and credit</text>
+  </g>
+  <g transform="translate(0,188)">
+   <rect x="2" y="0" width="356" height="38" rx="19" fill="#FCE4EF"/><rect x="180" y="0" width="178" height="38" rx="19" fill="#DDF3F5"/><rect x="180" y="0" width="20" height="38" fill="#DDF3F5"/>
+   <circle cx="180" cy="19" r="9" fill="#F2C94A"/>
+   <text x="164" y="17" text-anchor="end" font-weight="700">New-to-Seattle</text><text x="164" y="32" text-anchor="end" font-weight="700">founder</text><text x="196" y="17">the lounge as</text><text x="196" y="32">“meet me at”</text>
+  </g>
+  <g transform="translate(0,234)">
+   <rect x="2" y="0" width="356" height="38" rx="19" fill="#FCE4EF"/><rect x="180" y="0" width="178" height="38" rx="19" fill="#DDF3F5"/><rect x="180" y="0" width="20" height="38" fill="#DDF3F5"/>
+   <circle cx="180" cy="19" r="9" fill="#F2C94A"/>
+   <text x="164" y="24" text-anchor="end" font-weight="700">Empty-nester</text><text x="196" y="17">cohorts that start on</text><text x="196" y="32">the same day</text>
+  </g>
+  <g transform="translate(0,280)">
+   <rect x="2" y="0" width="356" height="38" rx="19" fill="#FCE4EF"/><rect x="180" y="0" width="178" height="38" rx="19" fill="#DDF3F5"/><rect x="180" y="0" width="20" height="38" fill="#DDF3F5"/>
+   <circle cx="180" cy="19" r="9" fill="#F2C94A"/>
+   <text x="164" y="17" text-anchor="end" font-weight="700">Mid-career</text><text x="164" y="32" text-anchor="end" font-weight="700">high earner</text><text x="196" y="24">quick nights, in and out</text>
+  </g>
+ </g>
+</svg>
+</div>
+</div>
+
+<div class="after">
+<div class="result"><div class="n">88%</div><p>of founding members signed, faster than the club expected.</p></div>
+<p class="cost">Kahran and Divya, the two of us. What it cost: $5–10K.</p>
+<div class="close">
+<p class="big">You don't need a brief. It starts small.</p>
+<a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</div>
+</div>
+
+<footer>© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</footer>
+</div></div>
+<script>document.querySelectorAll('.case').forEach(function (c) { if (c.dataset.opt !== document.documentElement.dataset.v) c.remove(); });</script>
+</body>
+</html>
