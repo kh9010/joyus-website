@@ -93,12 +93,18 @@ const rules = [
   ['income', (t) => /\bHHI\b|income|salary/i.test(t)],
 ];
 for (const [name, bad] of rules) { const hit = drafts.find((d) => bad(visible(d.h))); hit ? fail(name + ' in the draft with ' + hit.name + ': ' + (visible(hit.h).match(/.{0,50}(—|88|\$\S+|\d+).{0,30}/) || [''])[0]) : ok('no ' + name + ' in any of the ' + drafts.length + ' drafts'); }
+// Kahran's final (8 Nov): final.html is the draft as picked, standalone, under the same rules
+const finalHtml = fs.existsSync(path.join(here, 'final.html')) ? read('final.html') : '';
+finalHtml && finalHtml === render(tpl, lines, JSON.parse(read('picks.json'))) ? ok('final.html is the draft rendered from picks.json') : fail('final.html is missing or differs from the picks render');
+/<meta name="robots" content="noindex">/.test(finalHtml) ? ok('final.html is noindex') : fail('final.html has no noindex');
+for (const [name, bad] of rules) bad(visible(finalHtml)) ? fail('final.html: ' + name + ': ' + (visible(finalHtml).match(/.{0,50}(—|88|\$\S+|\d+).{0,30}/) || [''])[0]) : ok('final.html: no ' + name);
+(finalHtml.match(/a founder, East West Club/g) || []).length === 1 ? ok('final.html credits "a founder, East West Club" once') : fail('final.html credits the founder ' + (finalHtml.match(/a founder, East West Club/g) || []).length + ' times');
 const { personas } = JSON.parse(fs.readFileSync(path.join(IT, '86/personas.json'), 'utf8'));
 const prof = personas.flatMap((p) => p.profile.split(/\.\s+/).map((s) => s.trim()).filter((s) => s.length > 8));
 drafts.some((d) => prof.some((s) => d.h.includes(s))) ? fail('a persona profile line in a draft') : ok('no persona profile line (income, family) in any draft');
 const quoted = lines.flatMap((l) => l.options).filter((o) => /“/.test(o.html) && /founder/.test(o.from));
 quoted.length === 5 && quoted.every((o) => /a founder, East West Club/.test(o.html)) ? ok('the five founder quotes (A-D and the proof B) are each attributed "a founder, East West Club", no name') : fail('a founder quote without its attribution (' + quoted.length + ' found)');
-const blob = drafts.map((d) => d.h).join('\n') + html + read('build.cjs') + read('brief.md') + read('lines.json') + read('people-sources.json');
+const blob = drafts.map((d) => d.h).join('\n') + finalHtml + html + read('build.cjs') + read('brief.md') + read('lines.json') + read('people-sources.json');
 const ewc = path.join(os.homedir(), 'dev/ewc');
 const boardFile = path.join(ewc, 'EWC workshopsession2fill.excalidraw');
 if (fs.existsSync(boardFile)) {
