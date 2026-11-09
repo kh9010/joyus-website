@@ -160,7 +160,7 @@ const rowsHtml = lines.map((l, n) => `<section class="row" id="row-${l.id}" data
  <div class="opts">
 ${l.options.map((o, i) => `  <button type="button" class="opt" data-row="${l.id}" data-from="${esc(o.from)}" data-i="${i}"${i === 0 ? ' aria-current="true"' : ''}><span class="from">${esc(o.from)}</span><span class="body">${esc(o.show).replace(/\n/g, '<br>')}</span></button>`).join('\n')}
  </div>
- <details class="own"><summary>my own words</summary><form class="edit" data-row="${l.id}"><textarea name="edit" rows="${l.pair ? 2 : 3}">${esc(l.options[0].edit)}</textarea><button type="submit">use these words</button></form>${l.pair ? '<p class="hint">who: what it means to them</p>' : l.id === 'labels' ? '<p class="hint">left / right</p>' : l.id === 'headline' ? '<p class="hint">*stars* make words pink</p>' : l.id === 'proof' ? '<p class="hint">a second line becomes the small line</p>' : l.id === 'quote' ? '<p class="hint">empty means no quote</p>' : ''}</details>
+ <details class="own"><summary>my own words</summary><form class="edit" data-row="${l.id}"><textarea name="edit" rows="${l.pair ? 2 : 3}">${esc(l.options[0].edit)}</textarea><button type="submit">use these words</button></form>${l.pair ? '<p class="hint">who: what it means to them</p>' : l.id === 'labels' ? '<p class="hint">left / right</p>' : l.id === 'headline' ? '<p class="hint">*stars* make words pink</p>' : l.id === 'proof' ? '<p class="hint">a second line becomes the small line; empty leaves the proof out</p>' : l.id === 'quote' ? '<p class="hint">empty means no quote; blank lines make several blocks: a block opening with a quote mark is a founder (a line under it is the credit), one without is a line of ours</p>' : ''}</details>
 </section>`).join('\n');
 
 const DESK_CSS = `
