@@ -2,6 +2,7 @@
 // render(template, lines, picks) fills 91 a's page (the template, with {{slot}} markers where its eight
 // lines were) with each row's pick. No pick, or a pick that no longer matches lines.json, means option 1,
 // which is what 91 a says now: render(template, lines, {}) is 91 a byte for byte (check.cjs holds that).
+// The six people are six rows (Kahran, 8 Nov: more options for the people), joined into 91 a's list of pairs.
 // "My own words" arrive as plain text and are escaped here; the headline alone reads *stars* as the pink.
 (function (root) {
   const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -16,6 +17,7 @@
     headline: (t) => esc(t.trim()).replace(/\*([^*]+)\*/g, '<em>$1</em>'),
     lede: (t) => esc(t.trim()),
     labels: (t) => { const [w, m = ''] = t.split('/').map((s) => esc(s.trim())); return labelsHtml(w, m); },
+    pair: (t) => { const l = t.replace(/\s+/g, ' ').trim(); const j = l.indexOf(':'); return j < 0 ? pairRow(esc(l), '') : pairRow(esc(l.slice(0, j).trim()), esc(l.slice(j + 1).trim())); },
     pairs: (t) => pairsHtml(t.split('\n').map((l) => l.trim()).filter(Boolean).map((l) => { const i = l.indexOf(':'); return i < 0 ? [esc(l), ''] : [esc(l.slice(0, i).trim()), esc(l.slice(i + 1).trim())]; })),
     proof: (t) => { const [p, ...rest] = t.split('\n').map((s) => s.trim()).filter(Boolean); return proofHtml(esc(p || ''), esc(rest.join(' '))); },
     quote: (t) => (t.trim() ? quoteBlock(esc(t.trim().replace(/^["“]|["”]$/g, ''))) : ''),
@@ -28,15 +30,18 @@
     if (pick && Number.isInteger(pick.i) && line.options[pick.i] && line.options[pick.i].from === pick.from) return { i: pick.i };
     return { i: 0 };
   }
+  // a row marked pair is one person: its html is one <li>, and the six together fill {{pairs}}, in row order
   function render(template, lines, picks) {
     let out = template;
+    const pairs = [];
     for (const line of lines) {
       const c = chosen(line, (picks || {})[line.id]);
-      const html = 'edit' in c ? EDIT[line.id](c.edit) : line.options[c.i].html;
-      out = out.split('{{' + line.id + '}}').join(html);
+      const html = 'edit' in c ? EDIT[line.pair ? 'pair' : line.id](c.edit) : line.options[c.i].html;
+      if (line.pair) pairs.push(html); else out = out.split('{{' + line.id + '}}').join(html);
     }
+    if (pairs.length) out = out.split('{{pairs}}').join('\n' + pairs.join('\n') + '\n ');
     return out;
   }
-  const api = { render, chosen, esc, quoteBlock, pairsHtml, labelsHtml, proofHtml };
+  const api = { render, chosen, esc, quoteBlock, pairRow, pairsHtml, labelsHtml, proofHtml };
   if (typeof module === 'object' && module.exports) module.exports = api; else root.Draft = api;
 })(this);

@@ -1,7 +1,8 @@
 // Study 92: the EWC editing desk (brief.md). Kahran picked 91 a, "okay for now; I want it a little more clear",
 // and asked for a desk like the About desk on kahransingh.com to edit it himself. Pinned here:
-//  - lines.json and index.html are a fresh build.cjs; eight rows in 91 a's order, each labelled with a reader
-//    question from Divya's bet (sitemap/bet.json), each with 2-5 options; option 1 of every row is what 91 a
+//  - lines.json and index.html are a fresh build.cjs; 91 a's lines in order (the six pairs as six person rows, Kahran
+//    8 Nov: "i hate the options for quiet connector etc, get me some more ppls"), each labelled with a reader
+//    question from Divya's bet (sitemap/bet.json), each with 2-7 options (a person 5-7); option 1 of every row is what 91 a
 //    says now, so the draft with no picks is 91 a byte for byte;
 //  - every option traces: its src file exists and holds each trace string (or it is marked "new");
 //  - the draft is clean in every option: no em dash, no money but $5–10K, no "88" and no other figure, no
@@ -33,13 +34,13 @@ const { render } = require('./draft.js');
 console.log('the desk');
 read('lines.json') === linesJson ? ok('lines.json is a fresh build') : fail('lines.json differs from a fresh build.cjs');
 read('index.html') === html ? ok('index.html is a fresh build') : fail('index.html differs from a fresh build.cjs');
-const ORDER = ['headline', 'lede', 'labels', 'pairs', 'proof', 'quote', 'cost', 'close'];
-JSON.stringify(lines.map((l) => l.id)) === JSON.stringify(ORDER) ? ok('eight rows in 91 a\'s order: ' + ORDER.join(', ')) : fail('rows are ' + lines.map((l) => l.id).join(', '));
+const ORDER = ['headline', 'lede', 'labels', 'p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'proof', 'quote', 'cost', 'close'];
+JSON.stringify(lines.map((l) => l.id)) === JSON.stringify(ORDER) ? ok('thirteen rows in 91 a\'s order (the six pairs one row per person): ' + ORDER.join(', ')) : fail('rows are ' + lines.map((l) => l.id).join(', '));
 const bet = JSON.parse(fs.readFileSync(path.join(IT, '../sitemap/bet.json'), 'utf8'));
 const questions = bet.beliefs.flatMap((b) => ['f', 'e', 'i'].map((k) => b[k][0]));
 lines.every((l) => questions.includes(l.q) && html.includes('answers: “' + l.q.replace(/'/g, '&#39;') + '”') || html.includes('answers: “' + l.q + '”'))
   ? ok('every row quotes one of the bet\'s 21 reader questions') : fail('a row\'s question is not in bet.json or not on the desk');
-lines.every((l) => l.options.length >= 2 && l.options.length <= 5) ? ok('options per row: ' + lines.map((l) => l.id + ' ' + l.options.length).join(', ')) : fail('a row has fewer than 2 or more than 5 options');
+lines.every((l) => l.options.length >= (l.pair ? 5 : 2) && l.options.length <= 7) ? ok('options per row: ' + lines.map((l) => l.id + ' ' + l.options.length).join(', ')) : fail('a row has too few or too many options (2-7; a person 5-7)');
 lines.every((l) => l.options.every((o, i) => html.includes(`data-row="${l.id}" data-from="${o.from.replace(/'/g, '&#39;')}" data-i="${i}"`) || html.includes(`data-row="${l.id}" data-from="${o.from}" data-i="${i}"`)))
   ? ok('every option is a button on the desk, its source shown') : fail('an option is missing from the desk');
 render(tpl, lines, {}) === A ? ok('no picks = 91 a byte for byte (option 1 of every row is what 91 a says now)') : fail('the draft with no picks is not 91 a');
@@ -54,10 +55,31 @@ for (const l of lines) for (const o of l.options) {
   const f = path.join(IT, o.src);
   if (!fs.existsSync(f)) { fail(l.id + ' / ' + o.from + ': ' + o.src + ' missing'); continue; }
   srcText[f] = srcText[f] || plain(fs.readFileSync(f, 'utf8').replace(/<head>[\s\S]*?<\/head>/, '')).replace(/\s+/g, ' ');
-  const miss = o.trace.filter((t) => !srcText[f].includes(t.replace(/\s+/g, ' ')));
-  !o.trace.length ? fail(l.id + ' / ' + o.from + ': nothing to trace') : miss.length ? fail(l.id + ' / ' + o.from + ': not in ' + o.src + ': "' + miss[0] + '"') : ok(l.id + ' / ' + o.from + ' ← ' + o.src + ' (' + o.trace.length + ')');
+  const textOf = (src) => { const g = path.join(IT, src); return (srcText[g] = srcText[g] || plain(fs.readFileSync(g, 'utf8').replace(/<head>[\s\S]*?<\/head>/, '')).replace(/\s+/g, ' ')); };
+  const miss = o.trace.map((t) => (Array.isArray(t) ? t : [o.src, t])).filter(([s, t]) => !textOf(s).includes(t.replace(/\s+/g, ' '))).map(([s, t]) => s + ': ' + t);
+  !o.trace.length ? fail(l.id + ' / ' + o.from + ': nothing to trace') : miss.length ? fail(l.id + ' / ' + o.from + ': not in "' + miss[0] + '"') : ok(l.id + ' / ' + o.from + ' ← ' + o.src + ' (' + o.trace.length + ')');
 }
 lines[0].options[0].from === '91 a' && lines.every((l) => /^91 a/.test(l.options[0].from)) ? ok('option 1 of every row is labelled 91 a') : fail('an option 1 is not labelled 91 a');
+
+console.log('the people');
+const pairRows = lines.filter((l) => l.pair);
+pairRows.length === 6 && pairRows.map((l) => l.options[0].html).join('\n') === [...A.match(/<ol>([\s\S]*?)<\/ol>/)[1].matchAll(/  <li class="row"[\s\S]*?<\/li>/g)].map((m) => m[0]).join('\n')
+  ? ok('six person rows, option 1 of each is 91 a\'s pair, in 91 a\'s order') : fail('the person rows do not start from 91 a\'s six pairs');
+const fresh = pairRows.flatMap((l) => l.options.slice(1).map((o) => ({ l, o })));
+const jargon = fresh.filter(({ o }) => /\bguys?\b|earner|income|salary|wealth|rich|\d|\byears? old\b|\bage\b|thirties|forties|fifties|retire/i.test(o.show));
+jargon.length ? fail('a new person option uses a banned word (guy, earner, income, an age, a number): ' + jargon[0].o.show) : ok('no "guy", no income, age or number in the ' + fresh.length + ' new person options');
+const lenses = new Set(fresh.map(({ o }) => o.from.replace(/ \(.*$/, '')));
+lenses.size >= 5 ? ok('the new names come through ' + lenses.size + ' lenses: ' + [...lenses].join(', ')) : fail('only ' + lenses.size + ' lenses');
+const sessions = JSON.parse(read('people-sources.json')).lines;
+fresh.filter(({ o }) => /sessions/.test(o.from)).every(({ o }) => o.trace.some((t) => Array.isArray(t) && t[0] === '92/people-sources.json'))
+  ? ok('every "the sessions" option traces to a line in people-sources.json (' + sessions.length + ' lines)') : fail('a sessions option has no sessions line');
+const draftText = fresh.map(({ o }) => o.show).join(' ');
+sessions.filter((x) => draftText.includes(x.text)).length === 0 ? ok('the sessions\' own lines are paraphrased, never on the draft') : fail('a session line is on the desk verbatim');
+
+console.log('his picks');
+const picksNow = JSON.parse(read('picks.json'));
+Object.entries(picksNow).every(([row, p]) => { const l = lines.find((x) => x.id === row); return l && (typeof p.edit === 'string' || (l.options[p.i] && l.options[p.i].from === p.from)); })
+  ? ok('every saved pick still names a row and an option (' + Object.keys(picksNow).join(', ') + ')') : fail('a saved pick no longer matches lines.json: ' + JSON.stringify(picksNow));
 
 console.log('the draft is clean, every option');
 const visible = (h) => h.replace(/<style[^>]*>[\s\S]*?<\/style>/g, '').replace(/<head>[\s\S]*?<\/head>/, '').replace(/<[^>]+>/g, ' ').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ');
@@ -76,7 +98,7 @@ const prof = personas.flatMap((p) => p.profile.split(/\.\s+/).map((s) => s.trim(
 drafts.some((d) => prof.some((s) => d.h.includes(s))) ? fail('a persona profile line in a draft') : ok('no persona profile line (income, family) in any draft');
 const quoted = lines.flatMap((l) => l.options).filter((o) => /“/.test(o.html) && /founder/.test(o.from));
 quoted.length === 5 && quoted.every((o) => /a founder, East West Club/.test(o.html)) ? ok('the five founder quotes (A-D and the proof B) are each attributed "a founder, East West Club", no name') : fail('a founder quote without its attribution (' + quoted.length + ' found)');
-const blob = drafts.map((d) => d.h).join('\n') + html + read('build.cjs') + read('brief.md') + read('lines.json');
+const blob = drafts.map((d) => d.h).join('\n') + html + read('build.cjs') + read('brief.md') + read('lines.json') + read('people-sources.json');
 const ewc = path.join(os.homedir(), 'dev/ewc');
 const boardFile = path.join(ewc, 'EWC workshopsession2fill.excalidraw');
 if (fs.existsSync(boardFile)) {
@@ -98,7 +120,7 @@ if (fs.existsSync(boardFile)) {
 console.log('the save route');
 const server = read('../../server.cjs');
 server.includes("if (pathname === '/api/study-92/pick') { require('./iterations/92/pick.cjs')(req, res); return; }") ? ok('studies/server.cjs mounts POST /api/study-92/pick (one line)') : fail('studies/server.cjs does not mount the route');
-read('picks.json') === '{}\n' ? ok('picks.json as committed is empty') : console.log('  note picks.json holds picks: ' + read('picks.json').replace(/\s+/g, ' ').slice(0, 160));
+console.log('  note picks.json holds ' + Object.keys(JSON.parse(read('picks.json'))).length + ' pick(s): Kahran\'s, kept as he left them');
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'study92-'));
 process.env.PICKS = path.join(tmpDir, 'picks.json');
 const pick = require('./pick.cjs');
@@ -117,7 +139,7 @@ const post = (port, body, method = 'POST', headers = {}) => new Promise((resolve
 srv.listen(0, '127.0.0.1', async () => {
   const port = srv.address().port;
   const picksNow = () => { try { return fs.readFileSync(process.env.PICKS, 'utf8'); } catch { return ''; } };
-  const good = await post(port, { row: 'proof', pick: { from: lines[4].options[2].from, i: 2 } });
+  const good = await post(port, { row: 'proof', pick: { from: lines.find((l) => l.id === 'proof').options[2].from, i: 2 } });
   const good2 = await post(port, { row: 'headline', pick: { edit: 'East West Club, *made specific*.' } });
   const written = picksNow();
   good === 204 && good2 === 204 && JSON.stringify(Object.keys(JSON.parse(written))) === '["headline","proof"]' ? ok('a good pick and an edit are saved (204), in row order') : fail('good picks: ' + good + ' ' + good2 + ' wrote ' + written);
@@ -152,8 +174,8 @@ srv.listen(0, '127.0.0.1', async () => {
       r.pageWidth <= +w ? ok(w + ': nothing past the edge') : fail(w + ': the desk is ' + r.pageWidth + 'px wide');
       r.deskFont >= 13 ? ok(w + ': smallest text on the desk ' + r.deskFont + 'px') : fail(w + ': desk text at ' + r.deskFont + 'px');
       r.draftFont >= 13 && r.draftFontLast >= 13 ? ok(w + ': smallest text in the draft ' + r.draftFont + 'px (option 1s), ' + r.draftFontLast + 'px (last options)') : fail(w + ': draft text under 13px');
-      r.h1 !== r.h1After && /4 of 8|5 of 8|6 of 8|7 of 8|8 of 8/.test(r.status) && /saved/.test(r.status) && !/not saved/.test(r.status) ? ok(w + ': taps change the draft and save (' + r.status + ')') : fail(w + ': taps: ' + r.status + ' / ' + r.h1After);
-      /^0 of 8/.test(r.statusReset) ? ok(w + ': option 1 everywhere takes it back to 91 a') : fail(w + ': reset says ' + r.statusReset);
+      r.h1 !== r.h1After && /^1[0-3] of 13/.test(r.status) && /saved/.test(r.status) && !/not saved/.test(r.status) ? ok(w + ': taps change the draft and save (' + r.status + ')') : fail(w + ': taps: ' + r.status + ' / ' + r.h1After);
+      /^0 of 13/.test(r.statusReset) ? ok(w + ': option 1 everywhere takes it back to 91 a') : fail(w + ': reset says ' + r.statusReset);
       r.errors.length ? fail(w + ': errors ' + r.errors.join(' | ')) : ok(w + ': no errors');
     }
     const p = out['390'];
