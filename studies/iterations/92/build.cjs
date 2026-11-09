@@ -1,18 +1,18 @@
 // Study 92: the EWC editing desk, for Kahran to edit 91 a with options (brief.md). Modelled on kahransingh.com's
 // About desk (studies/09 there): the page's lines down one side, each with options to tap plus "my own words",
 // and the live draft beside it. This script writes:
-//   lines.json   eight rows, in 91 a's order, each with its options ({from, src, trace, html, show})
+//   lines.json   the rows, in 91 a's order (its eight lines, the six pairs as one row per person), each with its options ({from, src, trace, html, show})
 //   index.html   the desk, readable with no server and no JS (option 1s, which are 91 a as it is)
 // The draft is 91 a's page itself (src/a.html of Study 91) with its eight lines cut out as {{slot}} markers
 // (template.html is not written: the template sits inside index.html), filled by draft.js. Option 1 of each row
 // is what 91 a says now, so the draft with no picks is 91 a byte for byte.
 // Every option names its source: `src` is a file (relative to studies/iterations/) whose text must contain each
-// string in `trace` (default: the option's own text); `src: "new"` marks a fresh line of ours. check.cjs holds both.
+// string in `trace` (default: the option's own text; a [file, string] item names another file); `src: "new"` marks a fresh line of ours. check.cjs holds both.
 // Picks are saved by POST /api/study-92/pick (pick.cjs, mounted in studies/server.cjs) into picks.json.
 //   node studies/iterations/92/build.cjs
 const fs = require('node:fs');
 const path = require('node:path');
-const { render, quoteBlock, pairsHtml, labelsHtml, proofHtml, esc } = require('./draft.js');
+const { render, quoteBlock, pairsHtml, pairRow, labelsHtml, proofHtml, esc } = require('./draft.js');
 const HERE = __dirname;
 const IT = path.resolve(HERE, '..');
 const A = fs.readFileSync(path.join(IT, '91/src/a.html'), 'utf8');
@@ -31,10 +31,18 @@ for (const [slot, re] of [
 ]) { const r = cut(re, slot, tpl); now[slot] = r.inner; tpl = r.tpl; }
 { const m = /<div class="proof">[\s\S]*?<\/div>/.exec(tpl); now.proof = m[0]; tpl = tpl.replace(m[0], '{{proof}}{{quote}}'); }
 now.quote = '';
-const WHO = Object.fromEntries([...now.pairs.matchAll(/<span class="who" role="cell">([^<]+)<\/span>/g)].map((m) => [m[1].replace(/&nbsp;/g, ' ').toLowerCase(), m[1]]));
-const who = (k) => { if (!WHO[k]) throw new Error('no member ' + k); return WHO[k]; };
-const set = (list) => pairsHtml(list.map(([k, what]) => [who(k), what]));
+const PAIRS91 = [...now.pairs.matchAll(/<span class="who" role="cell">([^<]+)<\/span>.*?<span class="what" role="cell">([^<]+)<\/span>/g)].map((m) => ({ key: m[1].replace(/&nbsp;/g, ' ').toLowerCase(), who: m[1], what: m[2] }));
+const plainPair = (w, m) => (w + ': ' + m).replace(/&nbsp;/g, ' ');
 const Q = (t) => ({ html: quoteBlock(t), trace: [t], edit: t, show: '\u201c' + t + '\u201d' });
+const P_SRC = '86/personas.json';
+const S = '92/people-sources.json'; // the founders' sessions, short lines, no names
+const PEOPLE = (list) => list.map(([k, opts], n) => {
+  const now91 = PAIRS91.find((p) => p.key === k);
+  return { id: 'p' + (n + 1), pair: true, label: 'person ' + (n + 1) + ' of 6 (91 a: ' + now91.who.replace(/&nbsp;/g, ' ') + ')', q: 'Is this a place someone like me goes?', options: [
+    { from: '91 a', src: '91/src/a.html', html: pairRow(now91.who, now91.what), trace: [now91.what], show: plainPair(now91.who, now91.what), edit: plainPair(now91.who, now91.what) },
+    ...opts.map(([lens, w, what, trace]) => ({ from: lens, src: P_SRC, trace, html: pairRow(w, what), show: plainPair(w, what), edit: plainPair(w, what) })),
+  ] };
+});
 const COST = (s) => s.replace('$5–10K', '<b style="white-space:nowrap">$5–10K</b>');
 
 // ---- the rows ------------------------------------------------------------------------------
@@ -58,12 +66,59 @@ const ROWS = [
     { from: '90 b', src: '90/src/b.html', trace: ["Who it's for", 'What fits them'], html: labelsHtml("Who it's for", 'What fits them'), edit: "Who it's for / What fits them" },
     { from: 'new, plain', src: 'new', html: labelsHtml('Who joins', 'Why they join'), edit: 'Who joins / Why they join' },
   ] },
-  { id: 'pairs', label: 'the six pairs (whole sets)', q: 'What do they actually make, and could they make mine?', options: [
-    { from: '91 a (same words in 91 b-d, 90 a)', src: '91/src/a.html', html: now.pairs },
-    { from: '90 c', src: '90/src/c.html', html: set([['quiet connector', 'Leagues that give him somewhere to go'], ['country-club guy', 'A bay he can book before work'], ['semi-retired operator', 'A named role he gets credit for'], ['new-to-seattle founder', "A lounge that's his “meet me at”"], ['empty-nester', 'Cohorts that start the same day'], ['mid-career high earner', 'Nights she can be in and out of']]) },
-    { from: '90 b', src: '90/src/b.html', html: set([['quiet connector', 'leagues that give him a place to go'], ['country-club guy', 'a bay he can book before work'], ['semi-retired operator', 'a named role that gets him the credit'], ['new-to-seattle founder', 'a lounge he can work and meet in'], ['empty-nester', 'cohorts that start on the same day'], ['mid-career high earner', 'nights that get her in and out fast']]) },
-    { from: '89 d', src: '89/src/d.html', html: set([['quiet connector', 'leagues: somewhere to go, friends or not'], ['country-club guy', 'a bay he can book before work'], ['semi-retired operator', 'a named role, and credit'], ['new-to-seattle founder', 'the lounge as “meet me at”'], ['empty-nester', 'cohorts that start on the same day'], ['mid-career high earner', 'quick nights, in and out']]) },
-  ] },
+  // the six people, one row each, in 91 a's order: option 1 is 91 a's pair; the rest name the person through one
+  // lens each (life moment, their own words, what they make do with today, plain, a short noun, the founders'
+  // sessions in our words) and say what the club means to them from personas.json (wants, today, give; never profile)
+  ...PEOPLE([
+    ['quiet connector', [
+      ['life moment', 'Busy with work and the kids’ games', 'somewhere of his own, away from the usual circles', ['kids\' sports', 'A way to be away from his usual social circles.']],
+      ['their own words', 'I’d like to run into people I haven’t seen in a while', 'a café and a lounge where that happens', ['Running into someone he hasn\'t seen in a while.', 'The café, the lounge']],
+      ['what they make do with today', 'Someone whose social life is the coffeeshop near the house', 'leagues and poker nights that give him somewhere to go', ['a coffeeshop near the house', 'poker nights', 'leagues that give you somewhere to go']],
+      ['plain', 'Someone who would join in, if there were something to join', 'leagues that give him somewhere to go, friends or not', ['leagues that give you somewhere to go even when you don\'t have friends']],
+      ['a short noun', 'The joiner', 'leagues, poker nights, a featured chef', ['Featured chefs, poker nights', 'leagues']],
+      ['the sessions, in our words (18, 27 May)', 'A parent you know from the kids’ games', 'a league to join without bringing a foursome', [[S, 'the people you, like, you meet through your kids activities'], [S, 'they don\'t really have friends'], 'leagues']],
+    ]],
+    ['new-to-seattle founder', [
+      ['life moment', 'Just moved here, building a company', 'a lounge to work, take calls and meet investors', ['A true second space.', 'Somewhere to take video calls.', 'Somewhere to meet investors.']],
+      ['their own words', 'I need somewhere that isn’t another coffeeshop', 'a true second space', ['A true second space.', 'a coffeeshop']],
+      ['what they make do with today', 'Someone who works out of coffeeshops', 'the lounge as the default place to meet', ['a coffeeshop', 'The lounge as workspace and as the default']],
+      ['plain', 'Someone new in town who only knows colleagues', 'people who aren’t colleagues, in a room mixed on purpose', ['People who aren\'t colleagues.', 'A room mixed on purpose']],
+      ['a short noun', 'The newcomer', 'events with the top Seattle companies', ['Events with the top Seattle companies']],
+      ['the sessions, in our words (15, 27 May)', 'Someone new, a bit lonely, looking for their place', 'the club as that place: a lounge to work and meet in', [[S, 'that is a lonely person'], [S, 'he is looking for that place'], ['91/src/a.html', 'a lounge to work and meet in']]],
+    ]],
+    ['semi-retired operator', [
+      ['life moment', 'Stepping back from running things', 'a real position in the club', ['A named role and a real position in the club.']],
+      ['their own words', 'I want to be a mentor to someone', 'younger, more interesting people, and a role among them', ['Being a practical mentor to someone.', 'Meeting younger, more interesting people.']],
+      ['what they make do with today', 'Someone whose evenings are board work and charity dinners', 'member dinners to host, and the credit for them', ['board work', 'charity events', 'hosts member dinners', 'we say publicly that he is the one who made it happen']],
+      ['plain', 'Someone who has built a lot and wants to be useful', 'programming to run, and teams to recruit', ['He organizes programming, recruits teams']],
+      ['a short noun', 'The host', 'a Friday night he throws, and the credit', ['Throwing something impromptu on a Friday.', 'we say publicly that he is the one who made it happen']],
+      ['the sessions, in our words (18 May)', 'Someone thinking about what they leave behind', 'a hand in shaping the club, said out loud', [[S, 'thinking about legacy'], 'we say publicly that he is the one who made it happen']],
+    ]],
+    ['country-club guy', [
+      ['life moment', 'Already a member of a country club', 'a second club, used on his own terms', [[S, 'the country club person who wants a secondary relationship'], 'Bookings he can plan around']],
+      ['their own words', 'I want a bay that’s free when I want it', 'bookings he can plan around, before work', ['A simulator that\'s free when he wants it.', 'Bookings he can plan around', 'before work']],
+      ['what they make do with today', 'Someone who plays poker at a friend’s house', 'Thursday poker, without the long commute', ['Thursday night poker.', 'a friend\'s house', 'Dropping in without the long commute.']],
+      ['plain', 'Someone whose club is too far to drop into', 'a bay he can book before work', ['Dropping in without the long commute.', ['90/src/b.html', 'a bay he can book before work']]],
+      ['a short noun', 'The golfer', 'a simulator bay, and slower nights', ['A simulator', 'Deliberately slower programming']],
+      ['the sessions, in our words (15 May)', 'A member somewhere else who wants a second place', 'what his own club doesn’t have: wellness, a bay before work', [[S, 'try to have something that their place does not have'], 'most clubs don\'t offer it', 'before work']],
+    ]],
+    ['empty-nester', [
+      ['life moment', 'Kids just left home', 'friends who fit the life they have now', ['Friends who match the life they have now.']],
+      ['their own words', 'I want to pick up the hobbies I dropped', 'a cohort that starts together, so nobody is behind', ['Reconnecting with the hobbies they dropped.', 'so nobody is behind']],
+      ['what they make do with today', 'Someone who sees friends at a favourite restaurant', 'private space to book, without hosting at home', ['a favourite restaurant', 'Seeing people without hosting at home.', 'Private space to book']],
+      ['plain', 'Someone with time again, and a lot they know', 'leadership called out by name, and accolades worth winning', ['Being respected for what they know.', 'Leadership called out by name, and accolades worth winning.']],
+      ['a short noun', 'The second act', 'a new start, with people starting alongside', [[S, 'a new space for this new version of themselves'], 'Cohorts that start the game on the same day']],
+      ['the sessions, in our words (27 May)', 'Someone finding a new version of themselves', 'a cohort that starts on the same day', [[S, 'a new space for this new version of themselves'], 'Cohorts that start the game on the same day']],
+    ]],
+    ['mid-career high earner', [
+      ['life moment', 'Deep in a busy career', 'plans that are certain when she needs them', ['Plans that are certain when she needs them to be.']],
+      ['their own words', 'I want people to watch the game with', 'a better place for the game than a sports bar', ['People to watch the game with.', 'a sports bar']],
+      ['what they make do with today', 'Someone whose third place is the neighbourhood bar', 'a third place, and guest passes to bring friends', ['A third place.', 'the neighbourhood bar', 'Guest passes']],
+      ['plain', 'Someone who wants to know the next thing first', 'athlete and brand nights, demo sessions', ['Knowing the next thing before it\'s the next thing.', 'Athlete and brand nights, demo sessions']],
+      ['a short noun', 'The regular', 'nights worth choosing, in and out fast', ['date nights worth choosing', 'Faster programming', 'in and out']],
+      ['the sessions, in our words (27 May)', 'Someone who wants to be in with the right crowd', 'short nights with the right people', [[S, 'you want to be in with the right crowd'], 'Faster programming']],
+    ]],
+  ]),
   { id: 'proof', label: 'the proof', q: 'What did it do for them, at a size like mine?', options: [
     { from: '91 a', src: '91/src/a.html', html: now.proof },
     { from: 'brief 92 (new)', src: '92/brief.md', html: proofHtml('Founding members are signing up, with no paid marketing yet.') },
@@ -91,19 +146,11 @@ const ROWS = [
 ];
 
 const plain = (h) => h.replace(/<style>[\s\S]*?<\/style>/g, '').replace(/<\/li>/g, '\n').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&rarr;/g, '→').replace(/&larr;/g, '←').replace(/&amp;/g, '&').replace(/[ \t]+/g, ' ').replace(/ ([.,;:!?])/g, '$1').replace(/ *\n */g, '\n').trim();
-for (const r of ROWS) if (now[r.id] !== r.options[0].html) throw new Error(r.id + ': option 1 is not what 91 a says now');
-const lines = ROWS.map((r) => ({ id: r.id, label: r.label, q: r.q, options: r.options.map((o) => ({
+for (const r of ROWS) if (!r.pair && now[r.id] !== r.options[0].html) throw new Error(r.id + ': option 1 is not what 91 a says now');
+const lines = ROWS.map((r) => ({ id: r.id, ...(r.pair ? { pair: true } : {}), label: r.label, q: r.q, options: r.options.map((o) => ({
   from: o.from, src: o.src, trace: o.src === 'new' ? [] : (o.trace || [plain(o.html).replace(/^“|”$/g, '').replace(/\na founder, East West Club$/, '')].flatMap((t) => t.split('\n'))),
   html: o.html, show: o.show || plain(o.html), edit: o.edit !== undefined ? o.edit : o.src === 'new' && r.id === 'quote' ? '' : r.id === 'proof' ? plain(o.html.replace('<small>', '\n<small>')) : r.id === 'headline' ? plain(o.html.replace(/<em>([\s\S]*?)<\/em>/g, '*$1*')) : plain(o.html),
 })) }));
-// pairs: the editable text is "Who: what" per line
-for (const o of lines.find((l) => l.id === 'pairs').options) {
-  const rows = [...o.html.matchAll(/<span class="who" role="cell">([^<]+)<\/span>.*?<span class="what" role="cell">([^<]+)<\/span>/g)].map((m) => plain(m[1]) + ': ' + plain(m[2]));
-  o.show = rows.join('\n'); o.edit = rows.join('\n');
-}
-// the trace for the pairs is the what-lines only (the who names are 91 a's, the same in every source)
-for (const o of lines.find((l) => l.id === 'pairs').options) o.trace = o.edit.split('\n').map((l) => l.slice(l.indexOf(':') + 2));
-
 // ---- the desk ------------------------------------------------------------------------------
 const draft0 = render(tpl, lines, {});
 if (draft0 !== A) throw new Error('the draft with no picks is not 91 a');
@@ -113,7 +160,7 @@ const rowsHtml = lines.map((l, n) => `<section class="row" id="row-${l.id}" data
  <div class="opts">
 ${l.options.map((o, i) => `  <button type="button" class="opt" data-row="${l.id}" data-from="${esc(o.from)}" data-i="${i}"${i === 0 ? ' aria-current="true"' : ''}><span class="from">${esc(o.from)}</span><span class="body">${esc(o.show).replace(/\n/g, '<br>')}</span></button>`).join('\n')}
  </div>
- <details class="own"><summary>my own words</summary><form class="edit" data-row="${l.id}"><textarea name="edit" rows="${l.id === 'pairs' ? 7 : 3}">${esc(l.options[0].edit)}</textarea><button type="submit">use these words</button></form>${l.id === 'pairs' ? '<p class="hint">one pair a line, who: what</p>' : l.id === 'labels' ? '<p class="hint">left / right</p>' : l.id === 'headline' ? '<p class="hint">*stars* make words pink</p>' : l.id === 'proof' ? '<p class="hint">a second line becomes the small line</p>' : l.id === 'quote' ? '<p class="hint">empty means no quote</p>' : ''}</details>
+ <details class="own"><summary>my own words</summary><form class="edit" data-row="${l.id}"><textarea name="edit" rows="${l.pair ? 2 : 3}">${esc(l.options[0].edit)}</textarea><button type="submit">use these words</button></form>${l.pair ? '<p class="hint">who: what it means to them</p>' : l.id === 'labels' ? '<p class="hint">left / right</p>' : l.id === 'headline' ? '<p class="hint">*stars* make words pink</p>' : l.id === 'proof' ? '<p class="hint">a second line becomes the small line</p>' : l.id === 'quote' ? '<p class="hint">empty means no quote</p>' : ''}</details>
 </section>`).join('\n');
 
 const DESK_CSS = `
