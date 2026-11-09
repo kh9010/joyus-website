@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<title>93 / the stones, cut from the real J</title><link rel="icon" href="data:,">
+<!-- Study 93's stone maker (not a page of the case study). It builds the live page's J with the live worker
+     (41/jbuilder.js, Rubik mask, 40 stones, a fixed seed) and the Gummy look (41/looks/gummy.js), then renders
+     single stones alone on a clear background, plus the whole J, so the option pages can use the brand's real
+     stones as plain images (no three.js on the case study). shoot.mjs --stones saves them to img/stone-*.png.
+     Colours: the four stone colours, in an order where no two neighbouring rows match (brand-lab's neighbour
+     rule, Study 67). -->
+<style>body{margin:0;background:#fff;font:14px 'Space Grotesk',sans-serif}#out img{width:120px;margin:6px;border:1px solid #eee}</style>
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+</head><body><p id="s">building</p><div id="out"></div>
+<script type="module">
+import * as THREE from 'three';
+import * as look from '../41/looks/gummy.js';
+const SEED = 'ewc93', N = 40, SIZE = 720;
+// six stones for the six people, then the J. Colours by row, neighbours distinct.
+const COLS = ['#f25aa3', '#2fc0d8', '#f5c63c', '#7d55d4', '#f25aa3', '#2fc0d8'];
+const canvas = document.createElement('canvas'); canvas.width = canvas.height = SIZE;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.setPixelRatio(1); renderer.setSize(SIZE, SIZE, false);
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(24, 1, .1, 60);
+await look.setup({ THREE, renderer, scene, camera, pieces: [] });
+const pieces = await new Promise((res, rej) => {
+  const out = [], w = new Worker('../41/jbuilder.js', { type: 'module' });
+  w.onmessage = (e) => { const d = e.data;
+    if (d.type === 'piece') { const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+      g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true)); g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+      g.computeBoundingBox(); out.push({ g, colour: d.colour }); }
+    if (d.type === 'done') { w.terminate(); res(out); } if (d.type === 'error') rej(new Error(d.message)); };
+  w.postMessage({ seed: SEED, cells: N, res: .6, field: 'exact', mask: '../41/masks1024/rubik.png', layer: false });
+});
+const vol = p => { const s = p.g.boundingBox.getSize(new THREE.Vector3()); return s.x * s.y * s.z; };
+// the six roundest of the bigger stones: by size, then by how even their sides are
+const ranked = pieces.map(p => { const s = p.g.boundingBox.getSize(new THREE.Vector3()); return { p, v: vol(p), even: Math.min(s.x, s.y) / Math.max(s.x, s.y) }; })
+  .sort((a, b) => b.v - a.v).slice(0, 16).sort((a, b) => b.even - a.even).slice(0, 6).map(r => r.p);
+function shoot(group, max) {
+  scene.add(group);
+  const box = new THREE.Box3().setFromObject(group), c = box.getCenter(new THREE.Vector3()), r = box.getBoundingSphere(new THREE.Sphere()).radius;
+  group.position.sub(c);
+  camera.position.set(0, 0, r / Math.tan(camera.fov * Math.PI / 360) * .72); camera.lookAt(0, 0, 0);
+  renderer.render(scene, camera); scene.remove(group);
+  // crop to the stone (alpha > 8) with a 6px margin, so the images carry no empty frame
+  const t = document.createElement('canvas'); t.width = t.height = SIZE; const x = t.getContext('2d'); x.drawImage(canvas, 0, 0);
+  const a = x.getImageData(0, 0, SIZE, SIZE).data; let l = SIZE, tp = SIZE, rt = 0, b = 0;
+  for (let y = 0; y < SIZE; y++) for (let X = 0; X < SIZE; X++) if (a[(y * SIZE + X) * 4 + 3] > 8) { l = Math.min(l, X); rt = Math.max(rt, X); tp = Math.min(tp, y); b = Math.max(b, y); }
+  l = Math.max(0, l - 6); tp = Math.max(0, tp - 6); rt = Math.min(SIZE - 1, rt + 6); b = Math.min(SIZE - 1, b + 6);
+  const w = rt - l + 1, h = b - tp + 1, k = Math.min(1, max / Math.max(w, h));  // stones 160px, the J 420px: light for the page
+  const o = document.createElement('canvas'); o.width = Math.round(w * k); o.height = Math.round(h * k); const ox = o.getContext('2d'); ox.imageSmoothingQuality = 'high'; ox.drawImage(t, l, tp, w, h, 0, 0, o.width, o.height);
+  return o.toDataURL('image/png');
+}
+const shots = [];
+ranked.forEach((p, i) => {
+  const g = p.g.clone(); g.center();
+  const m = new THREE.Mesh(g); m.userData.colour = new THREE.Color(COLS[i]); look.dress({ THREE, mesh: m });
+  m.rotation.set(-.55 + i * .07, .35 - i * .11, (i % 2 ? .3 : -.25));
+  const grp = new THREE.Group(); grp.add(m); shots.push(shoot(grp, 160));
+});
+const J = new THREE.Group();
+for (const p of pieces) { const m = new THREE.Mesh(p.g); m.userData.colour = new THREE.Color(p.colour); look.dress({ THREE, mesh: m }); J.add(m); }
+J.rotation.set(-.12, .28, 0); shots.push(shoot(J, 420));
+for (const u of shots) { const im = new Image(); im.src = u; document.getElementById('out').append(im); }
+window.__stones = shots; document.getElementById('s').textContent = 'done: ' + shots.length;
+</script></body></html>

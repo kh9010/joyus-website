@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>East West Club: who it's for, and what it means to them · Joyus</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>document.documentElement.dataset.v = (/[?&]v=([abcd])/.exec(location.search) || [0, 'a'])[1];</script>
+<!--
+  Study 93: 92 final's words, byte for byte, set in the site's own design language. Only the layout and the visual
+  treatment vary between ?v=a|b|c|d. Every rule below says where in Divya's system it comes from (index.html has the list).
+  Added words: the nav (work · about · say hi), the site's chrome on every page design since rev 4 (Study 02) and Study 70.
+-->
+<style>
+/* ---- shared: tokens (CLAUDE.md "Design system"; styles.css), white page (Study 18 on, the live page) ---- */
+:root{--ink:#2C3544;--soft:#54606F;--rule:rgba(44,53,68,.12);--pink:#E91E7B;--cyan:#4FC4CF;--yellow:#F2C94A;
+  --s1:#f25aa3;--s2:#7d55d4;--s3:#2fc0d8;--s4:#f5c63c;--x:clamp(1.25rem,4vw,3rem)}
+*{box-sizing:border-box;margin:0;padding:0}
+html[data-v="a"] .case:not([data-opt="a"]),html[data-v="b"] .case:not([data-opt="b"]),html[data-v="c"] .case:not([data-opt="c"]),html[data-v="d"] .case:not([data-opt="d"]){display:none}
+/* body 18px/1.45 (Study 70 site.css); Space Grotesk only, no serif (CLAUDE.md) */
+body{font:400 18px/1.45 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit}
+img{display:block}
+.in{max-width:1180px;margin:0 auto;padding:0 var(--x)}
+/* header: wordmark left, lowercase nav right, a hairline under it (rev 4 wireframe, Study 13, Study 70 .top) */
+.top{border-bottom:1px solid var(--rule)}
+.top .in{display:flex;align-items:center;justify-content:space-between;height:60px}
+.wm{font-weight:700;font-size:20px;letter-spacing:-.02em;text-decoration:none;text-transform:lowercase}
+.top nav{display:flex;gap:20px;font-size:16px}
+.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+/* hero eyebrow: small caps, letter-spaced, a pink dot in front (agemo .hero-eyebrow; 13px, not 12.5, for legibility) */
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
+.eyebrow::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 4px rgba(233,30,123,.18)}
+/* headline: 700, tight (live h1 -.035em; agemo -.04em, line-height .92-1.05). The accent is pink, but pink text is
+   4.25:1 on white, so the pink goes under the words as the live page's thick underline does (Study 39/40) */
+h1{font-weight:700;letter-spacing:-.035em;line-height:1.02}
+h1 em{font-style:normal;text-decoration:underline;text-decoration-color:var(--pink);text-decoration-thickness:.12em;text-underline-offset:.14em;text-decoration-skip-ink:none}
+/* the subtitle register: 500, ink-soft (live .note) */
+.lede{font-weight:500;color:var(--soft)}
+/* the column labels as the site's small labels (agemo .hero-meta / .sec label: caps, spaced) */
+.lab{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+/* quotes: agemo .synthesis-quote (500, -.02em) */
+blockquote{font-weight:500;letter-spacing:-.015em}
+figcaption{font-size:15px;color:var(--soft);margin-top:8px}
+.cost{color:var(--soft)}.cost b{color:var(--ink);font-weight:700}
+/* the close: cs-closing (2px ink rule on top, a big 600 line, left aligned) with the live page's link (thick underline,
+   colour band sweeps in on hover, the word turns white: Study 39/40, Divya 13 Oct) */
+.closing{border-top:2px solid var(--ink);margin-top:clamp(48px,8vw,96px);padding:clamp(32px,6vw,72px) 0 clamp(28px,5vw,56px)}
+.closing .big{font-weight:600;font-size:clamp(1.6rem,4vw,2.75rem);line-height:1.15;letter-spacing:-.02em;max-width:22ch}
+.closing a{display:inline-block;margin-top:22px;font-weight:700;font-size:clamp(1.25rem,2.1vw,1.6rem);letter-spacing:-.02em;text-decoration:underline;text-decoration-color:var(--pink);text-decoration-thickness:5px;text-underline-offset:7px;padding:0 .12em;margin-left:-.12em;
+  background:linear-gradient(var(--pink),var(--pink)) no-repeat left center/0% 100%;transition:background-size .38s cubic-bezier(.4,0,.2,1),color .38s}
+.closing a:hover,.closing a:focus-visible{background-size:100% 100%;color:#fff;outline:none}
+.closing a:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+/* footer: one quiet line (rev 4, Study 70 .foot); ink-soft, not ink-fade, for contrast */
+footer{border-top:1px solid var(--rule);font-size:14px;color:var(--soft)}
+footer .in{padding-top:18px;padding-bottom:28px}
+@media(max-width:520px){.top nav{gap:14px}}
+@media(prefers-reduced-motion:reduce){.closing a{transition:none}}
+
+/* ================= a · six stones (one stone per person: Study 67's rule; rows on hairlines: Study 13's "How it got made") */
+[data-opt="a"] .hero{padding:clamp(28px,6vw,72px) 0 0}
+[data-opt="a"] h1{font-size:clamp(2.3rem,6.4vw,5rem);margin-top:18px;max-width:14ch}
+[data-opt="a"] .lede{font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.4;margin-top:clamp(18px,2.4vw,30px);max-width:40ch}
+[data-opt="a"] .who{margin-top:clamp(36px,6vw,72px)}
+[data-opt="a"] .who .head{display:grid;grid-template-columns:52px 1fr;gap:0 16px;padding-bottom:10px;border-bottom:2px solid var(--ink)}
+[data-opt="a"] .who .head span:first-child{grid-column:2}
+[data-opt="a"] .who .head span:last-child{display:none}
+[data-opt="a"] .who li{list-style:none;display:grid;grid-template-columns:52px 1fr;gap:2px 16px;align-items:center;padding:14px 0;border-bottom:1px solid var(--rule)}
+[data-opt="a"] .who img{grid-row:1/3;width:48px;height:48px;object-fit:contain}
+[data-opt="a"] .who b{font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+[data-opt="a"] .who i{font-style:normal;color:var(--soft);font-size:17px;line-height:1.3}
+[data-opt="a"] .said{margin-top:clamp(40px,6vw,80px);display:grid;gap:24px}
+[data-opt="a"] blockquote{font-size:clamp(1.3rem,2.4vw,1.85rem);line-height:1.3}
+[data-opt="a"] .ours{font-size:18px;max-width:46ch}
+[data-opt="a"] .cost{margin-top:22px;padding-top:16px;border-top:1px solid var(--rule);font-size:17px}
+@media(max-width:699px){
+ [data-opt="a"] .who .head{grid-template-columns:52px 1fr}
+ [data-opt="a"] .who .head span:last-child{display:block;grid-column:2;margin-top:2px;font-weight:500;letter-spacing:.14em}
+}
+@media(min-width:700px){
+ [data-opt="a"] .who .head,[data-opt="a"] .who li{grid-template-columns:64px minmax(0,1fr) minmax(0,1.3fr)}
+ [data-opt="a"] .who .head span:last-child{display:block;grid-column:3}
+ [data-opt="a"] .who img{grid-row:auto;width:56px;height:56px}
+ [data-opt="a"] .who li{padding:18px 0}
+ [data-opt="a"] .who b{font-size:26px}
+ [data-opt="a"] .who i{font-size:19px}
+ [data-opt="a"] .said{grid-template-columns:1fr 1fr;gap:28px 56px;align-items:start}
+ [data-opt="a"] .said .ours,[data-opt="a"] .said .cost{grid-column:1/3}
+}
+
+/* ================= b · six cards (agemo's hypothesis cards: white, 1.5px rule, 14px corners; the stone where agemo put H1) */
+[data-opt="b"] .hero{padding:clamp(28px,6vw,72px) 0 0;display:grid;gap:clamp(18px,2.2vw,28px)}
+[data-opt="b"] h1{font-size:clamp(2.2rem,5.6vw,4.4rem);max-width:15ch}
+[data-opt="b"] .lede{font-size:clamp(1.05rem,1.6vw,1.3rem);line-height:1.45;max-width:44ch}
+[data-opt="b"] .who{margin-top:clamp(32px,5vw,64px)}
+[data-opt="b"] .who .head{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px;margin-bottom:14px}
+[data-opt="b"] .who .head span:first-child{color:var(--ink)}
+[data-opt="b"] .who .head span:last-child{font-weight:500}
+[data-opt="b"] .who .head span:first-child::after{content:"";display:inline-block;vertical-align:middle;width:28px;height:2px;background:var(--ink);margin-left:14px}
+[data-opt="b"] .who ol{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+[data-opt="b"] .who li{list-style:none;border:1.5px solid var(--rule);border-radius:14px;padding:14px 14px 16px;display:flex;flex-direction:column;gap:6px;background:#fff;transition:border-color .2s,transform .2s,box-shadow .2s}
+[data-opt="b"] .who li:hover{border-color:var(--pink);transform:translateY(-2px);box-shadow:0 16px 28px -16px rgba(44,53,68,.18)}
+[data-opt="b"] .who img{width:40px;height:40px;object-fit:contain;margin-bottom:4px}
+[data-opt="b"] .who b{font-size:19px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+[data-opt="b"] .who i{font-style:normal;font-size:16px;line-height:1.35;color:var(--soft)}
+/* the quotes on ink, as agemo's voice cards (dark section, cyan quote mark) */
+[data-opt="b"] .dark{background:var(--ink);color:#fff;margin-top:clamp(40px,6vw,88px);padding:clamp(36px,6vw,80px) 0}
+[data-opt="b"] .said{display:grid;gap:16px}
+[data-opt="b"] figure{border:1.5px solid rgba(255,255,255,.14);border-radius:14px;padding:20px}
+[data-opt="b"] blockquote{font-size:clamp(1.15rem,2vw,1.45rem);line-height:1.35}
+[data-opt="b"] blockquote .q{color:var(--cyan);font-weight:700}
+[data-opt="b"] figcaption{color:rgba(255,255,255,.78)}
+[data-opt="b"] .ours{font-size:18px;color:#fff;max-width:46ch}
+[data-opt="b"] .cost{margin-top:clamp(28px,4vw,48px);font-size:17px}
+@media(min-width:760px){
+ [data-opt="b"] .who ol{grid-template-columns:repeat(3,1fr);gap:16px}
+ [data-opt="b"] .who li{padding:22px 22px 24px}
+ [data-opt="b"] .who img{width:52px;height:52px}
+ [data-opt="b"] .who b{font-size:24px}
+ [data-opt="b"] .who i{font-size:18px}
+ [data-opt="b"] .said{grid-template-columns:1fr 1fr;gap:20px}
+ [data-opt="b"] .ours{grid-column:1/3;margin-top:8px}
+}
+
+/* ================= c · a dark section (agemo's takeaways: ink, yellow label, white lines on faint rules; dots in the stone colours) */
+[data-opt="c"] .hero{padding:clamp(28px,6vw,80px) 0 clamp(36px,6vw,80px)}
+[data-opt="c"] h1{font-size:clamp(2.3rem,6.6vw,5.4rem);margin-top:18px;max-width:13ch}
+[data-opt="c"] .lede{font-size:clamp(1.1rem,1.7vw,1.4rem);line-height:1.4;margin-top:clamp(18px,2.4vw,30px);max-width:42ch}
+[data-opt="c"] .dark{background:var(--ink);color:#fff;padding:clamp(32px,6vw,88px) 0}
+[data-opt="c"] .who .head{display:grid;grid-template-columns:1fr;gap:4px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.18)}
+[data-opt="c"] .who .head span:first-child{color:var(--yellow)}
+[data-opt="c"] .who .head span:last-child{color:var(--cyan)}
+[data-opt="c"] .who li{list-style:none;display:grid;grid-template-columns:22px 1fr;gap:2px 12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+[data-opt="c"] .who li::before{content:"";grid-row:1/3;width:14px;height:14px;border-radius:50%;margin-top:7px;background:var(--c)}
+[data-opt="c"] .who b{font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+[data-opt="c"] .who i{font-style:normal;font-size:18px;line-height:1.35;color:rgba(255,255,255,.85)}
+[data-opt="c"] .said{padding-top:clamp(40px,6vw,88px);display:grid;gap:22px}
+[data-opt="c"] blockquote{font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.3}
+/* agemo's highlighter <mark>: pink under the key phrase */
+[data-opt="c"] mark{background:linear-gradient(transparent 62%,rgba(233,30,123,.24) 62%);color:inherit;padding:0 .05em}
+[data-opt="c"] .ours{font-size:18px;max-width:46ch}
+[data-opt="c"] .cost{margin-top:20px;font-size:17px}
+@media(min-width:760px){
+ [data-opt="c"] .who .head{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);padding-left:34px}
+ [data-opt="c"] .who li{grid-template-columns:22px minmax(0,1fr) minmax(0,1.25fr);gap:0 12px;padding:22px 0;align-items:baseline}
+ [data-opt="c"] .who li::before{grid-row:auto;margin-top:0;align-self:center}
+ [data-opt="c"] .who b{font-size:28px}
+ [data-opt="c"] .who i{font-size:20px}
+ [data-opt="c"] .said{grid-template-columns:1fr 1fr;gap:28px 56px}
+ [data-opt="c"] .ours,[data-opt="c"] .cost{grid-column:1/3}
+}
+
+/* ================= d · like the front page (the live page: the J left, the words right; each person a big word on a
+   thick underline in its own colour, pink · cyan · yellow, as "Our work · Divya Tak · Kahran Singh") */
+[data-opt="d"] .hero{padding:clamp(20px,5vw,64px) 0 0;display:grid;gap:8px}
+[data-opt="d"] .j{width:min(150px,38vw);margin:0 0 8px -6px}
+[data-opt="d"] h1{font-size:clamp(2.1rem,5vw,3.8rem);-webkit-text-stroke:.9px var(--ink);paint-order:stroke fill;margin-top:10px}
+[data-opt="d"] .lede{font-size:clamp(1.1rem,1.7vw,1.45rem);line-height:1.4;margin-top:clamp(8px,1.4vw,18px);max-width:40ch}
+[data-opt="d"] .who{margin-top:clamp(36px,6vw,80px)}
+[data-opt="d"] .who .head{display:flex;flex-wrap:wrap;gap:4px 18px;margin-bottom:18px}
+[data-opt="d"] .who li{list-style:none;padding:0 0 18px}
+[data-opt="d"] .who b{display:inline-block;font-size:clamp(1.5rem,2.6vw,2rem);font-weight:700;letter-spacing:-.025em;line-height:1.2;text-decoration:underline;text-decoration-color:var(--c);text-decoration-thickness:5px;text-underline-offset:7px}
+[data-opt="d"] .who i{display:block;font-style:normal;font-weight:500;color:var(--soft);font-size:18px;line-height:1.35;margin-top:10px}
+[data-opt="d"] .said{margin-top:clamp(28px,5vw,64px);border-top:1px solid var(--rule);padding-top:clamp(24px,4vw,48px);display:grid;gap:22px}
+[data-opt="d"] blockquote{font-size:clamp(1.25rem,2.2vw,1.7rem);line-height:1.3}
+[data-opt="d"] .ours{font-size:18px;max-width:46ch}
+[data-opt="d"] .cost{margin-top:20px;font-size:17px}
+@media(min-width:820px){
+ [data-opt="d"] .hero{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:0 clamp(32px,5vw,80px);align-items:center;padding-top:clamp(40px,6vw,80px)}
+ [data-opt="d"] .j{grid-row:1/4;width:100%;max-width:340px;justify-self:center;margin:0}
+ [data-opt="d"] .who ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px clamp(24px,3vw,48px)}
+ [data-opt="d"] .who li{padding:0}
+ [data-opt="d"] .said{grid-template-columns:1fr 1fr;gap:28px 56px}
+ [data-opt="d"] .ours,[data-opt="d"] .cost{grid-column:1/3}
+}
+</style></head><body>
+
+<header class="top"><div class="in"><a class="wm" href="#">Joyus</a><nav aria-label="site"><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></div></header>
+
+<main class="case" data-opt="a"><div class="in">
+<section class="hero">
+<p class="eyebrow">Case study: strategy</p>
+<h1>East West Club's value was big, but vague. <em>Now it's specific.</em></h1>
+<p class="lede">A new members club in Seattle, not a country club. Who it was for kept moving, and so did what it offered. Fix one and the other shifts, so we solved both at once, until six kinds of member each met one clear reason to join.</p>
+</section>
+<section class="who" aria-label="Six kinds of member, each matched to what the club means to them">
+<p class="head"><span class="lab">Who it's for</span><span class="lab">What fits them</span></p>
+<ol>
+<li><img src="img/stone-1.png" alt=""><b>The joiner</b><i>leagues, poker, a featured chef</i></li>
+<li><img src="img/stone-2.png" alt=""><b>The newcomer</b><i>events with Seattle companies</i></li>
+<li><img src="img/stone-3.png" alt=""><b>The host</b><i>a Friday night to throw, and credit</i></li>
+<li><img src="img/stone-4.png" alt=""><b>The golfer</b><i>a simulator bay, and slower nights</i></li>
+<li><img src="img/stone-5.png" alt=""><b>The second act</b><i>a new start, with others starting too</i></li>
+<li><img src="img/stone-6.png" alt=""><b>The regular</b><i>good nights, in and out fast</i></li>
+</ol>
+</section>
+<section class="said">
+<figure><blockquote>“That exercise you guys ran us through has really made us more cognizant of the groups.”</blockquote></figure>
+<figure><blockquote>“We haven't had one person come for a tour or walk in and say like, I don't understand what you guys are doing.”</blockquote><figcaption>a founder, East West Club</figcaption></figure>
+<p class="ours">Before, no members meant no money, and no money meant nothing got built. Now founding members are signing, and the club is on schedule to open.</p>
+<p class="cost">Two weeks with <b>Kahran and Divya</b> on who it's for and what it means. What it cost: <b style="white-space:nowrap">$5–10K</b>.</p>
+</section>
+</div></main>
+
+<main class="case" data-opt="b"><div class="in">
+<section class="hero">
+<p class="eyebrow">Case study: strategy</p>
+<h1>East West Club's value was big, but vague. <em>Now it's specific.</em></h1>
+<p class="lede">A new members club in Seattle, not a country club. Who it was for kept moving, and so did what it offered. Fix one and the other shifts, so we solved both at once, until six kinds of member each met one clear reason to join.</p>
+</section>
+<section class="who" aria-label="Six kinds of member, each matched to what the club means to them">
+<p class="head"><span class="lab">Who it's for</span><span class="lab">What fits them</span></p>
+<ol>
+<li><img src="img/stone-1.png" alt=""><b>The joiner</b><i>leagues, poker, a featured chef</i></li>
+<li><img src="img/stone-2.png" alt=""><b>The newcomer</b><i>events with Seattle companies</i></li>
+<li><img src="img/stone-3.png" alt=""><b>The host</b><i>a Friday night to throw, and credit</i></li>
+<li><img src="img/stone-4.png" alt=""><b>The golfer</b><i>a simulator bay, and slower nights</i></li>
+<li><img src="img/stone-5.png" alt=""><b>The second act</b><i>a new start, with others starting too</i></li>
+<li><img src="img/stone-6.png" alt=""><b>The regular</b><i>good nights, in and out fast</i></li>
+</ol>
+</section>
+</div>
+<section class="dark"><div class="in said">
+<figure><blockquote><span class="q">“</span>That exercise you guys ran us through has really made us more cognizant of the groups.”</blockquote></figure>
+<figure><blockquote><span class="q">“</span>We haven't had one person come for a tour or walk in and say like, I don't understand what you guys are doing.”</blockquote><figcaption>a founder, East West Club</figcaption></figure>
+<p class="ours">Before, no members meant no money, and no money meant nothing got built. Now founding members are signing, and the club is on schedule to open.</p>
+</div></section>
+<div class="in"><p class="cost">Two weeks with <b>Kahran and Divya</b> on who it's for and what it means. What it cost: <b style="white-space:nowrap">$5–10K</b>.</p></div>
+</main>
+
+<main class="case" data-opt="c">
+<div class="in"><section class="hero">
+<p class="eyebrow">Case study: strategy</p>
+<h1>East West Club's value was big, but vague. <em>Now it's specific.</em></h1>
+<p class="lede">A new members club in Seattle, not a country club. Who it was for kept moving, and so did what it offered. Fix one and the other shifts, so we solved both at once, until six kinds of member each met one clear reason to join.</p>
+</section></div>
+<section class="dark"><div class="in who" aria-label="Six kinds of member, each matched to what the club means to them">
+<p class="head"><span class="lab">Who it's for</span><span class="lab">What fits them</span></p>
+<ol>
+<li style="--c:var(--s1)"><b>The joiner</b><i>leagues, poker, a featured chef</i></li>
+<li style="--c:var(--s3)"><b>The newcomer</b><i>events with Seattle companies</i></li>
+<li style="--c:var(--s4)"><b>The host</b><i>a Friday night to throw, and credit</i></li>
+<li style="--c:var(--s2)"><b>The golfer</b><i>a simulator bay, and slower nights</i></li>
+<li style="--c:var(--s1)"><b>The second act</b><i>a new start, with others starting too</i></li>
+<li style="--c:var(--s3)"><b>The regular</b><i>good nights, in and out fast</i></li>
+</ol>
+</div></section>
+<div class="in"><section class="said">
+<figure><blockquote>“That exercise you guys ran us through has really made us <mark>more cognizant of the groups</mark>.”</blockquote></figure>
+<figure><blockquote>“We haven't had one person come for a tour or walk in and say like, <mark>I don't understand what you guys are doing</mark>.”</blockquote><figcaption>a founder, East West Club</figcaption></figure>
+<p class="ours">Before, no members meant no money, and no money meant nothing got built. Now founding members are signing, and the club is on schedule to open.</p>
+<p class="cost">Two weeks with <b>Kahran and Divya</b> on who it's for and what it means. What it cost: <b style="white-space:nowrap">$5–10K</b>.</p>
+</section></div>
+</main>
+
+<main class="case" data-opt="d"><div class="in">
+<section class="hero">
+<img class="j" src="img/j.png" alt="">
+<p class="eyebrow">Case study: strategy</p>
+<h1>East West Club's value was big, but vague. <em>Now it's specific.</em></h1>
+<p class="lede">A new members club in Seattle, not a country club. Who it was for kept moving, and so did what it offered. Fix one and the other shifts, so we solved both at once, until six kinds of member each met one clear reason to join.</p>
+</section>
+<section class="who" aria-label="Six kinds of member, each matched to what the club means to them">
+<p class="head"><span class="lab">Who it's for</span><span class="lab">What fits them</span></p>
+<ol>
+<li style="--c:var(--pink)"><b>The joiner</b><i>leagues, poker, a featured chef</i></li>
+<li style="--c:var(--cyan)"><b>The newcomer</b><i>events with Seattle companies</i></li>
+<li style="--c:var(--yellow)"><b>The host</b><i>a Friday night to throw, and credit</i></li>
+<li style="--c:var(--pink)"><b>The golfer</b><i>a simulator bay, and slower nights</i></li>
+<li style="--c:var(--cyan)"><b>The second act</b><i>a new start, with others starting too</i></li>
+<li style="--c:var(--yellow)"><b>The regular</b><i>good nights, in and out fast</i></li>
+</ol>
+</section>
+<section class="said">
+<figure><blockquote>“That exercise you guys ran us through has really made us more cognizant of the groups.”</blockquote></figure>
+<figure><blockquote>“We haven't had one person come for a tour or walk in and say like, I don't understand what you guys are doing.”</blockquote><figcaption>a founder, East West Club</figcaption></figure>
+<p class="ours">Before, no members meant no money, and no money meant nothing got built. Now founding members are signing, and the club is on schedule to open.</p>
+<p class="cost">Two weeks with <b>Kahran and Divya</b> on who it's for and what it means. What it cost: <b style="white-space:nowrap">$5–10K</b>.</p>
+</section>
+</div></main>
+
+<div class="in"><section class="closing">
+<p class="big">Tell us what's stuck. You don't need a brief. It starts small.</p>
+<a href="mailto:hello@joyus.studio">hello@joyus.studio</a>
+</section></div>
+
+<footer><div class="in">© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak</div></footer>
+<script>document.querySelectorAll('.case').forEach(function (c) { if (c.dataset.opt !== document.documentElement.dataset.v) c.remove(); });</script>
+</body></html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>93 / EWC in the site's own design: 92 final's words, four layouts · Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+.opts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px }
+.opts a { border: 1px solid #ddd; padding: 6px 12px; font-size: 13px; color: #222; text-decoration: none; background: #fff }
+.opts a[aria-current] { border-color: #222 }
+.frame { border: 1px solid #ddd; height: 80vh; min-height: 560px; margin-top: 10px; max-width: 430px }
+.frame iframe { width: 100%; height: 100%; border: 0; display: block }
+.heard { margin: 18px 0 0; padding-left: 14px; border-left: 3px solid #ddd; max-width: 70ch }
+.heard p { margin: 0 0 6px }
+.heard cite { font-style: normal; color: #636363; font-size: 13px }
+.sys { max-width: 82ch; padding-left: 20px }
+.sys li { margin: 0 0 8px }
+.sys .src { color: #636363; font-size: 13px }
+.row3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; margin: 12px 0 8px }
+.row3 img { width: 100%; height: 640px; object-fit: cover; object-position: top; border: 1px solid #eee }
+.opt { margin-top: 36px; border-top: 1px solid #ddd; padding-top: 16px }
+.opt h3 { margin: 0 0 4px; font-size: 1.1rem }
+.opt p { max-width: 76ch; margin: 0 0 8px }
+.flag { background: #fff8e1; border-left: 3px solid #e0b400; padding: 8px 12px; max-width: 76ch }
+@media (max-width: 700px) { .row3 { grid-template-columns: 1fr 1fr } .row3 img { height: 420px } }
+</style>
+</head>
+<body>
+<main>
+<p class="eyebrow">Study 93 · 8 November 2026 · for Kahran and Divya</p>
+<h1>EWC in the site's own design: 92 final's words, four layouts</h1>
+<p class="lede">The words are Kahran's approved 92 final, character for character. Only the layout and the visual treatment change, and every choice is taken from Divya's system as it already exists in the repo: her case studies, her rulings in the studies, the live page.</p>
+
+<div class="heard">
+  <p>"it's a shitty layout and doesn't match the rest of the site"</p>
+  <cite>Kahran, 8 Nov, on 92 final (content approved, about 80% there). That layout was invented by agents working without the site; this study starts from the site.</cite>
+</div>
+
+<nav class="opts" aria-label="options">
+  <a href="case.html?v=a" target="page" aria-current="page">a · <b>Six stones</b></a>
+  <a href="case.html?v=b" target="page">b · <b>Six cards</b></a>
+  <a href="case.html?v=c" target="page">c · <b>A dark section</b></a>
+  <a href="case.html?v=d" target="page">d · <b>Like the front page</b></a>
+  <a href="../92/final.html" target="page">92 final, as it was</a>
+</nav>
+<div class="frame"><iframe title="The page" name="page" src="case.html?v=a"></iframe></div>
+<p class="small">Phone: <code>http://100.90.104.120:8794/studies/iterations/93/case.html?v=a</code> (b, c, d the same way).</p>
+
+<h2>The design system, as found</h2>
+<p>Read before drawing anything. Each line says where it comes from.</p>
+<ol class="sys">
+<li><b>White page, Space Grotesk only, no serif.</b> Ink #2C3544, ink-soft #54606F; pink, cyan and yellow are the only accents. <span class="src">CLAUDE.md "Design system"; styles.css; the page went white in Study 18 and is white live (Study 40).</span></li>
+<li><b>Display type is heavy and tight:</b> 700, tracking -0.035em to -0.04em, line height about 1. <span class="src">The live headline (Study 40: 700 plus a 0.9px stroke, -0.035em); work/agemo.html hero h1 (-0.04em, 0.92); Study 70's question.</span></li>
+<li><b>The accent in a headline is pink, on part of the line.</b> Pink text is only 4.25:1 on white, so here the pink sits under the words as the live page's thick underline. <span class="src">work/agemo.html <code>.accent</code>; Study 70 "nature and"; Study 39/40 links (5px underline, 7px offset).</span></li>
+<li><b>Two registers of text:</b> body 400 at 18px/1.45; the subtitle 500 in ink-soft. <span class="src">Study 70 site.css; the live page's <code>.note</code> (Study 39, Divya: the subtitle in Space Grotesk).</span></li>
+<li><b>Small labels are caps, letter-spaced, 600, ink-soft; the page eyebrow has a pink dot.</b> Set at 13px (agemo's are 12.5). <span class="src">work/agemo.html <code>.hero-eyebrow</code>, <code>.hero-meta</code>; CASE-STUDY-ARCHITECTURE.md section 4.</span></li>
+<li><b>Chrome:</b> lowercase wordmark left, lowercase "work · about · say hi" right, a hairline under; one quiet footer line, "© 2026 · Joyus Studio · Kahran Singh &amp; Divya Tak". <span class="src">Divya's rev 4 wireframe (Study 02), Study 13's piece page, Study 70 <code>.top</code> and <code>.foot</code>.</span></li>
+<li><b>Rhythm by hairlines and a 2px ink rule:</b> rows on rgba(44,53,68,.12) hairlines; the closing block opens on a 2px ink rule. <span class="src">DESIGN-LANGUAGE.md <code>--rule</code>; Study 13 "How it got made" rows; DESIGN-GUIDE.md 6.3 <code>.cs-closing</code>.</span></li>
+<li><b>Links are big words on a thick coloured underline;</b> on hover the colour sweeps in and the word turns white (ink on yellow). <span class="src">Study 39/40, decided by Divya 13 Oct, live on joyus.studio.</span></li>
+<li><b>The stones:</b> four colours #f25aa3 #7d55d4 #2fc0d8 #f5c63c, real Gummy stones (not drawn blobs), neighbours never the same colour, one stone per thing a person has to say, and pieces that belong to a whole (the J). <span class="src">cs/jbuilder.js palette; Study 56/59 (Divya: the real Voronoi, not invented blobs); Study 67 (brand-lab's neighbour rule, "a letter has exactly one stone per thing that person has to say").</span></li>
+<li><b>Case-study parts she already uses:</b> eyebrow, crafted headline, one deck paragraph; cards with a 1.5px hairline and 14px corners; dark ink sections for what matters, with yellow and cyan labels; quotes at 500 weight, a pink highlighter on the phrase that counts; the close left-aligned. <span class="src">CASE-STUDY-ARCHITECTURE.md sections 3 to 4c; work/agemo.html (hypothesis cards, voice cards, takeaways, <code>&lt;mark&gt;</code>).</span></li>
+<li><b>What she never does:</b> a new accent colour; a serif; a centred editorial hero; white text on yellow; drawn stones with clashing neighbours; text in cyan or yellow on white (it does not read). <span class="src">DESIGN-GUIDE.md section 10; Study 40 (ink on the yellow link); Study 67.</span></li>
+</ol>
+
+<p class="flag"><b>Flagged.</b> One addition to the words: the nav (work, about, say hi), the site's chrome on every page design since rev 4; 92 final had none. Nothing else is added: the stone images are decorative and carry no words, and the wordmark is 92's "Joyus" set in lowercase by CSS, as Study 70 has it.</p>
+
+<h2>The four options</h2>
+<p>The six who-meets-what pairs get a treatment from her system in each, in place of 92's pink and cyan pills. Everything else (header, close, footer) is the same in all four, so the pairs and the hero are what you compare.</p>
+
+<section class="opt">
+<h3>a · Six stones</h3>
+<p>Each kind of member is one real stone, in the stone colours, neighbours different (Study 67: one stone per thing someone has to say). The pairs sit on hairline rows under small caps column labels, like Study 13's "How it got made". Quotes at agemo's 500 weight, the close on a 2px ink rule.</p>
+</section>
+<section class="opt">
+<h3>b · Six cards</h3>
+<p>agemo's hypothesis cards: white, 1.5px hairline, 14px corners, a lift on hover; the stone sits where agemo put "H1". Two across on a phone, three on a desk. The quotes move into a dark ink section as agemo's voice cards, the opening quote mark in cyan.</p>
+</section>
+<section class="opt">
+<h3>c · A dark section</h3>
+<p>agemo's takeaways: the six pairs are the dark section, white lines on faint rules, "Who it's for" in yellow and "What fits them" in cyan, a dot in each stone colour. The quotes come back on white with agemo's pink highlighter under the phrase that matters.</p>
+</section>
+<section class="opt">
+<h3>d · Like the front page</h3>
+<p>The live page's grammar: the J of real stones beside the words (left of them on a desk, above them on a phone), the headline with its ink stroke, and each kind of member set as one of the front page's links, a big word on a thick pink, cyan or yellow underline, what fits them underneath in the subtitle's register.</p>
+</section>
+
+<h2>At 390, the whole page</h2>
+<div class="row3">
+<a class="zoom" href="img/case-a-390.png"><img src="img/case-a-390.png" alt="a, Six stones, at 390"></a>
+<a class="zoom" href="img/case-b-390.png"><img src="img/case-b-390.png" alt="b, Six cards, at 390"></a>
+<a class="zoom" href="img/case-c-390.png"><img src="img/case-c-390.png" alt="c, A dark section, at 390"></a>
+</div>
+<div class="row3">
+<a class="zoom" href="img/case-d-390.png"><img src="img/case-d-390.png" alt="d, Like the front page, at 390"></a>
+<a class="zoom" href="../92/img/final-390.png"><img src="../92/img/final-390.png" alt="92 final at 390, before"></a>
+</div>
+<p class="small">Left to right: a, b, c; then d and 92 final as it was. Heights at 390: a 1,887px, b 1,975px, c 1,965px, d 1,971px; 92 final 1,332px. Her system spends more air than 92 did, so each is about half a phone screen longer.</p>
+
+<h2>At 1280</h2>
+<div class="row3">
+<a class="zoom" href="img/case-a-1280.png"><img src="img/case-a-1280.png" alt="a at 1280"></a>
+<a class="zoom" href="img/case-b-1280.png"><img src="img/case-b-1280.png" alt="b at 1280"></a>
+<a class="zoom" href="img/case-c-1280.png"><img src="img/case-c-1280.png" alt="c at 1280"></a>
+</div>
+<div class="row3">
+<a class="zoom" href="img/case-d-1280.png"><img src="img/case-d-1280.png" alt="d at 1280"></a>
+</div>
+
+<h2>Beside her pages</h2>
+<p>Held against these while building: agemo (her case study, the reference in CASE-STUDY-ARCHITECTURE.md), Secret Senses as pages (Study 70) and the live page (Study 40/41).</p>
+<div class="row3">
+<a class="zoom" href="img/hers-agemo-390.png"><img src="img/hers-agemo-390.png" alt="work/agemo.html at 390"></a>
+<a class="zoom" href="../70/shots/packaging-end.png"><img src="../70/shots/packaging-end.png" alt="Study 70, the end of the packaging page"></a>
+<a class="zoom" href="../41/img/page-phone.png"><img src="../41/img/page-phone.png" alt="The live page on a phone"></a>
+</div>
+
+<h2>Not sure of her intent</h2>
+<ul class="sys">
+<li>Caveat. Her June guide puts handwritten eyebrows on every case-study section; nothing since the page went white (Studies 40, 67, 70) uses it, so none of the four does.</li>
+<li>Paper or white. agemo is on warm paper #FAF7F2; CLAUDE.md says the page is white now. All four are white; c and b borrow agemo's dark ink section instead of its paper bands.</li>
+<li>The close. Her guide ends every case study on "Be our friends." and a "your move" label, and keeps headlines without full stops. 92 final's close and headline are Kahran's approved words, so they stay; the shape of her close (2px ink rule, big 600 line, left aligned) is used.</li>
+<li>Pink as text. agemo sets accents in pink type; at 4.25:1 it misses the 4.5 rule, so here the pink is an underline or a highlighter.</li>
+<li>The J and the stones are rendered once from the live worker and Gummy (<code>stones.html</code>, <code>shoot.mjs --stones</code>) and used as pictures, so the case study carries no three.js.</li>
+</ul>
+
+<h2>Files</h2>
+<p><code>case.html</code> (the four options) · <code>check.cjs</code> (words against 92 final, the public-repo rules, the live legibility and height checks) · <code>measure.mjs</code> · <code>shoot.mjs</code> · <code>stones.html</code> · <code>cdp.mjs</code> (from Study 86).</p>
+</main>
+<script>document.querySelectorAll('.opts a').forEach(a => a.addEventListener('click', () => { document.querySelectorAll('.opts a').forEach(x => x.removeAttribute('aria-current')); a.setAttribute('aria-current', 'page'); }));</script>
+</body>
+</html>
