@@ -28,6 +28,8 @@ const types = {
 http.createServer((req, res) => {
   let pathname;
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { res.writeHead(400).end(); return; }
+  // Study 92's desk saves its picks here (iterations/92/pick.cjs: POST only, validated, picks.json written atomically)
+  if (pathname === '/api/study-92/pick') { require('./iterations/92/pick.cjs')(req, res); return; }
   if (pathname === '/') { res.writeHead(302, { Location: '/studies/' }).end(); return; }
   if (pathname.endsWith('/')) pathname += 'index.html';
   const file = path.resolve(root, '.' + pathname);
