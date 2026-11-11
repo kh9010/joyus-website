@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* One question, answered by one scroll. One grey stone is the one person a thing is built for. It turns out to be six.
+   Each takes a colour as it gets a name and a reason: who is in the room, and why. Nothing else is on the page. */
+:root{--bg:#fff;--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--pinkT:#B8155F}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+#run{position:relative;height:700vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+#q{position:absolute;left:0;right:0;top:0;margin:0 auto;padding:0 16px;width:max-content;max-width:100%;text-align:center;transform-origin:50% 0;z-index:5;
+  font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{color:var(--pinkT);opacity:0}
+.st{position:absolute;left:0;top:0;will-change:transform;filter:drop-shadow(0 6px 9px rgba(44,53,68,.13));z-index:2}
+.st img{position:absolute;left:0;top:0;width:100%;height:auto;display:block}
+.who{position:absolute;left:0;top:0;margin:0;text-align:center;opacity:0;z-index:3}
+.who b{display:block;font-weight:700;font-size:clamp(1.15rem,1.7vw,1.5rem);line-height:1.15;letter-spacing:-.02em}
+.who span{display:block;margin-top:3px;color:var(--soft);font-size:16px;line-height:1.3}
+.line{position:absolute;left:0;right:0;top:0;margin:0;padding:0 16px;text-align:center;color:var(--soft);font:500 clamp(1.05rem,1.7vw,1.4rem)/1.25 'Space Grotesk',sans-serif;z-index:6;opacity:0;pointer-events:none}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans p{margin:0;max-width:16ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){
+ .top nav{display:none}
+}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="line" id="l1">East West Club had a member in mind.</p>
+<p class="line" id="l2">There were six of them in the room.</p>
+<p class="who"><b>The joiner</b><span>leagues, poker, a featured chef</span></p>
+<p class="who"><b>The newcomer</b><span>events with Seattle companies</span></p>
+<p class="who"><b>The host</b><span>a Friday night to throw, and credit</span></p>
+<p class="who"><b>The golfer</b><span>a simulator bay, and slower nights</span></p>
+<p class="who"><b>The second act</b><span>a new start, with others starting too</span></p>
+<p class="who"><b>The regular</b><span>good nights, in and out fast</span></p>
+</div></div>
+<section class="ans"><p>We help work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="module">
+// The six stones are one pebble cut by the live J's own maker (stones.html), rendered once; stones.json says where each sits in the whole.
+const D = await (await fetch('stones.json')).json();
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const who = [...document.querySelectorAll('.who')];
+const S = D.stones.map((s, i) => {
+  const e = document.createElement('div'); e.className = 'st';
+  const g = new Image(), c = new Image(); g.src = `img/s${i + 1}-grey.png`; c.src = `img/s${i + 1}-col.png`; g.alt = c.alt = '';
+  e.append(g, c); stage.append(e);
+  return { e, g, c, box: s.box, cx: s.box[0] + s.box[2] / 2, cy: s.box[1] + s.box[3] / 2, turn: (i % 2 ? 1 : -1) * (10 + i * 3) };
+});
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1));
+const mix = (a, b, t) => a + (b - a) * t;
+const NAME0 = .46, STEP = .075, RISE = .05;   // when each of the six is named
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760;
+  const qk = phone ? .62 : .5, qH = q.offsetHeight, lines = [...document.querySelectorAll('.line')], sub = (phone ? 58 : 66) + qH * qk + (phone ? 4 : 8);
+  // the line under the question keeps its own strip, so it never sits on a stone
+  for (const l of lines) l.style.transform = `translateY(${sub}px)`;
+  const top = sub + Math.max(...lines.map(l => l.offsetHeight)) + (phone ? 12 : 22);
+  // the whole
+  const F = Math.min(W * .92, (H - top - 20) * .98, 780), wx = (W - F) / 2, wy = top + (H - top - 20 - F) / 2;
+  // the room: a grid, a stone above each name
+  const cols = phone ? 2 : 3, rows = 6 / cols, gw = Math.min(W - 32, 1060), gx = (W - gw) / 2, cw = gw / cols, ch = (H - top - (phone ? 14 : 34)) / rows;
+  for (const w of who) w.style.width = (cw - 16) + 'px';
+  const lh = Math.max(...who.map(w => w.offsetHeight)), iconH = Math.max(30, ch - lh - (phone ? 16 : 30)), iconW = cw * .62;
+  const g = Math.min(1, ...S.map(s => Math.min(iconW / (s.box[2] * F), iconH / (s.box[3] * F))));   // one number for all six: never squished, never bigger than in the whole
+  // which stone is which person: the top three of the whole, left to right, then the bottom three. Fixed, so a person keeps their stone on every screen.
+  const order = [...S].sort((a, b) => a.cy - b.cy), seat = new Map();
+  for (let r = 0; r < 2; r++) order.slice(r * 3, r * 3 + 3).sort((a, b) => a.cx - b.cx).forEach((s, c) => seat.set(s, r * 3 + c));
+  S.forEach(s => {
+    const w = s.box[2] * F, h = s.box[3] * F, k = seat.get(s), col = k % cols, row = (k - col) / cols;
+    s.e.style.width = w + 'px'; s.e.style.height = h + 'px'; s.k = k; s.w = w; s.h = h;
+    s.home = [wx + s.cx * F, wy + s.cy * F];
+    s.seat = [gx + cw * (col + .5), top + ch * row + iconH - h * g / 2];   // standing on one line above their names
+    const l = who[k]; l.style.transform = `translate(${gx + cw * col + 8}px,${top + ch * row + iconH + (phone ? 6 : 12)}px)`;
+  });
+  L = { W, H, qk, g, mid: Math.max(70, H * .46 - qH / 2) };
+}
+function draw() {
+  const H = stage.clientHeight;
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - H), 1);
+  // the question: alone in the middle, then it goes up and stays
+  const up = ramp(p, .07, .15);
+  q.style.transform = `translateY(${mix(L.mid, L.W < 760 ? 58 : 66, up)}px) scale(${mix(1, L.qk, up)})`;
+  const six = ramp(p, .3, .35); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  // one, then six
+  const seen = ramp(p, .1, .16), part = ramp(p, .27, .43);
+  S.forEach(s => {
+    const t = ease(clamp(0, part * 1.25 - s.k * .05, 1)), k = mix(1, L.g, t);
+    const x = mix(s.home[0], s.seat[0], t), y = mix(s.home[1], s.seat[1], t), r = s.turn * Math.sin(Math.PI * t);
+    s.e.style.transform = `translate(${x - s.w / 2}px,${y - s.h / 2}px) rotate(${r}deg) scale(${k})`;
+    s.e.style.opacity = seen;
+    const named = ramp(p, NAME0 + s.k * STEP, NAME0 + s.k * STEP + RISE);
+    s.c.style.opacity = named; who[s.k].style.opacity = named;
+  });
+  document.getElementById('l1').style.opacity = ramp(p, .14, .17) * (1 - ramp(p, .25, .28));
+  document.getElementById('l2').style.opacity = ramp(p, .31, .34) * (1 - ramp(p, .42, .45));
+  window.__p = p;
+}
+// what the check reads: nothing squished, nothing on top of anything else, nothing past the edge, nothing too small
+window.__measure = () => {
+  const W = innerWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const squish = Math.max(...S.flatMap(s => [s.g, s.c].map(i => Math.abs((i.offsetWidth / i.offsetHeight) / (i.naturalWidth / i.naturalHeight) - 1))));
+  const labels = who.filter(vis).map(R), stones = S.filter(s => vis(s.e)).map(s => R(s.e)), head = R(q);
+  const lines = [...document.querySelectorAll('.line')].filter(vis).map(R);
+  let overlaps = 0;
+  labels.forEach((a, i) => { labels.forEach((b, j) => { if (j > i && hit(a, b)) overlaps++; }); stones.forEach(s => { if (hit(a, s)) overlaps++; }); if (hit(a, head)) overlaps++; });
+  stones.forEach(s => { if (hit(s, head)) overlaps++; });
+  lines.forEach(l => { labels.forEach(a => { if (hit(a, l)) overlaps++; }); stones.forEach(a => { if (hit(a, l)) overlaps++; }); if (hit(l, head)) overlaps++; });
+  const out = [...labels, ...stones, ...lines, head].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans p, .on a, .foot')].filter(e => e.childNodes.length && [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize) * (e.closest('#q') ? L.qk : 1)));
+  return { p: +window.__p.toFixed(3), squish: +squish.toFixed(4), labels: labels.length, stones: stones.length, coloured: S.filter(s => +s.c.style.opacity > .5).length, overlaps, out, small, scale: +L.g.toFixed(3) };
+};
+await Promise.all(S.flatMap(s => [s.g, s.c]).map(i => i.decode().catch(() => 0)));
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

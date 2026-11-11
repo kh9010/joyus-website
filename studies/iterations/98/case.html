@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Gliitch, branding · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* The question, once. Then one logo and one move, the way the 2019 video guide has the mark behave round somebody else's film:
+   it opens over everything, sweeps aside to the bottom right and lets their picture have the screen, thins to three squares,
+   and at the end the squares fill the screen and the logo comes back in. Opening screen, logo placement 1 and 3, ending screen.
+   The logo and photo are cut from the brand guide (Study 96's art/); every square is placed from the guide's own ending screen (field.json). */
+:root{--bg:#fff;--ink:#2C3544;--soft:#54606F;--pink:#E91E7B;--g-pink:#E61A6C}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px;transition:color .25s,background-color .25s}
+.top.after{background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+#run{position:relative;height:850vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+.q{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 clamp(16px,8vw,120px);z-index:0}
+.q h1{margin:0;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em;text-align:center;max-width:17ch}
+.art{position:absolute;left:0;top:0;transform-origin:0 0;display:block;max-width:none;will-change:transform,opacity}
+#photo{z-index:1;opacity:0}
+#veil{position:absolute;inset:0;background:#fff;z-index:2;opacity:0}
+#field{position:absolute;inset:0;z-index:3}
+#field i{position:absolute;left:0;top:0;display:block;will-change:transform}
+#logo{z-index:4}
+.line{position:absolute;left:clamp(14px,4vw,56px);bottom:clamp(16px,6vh,60px);margin:0;max-width:14ch;padding:.28em .5em;border-radius:12px;background:#fff;z-index:6;font:700 clamp(1.45rem,3.4vw,2.9rem)/1.06 'Space Grotesk',sans-serif;letter-spacing:-.03em;opacity:0;pointer-events:none}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:16ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+.ans h2 u{text-decoration:none;box-shadow:inset 0 -.14em 0 var(--g-pink)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:31ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<div class="q"><h1>How do you leave your mark while making space for others?</h1></div>
+<img class="art" id="photo" src="../96/art/photo.jpg" alt="A table of food, the kind of picture a restaurant posts">
+<div id="veil"></div>
+<div id="field" aria-hidden="true"></div>
+<img class="art" id="logo" src="../96/art/logo.svg" alt="The Gliitch logo: a pink circle">
+<p class="line" id="l1">Gliitch wanted to be loud.</p>
+<p class="line" id="l2">On their work, it steps aside.</p>
+<p class="line" id="l3">Three squares still say who made it.</p>
+</div></div>
+<section class="ans"><h2>Seen on everything.<br><u>In nobody's way.</u></h2><p>Gliitch makes other people's brands. Its own opens the film, steps aside, and gets the last word.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">Gliitch, branding, 2019</div>
+<script type="module">
+const [M, F] = await Promise.all(['../96/art/meta.json', 'field.json'].map(u => fetch(u).then(r => r.json())));
+const stage = document.getElementById('stage'), run = document.getElementById('run'), $ = id => document.getElementById(id), top = document.querySelector('.top');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const lines = [1, 2, 3].map(i => $('l' + i));
+const sq = F.squares.map(s => { const e = document.createElement('i'); e.style.background = s[3]; $('field').append(e); return { e, s }; });
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+const pop = t => { t = clamp(0, t, 1); return 1 + 2.2 * Math.pow(t - 1, 3) + 1.2 * Math.pow(t - 1, 2); };   // out past its size and back, the way a pixel pops
+// when things happen, as a share of the scroll
+const T = { open: [.07, .16], sweep: [.26, .43], thin: [.56, .62], fill: [.7, .85], close: [.83, .9] };
+let L, S = {};
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, portrait = H > W;
+  // their picture fills the screen: scaled by one number, cropped by the screen
+  const pk = Math.max(W / M.photo.w, H / M.photo.h);
+  $('photo').style.width = M.photo.w + 'px'; $('photo').style.transform = `translate(${(W - M.photo.w * pk) / 2}px,${(H - M.photo.h * pk) / 2}px) scale(${pk})`;
+  // the mark on it, where the guide puts it: bottom right, at the guide's size and margin against the picture's width
+  const [lx, ly, ld] = M.photo.logo, pw = Math.min(W, 1100), shownH = pw * M.photo.h / M.photo.w;
+  const dot = ld * pw, corner = [W - (1 - lx) * pw, H - (shownH - ly * pw)];
+  // the ending screen: the guide's field of squares over the whole screen (turned on its side on an upright screen), one scale for all of it
+  const fw = 1, fh = F.h / F.w, k = portrait ? Math.max(W / fh, H / fw) : Math.max(W / fw, H / fh);
+  const ox = (W - (portrait ? fh : fw) * k) / 2, oy = (H - (portrait ? fw : fh) * k) / 2;
+  const at = (x, y) => portrait ? [ox + y * k, oy + x * k] : [ox + x * k, oy + y * k];
+  for (const q of sq) { const [x, y] = at(q.s[0], q.s[1]), s = q.s[2] * k; q.x = x; q.y = y; q.size = s; q.e.style.width = q.e.style.height = s + 'px'; q.on = x > -s && y > -s && x < W && y < H; q.far = Math.hypot(W - (x + s / 2), H - (y + s / 2)); }
+  // the squares arrive from the mark's corner outwards; the first three are the three nearest it that are whole on screen
+  const seen = sq.filter(q => q.on).sort((a, b) => a.far - b.far), whole = seen.filter(q => q.x > 8 && q.y > 8 && q.x + q.size < W - 8 && q.y + q.size < H - 8);
+  const three = whole.slice(0, 3), rest = seen.filter(q => !three.includes(q));
+  sq.forEach(q => { q.rank = -1; }); three.forEach((q, i) => { q.rank = i; q.three = true; }); rest.forEach((q, i) => { q.rank = i; q.three = false; });
+  const [flx, fly, fld] = F.logo, end = at(flx, fly);
+  const lineLeft = parseFloat(getComputedStyle(lines[0]).left);
+  for (const l of lines) l.style.maxWidth = `min(14ch, ${Math.round(corner[0] - dot / 2 - lineLeft - 14)}px)`;
+  const ink = M.wordmark.ink[2] - M.wordmark.ink[0], wordOf = d => d / (2 * M.logo.disc[2]) * ink;   // the word's width for a disc of diameter d
+  const full = Math.hypot(W, H) * 1.05, loud = portrait ? full : Math.min(full, W * .94 / wordOf(1));
+  L = { W, H, centre: [W / 2, H / 2], cover: loud, word: wordOf(loud), corner, dot, basis: pw, end, endD: Math.min(fld * k, W * .82, H * .8), three: three.length, rest: rest.length };
+}
+// put the logo so its pink disc sits at (x, y) with diameter d: one number scales it
+function mark(x, y, d) { const m = M.logo, w = Math.max(d, .01) / (2 * m.disc[2]); $('logo').style.width = w + 'px'; $('logo').style.transform = `translate(${x - m.disc[0] * w}px,${y - m.disc[1] * w}px)`; S = { x, y, d }; }
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  const open = ramp(p, ...T.open), sweep = ramp(p, ...T.sweep), thin = ramp(p, ...T.thin), fill = clamp(0, (p - T.fill[0]) / (T.fill[1] - T.fill[0]), 1), close = clamp(0, (p - T.close[0]) / (T.close[1] - T.close[0]), 1);
+  // one logo: opens from nothing over everything, sweeps to the corner, thins away, comes back for the end
+  if (p < T.sweep[0]) mark(...L.centre, open * open * L.cover);
+  else if (p < T.thin[1]) {
+    const a = L.cover, b = L.dot, d = Math.exp(mix(Math.log(a), Math.log(b), sweep)), k = (1 / a - 1 / d) / (1 / a - 1 / b);   // even in log, as a pull-back feels; the centre travels with it so nothing swings
+    mark(mix(L.centre[0], L.corner[0], k), mix(L.centre[1], L.corner[1], k), d * (1 - thin));
+  } else mark(...L.end, L.endD * pop(close));
+  $('logo').style.opacity = S.d > .5 ? 1 : 0;
+  const covered = [[0, 0], [L.W, 0], [0, L.H], [L.W, L.H]].every(([x, y]) => Math.hypot(x - S.x, y - S.y) < S.d / 2 - 2);
+  document.querySelector('.q').style.visibility = p >= T.open[1] ? 'hidden' : 'visible';
+  $('photo').style.opacity = ramp(p, T.sweep[0], T.sweep[0] + .03); $('veil').style.opacity = ease(fill);
+  // the squares: three in the corner as the mark thins, then all of them
+  let shown = 0;
+  for (const q of sq) {
+    const t = q.rank < 0 ? 0 : q.three ? clamp(0, (p - T.thin[0] - .012 * q.rank - .02) / .03, 1) : clamp(0, (fill * 1.25 - q.rank / L.rest) / .25, 1);
+    const k = t <= 0 ? 0 : pop(t); if (k > .5) shown++;
+    q.e.style.transform = `translate(${q.x}px,${q.y}px) scale(${k})`;
+  }
+  const pinkTop = Math.hypot(0 - S.x, 0 - S.y) < S.d / 2 - 4 && Math.hypot(L.W - S.x, 0 - S.y) < S.d / 2 - 4;
+  top.style.color = pinkTop ? '#fff' : ''; top.style.opacity = p >= T.sweep[0] && !pinkTop ? ease(fill) : 1; top.classList.toggle('after', p >= .995 && !still);
+  lines[0].style.opacity = win(p, T.open[1], T.sweep[0] + .02);
+  lines[1].style.opacity = win(p, T.sweep[1] - .02, T.thin[0] + .01);
+  lines[2].style.opacity = win(p, T.thin[1] - .01, T.fill[0] + .02);
+  window.__s = { p, covered, shown, d: S.d, x: S.x, y: S.y };
+}
+// what the check reads
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, op = e => +getComputedStyle(e).opacity, R = e => e.getBoundingClientRect(), s = window.__s;
+  const line = lines.filter(l => op(l) > .5), lg = R($('logo')), ph = R($('photo'));
+  const squish = Math.max(...[$('logo'), $('photo')].map(e => { const r = R(e); return r.width < 2 ? 0 : Math.abs((r.width / r.height) / (e.naturalWidth / e.naturalHeight) - 1); }));
+  const photoFull = op($('photo')) > .5 && op($('veil')) < .05 && !s.covered && ph.left <= 0 && ph.top <= 0 && ph.right >= W && ph.bottom >= H;
+  // the line against the mark's disc (a circle, so measured as one), unless the mark has the whole screen
+  const touches = r => { const nx = clamp(r.left, s.x, r.right), ny = clamp(r.top, s.y, r.bottom); return Math.hypot(nx - s.x, ny - s.y) < s.d / 2; };
+  const overlaps = s.covered || s.d < 1 || s.d >= W ? 0 : line.filter(l => touches(R(l))).length;   // wider than the screen, the mark is the ground the line sits on
+  const out = line.map(R).filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length + (s.d > 1 && !s.covered && s.d < W && (s.x + s.d / 2 > W + 1 || s.y + s.d / 2 > H + 1) ? 1 : 0);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize)));
+  return { p: +s.p.toFixed(3), word: Math.round(s.d / (2 * M.logo.disc[2]) * (M.wordmark.ink[2] - M.wordmark.ink[0])), question: getComputedStyle(document.querySelector('.q')).visibility === 'visible' && s.d < 4, covered: s.covered, photoFull, mark: Math.round(s.d), markShare: +(s.d / L.basis).toFixed(4), centred: Math.abs(s.x - W / 2) < W * .1, squares: s.shown, onScreen: L.three + L.rest, line: line.map(l => l.textContent), squish: +squish.toFixed(4), overlaps, out, small };
+};
+await Promise.all([$('logo'), $('photo')].map(i => i.decode().catch(() => 0)));
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

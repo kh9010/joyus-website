@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* One question, answered by one scroll. The block is everything the club offers. Built for one person, most of it sits
+   empty. Each of the six comes for a different part, and it fills. The end: nothing in it goes to waste. */
+:root{--bg:#fff;--ink:#2C3544;--soft:#54606F;--pink:#E91E7B;--pinkT:#B8155F;--yellow:#F2C94A;--rule:rgba(44,53,68,.2)}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 'Space Grotesk',system-ui,sans-serif;color:var(--ink);background:var(--bg);overflow-x:hidden}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px;background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden}
+#q{position:absolute;left:0;right:0;top:0;margin:0 auto;padding:0 16px;width:max-content;max-width:100%;text-align:center;transform-origin:50% 0;z-index:5;
+  font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{color:var(--pinkT);opacity:0}
+.cap{position:absolute;left:0;right:0;top:0;margin:0;padding:0 16px;text-align:center;opacity:0;z-index:4;pointer-events:none}
+.cap b{display:block;font-weight:700;font-size:clamp(1.25rem,2.1vw,1.8rem);line-height:1.15;letter-spacing:-.02em}
+.cap span{display:block;color:var(--soft);font-size:clamp(1rem,1.3vw,1.15rem);line-height:1.3;margin-top:3px}
+.cap.say b{font-weight:500;color:var(--soft)}
+#grid{position:absolute;left:0;top:0;display:grid;gap:6px;opacity:0;z-index:2}
+.t{display:flex;align-items:center;justify-content:center;text-align:center;padding:4px 7px;border:1.5px solid var(--rule);border-radius:10px;color:var(--soft);font-size:15px;line-height:1.2;overflow:hidden;transition:background-color .35s,color .35s,border-color .35s,box-shadow .35s}
+.t::first-letter{text-transform:uppercase}
+.t.lit{background:var(--yellow);border-color:var(--yellow);color:var(--ink)}
+.t.now{box-shadow:0 0 0 2.5px var(--ink)}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:19ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.035em}
+.ans h2 u{text-decoration:none;box-shadow:inset 0 -.14em 0 var(--yellow)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 'Space Grotesk',sans-serif;letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}.t{font-size:13px;padding:3px 5px;border-radius:8px}#grid{gap:5px}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="grid"></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+// Each tile is a part of the club in the brand guide's own words (the guide's "We give" lines); a tile belongs to the person whose line names it.
+const D = JSON.parse(document.getElementById('data').textContent);
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), grid = document.getElementById('grid');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const used = D.people.map(() => 0);
+const tiles = D.order.map(k => { const e = document.createElement('div'); e.className = 't'; e.dataset.k = k; e.textContent = D.people[k].parts[used[k]++]; grid.append(e); return e; });
+const caps = D.people.map(p => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, grid); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+// when things happen, as a share of the scroll
+const T = { rise: [.06, .13], grid: [.1, .16], all: [.13, .23], first: .24, empty: [.34, .44], six: [.44, .48], next: .48, step: .085, full: .915 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760;
+  const qk = phone ? .62 : .5, qH = q.offsetHeight, y0 = phone ? 58 : 66, capY = y0 + qH * qk + (phone ? 8 : 14);
+  for (const c of allCaps) c.style.transform = `translateY(${capY}px)`;
+  const top = capY + Math.max(...allCaps.map(c => c.offsetHeight)) + (phone ? 12 : 26);
+  const cols = phone ? 3 : 6, rows = 24 / cols, gap = phone ? 5 : 6, gw = Math.min(W - 32, 1100);
+  const th = Math.min(phone ? 70 : 120, (H - top - (phone ? 14 : 40) - gap * (rows - 1)) / rows), gh = th * rows + gap * (rows - 1);
+  grid.style.gridTemplateColumns = `repeat(${cols},1fr)`; grid.style.gridAutoRows = th + 'px'; grid.style.width = gw + 'px';
+  grid.style.transform = `translate(${(W - gw) / 2}px,${top + Math.max(0, (H - top - (phone ? 14 : 40) - gh) / 2)}px)`;
+  L = { W, qk, y0, mid: Math.max(70, H * .46 - qH / 2) };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  const up = ramp(p, ...T.rise);
+  q.style.transform = `translateY(${mix(L.mid, L.y0, up)}px) scale(${mix(1, L.qk, up)})`;
+  const six = ramp(p, ...T.six); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  grid.style.opacity = ramp(p, ...T.grid);
+  $('c-all').style.opacity = win(p, ...T.all); $('c-empty').style.opacity = win(p, ...T.empty); $('c-full').style.opacity = ramp(p, T.full, T.full + .02);
+  let now = -1;
+  caps.forEach((c, k) => { const a = at(k), b = k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1)); c.style.opacity = win(p, a, b); if (p >= a && p < b) now = k; });
+  for (const t of tiles) { const k = +t.dataset.k; t.classList.toggle('lit', p >= at(k)); t.classList.toggle('now', k === now); }
+  window.__p = p;
+}
+// what the check reads
+window.__measure = () => {
+  const W = innerWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(grid) ? R(grid) : null, shown = allCaps.filter(vis), cr = shown.map(R);
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (g && hit(c, g)) overlaps++; }); if (g && hit(g, head)) overlaps++;
+  const out = [...cr, head, ...(g ? [g] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const clipped = tiles.filter(t => t.scrollHeight > t.clientHeight + 1 || t.scrollWidth > t.clientWidth + 1).map(t => t.textContent);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize) * (e.closest('#q') ? L.qk : 1)));
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, now: tiles.filter(t => t.classList.contains('now')).length, grid: !!g, caption: shown.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<title>94 / the stones: one whole, cut into six</title><link rel="icon" href="data:,">
+<!-- Study 94's stone maker (not the case study). One pebble, cut into six by the live worker (41/jbuilder.js)
+     and dressed in Gummy (41/looks/gummy.js). Each stone is rendered alone from the same camera, once grey and
+     once in its own colour, cropped, and its place in the frame kept, so the page can lay the six back into
+     the one whole as plain images. shoot.mjs --stones saves img/s<i>-grey.png, img/s<i>-col.png, stones.json. -->
+<style>body{margin:0;background:#fff;font:14px sans-serif}#out img{width:110px;margin:4px;border:1px solid #eee}</style>
+<script type="importmap">{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+} }</script>
+</head><body><p id="s">building</p><div id="out"></div>
+<script type="module">
+import * as THREE from 'three';
+import * as look from '../41/looks/gummy.js';
+const Q = new URLSearchParams(location.search);
+const SEED = Q.get('seed') || 'room-3', SIZE = 1200, GREY = '#7f8a9a';
+// the whole: a pebble, drawn here (the worker takes any mask)
+const R = 1024, mc = document.createElement('canvas'); mc.width = mc.height = R; const mg = mc.getContext('2d');
+mg.fillStyle = '#000'; mg.beginPath();
+for (let i = 0; i <= 120; i++) { const a = i / 120 * Math.PI * 2, r = R * .43 * (1 + .045 * Math.sin(a * 2 + 1.2) + .03 * Math.sin(a * 3 + 2.4)); const x = R / 2 + Math.cos(a) * r * 1.02, y = R / 2 + Math.sin(a) * r * .95; i ? mg.lineTo(x, y) : mg.moveTo(x, y); }
+mg.closePath(); mg.fill();
+const canvas = document.createElement('canvas'); canvas.width = canvas.height = SIZE;
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, preserveDrawingBuffer: true });
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.setPixelRatio(1); renderer.setSize(SIZE, SIZE, false);
+const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(20, 1, .1, 60);
+await look.setup({ THREE, renderer, scene, camera, pieces: [] });
+const pieces = await new Promise((res, rej) => {
+  const out = [], w = new Worker('../41/jbuilder.js', { type: 'module' });
+  w.onmessage = (e) => { const d = e.data;
+    if (d.type === 'piece') { const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.BufferAttribute(d.pos, 3)); g.setAttribute('normal', new THREE.BufferAttribute(d.nrm, 3));
+      g.setAttribute('ao', new THREE.BufferAttribute(d.ao, 1, true)); g.setIndex(new THREE.BufferAttribute(d.idx, 1));
+      out.push({ g, colour: d.colour }); }
+    if (d.type === 'done') { w.terminate(); res(out); } if (d.type === 'error') rej(new Error(d.message)); };
+  w.postMessage({ seed: SEED, cells: 6, res: 1, field: 'exact', mask: mc.toDataURL('image/png') });
+});
+// one camera for all of them, set on the whole
+const all = new THREE.Group(); const meshes = pieces.map(p => { const m = new THREE.Mesh(p.g); all.add(m); return m; });
+const box = new THREE.Box3().setFromObject(all), c = box.getCenter(new THREE.Vector3()), rad = box.getBoundingSphere(new THREE.Sphere()).radius;
+all.position.sub(c); scene.add(all);
+camera.position.set(0, 0, rad / Math.tan(camera.fov * Math.PI / 360) * 1.06); camera.lookAt(0, 0, 0);
+const t = document.createElement('canvas'); t.width = t.height = SIZE; const tx = t.getContext('2d', { willReadFrequently: true });
+function shoot(only, colour) {
+  meshes.forEach((m, i) => { m.visible = only < 0 || i === only; m.userData.colour = new THREE.Color(colour || pieces[i].colour); look.dress({ THREE, mesh: m }); });
+  renderer.render(scene, camera);
+  tx.clearRect(0, 0, SIZE, SIZE); tx.drawImage(canvas, 0, 0);
+  const a = tx.getImageData(0, 0, SIZE, SIZE).data; let l = SIZE, tp = SIZE, rt = 0, b = 0;
+  for (let y = 0; y < SIZE; y++) for (let X = 0; X < SIZE; X++) if (a[(y * SIZE + X) * 4 + 3] > 8) { l = Math.min(l, X); rt = Math.max(rt, X); tp = Math.min(tp, y); b = Math.max(b, y); }
+  l = Math.max(0, l - 4); tp = Math.max(0, tp - 4); rt = Math.min(SIZE - 1, rt + 4); b = Math.min(SIZE - 1, b + 4);
+  const w = rt - l + 1, h = b - tp + 1, o = document.createElement('canvas'); o.width = w; o.height = h; o.getContext('2d').drawImage(t, l, tp, w, h, 0, 0, w, h);
+  return { url: o.toDataURL('image/png'), box: [l / SIZE, tp / SIZE, w / SIZE, h / SIZE], px: [w, h] };
+}
+const out = { seed: SEED, frame: SIZE, grey: GREY, stones: [] };
+// grey and colour are cropped to the colour render's box, so the two lie exactly over each other
+pieces.forEach((p, i) => { const k = shoot(i), g = shoot(i, GREY); out.stones.push({ colour: p.colour, box: k.box, px: k.px, grey: g.url, col: k.url, same: g.box.every((v, j) => Math.abs(v - k.box[j]) < 1e-6) }); });
+out.whole = shoot(-1).url; out.wholeGrey = shoot(-1, GREY).url;
+for (const u of [out.wholeGrey, out.whole, ...out.stones.map(s => s.col)]) { const im = new Image(); im.src = u; document.getElementById('out').append(im); }
+window.__stones = out; document.getElementById('s').textContent = 'done: ' + pieces.length + ' stones, ' + out.stones.map(s => s.colour).join(' ');
+</script></body></html>
