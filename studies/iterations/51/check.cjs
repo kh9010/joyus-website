@@ -10,6 +10,5 @@ say(imgs.map(i => i.alt).join() === CLIENTS.join(), imgs.length + ' logos, the c
 say(imgs.every(i => i.href === i.src), 'each logo links to its own full file');
 const small = imgs.filter(i => { const f = path.join(__dirname, i.src); return !fs.existsSync(f) || fs.statSync(f).size < 200; }).map(i => i.src);
 say(!small.length, 'every file exists and is not empty' + (small.length ? ': ' + small.join(', ') : ''));
-const words = html.replace(/<style[\s\S]*?<\/style>/, '').match(/<p class="lede">([^<]*)/)[1].split(/\s+/).length;
-say(words < 30, 'one line');
+say(!/class="(eyebrow|lede)"/.test(html), 'the title, then the logos: no line above or under it');
 process.exitCode = bad ? 1 : 0;

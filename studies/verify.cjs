@@ -21,24 +21,33 @@ const git = (...args) => spawnSync('git', args, { cwd: repo, encoding: 'buffer' 
 // 1. rail
 console.log('rail');
 const rail = read('index.html');
-const entries = [...rail.matchAll(/href="(iterations\/(\d\d)\/index\.html)"/g)].map(m => ({ file: m[1], n: m[2] }));
+const entries = [...rail.matchAll(/href="(iterations\/(\d{2,3})\/index\.html)"/g)].map(m => ({ file: m[1], n: m[2] }));
 if (!entries.length) fail('no rail entries');
 for (const e of entries) exists(e.file) ? ok(e.file) : fail(e.file + ' missing');
 const nums = entries.map(e => +e.n);
 nums.every((n, i) => i === 0 || n === nums[i - 1] - 1) && nums[nums.length - 1] === 1 ? ok('rail runs newest to 01 with no gaps') : fail('rail order ' + nums.join(','));
 const iframeSrc = (rail.match(/<iframe[^>]*src="([^"]+)"/) || [])[1];
 entries[0] && entries[0].file === iframeSrc ? ok('iframe opens the newest study (' + iframeSrc + ')') : fail('iframe src ' + iframeSrc + ' is not the newest rail entry');
-const folders = fs.readdirSync(path.join(here, 'iterations')).filter(d => /^\d\d$/.test(d));
+const folders = fs.readdirSync(path.join(here, 'iterations')).filter(d => /^\d{2,3}$/.test(d));
 const unlisted = folders.filter(d => !entries.some(e => e.n === d));
 unlisted.length ? fail('study folders not on the rail: ' + unlisted.join(', ')) : ok('every study folder is on the rail');
 /noindex/.test(rail) ? ok('rail is noindex') : fail('rail has no noindex');
+// a rail entry is number / title and a date, nothing else (Divya, 24 Nov 2026)
+const plain = [...rail.matchAll(/<a href="iterations\/(\d{2,3})\/index\.html"[^>]*>([\s\S]*?)<\/a>/g)].filter(m => !/^<strong>\d{2,3} \/ [^<]+<\/strong><small>\d{1,2} \w+ 20\d\d<\/small>$/.test(m[2])).map(m => m[1]);
+plain.length ? fail('rail entries with more than number / title and date: ' + plain.join(', ')) : ok('every rail entry is number / title and a date, no description');
+/<footer/.test(rail) ? fail('the rail has a footer') : ok('the rail has no footer');
 
 // 2. each study
 console.log('studies');
 for (const e of entries) {
   const dir = path.dirname(e.file);
   const html = read(e.file);
-  new RegExp('class="eyebrow">Study ' + e.n + ' ').test(html) ? ok(e.file + ' is numbered Study ' + e.n) : fail(e.file + ' eyebrow does not say Study ' + e.n);
+  new RegExp('<title>' + e.n + ' / ').test(html) ? ok(e.file + ' is numbered ' + e.n) : fail(e.file + ' <title> does not start "' + e.n + ' / "');
+  // the page starts at its title: the rail already carries the number and the date,
+  // and the title is the content (Divya, 24 Nov 2026)
+  /class="eyebrow"/.test(html) ? fail(e.file + ' has an eyebrow above the title (the rail says the number and date)') : ok(e.file + ' has nothing above its title');
+  // the study's own title is the first h1 (92 carries a draft page with its own further down)
+  /^\s*<p class="lede"/.test(html.slice(html.indexOf('</h1>') + 5)) ? fail(e.file + ' has a lede under the title (the title is the content)') : ok(e.file + ' has no lede under its title');
   /<meta name="robots" content="noindex/.test(html) ? ok(e.file + ' is noindex') : fail(e.file + ' has no noindex');
   const refs = [...html.matchAll(/(?:src|href)="([^"#?]+)"/g)].map(m => m[1]).filter(r => !/^(https?:|mailto:|data:|\/\/)/.test(r) && !r.includes('${'));
   let bad = 0;

@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Agemo, storytelling · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* The simple one: a single word finds its place. The first headline said "AI tools". Divya's note beside it:
+   "these arent AI tools though. They are tools made with AI." So the two words change places, and then the word AI
+   stays where it landed while the rest becomes the line on the real front page: "Outsource to AI." The word AI is
+   one element the whole way through; nothing else moves. */
+:root{--hi:#F2C94A;--bg:#fff;--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--pinkT:#B8155F;--yellow:#F2C94A;--rule:rgba(44,53,68,.14);
+  --sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px}
+.top.after{background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+#run{position:relative;height:720vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
+#q{position:absolute;left:0;right:0;top:50%;margin:0 auto;padding:0 clamp(16px,4vw,60px);max-width:17ch;box-sizing:content-box;text-align:center;transform:translateY(-50%);z-index:5;
+  font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+/* the words: every one is placed by hand from three measured arrangements */
+.w,.g{position:absolute;left:0;top:0;margin:0;white-space:nowrap;font:700 var(--fs,6rem)/1 var(--sans);letter-spacing:-.04em}
+.w{opacity:0;will-change:transform,opacity}
+.g{visibility:hidden}.g span{display:inline-block;white-space:pre}
+#ai{background-image:linear-gradient(var(--hi),var(--hi));background-repeat:no-repeat;background-position:0 86%;background-size:0% .16em;transition:background-size .7s cubic-bezier(.2,.8,.2,1)}
+#ai.found{background-size:100% .16em}
+.sub{position:absolute;left:0;right:0;margin:0;padding:0 clamp(16px,4vw,60px);text-align:center;opacity:0;font-weight:500;font-size:clamp(1rem,1.45vw,1.25rem);line-height:1.3;color:var(--soft)}
+.sub.note{color:var(--pinkT);font-size:clamp(1.15rem,2vw,1.7rem);max-width:none}
+.sub b{font-weight:500}
+#view{position:absolute;overflow:hidden;opacity:0}
+#page{position:absolute;left:0;top:0;width:2880px;height:1620px;transform-origin:0 0;box-shadow:0 0 0 1px var(--rule)}
+#page img{display:block;width:2880px;height:1620px}
+.m{position:absolute;background:var(--hi);opacity:.85;mix-blend-mode:multiply;transform-origin:0 50%;transform:scaleX(0);transition:transform .7s cubic-bezier(.2,.8,.2,1);border-radius:3px}
+.m.lit{transform:scaleX(1)}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:17ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+.ans h2 u{text-decoration:none;box-shadow:inset 0 -.14em 0 var(--yellow)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 var(--sans);letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}}
+@media(prefers-reduced-motion:reduce){.m,#ai{transition:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you say what you are in a few words?</h1>
+<!-- the three arrangements, measured and never shown -->
+<p class="g" id="g1"><span data-k="ai">AI</span><span> </span><span data-k="tools">tools</span></p>
+<p class="g" id="g2"><span data-k="tools">tools</span><span> </span><span data-k="made">made with</span><span> </span><span data-k="ai">AI</span></p>
+<p class="g" id="g3"><span data-k="out">Outsource to</span><span> </span><span data-k="ai">AI</span><span data-k="dot">.</span></p>
+<p class="w" id="ai">AI</p><p class="w" id="tools">tools</p><p class="w" id="made">made with</p><p class="w" id="out">Outsource to</p><p class="w" id="dot">.</p>
+<p class="sub" id="s1">The first headline: “AI-tools. For every Job.”</p>
+<p class="sub note" id="s2">“these arent AI tools though. They are tools made with AI.”</p>
+<p class="sub" id="s3">So the AI is not the tool. It is who you hand the work to.</p>
+<p class="sub" id="s4">The line on the front page.</p>
+<div id="view"><div id="page"><img src="img/front-page.png" alt="The CodeWords front page, headed Outsource to AI." width="2880" height="1620"></div></div>
+</div></div>
+<section class="ans"><h2>One word, <u>in the right place.</u></h2><p>Most of saying what you are is finding which word is doing the work. We write the headline as a design problem, until the product fits inside it.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">Agemo, storytelling, 2024</div>
+<script type="module">
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), view = document.getElementById('view'), page = document.getElementById('page');
+const $ = id => document.getElementById(id), W_ = ['ai', 'tools', 'made', 'out', 'dot'].map($), G = ['g1', 'g2', 'g3'].map($), subs = ['s1', 's2', 's3', 's4'].map($);
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const HEAD = [176, 392, 1160, 132];                      // the headline on the front page, in the picture's own pixels
+const mark = document.createElement('div'); mark.className = 'm'; mark.style.cssText = `left:${HEAD[0]}px;top:${HEAD[1]}px;width:${HEAD[2]}px;height:${HEAD[3]}px`; page.append(mark);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const win = (p, a, b, f = .02) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+// when things happen, as a share of the scroll
+const T = { q: [.05, .1], one: [.1, .15], s1: [.14, .27], s2: [.25, .5], swap: [.36, .46], s3: [.5, .66], hand: [.66, .76], s4: [.76, .86], page: [.84, .92], lit: .93 };
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, side = phone ? 16 : 40;
+  // one size for all three arrangements: as big as the longest allows
+  let fs = phone ? 54 : Math.min(150, W * .1);
+  stage.style.setProperty('--fs', fs + 'px');
+  const widest = Math.max(...G.map(g => g.offsetWidth));
+  if (widest > W - side * 2) { fs = fs * (W - side * 2) / widest; stage.style.setProperty('--fs', fs + 'px'); }
+  const cy = H * (phone ? .4 : .42);
+  const pos = {};
+  G.forEach((g, i) => {
+    const x0 = (W - g.offsetWidth) / 2, y0 = cy - g.offsetHeight / 2;
+    for (const s of g.querySelectorAll('[data-k]')) (pos[s.dataset.k] = pos[s.dataset.k] || [])[i] = { x: x0 + s.offsetLeft, y: y0 };
+  });
+  const lineBottom = cy + G[0].offsetHeight / 2;
+  for (const s of subs) s.style.top = (lineBottom + (phone ? 22 : 34)) + 'px';
+  // the front page, under the line once it is found
+  const lift = phone ? H * .2 : H * .23, top = lineBottom - lift + (phone ? 34 : 56), vwMax = Math.min(W - side * 2, 1100), s = Math.min(vwMax / 2880, (H - top - (phone ? 20 : 36)) / 1620, 1), vw = 2880 * s, vh = 1620 * s;
+  view.style.cssText = `left:${(W - vw) / 2}px;top:${top}px;width:${vw}px;height:${vh}px`;
+  page.style.transform = `scale(${s})`;
+  L = { W, H, pos, s, phone, lift };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1), P = L.pos;
+  q.style.opacity = 1 - ramp(p, ...T.q);
+  const a = ramp(p, ...T.swap), b = ramp(p, ...T.hand), up = ramp(p, ...T.page) * L.lift;        // the line rises to make room for the page
+  const at = (k, from, to, t) => `translate(${mix(P[k][from].x, P[k][to].x, t)}px,${mix(P[k][from].y, P[k][to].y, t) - up}px)`;
+  const arc = Math.sin(a * Math.PI) * (L.phone ? 26 : 60);                                      // AI goes over, tools goes under
+  const ai = $('ai'), tools = $('tools'), made = $('made'), out = $('out'), dot = $('dot'), show = ramp(p, ...T.one);
+  ai.style.transform = b > 0 ? at('ai', 1, 2, b) : `translate(${mix(P.ai[0].x, P.ai[1].x, a)}px,${P.ai[0].y - arc}px)`;
+  ai.style.opacity = show; ai.classList.toggle('found', p >= T.hand[1] - .005);
+  tools.style.transform = `translate(${mix(P.tools[0].x, P.tools[1].x, a)}px,${P.tools[0].y + arc * .5}px)`; tools.style.opacity = show * (1 - ramp(p, T.hand[0], T.hand[0] + .04));
+  made.style.transform = `translate(${P.made[1].x}px,${P.made[1].y}px)`; made.style.opacity = ramp(p, T.swap[1] - .03, T.swap[1] + .02) * (1 - ramp(p, T.hand[0], T.hand[0] + .04));
+  out.style.transform = `translate(${P.out[2].x}px,${P.out[2].y - up}px)`; out.style.opacity = ramp(p, T.hand[1] - .05, T.hand[1]);
+  dot.style.transform = `translate(${P.dot[2].x}px,${P.dot[2].y - up}px)`; dot.style.opacity = ramp(p, T.hand[1] - .02, T.hand[1]);
+  subs[0].style.opacity = win(p, ...T.s1); subs[1].style.opacity = win(p, ...T.s2); subs[2].style.opacity = win(p, ...T.s3); subs[3].style.opacity = win(p, ...T.s4);
+  for (const s of subs) s.style.transform = `translateY(${-up}px)`;
+  view.style.opacity = ramp(p, ...T.page); mark.classList.toggle('lit', p >= T.lit);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__state = { p, a, b };
+}
+// what the check reads
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const out = r => r.left < -1 || r.right > W + 1 || r.top < 40 || r.bottom > H + 1;
+  const words = W_.filter(vis), line = words.slice().sort((a, b) => R(a).left - R(b).left).map(e => e.textContent).join(' ').replace(' .', '.');
+  const shownSubs = subs.filter(vis), vr = vis(view) ? R(view) : null;
+  let overlaps = 0;
+  for (let i = 0; i < words.length; i++) for (let j = i + 1; j < words.length; j++) if (hit(R(words[i]), R(words[j]))) overlaps++;
+  for (const s of shownSubs) { for (const w of words) if (hit(R(s), R(w))) overlaps++; if (vr && hit(R(s), vr)) overlaps++; }
+  if (vr) for (const w of words) if (hit(R(w), vr)) overlaps++;
+  return { p: +window.__state.p.toFixed(3), question: vis(q), line, saying: shownSubs.map(s => s.id), page: !!vr, lit: mark.classList.contains('lit'), found: $('ai').classList.contains('found'),
+    out: [...words.map(R), ...shownSubs.map(R), ...(vr ? [vr] : [])].filter(out).length, overlaps, pageScale: +L.s.toFixed(3),
+    type: words.length ? +parseFloat(getComputedStyle(words[0]).fontSize).toFixed(1) : null, smallestText: shownSubs.length ? Math.min(...shownSubs.map(e => parseFloat(getComputedStyle(e).fontSize))) : null };
+};
+await document.fonts.ready;
+await (page.querySelector('img').decode?.().catch(() => {}));
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

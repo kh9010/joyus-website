@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>104 / Agemo, nine spines, nine shapes — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+main { max-width: 1180px }
+h2 { margin: 44px 0 0; font-size: 15px; font-weight: 600; padding-bottom: 10px; border-bottom: 2px solid var(--ink) }
+.item { display: grid; grid-template-columns: 28px 1fr; gap: 0 14px; padding: 30px 0; border-bottom: 1px solid var(--line) }
+.item input { width: 18px; height: 18px; margin: 8px 0 0; accent-color: #222; cursor: pointer }
+.item.picked { background: var(--surface); margin: 0 -14px; padding-left: 14px; padding-right: 14px }
+.top { display: grid; grid-template-columns: 176px minmax(0, 1fr); gap: 26px; align-items: start; margin-bottom: 18px }
+.shape { width: 176px; height: 96px; border: 1px solid var(--line); background: #fff; fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round }
+.shape .f { fill: var(--ink) } .shape .d { stroke-dasharray: 3 3 } .shape .thin { stroke-width: 1; stroke: var(--ink-2) } .shape .strike { stroke-width: 1.6 }
+.form { margin: 0 0 6px; font-size: 19px; font-weight: 600 }
+.item h3 { margin: 0 0 6px; font-size: 16px; line-height: 1.35; font-weight: 400; max-width: 62ch } .item h3 label { cursor: pointer }
+.item h3 .n { color: var(--ink-2); font-size: 13px; margin-right: 6px }
+.subject { margin: 0; font-size: 13.5px; color: var(--ink-2) }
+.rows { border-collapse: collapse; width: 100%; margin: 0 0 14px; table-layout: fixed }
+.rows th { text-align: left; font-weight: 600; font-size: 12.5px; color: var(--ink-2); padding: 0 18px 7px 0; border-bottom: 1px solid var(--ink) }
+.rows td { vertical-align: top; padding: 9px 18px 9px 0; border-bottom: 1px solid var(--line); font-size: 15px }
+.rows.c2 th:first-child, .rows.c2 td:first-child { width: 42% }
+.rows.c3 th:first-child, .rows.c3 td:first-child { width: 30% }
+.rows td:first-child { font-weight: 500 }
+.end { margin: 0 0 8px; font-size: 15px; max-width: 78ch }
+.close { margin: 0 0 16px; font-size: 15px; font-weight: 600 }
+.v { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start }
+.v figure { margin: 0 } .v img { width: 100%; height: 170px; object-fit: cover; object-position: top left; border: 1px solid var(--line); display: block }
+.v figcaption { font-size: 12.5px; color: var(--ink-2); margin-top: 5px }
+.picks { position: sticky; top: 0; z-index: 3; background: #fff; border-bottom: 1px solid var(--line); padding: 10px 0; margin: 0; display: flex; gap: 16px; align-items: center; font-size: 13.5px }
+.picks button { font: inherit; background: #222; color: #fff; border: 0; padding: 6px 12px; cursor: pointer }
+.picks button.quiet { background: transparent; color: var(--ink-2); padding: 6px 4px }
+.picks .count { color: var(--ink-2) }
+@media (max-width: 800px) { .top { grid-template-columns: 1fr; gap: 12px } .rows, .rows tbody, .rows tr, .rows td { display: block; width: auto !important } .rows thead { display: none } .rows td { border-bottom: 0; padding: 2px 0 } .rows tr { border-bottom: 1px solid var(--line); padding: 8px 0 } .rows td:empty { display: none } .v { grid-template-columns: 1fr } .v img { height: auto } }
+</style>
+</head>
+<body>
+<main>
+<h1>Agemo, nine spines, nine shapes</h1>
+<div class="picks"><span class="count" id="count">0 picked</span><button id="copy">Copy picks</button><button class="quiet" id="clear">Clear</button></div>
+
+<h2>Product design</h2>
+<div class="item" data-id="12"><input type="checkbox" id="12"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="A map with a hole in it"><line x1="8" y1="36" x2="124" y2="36" /><circle cx="18" cy="36" r="9" class="f"/><circle cx="50" cy="36" r="9" class="d"/><circle cx="82" cy="36" r="9" class="d"/><circle cx="114" cy="36" r="9" class="f"/></svg><div>
+<p class="form">A map with a hole in it</p>
+<h3><label for="12"><span class="n">12</span> How do you turn someone looking around into someone making things?</label></h3>
+<p class="subject">The journey model</p>
+</div></div>
+<table class="rows c3"><thead><tr><th>What the person is thinking</th><th>What the product had for them</th><th>What it has now</th></tr></thead><tbody>
+<tr><td>“What does this do?”</td><td>A front page</td><td>A front page</td></tr>
+<tr><td>“Can I try this for a something simple ...”</td><td>Nothing</td><td>A tool somebody else made, ready to run</td></tr>
+<tr><td>“Can I trust this to be consistent for...”</td><td>Nothing</td><td>That tool's own page, with how often it has run</td></tr>
+<tr><td>“How can this fit into my workflow for ...”</td><td>An empty box</td><td>The same empty box, reached last</td></tr>
+</tbody></table>
+<p class="end">The map is hers, drawn before any screen. The page is that map with its two empty places filled.</p>
+<p class="close">We map the change of mind first, then give each stage its place in the product.</p>
+<div class="v"><figure><a class="zoom" href="img/journey.png"><img src="img/journey.png" alt="The journey model" loading="lazy"></a><figcaption>The journey model</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="05"><input type="checkbox" id="05"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="One page, read from three distances"><rect x="6" y="6" width="120" height="60" /><rect x="26" y="16" width="80" height="40" /><rect x="48" y="26" width="36" height="20" class="f"/></svg><div>
+<p class="form">One page, read from three distances</p>
+<h3><label for="05"><span class="n">05</span> How do you build for the expert without shutting out the beginner?</label></h3>
+<p class="subject">A single tool's page, and how dense it is</p>
+</div></div>
+<table class="rows c3"><thead><tr><th>Read from</th><th>What you take in</th><th>Who stops here</th></tr></thead><tbody>
+<tr><td>A glance</td><td>Its name, one sentence, and Run</td><td>“Tool consumer”</td></tr>
+<tr><td>A read</td><td>The long description, the steps it goes through, the tools most like it</td><td>“Tool remixer”</td></tr>
+<tr><td>A study</td><td>Use spec, Get API, Get code</td><td>“Tool Builder”, “Tool Chainer”</td></tr>
+</tbody></table>
+<p class="end">Nothing is hidden and nothing is taken out: “Giving description, detailed description, directly letting user see spec link etc. despite it being more information dense as a design solution”</p>
+<p class="close">We keep the depth, and build the way up to it.</p>
+<div class="v"><figure><a class="zoom" href="img/function-top.png"><img src="img/function-top.png" alt="The page" loading="lazy"></a><figcaption>The page</figcaption></figure><figure><a class="zoom" href="img/bet-4.png"><img src="img/bet-4.png" alt="The bet behind it" loading="lazy"></a><figcaption>The bet behind it</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="21"><input type="checkbox" id="21"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="Told backwards, from the last thing they see"><rect x="100" y="22" width="24" height="28" class="f"/><rect x="54" y="22" width="24" height="28" /><rect x="8" y="22" width="24" height="28" /><path d="M96 36 H84 M50 36 H38 M88 32 l-4 4 l4 4 M42 32 l-4 4 l4 4"/></svg><div>
+<p class="form">Told backwards, from the last thing they see</p>
+<h3><label for="21"><span class="n">21</span> How do you make the first visit worth a second?</label></h3>
+<p class="subject">How a first visit ends</p>
+</div></div>
+<table class="rows c2"><thead><tr><th>Working back from the end</th><th></th></tr></thead><tbody>
+<tr><td>The last thing they see</td><td>A result. In the old product, that was all: “MIssing end point (what do i do with this now?)”</td></tr>
+<tr><td>So the end was designed first</td><td>Under the result, the tools most like it. Beside it, a way to take it with you.</td></tr>
+<tr><td>Before that</td><td>The run itself, one step at a time, so the wait reads as work.</td></tr>
+<tr><td>Before that</td><td>A tool they did not have to make.</td></tr>
+<tr><td>Which decides the first thing they see</td><td>“Let the user feel they have created / found / can show something of value for the time invested”</td></tr>
+</tbody></table>
+<p class="end">The story runs in reverse, and stops at the front page.</p>
+<p class="close">We design the first ten minutes to earn the next visit, not to close the sale.</p>
+<div class="v"><figure><a class="zoom" href="img/run-process.png"><img src="img/run-process.png" alt="The end of a run" loading="lazy"></a><figcaption>The end of a run</figcaption></figure><figure><a class="zoom" href="img/ia-audit.png"><img src="img/ia-audit.png" alt="The audit that found the missing end" loading="lazy"></a><figcaption>The audit that found the missing end</figcaption></figure><figure><a class="zoom" href="img/bet-8.png"><img src="img/bet-8.png" alt="Give them something they can use" loading="lazy"></a><figcaption>Give them something they can use</figcaption></figure></div>
+</div></div>
+
+<h2>Product strategy</h2>
+<div class="item" data-id="14"><input type="checkbox" id="14"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="The brief, with our notes in the margin"><line x1="8" y1="14" x2="62" y2="14" /><line x1="74" y1="9" x2="124" y2="9" class="thin"/><line x1="74" y1="15" x2="110" y2="15" class="thin"/><line x1="8" y1="30" x2="62" y2="30" /><line x1="74" y1="25" x2="124" y2="25" class="thin"/><line x1="74" y1="31" x2="110" y2="31" class="thin"/><line x1="8" y1="46" x2="62" y2="46" /><line x1="74" y1="41" x2="124" y2="41" class="thin"/><line x1="74" y1="47" x2="110" y2="47" class="thin"/><line x1="8" y1="62" x2="62" y2="62" /><line x1="74" y1="57" x2="124" y2="57" class="thin"/><line x1="74" y1="63" x2="110" y2="63" class="thin"/></svg><div>
+<p class="form">The brief, with our notes in the margin</p>
+<h3><label for="14"><span class="n">14</span> How do you fix the onboarding when the onboarding isn't the problem?</label></h3>
+<p class="subject">What was asked for, line by line, against what the research said</p>
+</div></div>
+<table class="rows c2"><thead><tr><th>What was asked</th><th>What was underneath it</th></tr></thead><tbody>
+<tr><td>“Cleaning up onboarding”</td><td>There was nothing to board. The only way in was an empty box.</td></tr>
+<tr><td>“Simplify UX?”</td><td>Not simpler. Clearer about what it is for: “What are you really good at?”</td></tr>
+<tr><td>“Cleaning up communication”</td><td>The words were the team's, not the user's: “Create a function that... I don’t know what a function is.”</td></tr>
+<tr><td>“Enable, or at least push, the user to create a successful function on first try”</td><td>Not on the first try. On the visit they are ready: “We believe that new users will not be prepared to create from a blank prompt at first”</td></tr>
+</tbody></table>
+<p class="end">Every line of the brief was answered, one level down from where it was asked.</p>
+<p class="close">We answer the brief by finding the problem underneath it.</p>
+<div class="v"><figure><a class="zoom" href="img/scope.jpg"><img src="img/scope.jpg" alt="The scope of work, page by page" loading="lazy"></a><figcaption>The scope of work, page by page</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="13"><input type="checkbox" id="13"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="An argument between two people that ends in a rule"><rect x="8" y="6" width="50" height="10" /><rect x="74" y="20" width="50" height="10" /><rect x="74" y="34" width="50" height="10" /><rect x="8" y="48" width="50" height="10" /><rect x="8" y="62" width="116" height="5" class="f"/></svg><div>
+<p class="form">An argument between two people that ends in a rule</p>
+<h3><label for="13"><span class="n">13</span> How do you serve the person who knows what they want, and the one who doesn't?</label></h3>
+<p class="subject">One thread of sticky notes between Divya and Kahran</p>
+</div></div>
+<table class="rows c2"><thead><tr><th>Divya</th><th>Kahran</th></tr></thead><tbody>
+<tr><td>“whats the intent difference with this vs the landing page text?”</td><td></td></tr>
+<tr><td></td><td>“too much overlap between these two”</td></tr>
+<tr><td></td><td>“is this intent and curiosity? how are we grabbing intent”</td></tr>
+<tr><td>“what if we had search that replaced my library or something? i donno”</td><td></td></tr>
+<tr><td></td><td>“if i&gt;c then things might be more clear?”</td></tr>
+</tbody></table>
+<p class="end">It became the third bet, in one line: “Favor people who have a goal to complete, and secondarily support people who are curious or idly browsing”</p>
+<p class="close">We choose who comes first, and then hold to it on every page.</p>
+<div class="v"><figure><a class="zoom" href="img/round4.png"><img src="img/round4.png" alt="The round where it was argued" loading="lazy"></a><figcaption>The round where it was argued</figcaption></figure><figure><a class="zoom" href="img/bet-3.png"><img src="img/bet-3.png" alt="The rule it became" loading="lazy"></a><figcaption>The rule it became</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="17"><input type="checkbox" id="17"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="Three no's, each for a different reason"><rect x="8" y="14" width="32" height="44" /><line x1="14" y1="22" x2="34" y2="50" /><line x1="34" y1="22" x2="14" y2="50" /><rect x="50" y="14" width="32" height="44" /><line x1="56" y1="22" x2="76" y2="50" /><line x1="76" y1="22" x2="56" y2="50" /><rect x="92" y="14" width="32" height="44" /><line x1="98" y1="22" x2="118" y2="50" /><line x1="118" y1="22" x2="98" y2="50" /></svg><div>
+<p class="form">Three no's, each for a different reason</p>
+<h3><label for="17"><span class="n">17</span> How do you decide what not to build?</label></h3>
+<p class="subject">The things turned down, and on whose behalf</p>
+</div></div>
+<table class="rows c3"><thead><tr><th>No to</th><th>On behalf of</th><th>In the note's own words</th></tr></thead><tbody>
+<tr><td>Search</td><td>The user. It is a worse act than making.</td><td>“there is no point in replacing create with a far lower quality action”</td></tr>
+<tr><td>Free runs</td><td>The business.</td><td>“it would be not useful to the buisness.”</td></tr>
+<tr><td>The avid, community user</td><td>The moment. Not yet.</td><td>“at the moment we dont need to design for that”</td></tr>
+</tbody></table>
+<p class="end">Three panels. A no is only useful with a reason someone can argue with.</p>
+<p class="close">We keep the product about one act, and say no to the rest out loud.</p>
+<div class="v"><figure><a class="zoom" href="img/round3.png"><img src="img/round3.png" alt="A round before the cuts" loading="lazy"></a><figcaption>A round before the cuts</figcaption></figure><figure><a class="zoom" href="img/landing-box.png"><img src="img/landing-box.png" alt="What stayed" loading="lazy"></a><figcaption>What stayed</figcaption></figure></div>
+</div></div>
+
+<h2>Storytelling</h2>
+<div class="item" data-id="10"><input type="checkbox" id="10"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="One slot, one line at a time"><line x1="20" y1="10" x2="112" y2="10" class="thin"/><line x1="14" y1="10" x2="118" y2="10" class="strike"/><line x1="20" y1="23" x2="104" y2="23" class="thin"/><line x1="14" y1="23" x2="110" y2="23" class="strike"/><line x1="20" y1="36" x2="96" y2="36" class="thin"/><line x1="14" y1="36" x2="102" y2="36" class="strike"/><line x1="20" y1="49" x2="88" y2="49" class="thin"/><line x1="14" y1="49" x2="94" y2="49" class="strike"/><rect x="14" y="57" width="104" height="9" class="f"/></svg><div>
+<p class="form">One slot, one line at a time</p>
+<h3><label for="10"><span class="n">10</span> How do you say what you are in a few words?</label></h3>
+<p class="subject">The headline, and every line that sat in its place</p>
+</div></div>
+<table class="rows c2"><thead><tr><th>In the slot</th><th>What was wrong with it</th></tr></thead><tbody>
+<tr><td>“AI-tools. For every Job.”</td><td>“these arent AI tools though. They are tools made with AI.”</td></tr>
+<tr><td>“There’s a tool for that.”</td><td>“EWverything might not preexist”</td></tr>
+<tr><td>“Generated tools.”</td><td>Nothing, for two rounds.</td></tr>
+<tr><td>“Generated Code.” “AI for Software.”</td><td>Each a little off. Each gone.</td></tr>
+<tr><td>“Outsource to AI.”</td><td>It stayed.</td></tr>
+</tbody></table>
+<p class="end">Only the words move. The front page appears around the last one.</p>
+<p class="close">We write the headline as a design problem, until the product fits inside it.</p>
+<div class="v"><figure><a class="zoom" href="img/headlines.png"><img src="img/headlines.png" alt="The candidates" loading="lazy"></a><figcaption>The candidates</figcaption></figure><figure><a class="zoom" href="img/landing-promise.png"><img src="img/landing-promise.png" alt="The one on the front page" loading="lazy"></a><figcaption>The one on the front page</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="04"><input type="checkbox" id="04"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="Two columns, the same job twice"><rect x="8" y="8" width="52" height="10" /><rect x="72" y="8" width="52" height="10" class="f"/><rect x="8" y="24" width="52" height="10" /><rect x="72" y="24" width="52" height="10" class="f"/><rect x="8" y="40" width="52" height="10" /><rect x="72" y="40" width="52" height="10" class="f"/><rect x="8" y="56" width="52" height="10" /><rect x="72" y="56" width="52" height="10" class="f"/><line x1="66" y1="4" x2="66" y2="70" class="thin"/></svg><div>
+<p class="form">Two columns, the same job twice</p>
+<h3><label for="04"><span class="n">04</span> How do you get someone to give up a habit that works?</label></h3>
+<p class="subject">The pitch against what people already do</p>
+</div></div>
+<table class="rows c3"><thead><tr><th>The job</th><th>Today</th><th>With CodeWords</th></tr></thead><tbody>
+<tr><td>Find a tool</td><td>A search, ten results</td><td>One page of them</td></tr>
+<tr><td>Use it</td><td>It works. You close the tab.</td><td>It works. It stays in your library.</td></tr>
+<tr><td>Need it again</td><td>Search again</td><td>It is where you left it</td></tr>
+<tr><td>Need it a little different</td><td>A different site</td><td>Change the one you have</td></tr>
+<tr><td>No such tool</td><td>You go without</td><td>Describe it</td></tr>
+</tbody></table>
+<p class="end">The left column never changes. That is the point: “a new way of completing an existing behavior to users, not a new behavior”</p>
+<p class="close">We design against what people already do, not against an empty space.</p>
+<div class="v"><figure><a class="zoom" href="img/habit-tools.png"><img src="img/habit-tools.png" alt="The tools people already use, from the first bet" loading="lazy"></a><figcaption>The tools people already use, from the first bet</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="25"><input type="checkbox" id="25"><div class="body">
+<div class="top"><svg class="shape" viewBox="0 0 132 72" role="img" aria-label="A wall that fills up"><line x1="8" y1="36" x2="124" y2="36" /><rect x="14" y="10" width="10" height="10" class="f"/><rect x="26" y="20" width="10" height="10" class="f"/><rect x="18" y="44" width="10" height="10" class="f"/><rect x="34" y="52" width="10" height="10" class="f"/><rect x="44" y="8" width="10" height="10" class="f"/><rect x="50" y="24" width="10" height="10" class="f"/><rect x="42" y="42" width="10" height="10" class="f"/><rect x="58" y="54" width="10" height="10" class="f"/><rect x="66" y="14" width="10" height="10" class="f"/><rect x="72" y="46" width="10" height="10" class="f"/><rect x="84" y="26" width="10" height="10" class="f"/><rect x="80" y="56" width="10" height="10" class="f"/><rect x="96" y="10" width="10" height="10" class="f"/><rect x="102" y="40" width="10" height="10" class="f"/><rect x="112" y="22" width="10" height="10" class="f"/><rect x="110" y="54" width="10" height="10" class="f"/><rect x="30" y="34" width="10" height="10" class="f"/><rect x="62" y="32" width="10" height="10" class="f"/><rect x="92" y="34" width="10" height="10" class="f"/></svg><div>
+<p class="form">A wall that fills up</p>
+<h3><label for="25"><span class="n">25</span> How do you get a team to see its product as a stranger does?</label></h3>
+<p class="subject">One workshop: the team writing a newcomer's thoughts onto their own product</p>
+</div></div>
+<table class="rows c2"><thead><tr><th>On the wall</th><th></th></tr></thead><tbody>
+<tr><td>Their product, drawn as one line</td><td>Home, a prompt, a build, a run.</td></tr>
+<tr><td>One thing asked of them</td><td>What is a newcomer thinking going into each step, and coming out of it?</td></tr>
+<tr><td>The first notes</td><td>“I don’t really know what types of thing I can build with CodeWords”</td></tr>
+<tr><td>Then faster</td><td>“what are integrations?” “Do I just sit and wait?” “What is this page for?”</td></tr>
+<tr><td>Sixty-one notes</td><td>The diagram can hardly be seen under them.</td></tr>
+</tbody></table>
+<p class="end">Nobody from outside told them what was wrong. It is on the wall, in their words.</p>
+<p class="close">We get the team to find the problem themselves, so the fix is theirs too.</p>
+<div class="v"><figure><a class="zoom" href="img/ideal-flow.png"><img src="img/ideal-flow.png" alt="The old flow under the team's notes" loading="lazy"></a><figcaption>The old flow under the team's notes</figcaption></figure></div>
+</div></div>
+</main>
+<script type="module">
+const KEY = 'study-104-picks';
+const boxes = [...document.querySelectorAll('.item input[type=checkbox]')];
+const count = document.getElementById('count');
+let picks = new Set();
+try { const s = localStorage.getItem(KEY); if (s) picks = new Set(JSON.parse(s)); } catch {}
+function paint() {
+  for (const b of boxes) { b.checked = picks.has(b.id); b.closest('.item').classList.toggle('picked', b.checked); }
+  count.textContent = picks.size + ' picked';
+  try { localStorage.setItem(KEY, JSON.stringify([...picks])); } catch {}
+}
+for (const b of boxes) b.addEventListener('change', () => { b.checked ? picks.add(b.id) : picks.delete(b.id); paint(); });
+document.getElementById('clear').onclick = () => { picks.clear(); paint(); };
+document.getElementById('copy').onclick = async () => {
+  const lines = boxes.filter(b => picks.has(b.id)).map(b => { const i = b.closest('.item'); return i.querySelector('h3').textContent.trim().replace(/\s+/g, ' ') + '  (' + i.querySelector('.form').textContent.trim() + ')'; });
+  const text = lines.length ? lines.join('\n') : '(nothing picked)';
+  try { await navigator.clipboard.writeText(text); count.textContent = 'copied ' + lines.length; setTimeout(paint, 1200); } catch { prompt('Picks', text); }
+};
+paint();
+</script>
+</body>
+</html>

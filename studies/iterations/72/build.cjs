@@ -55,9 +55,7 @@ tr.blank td.q{color:#E91E7B}tr.blank td.k{color:#E91E7B}
 .mine{color:var(--ink-3);font-size:13px;margin:26px 0 0;max-width:80ch}
 @media(max-width:820px){.find,.moves{grid-template-columns:1fr}}
 </style></head><body><main>
-<p class="eyebrow">Study 72 · 4 November 2026</p>
 <h1>The bet, against the output</h1>
-<p class="lede">Who the customer is, and what has to be true for them to buy.</p>
 <p class="bet">A founder or creative, sent by someone they trust, missing one piece.</p>
 <p class="sum">Nearly everything we've made says: look at us. The bet needs it to say: that's you, and you'd come out of this looking good.</p>
 <div class="find">

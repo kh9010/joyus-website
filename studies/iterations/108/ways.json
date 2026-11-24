@@ -1,0 +1,69 @@
+{
+  "q": "How do you get a team to see its product as a stranger does?",
+  "close": "We get the team to find the problem themselves, so the fix is theirs too.",
+  "ways": [
+    {
+      "k": "names", "form": "Two names for every step",
+      "idea": "On the left, what the team called each step on their own diagram. On the right, what they wrote when asked to stand at that step as a newcomer. The story is the distance between the two columns.",
+      "heads": ["What the team called it", "What they wrote, standing there"],
+      "rows": [
+        ["“Writes prompt”", "“What should I type? How detailed do I need to be”"],
+        ["“Adds integrations”", "“I don’t know what integrations is”"],
+        ["“Function is building”", "“Do I just sit and wait?”"],
+        ["“UI is pre-populated with input fields”", "“What is this page for?”"],
+        ["“Outputs are not generated”", "“Where do I go from here?”"]
+      ],
+      "end": "Both columns were written by the same people."
+    },
+    {
+      "k": "voice", "form": "First person, and then who is speaking",
+      "idea": "No diagram at all. One thought to a screen, large, in the order the product is walked. It reads as a lost user. Only at the end does the page say who wrote every line.",
+      "heads": ["One screen each"],
+      "rows": [
+        ["“I don’t really know what types of thing I can build with CodeWords”"],
+        ["“Create a function that... I don’t know what a function is.”"],
+        ["“Now now I typed my prompt, should I click build? what are integrations?”"],
+        ["“Things are happening. But how long should I wait for?”"],
+        ["“What is this page for?”"],
+        ["“Wow it worked! And it’s what I wanted! Where do I purchase my subscription.”"]
+      ],
+      "end": "Then: none of them had ever been lost in it. They built it."
+    },
+    {
+      "k": "inout", "form": "Going in, coming out",
+      "idea": "The board's own two rows: “Input mental model” and “Output mental model”. At each step, one thought going in and one coming out. Three steps leave a person less sure than they arrived. One leaves them surer.",
+      "heads": ["Step", "Going in", "Coming out", ""],
+      "rows": [
+        ["Integrations", "“I want to select the tools to build my function”", "“I still don’t exactly know what integrations does”", "less sure"],
+        ["The build", "“I can see the function is being built so I am looking forward to seeing it fully built.”", "“I can see from the built steps that its not what I wanted.”", "less sure"],
+        ["The run", "“Since I’m trying to do a quick test, I appreciate this simple input interface”", "“I have no idea where things went wrong”", "less sure"],
+        ["Checking the prompt", "“I want to see if my prompt can be improved”", "“I now have a better understanding of the limitations of CodeWords and the requirements for a good prompt”", "surer"]
+      ],
+      "end": "The one step that left people surer is the one the new product was built around."
+    },
+    {
+      "k": "count", "form": "Counted in question marks",
+      "idea": "No quotes to begin with, only a count. The notes thin out as the product goes on. The question marks in them do the opposite.",
+      "heads": ["Step", "Notes", "Question marks"],
+      "rows": [
+        ["Home", "20", "5"],
+        ["A prompt", "19", "4"],
+        ["The build", "9", "7"],
+        ["The run", "13", "14"]
+      ],
+      "end": "By the last page there are more questions than notes. The last one read out: “Where do I go from here?”"
+    },
+    {
+      "k": "answer", "form": "Call and answer",
+      "idea": "A note, then the screen that answers it. The left side is the team's words. The right side is the real redesign, cut to the part that replies.",
+      "heads": ["Their note", "What answers it"],
+      "rows": [
+        ["“I don’t really know what types of thing I can build with CodeWords”", "A front page of tools already made"],
+        ["“Create a function that... I don’t know what a function is.”", "A box that says: Describe your tool"],
+        ["“What is this page for?”", "A page that opens on a name, one line, and Run"],
+        ["“Do I just sit and wait?”", "A run shown one step at a time"]
+      ],
+      "end": "The redesign, read as replies to their own notes."
+    }
+  ]
+}

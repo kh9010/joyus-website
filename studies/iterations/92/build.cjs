@@ -226,7 +226,6 @@ const html = `<!doctype html>
 <body>
 <div class="desk">
  <header class="head">
-  <p class="eyebrow">Study 92 · 8 November 2026 · for Kahran</p>
   <h1>EWC desk: edit 91 a, line by line</h1>
   <p>Kahran picked 91 a ("okay for now; I want it a little more clear"). Each line of the page, with the ways it has been said. Tap one, or write your own. The first option is what 91 a says now. Picks save to <code>picks.json</code> for Claude to read.</p>
   <p class="status" id="status"><b>0 of ${lines.length}</b> changed from 91 a</p>

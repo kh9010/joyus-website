@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>103 / Agemo, nine spines — Joyus homepage</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap">
+<link rel="stylesheet" href="../../study.css">
+<style>
+main { max-width: 1180px }
+h2 { margin: 44px 0 0; font-size: 15px; font-weight: 600; padding-bottom: 10px; border-bottom: 2px solid var(--ink) }
+.item { display: grid; grid-template-columns: 28px 1fr; gap: 0 14px; padding: 28px 0; border-bottom: 1px solid var(--line) }
+.item input { width: 18px; height: 18px; margin: 8px 0 0; accent-color: #222; cursor: pointer }
+.item.picked { background: var(--surface); margin: 0 -14px; padding-left: 14px; padding-right: 14px }
+.item h3 { margin: 0 0 10px; font-size: 25px; line-height: 1.2; font-weight: 600; max-width: 30ch } .item h3 label { cursor: pointer }
+.item h3 .n { color: var(--ink-2); font-weight: 400; font-size: 15px; margin-right: 8px; vertical-align: middle }
+.idea { margin: 0 0 16px; font-size: 16px; max-width: 70ch }
+.beats { border-collapse: collapse; width: 100%; margin: 0 0 14px }
+.beats th { width: 26px; text-align: left; vertical-align: top; font-weight: 400; color: var(--ink-2); font-size: 13px; padding: 9px 0 }
+.beats td { vertical-align: top; padding: 8px 18px 8px 0; border-top: 1px solid var(--line); font-size: 15px }
+.beats tr:first-child td, .beats tr:first-child th { border-top: 0 }
+.beats .say { width: 46%; font-weight: 500 } .beats .show { color: var(--ink-2) }
+.close { margin: 0 0 16px; font-size: 16px; font-weight: 600 }
+.v { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start }
+.v figure { margin: 0 } .v img { width: 100%; height: 170px; object-fit: cover; object-position: top left; border: 1px solid var(--line); display: block }
+.v figcaption { font-size: 12.5px; color: var(--ink-2); margin-top: 5px }
+.picks { position: sticky; top: 0; z-index: 3; background: #fff; border-bottom: 1px solid var(--line); padding: 10px 0; margin: 0; display: flex; gap: 16px; align-items: center; font-size: 13.5px }
+.picks button { font: inherit; background: #222; color: #fff; border: 0; padding: 6px 12px; cursor: pointer }
+.picks button.quiet { background: transparent; color: var(--ink-2); padding: 6px 4px }
+.picks .count { color: var(--ink-2) }
+@media (max-width: 800px) { .beats, .beats tbody, .beats tr, .beats td { display: block; width: auto } .beats th { display: none } .beats .say { width: auto; padding-bottom: 2px } .beats .show { border-top: 0; padding-top: 0 } .v { grid-template-columns: 1fr } .v img { height: auto } .item h3 { font-size: 21px } }
+</style>
+</head>
+<body>
+<main>
+<h1>Agemo, nine spines</h1>
+<div class="picks"><span class="count" id="count">0 picked</span><button id="copy">Copy picks</button><button class="quiet" id="clear">Clear</button></div>
+
+<h2>Product design</h2>
+<div class="item" data-id="12"><input type="checkbox" id="12"><div class="body">
+<h3><label for="12"><span class="n">12</span> How do you turn someone looking around into someone making things?</label></h3>
+<p class="idea">The journey model is the page. Its four states of mind run left to right, the middle one is missing, and the real screens arrive to fill it.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">It starts with a look. “What does this do?”</td><td class="show">The first state of mind from the journey model, alone on the screen.</td></tr>
+<tr><th>2</th><td class="say">Then, straight away, an empty box.</td><td class="show">The last state, far to the right. Between them, nothing: “Today journey largely skips over middle, goes from ‘learn capabilities’ to ‘create’”</td></tr>
+<tr><th>3</th><td class="say">So we built the middle. “Can I try this for a something simple ...”</td><td class="show">A tool somebody else made slides into the gap, ready to run.</td></tr>
+<tr><th>4</th><td class="say">“Can I trust this to be consistent for...”</td><td class="show">That tool's own page: how fast it was built, how often it has run.</td></tr>
+<tr><th>5</th><td class="say">“How can this fit into my workflow for ...”</td><td class="show">The empty box again. This time the person knows what to put in it.</td></tr>
+</tbody></table>
+<p class="close">We map the change of mind first, then give each stage its place in the product.</p>
+<div class="v"><figure><a class="zoom" href="img/journey.png"><img src="img/journey.png" alt="The journey model" loading="lazy"></a><figcaption>The journey model</figcaption></figure><figure><a class="zoom" href="img/bet-2.png"><img src="img/bet-2.png" alt="The bet it became" loading="lazy"></a><figcaption>The bet it became</figcaption></figure><figure><a class="zoom" href="img/function-top.png"><img src="img/function-top.png" alt="A tool's own page" loading="lazy"></a><figcaption>A tool's own page</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="05"><input type="checkbox" id="05"><div class="body">
+<h3><label for="05"><span class="n">05</span> How do you build for the expert without shutting out the beginner?</label></h3>
+<p class="idea">One tool's page, never simplified. Each beat lights one more of its real buttons, so the same page gets deeper while nothing is added or removed.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">The team wanted engineers. The people arriving were not.</td><td class="show">The four kinds of builder, lined up by how much they know: “Tool consumer”, “Tool remixer”, “Tool Builder”, “Tool Chainer”</td></tr>
+<tr><th>2</th><td class="say">Make it simple, and the engineers leave. “Favor enabling power users over simplifying for casual users.”</td><td class="show">One tool's page, whole and dense, everything dimmed.</td></tr>
+<tr><th>3</th><td class="say">So nothing came out. It was put in order. First: run it.</td><td class="show">Only the Run button is lit. The consumer stops here, and that is fine.</td></tr>
+<tr><th>4</th><td class="say">Then read how it works, and change it.</td><td class="show">Use spec lights. It opens the conversation with this tool's spec already filled in. The remixer and the builder go this far.</td></tr>
+<tr><th>5</th><td class="say">Then take it with you.</td><td class="show">Get API and Get code light last. The whole page is on, and it is the page from beat two.</td></tr>
+</tbody></table>
+<p class="close">We keep the depth, and build the way up to it.</p>
+<div class="v"><figure><a class="zoom" href="img/personas.jpg"><img src="img/personas.jpg" alt="The builders" loading="lazy"></a><figcaption>The builders</figcaption></figure><figure><a class="zoom" href="img/bet-4.png"><img src="img/bet-4.png" alt="The bet" loading="lazy"></a><figcaption>The bet</figcaption></figure><figure><a class="zoom" href="img/function-top.png"><img src="img/function-top.png" alt="The page, with its real buttons" loading="lazy"></a><figcaption>The page, with its real buttons</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="21"><input type="checkbox" id="21"><div class="body">
+<h3><label for="21"><span class="n">21</span> How do you make the first visit worth a second?</label></h3>
+<p class="idea">The same front page three times: visit one, visit two, visit ten. The page does not change. What the person reaches for does.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">Visit one. You run a tool somebody else made. It works.</td><td class="show">The front page; a hand goes to one of the ready-made tools. A small counter reads 1.</td></tr>
+<tr><th>2</th><td class="say">You leave. That was the plan.</td><td class="show">The page empties. The bet, in its own words: “which will require more than one visit”</td></tr>
+<tr><th>3</th><td class="say">Visit two. You come back with a problem of your own.</td><td class="show">Same page, counter at 2. The hand goes to Remix on the tool that was closest.</td></tr>
+<tr><th>4</th><td class="say">You change it until it fits.</td><td class="show">The conversation opens with that tool's description already written in.</td></tr>
+<tr><th>5</th><td class="say">Visit ten. You start from the empty box.</td><td class="show">Same page, counter at 10. The hand goes to the box it ignored the first time.</td></tr>
+</tbody></table>
+<p class="close">We design the first ten minutes to earn the next visit, not to close the sale.</p>
+<div class="v"><figure><a class="zoom" href="img/landing.png"><img src="img/landing.png" alt="The front page" loading="lazy"></a><figcaption>The front page</figcaption></figure><figure><a class="zoom" href="img/bet-8.png"><img src="img/bet-8.png" alt="Something they can use" loading="lazy"></a><figcaption>Something they can use</figcaption></figure><figure><a class="zoom" href="img/architect-chat.png"><img src="img/architect-chat.png" alt="The conversation" loading="lazy"></a><figcaption>The conversation</figcaption></figure></div>
+</div></div>
+
+<h2>Product strategy</h2>
+<div class="item" data-id="14"><input type="checkbox" id="14"><div class="body">
+<h3><label for="14"><span class="n">14</span> How do you fix the onboarding when the onboarding isn't the problem?</label></h3>
+<p class="idea">The old flow drawn as one line, starting at an empty box. Everything we built appears to the left of where that line began.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">The ask: “Cleaning up onboarding”. Six weeks. No redesign.</td><td class="show">The scope of work, as it was written.</td></tr>
+<tr><th>2</th><td class="say">We walked the product. It began at an empty box.</td><td class="show">The old flow, one line: write a prompt, build, run. Nothing before the first step.</td></tr>
+<tr><th>3</th><td class="say">“If you weren’t here to walk me through it, I would have dropped off already.”</td><td class="show">The line holds. A person stands to its left with no way onto it.</td></tr>
+<tr><th>4</th><td class="say">The trouble sat before the first screen. Nobody knew what to ask for.</td><td class="show">The blank space left of the line, held.</td></tr>
+<tr><th>5</th><td class="say">So the way in became product: something to try, something to change, someone to ask.</td><td class="show">Three real screens arrive in that space, in order, and join the line.</td></tr>
+</tbody></table>
+<p class="close">We answer the brief by finding the problem underneath it.</p>
+<div class="v"><figure><a class="zoom" href="img/scope.jpg"><img src="img/scope.jpg" alt="The scope of work" loading="lazy"></a><figcaption>The scope of work</figcaption></figure><figure><a class="zoom" href="img/info-flow.jpg"><img src="img/info-flow.jpg" alt="The old flow" loading="lazy"></a><figcaption>The old flow</figcaption></figure><figure><a class="zoom" href="img/architect.png"><img src="img/architect.png" alt="Someone to ask" loading="lazy"></a><figcaption>Someone to ask</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="13"><input type="checkbox" id="13"><div class="body">
+<h3><label for="13"><span class="n">13</span> How do you serve the person who knows what they want, and the one who doesn't?</label></h3>
+<p class="idea">The two flows as two lines down the screen, one for the builder and one for the looker. Each decision moves one line in front, until they meet.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">Two people arrive. One has a job to do. One is curious.</td><td class="show">Two lines begin side by side: the create flow and the explore flow.</td></tr>
+<tr><th>2</th><td class="say">Every page can only lead with one of them. “is this intent and curiosity? how are we grabbing intent”</td><td class="show">The lines cross a page and tangle.</td></tr>
+<tr><th>3</th><td class="say">We chose. “Intent &gt; Curiosity”</td><td class="show">The builder's line moves in front. The bet, as written.</td></tr>
+<tr><th>4</th><td class="say">Then held to it. On a tool's page: “‘similar’ before ‘other’ because ‘Intent’ before ‘curiosity’”</td><td class="show">The same choice, small, on a real page: similar tools above the maker's other tools.</td></tr>
+<tr><th>5</th><td class="say">The curious are not turned away. They are given a way to become builders.</td><td class="show">The looker's line runs through a tool, through Remix, and joins the builder's.</td></tr>
+</tbody></table>
+<p class="close">We choose who comes first, and then hold to it on every page.</p>
+<div class="v"><figure><a class="zoom" href="img/two-flows.png"><img src="img/two-flows.png" alt="The two flows" loading="lazy"></a><figcaption>The two flows</figcaption></figure><figure><a class="zoom" href="img/bet-3.png"><img src="img/bet-3.png" alt="The bet" loading="lazy"></a><figcaption>The bet</figcaption></figure><figure><a class="zoom" href="img/round4.png"><img src="img/round4.png" alt="The round where it was argued" loading="lazy"></a><figcaption>The round where it was argued</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="17"><input type="checkbox" id="17"><div class="body">
+<h3><label for="17"><span class="n">17</span> How do you decide what not to build?</label></h3>
+<p class="idea">Subtraction. A wireframe crowded with everything that was proposed; each beat one thing is lifted off, with the note that removed it, until one box is left.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">Everything on the table at once.</td><td class="show">The crowded round: search, categories, free runs, a place to browse.</td></tr>
+<tr><th>2</th><td class="say">Search? “there is no point in replacing create with a far lower quality action”</td><td class="show">The search bar lifts off. The note stays where it was.</td></tr>
+<tr><th>3</th><td class="say">Free runs? “no point in getting a person to “run” if they dont want to commit”</td><td class="show">The free Run goes.</td></tr>
+<tr><th>4</th><td class="say">A home for the merely curious? “at the moment we dont need to design for that”</td><td class="show">The browsing page goes.</td></tr>
+<tr><th>5</th><td class="say">What is left is the one act that matters.</td><td class="show">One box, and the tools beside it: the real front page.</td></tr>
+</tbody></table>
+<p class="close">We keep the product about one act, and say no to the rest out loud.</p>
+<div class="v"><figure><a class="zoom" href="img/round3.png"><img src="img/round3.png" alt="A crowded round" loading="lazy"></a><figcaption>A crowded round</figcaption></figure><figure><a class="zoom" href="img/round4.png"><img src="img/round4.png" alt="The notes that said no" loading="lazy"></a><figcaption>The notes that said no</figcaption></figure><figure><a class="zoom" href="img/landing-box.png"><img src="img/landing-box.png" alt="What was left" loading="lazy"></a><figcaption>What was left</figcaption></figure></div>
+</div></div>
+
+<h2>Storytelling</h2>
+<div class="item" data-id="10"><input type="checkbox" id="10"><div class="body">
+<h3><label for="10"><span class="n">10</span> How do you say what you are in a few words?</label></h3>
+<p class="idea">The headline slot of the real front page, and nothing else. Each candidate sits in it at full size, then the note that killed it, then the next.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">“AI-tools. For every Job.”</td><td class="show">Set where the headline goes. Then the note: “these arent AI tools though. They are tools made with AI.”</td></tr>
+<tr><th>2</th><td class="say">“There’s a tool for that.”</td><td class="show">Replaces it. Then the note: “EWverything might not preexist”</td></tr>
+<tr><th>3</th><td class="say">“Generated tools.”</td><td class="show">Holds, alone, for two rounds of wireframes.</td></tr>
+<tr><th>4</th><td class="say">“Generated Code.” “AI for Software.”</td><td class="show">Quick ones, each a little wrong, each gone.</td></tr>
+<tr><th>5</th><td class="say">“Outsource to AI.”</td><td class="show">It stays. The rest of the real front page fades in around it, with the line under it: “The code to bring your words to life.”</td></tr>
+</tbody></table>
+<p class="close">We write the headline as a design problem, until the product fits inside it.</p>
+<div class="v"><figure><a class="zoom" href="img/headlines.png"><img src="img/headlines.png" alt="The candidates" loading="lazy"></a><figcaption>The candidates</figcaption></figure><figure><a class="zoom" href="img/landing-promise.png"><img src="img/landing-promise.png" alt="The one on the front page" loading="lazy"></a><figcaption>The one on the front page</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="04"><input type="checkbox" id="04"><div class="body">
+<h3><label for="04"><span class="n">04</span> How do you get someone to give up a habit that works?</label></h3>
+<p class="idea">A search bar. The page starts as the habit itself, a search and a row of one-off tools, and those tools turn into the cards on the front page.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">You need two PDFs merged. You search.</td><td class="show">A search bar, and under it the one-off tools from the first bet's slide.</td></tr>
+<tr><th>2</th><td class="say">You pick the first result. It works. You close the tab.</td><td class="show">One tool opens, does its job, and is gone.</td></tr>
+<tr><th>3</th><td class="say">That is who we were up against. “one google search away”</td><td class="show">The tab closes again and again, a different tool each time.</td></tr>
+<tr><th>4</th><td class="say">So this is not sold as something new. “a new way of completing an existing behavior to users, not a new behavior”</td><td class="show">The scattered tools slide into one grid: the real front page.</td></tr>
+<tr><th>5</th><td class="say">And the next job is already there.</td><td class="show">The hand that came for one tool moves to the one beside it. That was the test.</td></tr>
+</tbody></table>
+<p class="close">We design against what people already do, not against an empty space.</p>
+<div class="v"><figure><a class="zoom" href="img/habit-tools.png"><img src="img/habit-tools.png" alt="The tools people already use" loading="lazy"></a><figcaption>The tools people already use</figcaption></figure><figure><a class="zoom" href="img/landing.png"><img src="img/landing.png" alt="One place" loading="lazy"></a><figcaption>One place</figcaption></figure></div>
+</div></div>
+<div class="item" data-id="25"><input type="checkbox" id="25"><div class="body">
+<h3><label for="25"><span class="n">25</span> How do you get a team to see its product as a stranger does?</label></h3>
+<p class="idea">One newcomer's walk through the old product, told only in the notes the team wrote. The flow is the stage, and each step speaks one note.</p>
+<table class="beats"><tbody>
+<tr><th>1</th><td class="say">Home. “I don’t really know what types of thing I can build with CodeWords”</td><td class="show">The old flow's first box, with one note beside it.</td></tr>
+<tr><th>2</th><td class="say">A prompt. “what are integrations?”</td><td class="show">The line moves one step. The next note.</td></tr>
+<tr><th>3</th><td class="say">A build. “Do I just sit and wait?”</td><td class="show">The line stops here for a while.</td></tr>
+<tr><th>4</th><td class="say">A run. “What is this page for?”</td><td class="show">The last step.</td></tr>
+<tr><th>5</th><td class="say">The team wrote every one of these.</td><td class="show">Pull back: the whole flow, covered in their notes.</td></tr>
+</tbody></table>
+<p class="close">We get the team to find the problem themselves, so the fix is theirs too.</p>
+<div class="v"><figure><a class="zoom" href="img/ideal-flow.png"><img src="img/ideal-flow.png" alt="The old flow, with the team's notes" loading="lazy"></a><figcaption>The old flow, with the team's notes</figcaption></figure><figure><a class="zoom" href="img/info-flow.jpg"><img src="img/info-flow.jpg" alt="The old flow" loading="lazy"></a><figcaption>The old flow</figcaption></figure><figure><a class="zoom" href="img/ia-audit.png"><img src="img/ia-audit.png" alt="The audit beside it" loading="lazy"></a><figcaption>The audit beside it</figcaption></figure></div>
+</div></div>
+</main>
+<script type="module">
+const KEY = 'study-103-picks';
+const boxes = [...document.querySelectorAll('.item input[type=checkbox]')];
+const count = document.getElementById('count');
+let picks = new Set();
+try { const s = localStorage.getItem(KEY); if (s) picks = new Set(JSON.parse(s)); } catch {}
+function paint() {
+  for (const b of boxes) { b.checked = picks.has(b.id); b.closest('.item').classList.toggle('picked', b.checked); }
+  count.textContent = picks.size + ' picked';
+  try { localStorage.setItem(KEY, JSON.stringify([...picks])); } catch {}
+}
+for (const b of boxes) b.addEventListener('change', () => { b.checked ? picks.add(b.id) : picks.delete(b.id); paint(); });
+document.getElementById('clear').onclick = () => { picks.clear(); paint(); };
+document.getElementById('copy').onclick = async () => {
+  const lines = boxes.filter(b => picks.has(b.id)).map(b => b.closest('.item').querySelector('h3').textContent.trim().replace(/\s+/g, ' '));
+  const text = lines.length ? lines.join('\n') : '(nothing picked)';
+  try { await navigator.clipboard.writeText(text); count.textContent = 'copied ' + lines.length; setTimeout(paint, 1200); } catch { prompt('Picks', text); }
+};
+paint();
+</script>
+</body>
+</html>

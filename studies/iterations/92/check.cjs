@@ -46,7 +46,7 @@ lines.every((l) => l.options.every((o, i) => html.includes(`data-row="${l.id}" d
 render(tpl, lines, {}) === A ? ok('no picks = 91 a byte for byte (option 1 of every row is what 91 a says now)') : fail('the draft with no picks is not 91 a');
 lines.every((l) => (html.match(new RegExp(`<form class="edit" data-row="${l.id}"`, 'g')) || []).length === 1) ? ok('every row has "my own words"') : fail('a row has no own-words box');
 /<meta name="robots" content="noindex">/.test(html) && /<meta name="robots" content="noindex">/.test(tpl) ? ok('the desk and the draft are noindex') : fail('noindex missing');
-/class="eyebrow">Study 92 /.test(html) ? ok('the desk is numbered Study 92') : fail('no Study 92 eyebrow');
+/<title>92 \/ /.test(html) ? ok('the desk is numbered Study 92') : fail('the title does not say 92');
 
 console.log('every option traces to a source');
 const srcText = {};

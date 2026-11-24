@@ -88,7 +88,7 @@ for (const f of ['final.html', 'picks.json']) {
 }
 
 console.log('the study page');
-/class="eyebrow">Study 93 /.test(index) && /<meta name="robots" content="noindex/.test(index) ? ok('index.html is Study 93, noindex') : fail('index.html eyebrow or noindex');
+/<title>93 \/ /.test(index) && /<meta name="robots" content="noindex/.test(index) ? ok('index.html is Study 93, noindex') : fail('index.html title or noindex');
 OPTS.every((v) => index.includes(`href="case.html?v=${v}"`) && index.includes(NAMES[v])) ? ok('index.html links all four by name') : fail('index.html is missing an option');
 /shitty layout and doesn't match the rest of the site/.test(index) ? ok('index.html quotes Kahran\'s note') : fail('Kahran\'s note is not on index.html');
 const cites = ['CLAUDE.md', 'DESIGN-GUIDE.md', 'CASE-STUDY-ARCHITECTURE.md', 'work/agemo.html', 'Study 70', 'Study 67', 'Study 40', 'Study 13'];

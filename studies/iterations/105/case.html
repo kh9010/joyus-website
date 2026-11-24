@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Agemo, product design · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* One object, one move. The object is the real page for a single tool (Divya's final UI, untouched). The move is a
+   camera: it starts across the room, comes to a glance, then a read, then a study, and pulls back out. At each
+   distance a highlighter marks what a person takes in from there. Nothing on the page is added, removed or redrawn. */
+:root{--hi:#F2C94A;--bg:#fff;--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--yellow:#F2C94A;--rule:rgba(44,53,68,.14);
+  --sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px}
+.top.after{background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+#run{position:relative;height:760vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
+#q{position:absolute;left:0;right:0;top:50%;margin:0 auto;padding:0 clamp(16px,4vw,60px);max-width:17ch;box-sizing:content-box;text-align:center;transform:translateY(-50%);z-index:5;
+  font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+#view{position:absolute;overflow:hidden}
+#page{position:absolute;left:0;top:0;width:2880px;height:1620px;transform-origin:0 0;opacity:0;will-change:transform;box-shadow:0 0 0 1px var(--rule),0 30px 80px -30px rgba(44,53,68,.28)}
+#page img{display:block;width:2880px;height:1620px}
+/* the highlighter: a band in the page's own coordinates, laid over the words it marks */
+.m{position:absolute;background:var(--hi);mix-blend-mode:multiply;transform-origin:0 50%;transform:scaleX(0);transition:transform .7s cubic-bezier(.2,.8,.2,1);border-radius:3px}
+.m.lit{transform:scaleX(1)}
+.cap{position:absolute;left:clamp(16px,4vw,60px);right:clamp(16px,4vw,60px);bottom:clamp(18px,4vh,44px);margin:0;opacity:0;z-index:6;pointer-events:none}
+.cap b{display:block;font:700 clamp(1.5rem,2.6vw,2.3rem)/1.08 var(--sans);letter-spacing:-.03em}
+.cap span{display:block;margin-top:6px;max-width:44ch;color:var(--soft);font-weight:500;font-size:clamp(1rem,1.5vw,1.3rem);line-height:1.3}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:17ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+.ans h2 u{text-decoration:none;box-shadow:inset 0 -.14em 0 var(--yellow)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 var(--sans);letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}}
+@media(prefers-reduced-motion:reduce){.m{transition:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for the expert without shutting out the beginner?</h1>
+<div id="view"><div id="page"><img src="img/tool-page.png" alt="The page for one tool in CodeWords: its name, what it does, Use spec, Get API, Get code, an input and Run, the steps of a run, and similar tools" width="2880" height="1620"></div></div>
+<p class="cap" id="c1"><b>A glance.</b><span>A name, one line, and Run. Enough for someone who only wants it done.</span></p>
+<p class="cap" id="c2"><b>A read.</b><span>What it does, how a run goes, and what else is like it.</span></p>
+<p class="cap" id="c3"><b>A study.</b><span>The spec. The API. The code.</span></p>
+<p class="cap" id="c4"><b>The same page, all along.</b><span>Nothing taken out for the beginner. Nothing hidden from the expert.</span></p>
+</div></div>
+<section class="ans"><h2>The expert and the beginner <u>open the same page.</u></h2><p>You do not have to choose who to build for. We keep the depth, and build the way up to it.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">Agemo, product design, 2024</div>
+<script type="module">
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), page = document.getElementById('page'), view = document.getElementById('view');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const $ = id => document.getElementById(id), caps = [1, 2, 3, 4].map(i => $('c' + i));
+// What a person takes in from each distance, as rectangles on the page itself (its own 2880 x 1620 pixels).
+const MARKS = [
+  { g: 1, r: [176, 262, 1460, 92] },    // its name
+  { g: 1, r: [176, 516, 1302, 54] },    // one line
+  { g: 1, r: [170, 950, 126, 60] },     // Run
+  { g: 2, r: [176, 572, 2032, 96] },    // the long description
+  { g: 2, r: [176, 1082, 544, 122] },   // the steps of a run
+  { g: 2, r: [176, 1408, 364, 52] },    // similar tools
+  { g: 3, r: [172, 704, 516, 58] },     // Use spec, Get API, Get code
+];
+const marks = MARKS.map(({ g, r }) => { const e = document.createElement('div'); e.className = 'm'; e.dataset.g = g; e.style.cssText = `left:${r[0]}px;top:${r[1]}px;width:${r[2]}px;height:${r[3]}px`; page.append(e); return e; });
+// Where the camera stands: the part of the page it frames, [x, y, w, h], wide and on a phone.
+const FRAMES = {
+  wide:  { far: [-1500, -900, 5880, 3420], glance: [0, 0, 2880, 1620], read: [90, 460, 2330, 1110], study: [110, 420, 1300, 620] },
+  phone: { far: [-1500, -1500, 5880, 4620], glance: [0, 0, 2880, 1620], read: [130, 480, 1480, 1000], study: [150, 690, 580, 90] },
+};
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const win = (p, a, b, f = .02) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+// when things happen, as a share of the scroll
+const T = { q: [.05, .11], in: [.08, .14], glance: [.12, .26], read: [.38, .50], study: [.60, .72], out: [.82, .93],
+  c1: [.25, .39], c2: [.49, .61], c3: [.71, .83], c4: .93 };
+let L, cur = { s: 0 };
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760;
+  const top = phone ? 62 : 76, capH = Math.max(...caps.map(c => c.offsetHeight)), bottom = capH + (phone ? 40 : 76), side = phone ? 16 : 40;
+  L = { W, H, F: FRAMES[phone ? 'phone' : 'wide'], area: { x: side, y: top, w: W - side * 2, h: H - top - bottom } };
+  view.style.cssText = `left:${side}px;top:${top}px;width:${W - side * 2}px;height:${H - top - bottom}px`;
+}
+const lerp = (a, b, t) => a.map((v, i) => mix(v, b[i], t));
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1), F = L.F, A = L.area;
+  q.style.opacity = 1 - ramp(p, ...T.q);
+  page.style.opacity = ramp(p, ...T.in);
+  let f = lerp(F.far, F.glance, ramp(p, ...T.glance));
+  f = lerp(f, F.read, ramp(p, ...T.read)); f = lerp(f, F.study, ramp(p, ...T.study)); f = lerp(f, F.glance, ramp(p, ...T.out));
+  const s = Math.min(A.w / f[2], A.h / f[3], 1);                       // never past the picture's own pixels
+  const x = (A.w - f[2] * s) / 2 - f[0] * s, y = (A.h - f[3] * s) / 2 - f[1] * s;
+  page.style.transform = `translate(${x}px,${y}px) scale(${s})`;
+  const end = p >= T.c4 - .01;
+  const g = p >= T.c1[0] && p < T.c1[1] ? 1 : p >= T.c2[0] && p < T.c2[1] ? 2 : p >= T.c3[0] && p < T.c3[1] ? 3 : 0;
+  for (const m of marks) m.classList.toggle('lit', end || +m.dataset.g === g);
+  caps[0].style.opacity = win(p, ...T.c1); caps[1].style.opacity = win(p, ...T.c2); caps[2].style.opacity = win(p, ...T.c3); caps[3].style.opacity = ramp(p, T.c4, T.c4 + .02);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  cur = { p, s, f, x, y, g: end ? 4 : g };
+}
+// what the check reads
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const shown = caps.filter(vis), A = L.area, vr = R(view);
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  // the part of the page the camera frames, on screen
+  const fr = { left: A.x + cur.x + cur.f[0] * cur.s, top: A.y + cur.y + cur.f[1] * cur.s, right: A.x + cur.x + (cur.f[0] + cur.f[2]) * cur.s, bottom: A.y + cur.y + (cur.f[1] + cur.f[3]) * cur.s };
+  const on = marks.filter(m => m.classList.contains('lit'));
+  const offFrame = on.filter(m => { const r = R(m); return r.left < vr.left - 1 || r.right > vr.right + 1 || r.top < vr.top - 1 || r.bottom > vr.bottom + 1; }).length;
+  return { p: +cur.p.toFixed(3), scale: +cur.s.toFixed(3), group: cur.g, marksOn: on.length, marksOffScreen: offFrame, caption: shown.map(c => c.querySelector('b').textContent),
+    captionOverFrame: shown.filter(c => hit(R(c), vr)).length, captionOut: shown.filter(c => { const r = R(c); return r.left < -1 || r.right > W + 1 || r.bottom > H + 1; }).length,
+    question: vis(q), pageShown: vis(page), smallestText: Math.min(...[q, ...shown.flatMap(c => [...c.children])].filter(e => e === q ? vis(q) : true).map(e => parseFloat(getComputedStyle(e).fontSize))),
+    frameInArea: fr.left >= A.x - 1 && fr.right <= A.x + A.w + 1 && fr.top >= A.y - 1 && fr.bottom <= A.y + A.h + 1 };
+};
+await document.fonts.ready;
+await (page.querySelector('img').decode?.().catch(() => {}));
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

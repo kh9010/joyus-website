@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>Agemo, product strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* A document, then a screen. First the brief: four lines of what Agemo asked for, in their words. A highlighter goes
+   under each one and a note is written beside it, numbered. Then the brief steps back, the real front page (Divya's
+   final UI, untouched) comes up, and each number leaves its note and lands on the part of the page that answers it. */
+:root{--hi:#F2C94A;--bg:#fff;--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--pinkT:#B8155F;--yellow:#F2C94A;--rule:rgba(44,53,68,.14);
+  --sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px}
+.top.after{background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}.top nav a:hover{text-decoration:underline}
+#run{position:relative;height:820vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
+#q{position:absolute;left:0;right:0;top:50%;margin:0 auto;padding:0 clamp(16px,4vw,60px);max-width:17ch;box-sizing:content-box;text-align:center;transform:translateY(-50%);z-index:5;
+  font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+/* the brief */
+#brief{position:absolute;left:clamp(16px,4vw,60px);right:clamp(16px,4vw,60px);top:50%;transform:translateY(-50%);display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:clamp(28px,5vw,90px);row-gap:clamp(18px,3.4vh,38px);align-items:start;max-width:1320px;margin:0 auto}
+#brief .src{grid-column:1/-1;margin:0 0 clamp(2px,1vh,10px);font-size:14px;color:var(--soft);opacity:0}
+.ask{margin:0;opacity:0;font:700 clamp(1.3rem,2.5vw,2.25rem)/1.14 var(--sans);letter-spacing:-.028em}
+.ask span{padding:.02em .1em;margin-left:-.1em;-webkit-box-decoration-break:clone;box-decoration-break:clone;
+  background-image:linear-gradient(var(--hi),var(--hi));background-repeat:no-repeat;background-position:0 50%;background-size:0% 100%;transition:background-size .7s cubic-bezier(.2,.8,.2,1)}
+.ask.marked span{background-size:100% 100%}
+.note{margin:0;opacity:0;display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:12px;align-items:start;color:var(--pinkT);font-weight:500;font-size:clamp(1.02rem,1.5vw,1.32rem);line-height:1.28;padding-top:.2em}
+.badge{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 14px/1 var(--sans)}
+.note .badge{visibility:hidden}                         /* the travelling number sits here until it leaves */
+/* after: the notes, short, and the page */
+#after{position:absolute;inset:0;opacity:0}
+#tags{position:absolute;margin:0;padding:0;list-style:none;display:grid;row-gap:clamp(12px,2.4vh,24px)}
+#tags li{display:grid;grid-template-columns:30px minmax(0,1fr);column-gap:12px;align-items:start;font-weight:500;font-size:clamp(1rem,1.45vw,1.28rem);line-height:1.28}
+#tags .badge{background:var(--pinkT);color:#fff;opacity:.0}
+#tags li.landed .badge{opacity:.22}
+#view{position:absolute;overflow:hidden}
+#page{position:absolute;left:0;top:0;width:2880px;height:1620px;transform-origin:0 0;box-shadow:0 0 0 1px var(--rule)}
+#page img{display:block;width:2880px;height:1620px}
+.m{position:absolute;background:var(--hi);opacity:.85;mix-blend-mode:multiply;transform-origin:0 50%;transform:scaleX(0);transition:transform .7s cubic-bezier(.2,.8,.2,1);border-radius:3px}
+.m.lit{transform:scaleX(1)}
+.dot{position:absolute;left:0;top:0;z-index:8;background:var(--pinkT);color:#fff;opacity:0;will-change:transform;box-shadow:0 0 0 3px #fff}
+.cap{position:absolute;left:clamp(16px,4vw,60px);right:clamp(16px,4vw,60px);bottom:clamp(18px,4vh,44px);margin:0;opacity:0;z-index:6;pointer-events:none}
+.cap b{display:block;font:700 clamp(1.5rem,2.6vw,2.3rem)/1.08 var(--sans);letter-spacing:-.03em}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:17ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+.ans h2 u{text-decoration:none;box-shadow:inset 0 -.14em 0 var(--yellow)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 var(--sans);letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}
+  #brief{grid-template-columns:1fr;row-gap:6px;transform:translateY(-48%)}
+  .ask{font-size:1.2rem;margin-top:12px}.note{font-size:.98rem;padding-top:0}
+  #tags li{font-size:.98rem}}
+@media(prefers-reduced-motion:reduce){.m,.ask span{transition:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you fix the onboarding when the onboarding isn't the problem?</h1>
+<div id="brief">
+<p class="src">What Agemo asked for, in their words. 2024.</p>
+<p class="ask"><span>“Cleaning up onboarding”</span></p>
+<p class="note"><i class="badge">1</i><span>There was nothing to board. The only way in was an empty box.</span></p>
+<p class="ask"><span>“Simplify UX?”</span></p>
+<p class="note"><i class="badge">2</i><span>Not simpler. Clearer about what it is for.</span></p>
+<p class="ask"><span>“Cleaning up communication”</span></p>
+<p class="note"><i class="badge">3</i><span>The words were the team's, not the user's.</span></p>
+<p class="ask"><span>“Enable, or at least push, the user to create a successful function on first try”</span></p>
+<p class="note"><i class="badge">4</i><span>Not the first try. The visit they are ready.</span></p>
+</div>
+<div id="after">
+<ul id="tags">
+<li><i class="badge">1</i><span>A way in: tools already made, ready to run.</span></li>
+<li><i class="badge">2</i><span>What it is for, said first.</span></li>
+<li><i class="badge">3</i><span>A box that asks in the user's own words.</span></li>
+<li><i class="badge">4</i><span>Somewhere to start that is not the beginning: Remix.</span></li>
+</ul>
+<div id="view"><div id="page"><img src="img/front-page.png" alt="The CodeWords front page: a headline, a box that says Describe your tool, and a grid of tools already made, each with Use tool and Remix" width="2880" height="1620"></div></div>
+</div>
+<i class="badge dot">1</i><i class="badge dot">2</i><i class="badge dot">3</i><i class="badge dot">4</i>
+<p class="cap" id="c-end"><b>Four lines of a brief. One front page.</b></p>
+</div></div>
+<section class="ans"><h2>Every line was answered, <u>one level down.</u></h2><p>What a team asks for is where they feel the problem, not always where it is. We answer the brief by finding the problem underneath it.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">Agemo, product strategy, 2024</div>
+<script type="module">
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q');
+const brief = document.getElementById('brief'), after = document.getElementById('after'), tags = document.getElementById('tags'), view = document.getElementById('view'), page = document.getElementById('page');
+const asks = [...document.querySelectorAll('.ask')], notes = [...document.querySelectorAll('.note')], lis = [...tags.children], dots = [...document.querySelectorAll('.dot')];
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+// The part of the front page that answers each note, as a rectangle on the page itself (its own 2880 x 1620 pixels).
+const TARGETS = [[712, 680, 1576, 256], [176, 392, 1160, 132], [178, 684, 478, 248], [812, 854, 70, 42]];
+const marks = TARGETS.map(r => { const e = document.createElement('div'); e.className = 'm'; e.style.cssText = `left:${r[0]}px;top:${r[1]}px;width:${r[2]}px;height:${r[3]}px`; page.append(e); return e; });
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+// when things happen, as a share of the scroll
+const T = { q: [.04, .09], src: [.08, .11], ask: i => .09 + i * .03, note: i => .23 + i * .095, hold: .62,
+  swap: [.63, .71], page: [.66, .74], fly: i => .74 + i * .045, flyLen: .07, end: .955 };
+let L;
+const rel = (e) => { const r = e.getBoundingClientRect(), s = stage.getBoundingClientRect(); return { x: r.left - s.left, y: r.top - s.top, w: r.width, h: r.height }; };
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, side = phone ? 16 : Math.max(40, (W - 1320) / 2);
+  const top = phone ? 64 : 84, capH = document.getElementById('c-end').offsetHeight, bottom = capH + (phone ? 40 : 70);
+  let s, vx, vy, vw, vh;
+  if (phone) {                       // the page on top, the notes under it
+    vw = W - side * 2; s = Math.min(vw / 2880, 1); vh = 1620 * s; vx = side; vy = top + 6;
+    tags.style.cssText = `left:${side}px;right:${side}px;top:${vy + vh + 22}px`;
+  } else {                           // the notes on the left, the page on the right
+    const tw = Math.min(360, W * .27);
+    vw = W - side * 2 - tw - 48; s = Math.min(vw / 2880, (H - top - bottom) / 1620, 1); vw = 2880 * s; vh = 1620 * s; vx = W - side - vw; vy = top + (H - top - bottom - vh) / 2;
+    tags.style.cssText = `left:${side}px;width:${tw}px;top:${vy}px`;
+    tags.style.top = (vy + (vh - tags.offsetHeight) / 2) + 'px';
+  }
+  view.style.cssText = `left:${vx}px;top:${vy}px;width:${vw}px;height:${vh}px`;
+  page.style.transform = `scale(${s})`;
+  // where each number starts (beside its note) and where it lands (the corner of what answers it)
+  const from = notes.map(n => { const r = rel(n.querySelector('.badge')); return { x: r.x, y: r.y }; });
+  const D = phone ? 22 : 28, SIDE = [(w) => [2, -D - 4], () => [-D - 6, 2], () => [-D - 6, 2], (w) => [w + 6, -4]];
+  const to = TARGETS.map((r, i) => { const [dx, dy] = SIDE[i](r[2] * s); return { x: vx + r[0] * s + dx, y: vy + r[1] * s + dy }; });
+  const via = lis.map(li => { const b = rel(li.querySelector('.badge')); return { x: b.x + (b.w - D) / 2, y: b.y + (b.h - D) / 2 }; });
+  for (const d of dots) { d.style.width = d.style.height = D + 'px'; d.style.fontSize = (phone ? 12 : 14) + 'px'; }
+  L = { W, H, phone, s, from, via, to, view: { x: vx, y: vy, w: vw, h: vh } };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  q.style.opacity = 1 - ramp(p, ...T.q);
+  const swap = ramp(p, ...T.swap);
+  brief.style.opacity = 1 - swap;
+  brief.querySelector('.src').style.opacity = ramp(p, ...T.src);
+  asks.forEach((a, i) => { a.style.opacity = ramp(p, T.ask(i), T.ask(i) + .03); a.classList.toggle('marked', p >= T.note(i)); });
+  notes.forEach((n, i) => { n.style.opacity = ramp(p, T.note(i) + .012, T.note(i) + .045); });
+  after.style.opacity = ramp(p, ...T.page);
+  let landed = 0;
+  dots.forEach((d, i) => {
+    const t0 = ramp(p, ...T.swap), t = ramp(p, T.fly(i), T.fly(i) + T.flyLen), a = L.from[i], v = L.via[i], b = L.to[i];
+    const lift = Math.sin(t * Math.PI) * (L.phone ? 18 : 46);                                   // a small arc, not a straight slide
+    d.style.transform = `translate(${mix(mix(a.x, v.x, t0), b.x, t)}px,${mix(mix(a.y, v.y, t0), b.y, t) - lift}px)`;
+    d.style.opacity = ramp(p, T.note(i) + .012, T.note(i) + .045);
+    const there = t >= .999; marks[i].classList.toggle('lit', there); lis[i].classList.toggle('landed', there); if (there) landed++;
+  });
+  document.getElementById('c-end').style.opacity = ramp(p, T.end, T.end + .02);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__state = { p, landed, swap };
+}
+// what the check reads
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const out = r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1;
+  const briefOn = vis(brief), afterOn = vis(after), st = window.__state;
+  const shownAsks = briefOn ? asks.filter(vis) : [], shownNotes = briefOn ? notes.filter(vis) : [];
+  const words = [...shownAsks, ...shownNotes, ...(afterOn ? lis : [])];
+  const capOn = vis(document.getElementById('c-end')), cap = R(document.getElementById('c-end'));
+  const vr = R(view), tr = R(tags);
+  let overlaps = 0;
+  for (let i = 0; i < words.length; i++) for (let j = i + 1; j < words.length; j++) if (hit(R(words[i]), R(words[j]))) overlaps++;
+  if (afterOn && hit(vr, tr)) overlaps++;
+  if (capOn && afterOn && (hit(cap, vr) || hit(cap, tr))) overlaps++;
+  if (briefOn && words.some(w => R(w).top < (L.phone ? 50 : 60))) overlaps++;      // under the header
+  return { p: +st.p.toFixed(3), question: vis(q), brief: briefOn, asks: shownAsks.length, marked: asks.filter(a => a.classList.contains('marked')).length, notes: shownNotes.length,
+    page: afterOn, landed: st.landed, lit: marks.filter(m => m.classList.contains('lit')).length, dots: dots.filter(vis).length,
+    out: [...words.map(R), ...(afterOn ? [vr] : []), ...dots.filter(vis).map(R), ...(capOn ? [cap] : [])].filter(out).length, overlaps,
+    pageScale: +L.s.toFixed(3), smallestText: words.length ? Math.min(...words.map(e => parseFloat(getComputedStyle(e).fontSize))) : null, caption: capOn };
+};
+await document.fonts.ready;
+await (page.querySelector('img').decode?.().catch(() => {}));
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

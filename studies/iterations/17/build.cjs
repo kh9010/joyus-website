@@ -33,9 +33,7 @@ const html = `<!doctype html>
 </head>
 <body>
 <main>
-<p class="eyebrow">Study 17 · 6 October 2026</p>
 <h1>Looks people get</h1>
-<p class="lede">${refs.length} real-time looks on objects like our stones. → marks the ones built on the J in Study 18.</p>
 ${sets.map(([name, slugs]) => `<section class="set"><h2>${esc(name)}</h2><div class="refs">${slugs.map(s => card(refs.find(r => r.slug === s))).join('')}</div></section>`).join('\n')}
 <p class="source">${esc(note)} Captured ${captured}. Click one to visit.</p>
 </main>

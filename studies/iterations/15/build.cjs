@@ -37,9 +37,7 @@ const html = `<!doctype html>
 </head>
 <body>
 <main>
-<p class="eyebrow">Study ${path.basename(here)} · 1 October 2026</p>
 <h1>${META.title}</h1>
-<p class="lede">${META.lede}</p>
 ${sets.map(([name, slugs]) => `<section class="set"><h2>${esc(name)}</h2><div class="refs">${slugs.map(s => card(refs.find(r => r.slug === s))).join('')}</div></section>`).join('\n')}
 <details class="notes"><summary>Looked at ${refs.length}, kept ${refs.length - cut.length}</summary><div class="body"><p>Cut: ${cut.map(r => esc(r.name)).join(', ')}.</p></div></details>
 <p class="source">Screenshots of the live sites, ${captured}. Click one to visit.</p>
