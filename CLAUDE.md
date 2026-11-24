@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+New here? Read `HANDOFF.md` first.
+
 _Rewritten 13 October 2026, when joyus.studio became the coming-soon page. The old site's pages are gone from `main` (see "The old site")._
 
 ## What is live
