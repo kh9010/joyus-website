@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>TomboyX, investor storytelling · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* a. Through four doors. The four rooms are one behind another. You stand in the first; the next is a small doorway
+   in the distance. Scrolling walks you forward: the room you are in opens out past the edges of the screen and the
+   next doorway grows until you are standing in it. At the end you are back outside, looking down all four at once.
+   Each room is a frame; what is in it only shows while you stand there. The slides are TomboyX's real ones. */
+:root{--hi:#F2C94A;--bg:#fff;--ink:#2C3544;--soft:#54606F;--fade:#8892A0;--pink:#E91E7B;--yellow:#F2C94A;--rule:rgba(44,53,68,.14);--sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px}
+.top.after{background:rgba(255,255,255,.9);backdrop-filter:blur(8px)}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}
+#run{position:relative;height:860vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
+#q{position:absolute;left:0;right:0;top:50%;margin:0 auto;padding:0 clamp(16px,4vw,60px);max-width:17ch;box-sizing:content-box;text-align:center;transform:translateY(-50%);z-index:9;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+.door{position:absolute;left:0;top:0;width:var(--dw);height:var(--dh);border:2px solid var(--ink);background:#fff;opacity:0;will-change:transform,opacity;display:flex;flex-direction:column;justify-content:center;padding:0 var(--pad)}
+.door .in{will-change:opacity}
+.door .who{margin:0;font-weight:500;font-size:clamp(.95rem,1.25vw,1.1rem);color:var(--soft)}
+.door .came{margin:.15em 0 clamp(12px,2.2vh,22px);font:700 clamp(1.5rem,3vw,2.7rem)/1.06 var(--sans);letter-spacing:-.03em}
+.door img{display:block;width:100%;height:auto;box-shadow:0 0 0 1px var(--rule)}
+.door .saw{margin:clamp(10px,2vh,20px) 0 0;font-weight:500;font-size:clamp(1rem,1.5vw,1.3rem);line-height:1.28}
+.door .saw u{text-decoration:none;box-shadow:inset 0 -.32em 0 var(--hi)}
+.cap{position:absolute;left:clamp(16px,4vw,60px);right:clamp(16px,4vw,60px);bottom:clamp(18px,4vh,44px);margin:0;opacity:0;z-index:8;pointer-events:none}
+.cap b{display:block;font:700 clamp(1.5rem,2.6vw,2.3rem)/1.08 var(--sans);letter-spacing:-.03em}
+.cap span{display:block;margin-top:6px;color:var(--soft);font-weight:500;font-size:clamp(1rem,1.5vw,1.3rem)}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:17ch;font:700 clamp(2.1rem,6vw,5.4rem)/1.04 var(--sans);letter-spacing:-.035em}
+.ans h2 u{text-decoration:none;box-shadow:inset 0 -.14em 0 var(--yellow)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{font:700 clamp(1.5rem,3.3vw,2.9rem)/1.05 var(--sans);letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you tell one story to four different rooms?</h1>
+<section class="door"><div class="in"><p class="who">The early investors</p><p class="came">came for the people.</p><img src="img/story-8.jpg" alt="A TomboyX slide: Original, Resolute, Intimate, Fearless, Ready" width="1400" height="787"><p class="saw">Only they saw <u>the company's own words</u>, this large.</p></div></section>
+<section class="door"><div class="in"><p class="who">The values-driven investors</p><p class="came">came for the world they want.</p><img src="img/pitch-9.jpg" alt="A TomboyX slide: the opportunity, beside two customers laughing" width="1400" height="791"><p class="saw">Only they saw <u>people pictured the way they would want to be seen.</u></p></div></section>
+<section class="door"><div class="in"><p class="who">The angels who have run companies</p><p class="came">came for the engine.</p><img src="img/angels-13.jpg" alt="A TomboyX slide: four numbers, each with the market's beside it" width="1400" height="786"><p class="saw">Only they saw <u>four numbers, each beside the one it beats.</u></p></div></section>
+<section class="door"><div class="in"><p class="who">The syndicates</p><p class="came">came for what is exceptional.</p><img src="img/syndicate-15.jpg" alt="A TomboyX slide: invitations to weddings and graduations, sent by customers" width="1400" height="787"><p class="saw">Only they saw <u>the invitations to customers' weddings.</u></p></div></section>
+<p class="cap" id="c-end"><b>Four rooms. One company.</b><span>Not one fact changed between them.</span></p>
+</div></div>
+<section class="ans"><h2>The story did not change. <u>What came first did.</u></h2><p>A room listens for the thing it came for. We find what each room came for, and put that part of the truth first.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">TomboyX, investor storytelling</div>
+<script type="module">
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), cap = document.getElementById('c-end');
+const doors = [...document.querySelectorAll('.door')];
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const T = { q: [.04, .09], in: [.08, .13], walk: [[.24, .34], [.45, .55], [.66, .76]], back: [.86, .95], end: .955 };
+const K = 2.7;                 // each room is this many times smaller than the one in front of it
+let L, cur;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, top = phone ? 60 : 78, bottom = phone ? 22 : 34;
+  const DH = H - top - bottom, pad = phone ? 16 : 44; let DW = phone ? W - 28 : Math.min(900, W * .62);
+  stage.style.setProperty('--dw', DW + 'px'); stage.style.setProperty('--dh', DH + 'px'); stage.style.setProperty('--pad', pad + 'px');
+  const over = Math.max(...doors.map(d => d.firstElementChild.offsetHeight)) - (DH - 28);
+  if (over > 0) { DW = Math.max(260, DW - over * 1.78); stage.style.setProperty('--dw', DW + 'px'); }
+  L = { W, H, DW, DH, cx: W / 2, cy: top + DH / 2, capH: cap.offsetHeight, phone };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  q.style.opacity = 1 - ramp(p, ...T.q);
+  const fwd = T.walk.reduce((s, w) => s + ramp(p, ...w), 0), back = ramp(p, ...T.back);
+  const at = mix(fwd, -.62, back);                                       // step back outside, in front of the first door
+  const on = ramp(p, ...T.in), lift = back * (L.capH * .5 + (L.phone ? 10 : 20));
+  const k = mix(K, 1.55, back);                                           // from outside the rooms stand closer together, so all four can be seen
+  doors.forEach((d, i) => {
+    const dist = i - at, s = Math.pow(k, -dist);
+    d.style.transform = `translate(${L.cx - L.DW / 2}px,${L.cy - L.DH / 2 - lift}px) scale(${s})`;
+    d.style.zIndex = back > .5 ? i : 10 - i;                              // walking: nearer rooms in front. From outside: each further room is seen through the one before it
+    d.style.opacity = on * (1 - ramp(-dist, .5, .95)) * (dist > 1.6 && back < .5 ? 0 : 1);
+    d.style.backgroundColor = `rgba(255,255,255,${dist >= 0 ? 1 : 1 - ramp(-dist, .04, .38)})`;
+    const inner = d.firstElementChild, words = 1 - ramp(Math.abs(dist), .08, .34);
+    inner.style.opacity = dist >= 0 ? 1 : 1 - ramp(-dist, .04, .38);
+    for (const e of inner.children) if (e.tagName !== 'IMG') e.style.opacity = words;   // the words are only there while you stand in the room
+  });
+  cap.style.opacity = ramp(p, T.end, T.end + .02);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  cur = { p, at, back };
+}
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const here = clamp(0, Math.round(cur.at), 3), d = doors[here], inner = d.firstElementChild, standing = Math.abs(cur.at - here) < .05;
+  const parts = [...inner.children], dr = R(d);
+  const framesInView = doors.filter(x => vis(x)).filter(x => { const b = R(x); return b.left >= -1 && b.right <= W + 1 && b.top >= 40 && b.bottom <= H + 1; }).length;
+  const img = inner.querySelector('img');
+  return { p: +cur.p.toFixed(3), at: +cur.at.toFixed(2), question: vis(q), standing, room: here, who: inner.querySelector('.who').textContent, contentShown: +getComputedStyle(inner.querySelector('.came')).opacity > .5,
+    cut: standing ? parts.filter(e => { const b = R(e); return b.left < -1 || b.right > W + 1 || b.top < 40 || b.bottom > H + 1; }).length : 0,
+    inside: parts.every(e => { const b = R(e); return b.top >= dr.top - 1 && b.bottom <= dr.bottom + 1; }), framesInView, doorsShown: doors.filter(vis).length,
+    imgScale: +(R(img).width / img.naturalWidth).toFixed(3), caption: vis(cap), captionOverDoors: vis(cap) ? doors.filter(x => vis(x) && hit(R(cap), R(x))).length : 0,
+    smallestText: standing ? Math.min(...[inner.querySelector('.who'), inner.querySelector('.saw')].map(e => parseFloat(getComputedStyle(e).fontSize))) : null };
+};
+await document.fonts.ready;
+await Promise.all([...document.images].map(i => i.decode?.().catch(() => {})));
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

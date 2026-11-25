@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The stones leave the J</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap">
+<style>
+:root { --ink: #2C3544; --soft: #54606F }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #fff; color: var(--ink); font-family: 'Space Grotesk', system-ui, sans-serif }
+canvas { position: fixed; left: 0; top: 0; display: block }
+#top { position: fixed; left: 0; right: 0; top: 0; padding: 18px 28px 0; pointer-events: none }
+#top a { pointer-events: auto; color: inherit; text-decoration: none }
+header { display: flex; justify-content: space-between; align-items: baseline; font-size: 17px }
+header .logo { font-weight: 700; font-size: 21px; letter-spacing: -.01em }
+header nav { display: flex; gap: 22px } header nav span { color: var(--soft) }
+#head { display: none; margin-top: 14px }
+#head.on { display: block }
+h1 { font-size: 40px; line-height: 1.1; font-weight: 600; letter-spacing: -.02em; margin: 0 0 12px }
+#chips { display: flex; flex-wrap: wrap; gap: 8px }
+#chips a { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; padding: 6px 12px; border-radius: 999px; border: 1.5px solid #dfe3e8; background: #fff }
+#chips a i { width: 11px; height: 11px; border-radius: 50%; display: inline-block }
+#chips a[aria-current] { border-color: var(--ink) }
+#labels { position: fixed; left: 0; top: 0; pointer-events: none }
+#labels div { position: absolute; transform: translate(-50%, -50%); text-align: center; font-weight: 600; line-height: 1.15; opacity: 0; transition: opacity .25s; overflow-wrap: normal }
+#labels div.on { opacity: 1 }
+#labels div small { display: block; font-weight: 500; font-size: .82em; opacity: .85 }
+#tip { position: fixed; pointer-events: none; background: var(--ink); color: #fff; font-size: 14px; padding: 5px 9px; border-radius: 6px; transform: translate(-50%, -140%); white-space: nowrap; opacity: 0; transition: opacity .12s }
+#tip.on { opacity: 1 }
+@media (max-width: 600px) { #top { padding: 14px 16px 0 } h1 { font-size: 30px } #chips a { font-size: 13.5px; padding: 5px 10px } header nav { gap: 14px } }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="labels"></div>
+<div id="top">
+  <header><a class="logo" href="#">joyus</a><nav><a href="#work">work</a><span>about</span><span>say hi</span></nav></header>
+  <div id="head"><h1 id="h"></h1><div id="chips"></div></div>
+</div>
+<div id="tip"></div>
+<script type="module">
+import { edt } from './dist.js';
+
+/* ---------- the pieces: the 33 pieces of work in the site map, four types, fourteen clients ---------- */
+const PIECES = await (await fetch('pieces.json')).json();
+const NAMES = { tatsam: 'Tatsam', gliitch: 'Gliitch', 'secret-senses': 'Secret Senses', xtdb: 'XTDB', klydo: 'Klydo', armoire: 'Armoire', agemo: 'Agemo', convegenius: 'ConveGenius', rachna: 'Rachna Nivas', ewc: 'EWC', shapeshifter: 'Shapeshifter', pratham: 'Pratham USA', tomboyx: 'TomboyX', cranberry: 'Cranberry' };
+const TYPES = ['Branding', 'Website & Product', 'Strategy', 'Storytelling'];
+const COL = { 'Branding': '#f25aa3', 'Website & Product': '#2fc0d8', 'Strategy': '#7d55d4', 'Storytelling': '#f5c63c' };
+const TEXT = { 'Branding': '#2C3544', 'Website & Product': '#2C3544', 'Strategy': '#ffffff', 'Storytelling': '#2C3544' };
+const N = PIECES.length;
+PIECES.forEach((p, i) => { p.i = i; p.client = NAMES[p.project]; p.kind = p.title.startsWith(p.client + ' ') ? p.title.slice(p.client.length + 1) : p.title; });
+const JS = ['rubik', 'shrikhand', 'alfa-slab'];
+const GAP = 7;
+const still = new URLSearchParams(location.search).has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+
+/* ---------- the J masks: 256px, with a signed distance (as a fraction of the square) ---------- */
+const M = 512;
+const masks = await Promise.all(JS.map(name => new Promise((res, rej) => {
+  const im = new Image(); im.onload = () => {
+    const cv = document.createElement('canvas'); cv.width = cv.height = M; const x = cv.getContext('2d', { willReadFrequently: true });
+    x.drawImage(im, 0, 0, M, M); const d = x.getImageData(0, 0, M, M).data;
+    const bin = new Uint8Array(M * M), inv = new Uint8Array(M * M);
+    for (let i = 0; i < M * M; i++) { bin[i] = d[i * 4 + 3] > 127 ? 1 : 0; inv[i] = 1 - bin[i]; }
+    const a = edt(bin, M, M), b = edt(inv, M, M), sd = new Float32Array(M * M);
+    for (let i = 0; i < M * M; i++) sd[i] = (bin[i] ? a[i] - .5 : -(b[i] - .5)) / M;
+    // the mask is on or off at each pixel, so its edge is a staircase: average each distance with its neighbours to take the steps out
+    const sm = new Float32Array(M * M);
+    for (let y = 0; y < M; y++) for (let x2 = 0; x2 < M; x2++) { let t = 0, n = 0; for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const xx = x2 + dx, yy = y + dy; if (xx >= 0 && yy >= 0 && xx < M && yy < M) { t += sd[yy * M + xx]; n++; } } sm[y * M + x2] = t / n; }
+    res({ name, bin, sd: sm });
+  }; im.onerror = rej; im.src = 'masks/' + name + '.png';
+})));
+
+/* ---------- the solver: cells of given sizes filling a given shape ----------
+   A power diagram on a grid. Each round every grid point goes to the piece whose (distance² − weight) is least;
+   each piece moves to the middle of what it got, and its weight goes up or down until it holds the area it was asked for. */
+function solve(dom, frac, init, rounds = 70) {
+  const bw = dom.x1 - dom.x0, bh = dom.y1 - dom.y0, g = Math.max(2, Math.sqrt(bw * bh / 15000));
+  const gw = Math.ceil(bw / g), gh = Math.ceil(bh / g), n = frac.length;
+  const inside = new Uint8Array(gw * gh); let count = 0;
+  for (let j = 0; j < gh; j++) for (let i = 0; i < gw; i++) if (dom.inside(dom.x0 + (i + .5) * g, dom.y0 + (j + .5) * g)) { inside[j * gw + i] = 1; count++; }
+  const cell = g * g, total = count * cell, want = frac.map(f => f * total);
+  const sx = init.map(p => p[0]), sy = init.map(p => p[1]), w = new Float64Array(n);
+  const own = new Int16Array(gw * gh).fill(-1), area = new Float64Array(n), cx = new Float64Array(n), cy = new Float64Array(n);
+  const assign = () => {
+    area.fill(0); cx.fill(0); cy.fill(0);
+    for (let j = 0; j < gh; j++) { const y = dom.y0 + (j + .5) * g; for (let i = 0; i < gw; i++) {
+      const k = j * gw + i; if (!inside[k]) continue; const x = dom.x0 + (i + .5) * g;
+      let best = 0, bv = Infinity;
+      for (let s = 0; s < n; s++) { const dx = x - sx[s], dy = y - sy[s], v = dx * dx + dy * dy - w[s]; if (v < bv) { bv = v; best = s; } }
+      own[k] = best; area[best] += cell; cx[best] += x; cy[best] += y;
+    } }
+    for (let s = 0; s < n; s++) if (area[s] > 0) { cx[s] /= area[s] / cell; cy[s] /= area[s] / cell; }
+  };
+  for (let r = 0; r < rounds; r++) {
+    assign();
+    for (let s = 0; s < n; s++) {
+      if (area[s] > 0) { sx[s] = cx[s]; sy[s] = cy[s]; w[s] += .6 * (want[s] - area[s]) / Math.PI; }
+      else w[s] += want[s] / Math.PI;
+    }
+  }
+  assign();
+  const adj = new Set(), inr = new Float64Array(n).fill(Infinity);
+  for (let j = 0; j < gh; j++) for (let i = 0; i < gw; i++) {
+    const k = j * gw + i, a = own[k];
+    if (a >= 0) { for (const k2 of [i + 1 < gw ? k + 1 : -1, j + 1 < gh ? k + gw : -1]) { if (k2 < 0) continue; const b = own[k2]; if (b >= 0 && b !== a) adj.add(a < b ? a * 100 + b : b * 100 + a); } }
+  }
+  // how far the middle of each piece is from anything that is not that piece (other pieces, or the edge of the shape)
+  for (let j = -1; j <= gh; j++) for (let i = -1; i <= gw; i++) {
+    const o = (i < 0 || j < 0 || i >= gw || j >= gh) ? -1 : own[j * gw + i], x = dom.x0 + (i + .5) * g, y = dom.y0 + (j + .5) * g;
+    for (let s = 0; s < n; s++) if (o !== s) { const d = Math.hypot(x - cx[s], y - cy[s]); if (d < inr[s]) inr[s] = d; }
+  }
+  return { P: Array.from({ length: n }, (_, s) => ({ x: sx[s], y: sy[s], w: w[s], area: area[s], cx: cx[s], cy: cy[s], inr: Math.max(0, inr[s] - g * .7 - GAP / 2), want: want[s] })), adj: [...adj].map(v => [Math.floor(v / 100), v % 100]), total };
+}
+/* put pieces into slots so that as few neighbours as possible are of the same type */
+function seat(slots, seed) {
+  const r = rng(seed), seatOf = PIECES.map((_, i) => i);
+  for (let i = N - 1; i > 0; i--) { const j = Math.floor(r() * (i + 1)); [seatOf[i], seatOf[j]] = [seatOf[j], seatOf[i]]; }
+  const who = new Array(N); const cost = () => { seatOf.forEach((s, p) => who[s] = p); let c = 0; for (const [a, b] of slots.adj) if (PIECES[who[a]].type === PIECES[who[b]].type) c++; return c; };
+  let c = cost();
+  for (let t = 0; t < 6000 && c > 0; t++) { const a = Math.floor(r() * N), b = Math.floor(r() * N); if (PIECES[a].type === PIECES[b].type) continue; [seatOf[a], seatOf[b]] = [seatOf[b], seatOf[a]]; const c2 = cost(); if (c2 <= c) c = c2; else [seatOf[a], seatOf[b]] = [seatOf[b], seatOf[a]]; }
+  seatOf.forEach((s, p) => who[s] = p);
+  return { P: PIECES.map((_, p) => slots.P[seatOf[p]]), adj: slots.adj.map(([a, b]) => [who[a], who[b]]), total: slots.total };
+}
+
+/* ---------- the views ---------- */
+let W = 0, H = 0, TOP = 0;
+const cache = new Map();
+const frameRect = () => { const m = W < 600 ? 12 : 26; return { x0: m, y0: TOP, x1: W - m, y1: H - m }; };
+const jBox = () => { const top = 70, S = Math.min(H - top - 24, W - 24); return { x0: (W - S) / 2, y0: top + (H - top - 24 - S) / 2, S }; };
+const keyOf = v => v.kind + (v.j != null ? v.j : '') + (v.type || '') + (v.project || '');
+function layout(v) {
+  const key = keyOf(v) + '|' + W + 'x' + H + '|' + TOP; if (cache.has(key)) return cache.get(key);
+  let L;
+  if (v.kind === 'home') {
+    const b = jBox(), m = masks[v.j], r = rng(11 + v.j);
+    const inside = (x, y) => { const u = Math.floor((x - b.x0) / b.S * M), t = Math.floor((y - b.y0) / b.S * M); return u >= 0 && t >= 0 && u < M && t < M && m.bin[t * M + u] === 1; };
+    const init = []; while (init.length < N) { const x = b.x0 + r() * b.S, y = b.y0 + r() * b.S; if (inside(x, y)) init.push([x, y]); }
+    let f = init.map(() => .55 + r()); const sum = f.reduce((a, c) => a + c); f = f.map(x => x / sum);
+    L = seat(solve({ x0: b.x0, y0: b.y0, x1: b.x0 + b.S, y1: b.y0 + b.S, inside }, f, init), 5 + v.j);
+    L.box = { j: v.j }; L.focus = null;
+  } else {
+    const R = frameRect(), inside = () => true, r = rng(77), dom = { ...R, inside };
+    if (v.kind === 'work') {
+      const init = PIECES.map(() => [R.x0 + r() * (R.x1 - R.x0), R.y0 + r() * (R.y1 - R.y0)]);
+      let f = init.map(() => .75 + .6 * r()); const sum = f.reduce((a, c) => a + c); f = f.map(x => x / sum);
+      L = seat(solve(dom, f, init), 9);
+      L.focus = null;
+    } else {
+      const base = layout({ kind: 'work' }), on = PIECES.map(p => v.kind === 'type' ? p.type === v.type : p.project === v.project), k = on.filter(Boolean).length;
+      const share = v.kind === 'type' ? .74 : Math.min(.76, .36 + .1 * k), mx = (R.x0 + R.x1) / 2, my = (R.y0 + R.y1) / 2;
+      const f = on.map(o => o ? share / k : (1 - share) / (N - k));
+      const init = base.P.map((p, i) => { const s = on[i] ? .3 : 1.5, x = mx + (p.cx - mx) * s, y = my + (p.cy - my) * s; return [Math.max(R.x0 + 4, Math.min(R.x1 - 4, x)), Math.max(R.y0 + 4, Math.min(R.y1 - 4, y))]; });
+      L = solve(dom, f, init, 90);
+      L.focus = on;
+    }
+    L.box = { rect: R };
+  }
+  L.view = v; L.key = keyOf(v); cache.set(key, L); return L;
+}
+
+/* ---------- drawing: one shader, every pixel finds its piece ---------- */
+const cv = document.getElementById('c'), gl = cv.getContext('webgl2', { antialias: false, alpha: false, preserveDrawingBuffer: true });
+const VS = `#version 300 es
+in vec2 a; void main() { gl_Position = vec4(a, 0., 1.); }`;
+const FS = `#version 300 es
+precision highp float;
+const int N = ${N};
+uniform vec4 uS[N];      // x, y, weight, pebble radius
+uniform vec4 uC[N];      // r, g, b, how far it is faded
+uniform sampler2D uJ0, uJ1, uJ2;
+uniform vec4 uBoxW;      // how much of each shape the box is: three Js and the frame
+uniform vec3 uJbox;      // x, y, side of the J's square
+uniform vec4 uRect;      // the frame
+uniform float uLoose, uGap, uDpr;
+uniform vec2 uRes;
+out vec4 o;
+float jd(sampler2D t, vec2 p) { vec2 uv = (p - uJbox.xy) / uJbox.z; vec2 q = max(abs(uv - .5) - .5, 0.); float e = min(min(uv.x, 1. - uv.x), min(uv.y, 1. - uv.y)); return (min(texture(t, clamp(uv, 0., 1.)).r, max(e, 0.)) - length(q)) * uJbox.z; }
+void main() {
+  vec2 p = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr;
+  int best = 0; float bv = 1e20;
+  for (int i = 0; i < N; i++) { vec2 d = p - uS[i].xy; float v = dot(d, d) - uS[i].z; if (v < bv) { bv = v; best = i; } }
+  vec4 s = uS[best];
+  float k = clamp(.16 * s.w, 3., 26.);           // rounding in proportion to the piece
+  float acc = 0.;
+  for (int i = 0; i < N; i++) { if (i == best) continue; vec2 d = p - uS[i].xy; float v = dot(d, d) - uS[i].z; float e = (v - bv) / (2. * max(1., distance(uS[i].xy, s.xy))); acc += exp(-e / k); }
+  float box = 0.;
+  if (uBoxW.x > 0.) box += uBoxW.x * jd(uJ0, p);
+  if (uBoxW.y > 0.) box += uBoxW.y * jd(uJ1, p);
+  if (uBoxW.z > 0.) box += uBoxW.z * jd(uJ2, p);
+  if (uBoxW.w > 0.) { vec2 c = (uRect.xy + uRect.zw) * .5, h = (uRect.zw - uRect.xy) * .5 - 14.; vec2 q = abs(p - c) - h; box += uBoxW.w * -(length(max(q, 0.)) + min(max(q.x, q.y), 0.) - 14.); }
+  box += uLoose * 2600.;
+  acc += exp(-box / k);
+  float cap = s.w * (1. + 7. * (1. - uLoose) * (1. - uLoose)) - distance(p, s.xy);
+  acc += exp(-cap / k);
+  float f = -k * log(acc) - uGap * .5;
+  float a = smoothstep(-.7, .7, f);
+  vec3 col = mix(uC[best].rgb, vec3(.93, .94, .955), uC[best].a);
+  col *= mix(.9, 1., smoothstep(0., k * 1.3 + 5., f));
+  o = vec4(mix(vec3(1.), col, a), 1.);
+}`;
+const sh = (t, src) => { const s = gl.createShader(t); gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+const prog = gl.createProgram(); gl.attachShader(prog, sh(gl.VERTEX_SHADER, VS)); gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(prog);
+if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(prog));
+gl.useProgram(prog);
+const buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+const al = gl.getAttribLocation(prog, 'a'); gl.enableVertexAttribArray(al); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+masks.forEach((m, i) => {
+  const t = gl.createTexture(); gl.activeTexture(gl.TEXTURE0 + i); gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, M, M, 0, gl.RED, gl.FLOAT, m.sd);
+  for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v);
+  gl.uniform1i(gl.getUniformLocation(prog, 'uJ' + i), i);
+});
+const U = n => gl.getUniformLocation(prog, n);
+const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+const uS = new Float32Array(N * 4), uC = new Float32Array(N * 4);
+PIECES.forEach((p, i) => uC.set(hex(COL[p.type]), i * 4));
+
+/* ---------- moving between views ---------- */
+const cur = PIECES.map(() => ({ x: 0, y: 0, w: 0, R: 60, dim: 0 }));
+let boxW = [1, 0, 0, 0], loose = 0, tw = null, L = null, dpr = 1, raf = 0;
+const radius = a => .6 * Math.sqrt(Math.max(a, 1) / Math.PI);
+const target = (Lx) => Lx.P.map((p, i) => ({ x: p.x, y: p.y, w: p.w, R: radius(p.area), dim: Lx.focus && !Lx.focus[i] ? 1 : 0 }));
+const boxOf = (Lx) => Lx.box.rect ? [0, 0, 0, 1] : [0, 1, 2].map(j => j === Lx.box.j ? 1 : 0).concat(0);
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function draw() {
+  cur.forEach((c, i) => { uS[i * 4] = c.x; uS[i * 4 + 1] = c.y; uS[i * 4 + 2] = c.w; uS[i * 4 + 3] = c.R; uC[i * 4 + 3] = c.dim; });
+  gl.viewport(0, 0, cv.width, cv.height);
+  gl.uniform4fv(U('uS'), uS); gl.uniform4fv(U('uC'), uC); gl.uniform4fv(U('uBoxW'), boxW);
+  const b = jBox(), R = frameRect(); gl.uniform3f(U('uJbox'), b.x0, b.y0, b.S); gl.uniform4f(U('uRect'), R.x0, R.y0, R.x1, R.y1);
+  gl.uniform1f(U('uLoose'), loose); gl.uniform1f(U('uGap'), GAP); gl.uniform1f(U('uDpr'), dpr); gl.uniform2f(U('uRes'), cv.width, cv.height);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+function frame(now) {
+  raf = 0; if (!tw) return;
+  const T = now - tw.t0, g = Math.min(1, T / (tw.dur + tw.lag));
+  cur.forEach((c, i) => { const e = ease(Math.max(0, Math.min(1, (T - tw.delay[i]) / tw.dur))), a = tw.from[i], b = tw.to[i]; for (const k of ['x', 'y', 'w', 'R', 'dim']) c[k] = a[k] + (b[k] - a[k]) * e; });
+  const eb = ease(g); boxW = tw.b0.map((v, i) => v + (tw.b1[i] - v) * eb); loose = tw.peak * Math.sin(Math.PI * g);
+  draw();
+  if (g >= 1) { tw = null; loose = 0; labels(true); window.__moving = false; } else raf = requestAnimationFrame(frame);
+}
+function show(v, instant) {
+  setHead(v);
+  const next = layout(v), to = target(next), b1 = boxOf(next), prev = L; L = next;
+  labels(false); tip.classList.remove('on');
+  if (instant || still || !prev) { to.forEach((t, i) => Object.assign(cur[i], t)); boxW = b1; loose = 0; tw = null; draw(); labels(true); window.__moving = false; return; }
+  const sameBox = !!prev.box.rect && !!next.box.rect, order = to.map((t, i) => i).sort((a, b) => to[b].R - to[a].R), delay = []; order.forEach((i, rank) => delay[i] = rank / N * (sameBox ? 180 : 420));
+  tw = { t0: performance.now(), dur: sameBox ? 850 : 1250, lag: sameBox ? 180 : 420, delay, from: cur.map(c => ({ ...c })), to, b0: boxW.slice(), b1, peak: sameBox ? .12 : 1 };
+  window.__moving = true; if (!raf) raf = requestAnimationFrame(frame);
+}
+
+/* ---------- the words ---------- */
+const head = document.getElementById('head'), h = document.getElementById('h'), chips = document.getElementById('chips'), labelBox = document.getElementById('labels'), tip = document.getElementById('tip'), top = document.getElementById('top');
+const labelEls = PIECES.map(p => { const d = document.createElement('div'); d.style.color = TEXT[p.type]; labelBox.appendChild(d); return d; });
+function setHead(v) {
+  if (v.kind === 'home') head.classList.remove('on');
+  else {
+    head.classList.add('on');
+    h.textContent = v.kind === 'work' ? 'Work' : v.kind === 'type' ? v.type : NAMES[v.project];
+    chips.innerHTML = '<a href="#work"' + (v.kind === 'work' ? ' aria-current="page"' : '') + '>All work</a>' + TYPES.map(t => '<a href="#type/' + encodeURIComponent(t) + '"' + (v.type === t ? ' aria-current="page"' : '') + '><i style="background:' + COL[t] + '"></i>' + t.replace('&', '&amp;') + '</a>').join('');
+  }
+  TOP = Math.ceil(top.getBoundingClientRect().bottom) + 14;
+}
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+function labels(on) {
+  if (!on || !L) { labelEls.forEach(d => d.classList.remove('on')); return; }
+  const v = L.view;
+  PIECES.forEach((p, i) => {
+    const d = labelEls[i], c = L.P[i], lit = !L.focus || L.focus[i];
+    let text = '';
+    if (v.kind === 'work') text = esc(p.client);
+    else if (v.kind === 'type' && lit) text = esc(p.client) + '<small>' + esc(p.kind) + '</small>';
+    else if (v.kind === 'client' && lit) text = esc(p.kind) + '<small>' + esc(p.type) + '</small>';
+    if (!text) { d.classList.remove('on'); d.dataset.on = ''; return; }
+    d.innerHTML = text; d.style.left = c.cx + 'px'; d.style.top = c.cy + 'px';
+    d.style.fontSize = Math.max(13, Math.min(22, c.inr * .2)) + 'px'; d.style.width = 'max-content'; d.style.maxWidth = Math.max(40, c.inr * 1.7) + 'px';
+    const r = d.getBoundingClientRect(), fits = Math.hypot(r.width, r.height) / 2 <= c.inr * .9;
+    d.classList.toggle('on', fits); d.dataset.on = fits ? '1' : '';
+  });
+}
+
+/* ---------- which piece is under a point ---------- */
+function pieceAt(x, y) {
+  if (!L || tw) return -1;
+  if (L.box.rect) { const R = L.box.rect; if (x < R.x0 || y < R.y0 || x > R.x1 || y > R.y1) return -1; }
+  else { const b = jBox(), u = Math.floor((x - b.x0) / b.S * M), t = Math.floor((y - b.y0) / b.S * M); if (u < 0 || t < 0 || u >= M || t >= M || !masks[L.box.j].bin[t * M + u]) return -1; }
+  let best = -1, bv = Infinity; cur.forEach((c, i) => { const v = (x - c.x) ** 2 + (y - c.y) ** 2 - c.w; if (v < bv) { bv = v; best = i; } }); return best;
+}
+cv.addEventListener('mousemove', e => {
+  const i = pieceAt(e.clientX, e.clientY); cv.style.cursor = i >= 0 ? 'pointer' : 'default';
+  if (i >= 0 && !labelEls[i].dataset.on) { tip.textContent = PIECES[i].client + ' · ' + PIECES[i].kind; tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; tip.classList.add('on'); } else tip.classList.remove('on');
+});
+cv.addEventListener('mouseleave', () => tip.classList.remove('on'));
+cv.addEventListener('click', e => { const i = pieceAt(e.clientX, e.clientY); if (i >= 0) location.hash = 'client/' + PIECES[i].project; });
+
+/* ---------- addresses: #, #work, #type/Branding, #client/klydo ---------- */
+let homeJ = 0, timer = 0;
+function route(instant) {
+  const [a, b] = decodeURIComponent(location.hash.slice(1)).split('/');
+  const v = a === 'work' ? { kind: 'work' } : a === 'type' && TYPES.includes(b) ? { kind: 'type', type: b } : a === 'client' && NAMES[b] ? { kind: 'client', project: b } : { kind: 'home', j: homeJ };
+  clearInterval(timer);
+  if (v.kind === 'home' && !still) timer = setInterval(() => { if (document.hidden) return; homeJ = (homeJ + 1) % JS.length; show({ kind: 'home', j: homeJ }); }, 5200);
+  show(v, instant);
+}
+function size() {
+  W = innerWidth; H = innerHeight; dpr = Math.min(devicePixelRatio || 1, 2);
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px';
+  cache.clear(); L = null; route(true);
+}
+addEventListener('hashchange', () => route(false));
+let rs = 0; addEventListener('resize', () => { clearTimeout(rs); rs = setTimeout(size, 120); });
+await document.fonts.ready;
+size();
+
+/* ---------- for the check ---------- */
+window.__j = (j) => { homeJ = j; show({ kind: 'home', j }, false); };
+window.__measure = () => {
+  const b = jBox(), own = (x, y) => { let best = -1, bv = Infinity; cur.forEach((c, i) => { const v = (x - c.x) ** 2 + (y - c.y) ** 2 - c.w; if (v < bv) { bv = v; best = i; } }); return best; };
+  const focus = L.focus ? PIECES.filter((p, i) => L.focus[i]).map(p => p.i) : [];
+  let joined = true;
+  if (focus.length > 1) { const seen = new Set([focus[0]]), q = [focus[0]]; while (q.length) { const a = q.pop(); for (const [x, y] of L.adj) { const o = x === a ? y : y === a ? x : -1; if (o >= 0 && L.focus[o] && !seen.has(o)) { seen.add(o); q.push(o); } } } joined = seen.size === focus.length; }
+  return {
+    view: L.key, moving: !!tw, loose: +loose.toFixed(3), frame: [W, H], top: TOP,
+    pieces: PIECES.map((p, i) => { const c = L.P[i], d = labelEls[i], r = d.getBoundingClientRect(), on = !!d.dataset.on;
+      const inJ = L.box.rect ? null : (() => { const u = Math.floor((c.cx - b.x0) / b.S * M), t = Math.floor((c.cy - b.y0) / b.S * M); return masks[L.box.j].sd[t * M + u] > -.02; })();
+      return { title: p.title, type: p.type, share: +(c.area / L.total).toFixed(4), asked: +(c.want / L.total).toFixed(4), inFrame: c.cx >= 0 && c.cy >= 0 && c.cx <= W && c.cy <= H, inJ, lit: !L.focus || L.focus[i],
+        label: on ? d.textContent : '', font: on ? parseFloat(getComputedStyle(d).fontSize) : null,
+        labelInside: on ? [[r.left, r.top], [r.right, r.top], [r.left, r.bottom], [r.right, r.bottom]].every(([x, y]) => own(x, y) === i) : null }; }),
+    focusShare: +focus.reduce((a, i) => a + L.P[i].area, 0).toFixed(0) / L.total, focusJoined: joined,
+    sameTypeNeighbours: L.adj.filter(([x, y]) => PIECES[x].type === PIECES[y].type).length, neighbours: L.adj.length,
+    heading: head.classList.contains('on') ? h.textContent : '', chips: [...chips.querySelectorAll('a')].map(a => a.textContent),
+  };
+};
+window.__ready = true;
+</script>
+</body>
+</html>

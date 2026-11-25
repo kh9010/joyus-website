@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Big first, then what is left</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+html, body { margin: 0; height: 100%; overflow: hidden; background: #fff; color: #2C3544; font-family: 'Space Grotesk', system-ui, sans-serif }
+canvas { position: fixed; left: 0; top: 0; display: block }
+header { position: fixed; left: 0; right: 0; top: 0; padding: 18px 28px; display: flex; justify-content: space-between; font-size: 17px }
+header b { font-size: 21px } header span { color: #54606F }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<header><b>joyus</b><span id="n"></span></header>
+<script type="module">
+// Every piece has a shape of its own: a circle, a square, a triangle, a pill. None of them fits the J.
+// The biggest go in first and leave gaps; each next piece is the biggest that fits in what is left, so the gaps
+// are filled by smaller and smaller pieces, faster and faster. The big ones are ink, as the big dots of the 2023
+// logo were; the rest take the four colours.
+import { loadMask, COLOURS, INK, rng } from './jmask.js';
+const M = 256, JS = ['rubik', 'shrikhand', 'alfa-slab'], GAP = 1.5, RMIN = 1.7;
+const q = new URLSearchParams(location.search), FAST = +(q.get('fast') || 1), still = q.has('still') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+const masks = await Promise.all(JS.map(n => loadMask(n, M)));
+const cv = document.getElementById('c'), x2 = cv.getContext('2d'), count = document.getElementById('n');
+
+/* ---------- the shapes: how far a point is from each (negative inside) ---------- */
+const poly = (n, R, rot) => Array.from({ length: n }, (_, i) => { const a = rot + i * 2 * Math.PI / n; return [R * Math.cos(a), R * Math.sin(a)]; });
+function sdPoly(px, py, v) { let d = Infinity, inside = true; for (let i = 0; i < v.length; i++) { const [ax, ay] = v[i], [bx, by] = v[(i + 1) % v.length], ex = bx - ax, ey = by - ay, wx = px - ax, wy = py - ay; const t = Math.max(0, Math.min(1, (wx * ex + wy * ey) / (ex * ex + ey * ey))); d = Math.min(d, Math.hypot(wx - ex * t, wy - ey * t)); if (ex * wy - ey * wx < 0) inside = false; } return inside ? -d : d; }
+function make(kind, x, y, r, rot) {   // every shape lies inside the circle of radius r round (x, y)
+  const s = { kind, x, y, r, rot };
+  if (kind === 'circle') s.sd = (px, py) => Math.hypot(px - x, py - y) - r;
+  else if (kind === 'pill') { const L = .56 * r, w = .44 * r, cx = Math.cos(rot), sy = Math.sin(rot); s.L = L; s.w = w; s.sd = (px, py) => { const dx = px - x, dy = py - y, t = Math.max(-L, Math.min(L, dx * cx + dy * sy)); return Math.hypot(dx - cx * t, dy - sy * t) - w; }; }
+  else { const n = kind === 'triangle' ? 3 : 4, cr = .16 * r, v = poly(n, r - cr / Math.cos(Math.PI / n), rot); s.v = v; s.cr = cr; s.sd = (px, py) => sdPoly(px - x, py - y, v) - cr; }
+  return s;
+}
+/* ---------- packing: always the biggest piece that fits in what is left ---------- */
+function pack(mask, seed) {
+  const r = rng(seed), D = Float32Array.from(mask.inside), out = [], kinds = ['circle', 'square', 'triangle', 'pill', 'circle', 'square'];
+  for (let guard = 0; guard < 700; guard++) {
+    let max = 0; for (let i = 0; i < D.length; i++) if (D[i] > max) max = D[i];
+    const rad0 = max - GAP; if (rad0 < RMIN) break;
+    const cand = []; for (let i = 0; i < D.length; i++) if (D[i] >= max * .9) cand.push(i);
+    const k = cand[Math.floor(r() * cand.length)], x = k % M + .5, y = Math.floor(k / M) + .5, rad = D[k] - GAP;
+    const s = make(kinds[Math.floor(r() * kinds.length)], x, y, rad, r() * Math.PI * 2);
+    const reach = rad + max + 1, y0 = Math.max(0, Math.floor(y - reach)), y1 = Math.min(M, Math.ceil(y + reach)), x0 = Math.max(0, Math.floor(x - reach)), x1 = Math.min(M, Math.ceil(x + reach));
+    for (let py = y0; py < y1; py++) for (let px = x0; px < x1; px++) { const i = py * M + px; if (D[i] <= 0) continue; const d = s.sd(px + .5, py + .5); if (d < D[i]) D[i] = d; }
+    out.push(s);
+  }
+  // colours: the four biggest are ink; each other piece avoids the colours of the two pieces nearest it
+  out.forEach((s, i) => { if (i < 4) { s.col = INK; return; } const near = out.slice(0, i).map(o => [Math.hypot(o.x - s.x, o.y - s.y) - o.r, o.col]).sort((a, b) => a[0] - b[0]).slice(0, 2).map(n => n[1]); const free = COLOURS.filter(c => !near.includes(c)); s.col = free[Math.floor(r() * free.length)]; });
+  // when each arrives: a big piece is followed by a long wait, a small one by a short one
+  let t = .5; out.forEach(s => { s.t = t; t += .035 + .62 * Math.pow(s.r / out[0].r, 1.15); });
+  return { pieces: out, end: t };
+}
+const packs = masks.map((m, i) => pack(m, 21 + i));
+
+let W, H, dpr, box, j = 0, clock = 0, phase = 'filling', out = 0;
+function size() { W = innerWidth; H = innerHeight; dpr = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px'; const S = Math.min(H - 94, W - 24); box = { x: (W - S) / 2, y: 70 + (H - 94 - S) / 2, S }; }
+const pop = u => u <= 0 ? 0 : u >= 1 ? 1 : 1 + 2.2 * Math.pow(u - 1, 3) + 1.2 * Math.pow(u - 1, 2);   // lands a little over, settles
+function draw() {
+  x2.setTransform(dpr, 0, 0, dpr, 0, 0); x2.clearRect(0, 0, W, H);
+  const k = box.S / M, P = packs[j].pieces; let shown = 0;
+  P.forEach((s, i) => {
+    let sc = pop((clock - s.t) / .32); if (phase === 'letting go') sc *= Math.max(0, 1 - Math.max(0, out - i / P.length * .9) / .28) ; if (sc <= 0.001) return; shown++;
+    x2.save(); x2.translate(box.x + s.x * k, box.y + s.y * k); x2.scale(k * sc, k * sc); x2.fillStyle = x2.strokeStyle = s.col; x2.lineJoin = x2.lineCap = 'round';
+    if (s.kind === 'circle') { x2.beginPath(); x2.arc(0, 0, s.r, 0, 7); x2.fill(); }
+    else if (s.kind === 'pill') { x2.lineWidth = s.w * 2; x2.beginPath(); x2.moveTo(-s.L * Math.cos(s.rot), -s.L * Math.sin(s.rot)); x2.lineTo(s.L * Math.cos(s.rot), s.L * Math.sin(s.rot)); x2.stroke(); }
+    else { x2.lineWidth = s.cr * 2; x2.beginPath(); s.v.forEach(([a, b], n) => n ? x2.lineTo(a, b) : x2.moveTo(a, b)); x2.closePath(); x2.fill(); x2.stroke(); }
+    x2.restore();
+  });
+  count.textContent = shown + (shown === 1 ? ' piece' : ' pieces');
+  return shown;
+}
+let last = performance.now();
+function step(t) {
+  const dt = Math.min(.05, (t - last) / 1000) * FAST; last = t;
+  if (phase === 'filling') { clock += dt; if (clock > packs[j].end + .4) { phase = 'full'; out = 0; } }
+  else if (phase === 'full') { out += dt; if (out > 2.6 && !window.__hold) { phase = 'letting go'; out = 0; } }
+  else { out += dt * .9; if (out > 1.3) { j = (j + 1) % JS.length; clock = 0; phase = 'filling'; window.__rounds = (window.__rounds || 0) + 1; } }
+  draw(); requestAnimationFrame(step);
+}
+window.__measure = () => {
+  const P = packs[j].pieces, m = masks[j]; let filled = 0, twice = 0, outside = 0, area = 0;
+  for (let py = 0; py < M; py += 1) for (let px = 0; px < M; px += 1) { let n = 0; for (const s of P) { if (Math.abs(px + .5 - s.x) > s.r || Math.abs(py + .5 - s.y) > s.r) continue; if (s.sd(px + .5, py + .5) < 0) n++; } if (m.bin[py * M + px]) area++; if (n) { filled++; if (n > 1) twice++; if (!m.bin[py * M + px]) outside++; } }
+  return { phase, j: JS[j], pieces: P.length, shown: draw(), radii: P.map(s => +s.r.toFixed(2)), kinds: [...new Set(P.map(s => s.kind))].sort(), ink: P.filter(s => s.col === INK).length, filled: +(filled / area).toFixed(3), overlapping: twice, outside, waits: [P[1].t - P[0].t, P[P.length - 1].t - P[P.length - 2].t].map(v => +v.toFixed(3)), seconds: +packs[j].end.toFixed(1), rounds: window.__rounds || 0 };
+};
+addEventListener('resize', () => { size(); if (still) draw(); }); size();
+if (still) { clock = 1e6; phase = 'full'; draw(); } else requestAnimationFrame(step);
+window.__ready = true;
+</script>
+</body>
+</html>

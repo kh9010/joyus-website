@@ -9,7 +9,13 @@
 </style></head><body><div class="shell"><aside><div><h1>Joyus homepage</h1></div>
 <nav class="modes" aria-label="Mode"><a href="#" data-mode="studies">Studies</a><a href="sitemap/index.html" target="study" data-mode="sitemap">Site map</a></nav>
 <nav class="history" aria-label="Study history">
-<a href="iterations/114/index.html" target="study" aria-current="page"><strong>114 / TomboyX storytelling: a round that fills</strong><small>24 November 2026</small></a>
+<a href="iterations/120/index.html" target="study" aria-current="page"><strong>120 / What the research says is wrong with the stone elements</strong><small>25 November 2026</small></a>
+<a href="iterations/119/index.html" target="study"><strong>119 / Buttons, arrangement and motion, from the stones</strong><small>24 November 2026</small></a>
+<a href="iterations/118/index.html" target="study"><strong>118 / Filling a space, three other ways</strong><small>24 November 2026</small></a>
+<a href="iterations/117/index.html" target="study"><strong>117 / The stones leave the J</strong><small>24 November 2026</small></a>
+<a href="iterations/116/index.html" target="study"><strong>116 / Joyus brand, part by part: now and new</strong><small>24 November 2026</small></a>
+<a href="iterations/115/index.html" target="study"><strong>115 / TomboyX, four rooms, three ways to move</strong><small>24 November 2026</small></a>
+<a href="iterations/114/index.html" target="study"><strong>114 / TomboyX storytelling: a round that fills</strong><small>24 November 2026</small></a>
 <a href="iterations/113/index.html" target="study"><strong>113 / TomboyX storytelling: four rooms</strong><small>24 November 2026</small></a>
 <a href="iterations/112/index.html" target="study"><strong>112 / TomboyX, six spines</strong><small>24 November 2026</small></a>
 <a href="iterations/111/index.html" target="study"><strong>111 / TomboyX investor storytelling, 20 questions</strong><small>24 November 2026</small></a>
@@ -125,5 +131,5 @@
 <a href="iterations/01/index.html" target="study"><strong>01 / Where we started</strong><small>22 September 2026</small></a>
 </nav>
 </aside>
-<iframe title="Study" name="study" src="iterations/114/index.html"></iframe></div>
+<iframe title="Study" name="study" src="iterations/120/index.html"></iframe></div>
 <script>document.querySelectorAll('.history a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.history a').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','page');}));</script><script>/* Site map tab (2 Nov 2026), after Motion Jigsaw's: the map in the same frame; Studies returns to the study last chosen; #sitemap opens on it */(function(){var modes=document.querySelectorAll('.modes a'),hist=document.querySelector('.history'),fr=document.querySelector('iframe[name=study]');function mode(m){modes.forEach(function(x){x.toggleAttribute('aria-current',x.dataset.mode===m)});hist.style.display=m==='studies'?'':'none';}modes[0].addEventListener('click',function(e){e.preventDefault();var cur=document.querySelector('.history a[aria-current]')||document.querySelector('.history a');fr.src=cur.getAttribute('href');mode('studies');history.replaceState(null,'',location.pathname);});modes[1].addEventListener('click',function(){mode('sitemap');history.replaceState(null,'','#sitemap');});function fromHash(){if(location.hash==='#sitemap'){fr.src=modes[1].getAttribute('href');mode('sitemap');}}fromHash();addEventListener('hashchange',fromHash);})();</script></body></html>

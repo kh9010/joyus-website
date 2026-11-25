@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>It grows until it meets</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+html, body { margin: 0; height: 100%; overflow: hidden; background: #fff; color: #2C3544; font-family: 'Space Grotesk', system-ui, sans-serif }
+canvas { position: fixed; left: 0; top: 0; display: block; cursor: crosshair }
+header { position: fixed; left: 0; right: 0; top: 0; padding: 18px 28px; display: flex; justify-content: space-between; font-size: 17px; pointer-events: none }
+header b { font-size: 21px } header span { color: #54606F }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<header><b>joyus</b><span>click inside the J to add a piece</span></header>
+<script type="module">
+// The J starts empty. A piece is a point that grows outward at its own speed until it meets another piece or the
+// edge. Pieces arrive one at a time, anywhere that is still empty; the late ones get what is left. When nothing
+// is left the J is full: it holds, lets go (the same growth run backwards), and the next J starts empty.
+import { loadMask, COLOURS, rng } from './jmask.js';
+const M = 256, MAXN = 64, AUTO = 46, JS = ['rubik', 'shrikhand', 'alfa-slab'];
+const q = new URLSearchParams(location.search), FAST = +(q.get('fast') || 1), still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const masks = await Promise.all(JS.map(n => loadMask(n, M)));
+const cv = document.getElementById('c'), gl = cv.getContext('webgl2', { antialias: false, alpha: false, preserveDrawingBuffer: true });
+const FS = `#version 300 es
+precision highp float;
+const int MAXN = ${MAXN};
+uniform vec4 uS[MAXN];   // x, y (in the mask's pixels), when it was born, how fast it grows
+uniform vec3 uC[MAXN];
+uniform int uN;
+uniform sampler2D uJ;
+uniform vec3 uBox;       // x, y, side of the J's square on screen
+uniform float uNow, uGap, uDpr, uM;
+uniform vec2 uRes;
+out vec4 o;
+void main() {
+  vec2 p = vec2(gl_FragCoord.x, uRes.y - gl_FragCoord.y) / uDpr, m = (p - uBox.xy) / uBox.z * uM;
+  vec3 col = vec3(1.); float a = 0.;
+  if (uN > 0 && m.x > 0. && m.y > 0. && m.x < uM && m.y < uM) {
+    int best = 0; float t1 = 1e9;
+    for (int i = 0; i < MAXN; i++) { if (i >= uN) break; float t = uS[i].z + distance(m, uS[i].xy) / uS[i].w; if (t < t1) { t1 = t; best = i; } }
+    float v1 = uS[best].w, k = 2.6, acc = 0.;
+    for (int i = 0; i < MAXN; i++) { if (i >= uN) break; if (i == best) continue; float t = uS[i].z + distance(m, uS[i].xy) / uS[i].w; acc += exp(-((t - t1) * v1 * uS[i].w / (v1 + uS[i].w)) / k); }
+    acc += exp(-texture(uJ, m / uM).r / k);                 // the edge of the J
+    acc += exp(-((uNow - t1) * v1 + uGap * .5) / k);        // how far it has grown
+    float f = -k * log(acc) - uGap * .5, aa = .8 * uM / uBox.z;
+    a = smoothstep(-aa, aa, f);
+    col = uC[best] * mix(.9, 1., smoothstep(0., 6., f));
+  }
+  o = vec4(mix(vec3(1.), col, a), 1.);
+}`;
+const sh = (t, s) => { const x = gl.createShader(t); gl.shaderSource(x, s); gl.compileShader(x); if (!gl.getShaderParameter(x, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(x)); return x; };
+const pr = gl.createProgram(); gl.attachShader(pr, sh(gl.VERTEX_SHADER, '#version 300 es\nin vec2 a; void main() { gl_Position = vec4(a, 0., 1.); }')); gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, FS)); gl.linkProgram(pr); gl.useProgram(pr);
+gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer()); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+const al = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(al); gl.vertexAttribPointer(al, 2, gl.FLOAT, false, 0, 0);
+const tex = masks.map(m => { const t = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, M, M, 0, gl.RED, gl.FLOAT, m.sd); for (const [k, v] of [[gl.TEXTURE_MIN_FILTER, gl.LINEAR], [gl.TEXTURE_MAG_FILTER, gl.LINEAR], [gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE], [gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE]]) gl.texParameteri(gl.TEXTURE_2D, k, v); return t; });
+const U = n => gl.getUniformLocation(pr, n), hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16) / 255);
+
+let W, H, dpr, box, j = 0, seeds = [], now = 0, phase = 'filling', held = 0, nextAt = 0, planted = 0;
+const rand = rng(3);
+let pts = [];
+const setJ = () => { pts = []; const b = masks[j].bin; for (let y = 2; y < M; y += 4) for (let x = 2; x < M; x += 4) if (b[y * M + x] && masks[j].inside[y * M + x] > 2.5) pts.push([x, y]); };
+const arrival = (x, y) => { let t = Infinity; for (const s of seeds) { const v = s.b + Math.hypot(x - s.x, y - s.y) / s.v; if (v < t) t = v; } return t; };
+const coverage = () => pts.filter(([x, y]) => arrival(x, y) <= now).length / pts.length;
+function plant(x, y, byHand) {
+  if (seeds.length >= MAXN) return false;
+  const near = seeds.map(s => [Math.hypot(s.x - x, s.y - y), s.c]).sort((a, b) => a[0] - b[0]).slice(0, 3).map(n => n[1]);
+  const free = [0, 1, 2, 3].filter(c => !near.includes(c)), c = free.length ? free[Math.floor(rand() * free.length)] : Math.floor(rand() * 4);
+  seeds.push({ x, y, b: now, v: byHand ? 13 : 3.5 + 10 * rand() * rand(), c, byHand: !!byHand }); if (byHand) planted++; return true;
+}
+function size() { W = innerWidth; H = innerHeight; dpr = Math.min(devicePixelRatio || 1, 2); cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + 'px'; cv.style.height = H + 'px'; const S = Math.min(H - 94, W - 24); box = { x: (W - S) / 2, y: 70 + (H - 94 - S) / 2, S }; }
+function draw() {
+  const a = new Float32Array(MAXN * 4), c = new Float32Array(MAXN * 3);
+  seeds.forEach((s, i) => { a.set([s.x, s.y, s.b, s.v], i * 4); c.set(hex(COLOURS[s.c]), i * 3); });
+  gl.viewport(0, 0, cv.width, cv.height); gl.bindTexture(gl.TEXTURE_2D, tex[j]);
+  gl.uniform4fv(U('uS'), a); gl.uniform3fv(U('uC'), c); gl.uniform1i(U('uN'), seeds.length); gl.uniform3f(U('uBox'), box.x, box.y, box.S);
+  gl.uniform1f(U('uNow'), now); gl.uniform1f(U('uGap'), 7 * M / box.S); gl.uniform1f(U('uDpr'), dpr); gl.uniform1f(U('uM'), M); gl.uniform2f(U('uRes'), cv.width, cv.height);
+  gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+}
+let last = performance.now();
+function step(t) {
+  const dt = Math.min(.05, (t - last) / 1000) * FAST; last = t;
+  if (phase === 'filling') {
+    now += dt;
+    if (seeds.length < AUTO && now >= nextAt) { const open = pts.filter(([x, y]) => arrival(x, y) > now + 1.2); if (open.length) { const [x, y] = open[Math.floor(rand() * open.length)]; plant(x, y); } nextAt = now + .1 + .34 * rand(); }
+    if (seeds.length >= 12 && coverage() >= 1) { phase = 'full'; held = 0; }
+  } else if (phase === 'full') { now += dt; held += dt; if (held > 2.6 && !window.__hold) phase = 'letting go'; }
+  else { now -= dt * 5; if (now <= 0) { now = 0; seeds = []; nextAt = .3; j = (j + 1) % JS.length; setJ(); phase = 'filling'; window.__rounds = (window.__rounds || 0) + 1; } }
+  draw(); requestAnimationFrame(step);
+}
+cv.addEventListener('click', e => { const x = (e.clientX - box.x) / box.S * M, y = (e.clientY - box.y) / box.S * M; window.__plant(x, y); });
+window.__plant = (x, y) => { const xi = Math.floor(x), yi = Math.floor(y); if (phase !== 'filling' || xi < 0 || yi < 0 || xi >= M || yi >= M || !masks[j].bin[yi * M + xi] || arrival(x, y) <= now) return false; return plant(x, y, true); };
+window.__open = () => { const open = pts.filter(([x, y]) => arrival(x, y) > now + 4); return open.length ? open[Math.floor(open.length / 2)] : null; };
+window.__measure = () => ({ phase, j: JS[j], pieces: seeds.length, byHand: planted, coverage: +coverage().toFixed(3), clock: +now.toFixed(2), speeds: seeds.map(s => +s.v.toFixed(1)), rounds: window.__rounds || 0 });
+addEventListener('resize', size); size(); setJ();
+if (still) { // no motion: show it full
+  const r = rng(8); while (seeds.length < 34) { const [x, y] = pts[Math.floor(r() * pts.length)]; seeds.push({ x, y, b: 0, v: 3.5 + 10 * r() * r(), c: seeds.length % 4 }); } now = 999; phase = 'full'; draw();
+} else requestAnimationFrame(step);
+window.__ready = true;
+</script>
+</body>
+</html>
