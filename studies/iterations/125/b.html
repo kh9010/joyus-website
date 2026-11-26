@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo+Narrow:wght@500;600;700&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* 125 b. 99's grid, kept: the same columns, rows, air, hairlines, part positions and type. Around it, 123 b's simplicity:
+   warm paper, the question in big black capitals top-left, the person under it, the name in pink with an arrow. The grid
+   stays quiet: a waiting part is warm grey; when its person arrives it turns ink and takes a pink rule; once they have
+   gone the rule stays, in ink. At the end a pink rule passes over the grid, row by row, and settles. */
+:root{--paper:#F4F1EA;--ink:#15161A;--wait:#6E6C66;--hot:#C2185B;--soft:#4A4740;--hair:rgba(21,22,26,.14);
+  --say:'Archivo Black',system-ui,sans-serif;--text:'Archivo Narrow',system-ui,sans-serif;--sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--text);color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font:600 14px var(--text);text-transform:uppercase;letter-spacing:.08em}
+.top.after{background:var(--paper)}
+.top .wm{font:21px var(--say);text-transform:none;letter-spacing:-.03em;text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--paper)}
+#q{position:absolute;left:var(--mx);top:var(--qy);margin:0;max-width:var(--qw);font:400 var(--qs)/.94 var(--say);letter-spacing:-.035em;text-transform:uppercase;z-index:5}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{opacity:0;color:var(--hot)}
+.cap{position:absolute;left:var(--cx);top:var(--cy);margin:0;max-width:var(--cw);opacity:0;z-index:4;pointer-events:none}
+.cap b{display:block;font:400 clamp(1.15rem,1.8vw,1.6rem)/1.05 var(--say);text-transform:uppercase;letter-spacing:-.02em;color:var(--hot)}
+.cap b::after{content:' \2193'}
+.cap span{display:block;color:var(--soft);font:600 clamp(1rem,1.2vw,1.12rem)/1.3 var(--text);margin-top:5px}
+.cap span + span{margin-top:0}
+.cap.say b{font:700 clamp(1.1rem,1.6vw,1.4rem)/1.2 var(--text);text-transform:none;letter-spacing:0;color:var(--soft)}
+.cap.say b::after{content:''}
+/* 99's grid, untouched: only its words' colour and its rules respond */
+#grid{position:absolute;left:0;top:0;display:grid;column-gap:clamp(18px,2.4vw,36px);row-gap:0;opacity:0;z-index:2}
+.t{display:flex;align-items:center;justify-content:flex-start;text-align:left;border-top:1.5px solid var(--hair);
+  color:var(--wait);font:700 clamp(1.12rem,1.55vw,1.5rem)/1.16 var(--sans);letter-spacing:-.025em;
+  box-shadow:inset 0 0 0 0 transparent;transition:color .35s ease,box-shadow .35s cubic-bezier(.7,0,.2,1);transition-delay:inherit}
+.t::first-letter{text-transform:uppercase}
+.t.lit{color:var(--ink);box-shadow:inset 0 2px 0 0 var(--ink)}
+.t.now{box-shadow:inset 0 6px 0 0 var(--hot)}
+#grid.whole .t{animation:pass .9s cubic-bezier(.7,0,.2,1) both;animation-delay:calc(var(--row) * 120ms)}
+@keyframes pass{0%,100%{box-shadow:inset 0 2px 0 0 var(--ink)}40%{box-shadow:inset 0 6px 0 0 var(--hot)}}
+.ans{display:grid;grid-template-columns:minmax(0,1.1fr) 1fr;gap:0 clamp(16px,4vw,56px);padding:clamp(60px,14vh,150px) clamp(16px,4vw,56px) 0}
+.ans h2{margin:0;font:400 clamp(2.2rem,5.4vw,5rem)/.96 var(--say);letter-spacing:-.035em;text-transform:uppercase}
+.ans h2 u{text-decoration:none;color:var(--hot)}
+.ans p{margin:0;align-self:end;max-width:30ch;font:600 clamp(1.2rem,2vw,1.7rem)/1.25 var(--text);color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,56px) clamp(40px,8vh,90px)}
+.on a{display:inline-block;font:400 clamp(1.5rem,3.3vw,2.8rem)/1 var(--say);text-transform:uppercase;letter-spacing:-.03em;text-decoration:none;color:var(--ink);border-bottom:6px solid var(--hot);padding-bottom:4px}
+.on a::after{content:' \2192'}
+.foot{padding:0 clamp(16px,4vw,56px) 34px;color:var(--wait);font:600 13px var(--text);text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:760px){.top nav{display:none}.t{font-size:14.5px;line-height:1.1;letter-spacing:-.02em}.ans{grid-template-columns:1fr}.ans p{margin-top:24px}}
+@media(prefers-reduced-motion:reduce){.t{transition:none}#grid.whole .t{animation:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="grid"></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+const D = JSON.parse(document.getElementById('data').textContent);
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), grid = document.getElementById('grid');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const used = D.people.map(() => 0);
+const tiles = D.order.map((k, i) => { const e = document.createElement('div'), s = document.createElement('span'); e.className = 't'; e.dataset.k = k; s.textContent = D.people[k].parts[used[k]]; e.style.transitionDelay = (used[k]++ * 70) + 'ms'; e.append(s); grid.append(e); return e; });
+const caps = D.people.map((p, k) => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, grid); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1));
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+const T = { grid: [.1, .16], all: [.13, .23], first: .24, empty: [.34, .44], six: [.44, .48], next: .48, step: .085, full: .915 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, mx = phone ? 16 : Math.round(W * .05);
+  stage.style.setProperty('--mx', mx + 'px'); stage.style.setProperty('--qy', (phone ? 50 : 66) + 'px');
+  // wide: the question on the left, the person to its right on the same line; phone: the person under the question
+  stage.style.setProperty('--qw', (phone ? W - 2 * mx : W * .56) + 'px');
+  stage.style.setProperty('--cx', (phone ? mx : Math.round(W * .64)) + 'px'); stage.style.setProperty('--cw', (phone ? W - 2 * mx : W * .32) + 'px');
+  // the question as big as it can be while the top stays within a third of the screen (where 99's sits), so the grid keeps its air
+  let qs = phone ? 34 : Math.min(W * .05, 74), top;
+  for (; qs >= 20; qs -= 1) { stage.style.setProperty('--qs', qs + 'px'); stage.style.setProperty('--cy', (phone ? q.offsetTop + q.offsetHeight + 10 : 70) + 'px');
+    top = Math.max(q.offsetTop + q.offsetHeight, ...allCaps.map(c => c.offsetTop + c.offsetHeight)) + (phone ? 14 : 30); if (top <= H * (phone ? .33 : .4)) break; }
+  // from here on, 99's grid code, unchanged
+  const cols = phone ? 2 : 6, rows = 24 / cols, gw = Math.min(W - 32, 1240), foot = phone ? 14 : 44;
+  const th = Math.min(phone ? 46 : 112, (H - top - foot) / rows), gh = th * rows;
+  grid.style.gridTemplateColumns = `repeat(${cols},1fr)`; grid.style.gridAutoRows = th + 'px'; grid.style.width = gw + 'px';
+  grid.style.transform = `translate(${(W - gw) / 2}px,${top + Math.max(0, (H - top - foot - gh) / 2)}px)`;
+  tiles.forEach((t, i) => t.style.setProperty('--row', Math.floor(i / cols)));
+  L = { W, phone, qs };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  const six = ramp(p, ...T.six); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  grid.style.opacity = ramp(p, ...T.grid);
+  $('c-all').style.opacity = win(p, ...T.all); $('c-empty').style.opacity = win(p, ...T.empty); $('c-full').style.opacity = ramp(p, T.full, T.full + .02);
+  let now = -1;
+  caps.forEach((c, k) => { const a = at(k), b = k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1)); c.style.opacity = win(p, a, b); if (p >= a && p < b) now = k; });
+  for (const t of tiles) { const k = +t.dataset.k; t.classList.toggle('lit', p >= at(k)); t.classList.toggle('now', k === now); }
+  grid.classList.toggle('whole', p >= T.full);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__p = p;
+}
+// what the check reads: the grid's geometry against 99's, and the quiet around it
+const lum = c => { const v = c.match(/[\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + .05) / (y + .05); };
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(grid) ? R(grid) : null, shown = allCaps.filter(vis), cr = shown.map(R);
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (g && hit(c, g)) overlaps++; }); if (g && hit(g, head)) overlaps++;
+  const out = [...cr, head, ...(g ? [g] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const clipped = tiles.filter(t => { const r = R(t); return [...t.firstChild.getClientRects()].some(s => s.top < r.top - .5 || s.left < r.left - 4 || s.right > r.right + 1 || s.bottom > r.bottom + .5); }).map(t => t.textContent);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize)));
+  const paper = 'rgb(244, 241, 234)';
+  const litC = tiles.filter(t => t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, paper)), unC = tiles.filter(t => !t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, paper));
+  const gr = R(grid), cs = getComputedStyle(grid);
+  const geometry = { cols: cs.gridTemplateColumns.split(' ').length, width: Math.round(gr.width), left: Math.round(gr.left), gap: parseFloat(cs.columnGap), row: +parseFloat(cs.gridAutoRows).toFixed(1),
+    cells: tiles.map(e => { const r = R(e); return [Math.round(r.left - gr.left), Math.round(r.top - gr.top), Math.round(r.width), Math.round(r.height)]; }), words: tiles.map(e => e.textContent),
+    type: getComputedStyle(tiles[0]).fontFamily.split(',')[0].replace(/"/g, ''), size: parseFloat(getComputedStyle(tiles[0]).fontSize), weight: getComputedStyle(tiles[0]).fontWeight };
+  const pink = tiles.filter(t => getComputedStyle(t).boxShadow.includes('rgb(194, 24, 91)')).length;
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, caption: shown.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small,
+    litContrast: litC.length ? +Math.min(...litC).toFixed(2) : null, unlitContrast: unC.length ? +Math.min(...unC).toFixed(2) : null, type: geometry.size, largeBold: geometry.size >= 18.66, whole: grid.classList.contains('whole'),
+    geometry, pink, qs: L.qs, questionCaps: getComputedStyle(q).textTransform === 'uppercase' };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

@@ -9,7 +9,14 @@
 </style></head><body><div class="shell"><aside><div><h1>Joyus homepage</h1></div>
 <nav class="modes" aria-label="Mode"><a href="#" data-mode="studies">Studies</a><a href="sitemap/index.html" target="study" data-mode="sitemap">Site map</a></nav>
 <nav class="history" aria-label="Study history">
-<a href="iterations/120/index.html" target="study" aria-current="page"><strong>120 / What the research says is wrong with the stone elements</strong><small>25 November 2026</small></a>
+<a href="iterations/127/index.html" target="study" aria-current="page"><strong>127 / EWC on white, no lines, six typefaces to pick from</strong><small>26 November 2026</small></a>
+<a href="iterations/126/index.html" target="study"><strong>126 / EWC, both: seafoam, one typeface, underlines</strong><small>26 November 2026</small></a>
+<a href="iterations/125/index.html" target="study"><strong>125 / EWC, 99's grid kept, A's energy and B's simplicity around it</strong><small>26 November 2026</small></a>
+<a href="iterations/124/index.html" target="study"><strong>124 / EWC, A's energy with B's simplicity, three ways</strong><small>26 November 2026</small></a>
+<a href="iterations/123/index.html" target="study"><strong>123 / EWC from the anchor words: vibrance, energy, surety, groundedness</strong><small>26 November 2026</small></a>
+<a href="iterations/122/index.html" target="study"><strong>122 / EWC as four whole systems: type, ground, layout, motion</strong><small>26 November 2026</small></a>
+<a href="iterations/121/index.html" target="study"><strong>121 / EWC in four feelings: vibrant, energy, solved, grounded</strong><small>26 November 2026</small></a>
+<a href="iterations/120/index.html" target="study"><strong>120 / What the research says is wrong with the stone elements</strong><small>25 November 2026</small></a>
 <a href="iterations/119/index.html" target="study"><strong>119 / Buttons, arrangement and motion, from the stones</strong><small>24 November 2026</small></a>
 <a href="iterations/118/index.html" target="study"><strong>118 / Filling a space, three other ways</strong><small>24 November 2026</small></a>
 <a href="iterations/117/index.html" target="study"><strong>117 / The stones leave the J</strong><small>24 November 2026</small></a>
@@ -131,5 +138,5 @@
 <a href="iterations/01/index.html" target="study"><strong>01 / Where we started</strong><small>22 September 2026</small></a>
 </nav>
 </aside>
-<iframe title="Study" name="study" src="iterations/120/index.html"></iframe></div>
+<iframe title="Study" name="study" src="iterations/127/index.html"></iframe></div>
 <script>document.querySelectorAll('.history a').forEach(a=>a.addEventListener('click',()=>{document.querySelectorAll('.history a').forEach(x=>x.removeAttribute('aria-current'));a.setAttribute('aria-current','page');}));</script><script>/* Site map tab (2 Nov 2026), after Motion Jigsaw's: the map in the same frame; Studies returns to the study last chosen; #sitemap opens on it */(function(){var modes=document.querySelectorAll('.modes a'),hist=document.querySelector('.history'),fr=document.querySelector('iframe[name=study]');function mode(m){modes.forEach(function(x){x.toggleAttribute('aria-current',x.dataset.mode===m)});hist.style.display=m==='studies'?'':'none';}modes[0].addEventListener('click',function(e){e.preventDefault();var cur=document.querySelector('.history a[aria-current]')||document.querySelector('.history a');fr.src=cur.getAttribute('href');mode('studies');history.replaceState(null,'',location.pathname);});modes[1].addEventListener('click',function(){mode('sitemap');history.replaceState(null,'','#sitemap');});function fromHash(){if(location.hash==='#sitemap'){fr.src=modes[1].getAttribute('href');mode('sitemap');}}fromHash();addEventListener('hashchange',fromHash);})();</script></body></html>

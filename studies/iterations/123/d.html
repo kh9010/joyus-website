@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ultra&family=Calistoga&family=Karla:wght@400;500;700&display=swap">
+<style>
+/* 123 d. Anchor: GROUNDEDNESS. Rooted, weight low, warm, human.
+   Composition: everything anchored to the bottom edge. The question is the ground: it sinks from the middle of the screen
+   to the bottom as the page opens, and stays there. The parts rest on it in a few heavy rows, ragged on the right like
+   writing, not a grid. The person sits on top of the parts. The sky above is left open. The only motion is down, and
+   slow: a person's parts press down into place and take a heavy underline. At the end every part settles once more,
+   row by row from the top. Warm ground, darker toward the bottom. Type: Ultra (one of the gummy J's faces), Calistoga, Karla. */
+:root{--sky:#F4EEE3;--earth:#E4D5BC;--ink:#2B2118;--wait:#665543;--clay:#8C3D1E;--soft:#4E4031;
+  --say:'Ultra',Georgia,serif;--part:'Calistoga',Georgia,serif;--text:'Karla',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--text);color:var(--ink);background:var(--earth);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px var(--x0,40px);font:500 15px var(--text)}
+.top.after{background:var(--earth)}
+.top .wm{font:20px var(--say);text-decoration:none}
+.top nav{display:flex;gap:20px}.top nav a{text-decoration:none}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:linear-gradient(var(--sky) 30%,var(--earth))}
+#q{position:absolute;left:var(--x0);top:0;margin:0;max-width:calc(100% - 2 * var(--x0));font:400 var(--qs)/1.04 var(--say);letter-spacing:-.01em;z-index:5}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{color:var(--clay);opacity:0}
+.cap{position:absolute;left:var(--x0);top:0;margin:0;max-width:min(560px,calc(100% - 2 * var(--x0)));opacity:0;pointer-events:none}
+.cap b{display:block;font:400 clamp(1.3rem,2vw,1.8rem)/1.1 var(--say)}
+.cap span{display:block;color:var(--soft);font:500 clamp(1rem,1.2vw,1.1rem)/1.35 var(--text);margin-top:4px}
+.cap span + span{margin-top:0}
+.cap.say b{font:500 clamp(1.1rem,1.7vw,1.45rem)/1.25 var(--text);color:var(--soft)}
+/* the parts: heavy rows, ragged right */
+#grid{position:absolute;left:var(--x0);top:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:var(--cg);row-gap:var(--rg);opacity:0}
+.t{color:var(--wait);font:400 var(--fs)/1.15 var(--part);white-space:nowrap;padding-bottom:.12em;background:linear-gradient(var(--clay),var(--clay)) no-repeat 0 100%/0 .14em;
+  transition:color .8s ease,background-size .9s cubic-bezier(.2,.7,.1,1);transition-delay:inherit}
+.t::first-letter{text-transform:uppercase}
+.t.lit{color:var(--ink);animation:press .9s cubic-bezier(.2,.7,.1,1) both;animation-delay:inherit}
+.t.now{color:var(--clay);background-size:100% .14em}
+@keyframes press{0%{transform:translateY(-.32em)}100%{transform:none}}
+#grid.whole .t{animation:settle 1s cubic-bezier(.2,.7,.1,1) both;animation-delay:calc(var(--row) * 150ms)}
+@keyframes settle{0%{transform:translateY(-.2em)}100%{transform:none}}
+.ans{padding:clamp(70px,15vh,160px) var(--x0,40px) 0;background:var(--earth)}
+.ans h2{margin:0;max-width:16ch;font:400 clamp(2.2rem,5.6vw,5.2rem)/1.04 var(--say)}
+.ans h2 u{text-decoration:none;color:var(--clay)}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font:500 clamp(1.15rem,1.9vw,1.6rem)/1.35 var(--text);color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) var(--x0,40px) clamp(40px,8vh,90px);background:var(--earth)}
+.on a{font:400 clamp(1.4rem,3vw,2.5rem)/1 var(--say);text-decoration:none;border-bottom:.14em solid var(--clay);padding-bottom:.08em}
+.foot{padding:0 var(--x0,40px) 34px;color:var(--soft);font:500 14px var(--text);background:var(--earth)}
+@media(max-width:760px){.top nav{display:none}}
+@media(prefers-reduced-motion:reduce){.t{transition:none;animation:none!important}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="grid"></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+const D = JSON.parse(document.getElementById('data').textContent);
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), grid = document.getElementById('grid');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const used = D.people.map(() => 0);
+const tiles = D.order.map(k => { const e = document.createElement('span'); e.className = 't'; e.dataset.k = k; e.textContent = D.people[k].parts[used[k]]; e.style.transitionDelay = (used[k]++ * 150) + 'ms'; grid.append(e); return e; });
+const caps = D.people.map((p, k) => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, grid); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+const T = { sink: [.06, .14], grid: [.1, .16], all: [.13, .23], first: .24, empty: [.34, .44], six: [.44, .48], next: .48, step: .085, full: .915 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, x0 = phone ? 16 : Math.round(W * .055);
+  document.documentElement.style.setProperty('--x0', x0 + 'px'); stage.style.setProperty('--x0', x0 + 'px');
+  stage.style.setProperty('--qs', (phone ? Math.min(32, W * .085) : Math.min(W * .052, H * .085)) + 'px');
+  const floor = H - (phone ? 16 : 36), qH = q.offsetHeight, qY = floor - qH;
+  // the parts sit on the question; the person on the parts; the type fitted so the stack leaves the sky open
+  grid.style.width = (W - 2 * x0) + 'px'; grid.style.setProperty('--cg', phone ? '.8em' : '1.1em'); grid.style.setProperty('--rg', phone ? '.18em' : '.3em');
+  const capH = Math.max(...allCaps.map(c => c.offsetHeight)), room = qY - (phone ? 14 : 30) - capH - (phone ? 12 : 24) - (phone ? 64 : 90);
+  let fs = phone ? 18 : 34;
+  for (; fs > 13; fs -= .5) { grid.style.setProperty('--fs', fs + 'px'); if (grid.offsetHeight <= Math.min(room, H * (phone ? .5 : .42))) break; }
+  const gY = qY - (phone ? 14 : 30) - grid.offsetHeight;
+  grid.style.transform = `translateY(${gY}px)`;
+  for (const c of allCaps) c.style.transform = `translateY(${gY - (phone ? 12 : 24) - c.offsetHeight}px)`;
+  // rows, from the top, for the end
+  const tops = [...new Set(tiles.map(t => t.offsetTop))].sort((a, b) => a - b);
+  tiles.forEach(t => t.style.setProperty('--row', tops.indexOf(t.offsetTop)));
+  L = { W, H, phone, qY, mid: Math.round(H * .4 - qH / 2), fs: Math.max(13, fs) };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  // the question only ever goes down: from the middle of the screen to the bottom
+  q.style.transform = `translateY(${mix(L.mid, L.qY, ramp(p, ...T.sink))}px)`;
+  const six = ramp(p, ...T.six); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  grid.style.opacity = ramp(p, ...T.grid);
+  $('c-all').style.opacity = win(p, ...T.all); $('c-empty').style.opacity = win(p, ...T.empty); $('c-full').style.opacity = ramp(p, T.full, T.full + .02);
+  let now = -1;
+  caps.forEach((c, k) => { const a = at(k), b = k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1)); c.style.opacity = win(p, a, b); if (p >= a && p < b) now = k; });
+  for (const t of tiles) { const k = +t.dataset.k; t.classList.toggle('lit', p >= at(k)); t.classList.toggle('now', k === now); }
+  grid.classList.toggle('whole', p >= T.full);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__p = p; window.__qy = q.getBoundingClientRect().top;
+}
+// what the check reads
+const lum = c => { const v = c.match(/[\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + .05) / (y + .05); };
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(grid) ? R(grid) : null, shown = allCaps.filter(vis), cr = shown.map(R);
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (g && hit(c, g)) overlaps++; }); if (g && hit(g, head)) overlaps++;
+  const out = [...cr, head, ...(g ? [g] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const clipped = tiles.filter(t => R(t).right > R(grid).right + 1).map(t => t.textContent);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize)));
+  const ground = 'rgb(228, 213, 188)';   // the darkest the ground gets: the worst case for dark words
+  const litC = tiles.filter(t => t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, ground)), unC = tiles.filter(t => !t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, ground));
+  // the weight is low: the question's foot near the bottom, the parts on the question, the person on the parts, the sky open
+  const qFoot = Math.round(H - head.bottom), onQ = g ? Math.round(head.top - g.bottom) : null, capOn = g && cr.length ? Math.round(g.top - cr[0].bottom) : null;
+  const top = Math.min(head.top, ...(g ? [g.top] : []), ...cr.map(r => r.top)), sky = +(top / H).toFixed(2);
+  const underlined = tiles.filter(t => parseFloat(getComputedStyle(t).backgroundSize) > 99).length;
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, now: tiles.filter(t => t.classList.contains('now')).length, caption: shown.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small,
+    litContrast: litC.length ? +Math.min(...litC).toFixed(2) : null, unlitContrast: unC.length ? +Math.min(...unC).toFixed(2) : null, type: L.fs, largeBold: false, whole: grid.classList.contains('whole'),
+    qFoot, onQ, capOn, sky, qY: Math.round(window.__qy), underlined, rows: new Set(tiles.map(t => Math.round(R(t).top))).size,
+    fonts: [...new Set([...document.querySelectorAll('#q, .t, .cap b, .cap span')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/"/g, '')))] };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

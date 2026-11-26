@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Rubik:wght@400;500;600;700&display=swap">
+<style>
+/* 122 a, vibrant. Study 99's words, beats and scroll; everything you see is new.
+   Type: Bagel Fat One (one of the gummy J's ten faces) for anything said out loud, Rubik for the rest.
+   Ground: night violet, so the four stone colours can be used at full strength.
+   The block: not a grid. The 24 parts are a cloud of pills of every width, like a handful of stones.
+   A part nobody has come for is a dim outline. When its person comes it pops full of colour and stays.
+   Colour by the brand's one rule: neighbours never share one. At the end every pill bobs, in a wave. */
+:root{--bg:#1C1530;--ink:#FFFFFF;--soft:#C9C0E6;--dim:#8A80A8;--line:rgba(255,255,255,.28);
+  --P:#f25aa3;--V:#7d55d4;--C:#2fc0d8;--Y:#f5c63c;--dark:#1C1530;
+  --say:'Bagel Fat One',system-ui,sans-serif;--text:'Rubik',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--text);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font-size:15px;font-weight:500}
+.top.after{background:rgba(28,21,48,.88);backdrop-filter:blur(8px)}
+.top .wm{font:22px var(--say);text-decoration:none;color:var(--Y)}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none;color:var(--soft)}.top nav a:hover{color:var(--ink)}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
+#q{position:absolute;left:0;right:0;top:0;margin:0 auto;padding:0 16px;width:max-content;max-width:100%;text-align:center;transform-origin:50% 0;z-index:5;
+  font:400 clamp(2.3rem,6.4vw,5.8rem)/1.02 var(--say);letter-spacing:-.01em}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{opacity:0;background:linear-gradient(90deg,var(--P),var(--Y) 35%,var(--C) 70%,var(--V));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cap{position:absolute;left:0;right:0;top:0;margin:0;padding:0 16px;text-align:center;opacity:0;z-index:4;pointer-events:none}
+.cap b{display:block;width:max-content;max-width:100%;margin:0 auto;font:400 clamp(1.5rem,2.5vw,2.2rem)/1.1 var(--say)}
+.cap span{display:block;color:var(--soft);font-size:clamp(1rem,1.25vw,1.12rem);line-height:1.35;margin-top:4px}
+.cap span + span{margin-top:1px;color:var(--dim)}
+.cap.say b{width:auto;font:500 clamp(1.15rem,1.9vw,1.6rem)/1.25 var(--text);color:var(--soft)}
+/* the cloud */
+#grid{position:absolute;left:0;top:0;display:flex;flex-wrap:wrap;justify-content:center;align-content:center;gap:clamp(8px,1vw,14px);opacity:0;z-index:2}
+.t{display:inline-flex;align-items:center;border-radius:999px;padding:.42em .95em .46em;box-shadow:inset 0 0 0 1.5px var(--line);
+  color:var(--dim);font:600 clamp(1.02rem,1.42vw,1.4rem)/1.1 var(--text);letter-spacing:-.01em;white-space:nowrap;
+  transition:background-color .35s ease,color .35s ease,box-shadow .35s ease,transform .5s cubic-bezier(.34,1.7,.5,1);transition-delay:inherit}
+.t::first-letter{text-transform:uppercase}
+.t.lit{background:var(--c);color:var(--on);box-shadow:inset 0 0 0 1.5px var(--c)}
+.t.now{transform:translateY(-4px) scale(1.06);box-shadow:inset 0 0 0 1.5px var(--c),0 0 0 5px color-mix(in srgb,var(--c) 35%,transparent)}
+#grid.whole .t{animation:bob 1.2s cubic-bezier(.4,0,.2,1) both;animation-delay:calc(var(--i) * 45ms)}
+@keyframes bob{0%,100%{transform:none}35%{transform:translateY(-10px) rotate(-2deg)}70%{transform:translateY(2px) rotate(1deg)}}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,4vw,60px) 0}
+.ans h2{margin:0;max-width:16ch;font:400 clamp(2.3rem,6.4vw,5.8rem)/1.02 var(--say)}
+.ans h2 u{text-decoration:none;background:linear-gradient(90deg,var(--P),var(--Y) 40%,var(--C));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font-size:clamp(1.15rem,1.9vw,1.6rem);line-height:1.3;font-weight:500;color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,60px) clamp(40px,8vh,90px)}
+.on a{display:inline-block;font:400 clamp(1.5rem,3.3vw,2.6rem)/1 var(--say);text-decoration:none;background:var(--P);color:var(--dark);border-radius:999px;padding:.4em .9em .45em}
+.on a:hover{background:var(--Y)}
+.foot{padding:0 clamp(16px,4vw,60px) 34px;color:var(--dim);font-size:14px}
+@media(max-width:760px){.top nav{display:none}.t{font-size:14px;padding:.36em .78em .4em}#grid{gap:7px}#grid.whole .t{animation-name:bobS}}
+@keyframes bobS{0%,100%{transform:none}40%{transform:translateY(-3px)}}
+@media(prefers-reduced-motion:reduce){.t{transition:none}#grid.whole .t{animation:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="grid"></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+const D = JSON.parse(document.getElementById('data').textContent);
+// the stone colours and the text each one carries (dark on pink, cyan, yellow; white on purple: all at 5:1 or better)
+const STONE = [['#f25aa3', '#1C1530'], ['#2fc0d8', '#1C1530'], ['#f5c63c', '#1C1530'], ['#7d55d4', '#FFFFFF']];
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), grid = document.getElementById('grid');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const used = D.people.map(() => 0);
+const tiles = D.order.map(k => { const e = document.createElement('div'), s = document.createElement('span'); e.className = 't'; e.dataset.k = k; s.textContent = D.people[k].parts[used[k]]; e.style.transitionDelay = (used[k]++ * 90) + 'ms'; e.append(s); grid.append(e); return e; });
+tiles.forEach((t, i) => t.style.setProperty('--i', i));
+const caps = D.people.map((p, k) => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, grid); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1)), mix = (a, b, t) => a + (b - a) * t;
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+const T = { rise: [.06, .13], grid: [.1, .16], all: [.13, .23], first: .24, empty: [.34, .44], six: [.44, .48], next: .48, step: .085, full: .915 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+// neighbours never share a colour: each pill takes the first stone its left neighbour and the pills touching it above do not have
+function colour() {
+  const R = tiles.map(t => ({ l: t.offsetLeft, r: t.offsetLeft + t.offsetWidth, y: t.offsetTop, h: t.offsetHeight }));
+  const pick = [];
+  tiles.forEach((t, i) => {
+    const near = new Set();
+    R.forEach((o, j) => { if (j >= i) return; const sameRow = Math.abs(o.y - R[i].y) < 2, above = R[i].y - o.y > 2 && R[i].y - o.y < R[i].h * 1.8;
+      if ((sameRow && j === i - 1) || (above && o.l < R[i].r && R[i].l < o.r)) near.add(pick[j]); });
+    pick[i] = [0, 1, 2, 3].map(n => (n + i) % 4).find(n => !near.has(n)) ?? i % 4;
+    t.style.setProperty('--c', STONE[pick[i]][0]); t.style.setProperty('--on', STONE[pick[i]][1]); t.dataset.s = pick[i];
+  });
+}
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760;
+  const qk = phone ? .6 : .44, qH = q.offsetHeight, y0 = phone ? 58 : 70, capY = y0 + qH * qk + (phone ? 10 : 18);
+  for (const c of allCaps) c.style.transform = `translateY(${capY}px)`;
+  const top = capY + Math.max(...allCaps.map(c => c.offsetHeight)) + (phone ? 14 : 30);
+  const gw = Math.min(W - 32, phone ? W - 24 : 1100), foot = phone ? 14 : 44;
+  grid.style.width = gw + 'px'; grid.style.height = (H - top - foot) + 'px';
+  grid.style.transform = `translate(${(W - gw) / 2}px,${top}px)`;
+  colour();
+  L = { W, qk, y0, mid: Math.max(70, H * .46 - qH / 2) };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  const up = ramp(p, ...T.rise);
+  q.style.transform = `translateY(${mix(L.mid, L.y0, up)}px) scale(${mix(1, L.qk, up)})`;
+  const six = ramp(p, ...T.six); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  grid.style.opacity = ramp(p, ...T.grid);
+  $('c-all').style.opacity = win(p, ...T.all); $('c-empty').style.opacity = win(p, ...T.empty); $('c-full').style.opacity = ramp(p, T.full, T.full + .02);
+  let now = -1;
+  caps.forEach((c, k) => { const a = at(k), b = k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1)); c.style.opacity = win(p, a, b); if (p >= a && p < b) now = k; });
+  for (const t of tiles) { const k = +t.dataset.k; t.classList.toggle('lit', p >= at(k)); t.classList.toggle('now', k === now); }
+  grid.classList.toggle('whole', p >= T.full);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__p = p;
+}
+// what the check reads
+const lum = c => { const v = c.match(/[\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + .05) / (y + .05); };
+const rgb = h => 'rgb(' + h.slice(1).match(/../g).map(x => parseInt(x, 16)).join(',') + ')';
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(grid) ? R(grid) : null, shown = allCaps.filter(vis), cr = shown.map(R);
+  const block = g ? tiles.map(R).reduce((a, r) => ({ left: Math.min(a.left, r.left), right: Math.max(a.right, r.right), top: Math.min(a.top, r.top), bottom: Math.max(a.bottom, r.bottom) }), { left: 1e9, right: -1e9, top: 1e9, bottom: -1e9 }) : null;
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (block && hit(c, block)) overlaps++; }); if (block && hit(block, head)) overlaps++;
+  const rects = tiles.map(R); rects.forEach((a, i) => rects.forEach((b, j) => { if (i < j && hit(a, b)) overlaps++; }));
+  const out = [...cr, head, ...(block ? [block] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const clipped = tiles.filter(t => t.scrollWidth > t.clientWidth + 1).map(t => t.textContent);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize) * (e.closest('#q') ? L.qk : 1)));
+  const bg = getComputedStyle(document.body).backgroundColor;
+  const litC = tiles.filter(t => t.classList.contains('lit')).map(t => ratio(rgb(t.style.getPropertyValue('--on')), rgb(t.style.getPropertyValue('--c'))));
+  const unC = tiles.filter(t => !t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, bg));
+  const fs = parseFloat(getComputedStyle(tiles[0]).fontSize);
+  // neighbours: side by side in a row, or touching above
+  let sameNeighbour = 0; rects.forEach((a, i) => rects.forEach((b, j) => { if (i >= j) return; const side = Math.abs(a.top - b.top) < 2 && Math.abs(a.right - b.left) < 20, over = Math.abs(a.bottom - b.top) < 20 && a.left < b.right && b.left < a.right; if ((side || over) && tiles[i].dataset.s === tiles[j].dataset.s) sameNeighbour++; }));
+  const rows = new Set(rects.map(r => Math.round(r.top))).size, widths = new Set(rects.map(r => Math.round(r.width / 8))).size;
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, now: tiles.filter(t => t.classList.contains('now')).length, caption: shown.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small,
+    litContrast: litC.length ? +Math.min(...litC).toFixed(2) : null, unlitContrast: unC.length ? +Math.min(...unC).toFixed(2) : null, type: fs, largeBold: fs >= 18.66, whole: grid.classList.contains('whole'),
+    filled: tiles.filter(t => getComputedStyle(t).backgroundColor !== 'rgba(0, 0, 0, 0)').length, sameNeighbour, rows, widths, bg, fonts: [...new Set([...document.querySelectorAll('#q, .t, .cap b, .cap span')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/"/g, '')))] };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

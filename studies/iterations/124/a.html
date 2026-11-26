@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo+Narrow:wght@500;600;700&display=swap">
+<style>
+/* 124 a. Split, flooded. 123 b's simplicity (two halves, one line) with 123 a's energy (the room takes the arriving
+   person's colour). The question's half is ink until someone arrives, then floods with their colour; their four snap
+   onto the line and paint their stretch of it in that colour, and keep it. At the end the half is ink again and the line
+   is all six colours, top to bottom. Type: Archivo Black and Archivo Narrow. */
+:root{--ink:#15161A;--paper:#F4F1EA;--hot:#FF3D8B;--wait:#6E6C66;--flood:#15161A;--on:#FFFFFF;
+  --say:'Archivo Black',system-ui,sans-serif;--text:'Archivo Narrow',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--text);color:var(--ink);background:var(--paper);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font:600 14px var(--text);text-transform:uppercase;letter-spacing:.08em}
+.top .wm{font:21px var(--say);text-transform:none;letter-spacing:-.03em;text-decoration:none;color:var(--on);transition:color .45s ease}
+.top.after{background:var(--paper)}.top.after .wm{color:var(--ink)}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--paper)}
+#left{position:absolute;left:0;top:0;width:var(--split);background:var(--flood);transition:background-color .45s cubic-bezier(.7,0,.2,1);z-index:1}
+#q{position:absolute;left:var(--pad);width:calc(var(--split) - 2 * var(--pad));top:var(--qy);margin:0;color:var(--on);font:400 var(--qs)/.92 var(--say);letter-spacing:-.035em;text-transform:uppercase;z-index:5;transition:color .45s ease}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{opacity:0;color:var(--accent,var(--hot));text-decoration:underline;text-decoration-thickness:.09em;text-underline-offset:.08em;transition:color .45s ease}
+.cap{position:absolute;left:var(--pad);width:calc(var(--split) - 2 * var(--pad));top:var(--cy);margin:0;opacity:0;z-index:4;pointer-events:none;color:var(--on);transition:color .45s ease}
+.cap b{display:block;font:400 clamp(1.3rem,2.2vw,2rem)/1.05 var(--say);text-transform:uppercase;letter-spacing:-.02em}
+.cap b::after{content:' \2192'}
+.cap span{display:block;font:600 clamp(1rem,1.25vw,1.15rem)/1.3 var(--text);margin-top:6px}
+.cap span + span{margin-top:0}
+.cap.say b{font:700 clamp(1.15rem,1.8vw,1.55rem)/1.2 var(--text);text-transform:none;letter-spacing:0}
+.cap.say b::after{content:''}
+#col{position:absolute;overflow:hidden;opacity:0;z-index:2;-webkit-mask-image:linear-gradient(transparent,#000 36px,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(transparent,#000 36px,#000 calc(100% - 36px),transparent)}
+#col.whole{-webkit-mask-image:none;mask-image:none}
+#line{position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--ink);opacity:.25}
+#list{position:absolute;left:0;right:0;top:0;transition:transform .55s cubic-bezier(.7,0,.2,1)}
+.t{position:relative;display:flex;align-items:center;height:var(--row);padding-left:calc(var(--off) + 26px);color:var(--wait);
+  font:600 var(--fs)/1 var(--text);text-transform:uppercase;letter-spacing:.02em;white-space:nowrap;
+  transition:padding-left .32s cubic-bezier(.7,0,.2,1),color .2s ease,height .5s ease;transition-delay:inherit}
+/* each part paints its own stretch of the line in its person's colour */
+.t::before{content:'';position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c);transform:scaleY(0);transform-origin:50% 0;transition:transform .32s cubic-bezier(.7,0,.2,1),width .32s cubic-bezier(.7,0,.2,1);transition-delay:inherit}
+.t.lit{padding-left:26px;color:var(--ink)}
+.t.lit::before{transform:none}
+.t.now{font-weight:700}
+.t.now::before{width:14px}
+#col.whole .t::before{animation:beat .4s cubic-bezier(.34,1.6,.5,1) both;animation-delay:calc(var(--i) * 25ms)}
+@keyframes beat{0%{width:6px}50%{width:14px}100%{width:6px}}
+.ans{display:grid;grid-template-columns:var(--split,50%) 1fr;min-height:70vh}
+.ans h2{margin:0;padding:clamp(60px,12vh,130px) clamp(16px,4vw,56px);background:var(--ink);color:#fff;font:400 clamp(2.2rem,5.4vw,5rem)/.96 var(--say);letter-spacing:-.035em;text-transform:uppercase}
+.ans h2 u{text-decoration:none;background:linear-gradient(90deg,#f25aa3,#ff8a3d,#f5c63c,#2fc0d8,#7d55d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ans p{margin:0;align-self:end;padding:clamp(40px,8vh,90px) clamp(16px,4vw,56px);max-width:30ch;font:600 clamp(1.2rem,2vw,1.7rem)/1.25 var(--text)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,4vw,56px) clamp(40px,8vh,90px);text-align:right}
+.on a{display:inline-block;font:400 clamp(1.5rem,3.3vw,2.8rem)/1 var(--say);text-transform:uppercase;letter-spacing:-.03em;text-decoration:none;color:var(--ink);border-left:8px solid #f25aa3;padding:.1em .3em .12em .4em}
+.on a::after{content:' \2192'}
+.foot{padding:0 clamp(16px,4vw,56px) 34px;color:var(--wait);font:600 13px var(--text);text-transform:uppercase;letter-spacing:.08em;text-align:right}
+@media(max-width:760px){.top nav{display:none}.ans{grid-template-columns:1fr}.ans p{align-self:start}}
+@media(prefers-reduced-motion:reduce){#left,#list,.t,.t::before{transition:none}#col.whole .t::before{animation:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<div id="left"></div>
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="col"><div id="line"></div><div id="list"></div></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+const D = JSON.parse(document.getElementById('data').textContent);
+// 123 a's six colours and the text each carries
+const COL = [['#f25aa3', '#1C1530'], ['#2fc0d8', '#1C1530'], ['#f5c63c', '#1C1530'], ['#7d55d4', '#FFFFFF'], ['#ff8a3d', '#1C1530'], ['#2C3544', '#FFFFFF']];
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), col = document.getElementById('col'), list = document.getElementById('list'), left = document.getElementById('left');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const byPerson = D.people.flatMap((p, k) => p.parts.map(() => k));
+const used = D.people.map(() => 0);
+const tiles = byPerson.map((k, i) => { const e = document.createElement('div'), s = document.createElement('span'); e.className = 't'; e.dataset.k = k; s.textContent = D.people[k].parts[used[k]]; e.style.transitionDelay = (used[k]++ * 60) + 'ms'; e.style.setProperty('--i', i); e.style.setProperty('--c', COL[k][0]); e.append(s); list.append(e); return e; });
+const caps = D.people.map((p, k) => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, col); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1));
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+const T = { grid: [.1, .16], all: [.13, .23], first: .24, empty: [.34, .44], six: [.44, .48], next: .48, step: .085, full: .915 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760;
+  const split = phone ? W : Math.round(W * .48), pad = phone ? 16 : Math.round(W * .04);
+  stage.style.setProperty('--split', split + 'px'); stage.style.setProperty('--pad', pad + 'px'); document.querySelector('.ans').style.setProperty('--split', Math.round(W * .48) + 'px');
+  stage.style.setProperty('--qs', (phone ? Math.min(2.4 * 16, W * .1) : Math.min(W * .062, H * .1)) + 'px');
+  stage.style.setProperty('--qy', (phone ? 56 : Math.round(H * .2)) + 'px');
+  stage.style.setProperty('--cy', (q.offsetTop + q.offsetHeight + (phone ? 12 : 34)) + 'px');
+  const capB = Math.max(...allCaps.map(c => c.offsetTop + c.offsetHeight));
+  left.style.height = phone ? (capB + 14) + 'px' : H + 'px';
+  const cx = phone ? 19 : split + Math.round(W * .05), cy = phone ? capB + 30 : 76, cw = phone ? W - 35 : W - cx - Math.round(W * .05), ch = H - cy - (phone ? 12 : 40);
+  Object.assign(col.style, { left: cx + 'px', top: cy + 'px', width: cw + 'px', height: ch + 'px' });
+  const row = phone ? 27 : Math.min(40, Math.max(30, ch / 18));
+  col.style.setProperty('--row', row + 'px'); col.style.setProperty('--fs', (phone ? 14 : Math.min(20, row * .55)) + 'px'); col.style.setProperty('--off', (phone ? 26 : 56) + 'px');
+  L = { W, H, phone, ch, row, closed: Math.min(row, ch / 24) };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  const six = ramp(p, ...T.six); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  col.style.opacity = ramp(p, ...T.grid);
+  $('c-all').style.opacity = win(p, ...T.all); $('c-empty').style.opacity = win(p, ...T.empty); $('c-full').style.opacity = ramp(p, T.full, T.full + .02);
+  let now = -1;
+  caps.forEach((c, k) => { const a = at(k), b = k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1)); c.style.opacity = win(p, a, b); if (p >= a && p < b) now = k; });
+  for (const t of tiles) { const k = +t.dataset.k; t.classList.toggle('lit', p >= at(k)); t.classList.toggle('now', k === now); }
+  // the half floods with whoever is arriving; ink between people and at the end
+  const [flood, on] = now >= 0 ? COL[now] : ['#15161A', '#FFFFFF'];
+  stage.style.setProperty('--flood', flood); stage.style.setProperty('--on', on); document.querySelector('.top').style.setProperty('--on', on);
+  stage.style.setProperty('--accent', now >= 0 ? on : '#FF3D8B'); col.style.setProperty('--linec', now >= 0 ? flood : '#15161A');
+  stage.dataset.now = now;
+  const whole = p >= T.full, row = whole ? L.closed : L.row; tiles.forEach(t => t.style.setProperty('--row', row + 'px'));
+  let y = 0;
+  if (!whole && now >= 0) { const idx = tiles.map((t, i) => +t.dataset.k === now ? i : -1).filter(i => i >= 0), mid = (idx[0] + idx[3] + 1) / 2 * row; y = clamp(L.ch - 24 * row, L.ch / 2 - mid, 0); }
+  else if (!whole) { const last = tiles.map((t, i) => t.classList.contains('lit') ? i : -1).filter(i => i >= 0).pop(); if (last !== undefined) y = clamp(L.ch - 24 * row, L.ch / 2 - (last + 1) * row, 0); }
+  list.style.transform = `translateY(${y}px)`;
+  col.classList.toggle('whole', whole);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__p = p;
+}
+// what the check reads
+const lum = c => { const v = c.match(/[\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + .05) / (y + .05); };
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(col) ? R(col) : null, shown = allCaps.filter(vis), cr = shown.map(R);
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (g && hit(c, g)) overlaps++; }); if (g && hit(g, head)) overlaps++;
+  const out = [...cr, head, ...(g ? [g] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const cr0 = R(col), inView = t => { const r = R(t); return r.top >= cr0.top - 1 && r.bottom <= cr0.bottom + 1; };
+  const clipped = tiles.filter(inView).filter(t => R(t.firstChild).right > cr0.right + 1).map(t => t.textContent);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize)));
+  const paper = 'rgb(244, 241, 234)', flood = getComputedStyle(left).backgroundColor;
+  const litC = tiles.filter(t => t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, paper)), unC = tiles.filter(t => !t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, paper));
+  // everything on the flooded half must read on it: the question, its accent, the person
+  const onHalf = [q, q.querySelector('.six'), ...shown.flatMap(c => [...c.children])].map(e => ratio(getComputedStyle(e).color, flood));
+  const lineX = R(document.getElementById('line')).right, onLine = tiles.filter(t => Math.abs(R(t.firstChild).left - R(document.getElementById('line')).left - 26) < 3).length;
+  const squares = tiles.filter(t => { const m = getComputedStyle(t, '::before').transform; return m === 'none' || !m.startsWith('matrix(1, 0, 0, 0,'); }).length;   // scaleY(0) reads as matrix(1, 0, 0, 0, ...)
+  const nowT = tiles.filter(t => t.classList.contains('now')), nowInView = nowT.filter(inView).length;
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, now: nowT.length, caption: shown.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small,
+    litContrast: litC.length ? +Math.min(...litC).toFixed(2) : null, unlitContrast: unC.length ? +Math.min(...unC).toFixed(2) : null, halfContrast: +Math.min(...onHalf).toFixed(2), whole: col.classList.contains('whole'),
+    flood, nowPerson: +stage.dataset.now, onLine, squares, nowInView, visible: tiles.filter(inView).length };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

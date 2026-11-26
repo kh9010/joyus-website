@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Rubik:wght@500;600&display=swap">
+<style>
+/* 124 b. Takeover. 123 a's energy at full volume, held by 123 b's simplicity. At rest: the question top-left, and six
+   bands down the right, one per person, each holding its four parts. When a person arrives they take the whole screen
+   in their colour, their name huge and their four parts big; half way through their turn it folds back into their band,
+   which stays filled. At the end: six filled bands, nothing else. Type: Lilita One and Rubik. */
+:root{--ink:#1C1530;--soft:#4A4360;--wait:#5E5872;--line:rgba(28,21,48,.22);--on:#1C1530;
+  --say:'Lilita One',system-ui,sans-serif;--text:'Rubik',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--text);color:var(--ink);background:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,3vw,40px);font:500 15px var(--text);color:var(--on);transition:color .3s ease}
+.top.after{background:#fff;color:var(--ink)}
+.top .wm{font:24px var(--say);text-decoration:none}
+.top nav{display:flex;gap:18px}.top nav a{text-decoration:none}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:#fff}
+#q{position:absolute;left:var(--mx);top:var(--qy);width:var(--lw);margin:0;font:400 var(--qs)/1 var(--say);z-index:3}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{opacity:0;color:#d6337f}
+.cap{position:absolute;left:var(--mx);top:var(--cy);width:var(--lw);margin:0;opacity:0;pointer-events:none;z-index:3}
+.cap b{display:block;font:400 clamp(1.5rem,2.4vw,2.2rem)/1.05 var(--say)}
+.cap span{display:block;color:var(--soft);font:500 clamp(1rem,1.2vw,1.1rem)/1.35 var(--text);margin-top:4px}
+.cap span + span{margin-top:0}
+.cap.say b{font:600 clamp(1.1rem,1.7vw,1.45rem)/1.25 var(--text);color:var(--soft)}
+/* the six bands */
+#grid{position:absolute;display:grid;grid-template-rows:repeat(6,1fr);gap:var(--bg);opacity:0;z-index:2}
+.band{display:flex;flex-wrap:wrap;align-content:center;column-gap:1.1em;row-gap:.1em;padding:0 1.1em;border-radius:16px;box-shadow:inset 0 0 0 1.5px var(--line);
+  transition:background-color .45s ease,box-shadow .45s ease}
+.band.full{background:var(--c);box-shadow:inset 0 0 0 1.5px var(--c)}
+.t{color:var(--wait);font:600 var(--fs)/1.2 var(--text);white-space:nowrap;transition:color .45s ease}
+.t::first-letter{text-transform:uppercase}
+.band.full .t{color:var(--tc)}
+#grid.whole .band{animation:thump .5s cubic-bezier(.34,1.6,.5,1) both;animation-delay:calc(var(--k) * 70ms)}
+@keyframes thump{0%{transform:scale(.97)}100%{transform:none}}
+/* the takeover */
+#over{position:absolute;inset:0;z-index:10;background:var(--oc,#fff);color:var(--ot,#1C1530);display:flex;flex-direction:column;justify-content:center;padding:0 var(--mx);
+  clip-path:var(--clip);opacity:0;pointer-events:none;transition:clip-path .55s cubic-bezier(.7,0,.2,1),opacity .2s ease}
+#over.on{opacity:1}
+#over b{font:400 var(--os)/.95 var(--say)}
+#over i{display:block;font:500 clamp(1.05rem,1.6vw,1.4rem)/1.3 var(--text);font-style:normal;margin-top:.5em}
+#over ul{list-style:none;margin:1em 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.25em 1em;font:600 var(--ps)/1.1 var(--text)}
+#over li::first-letter{text-transform:uppercase}
+.ans{padding:clamp(60px,14vh,150px) clamp(16px,6vw,90px) 0}
+.ans h2{margin:0;max-width:15ch;font:400 clamp(2.3rem,6.6vw,6rem)/.98 var(--say)}
+.ans h2 u{text-decoration:none;background:linear-gradient(90deg,#f25aa3,#ff8a3d,#f5c63c,#2fc0d8,#7d55d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ans p{margin:clamp(22px,4vh,40px) 0 0;max-width:30ch;font:500 clamp(1.15rem,1.9vw,1.6rem)/1.3 var(--text);color:var(--soft)}
+.on{padding:clamp(36px,7vh,80px) clamp(16px,6vw,90px) clamp(40px,8vh,90px)}
+.on a{display:inline-block;font:400 clamp(1.5rem,3.3vw,2.7rem)/1 var(--say);text-decoration:none;background:#1C1530;color:#fff;border-radius:16px;padding:.34em .7em .4em}
+.on a:hover{background:#7d55d4}
+.foot{padding:0 clamp(16px,6vw,90px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}.band{border-radius:11px;padding:0 .8em;column-gap:.8em}}
+@media(prefers-reduced-motion:reduce){#over,.band,.t{transition:none}#grid.whole .band{animation:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="grid"></div>
+<div id="over" aria-hidden="true"><b></b><i></i><ul></ul></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+const D = JSON.parse(document.getElementById('data').textContent);
+const COL = [['#f25aa3', '#1C1530'], ['#2fc0d8', '#1C1530'], ['#f5c63c', '#1C1530'], ['#7d55d4', '#FFFFFF'], ['#ff8a3d', '#1C1530'], ['#2C3544', '#FFFFFF']];
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), grid = document.getElementById('grid'), over = document.getElementById('over');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const bands = D.people.map((p, k) => { const b = document.createElement('div'); b.className = 'band'; b.dataset.k = k; b.style.setProperty('--k', k); b.style.setProperty('--c', COL[k][0]); b.style.setProperty('--tc', COL[k][1]); grid.append(b); return b; });
+const tiles = D.people.flatMap((p, k) => p.parts.map(w => { const e = document.createElement('span'); e.className = 't'; e.dataset.k = k; e.textContent = w; bands[k].append(e); return e; }));
+const caps = D.people.map((p, k) => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, grid); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const ease = t => t * t * (3 - 2 * t), clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const ramp = (p, a, b) => ease(clamp(0, (p - a) / (b - a), 1));
+const win = (p, a, b, f = .018) => ramp(p, a, a + f) * (1 - ramp(p, b - f, b));
+const T = { grid: [.1, .16], all: [.13, .23], first: .24, empty: [.34, .44], six: [.44, .48], next: .48, step: .085, full: .915, take: .58 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+const end = k => k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1));
+let L, shown = -1;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, mx = phone ? 16 : Math.round(W * .05);
+  stage.style.setProperty('--mx', mx + 'px');
+  const lw = phone ? W - 2 * mx : Math.round(W * .34); stage.style.setProperty('--lw', lw + 'px');
+  stage.style.setProperty('--qs', (phone ? 30 : Math.min(W * .045, 64)) + 'px'); stage.style.setProperty('--qy', (phone ? 54 : Math.round(H * .16)) + 'px');
+  stage.style.setProperty('--cy', (q.offsetTop + q.offsetHeight + (phone ? 10 : 30)) + 'px');
+  const capB = Math.max(...allCaps.map(c => c.offsetTop + c.offsetHeight));
+  const gx = phone ? mx : mx + lw + Math.round(W * .05), gy = phone ? capB + 14 : 76, gw = W - gx - mx, gh = H - gy - (phone ? 12 : 40);
+  Object.assign(grid.style, { left: gx + 'px', top: gy + 'px', width: gw + 'px', height: gh + 'px' });
+  grid.style.setProperty('--bg', (phone ? 6 : 12) + 'px');
+  // the bands' words fitted to the bands
+  let fs = phone ? 15 : 22;
+  for (; fs > 13; fs -= .5) { grid.style.setProperty('--fs', fs + 'px'); if (bands.every(b => b.scrollHeight <= b.clientHeight + 1 && [...b.children].every(t => t.offsetLeft + t.offsetWidth <= b.clientWidth))) break; }
+  stage.style.setProperty('--os', (phone ? Math.min(54, W * .14) : Math.min(W * .09, H * .17)) + 'px'); stage.style.setProperty('--ps', (phone ? 20 : Math.min(W * .028, 40)) + 'px');
+  L = { W, H, phone, fs: Math.max(13, fs) };
+}
+// where the takeover folds to: its person's band
+const clipTo = k => { const s = stage.getBoundingClientRect(), r = bands[k].getBoundingClientRect(); return `inset(${r.top - s.top}px ${s.right - r.right}px ${s.bottom - r.bottom}px ${r.left - s.left}px round 16px)`; };
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  const six = ramp(p, ...T.six); q.querySelector('.one').style.opacity = 1 - six; q.querySelector('.six').style.opacity = six;
+  grid.style.opacity = ramp(p, ...T.grid);
+  $('c-all').style.opacity = win(p, ...T.all); $('c-empty').style.opacity = win(p, ...T.empty); $('c-full').style.opacity = ramp(p, T.full, T.full + .02);
+  let now = -1, phase = 0;
+  caps.forEach((c, k) => { const a = at(k), b = end(k); c.style.opacity = win(p, a, b); if (p >= a && p < b) { now = k; phase = (p - a) / (b - a); } });
+  for (const t of tiles) t.classList.toggle('lit', p >= at(+t.dataset.k));
+  // a band fills once its person's takeover has folded into it
+  bands.forEach((b, k) => b.classList.toggle('full', p >= at(k) && !(k === now && phase < T.take)));
+  const taking = now >= 0 && phase < T.take && !still;
+  if (taking) {
+    if (shown !== now) { over.style.transition = 'none'; over.style.setProperty('--clip', clipTo(now)); over.querySelector('b').textContent = D.people[now].name; over.querySelector('i').textContent = D.people[now].fits;
+      over.querySelector('ul').replaceChildren(...D.people[now].parts.map(w => { const li = document.createElement('li'); li.textContent = w; return li; }));
+      over.style.setProperty('--oc', COL[now][0]); over.style.setProperty('--ot', COL[now][1]); void over.offsetWidth; over.style.transition = ''; shown = now; }
+    over.style.setProperty('--clip', 'inset(0px 0px 0px 0px round 0px)'); over.classList.add('on');
+    document.querySelector('.top').style.setProperty('--on', COL[now][1]);
+  } else {
+    if (shown >= 0) { over.style.setProperty('--clip', clipTo(shown)); setTimeout(() => { if (!over.style.getPropertyValue('--clip').startsWith('inset(0px')) over.classList.remove('on'); }, 450); shown = -1; }
+    document.querySelector('.top').style.setProperty('--on', '#1C1530');
+  }
+  stage.dataset.now = now; stage.dataset.taking = +taking;
+  grid.classList.toggle('whole', p >= T.full);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__p = p;
+}
+// what the check reads
+const lum = c => { const v = c.match(/[\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + .05) / (y + .05); };
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(grid) ? R(grid) : null, shownCaps = allCaps.filter(vis), cr = shownCaps.map(R);
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (g && hit(c, g)) overlaps++; }); if (g && hit(g, head)) overlaps++;
+  const out = [...cr, head, ...(g ? [g] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const clipped = bands.filter(b => b.scrollHeight > b.clientHeight + 1 || [...b.children].some(t => t.offsetLeft + t.offsetWidth > b.clientWidth)).map(b => D.people[+b.dataset.k].name);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => getComputedStyle(e).display !== 'none' && [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize)));
+  const bandBg = t => { const b = t.parentElement, c = getComputedStyle(b).backgroundColor; return c === 'rgba(0, 0, 0, 0)' ? 'rgb(255,255,255)' : c; };
+  const litC = tiles.filter(t => t.parentElement.classList.contains('full')).map(t => ratio(getComputedStyle(t).color, bandBg(t)));
+  const unC = tiles.filter(t => !t.parentElement.classList.contains('full')).map(t => ratio(getComputedStyle(t).color, bandBg(t)));
+  const overOn = over.classList.contains('on') && getComputedStyle(over).clipPath.includes('inset(0px'), overC = overOn ? +Math.min(...[...over.querySelectorAll('b,i,li')].map(e => ratio(getComputedStyle(e).color, getComputedStyle(over).backgroundColor))).toFixed(2) : null;
+  const overFits = overOn ? [...over.querySelectorAll('b,i,ul')].every(e => { const r = R(e); return r.left >= -1 && r.right <= W + 1 && r.top >= 0 && r.bottom <= H; }) : null;
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, caption: shownCaps.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small,
+    litContrast: litC.length ? +Math.min(...litC).toFixed(2) : null, unlitContrast: unC.length ? +Math.min(...unC).toFixed(2) : null, whole: grid.classList.contains('whole'),
+    full: bands.filter(b => b.classList.contains('full')).length, takeover: overOn ? D.people[+stage.dataset.now].name : null, overC, overFits, overColour: overOn ? getComputedStyle(over).backgroundColor : null, fs: L.fs };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>

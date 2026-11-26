@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, nofollow">
+<title>East West Club, strategy · Joyus</title><link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap">
+<style>
+/* 123 c. Anchors: SURETY and CERTAINTY. Calm, no hedging, we know.
+   Composition: editorial, everything hung from one left edge. The question very large and still: it never moves.
+   A heavy rule under it. The person stands in a left margin; the parts are a ruled index in two columns. Nothing moves
+   anywhere: a person's arrival is a slow change of colour and a small square. Ink, white, one pink. Joyus's own type,
+   Space Grotesk, in two weights. At the end the index's rules turn to ink, one row after another, top to bottom. */
+:root{--bg:#fff;--ink:#2C3544;--wait:#767676;--soft:#54606F;--pink:#E91E7B;--pinkT:#B8155F;--hair:rgba(44,53,68,.16);--sans:'Space Grotesk',system-ui,sans-serif}
+*{box-sizing:border-box}html,body{margin:0}
+body{font:18px/1.45 var(--sans);color:var(--ink);background:var(--bg);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.top{position:fixed;left:0;right:0;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px var(--x0,40px);font-size:15px}
+.top.after{background:#fff}
+.top .wm{font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.top nav{display:flex;gap:22px}.top nav a{text-decoration:none}
+#run{position:relative;height:800vh}
+#stage{position:sticky;top:0;height:100vh;height:100dvh;overflow:hidden;background:var(--bg)}
+#q{position:absolute;left:var(--x0);top:var(--qy);margin:0;max-width:calc(100% - 2 * var(--x0));font:700 var(--qs)/.98 var(--sans);letter-spacing:-.045em}
+#q .swap{display:inline-grid;justify-items:start}
+#q .swap span{grid-area:1/1;white-space:nowrap}
+#q .six{color:var(--pinkT);opacity:0;transition:opacity .9s ease}
+#q .one{transition:opacity .9s ease}
+#rule{position:absolute;left:var(--x0);right:var(--x0);height:4px;background:var(--ink)}
+.cap{position:absolute;left:var(--x0);width:var(--mw);top:var(--cy);margin:0;opacity:0;pointer-events:none;transition:opacity .7s ease}
+.cap b{display:block;font:700 clamp(1.35rem,2.1vw,1.9rem)/1.1 var(--sans);letter-spacing:-.025em}
+.cap span{display:block;color:var(--soft);font:400 clamp(.98rem,1.15vw,1.08rem)/1.4 var(--sans);margin-top:6px}
+.cap span + span{margin-top:0}
+.cap.say b{font:500 clamp(1.1rem,1.6vw,1.4rem)/1.3 var(--sans);letter-spacing:-.01em;color:var(--soft)}
+/* the index */
+#grid{position:absolute;display:grid;grid-auto-flow:column;column-gap:var(--cg);opacity:0;transition:opacity .7s ease}
+.t{display:flex;align-items:center;gap:10px;border-top:1px solid var(--hair);padding:var(--rp) 0;color:var(--wait);font:500 var(--fs)/1.2 var(--sans);letter-spacing:-.01em;
+  transition:color .7s ease,border-color .7s ease;transition-delay:inherit}
+.t::first-letter{text-transform:uppercase}
+.t i{flex:none;width:.5em;height:.5em;background:var(--pink);opacity:0;transition:opacity .7s ease;transition-delay:inherit}
+.t.lit{color:var(--ink)}
+.t.now{color:var(--pinkT)}
+.t.now i{opacity:1}
+#grid.whole .t{animation:rule .9s ease both;animation-delay:calc(var(--r) * 70ms)}
+@keyframes rule{0%{border-top-color:var(--hair)}100%{border-top-color:var(--ink)}}
+.ans{padding:clamp(70px,15vh,160px) var(--x0,40px) 0;border-top:4px solid var(--ink);margin:0 var(--x0,40px);padding-left:0;padding-right:0}
+.ans h2{margin:0;max-width:16ch;font:700 clamp(2.4rem,6.4vw,6rem)/.98 var(--sans);letter-spacing:-.045em}
+.ans h2 u{text-decoration:none;color:var(--pinkT)}
+.ans p{margin:clamp(24px,4vh,44px) 0 0;max-width:32ch;font:400 clamp(1.15rem,1.8vw,1.55rem)/1.4 var(--sans);color:var(--soft)}
+.on{padding:clamp(40px,8vh,90px) var(--x0,40px)}
+.on a{font:700 clamp(1.4rem,2.8vw,2.4rem)/1 var(--sans);letter-spacing:-.03em;text-decoration:none;border-bottom:4px solid var(--pink);padding-bottom:4px}
+.foot{padding:0 var(--x0,40px) 34px;color:var(--soft);font-size:14px}
+@media(max-width:760px){.top nav{display:none}}
+@media(prefers-reduced-motion:reduce){.t,.t i,.cap,#grid,#q span{transition:none}#grid.whole .t{animation:none}}
+</style></head><body>
+<header class="top"><a class="wm" href="#">joyus</a><nav><a href="#">work</a><a href="#">about</a><a href="#">say hi</a></nav></header>
+<div id="run"><div id="stage">
+<h1 id="q">How do you build for <span class="swap"><span class="one">one person?</span><span class="six">six people?</span></span></h1>
+<div id="rule"></div>
+<p class="cap say" id="c-all"><b>Everything East West Club offers its members.</b></p>
+<p class="cap say" id="c-empty"><b>Built for one person, most of it sits empty.</b></p>
+<p class="cap say" id="c-full"><b>Six people, each here for a different part.</b></p>
+<div id="grid"></div>
+</div></div>
+<section class="ans"><h2>Nothing in the club <u>goes to waste.</u></h2><p>Different people come for different parts of what you offer. We work out who is in the room, and why.</p></section>
+<div class="on"><a href="mailto:hello@joyus.studio">Say hi</a></div>
+<div class="foot">East West Club, strategy</div>
+<script type="application/json" id="data">
+{"people":[
+ {"name":"The joiner","fits":"leagues, poker, a featured chef","instead":"a coffeeshop near the house, or the office","persona":"The Quiet Connector","parts":["The café","poker nights","Featured chefs","leagues"]},
+ {"name":"The newcomer","fits":"events with Seattle companies","instead":"a coffeeshop","persona":"The New-to-Seattle Founder","parts":["The lounge as workspace","the top Seattle companies","short-format matches","A room mixed on purpose"]},
+ {"name":"The host","fits":"a Friday night to throw, and credit","instead":"the country club","persona":"The Semi-Retired Operator","parts":["A named role","member dinners","recruits teams","organizes programming"]},
+ {"name":"The golfer","fits":"a simulator bay, and slower nights","instead":"his house","persona":"The Country-Club Guy","parts":["an 8am bay before work","Demo days","whiskey launches","visits over two hours"]},
+ {"name":"The second act","fits":"a new start, with others starting too","instead":"a favourite restaurant","persona":"The Empty-Nester","parts":["Cohorts that start the game","Private space to book","book clubs","accolades worth winning"]},
+ {"name":"The regular","fits":"good nights, in and out fast","instead":"a bar","persona":"The Mid-Career High Earner","parts":["Guest passes","date nights worth choosing","Athlete and brand nights","Faster programming"]}
+],
+"order":[0,1,2,3,4,5, 3,5,0,4,1,2, 4,2,5,1,0,3, 1,4,3,0,2,5]}
+</script>
+<script type="module">
+const D = JSON.parse(document.getElementById('data').textContent);
+const stage = document.getElementById('stage'), run = document.getElementById('run'), q = document.getElementById('q'), grid = document.getElementById('grid'), rule = document.getElementById('rule');
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (still) run.style.height = '100dvh';
+const used = D.people.map(() => 0);
+const tiles = D.order.map((k, i) => { const e = document.createElement('div'), m = document.createElement('i'), s = document.createElement('span'); e.className = 't'; e.dataset.k = k; s.textContent = D.people[k].parts[used[k]]; e.style.transitionDelay = (used[k]++ * 140) + 'ms'; e.style.setProperty('--r', i % 12); e.append(m, s); grid.append(e); return e; });
+const caps = D.people.map((p, k) => { const e = document.createElement('p'); e.className = 'cap who'; const b = document.createElement('b'), s = document.createElement('span'), i = document.createElement('span'); b.textContent = p.name; s.textContent = p.fits; i.textContent = 'instead of ' + p.instead; e.append(b, s, i); stage.insertBefore(e, grid); return e; });
+const allCaps = [...document.querySelectorAll('.cap')], $ = id => document.getElementById(id);
+const clamp = (a, x, b) => Math.min(b, Math.max(a, x));
+const T = { all: [.13, .23], first: .24, empty: [.34, .44], six: .46, grid: .12, next: .48, step: .085, full: .915 };
+const at = k => k === 0 ? T.first : T.next + (k - 1) * T.step;
+const inside = (p, a, b) => p >= a && p < b;
+let L;
+function layout() {
+  const W = stage.clientWidth, H = stage.clientHeight, phone = W < 760, x0 = phone ? 16 : Math.round(W * .07);
+  document.documentElement.style.setProperty('--x0', x0 + 'px'); stage.style.setProperty('--x0', x0 + 'px');
+  stage.style.setProperty('--qs', (phone ? Math.min(40, W * .1) : Math.min(W * .062, H * .11)) + 'px'); stage.style.setProperty('--qy', (phone ? 58 : 84) + 'px');
+  const ry = q.offsetTop + q.offsetHeight + (phone ? 16 : 30); rule.style.top = ry + 'px';
+  // wide: margin column left, index right; phone: the person under the rule, the index under the person
+  const mw = phone ? W - 2 * x0 : Math.round((W - 2 * x0) * .26); stage.style.setProperty('--mw', mw + 'px');
+  stage.style.setProperty('--cy', (ry + (phone ? 16 : 30)) + 'px');
+  const capB = phone ? Math.max(...allCaps.map(c => c.offsetTop + c.offsetHeight)) : 0;
+  const gx = phone ? x0 : x0 + mw + Math.round(W * .04), gy = phone ? capB + 14 : ry + 30, gw = W - x0 - gx, gh = H - gy - (phone ? 12 : 40);
+  grid.style.left = gx + 'px'; grid.style.top = gy + 'px'; grid.style.width = gw + 'px';
+  grid.style.setProperty('--cg', (phone ? 14 : 40) + 'px'); grid.style.gridTemplateColumns = 'repeat(2,1fr)'; grid.style.gridTemplateRows = 'repeat(12,auto)';
+  // the index takes the room it has, and no more: the type and the row's air are fitted together
+  let fs = phone ? 15 : 20;
+  for (; fs >= 13; fs -= .5) { grid.style.setProperty('--fs', fs + 'px'); grid.style.setProperty('--rp', Math.max(2, fs * .32) + 'px'); if (grid.offsetHeight <= gh) break; }
+  L = { W, phone, fs: Math.max(13, fs) };
+}
+function draw() {
+  const p = still ? 1 : clamp(0, scrollY / Math.max(1, run.offsetHeight - stage.clientHeight), 1);
+  q.querySelector('.one').style.opacity = p >= T.six ? 0 : 1; q.querySelector('.six').style.opacity = p >= T.six ? 1 : 0;
+  grid.style.opacity = p >= T.grid ? 1 : 0;
+  $('c-all').style.opacity = +inside(p, ...T.all); $('c-empty').style.opacity = +inside(p, ...T.empty); $('c-full').style.opacity = +(p >= T.full);
+  let now = -1;
+  caps.forEach((c, k) => { const a = at(k), b = k === 0 ? T.empty[0] : (k === 5 ? T.full : at(k + 1)); c.style.opacity = +inside(p, a, b); if (inside(p, a, b)) now = k; });
+  for (const t of tiles) { const k = +t.dataset.k; t.classList.toggle('lit', p >= at(k)); t.classList.toggle('now', k === now); }
+  grid.classList.toggle('whole', p >= T.full);
+  document.querySelector('.top').classList.toggle('after', p >= .995 && !still);
+  window.__p = p;
+}
+// what the check reads
+const lum = c => { const v = c.match(/[\d.]+/g).slice(0, 3).map(x => { x /= 255; return x <= .03928 ? x / 12.92 : Math.pow((x + .055) / 1.055, 2.4); }); return .2126 * v[0] + .7152 * v[1] + .0722 * v[2]; };
+const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((m, n) => n - m); return (x + .05) / (y + .05); };
+const qStart = { top: null };
+window.__measure = () => {
+  const W = document.documentElement.clientWidth, H = innerHeight, vis = e => +getComputedStyle(e).opacity > .5, R = e => e.getBoundingClientRect();
+  const hit = (a, b) => a.left < b.right - 1 && b.left < a.right - 1 && a.top < b.bottom - 1 && b.top < a.bottom - 1;
+  const head = R(q), g = vis(grid) ? R(grid) : null, shown = allCaps.filter(vis), cr = shown.map(R);
+  let overlaps = 0; cr.forEach(c => { if (hit(c, head)) overlaps++; if (g && hit(c, g)) overlaps++; }); if (g && hit(g, head)) overlaps++;
+  const out = [...cr, head, ...(g ? [g] : [])].filter(r => r.left < -1 || r.right > W + 1 || r.top < -1 || r.bottom > H + 1).length;
+  const clipped = tiles.filter(t => t.scrollWidth > t.clientWidth + 1).map(t => t.textContent);
+  const small = Math.min(...[...document.querySelectorAll('#stage *, .ans h2, .ans p, .on a, .foot')].filter(e => [...e.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())).map(e => parseFloat(getComputedStyle(e).fontSize)));
+  const litC = tiles.filter(t => t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, 'rgb(255,255,255)')), unC = tiles.filter(t => !t.classList.contains('lit')).map(t => ratio(getComputedStyle(t).color, 'rgb(255,255,255)'));
+  // one left edge: the question, the rule, the person and (on a phone) the index all start at the same x
+  const edge = [head.left, R(rule).left, ...cr.map(r => r.left)].map(Math.round), oneEdge = Math.max(...edge) - Math.min(...edge) <= 1;
+  if (qStart.top === null) qStart.top = Math.round(head.top);
+  const moved = [...document.querySelectorAll('#stage *')].filter(e => { const s = getComputedStyle(e); return s.transform !== 'none' || s.animationName.includes('pop'); }).length;
+  return { p: +window.__p.toFixed(3), lit: tiles.filter(t => t.classList.contains('lit')).length, now: tiles.filter(t => t.classList.contains('now')).length, caption: shown.map(c => c.querySelector('b').textContent), overlaps, out, clipped, small,
+    litContrast: litC.length ? +Math.min(...litC).toFixed(2) : null, unlitContrast: unC.length ? +Math.min(...unC).toFixed(2) : null, type: L.fs, largeBold: false, whole: grid.classList.contains('whole'),
+    oneEdge, questionStill: Math.round(head.top) === qStart.top, moved, marked: tiles.filter(t => +getComputedStyle(t.firstChild).opacity > .9).length,
+    fonts: [...new Set([...document.querySelectorAll('#q, .t, .cap b, .cap span')].map(e => getComputedStyle(e).fontFamily.split(',')[0].replace(/"/g, '')))] };
+};
+await document.fonts.ready;
+layout(); draw();
+addEventListener('scroll', () => requestAnimationFrame(draw), { passive: true });
+addEventListener('resize', () => { layout(); draw(); });
+window.__ready = 1;
+</script>
+</body></html>
