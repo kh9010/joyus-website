@@ -47,6 +47,8 @@ details[open] > summary > .caret { transform: rotate(90deg) }
 .name { min-width: 0; overflow-wrap: anywhere; line-height: 1.3; font-size: 13.5px; padding: 5px 0 }
 .name small { color: var(--ink-2); font-size: 12px; font-weight: 400; margin-left: 6px; white-space: nowrap }
 .name em { display: block; font-style: normal; color: #b0145b; font-size: 11.5px; font-weight: 400 }
+.latest { display: inline-block; white-space: nowrap; font-size: 11.5px; font-weight: 600; color: var(--done); border: 1.5px solid var(--done); border-radius: 999px; padding: 0 8px; margin-left: 8px; vertical-align: 1px; text-decoration: none; background: #fff }
+.latest:hover, .latest:focus-visible { background: var(--done); color: #fff }
 .live-tag { display: inline-block; white-space: nowrap; font-size: 10.5px; font-weight: 600; color: #fff; background: var(--done); border-radius: 999px; padding: 0 7px; margin-left: 6px; vertical-align: 1px }
 .lvl1 > details > summary .name { font-size: 19px; font-weight: 600 }
 .lvl1 > details > summary .badge { background: var(--ink); color: #fff; width: 36px; height: 36px }
@@ -240,7 +242,7 @@ Promise.all([getJSON('pages.json'), getJSON('bet.json')]).then(([D, B]) => {
   const nodeHtml = (n, lvl) => {
     if (!n.kids) {
       const who = [...new Set(S.map(s => (n.s[s.id] || [])[2]).filter(Boolean))].join(' ');
-      return '<li class="leaf lvl' + lvl + (n.kind === 'shape' ? ' shape' : '') + '" data-id="' + esc(n.id) + '" data-who="' + esc(who) + '"><details><summary class="node">' + CARET + (n.icon ? badge(n.icon) : '') + '<span class="name">' + esc(n.title) + (n.live ? '<span class="live-tag">live</span>' : '') + (n.siteLive ? '<span class="live-tag">site is live</span>' : '') + (n.flag ? '<em>' + esc(n.flag) + '</em>' : '') + '</span>' + status([n]) + '</summary>' + (n.line ? '<p class="line">' + esc(n.line) + '</p>' : '') + '<ul>' + inside(n) + '</ul></details></li>';
+      return '<li class="leaf lvl' + lvl + (n.kind === 'shape' ? ' shape' : '') + '" data-id="' + esc(n.id) + '" data-who="' + esc(who) + '"><details><summary class="node">' + CARET + (n.icon ? badge(n.icon) : '') + '<span class="name">' + esc(n.title) + (n.latest ? '<a class="latest" href="' + esc(n.latest[1]) + '" target="_blank" rel="noopener" title="' + esc(n.latest[2]) + '">' + esc(n.latest[0]) + ' ↗</a>' : '') + (n.live ? '<span class="live-tag">live</span>' : '') + (n.siteLive ? '<span class="live-tag">site is live</span>' : '') + (n.flag ? '<em>' + esc(n.flag) + '</em>' : '') + '</span>' + status([n]) + '</summary>' + (n.line ? '<p class="line">' + esc(n.line) + '</p>' : '') + '<ul>' + inside(n) + '</ul></details></li>';
     }
     const list = leaves(n);
     return '<li class="branch lvl' + lvl + '" data-id="' + esc(n.id) + '"><details' + (n.closed ? '' : ' open') + '><summary class="node">' + CARET + (n.icon ? badge(n.icon) : '') + '<span class="name">' + esc(n.title) + '<small>' + counted(n).length + '</small></span>' + status(list) + '</summary>' + (n.line ? '<p class="line">' + link(n.line) + '</p>' : '') + '<ul>' + n.kids.map(k => nodeHtml(k, lvl + 1)).join('') + '</ul></details></li>';

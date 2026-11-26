@@ -134,11 +134,13 @@ else {
 
 // 8. local links open something on this branch
 const noFile = [];
-for (const p of D.tree.flatMap(nodes)) for (const h of [...(p.links || []).map(l => l[1]), ...(p.parts || []).map(q => q.href).filter(Boolean)]) {
+for (const p of D.tree.flatMap(nodes)) for (const h of [...(p.latest ? [p.latest[1]] : []), ...(p.links || []).map(l => l[1]), ...(p.parts || []).map(q => q.href).filter(Boolean)]) {
   if (/^https?:/.test(h)) continue;
   const f = decodeURIComponent(h.split(/[?#]/)[0]);
   if (!fs.existsSync(path.join(repo, f.endsWith('/') ? f + 'index.html' : f))) noFile.push(p.id + ' → ' + h);
 }
+const badLatest = D.tree.flatMap(nodes).filter(p => p.latest && !(p.latest.length === 3 && p.latest.every(Boolean) && p.latest[1].includes('/iterations/' + p.latest[0].replace(/\D/g, '').padStart(2, '0') + '/'))).map(p => p.id);
+test(!badLatest.length, D.tree.flatMap(nodes).filter(p => p.latest).length + ' latest approved links: each names its study, opens in it, and says who approved' + (badLatest.length ? ': not ' + badLatest.join(', ') : ''));
 test(!noFile.length, 'every local link opens' + (noFile.length ? ': ' + noFile.slice(0, 8).join('; ') : ''));
 
 console.log(bad ? bad + ' failure(s)' : 'site map holds: ' + pages.length + ' items, Work ' + leaves(find('work-branch')).length);
